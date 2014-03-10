@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.1  The delivery function: deliver
+</TITLE>
+
+<LINK REL="next" HREF="delivery-38.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-36.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-36.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-36.htm">4 Delivering your Application</A><BR><BR>
+</DIV><A HREF="delivery-38.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-36.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-36.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-852239"></A>4.1  <A NAME="95878"></A>The delivery function: deliver</H3>
+<P CLASS="Body">
+<A NAME="pgfId-852241"></A>The function <CODE CLASS="Code">
+deliver</CODE>
+ is the main interface to the delivery tools. Its basic syntax is shown below:</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-852243"></A><A NAME="24511"></A><A NAME="marker-867741"></A>deliver</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-852810"></A>Function</P>
+<P CLASS="Description">
+<A NAME="pgfId-867278"></A>Signature: <CODE CLASS="Code">
+deliver</CODE>
+ <EM CLASS="Variable">
+function</EM>
+ <EM CLASS="Variable">
+file</EM>
+ <EM CLASS="Variable">
+level</EM>
+ <CODE CLASS="Code">
+&amp;rest</CODE>
+ <EM CLASS="Variable">
+keywords</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-852246"></A>The following three arguments are required:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-852248"></A><I CLASS="Italic">
+function</I>
+</P>
+<P CLASS="Description-C"><A NAME="marker-852247"></A>The name of the function that starts an executable application.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-852251"></A><I CLASS="Italic">
+file</I>
+</P>
+<P CLASS="Description-C">A string or pathname naming <A NAME="marker-852250"></A>the file in which the delivered image should be saved.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-861795"></A>The file extension <CODE CLASS="Code">
+.exe</CODE>
+ or <CODE CLASS="Code">
+.dll</CODE>
+ is appended to executables or DLLs delivered on Microsoft Windows.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-867465"></A>If the delivery keyword <A HREF="delivery-166.htm#35963" CLASS="XRef">:split</A> is true then a second file containing the Lisp heap is created.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-862773"></A>On Mac OS X, you may wish to create an application bundle containing your delivered image. For an example showing how to do this, see <A HREF="delivery-275.htm#12318" CLASS="XRef">Creating a Mac OS X application bundle</A>.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-852254"></A><I CLASS="Italic">
+level</I>
+</P>
+<P CLASS="Description-C">An integer specifying the <I CLASS="Italic">
+delivery level</I>
+<A NAME="marker-859779"></A>.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-852255"></A>This is a measure of how much work Delivery does to reduce the size of the image. It must be an integer in the range 0 to 5. Level 5 is the most severe, while the least work on image reduction is done at level 0.</P>
+<P CLASS="Body">
+<A NAME="pgfId-862309"></A>The most important <EM CLASS="Variable">
+keywords</EM>
+ arguments are <A HREF="delivery-104.htm#30411" CLASS="XRef">:interface</A> and <A HREF="delivery-139.htm#62588" CLASS="XRef">:multiprocessing</A>. If your application uses the CAPI, you must pass <CODE CLASS="Code">
+:interface</CODE>
+ <CODE CLASS="Code">
+:capi</CODE>
+. If your application does not use the CAPI, but does use multiprocessing, then you must pass <CODE CLASS="Code">
+:multiprocessing</CODE>
+ <CODE CLASS="Code">
+t</CODE>
+. Your first attempt to deliver your application should use no more than these keywords.</P>
+<P CLASS="Body">
+<A NAME="pgfId-862317"></A>In addition, a variety of other keywords can be passed to <CODE CLASS="Code">
+deliver</CODE>
+. These are for fine-tuning by controlling aspects of delivery explicitly. Add more keywords only when you find that you need them. </P>
+<P CLASS="Body">
+<A NAME="pgfId-862396"></A>All the <CODE CLASS="Code">
+deliver</CODE>
+ keywords are documented in <A HREF="delivery-55.htm#64250" CLASS="XRef">Keywords to the Delivery Function</A>. Additionally, they can been seen in the LispWorks image by calling:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-862398"></A>(require &quot;delivery&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-862399"></A>(deliver-keywords)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-868351"></A><A NAME="marker-868359"></A><CODE CLASS="Code">
+deliver</CODE>
+ checks that <A NAME="marker-868429"></A><CODE CLASS="Code">
+load-all-patches</CODE>
+ has been called. If <CODE CLASS="Code">
+load-all-patches</CODE>
+ has not been called in the session, then <CODE CLASS="Code">
+deliver</CODE>
+ signals an error.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-38.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-36.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-36.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

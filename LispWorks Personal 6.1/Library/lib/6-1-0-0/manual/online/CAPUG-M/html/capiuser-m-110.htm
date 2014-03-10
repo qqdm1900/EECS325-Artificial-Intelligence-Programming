@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 8.2  Resizing and positioning
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-111.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-109.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-108.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-108.htm">8 Modifying CAPI Windows</A><BR><BR>
+</DIV><A HREF="capiuser-m-111.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-109.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-108.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-889074"></A>8.2  <A NAME="95168"></A>Resizing and positioning</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888073"></A>Programmatic resizing can be done using the function <A NAME="marker-888436"></A><CODE CLASS="Code">
+set-top-level-interface-geometry</CODE>
+. For example, to double the width of an interface about its center:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-888077"></A>(setf interface (contain (make-instance 'interface)))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-888079"></A>Use the mouse or window manager-specific gesture to resize the interface, then evaluate:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888586"></A>(multiple-value-bind (x y w h) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888587"></A>    (top-level-interface-geometry interface)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888588"></A>  (execute-with-interface interface </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888589"></A>                          'set-top-level-interface-geometry </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888590"></A>                          interface </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888591"></A>                          :x (round (- x (* 0.5 w))) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888592"></A>                          :y y </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888593"></A>                          :width (* 2 w) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888088"></A>                          :height h))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888090"></A>All resize operations are subject to the constraints. The constraints can be altered programmatically as described in <A HREF="capiuser-m-101.htm#98277" CLASS="XRef">Changing the constraints</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890563"></A>Resize operations are also subject to automatic modification by the system in cases where the new window geometry coincides with a system area such as the Mac OS X menu bar or the Microsoft Windows taskbar, as described in <A HREF="capiuser-m-111.htm#69129" CLASS="XRef">Positioning CAPI windows</A>.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-111.htm#pgfId-890619" CLASS="Hypertext">8.2.1  Positioning CAPI windows</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-111.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-109.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-108.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

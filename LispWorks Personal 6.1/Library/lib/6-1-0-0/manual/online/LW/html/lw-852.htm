@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *trace-indent-width*
+</TITLE>
+
+<LINK REL="next" HREF="lw-853.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-851.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-853.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-851.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886287"></A><A NAME="20876"></A>*trace<A NAME="marker-1043634"></A>-indent-width*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886288"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886289"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886290"></A>The amount of extra indentation in the trace output for each level of nesting.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886291"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886292"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886293"></A>Initial Value</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886294"></A>2</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886295"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886296"></A><CODE CLASS="Code">
+*trace-indent-width*</CODE>
+ is the extra amount by which the traced output for function calls is indented upon entering a deeper level of nesting (that is, a traced call from a function that is itself traced). If it is 0 then no indentation occurs. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886297"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1372790"></A>CL-USER 1 &gt; (setq *trace-indent-width* 4</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372791"></A>                  *max-trace-indent* 50)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372792"></A>50</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372793"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372794"></A>CL-USER 2 &gt; (defun quad (a b c) (- (* b b) (* 4 a c)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372795"></A>QUAD</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372796"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372797"></A>CL-USER 3 &gt; (trace quad *)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372798"></A>(QUAD *)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372799"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372800"></A>CL-USER 4 &gt; (quad 4 3 14)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372801"></A>0 QUAD &gt; ...</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372802"></A>  &gt;&gt; A : 4</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372803"></A>  &gt;&gt; B : 3</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372804"></A>  &gt;&gt; C : 14</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372805"></A>    1 * &gt; ...</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372806"></A>      &gt;&gt; SYSTEM::ARGS : (3 3)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372807"></A>    1 * &lt; ...</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372808"></A>      &lt;&lt; VALUE-0 : 9</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372809"></A>    1 * &gt; ...</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372810"></A>      &gt;&gt; SYSTEM::ARGS : (4 4 14)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372811"></A>    1 * &lt; ...</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372812"></A>      &lt;&lt; VALUE-0 : 224</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372813"></A>0 QUAD &lt; ...</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1372814"></A>  &lt;&lt; VALUE-0 : -215</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886312"></A>-215</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886313"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886314"></A><CODE CLASS="Code">
+*trace-indent-width*</CODE>
+ is an extension to Common Lisp.   </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886315"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886319"></A><A HREF="lw-675.htm#58889" CLASS="XRef">trace</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-853.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-851.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

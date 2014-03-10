@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.9.4  Reusing form parsers
+</TITLE>
+
+<LINK REL="next" HREF="lw-96.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-94.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-91.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-68.htm">7 Dspecs: Tools for Handling Definitions</A> &gt; <A HREF="lw-91.htm">7.9  Users of location information</A><BR><BR>
+</DIV><A HREF="lw-96.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-94.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-91.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-893187"></A>7.9.4  Reusing form parsers</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893191"></A>The form parser established above was specifically for <CODE CLASS="Code">
+parameterdef</CODE>
+ forms. However if you have other definers of similar syntax - in this example, definers for which the name is the second subform - then you can define a form parser which can be associated with each of them, as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893247"></A>(dspec:define-form-parser (name-second (:anonymous t)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893248"></A>    (value name)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893204"></A>  `(,name-second ,name))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-893205"></A>Note that the <EM CLASS="Variable">
+name-second</EM>
+ variable is evaluated in the body of the parser. Supposing you have another defining macro <CODE CLASS="Code">
+constantdef</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893270"></A>(defmacro constantdef (value name)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893214"></A>  `(defconstant ,name ,value))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-893284"></A>then you can associate the same parser with both this and <CODE CLASS="Code">
+parameterdef</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893303"></A>(dspec:define-form-parser (parameterdef </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893304"></A>                           (:parser name-second-form-parser)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893305"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893306"></A>(dspec:define-form-parser (constantdef </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893307"></A>                           (:parser name-second-form-parser)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-96.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-94.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-91.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

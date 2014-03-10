@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.8.3  Scope of invocation
+</TITLE>
+
+<LINK REL="next" HREF="fli-68.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-66.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-64.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A> &gt; <A HREF="fli-64.htm">4.8  Block objects in C (foreign blocks)</A><BR><BR>
+</DIV><A HREF="fli-68.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-66.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-64.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-899187"></A>4.8.3  <A NAME="74186"></A>Scope of invocation</H3>
+<P CLASS="Body">
+<A NAME="pgfId-899189"></A>In principle, in the general case each of these is not defined:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-899190"></A>The time at which the code that the block encapsulates is invoked. In particular, even after a block is released (freed), the same code may be invoked by a copy of the block.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-899191"></A>In which thread the code is invoked.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-899192"></A>How many invocations can occur in parallel. In other words, whether it is invoked serially or concurrently.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-899193"></A>The implementation of foreign blocks copes with all of these, that is it can work concurrently on any thread and after the block was released/freed, as long as there are live copies of it (except with blocks created by <A HREF="fli-155.htm#87179" CLASS="XRef">with-local-foreign-block</A>). However, whether the code inside the block can cope with it is dependent on the code. This needs to be considered when creating blocks.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899194"></A>Specific foreign functions that take blocks as argument should be documented to state the scope of invocation. Apple's documentation commonly states whether the code is invoked concurrently or serially. In some functions the caller can decide when it calls the function whether the code can be executed concurrently or not. If you pass the block to a function that is documented to execute it serially, or you can tell it to do it, then you can assume that function that you made the block with is not going to be called concurrently from the block.  Otherwise it must be able to cope with concurrent calls from the blocks.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899440"></A>Whether the code may be invoked on another thread or after the function that took the block returned is not normally documented. In many cases it can be deduced with confidence: when you dispatch a block to a queue (for example <CODE CLASS="Code">
+dispatch_after</CODE>
+ and similar functions, see the Apple documentation) it clearly can be invoked from another threads after the function returns. In the case of <CODE CLASS="Code">
+qsort_b</CODE>
+ (see Apple documentation and the example in <CODE CLASS="Code">
+(sys:example-file &quot;misc/foreign-blocks.lisp&quot;)</CODE>
+) we can be sure that the code will not be invoked after <CODE CLASS="Code">
+qsort_b</CODE>
+ returned, because the arguments to the block are based on the data (first argument to <CODE CLASS="Code">
+qsort_b</CODE>
+), and <CODE CLASS="Code">
+qsort_b</CODE>
+ and its callees cannot be guaranteed that the data is still valid once <CODE CLASS="Code">
+qsort_b</CODE>
+ returned. On the other hand, we cannot be sure that the block is not invoked on another thread(s) before <CODE CLASS="Code">
+qsort_b</CODE>
+ returns.  Currently it is probably always called in the same thread where <CODE CLASS="Code">
+qsort_b</CODE>
+ was called, but the interface does not guarantee it.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899196"></A>Thus when you create a foreign block in Lisp, the following considerations apply to the Lisp function <EM CLASS="Variable">
+function</EM>
+ that you supply:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-899197"></A>In most cases, <EM CLASS="Variable">
+function</EM>
+ needs to cope with being called in any thread, and hence cannot rely on the dynamic environment.  Normally it is impossible to deduce that function will not be called on another thead, so it can be guaranteed only when the function to which the block is passed is documented to guarantee it.</LI>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-899482"></A>Note: that is the only situation in which it is really valid to use <A HREF="fli-155.htm#87179" CLASS="XRef">with-local-foreign-block</A>.</P>
+<LI CLASS="Bullet">
+<A NAME="pgfId-899198"></A><EM CLASS="Variable">
+function</EM>
+ may need to be able to cope with being called at any time, unless it is documented or deducible from the interface that it can be called only within the scope of the caller. It may be possible to deduce the time limit on a call from the way the block is used.  </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-899163"></A>The function needs to be able to cope with being called concurrently, unless the documentation of the user of the blocks says that it does not, or you can tell that it is going to be called only on one thread.</LI>
+</UL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-68.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-66.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-64.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

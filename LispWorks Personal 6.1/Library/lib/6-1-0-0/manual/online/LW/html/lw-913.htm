@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ environment-variable
+</TITLE>
+
+<LINK REL="next" HREF="lw-914.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-912.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-914.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-912.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1088467"></A><A NAME="31430"></A>environment<A NAME="marker-1362101"></A>-variable</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1088574"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1088605"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1088637"></A>Reads the value of an environment variable from the environment table of the calling process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1088703"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1088713"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1088723"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1089058"></A>environment-variable <EM CLASS="Variable">
+name</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1089189"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1089257"></A><EM CLASS="Variable">
+name</P>
+<P CLASS="RDescription-C"></EM>
+A string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1089323"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1089341"></A><EM CLASS="Variable">
+result</P>
+<P CLASS="RDescription-C"></EM>
+A string or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1089361"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1089420"></A>The function <CODE CLASS="Code">
+environment-variable</CODE>
+ reads the environment variable specified by <EM CLASS="Variable">
+name</EM>
+ and returns its value, or <CODE CLASS="Code">
+nil</CODE>
+ if the variable could not be found.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1089611"></A>A <CODE CLASS="Code">
+setf</CODE>
+ method is also defined, allowing you to set the value of an environment variable:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1089620"></A>(setf (environment-variable <EM CLASS="Variable">
+name</EM>
+) <EM CLASS="Variable">
+value</EM>
+)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1089675"></A>If <EM CLASS="Variable">
+value</EM>
+ is a string, then <EM CLASS="Variable">
+name</EM>
+ is set to be <EM CLASS="Variable">
+value</EM>
+. If <EM CLASS="Variable">
+value</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then <EM CLASS="Variable">
+name</EM>
+ is removed from the environment table.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1089716"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1089754"></A>In this first example the value of the environment variable <CODE CLASS="Code">
+PATH</CODE>
+ is returned:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1089790"></A>(environment-variable &quot;PATH&quot;)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1089818"></A>The result is a string of all the defined paths:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1089857"></A> &quot;c:&#92;&#92;hqbin&#92;&#92;nt&#92;&#92;x86;c:&#92;&#92;hqbin&#92;&#92;nt&#92;&#92;x86&#92;&#92;perl;c:&#92;&#92;hqbin&#92;&#92;win32;c:&#92;&#92;usr&#92;&#92;local&#92;&#92;bin;C:&#92;&#92;WINNT35&#92;&#92;system32;C:&#92;&#92;WINNT35;;C:&#92;&#92;MSTOOLS&#92;&#92;bin;C:&#92;&#92;TGS3D&#92;&#92;PROGRAM;c:&#92;&#92;program files&#92;&#92;devstudio&#92;&#92;sharedide&#92;&#92;bin&#92;&#92;ide;c:&#92;&#92;program files&#92;&#92;devstudio&#92;&#92;sharedide&#92;&#92;bin;c:&#92;&#92;program files&#92;&#92;devstudio&#92;&#92;vc&#92;&#92;bin;c:&#92;&#92;msdev&#92;&#92;bin;C:&#92;&#92;WINDOWS;C:&#92;&#92;WINDOWS&#92;&#92;COMMAND;C:&#92;&#92;WIN95&#92;&#92;COMMAND;C:&#92;&#92;MSINPUT&#92;&#92;MOUSE&quot;</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1090099"></A>In the second example, the variable <CODE CLASS="Code">
+MYTZONE</CODE>
+ is found not to be in the environment table:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1090150"></A>(environment-variable &quot;MYTZONE&quot;)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1090207"></A>NIL</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1090302"></A>It is set to be <CODE CLASS="Code">
+GMT</CODE>
+ using the <CODE CLASS="Code">
+setf</CODE>
+ method:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1090307"></A>(setf (environment-variable &quot;MYTZONE&quot;) &quot;GMT&quot;)</CODE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-914.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-912.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

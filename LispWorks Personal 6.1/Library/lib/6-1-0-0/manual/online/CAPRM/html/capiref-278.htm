@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ pane-adjusted-offset
+</TITLE>
+
+<LINK REL="next" HREF="capiref-279.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-277.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-279.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-277.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-902168"></A><A NAME="18663"></A>pane<A NAME="marker-4173549"></A>-adjusted-offset</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-902229"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902172"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1138974"></A>The <CODE CLASS="Code">
+pane-adjusted-offset</CODE>
+ generic function calculates the offset required to place a pane correctly in a layout.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4173514"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4173515"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1138969"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-902174"></A>pane-adjusted-offset <EM CLASS="Variable">
+pane</EM>
+ <EM CLASS="Variable">
+adjust</EM>
+ <EM CLASS="Variable">
+available-size</EM>
+ <EM CLASS="Variable">
+actual-size</EM>
+ &amp;key &amp;allow-other-keys</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2184244"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2184245"></A>This function calculates the offset required by the <EM CLASS="Variable">
+adjust</EM>
+ keyword so that the pane <EM CLASS="Variable">
+pane</EM>
+ is placed correctly within the available space in its parent layout. It is called by all of the layouts that inherit from <A HREF="capiref-494.htm#19253" CLASS="XRef">x-y-adjustable-layout</A> to interpret the values of <EM CLASS="Variable">
+x-adjust</EM>
+ and <EM CLASS="Variable">
+y-adjust</EM>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-5390077"></A>Typically the value of <EM CLASS="Variable">
+adjust</EM>
+ will be a keyword or a list of the form <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+keyword</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+n</EM>
+<CODE CLASS="Code">
+)</CODE>
+ where <EM CLASS="Variable">
+n</EM>
+ is an integer. These values of <EM CLASS="Variable">
+adjust</EM>
+ are interpreted as by <A HREF="capiref-279.htm#57877" CLASS="XRef">pane-adjusted-position</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-902191"></A>However, new methods can accept alternative values for <EM CLASS="Variable">
+adjust</EM>
+ where required and can also add extra keywords. For example, <A HREF="capiref-173.htm#34440" CLASS="XRef">grid-layout</A> allows <EM CLASS="Variable">
+adjust</EM>
+ to be a list of adjust values, and then passes the offset into this list as an additional keyword.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8630117"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8630151"></A>Only a keyword value for <EM CLASS="Variable">
+adjust</EM>
+ should be supplied when <EM CLASS="Variable">
+pane</EM>
+ is a <A HREF="capiref-52.htm#32841" CLASS="XRef">column-layout</A> or <A HREF="capiref-362.htm#13083" CLASS="XRef">row-layout</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902195"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-902197"></A>(setq button-panel (make-instance 'capi:button-panel</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-902199"></A>                                  :items '(1 2 3)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-902204"></A>(capi:pane-adjusted-offset button-panel</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1139026"></A>                           :center 200 100)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-902209"></A>(capi:pane-adjusted-offset button-panel</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-902210"></A>                           :left 200 100)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-902214"></A>(capi:pane-adjusted-offset button-panel</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-902215"></A>                           :right 200 100)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902219"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902221"></A><A HREF="capiref-211.htm#12861" CLASS="XRef">layout</A><BR>
+<A HREF="capiref-494.htm#19253" CLASS="XRef">x-y-adjustable-layout</A> </P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-279.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-277.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

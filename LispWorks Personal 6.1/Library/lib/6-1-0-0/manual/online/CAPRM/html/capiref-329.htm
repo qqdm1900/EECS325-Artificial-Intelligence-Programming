@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ prompt-for-symbol
+</TITLE>
+
+<LINK REL="next" HREF="capiref-330.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-328.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-330.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-328.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-905283"></A>prompt<A NAME="marker-4211441"></A>-for-symbol</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-905449"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-905287"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1151806"></A>Prompts the user for a symbol.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4211430"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4211431"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6602813"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-6602814"></A>prompt-for-symbol <EM CLASS="Variable">
+message</EM>
+ &amp;key <EM CLASS="Variable">
+initial-value</EM>
+ <EM CLASS="Variable">
+symbols</EM>
+ <EM CLASS="Variable">
+package</EM>
+ <EM CLASS="Variable">
+ok-check</EM>
+ <EM CLASS="Variable">
+pane-args</EM>
+ <EM CLASS="Variable">
+popup-args</EM>
+ <EM CLASS="Variable">
+continuation</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+, <EM CLASS="Variable">
+okp</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-905294"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-905296"></A>The function <CODE CLASS="Code">
+prompt-for-symbol</CODE>
+ prompts the user for a symbol which they should enter into the pane.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6602831"></A><EM CLASS="Variable">
+initial-value</EM>
+, if non-nil, should be a symbol which is initially displayed in the pane.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2184293"></A>The symbols that are valid can be constrained in a number of ways.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2186522"></A><EM CLASS="Variable">
+symbols</EM>
+, if non-nil, should be a list of all valid symbols. The default is <CODE CLASS="Code">
+nil</CODE>
+, meaning all symbols are valid.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2187098"></A><EM CLASS="Variable">
+package</EM>
+, if non-nil, is a package in which the symbol must be available. The value <CODE CLASS="Code">
+nil</CODE>
+ means that the value of <CODE CLASS="Code">
+*package*</CODE>
+ is used, and this is the default.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2187146"></A><EM CLASS="Variable">
+ok-check</EM>
+ is a function which when called on a symbol will return non-nil if the symbol is valid.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-905301"></A>The prompter is created by calling <A HREF="capiref-328.htm#27550" CLASS="XRef">prompt-for-string</A>. Arguments can be passed to the <CODE CLASS="Code">
+make-instance</CODE>
+ of the pane and the call to <CODE CLASS="Code">
+</CODE>
+<A HREF="capiref-300.htm#12695" CLASS="XRef">popup-confirmer</A> using <EM CLASS="Variable">
+pane-args</EM>
+ and <EM CLASS="Variable">
+popup-args</EM>
+ respectively, and an input history can be implemented by supplying a <EM CLASS="Variable">
+history-function</EM>
+ or <EM CLASS="Variable">
+history-symbol</EM>
+ in <EM CLASS="Variable">
+popup-args</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6677827"></A>If <A NAME="marker-6691346"></A><EM CLASS="Variable">
+continuation</EM>
+ is non-nil, then it must be a function with a lambda list that accepts two arguments. The <EM CLASS="Variable">
+continuation</EM>
+ function is called with the values that would normally be returned by <CODE CLASS="Code">
+prompt-for-symbol</CODE>
+. On Cocoa, passing <EM CLASS="Variable">
+continuation</EM>
+ causes the dialog to be made as a window-modal sheet and <CODE CLASS="Code">
+prompt-for-symbol</CODE>
+ returns immediately, leaving the dialog on the screen. The <A HREF="capiref-482.htm#92889" CLASS="XRef">with-dialog-results</A> macro provides a convenient way to create a <EM CLASS="Variable">
+continuation</EM>
+ function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-905305"></A>Example</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-905307"></A>(capi:prompt-for-symbol &quot;Enter a symbol:&quot;)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-905312"></A>(capi:prompt-for-symbol &quot;Enter a symbol:&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-905313"></A>                        :package 'cl)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-905318"></A>(capi:prompt-for-symbol &quot;Enter a symbol:&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-905319"></A>                        :symbols </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-905359"></A>                        '(foo bar baz))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-905324"></A>(capi:prompt-for-symbol &quot;Enter a symbol:&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-905326"></A>                        :ok-check #'(lambda (symbol)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-905327"></A>                                    (string&lt; symbol &quot;B&quot;)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-6858383"></A>This last example shows how to implement a symbol prompter with an input history:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-6858390"></A>(defvar *my-history* (list &quot;cdr&quot; &quot;car&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6858391"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6858392"></A>(capi:prompt-for-symbol &quot;Enter a symbol&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6858393"></A>                        :popup-args </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-6858394"></A>                        '(:history-symbol *my-history*))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-905332"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-905334"></A><A HREF="capiref-323.htm#11514" CLASS="XRef">prompt-for-form</A> <BR>
+<A HREF="capiref-328.htm#27550" CLASS="XRef">prompt-for-string</A> <BR>
+<A HREF="capiref-300.htm#12695" CLASS="XRef">popup-confirmer</A> <BR>
+<A HREF="capiref-430.htm#26824" CLASS="XRef">text-input-pane</A> </P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-330.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-328.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

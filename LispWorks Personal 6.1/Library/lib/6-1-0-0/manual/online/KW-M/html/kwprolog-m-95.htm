@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.1  Example
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-96.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-94.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-94.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A> &gt; <A HREF="kwprolog-m-94.htm">6.3  Use of Meta-Classes</A><BR><BR>
+</DIV><A HREF="kwprolog-m-96.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-94.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-94.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-891942"></A>6.3.1  Example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891944"></A>A meta-class <A NAME="marker-891943"></A><CODE CLASS="Code">
+standard-kb-class</CODE>
+ could be defined as a KnowledgeWorks class. New KnowledgeWorks classes (or even ordinary non-KnowledgeWorks classes) could be defined with this meta-class. KnowledgeWorks could then reason about the instances of the classes and about the class objects themselves. The code below implements this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891946"></A>(<A NAME="marker-891945"></A>def-kb-class standard-kb-class (standard-class) ())</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891948"></A>(<A NAME="marker-891947"></A>defmethod validate-superclass </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891949"></A>           ((class standard-kb-class)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891950"></A>            (superclass standard-class))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891951"></A>           t)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891952"></A>(def-kb-class foo () ((slot))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891953"></A>                    (:metaclass standard-kb-class))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891954"></A>Then when the following rule fires:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891956"></A>(<A NAME="marker-891955"></A>defrule find-kb-class :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891957"></A>  (standard-kb-class ? clos::name ?n)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891958"></A>  --&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891959"></A>  ((format t &quot;&#126;%I can reason about class &#126;s&quot; ?n)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891960"></A>it will output:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891961"></A>I can reason about class FOO</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-96.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-94.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-94.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

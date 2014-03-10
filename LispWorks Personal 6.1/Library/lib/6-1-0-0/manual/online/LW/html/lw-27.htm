@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.4.1  Backtracing
+</TITLE>
+
+<LINK REL="next" HREF="lw-28.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-26.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-26.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-22.htm">3 The Debugger</A> &gt; <A HREF="lw-26.htm">3.4  REPL debugger commands</A><BR><BR>
+</DIV><A HREF="lw-28.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-26.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-26.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886049"></A>3.4.1  Backtracing</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886051"></A>A <A NAME="marker-886050"></A>backtrace is a list of the stack frames starting at the current frame and continuing down the stack. The backtrace thus displays the sequence by which the functions were invoked, starting with the most recent. For instance:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886052"></A>CL-USER 10 &gt; (defun function-1 (a b c)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886053"></A>               (function-2 (+ a b) c))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886054"></A>FUNCTION-1</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886055"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886056"></A>CL-USER 11 &gt; (defun function-2 (a b)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886057"></A>               (function-3 (+ a b)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886058"></A>FUNCTION-2</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886059"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886060"></A>CL-USER 12 &gt; (defun function-3 (a) (/ 3 (- 111 a)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886061"></A>FUNCTION-3</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886062"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886063"></A>CL-USER 13 &gt; (function-1 1 10 100)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886064"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886065"></A>Error: Division-by-zero caused by / of (3 0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886066"></A>  1 (continue) Return a value to use</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886067"></A>  2 Supply new arguments to use</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886068"></A>  3 (abort) return to level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886069"></A>  4 return to top loop level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886070"></A>  5 Destroy process.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886071"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886072"></A>Type :c followed by a number to proceed</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886073"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886074"></A>CL-USER 14 : 1 &gt; :bq 10</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886075"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886076"></A>SYSTEM::DIVISION-BY-ZERO-ERROR &lt;- / &lt;- FUNCTION-3</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886077"></A>&lt;- SYSTEM::*%APPLY-INTERPRETED-FUNCTION &lt;- FUNCTION-2</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886078"></A>&lt;- SYSTEM::*%APPLY-INTERPRETED-FUNCTION &lt;- FUNCTION-1</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886079"></A>&lt;- SYSTEM::*%APPLY-INTERPRETED-FUNCTION &lt;- SYSTEM::%INVOKE &lt;- SYSTEM::%EVAL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886080"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886081"></A>CL-USER 15 : 1 &gt; </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886083"></A>In the above example the command to show a <A NAME="marker-886082"></A>quick backtrace was used (<CODE CLASS="Code">
+:bq</CODE>
+). Instead of showing each stack frame fully, this only shows the function name associated with each of the call frames. The number 10 following <CODE CLASS="Code">
+:bq</CODE>
+ specifies that only the next ten frames should be displayed rather than continuing to the bottom of the stack.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886084"></A><A NAME="marker-887144"></A>:b</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886450"></A>Debugger command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886558"></A>:b &amp;optional <EM CLASS="Variable">
+verbose</EM>
+ <EM CLASS="Variable">
+m</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886416"></A>This is the command to obtain a <A NAME="marker-886085"></A>backtrace from the current frame. It may optionally be followed by <CODE CLASS="Code">
+:verbose</CODE>
+, in which case a fuller description of each frame is given that includes the values of the arguments to the function calls. It may also be followed by a number (<I CLASS="Italic">
+m</I>
+), specifying that only that number of frames should be displayed.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886087"></A><A NAME="marker-887147"></A>:bq</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886475"></A>Debugger command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886560"></A>:bq <EM CLASS="Variable">
+m</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886473"></A>This produces a quick backtrace from the current position. Only the call frames are included, and only the names of the associated functions are shown. If the command is followed by a number then only that many frames are displayed.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-28.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-26.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-26.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

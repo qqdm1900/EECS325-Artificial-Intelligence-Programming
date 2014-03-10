@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="readme.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.3  Moving the LispWorks image and library
+</TITLE>
+
+<LINK REL="next" HREF="readme-141.htm" TYPE="text/html">
+<LINK REL="prev" HREF="readme-139.htm" TYPE="text/html">
+<LINK REL="up" HREF="readme-135.htm" TYPE="text/html">
+<LINK REL="top" HREF="readme.htm" TYPE="text/html">
+<LINK REL="contents" HREF="readme-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="readme-485.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="readme.htm">LispWorks Release Notes and Installation Guide</A> &gt; <A HREF="readme-135.htm">7 Installation on UNIX</A><BR><BR>
+</DIV><A HREF="readme-141.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-139.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-135.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-897915"></A>7.3  <A NAME="55531"></A>Moving the LispWorks image and library</H3>
+<P CLASS="Body">
+<A NAME="pgfId-897917"></A>The LispWorks image must be able to find its library. The default library location is contained in the Lisp variable <CODE CLASS="Code">
+*lispworks-directory*</CODE>
+, but if that does not locate the library, LispWorks also can locate its library by a fallback mechanism which detects a numbered subdirectory <CODE CLASS="Code">
+lib/6-1-0-0</CODE>
+ alongside the image.</P>
+<P CLASS="Body">
+<A NAME="pgfId-905162"></A>There are three distinct ways to arrange your LispWorks files. Choose 1, 2 or 3, of which 1 and 2 are the simplest options:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-905163"></A>Put the LispWorks distribution in <CODE CLASS="Code">
+/usr/lib/lispworks</CODE>
+. You will then have the LispWorks image at top-level in the <CODE CLASS="Code">
+/usr/lib/lispworks</CODE>
+ directory, and subdirectories <CODE CLASS="Code">
+/usr/lib/lispworks/lib/6-1-0-0</CODE>
+.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-905166"></A>You can move the LispWorks image wherever you prefer, because the value of <CODE CLASS="Code">
+*lispworks-directory*</CODE>
+ in the supplied image is the pathname <CODE CLASS="Code">
+#P&quot;/usr/lib/lispworks/&quot;</CODE>
+.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-905078"></A>Keep the LispWorks installation intact, as unpacked from the archive supplied. You can move it, but only move the entire installation as a whole. Then LispWorks will find its library by the fallback mechanism mentioned above. In this case again you do not need to change <CODE CLASS="Code">
+*lispworks-directory*</CODE>
+.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-905181"></A><B CLASS="Bold">
+Note:</B>
+ this only works if you do not move the image away from the top-level of the installation directory.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-904844"></A>Put the library elsewhere than <CODE CLASS="Code">
+/usr/lib/lispworks/</CODE>
+ (call it <CODE CLASS="Code">
+/path/to/lwlibrary/</CODE>
+)<CODE CLASS="Code">
+ </CODE>
+and move the LispWorks image file away from the top-level of the installation directory.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-905557"></A>In this case you need to take action to allow LispWorks to find its library. You should either make a symbolic link <CODE CLASS="Code">
+/usr/lib/lispworks/lib</CODE>
+, or configure the LispWorks image with:</P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-904869"></A><CODE CLASS="Code">
+(setf *lispworks-directory* #P&quot;/path/to/lwlibrary/&quot;)</CODE>
+</P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-904860"></A>See <A HREF="readme-145.htm#77702" CLASS="XRef">Configuring the LispWorks image</A> below for more information about configuring LispWorks. You will need to install your license key first.</P>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Release Notes and Installation Guide - 23 Dec 2011</I></P>
+<P><A HREF="readme-141.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-139.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-135.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.3.1  Adding menus
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-140.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-138.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-138.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-134.htm">10 Defining Interface Classes </A> &gt <A HREF="capiuser-m-138.htm">10.3  Adapting the example</A><BR><BR>
+</DIV><A HREF="capiuser-m-140.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-138.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-138.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884327"></A>10.3.1  <A NAME="89217"></A>Adding menus</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884329"></A><A NAME="marker-884328"></A>To add menus to your interface you must first specify the menus themselves, and then a menu bar of which they will be a part. </P>
+<P CLASS="Body">
+<A NAME="pgfId-884330"></A>Let us add some menus that duplicate the proposed functionality for the buttons. We will add:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-884331"></A>A <B CLASS="Button">
+File</B>
+ menu with a <B CLASS="Button">
+Open</B>
+ option, to do the same thing as <B CLASS="Button">
+Open File</B>
+</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-884332"></A>A <B CLASS="Button">
+Page</B>
+ menu with <B CLASS="Button">
+Page Up</B>
+ and <B CLASS="Button">
+Page Down</B>
+ options, to do the same things as the buttons with those names</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-884333"></A>The extra code needed in the <CODE CLASS="Code">
+define-interface</CODE>
+ call is this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884335"></A> (:<A NAME="marker-884334"></A>menus </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884336"></A>  (file-menu &quot;File&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884338"></A>             (&quot;Open&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884339"></A>  (page-menu &quot;Page&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884341"></A>             (&quot;Page Up&quot; &quot;Page Down&quot;)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884343"></A> (:<A NAME="marker-884342"></A>menu-bar file-menu page-menu)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884344"></A>Menu definitions give a slot name for the menu, followed by the title of the menu, a list of menu item descriptions, and then, optionally, a list of keyword arguments for the menu. </P>
+<P CLASS="Body">
+<A NAME="pgfId-884345"></A>In this instance the menu item descriptions are just strings naming each item, but you may wish to supply initialization arguments for an item -- in which case you would enclose the name and those arguments in a list.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884346"></A>The menu bar definition simply names all the menus that will be on the bar, in the order that they will appear. By default, of course, the environment may add menus of its own to an interface -- for example the <B CLASS="Button">
+Window</B>
+ menu in the LispWorks IDE.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884347"></A>The code for the new interface is:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884603"></A>(define-interface demo ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884604"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884605"></A>  (:panes</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884606"></A>   (page-up push-button </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884608"></A>            :text &quot;Page Up&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884609"></A>   (page-down push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884611"></A>              :text &quot;Page Down&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884612"></A>   (open-file push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884614"></A>              :text &quot;Open File&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884968"></A>   (viewer editor-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884969"></A>           :title &quot;File:&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885706"></A>           :text &quot;No file selected.&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884970"></A>           :visible-min-height '(:character 8)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884971"></A>           :reader viewer-pane))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884621"></A>  (:layouts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884622"></A>    (main-layout column-layout </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884624"></A>                 '(row-of-buttons row-with-editor-pane))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884625"></A>    (row-of-buttons row-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884627"></A>                    '(page-up page-down open-file))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884628"></A>    (row-with-editor-pane row-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884630"></A>                          '(viewer)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884641"></A>  (:menus </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884642"></A>   (file-menu &quot;File&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884644"></A>              (&quot;Open&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884645"></A>   (page-menu &quot;Page&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884647"></A>              (&quot;Page Up&quot; &quot;Page Down&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884649"></A>  (:menu-bar file-menu page-menu)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884631"></A>  (:default-initargs :title &quot;Demo&quot;))</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884598"></A>Figure 10.3  A CAPI interface with menu items<DIV>
+<IMG SRC="capiuser-m-52.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-54.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884356"></A>The menus contain the items specified -- try it out to be sure.<A NAME="marker-884355"></A></P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-140.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-138.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-138.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

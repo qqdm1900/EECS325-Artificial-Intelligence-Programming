@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.1  The correct thread for CAPI operations
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-49.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-47.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-47.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-47.htm">4 General Considerations</A><BR><BR>
+</DIV><A HREF="capiuser-m-49.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-47.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-47.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-892155"></A>4.1  <A NAME="25412"></A>The correct thread for CAPI operations</H3>
+<P CLASS="Body">
+<A NAME="pgfId-892178"></A>All operations on displayed CAPI elements need to be in the thread (that is, the <CODE CLASS="Code">
+mp:process</CODE>
+) that runs their interface. On some platforms, <CODE CLASS="Code">
+display</CODE>
+<A NAME="marker-892285"></A> and <CODE CLASS="Code">
+contain</CODE>
+<A NAME="marker-892290"></A> make a new thread. On Cocoa, all interfaces run in a single thread.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892182"></A>In most cases this issue does not arise, because CAPI callbacks are run in the correct thread. However, if your code needs to communicate with a CAPI window from a random thread, it should use <CODE CLASS="Code">
+execute-with-interface</CODE>
+<A NAME="marker-892256"></A>, <CODE CLASS="Code">
+execute-with-interface-if-alive</CODE>
+<A NAME="marker-893068"></A>, <CODE CLASS="Code">
+apply-in-pane-process</CODE>
+<A NAME="marker-892262"></A> or <CODE CLASS="Code">
+apply-in-pane-process-if-alive</CODE>
+<A NAME="marker-895141"></A> to send the function to the correct thread.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892158"></A>This is why the brief interactive examples in this manual generally use <CODE CLASS="Code">
+execute-with-interface</CODE>
+ or <CODE CLASS="Code">
+apply-in-pane-process</CODE>
+ when modifying a displayed CAPI element. In contrast, the demo example in <A HREF="capiuser-m-140.htm#46636" CLASS="XRef">Connecting an interface to an application</A> is modified only by callbacks which run in the demo interface's own process, and so there is no need to use <CODE CLASS="Code">
+execute-with-interface</CODE>
+ or <CODE CLASS="Code">
+apply-in-pane-process</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-49.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-47.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-47.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

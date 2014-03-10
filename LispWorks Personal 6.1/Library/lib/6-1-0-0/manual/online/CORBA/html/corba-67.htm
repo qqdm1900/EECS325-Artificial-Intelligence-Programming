@@ -1,0 +1,1913 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ A Common Lisp IDL Binding
+</TITLE>
+
+<LINK REL="next" HREF="corba-68.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-66.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A><BR><BR>
+</DIV><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-66.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="Appendix">
+<A NAME="pgfId-867485"></A>A <A NAME="52521"></A>Common Lisp IDL Binding</H3>
+<P CLASS="Body">
+<A NAME="pgfId-867487"></A>Version 1.0 (The RFP for the IDL Common Lisp mapping was agreed by the ORBOS and PTC committees at the OMG meeting in Washington on 99/01/14.)</P>
+<P CLASS="Body">
+<A NAME="pgfId-867488"></A><A NAME="64354"></A>This chapter briefly reviews some concepts of IDL and defines the notion of a language mapping. A summary of the IDL/Common Lisp mapping is presented.</P>
+<DIV>
+<H4 CLASS="FM1Heading-App">
+<A NAME="pgfId-866016"></A><A NAME="marker-867678"></A>Introduction to IDL</H4>
+<P CLASS="Body">
+<A NAME="pgfId-866017"></A>IDL, or Interface Definition Language, is a language defined by the Object Management Group. The key data type in IDL is the interface, which describes the behavior of objects that implement that interface. The IDL definition for an interface describes all of the operations to which an object that implements that interface can respond. For each such operation, it describes the allowed types of the parameters to the operation and the allowed type of the value returned by the operation.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866018"></A>IDL allows types other than interfaces to be expressed. For example, primitive types such as boolean, several signed and unsigned integer types, and some floating point types may be defined.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866019"></A>Constructed types analogous to the C <CODE CLASS="Code">
+struct</CODE>
+ or Pascal <CODE CLASS="Code">
+record</CODE>
+ type may be defined, and some simple type aliasing is possible in a way analogous to the C <CODE CLASS="Code">
+typedef</CODE>
+ construct. Arrays and sequences may also be defined.</P>
+</DIV>
+<DIV>
+<H4 CLASS="FM1Heading-App">
+<A NAME="pgfId-866020"></A><A NAME="marker-867532"></A><A NAME="marker-867662"></A>How IDL is used</H4>
+<P CLASS="Body">
+<A NAME="pgfId-866021"></A>IDL is typically used in the following manner. A server process wishes to make some of its functionality available for invocation by clients. These clients may not be in the same process, on the same machine, or even written in the same language.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866022"></A>The server publishes the IDL definitions that define the interfaces of the objects that it implements. A client can use those definitions to invoke operations on objects that reside within the server process.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866023"></A>The syntax used by the client to invoke a method on an object defined in IDL, and the relationship between the data types specified in IDL and the native datatypes of the language in which the client is implemented is defined by the <I CLASS="Italic">
+mapping</I>
+ of IDL into that language. </P>
+<P CLASS="Body">
+<A NAME="pgfId-866887"></A>This document describes a mapping from IDL into Common Lisp.</P>
+</DIV>
+<DIV>
+<H4 CLASS="FM1Heading-App">
+<A NAME="pgfId-866024"></A><A NAME="marker-867534"></A>Mapping summary</H4>
+<P CLASS="Body">
+<A NAME="pgfId-866025"></A>The main points of the mapping from IDL to Common Lisp are as follows:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866026"></A>Primitive data types are mapped to corresponding primitive data types in Lisp.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866027"></A>Struct and union are mapped to classes. Each member of the struct or union can be accessed using a regular syntax.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866028"></A>Arrays map to arrays.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866029"></A>Sequences can map either to lists or to vectors; that is, sequences map to sequences.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866030"></A>Exceptions are mapped to conditions.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866031"></A>Interfaces are mapped to classes, and interfaces that inherit map to classes that inherit.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866032"></A>Operations on interfaces map to methods on a generic function. This generic function discriminates only on its first argument, which is then interpreted as the receiver of the operation.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866033"></A>The module in which an IDL entity is declared is mapped to the package name of the corresponding symbol. The name of the symbol is formed from the rest of the scope of the module.</LI>
+</UL>
+</DIV>
+<DIV>
+<H4 CLASS="FM1Heading-App">
+<A NAME="pgfId-866034"></A><A NAME="marker-867536"></A>Mapping in more detail</H4>
+<P CLASS="Body">
+<A NAME="pgfId-866035"></A>This section describes the mapping of IDL into the Lisp language. In most cases examples of the mapping are provided. It should be noted that the examples are code <I CLASS="Italic">
+fragments</I>
+ that try to illustrate only the language construct being described.</P>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866036"></A>Mapping concepts</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866037"></A>By an IDL entity we mean an element defined in some IDL file. For example, consider the code fragment: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866038"></A>module A {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866039"></A>  interface B {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866040"></A>    void op1(in long bar);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866041"></A>  };</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866042"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866043"></A>The IDL entities are the module named <CODE CLASS="Code">
+A</CODE>
+, the interface named <CODE CLASS="Code">
+B</CODE>
+, the operation named <CODE CLASS="Code">
+op1</CODE>
+, the formal parameter named <CODE CLASS="Code">
+bar</CODE>
+, and the primitive data types <CODE CLASS="Code">
+void</CODE>
+ and <CODE CLASS="Code">
+long</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-866892"></A>Our mapping will associate a corresponding Lisp entity to each IDL entity declared in a an IDL specification. The Lisp entity corresponding to a given IDL entity will be said to be <I CLASS="Italic">
+generated</I>
+ from the IDL entity.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866044"></A>If the IDL entity has a name, then the corresponding Lisp entity will also have a name. Whereas IDL entities are named by strings (in other words, identifiers), Lisp entities are named by symbols.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866045"></A>This chapter specifies, for each IDL construct, the Lisp entity, and the name of that entity, that is generated by the mapping.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866046"></A><A NAME="marker-867540"></A><A NAME="marker-867786"></A>Semantics of type mapping</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866047"></A>The statement that an IDL type <EM CLASS="Variable">
+I</EM>
+ is mapped to a Lisp type <EM CLASS="Variable">
+L</EM>
+ indicates that if <EM CLASS="Variable">
+V</EM>
+ is a Lisp value whose corresponding IDL type is <EM CLASS="Variable">
+I</EM>
+, then the consequences are not specified if the value of <EM CLASS="Variable">
+V</EM>
+ is not a member of the type <EM CLASS="Variable">
+L</EM>
+. For example, if <EM CLASS="Variable">
+V</EM>
+ is passed as a parameter to an IDL operation or if <EM CLASS="Variable">
+V</EM>
+ is returned from an IDL operation, then a conforming implementation may reasonably perform any of the following actions if <EM CLASS="Variable">
+V</EM>
+ is not of the type <EM CLASS="Variable">
+L</EM>
+.</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866048"></A>If <EM CLASS="Variable">
+V</EM>
+ may be coerced to <EM CLASS="Variable">
+L</EM>
+, then <EM CLASS="Variable">
+V</EM>
+ may be replaced by the result of coercing <EM CLASS="Variable">
+V</EM>
+ to the type <EM CLASS="Variable">
+L</EM>
+. </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866049"></A>If <EM CLASS="Variable">
+V</EM>
+ cannot be coerced to <EM CLASS="Variable">
+L</EM>
+, then an error may be signalled. If the error occurs during marshalling or unmarshalling, <CODE CLASS="Code">
+corba:marshal</CODE>
+ should be signaled.</LI>
+</UL>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866050"></A><A NAME="marker-867542"></A><A NAME="marker-867692"></A>Mapping for basic types</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866051"></A>The following table shows the basic mapping. The first column contains the IDL name of the IDL type to be mapped. Each IDL type denotes a set of IDL abstract values.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866052"></A>The set of values denoted by an entry in the first column is mapped, under the mapping described in this document, to a set of Lisp values. That set of Lisp values is described in two ways: </P>
+<TABLE>
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-866121"></A><DIV>
+<IMG SRC="corba-12.gif">
+</DIV>
+&nbsp;</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-866055"></A>IDL Type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-866057"></A>Name of Lisp Type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-866059"></A>Lisp Type Specifier</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866061"></A>boolean</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866063"></A>corba:boolean</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866065"></A>boolean</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866067"></A>char</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866069"></A>corba:char</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866071"></A>character</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866073"></A>octet</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866075"></A>corba:octet</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866077"></A>(unsigned-byte 8)</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866079"></A>string</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866081"></A>corba:string</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866083"></A>string</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866085"></A>short</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866087"></A>corba:short</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866089"></A>(signed-byte 16)</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866091"></A>unsigned short</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866093"></A>corba:ushort</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866095"></A>(unsigned-byte 16)</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866097"></A>long</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866099"></A>corba:long</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866101"></A>(signed-byte 32)</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866103"></A>unsigned long</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866105"></A>corba:ulong</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866107"></A>(unsigned-byte 32)</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866109"></A>float</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866111"></A>corba:float</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866113"></A>see text</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866115"></A>double</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866117"></A>corba:double</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-866119"></A>see text</LI>
+</OL>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-866126"></A>For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866127"></A>(typep -3 'corba:short)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866128"></A>&gt; T</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866129"></A>(typep &quot;A string&quot; 'corba:string)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866130"></A>&gt; T</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866131"></A><A NAME="marker-867544"></A>boolean</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866132"></A>The IDL <CODE CLASS="Code">
+boolean</CODE>
+ constants <CODE CLASS="Code">
+TRUE</CODE>
+ and <CODE CLASS="Code">
+FALSE</CODE>
+ are mapped to the corresponding Lisp boolean literals <CODE CLASS="Code">
+t</CODE>
+ and <CODE CLASS="Code">
+nil</CODE>
+. The type specifier <CODE CLASS="Code">
+corba:boolean</CODE>
+ specifies this type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866133"></A><A NAME="marker-867546"></A>char </H5>
+<P CLASS="Body">
+<A NAME="pgfId-866134"></A>IDL <CODE CLASS="Code">
+char</CODE>
+ maps to the Lisp type <CODE CLASS="Code">
+character</CODE>
+. The type specifier <CODE CLASS="Code">
+corba:char</CODE>
+ specifies this type.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866135"></A>For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866136"></A>(typep #&#92;x corba:char)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866137"></A>&gt; T</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866138"></A>(typep &quot;x&quot; 'corba:char)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866139"></A>&gt; nil</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866140"></A><A NAME="marker-867548"></A>octet</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866141"></A>The IDL type <CODE CLASS="Code">
+octet</CODE>
+, an 8-bit quantity, is mapped as an unsigned quantity to the type <CODE CLASS="Code">
+corba:octet</CODE>
+. The type specifier <CODE CLASS="Code">
+corba:octet</CODE>
+ denotes the set of integers between 0 and 255, inclusive. This set can also be denoted by the type specifier <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866142"></A>For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866143"></A>(typep 255 'corba:octet)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866144"></A>&gt; T</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866145"></A>(typep -1 'corba:octet)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866146"></A>&gt; nil</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866147"></A><A NAME="marker-867550"></A>string</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866148"></A>The IDL <CODE CLASS="Code">
+string</CODE>
+, both bounded and unbounded variants, are mapped to <CODE CLASS="Code">
+string</CODE>
+. Range checking for characters in the string as well as bounds checking of the string shall be done at <CODE CLASS="Code">
+marshal</CODE>
+ time. The type specifier <CODE CLASS="Code">
+corba:string</CODE>
+ denotes the set of Lisp strings.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866149"></A>For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866150"></A>(typep &quot;A string&quot; 'corba:string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866151"></A>&gt; T</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866152"></A>(typep nil 'corba:string)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866153"></A>&gt; nil</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866154"></A><A NAME="marker-867552"></A><A NAME="marker-867676"></A>Integer types</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866155"></A>The <CODE CLASS="Code">
+integer</CODE>
+ types each map to the Lisp integer type. Each IDL <CODE CLASS="Code">
+integer</CODE>
+ type has a corresponding type specifier that denotes the range of integers to which it corresponds.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866156"></A>The names of the type specifiers are <CODE CLASS="Code">
+corba:long</CODE>
+, <CODE CLASS="Code">
+corba:short</CODE>
+, <CODE CLASS="Code">
+corba:ulong</CODE>
+, and <CODE CLASS="Code">
+corba:ushort</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866157"></A><A NAME="marker-867554"></A>Floating point types </H5>
+<P CLASS="Body">
+<A NAME="pgfId-866158"></A>The floating point types <CODE CLASS="Code">
+float</CODE>
+ and <CODE CLASS="Code">
+double</CODE>
+ map to Lisp types named <CODE CLASS="Code">
+corba:float</CODE>
+ and <CODE CLASS="Code">
+corba:double</CODE>
+, respectively. These types must be subtypes of the type <CODE CLASS="Code">
+real</CODE>
+. They must allow representation of all numbers specified by the corresponding CORBA types.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866159"></A><A NAME="marker-867682"></A><A NAME="marker-867680"></A>Introduction to named types </H5>
+<P CLASS="Body">
+<A NAME="pgfId-866160"></A>We now discuss the mapping of types that are named. We begin with a discussion of terminological issues.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866161"></A><A NAME="marker-867558"></A><A NAME="marker-867668"></A>IDL naming terminology</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866162"></A>Notation for naming can be confusing, so some care is needed. Our specification is not formally rigorous, but we have tried to illustrate enough points with examples so that situations likely to arise in practice can be handled.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866895"></A><B CLASS="Bold">
+IDL Naming Terminology</B>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-866163"></A>By &quot;the IDL name of an IDL entity&quot;, we mean the string that is the simple name of that entity. An IDL entity can be declared at the top-level or nested inside some other IDL entity. We say that the outer IDL entity encloses the inner one. We will sometimes elide the quotation marks in describing the names of IDL (and other entities) when no confusion is likely to result.</P>
+<P CLASS="sec-">
+<A NAME="pgfId-866164"></A>Here is an IDL example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866165"></A>module A{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866166"></A>  interface B{</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866167"></A>    struct c {long foo;};};}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866168"></A>The name of the <CODE CLASS="Code">
+struct</CODE>
+ is the string <CODE CLASS="Code">
+c</CODE>
+. The name of the interface is the string <CODE CLASS="Code">
+B</CODE>
+. The name of the module is the string <CODE CLASS="Code">
+A</CODE>
+. The name of the <CODE CLASS="Code">
+struct</CODE>
+ member is the string <CODE CLASS="Code">
+foo</CODE>
+. The innermost enclosing IDL entity of the <CODE CLASS="Code">
+struct</CODE>
+ is the interface named <CODE CLASS="Code">
+B</CODE>
+. The innermost enclosing module of the struct is the module named <CODE CLASS="Code">
+A</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866169"></A><B CLASS="Bold">
+Lisp Naming Terminology</B>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-866170"></A>The name of a symbol is a string used to identify the symbol. Packages are collections of symbols. A symbol has a home package, which also has a name. A package can be named by a symbol or a string. We sometimes loosely say &quot;the package <I CLASS="Italic">
+x</I>
+&quot; when we mean &quot;the package named by <I CLASS="Italic">
+x</I>
+&quot;.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866171"></A>A package may have nicknames, and we will consider that the nicknames of a package name the package. Unless otherwise stated, we will assume that distinct package names refer to distinct packages.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866967"></A>The notation for symbols consists of three concatenated parts: the name of the home package of the symbol, followed by the character &quot;<CODE CLASS="Code">
+:</CODE>
+&quot;, followed by the name of the symbol. Case is not significant when this notation is used. Thus, all symbols generated by this mapping are external symbols of their home package.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866913"></A>A symbol can name a function, a package, a class, a type, a slot, or a variable. These namespaces are disjoint. All alphabetic characters in the names of symbols used in this document are upper-case unless otherwise stated.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866174"></A>Thus, the names notated here are implicitly converted to uppercase when they name a symbol. For example, when we write the symbol named <BR>
+<CODE CLASS="Code">
+hello-goodbye</CODE>
+ or the symbol <CODE CLASS="Code">
+hello-goodbye</CODE>
+, we actually mean the symbol whose name is the string <CODE CLASS="Code">
+HELLO-GOODBYE</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866175"></A><A NAME="marker-867560"></A><A NAME="marker-867652"></A>Distinguished packages</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866176"></A>This document will refer to two kinds of packages: </P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866177"></A>The first kind are those packages defined explicitly by this specification (this Appendix). </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866178"></A>The second kind consists of those packages created as a result of compiling user IDL code.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-866179"></A>The first kind of package consists of these three distinct packages: the <CODE CLASS="Code">
+root</CODE>
+ package, the <CODE CLASS="Code">
+corba</CODE>
+ package, and the <CODE CLASS="Code">
+operation</CODE>
+ package.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866180"></A>The names of these packages are described below. The name of the <CODE CLASS="Code">
+root</CODE>
+ package is the string &quot;<CODE CLASS="Code">
+OMG.ORG/ROOT</CODE>
+&quot;. The name of the <CODE CLASS="Code">
+corba</CODE>
+ package is &quot;<CODE CLASS="Code">
+OMG.ORG/CORBA</CODE>
+&quot;. The name of the <CODE CLASS="Code">
+operation</CODE>
+ package is the string &quot;<CODE CLASS="Code">
+OMG.ORG/OPERATION</CODE>
+&quot;.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866181"></A>The precise semantics of these three packages is described below. Informally, the <CODE CLASS="Code">
+root</CODE>
+ package is the package in which Common Lisp names corresponding to IDL definitions not contained in a top-level module are interned. The <CODE CLASS="Code">
+corba</CODE>
+ package is the package in which Common Lisp names corresponding to IDL definitions and pseudo-IDL definitions in the CORBA module are interned. The <CODE CLASS="Code">
+operation</CODE>
+ package is the package into which names of Common Lisp functions corresponding to IDL operations are interned.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866182"></A>In addition, this specification makes use of the standard Common Lisp packages named <CODE CLASS="Code">
+KEYWORD</CODE>
+ and <CODE CLASS="Code">
+COMMON-LISP</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866183"></A><A NAME="marker-867562"></A><A NAME="marker-867736"></A>Nicknames for distinguished packages</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866184"></A>An implementation is expected to support the addition of nicknames for a package via the standard Common Lisp nicknames facility. An ORB should support the following default nicknames:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866185"></A>For the package <CODE CLASS="Code">
+OMG.ORG/CORBA</CODE>
+, the default nickname shall be <CODE CLASS="Code">
+CORBA</CODE>
+.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866186"></A>For the package <CODE CLASS="Code">
+OMG.ORG/OPERATION</CODE>
+, the default nickname shall be <CODE CLASS="Code">
+OP</CODE>
+.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-866187"></A>This document will use these nicknames without comment.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866188"></A><A NAME="marker-867564"></A><A NAME="marker-867784"></A><A NAME="marker-867780"></A>Scoped names and scoped symbols </H5>
+<P CLASS="Body">
+<A NAME="pgfId-866189"></A>Many of the Common Lisp entities we consider will be named according to the scoped naming convention described in this section. In particular, the following entities will be mapped according to this naming convention:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866190"></A><CODE CLASS="Code">
+interface</CODE>
+ </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866191"></A><CODE CLASS="Code">
+union</CODE>
+ </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866192"></A><CODE CLASS="Code">
+enum</CODE>
+ </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866193"></A><CODE CLASS="Code">
+struct</CODE>
+ </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866194"></A><CODE CLASS="Code">
+exception</CODE>
+ </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866195"></A><CODE CLASS="Code">
+const</CODE>
+ </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866196"></A><CODE CLASS="Code">
+typedef</CODE>
+ </LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-866197"></A>A scoped symbol will be associated with the IDL entity, and it is this scoped symbol that names the Lisp value generated by the given IDL entity.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866198"></A><A NAME="marker-867566"></A>Definitions</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866199"></A>For any named IDL entity <EM CLASS="Variable">
+I</EM>
+ there is a Lisp symbol <EM CLASS="Variable">
+S</EM>
+ called the scoped symbol of <EM CLASS="Variable">
+I</EM>
+. The scoping separator is the string &quot;<CODE CLASS="Code">
+/</CODE>
+&quot;.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866200"></A>If <EM CLASS="Variable">
+I</EM>
+ is a top-level module, then the name of <EM CLASS="Variable">
+S</EM>
+ is the name of <EM CLASS="Variable">
+I</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866201"></A>If <EM CLASS="Variable">
+I</EM>
+ is a module nested within another module <EM CLASS="Variable">
+J</EM>
+, then the name of <EM CLASS="Variable">
+S</EM>
+ is the concatenation of the name of the scoped symbol of <EM CLASS="Variable">
+J</EM>
+, the scoping separator, and the name of <EM CLASS="Variable">
+I</EM>
+. The home package of the scoped symbol of a module is <CODE CLASS="Code">
+:keyword</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-867161"></A>Suppose <EM CLASS="Variable">
+I</EM>
+ is a named IDL entity that is not a module. The name of the scoping symbol <EM CLASS="Variable">
+S</EM>
+ of <EM CLASS="Variable">
+I</EM>
+ is determined as follows. If the declaration of <EM CLASS="Variable">
+I</EM>
+ is enclosed inside another IDL entity <EM CLASS="Variable">
+J</EM>
+ that is not a module, then the name of <EM CLASS="Variable">
+S</EM>
+ is the concatenation of the name of the scoping symbol for <EM CLASS="Variable">
+J</EM>
+, the scoping separator, and the name of <EM CLASS="Variable">
+I</EM>
+. Otherwise the name of <EM CLASS="Variable">
+S</EM>
+ is the name of <EM CLASS="Variable">
+I</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866202"></A>If <EM CLASS="Variable">
+I</EM>
+ is enclosed in a module <EM CLASS="Variable">
+M</EM>
+, then the home package of S is named by the scoped symbol for <EM CLASS="Variable">
+M</EM>
+. Otherwise the home package for <EM CLASS="Variable">
+S</EM>
+ is the <CODE CLASS="Code">
+root</CODE>
+ package.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866203"></A><A NAME="marker-867568"></A><A NAME="marker-867656"></A><A NAME="marker-867654"></A>Examples of scoping symbols</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866204"></A>First we consider a simple example:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866205"></A>module a { interface foo {};}</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866206"></A>The scoped symbol of the module is <CODE CLASS="Code">
+:a</CODE>
+. Thus, the home package of this symbol is <CODE CLASS="Code">
+:keyword</CODE>
+ and the name of the symbol is the string <CODE CLASS="Code">
+A</CODE>
+. The scoped symbol of the interface is the symbol <CODE CLASS="Code">
+a:foo</CODE>
+. Thus, the name of the symbol is the string <CODE CLASS="Code">
+FOO</CODE>
+, and the home package of the symbol is the package whose name is the string <CODE CLASS="Code">
+A</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866207"></A>module a {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866208"></A>  interface outer {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866209"></A>    struct inner {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866210"></A>      in long member;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866211"></A>    };</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866212"></A>   };</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866213"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866214"></A>Here the scoped symbol for the module is <CODE CLASS="Code">
+:a</CODE>
+, the scoped symbol for the interface is <CODE CLASS="Code">
+a:outer</CODE>
+, and the scoped symbol for <CODE CLASS="Code">
+struct</CODE>
+ is <CODE CLASS="Code">
+a:outer/inner</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866215"></A>module a{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866216"></A>  module b{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866217"></A>    interface c{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866218"></A>      struct d{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866219"></A>        long foo;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866220"></A>      };</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866221"></A>    };</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866222"></A>  };</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866223"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866224"></A>The scoped symbol for the <CODE CLASS="Code">
+struct</CODE>
+ is <CODE CLASS="Code">
+a/b:c/d</CODE>
+. The scoped symbol for the <CODE CLASS="Code">
+struct</CODE>
+ member is <CODE CLASS="Code">
+a/b:c/d/foo</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866225"></A><A NAME="marker-867570"></A>The package_prefix pragma</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866226"></A>A <CODE CLASS="Code">
+package_prefix</CODE>
+ pragma has the form:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866227"></A>#pragma package_prefix string </CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866228"></A>where <CODE CLASS="Code">
+string</CODE>
+ is an IDL string literal. For example, <CODE CLASS="Code">
+#pragma package_prefix COM.LISPWORKS</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866229"></A>A <CODE CLASS="Code">
+package_prefix</CODE>
+ pragma affects the mapping of all top-level modules whose definition textually follows that pragma in the IDL file. The name of the scoping symbol for such a top-level module is the concatenation of the given <CODE CLASS="Code">
+package_prefix</CODE>
+ with the name of the module.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866230"></A>#pragma package_prefix COM/LISPWORKS</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866231"></A>module a{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866232"></A>  module b{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866233"></A>    interface c{};</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866234"></A>  };</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866235"></A>};</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866236"></A>The scoped symbol for the interface is <CODE CLASS="Code">
+COM/LISPWORKS/A/B:C</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866237"></A><A NAME="marker-867572"></A><A NAME="marker-867702"></A>Mapping for interface</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866238"></A>An IDL interface is mapped to a Lisp class. The name of this class is the scoped symbol for the interface. The direct superclasses of a generated Lisp class are determined as follows. </P>
+<P CLASS="Body">
+<A NAME="pgfId-866998"></A>If the given IDL interface has no declared base interfaces, the generated class has the single direct superclass named <CODE CLASS="Code">
+corba:object</CODE>
+. Otherwise, the generated Lisp class has direct superclasses that are the generated classes corresponding to the declared base interfaces of the given interface. The Lisp value <CODE CLASS="Code">
+nil</CODE>
+ can be passed wherever an object reference is expected. </P>
+<P CLASS="Body">
+<A NAME="pgfId-867162"></A>An IDL interface is also mapped into server-side classes. The server classes are described in <A HREF="corba-67.htm#90260" CLASS="XRef">The mapping of IDL into Common Lisp servants</A>. </P>
+<P CLASS="Body">
+<A NAME="pgfId-866243"></A><B CLASS="Bold">
+For example, in IDL:</B>
+</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866244"></A>module example{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866245"></A>  interface foo {};</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866246"></A>  interface bar {};</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866247"></A>  interface fum : foo,bar {};</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866248"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866249"></A><B CLASS="Bold">
+And in generated Lisp:</B>
+</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866250"></A>(defclass example:foo(corba:object)())</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866251"></A>(defclass example:bar(corba:object)())</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866252"></A>(defclass example:fum (example:foo example:bar)())</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866253"></A><A NAME="marker-867574"></A><A NAME="marker-867704"></A>Mapping for operation</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866254"></A>This section discusses only how the user is to invoke mapped operations, not how the user is to implement them. The implementation of operations is discussed in <A HREF="corba-67.htm#90260" CLASS="XRef">The mapping of IDL into Common Lisp servants</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866258"></A>An IDL operation is mapped to a Lisp function named by the symbol whose print-name is given by the name of the operation interned in the <CODE CLASS="Code">
+operation</CODE>
+ package.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866259"></A>We will assume that all operation names have been appropriately imported into the current package in the examples.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866260"></A>Thus, when an example is given in which there is a reference to the symbol naming the mapped function corresponding to an IDL operation, the package of that symbol will be assumed to be the operation package. Common Lisp provides a number of facilities for the implementation of this functionality and for handling name conflicts. </P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866261"></A><A NAME="marker-867576"></A>Parameter passing modes</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866262"></A>The function defined by the IDL operation expects actual arguments corresponding to each formal argument that is declared <CODE CLASS="Code">
+in</CODE>
+ or <CODE CLASS="Code">
+inout</CODE>
+, in the order in which they are declared in the IDL definition of the operation.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866263"></A><A NAME="marker-867578"></A>Return values </H5>
+<P CLASS="Body">
+<A NAME="pgfId-866264"></A>The function defined by the IDL operation returns multiple values. The first value returned is that value corresponding to the declared return value, unless the declared return value is void. Following the value corresponding to the declared return value, if any, the succeeding returned values correspond to the parameters that were declared <CODE CLASS="Code">
+out</CODE>
+ and <CODE CLASS="Code">
+inout</CODE>
+, in the order in which those parameters were declared in the IDL declaration.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866265"></A>Note that this implies that generated functions corresponding to operations declared void, which have neither <CODE CLASS="Code">
+out</CODE>
+ nor <CODE CLASS="Code">
+inout</CODE>
+ formal parameters, return zero values.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866266"></A><A NAME="marker-867580"></A>oneway</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866267"></A>Operations declared <CODE CLASS="Code">
+oneway</CODE>
+ are mapped according to the above rules.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866268"></A><A NAME="marker-867582"></A>Efficiency optimization: Using macros instead of functions</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866269"></A>A conforming implementation may map an operation to a macro whose name and invocation syntax are consistent with the above mapping. For the sake of terminological simplicity, however, this document will continue to refer to mapped operations as &quot;functions&quot;.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866270"></A><A NAME="marker-867584"></A>exception </H5>
+<P CLASS="Body">
+<A NAME="pgfId-866271"></A>An invocation of a function corresponding to a given IDL operation may result in the certain conditions being signalled, including the conditions generated by the exceptions declared in the <CODE CLASS="Code">
+raises</CODE>
+ clause of the operation, if any. Such conditions are signalled in the dynamic environment of the caller.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866272"></A>An invocation of a function may also result in the signalling of conditions corresponding to system exceptions.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866273"></A><A NAME="marker-867586"></A>context</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866274"></A>If the operation is specified to take a context (using the IDL <CODE CLASS="Code">
+context</CODE>
+ clause), the generated operation takes an extra optional parameter corresponding to a <CODE CLASS="Code">
+context</CODE>
+ object generated using the normal IDL context manipulation operations.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866275"></A><B CLASS="Bold">
+For example, in IDL:</B>
+</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866276"></A>module example {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866277"></A>  interface face {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866278"></A>    long sample_method (in long arg);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866279"></A>    void voidmethod();</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866280"></A>    void voidmethod2(out short arg);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866281"></A>    string method3 (out short arg1,inout string arg2,in boolean arg3);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866282"></A>  };</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866283"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866284"></A><B CLASS="Bold">
+In generated Lisp:</B>
+</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866285"></A>(defpackage :example)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866286"></A>(defclass example:face (corba:object)())</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866287"></A>...</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866288"></A><B CLASS="Bold">
+And in use:</B>
+</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866289"></A>; Suppose x is bound to a value of class example:face.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866290"></A>(sample_method x 3)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866291"></A>&gt; 24</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866292"></A>(voidmethod x)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866293"></A>&gt; ; No values returned</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866294"></A>(voidmethod2 x)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866295"></A>&gt; 905 ; This is the value corresponding to the out arg</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866296"></A>(method3 x &quot;Argument corresponding to arg2&quot; T)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866297"></A>&gt; &quot;The values returned&quot; -23 &quot;New arg2 value&quot;</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866298"></A>; The Lisp construct multiple-value-bind can also be used </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866299"></A>; to recover these values.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866300"></A>(multiple-value-bind (result arg1 arg2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866301"></A>   (method3 x &quot;Argument corresponding to arg2&quot; T)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866302"></A>(list result arg1 arg2))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866303"></A>&gt; (&quot;The values returned&quot; -23 &quot;New arg2 value&quot;)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866304"></A><A NAME="marker-867588"></A><A NAME="marker-867690"></A>Mapping for attribute </H5>
+<P CLASS="Body">
+<A NAME="pgfId-866305"></A>An attribute is mapped using a naming convention similar to that for operation.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866306"></A><A NAME="marker-867590"></A><A NAME="marker-867746"></A>readonly attribute </H5>
+<P CLASS="Body">
+<A NAME="pgfId-866307"></A>An attribute that is declared with the <CODE CLASS="Code">
+readonly</CODE>
+ modifier is mapped to a method whose name is the name of the given attribute and whose home package is the <CODE CLASS="Code">
+operation</CODE>
+ package.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866308"></A>This method is specialized on the class corresponding to the IDL interface in which the attribute is defined.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866309"></A>normal attribute</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866310"></A>Attributes that are not declared <CODE CLASS="Code">
+readonly</CODE>
+ are mapped to a pair of methods that follow the convention used for default slot accessors generated by <CODE CLASS="Code">
+defclass</CODE>
+. Specifically, a <I CLASS="Italic">
+reader-method</I>
+ is defined whose name follows the convention for <CODE CLASS="Code">
+readonly</CODE>
+ attributes. A <I CLASS="Italic">
+writer</I>
+ is defined whose name is (<CODE CLASS="Code">
+setf name</CODE>
+) where <CODE CLASS="Code">
+name</CODE>
+ is the name of the defined <CODE CLASS="Code">
+reader-method</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866311"></A>For example, in IDL:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866312"></A>module example{   </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866313"></A>  interface attributes {     </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866314"></A>    attribute string attr1;    </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866315"></A>    readonly attribute long attr2;};} </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866316"></A><B CLASS="Bold">
+And in use</B>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866317"></A>;; Assume x is bound to an object of class example:attributes</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866318"></A>(attr2 x)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866319"></A>&gt; 40001</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866320"></A>(attr1 x)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866321"></A>&gt; &quot;Sample&quot;</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866322"></A>(setf (attr1 x) &quot;New value&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866323"></A>&gt; &quot;New value&quot;</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866324"></A>(attr1 x)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866325"></A>&gt; &quot;New value&quot;</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866326"></A><A NAME="marker-867594"></A><A NAME="marker-867716"></A>Mapping of module </H5>
+<P CLASS="Body">
+<A NAME="pgfId-866327"></A>An IDL module is mapped to a Lisp package whose name is the name of the scoped symbol for that module.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866328"></A><B CLASS="Bold">
+For example, in IDL</B>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866329"></A>interface outer_interface {};</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866330"></A>module example {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866331"></A>  interface inner_interface {};</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866332"></A>  module nested_inner_example {...</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866333"></A>    interface nested_inner_interface{};</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866334"></A>    module doubly_nested_inner_example{...};</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866335"></A>  };</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866336"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866337"></A><B CLASS="Bold">
+And in generated Lisp:</B>
+</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866338"></A>(defpackage :example)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866339"></A>(defpackage :example/nested_inner_example)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866340"></A>(defpackage   :example/nested_inner_example/doubly_nested_inner_example)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866341"></A>(defclass omg.root:outer_interface...)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866342"></A>(defclass example:inner_interface ...)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866343"></A>(defclass example/nested_inner_example:nested_inner_interface...)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866344"></A><A NAME="marker-867596"></A><A NAME="marker-867698"></A>Mapping for enum</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866345"></A>An IDL <CODE CLASS="Code">
+enum</CODE>
+ is mapped to a Lisp type whose name is the corresponding scoped symbol.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866346"></A>Each member of the <CODE CLASS="Code">
+enum</CODE>
+ is mapped to a symbol with the same name as that member whose home package is the keyword package.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866347"></A><B CLASS="Bold">
+For example, in IDL</B>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866348"></A>module example{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866349"></A>  enum foo {hello, goodbye, farewell};</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866350"></A>};</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866351"></A><B CLASS="Bold">
+In generated Lisp:</B>
+</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866352"></A>(defpackage :example)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866353"></A>(deftype example:foo ()</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866354"></A>'(member :hello :goodbye :farewell))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866355"></A><B CLASS="Bold">
+And in use</B>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866356"></A>(typep :goodbye 'example:foo)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866357"></A>&gt; T</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866358"></A>(typep :not-a-member 'example:foo)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866359"></A>&gt; nil</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866360"></A><A NAME="marker-867598"></A><A NAME="marker-867708"></A>Mapping for struct</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866361"></A>An IDL <CODE CLASS="Code">
+struct</CODE>
+ is mapped to a Lisp type whose name is the corresponding scoped symbol. Each member of the <CODE CLASS="Code">
+struct</CODE>
+ is mapped to an initialization keyword, a reader, and a writer. The initialization keyword is a symbol whose name is the name of the member and whose package is the keyword package.</P>
+<P CLASS="Body">
+<A NAME="pgfId-867019"></A>The reader is named by a symbol that follows the conventions for attribute accessors. In the case of a reader, its package is the operation package, and its name is the name of the member. The writer is formed by using <CODE CLASS="Code">
+setf</CODE>
+ on the generalized place named by the reader.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866362"></A>The type <CODE CLASS="Code">
+corba:struct</CODE>
+ is supertype of all such generated types.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866363"></A>An IDL <CODE CLASS="Code">
+struct</CODE>
+ has a corresponding constructor whose name is the same as the name of the mapped Lisp type. This constructor takes keyword arguments whose package is the keyword package and whose name equals the name of the corresponding member.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866364"></A>For example, in IDL:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866365"></A>module structmodule{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866366"></A>  struct struct_type {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866367"></A>    long field1;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866368"></A>    string field2;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866369"></A>  };</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866370"></A>};</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866371"></A><B CLASS="Bold">
+In generated Lisp:</B>
+</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866372"></A>(defpackage :structmodule)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866373"></A>(defstruct structmodule:struct_type ...)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866374"></A><B CLASS="Bold">
+And a usage example</B>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866375"></A>(setq struct (structmodule:struct_type</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866376"></A>  :field1 100000</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866377"></A>  :field2 &quot;The value of field2&quot;))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866378"></A>(op:field1 struct)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866379"></A>&gt; 100000</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866380"></A>(setf (op:field1 struct) -500)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866381"></A>&gt; -500</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866382"></A>(op:field1 struct)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866383"></A>&gt; -500</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866384"></A><A NAME="marker-867600"></A><A NAME="marker-867712"></A>Mapping for union</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866385"></A>An IDL <CODE CLASS="Code">
+union</CODE>
+ is mapped to a Lisp type named by the corresponding scoped symbol. This type is a subtype of <CODE CLASS="Code">
+corba:union</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866386"></A>The value of the discriminator can be accessed using the accessor function named <CODE CLASS="Code">
+union-discriminator</CODE>
+ whose home package is the <CODE CLASS="Code">
+operation</CODE>
+ package and using an initialization argument named <CODE CLASS="Code">
+:union-discriminator</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866387"></A>The value can be accessed using the accessor function named <CODE CLASS="Code">
+union-value</CODE>
+ in the <CODE CLASS="Code">
+operation</CODE>
+ package with initialization argument <CODE CLASS="Code">
+:union-value</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-867031"></A>An IDL <CODE CLASS="Code">
+union</CODE>
+ has a corresponding constructor whose name is the same as the name of the type. This constructor takes two constructors whose names are :<CODE CLASS="Code">
+union-value</CODE>
+ and <CODE CLASS="Code">
+:union-discriminator</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-867032"></A><A NAME="marker-867602"></A>Member accessors</H5>
+<P CLASS="Body">
+<A NAME="pgfId-867033"></A>Each <CODE CLASS="Code">
+union</CODE>
+ member has an associated constructor and accessor.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866391"></A>The symbol-name of the name of the constructor corresponding to a particular member is the concatenation of the name of the union constructor to the scoping separator to the name of the member. The home package of the name of the constructor corresponding to a particular member is the home package of the name of the union constructor. A constructor corresponding to a member takes a single argument, the value of the union. The discriminator is set to the value of the first case label corresponding to that member.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866392"></A>It is an error if a member reader is invoked on a union whose discriminator value is not legal for that member. The member writer sets the discriminator value to the first case label corresponding to that member.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866393"></A>The default member is treated as if it were a member named <CODE CLASS="Code">
+default</CODE>
+ whose case labels include all legal case labels that are not case labels of other members in the union.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866394"></A>For example, in IDL:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-867940"></A>module example {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867941"></A>  enum enum_type {first,second,third,fourth,fifth};</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867942"></A>  union union_type switch (enum_type) {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866398"></A>    case first: long win;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866399"></A>    case second: short place;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866400"></A>    case third:</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866401"></A>    case fourth: octet show;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866402"></A>    default: boolean other;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866403"></A>  };</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866404"></A>};</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866405"></A>In generated Lisp:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-867036"></A>(defpackage :example) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-867440"></A>(defstruct (example:union_type ...)) </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-867037"></A>And in use:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-867038"></A>(setq union </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867441"></A>  (example:union_type</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866409"></A>     :union-discriminator :first</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866410"></A>     :union-value -100000))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866411"></A>(op:union-value union)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866412"></A>&gt; -100000</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866413"></A>(op:union-discriminator union)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866414"></A>&gt; :FIRST</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866415"></A>(setq same-union (example:union_type/win -100000))</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866416"></A>(op:union-discriminator same-union)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866417"></A>&gt; :FIRST</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866418"></A>(setf (op:show same-union) 3)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866419"></A>&gt; 3</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866420"></A>(op:union-discriminator same-union)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866421"></A>&gt; :THIRD</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866422"></A>(op:show same-union)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866423"></A>&gt; 3</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866424"></A>(setf (op:default same-union) nil)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866425"></A>&gt; nil</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866426"></A>(op:union-discriminator same-union)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866427"></A>&gt; :FIFTH</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866428"></A><A NAME="marker-867604"></A><A NAME="marker-867696"></A>Mapping for const </H5>
+<P CLASS="Body">
+<A NAME="pgfId-866429"></A>An IDL <CODE CLASS="Code">
+const</CODE>
+ is mapped to a Lisp constant whose name is the scoped symbol corresponding to that const and whose value is the mapped version of the corresponding value.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866430"></A>For example, in IDL:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866431"></A>module example {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866432"></A>  const long constant = 321;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866433"></A>};</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866434"></A>And in generated Lisp:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866435"></A>(defpackage :example)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866436"></A>(defconstant example:constant 321)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866437"></A><A NAME="marker-867606"></A><A NAME="marker-867688"></A>Mapping for array </H5>
+<P CLASS="Body">
+<A NAME="pgfId-866438"></A>An IDL <CODE CLASS="Code">
+array</CODE>
+ is mapped to a Lisp <CODE CLASS="Code">
+array</CODE>
+ of the same rank. The element type of the mapped array must be a supertype of the Lisp type into which the element type of the IDL <CODE CLASS="Code">
+array</CODE>
+ is mapped.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866439"></A>Multidimensional IDL arrays are mapped to multidimensional Lisp arrays of the same dimensions.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866440"></A>For example, in IDL:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866441"></A>module example {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866442"></A>  typedef short array1[2];</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866443"></A>  interface array_interface{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866444"></A>    array1 op();</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866445"></A>  }</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866446"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866447"></A>In generated Lisp:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866448"></A>(defpackage :example)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866449"></A>(deftype example:array1 () '(array t (2)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866450"></A>;; mapping for the interface...</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866451"></A>(defclass example:array_interface...)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866452"></A>And in use:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866453"></A>(setq a2 (op x)) ; Get an array</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866454"></A>(aref a2 1) ; Access an element</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866455"></A>&gt; 3 ; Just an example, could be any value that is a short</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866456"></A><A NAME="marker-867608"></A><A NAME="marker-867706"></A>Mapping for sequence</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866457"></A>An IDL sequence is mapped to a Lisp sequence. Bounds checking shall be done on bounded sequences when they are marshaled as parameters to IDL operations. An implementation is free to specify the type of the mapped list more specifically.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866458"></A>Suppose <EM CLASS="Variable">
+foo</EM>
+ is an IDL data type and let <EM CLASS="Variable">
+L</EM>
+ be the corresponding Lisp type. This means that anywhere a parameter of type <CODE CLASS="Code">
+sequence&lt;</CODE>
+<EM CLASS="Variable">
+foo</EM>
+<CODE CLASS="Code">
+&gt;</CODE>
+ is expected, either a vector (all of whose elements are of type <EM CLASS="Variable">
+L</EM>
+) or a list (all of whose elements are of type <EM CLASS="Variable">
+L</EM>
+) may be passed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866459"></A>Conversely, when such a sequence is returned from an operation invocation, the LispWorks ORB will always return a value of type <CODE CLASS="Code">
+vector</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866460"></A>For example, in IDL:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866461"></A>module example {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866462"></A>  typedef sequence&lt; long &gt; unbounded_data;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866463"></A>  interface seq{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866464"></A>    boolean param_is_valid(in unbounded_data arg);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866465"></A>  };</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866466"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866467"></A>And in generated Lisp:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866468"></A>(defpackage :example)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866469"></A>(defun unbounded_data_p (sequence)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866470"></A>  (and (typep sequence 'sequence)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866471"></A>       (every #'(lambda(elt)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866472"></A>          (typep elt 'corba:long)))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866473"></A>(deftype example:unbounded_data()</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866474"></A>  '(satisfies unbounded_data-p))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866475"></A>; Let x be an object of type example:seq</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866476"></A>(param_is_valid x '(-2 3))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866477"></A>&gt; T</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866478"></A>(param_is_valid x #(-200 33))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866479"></A>&gt;T</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866480"></A><A NAME="marker-867610"></A><A NAME="marker-867700"></A>Mapping for exception</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866481"></A>Each IDL exception is mapped to a Lisp condition whose name is the scoped symbol for that exception. User exceptions inherit from a condition named <CODE CLASS="Code">
+corba:userexception</CODE>
+. And <CODE CLASS="Code">
+exception</CODE>
+ is a subclass of <CODE CLASS="Code">
+serious-condition</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866482"></A>System exceptions inherit from a condition named <CODE CLASS="Code">
+corba:systemexception</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866483"></A>Both <CODE CLASS="Code">
+corba:userexception</CODE>
+ and <CODE CLASS="Code">
+corba:systemexception</CODE>
+ inherit from the condition <CODE CLASS="Code">
+corba:exception</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866484"></A><A NAME="marker-867612"></A>User exception</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866485"></A>The reader functions and initialization arguments for a condition generated by an IDL exception follow the convention for the mapping of IDL structs. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866486"></A>module example {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866487"></A>  exception ex1 { string reason; };</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866488"></A>};</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866489"></A>; generated Lisp</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866490"></A>(defpackage :example)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866491"></A>(define-condition example:ex1 (corba:userexception)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866492"></A>	((reason :initarg :reason ...)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866493"></A>; Usage example</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866494"></A>(error (example:ex1 :reason &quot;Example of condition&quot;))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866495"></A><A NAME="marker-867614"></A>System exception</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866496"></A>The standard IDL system exceptions are mapped to Lisp conditions that are subclasses of <CODE CLASS="Code">
+corba:systemexception</CODE>
+. Such generated conditions have reader-functions and initargs consistent with the IDL definition of these exceptions.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866497"></A><A NAME="marker-867616"></A><A NAME="marker-867710"></A>Mapping for typedef</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866498"></A>IDL <CODE CLASS="Code">
+typedef</CODE>
+ is mapped to a Lisp type whose name is the scoped symbol corresponding to that typedef. This name of this type denotes the set of Lisp values that correspond to the Lisp type that is generated by the mapping of the IDL type to which the typedef corresponds.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866499"></A>However, it is not required to perform recursive checking of the contents of constructed types like <CODE CLASS="Code">
+array</CODE>
+, <CODE CLASS="Code">
+sequence</CODE>
+, and <CODE CLASS="Code">
+struct</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-866500"></A>For example, in IDL:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866501"></A>module example{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866502"></A>  typedef unsigned long foo;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866503"></A>  typedef string bar;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866504"></A>};</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866505"></A>In generated Lisp:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866506"></A>(defpackage :example)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866507"></A>(deftype example:foo () 'corba:ulong)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866508"></A>(deftype example:bar() 'corba:string)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866509"></A>And in use:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866510"></A>(typep -3 'example:foo)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866511"></A>&gt; nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866512"></A>(typep 6000 'example:bar)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866513"></A>&gt; nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866514"></A>(typep &quot;hello&quot; 'example:bar)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866515"></A>&gt;T</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866516"></A><A NAME="marker-867618"></A><A NAME="marker-867686"></A>Mapping for &quot;any&quot;</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866517"></A>The IDL type <CODE CLASS="Code">
+any</CODE>
+ represents an IDL entity with an associated typecode and value. It is mapped to the type <CODE CLASS="Code">
+corba:any</CODE>
+, which encompasses all Lisp values with a corresponding typecode.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866518"></A><A NAME="marker-867620"></A>Constructors</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866519"></A>The constructor <CODE CLASS="Code">
+corba:any</CODE>
+ takes two keyword arguments named <CODE CLASS="Code">
+any-value</CODE>
+ and <CODE CLASS="Code">
+any-typecode</CODE>
+. If <CODE CLASS="Code">
+any-typecode</CODE>
+ is specified, then <CODE CLASS="Code">
+any-value</CODE>
+ must be specified. If <CODE CLASS="Code">
+any-value</CODE>
+ and <CODE CLASS="Code">
+any-typecode</CODE>
+ are each specified, then <CODE CLASS="Code">
+any-value</CODE>
+ must be a member of the type denoted by <CODE CLASS="Code">
+any-typecode</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866520"></A>An <CODE CLASS="Code">
+any</CODE>
+ may also be created with the invocation:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866521"></A>(corba:any :any-typecode val :any-value type)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866522"></A><A NAME="marker-867622"></A><A NAME="marker-867792"></A>The deduced typecode</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866523"></A>The actual typecode of a Lisp value <EM CLASS="Variable">
+v</EM>
+ is defined as follows:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866524"></A>If the value is an integer, then <CODE CLASS="Code">
+corba:_tc_long</CODE>
+.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866525"></A>If the value is a typecode, then <CODE CLASS="Code">
+corba:_tc_typecode</CODE>
+.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866526"></A>If the value is of type <CODE CLASS="Code">
+corba:object</CODE>
+, then the typecode of the corba object reference.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866527"></A>If the value is a single-float, then <CODE CLASS="Code">
+corba:_tc_float</CODE>
+. </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866528"></A>If the value is a double-float, then <CODE CLASS="Code">
+corba:_tc_double</CODE>
+.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866529"></A>If the value is a symbol of type <CODE CLASS="Code">
+nil</CODE>
+ or <CODE CLASS="Code">
+t</CODE>
+, then <CODE CLASS="Code">
+corba:_tc_boolean</CODE>
+.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866530"></A>If the value is a character, then <CODE CLASS="Code">
+corba:_tc_char</CODE>
+.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866531"></A>If the value is an any, then <CODE CLASS="Code">
+corba:_tc_any</CODE>
+.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866532"></A>If the value is a structure, exception, or union, then the relevant type from the IDL.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866533"></A>If the value is a string, then <CODE CLASS="Code">
+corba:_tc_string</CODE>
+ (an unbounded string).</LI>
+</UL>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866534"></A><A NAME="marker-867624"></A>Mapping overview</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866535"></A>The detailed mapping guidelines for specific types is designed to conform to a small set of uniform principles.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866536"></A><A NAME="marker-867626"></A>Rule 1: How names of types are formed</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866537"></A>If an IDL identifier <EM CLASS="Variable">
+I</EM>
+ names a type at the top level of some module named <EM CLASS="Variable">
+M</EM>
+, then the corresponding Lisp type is named <CODE CLASS="Code">
+M:I</CODE>
+, that is, the symbol in package <EM CLASS="Variable">
+M</EM>
+ whose name is the string &quot;<EM CLASS="Variable">
+I</EM>
+&quot;.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866538"></A>Nested types are separated by the character &quot;<CODE CLASS="Code">
+/</CODE>
+&quot;. Thus, if there is another type <EM CLASS="Variable">
+J</EM>
+ defined within the scope of the type named by <EM CLASS="Variable">
+I</EM>
+, the corresponding Lisp symbol is <CODE CLASS="Code">
+M:I/J</CODE>
+. This retains consistency with the way in which repository IDs are formed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866539"></A><A NAME="marker-867628"></A>Rule 2: How names of operations are formed</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866540"></A>The rule for <CODE CLASS="Code">
+operation</CODE>
+ package mapping is simpler: all symbols that correspond to Lisp functions that correspond to IDL operations are interned in a single package. This package can be denoted by &quot;<CODE CLASS="Code">
+OP</CODE>
+&quot;. Thus, <CODE CLASS="Code">
+op:foo</CODE>
+ denotes the operation named <CODE CLASS="Code">
+foo</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866541"></A><A NAME="marker-867630"></A><A NAME="marker-867776"></A><A NAME="marker-867770"></A>Rule 3: Lisp functions corresponding to IDL types</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866542"></A>IDL defines many kinds of types: unions, structs, interfaces, and exceptions. We can think of each of these types, informally, as denoting entities with <I CLASS="Italic">
+named slots</I>
+. For example, the named slots of a <CODE CLASS="Code">
+struct</CODE>
+, <CODE CLASS="Code">
+union</CODE>
+, or <CODE CLASS="Code">
+exception</CODE>
+ are its members; the named slots of an <CODE CLASS="Code">
+interface</CODE>
+ are its attributes.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866543"></A>For each IDL type, there is an associated constructor function that creates a value of that type and there are accessors for each member.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866545"></A><B CLASS="Bold">
+The constructor Function</B>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-867053"></A>The constructor function corresponding to a type is identical to the (fully scoped) name of the type. It takes keyword initialization arguments whose names are the names of the named members of that type; these initialize the given members.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866547"></A><B CLASS="Bold">
+Accessing the Members</B>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-867056"></A>Each named slot defines two functions: a reader and a writer. The reader has the same name as the named slot. The writer uses the standard <CODE CLASS="Code">
+(setf name)</CODE>
+ convention familiar to Lisp users. Of course, the home package of the reader is, as for all such function names, the package <CODE CLASS="Code">
+OP</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866548"></A><B CLASS="Bold">
+Note: </B>
+In applying Rule 3, remember that not all of the associated functions make sense for all of the types. For example, there is obviously no constructor function defined for an interface, nor are there writer functions defined for attributes declared readonly.</P>
+</DIV>
+</DIV>
+<DIV>
+<H4 CLASS="FM1Heading-App">
+<A NAME="pgfId-866549"></A><A NAME="marker-867632"></A><A NAME="marker-867724"></A>Mapping pseudo-objects to Lisp</H4>
+<P CLASS="Body">
+<A NAME="pgfId-866550"></A><I CLASS="Italic">
+Pseudo-objects</I>
+ are constructs whose definition is usually specified in IDL, but whose mapping is language specified. A pseudo-object is not (usually) a regular CORBA object.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866551"></A>A pseudo-object differs from a regular CORBA object in the following ways:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866552"></A>It is not represented in the Interface Repository.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866553"></A>It may not be passed as a parameter to an operation expecting a CORBA object.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866554"></A>It may not be returned as a CORBA Object.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866555"></A>It may not be stored in an <CODE CLASS="Code">
+any</CODE>
+.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866556"></A>If it is represented as a class, it may not be safely subclassed by user code.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-867061"></A>We have chosen the option allowed in the IDL specification to define <CODE CLASS="Code">
+status</CODE>
+ as <CODE CLASS="Code">
+void</CODE>
+ and have eliminated it for the convenience of Lisp programmers.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866558"></A>Each of the standard IDL pseudo-objects is mapped according to the translation rules just defined.</P>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866559"></A><A NAME="marker-867634"></A><A NAME="marker-867732"></A>Narrowing</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866560"></A>In line with the other language binding, we define an operation for narrowing an object reference. The code:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866561"></A>(op:narrow class-symbol object-refence)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866562"></A>attempts to narrow the given object reference into an object of the named client-side class.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866563"></A>For example, to narrow an client-side value stored in <CODE CLASS="Code">
+account-ref</CODE>
+, into an object of type <CODE CLASS="Code">
+Bankingdemo:Checkingaccount</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866564"></A>(when (op:Is_a account-ref </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866565"></A>        (op:id Bankingdemo:_Tc_Checkingaccount))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866566"></A>   (setf account-ref </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866567"></A>   (op:narrow 'Bankingdemo:Checkingaccount account-ref)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866569"></A><A NAME="marker-867636"></A>Typecodes for parsed IDL </H5>
+<P CLASS="Body">
+<A NAME="pgfId-866570"></A>Parameters holding the typecode value are generated for all parsed IDL types. If the IDL parser generates a Lisp type of name <CODE CLASS="Code">
+A:B</CODE>
+, then the typecode of the given type is available in the parameter <CODE CLASS="Code">
+A:_TC_B</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866571"></A>For example, the IDL code</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866572"></A>module example { interface array_interface{}}; </CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866573"></A>leads to the definition of a parameter</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866574"></A>example:_tc_array_interface </CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866575"></A>with</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866576"></A>(op:kind example:_tc_array_interface)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866577"></A>&gt; :tk_objref</PRE>
+</DIV>
+</DIV>
+<DIV>
+<H4 CLASS="FM1Heading-App">
+<A NAME="pgfId-866579"></A><A NAME="marker-867638"></A><A NAME="marker-867802"></A><A NAME="90260"></A>The mapping of IDL into Common Lisp servants</H4>
+<P CLASS="Body">
+<A NAME="pgfId-866581"></A>This section discusses how implementations create and register objects with the ORB runtime.</P>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866582"></A><A NAME="marker-867640"></A><A NAME="marker-867720"></A><A NAME="marker-867718"></A>Mapping of native types</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866583"></A>Specifically, the native type <CODE CLASS="Code">
+PortableServer::Servant</CODE>
+ is mapped to the Lisp class named <CODE CLASS="Code">
+PortableServer:ServantBase</CODE>
+. The native type <CODE CLASS="Code">
+PortableServer::ServantLocator::Cookie</CODE>
+ can take any lisp value.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866584"></A><A NAME="marker-867642"></A>Implementation objects</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866585"></A>An interface corresponding to a class named by a Lisp symbol <EM CLASS="Variable">
+s</EM>
+ with package <EM CLASS="Variable">
+p</EM>
+ and name <EM CLASS="Variable">
+n</EM>
+ may be implemented by extending the class named by the symbol whose package is <EM CLASS="Variable">
+p</EM>
+ and whose name is the concatenation of <EM CLASS="Variable">
+n</EM>
+ to the string &quot;<CODE CLASS="Code">
+-SERVANT</CODE>
+&quot;.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866586"></A>If the interface has no base interfaces, then the associated skeleton class has as direct superclasses the class corresponding to the class named <CODE CLASS="Code">
+portableserver:ServantBase</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866587"></A>Otherwise, if the interface has base interfaces named <EM CLASS="Variable">
+A</EM>
+, <EM CLASS="Variable">
+B</EM>
+, <EM CLASS="Variable">
+C</EM>
+, and so forth, then its associated servant class has as direct superclasses the class corresponding to the servant classes corresponding to <EM CLASS="Variable">
+A</EM>
+, <EM CLASS="Variable">
+B</EM>
+, <EM CLASS="Variable">
+C</EM>
+, and so forth.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866588"></A>Attributes in an interface generate slots of the corresponding name in the <CODE CLASS="Code">
+OP</CODE>
+ package, together with server-side <CODE CLASS="Code">
+accessor</CODE>
+ methods.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM2Heading-App">
+<A NAME="pgfId-866589"></A><A NAME="marker-867644"></A><A NAME="marker-867650"></A>Defining methods</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866590"></A>The only portable way to implement an operation on a servant class is to use the <CODE CLASS="Code">
+corba:define-method</CODE>
+ macro. The syntax of <CODE CLASS="Code">
+corba:define-method</CODE>
+ is intended to follow the syntax of the Lisp <CODE CLASS="Code">
+defmethod</CODE>
+ macro as closely as possible.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866591"></A>The syntax of <CODE CLASS="Code">
+corba:define-method</CODE>
+ is as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866592"></A>corba:define-method function-name {method-qualifier}* lambda-list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866594"></A>   form*</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866595"></A>function-name::= {operation-name | (setf operation-name)}</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866596"></A>operation-name:: symbol</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866597"></A>method-qualifier::={:before | :after | :around}</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866598"></A>corba-specialized-lambda-list ::= setf-lambda-list </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866599"></A>                                  | normal-lambda-list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866600"></A>setf-lambda-list ::= (argument-specifier receiver-specifier)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866601"></A>normal-lambda-list ::= (receiver-specifier {parameter-specifer}* context-identifier)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866602"></A>context-identifier ::= symbol</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866603"></A>receiver-specifer ::= (receiver-name receiver-class)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866604"></A>receiver-name ::= symbol</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866605"></A>receiver-class ::= symbol</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866606"></A>parameter-specifier ::= symbol</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866607"></A>This <CODE CLASS="Code">
+corba:define-method</CODE>
+ macro is used to implement an operation on an interface. <CODE CLASS="Code">
+operation-name</CODE>
+ is a symbol whose name is the name either of an operation or of an attribute declared in an IDL interface implemented by the class named by the symbol <CODE CLASS="Code">
+receiver-class</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-867074"></A>The number of <CODE CLASS="Code">
+parameter-specifiers</CODE>
+ listed in the <CODE CLASS="Code">
+normal-lambda-list</CODE>
+ must equal the combined number of <CODE CLASS="Code">
+in</CODE>
+ and <CODE CLASS="Code">
+inout</CODE>
+ parameters declared in the signature of the operation denoted by the <CODE CLASS="Code">
+function-name</CODE>
+, or <CODE CLASS="Code">
+0</CODE>
+ if the operation is an attribute. If the <CODE CLASS="Code">
+function-name</CODE>
+ is a list whose <CODE CLASS="Code">
+car</CODE>
+ is <CODE CLASS="Code">
+setf</CODE>
+, the corresponding <CODE CLASS="Code">
+operation-name</CODE>
+ should name an attribute that is not readonly.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866609"></A>If function-name denotes an operation, then the effect of <BR>
+<CODE CLASS="Code">
+corba:define-method</CODE>
+ is to inform the ORB that requests for the operation on instances of the class <CODE CLASS="Code">
+receiver-class</CODE>
+ should return the value or values returned by the body forms of the <CODE CLASS="Code">
+define-method</CODE>
+ macro, executed in a new lexical environment in which each <CODE CLASS="Code">
+parameter-specifier</CODE>
+ is bound to the actual parameters and in which the <CODE CLASS="Code">
+context-identifer</CODE>
+ is bound to the value of the corresponding context.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866610"></A>The operation of <CODE CLASS="Code">
+corba:define-method</CODE>
+ in the case in which <CODE CLASS="Code">
+function-name</CODE>
+ names an attribute is analogous. The behavior of auxiliary specifiers and of dispatch is the same as their corresponding action under defmethod. Attribute accessors will be generated automatically and inherited by subclasses of the servant classes; the methods can be overridden by user definitions.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866611"></A>Note that the syntax of <CODE CLASS="Code">
+corba:define-method</CODE>
+ is a strict subset of that of <CODE CLASS="Code">
+defmethod</CODE>
+: every legal <CODE CLASS="Code">
+corba:define-method</CODE>
+ invocation is also a legal <CODE CLASS="Code">
+defmethod</CODE>
+ invocation. The main difference between them is that <CODE CLASS="Code">
+corba:define-method</CODE>
+ only allows specialization on the first argument. An implementation is free to extend the syntax of <CODE CLASS="Code">
+corba:define-method</CODE>
+, for example, to allow type-checking, interlocking, or multiple dispatch.</P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-867080"></A><A NAME="marker-867646"></A>Examples</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866612"></A><B CLASS="Bold">
+A Named Grid Example</B>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-867081"></A>The first example shows how one might encapsulate a <I CLASS="Italic">
+named grid</I>
+, which is a grid of strings.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866614"></A>This is the IDL of the interface to a named grid of strings:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866615"></A>module example{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866616"></A>  interface named_grid{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866617"></A>    readonly attribute string name;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866618"></A>    string get_value ( in unsigned short row,</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866619"></A>        in unsigned short column);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866620"></A>    void set_value ( in unsigned short row,</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866621"></A>        in unsigned short column,</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866622"></A>        in string value);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866623"></A>  }</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866624"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866626"></A>The IDL compiler might generate a class corresponding to the <CODE CLASS="Code">
+example::named_grid</CODE>
+ interface using code something like this: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866627"></A>(defpackage :example)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866628"></A>(defclass example:named_grid(corba:object)())</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866629"></A><B CLASS="Bold">
+Servant Class Examples</B>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-866630"></A>In order to implement the IDL interface, the user would extend the class <CODE CLASS="Code">
+example:named_grid-servant</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866631"></A>;;Sample implementation of named_grid</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866632"></A>(defclass grid-implementation (example:named_grid-servant)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866634"></A>  ((grid :initarg :grid</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866635"></A>        :initform (make-array '(2 3) :initial-element &quot;Init&quot;)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866636"></A>The attribute in the IDL will cause the class to have a slot <CODE CLASS="Code">
+op:name</CODE>
+ with the appropriate accessors specializing on the class. </P>
+</DIV>
+<DIV>
+<H5 CLASS="FM3Heading-App">
+<A NAME="pgfId-866637"></A><A NAME="marker-867648"></A><A NAME="marker-867672"></A>Implementation of the IDL operations</H5>
+<P CLASS="Body">
+<A NAME="pgfId-866638"></A>The <CODE CLASS="Code">
+corba:define-method</CODE>
+ macro is used to define the methods that implement each of the operations defined in the IDL interface. These implementations do not perform any of the argument or range checking that a production system would, of course, perform.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866639"></A>The implementation is free to define other methods on the class, including print-object methods and auxiliary methods for <CODE CLASS="Code">
+initialize-instance</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866640"></A>(corba:define-method get_value ((the-grid grid-implementation)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866641"></A>                                  row column)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866642"></A>  (aref (slot-value the-grid 'grid) row column))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866643"></A>(corba:define-method set_value ((the-grid grid-implementation)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866644"></A>                                  row column value))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866645"></A>  (setf (aref the-grid row column) value))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-865368"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-66.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

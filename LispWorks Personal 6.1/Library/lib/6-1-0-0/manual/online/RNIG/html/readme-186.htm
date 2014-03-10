@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="readme.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.5  Initializing LispWorks
+</TITLE>
+
+<LINK REL="next" HREF="readme-187.htm" TYPE="text/html">
+<LINK REL="prev" HREF="readme-185.htm" TYPE="text/html">
+<LINK REL="up" HREF="readme-174.htm" TYPE="text/html">
+<LINK REL="top" HREF="readme.htm" TYPE="text/html">
+<LINK REL="contents" HREF="readme-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="readme-485.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="readme.htm">LispWorks Release Notes and Installation Guide</A> &gt; <A HREF="readme-174.htm">9 Configuration on Windows</A><BR><BR>
+</DIV><A HREF="readme-187.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-185.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-174.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-892788"></A>9.5  <A NAME="84644"></A>Initializing LispWorks</H3>
+<P CLASS="Body">
+<A NAME="pgfId-892789"></A>When LispWorks starts up, it looks for an initialization file to load. The name of the file is held in <CODE CLASS="Code">
+*init-file-name*</CODE>
+, and is <CODE CLASS="Code">
+&#126;/.lispworks</CODE>
+ by default. You can use parse-namestring to see the expansion of this path. The file may contain any valid Lisp code.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892790"></A>You can load a different initialization file using the option <CODE CLASS="Code">
+-init</CODE>
+<A NAME="marker-908650"></A> in the command line, for example (all on one line):</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-892791"></A>C:&#92;Program Files&#92;LispWorks&gt;lispworks-6-1-0-x86-win32.exe -init my-lisp-init</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-892792"></A>would make LispWorks load <CODE CLASS="Code">
+my-lisp-init.lisp</CODE>
+ as the initialization file instead of that named by <CODE CLASS="Code">
+*init-file-name*</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-892793"></A>The loading of the siteinit file (located by default at <CODE CLASS="Code">
+config&#92;siteinit.lisp</CODE>
+) is similarly controlled by the <CODE CLASS="Code">
+-siteinit</CODE>
+ command line argument or <BR>
+<CODE CLASS="Code">
+*site-init-file-name*</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892794"></A>You can start an image without loading any personal or site initialization file by passing a hyphen to the <CODE CLASS="Code">
+-init</CODE>
+ and <CODE CLASS="Code">
+-siteinit</CODE>
+ arguments instead of a filename:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-892795"></A>C:&#92;Program Files&#92;LispWorks&gt;lispworks-6-1-0-x86-win32.exe -init - -siteinit -</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-892796"></A>This starts the LispWorks image without loading any initialization file. It is often useful to start the image in this way when trying to repeat a suspected bug. You should always start the image without the default initialization files if you are intending to resave it.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892797"></A>In all cases, if the filename is present, and is not a hyphen, LispWorks tries to load it as a normal file by calling <CODE CLASS="Code">
+load</CODE>
+. If the load fails, LispWorks prints an error report. </P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Release Notes and Installation Guide - 23 Dec 2011</I></P>
+<P><A HREF="readme-187.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-185.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-174.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

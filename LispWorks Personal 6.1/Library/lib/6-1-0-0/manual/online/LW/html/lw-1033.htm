@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ initialize-multiprocessing
+</TITLE>
+
+<LINK REL="next" HREF="lw-1034.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1032.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1034.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1032.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-900272"></A><A NAME="86604"></A>initialize<A NAME="marker-1062208"></A>-multiprocessing</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-900273"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-901800"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-901805"></A>Initializes multiprocessing before use.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900274"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-900275"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900276"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-900277"></A>initialize-multiprocessing &amp;rest <EM CLASS="Variable">
+main-process-args</EM>
+ =&gt; nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903137"></A>Arguments</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-903238"></A><EM CLASS="Variable">
+main-process-args</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1119114"></A>A set of arguments for <A HREF="lw-1091.htm#96518" CLASS="XRef">process-run-function</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906001"></A>Values</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-906018"></A>Returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900278"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1119231"></A>The function <CODE CLASS="Code">
+initialize-multiprocessing</CODE>
+ initializes multiprocessing, and it does not return until multiprocessing is finished.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1082468"></A><CODE CLASS="Code">
+initialize-multiprocessing</CODE>
+ applies the function <A HREF="lw-1091.htm#96518" CLASS="XRef">process-run-function</A> to each of the entries in <A HREF="lw-1034.htm#18630" CLASS="XRef">*initial-processes*</A> to create the initial processes.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1115660"></A><A NAME="marker-1119316"></A>When called with <EM CLASS="Variable">
+main-process-args</EM>
+, it creates a <CODE CLASS="Code">
+mp:process</CODE>
+ object for the initial thread using the arguments in that list as if in the call</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1115663"></A>(apply 'mp:process-run-function <EM CLASS="Variable">
+main-process-args</EM>
+)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1115665"></A>Supplying <EM CLASS="Variable">
+main-process-args</EM>
+ is useful on Mac OS X if you want to run a pure Cocoa application, since the main thread needs to run the Cocoa event loop. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-900280"></A>It is not necessary to call <CODE CLASS="Code">
+initialize-multiprocessing</CODE>
+ when the LispWorks IDE is running (that is, after <CODE CLASS="Code">
+env:start-environment</CODE>
+ has been called), as this automatically starts up multiprocessing.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1083173"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1777433"></A>On Microsoft Windows, Linux, x86/x64 Solaris, FreeBSD and Mac OS X (using the Cocoa image), the LispWorks IDE starts up by default.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1119364"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1119449"></A><A HREF="lw-1034.htm#18630" CLASS="XRef">*initial-processes*</A><BR>
+<A HREF="lw-1091.htm#96518" CLASS="XRef">process-run-function</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1034.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1032.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

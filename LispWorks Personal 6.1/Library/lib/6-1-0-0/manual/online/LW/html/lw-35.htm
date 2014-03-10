@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.1  Describe
+</TITLE>
+
+<LINK REL="next" HREF="lw-36.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-34.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-34.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-34.htm">4 The REPL Inspector</A><BR><BR>
+</DIV><A HREF="lw-36.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-34.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886315"></A>4.1  Describe</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886317"></A>The function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-887002"></A><A HREF="lw-641.htm#57917" CLASS="XRef">describe</A> displays the slots of composite data structures in a manner dependent on the type of the object. The slots are labeled with a name where appropriate, or otherwise with a number.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886318"></A>The example below shows the result of calling <A HREF="lw-641.htm#57917" CLASS="XRef">describe</A> on a simple list.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886319"></A>USER 7 &gt; (setq countries '(&quot;Chile&quot; &quot;Peru&quot; &quot;Paraguay&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886320"></A>                             &quot;Brazil&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886321"></A>(&quot;Chile&quot; &quot;Peru&quot; &quot;Paraguay&quot; &quot;Brazil&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886322"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886323"></A>USER 8 &gt; (describe countries)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886324"></A>(&quot;Chile&quot; &quot;Peru&quot; &quot;Paraguay&quot; &quot;Brazil&quot;) is a CONS</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886325"></A>[0] : &quot;Chile&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886326"></A>      </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886327"></A>[1] : &quot;Peru&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886328"></A>      </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886329"></A>[2] : &quot;Paraguay&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886330"></A>      </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886331"></A>[3] : &quot;Brazil&quot;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886332"></A><A HREF="lw-641.htm#57917" CLASS="XRef">describe</A><CODE CLASS="Code">
+ </CODE>
+describes slots recursively up to a limit set by the special variable <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-886999"></A><A HREF="lw-905.htm#42504" CLASS="XRef">*describe-level*</A>. Note that only arrays, structures and conses are printed recursively. The slots of all other object types are only printed when at the top level of <CODE CLASS="Code">
+describe</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886334"></A><A HREF="lw-905.htm#42504" CLASS="XRef">*describe-level*</A> has an initial value of 1.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886335"></A>The symbols<CODE CLASS="Code">
+ </CODE>
+<A NAME="marker-887023"></A><A HREF="lw-907.htm#56013" CLASS="XRef">*describe-print-level*</A> and <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-887029"></A><A HREF="lw-906.htm#84626" CLASS="XRef">*describe-print-length*</A> are similar in effect to <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-887025"></A><A HREF="lw-856.htm#79485" CLASS="XRef">*trace-print-level*</A> and <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-887026"></A><A HREF="lw-855.htm#49788" CLASS="XRef">*trace-print-length*</A>. They control, respectively, the depth to which nested objects are printed (initial value 10), and the number of components of an object which are printed (initial value 10).</P>
+<P CLASS="Body">
+<A NAME="pgfId-886341"></A>To customize <A HREF="lw-641.htm#57917" CLASS="XRef">describe</A>, define new methods on the generic function <CODE CLASS="Code">
+describe-object</CODE>
+<A NAME="marker-887030"></A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-36.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-34.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

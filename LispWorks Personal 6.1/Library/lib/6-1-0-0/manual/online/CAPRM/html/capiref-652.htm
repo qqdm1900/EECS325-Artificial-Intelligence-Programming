@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-graphics-mask
+</TITLE>
+
+<LINK REL="next" HREF="capiref-653.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-651.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-495.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-495.htm">2 GP Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-653.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-651.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-892224"></A><A NAME="marker-892223"></A><A NAME="44555"></A>with-graphics-mask</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-892225"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892226"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892227"></A>Binds the <EM CLASS="Variable">
+mask</EM>
+ slot of a port's graphics state across the execution of a body of code.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1095304"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1095305"></A><CODE CLASS="Code">
+graphics-ports</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892228"></A>Signature</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-892229"></A>with-graphics-mask (<EM CLASS="Variable">port</EM>
+ <EM CLASS="Variable">mask</EM>
+ &amp;key <EM CLASS="Variable">mask-x</EM>
+ <EM CLASS="Variable">mask-y</EM>
+ <EM CLASS="Variable">mask-transform</EM>
+) &amp;body <EM CLASS="Variable">body</EM>
+ =&gt; <EM CLASS="Variable">result</EM>
+</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892231"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892232"></A><EM CLASS="Variable">
+port</EM>
+</P>
+<P CLASS="RDescription-C">A graphics port.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1507900"></A><EM CLASS="Variable">
+mask</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+ or a list specifying a shape.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1005928"></A><EM CLASS="Variable">
+mask-x</P>
+<P CLASS="RDescription-C"></EM>
+An integer. This argument is deprecated.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1005929"></A><EM CLASS="Variable">
+mask-y</P>
+<P CLASS="RDescription-C"></EM>
+An integer. This argument is deprecated.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1523210"></A><A NAME="marker-1523611"></A><EM CLASS="Variable">
+mask-transform</P>
+<P CLASS="RDescription-C"></EM>
+<CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+t</CODE>
+, the keyword <CODE CLASS="Code">
+:dynamic</CODE>
+, or a transform.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-902580"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">A body of Lisp code.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892233"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892234"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The return value of the last form executed in <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892235"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1586059"></A><A NAME="marker-1586058"></A>The macro <CODE CLASS="Code">
+with-graphics-mask</CODE>
+ binds the <EM CLASS="Variable">
+mask</EM>
+ slot of <EM CLASS="Variable">
+port</EM>
+'s <A HREF="capiref-573.htm#89232" CLASS="XRef">graphics-state</A> while evaluating <EM CLASS="Variable">
+body</EM>
+. The mask can be a rectangular area specified by a list of the form (<EM CLASS="Variable">
+x</EM>
+ <EM CLASS="Variable">
+y</EM>
+ <EM CLASS="Variable">
+width</EM>
+ <EM CLASS="Variable">
+height</EM>
+) or a path specified by a list of the form (<CODE CLASS="Code">
+:path</CODE>
+ <EM CLASS="Variable">
+path</EM>
+ <CODE CLASS="Code">
+:fill-rule</CODE>
+ <EM CLASS="Variable">
+fill-rule</EM>
+).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1586063"></A><EM CLASS="Variable">
+mask-x</EM>
+ and <EM CLASS="Variable">
+mask-y</EM>
+ are deprecated. They work only when the <EM CLASS="Variable">
+drawing-mode</EM>
+ is <CODE CLASS="Code">
+:compatible</CODE>
+ and the platform is GTK+ or X11/Motif. By default, <EM CLASS="Variable">
+mask-x</EM>
+ and <EM CLASS="Variable">
+mask-y</EM>
+ are both 0.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1586064"></A>The <EM CLASS="Variable">
+mask-transform</EM>
+ argument is used to set the <EM CLASS="Variable">
+mask-transform</EM>
+ graphics state parameter. If <EM CLASS="Variable">
+mask-transform</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then the <EM CLASS="Variable">
+mask</EM>
+ is not transformed. If <EM CLASS="Variable">
+mask-transform</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, then the <EM CLASS="Variable">
+mask</EM>
+ is transformed by the current graphics state transform at the time that <CODE CLASS="Code">
+with-graphics-mask</CODE>
+ is used. If <EM CLASS="Variable">
+mask-transform</EM>
+ is <CODE CLASS="Code">
+:dynamic</CODE>
+, then the <EM CLASS="Variable">
+mask</EM>
+ is transformed by the graphics state transform that is in effect when the drawing operation uses the mask. Otherwise <EM CLASS="Variable">
+mask-transform</EM>
+ should be a transform object. The default value of the <EM CLASS="Variable">
+mask-transform</EM>
+ argument is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1204621"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1524504"></A>This example file demonstrates the use of <EM CLASS="Variable">
+mask-transform</EM>
+:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1524536"></A>examples/capi/graphics/paths.lisp</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1517191"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1517209"></A><A HREF="capiref-573.htm#89232" CLASS="XRef">graphics-state</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-653.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-651.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

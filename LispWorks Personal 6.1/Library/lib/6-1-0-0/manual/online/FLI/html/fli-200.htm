@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :wrapper
+</TITLE>
+
+<LINK REL="next" HREF="fli-201.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-199.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-156.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-156.htm">6 Type Reference</A><BR><BR>
+</DIV><A HREF="fli-201.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-199.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-890217"></A><A NAME="39892"></A>:wrapper<A NAME="marker-917498"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-890218"></A>FLI type descriptor</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890219"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890220"></A>Allows the specification of automatic conversion functions between Lisp and an instance of a FLI type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890223"></A>Syntax</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-890224"></A>:wrapper <EM CLASS="Variable">
+foreign-type</EM>
+ &amp;key <EM CLASS="Variable">
+lisp-to-foreign</EM>
+ <EM CLASS="Variable">
+foreign-to-lisp</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890225"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890226"></A><EM CLASS="Variable">
+foreign-type</EM>
+</P>
+<P CLASS="RDescription-C">The underlying type to wrap.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-910276"></A><EM CLASS="Variable">
+lisp-to-foreign</EM>
+</P>
+<P CLASS="RDescription-C">Code specifying how to convert between Lisp and the FLI.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-910277"></A><EM CLASS="Variable">
+foreign-to-lisp</EM>
+</P>
+<P CLASS="RDescription-C">Code specifying how to convert between the FLI and Lisp.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890227"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890228"></A>The FLI <CODE CLASS="Code">
+:wrapper</CODE>
+ type allows for an extra level of conversion between Lisp and a foreign language through the FLI. With the <CODE CLASS="Code">
+:wrapper</CODE>
+ type you can specify conversion functions from and to an instance of another type. Whenever data is passed to the object, or received from the object it is passed through the conversion function. See below for an example of a use of <CODE CLASS="Code">
+:wrapper</CODE>
+ to pass values to an <A HREF="fli-172.htm#15595" CLASS="XRef">:int</A> as strings, and to receive them back as strings when the pointer to the <A HREF="fli-172.htm#15595" CLASS="XRef">:int</A> is dereferenced.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890229"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890230"></A>In the following example an <A HREF="fli-172.htm#15595" CLASS="XRef">:int</A> is allocated with a wrapper to allow the <A HREF="fli-172.htm#15595" CLASS="XRef">:int</A> to be accessed as a string.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-914615"></A>(setq wrap (fli:allocate-foreign-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-914620"></A>            :type '(:wrapper :int </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-914621"></A>                    :lisp-to-foreign read-from-string</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-914617"></A>                    :foreign-to-lisp prin1-to-string)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-886828"></A>The object pointed to by <CODE CLASS="Code">
+wrap</CODE>
+, although consisting of an underlying <A HREF="fli-172.htm#15595" CLASS="XRef">:int</A>, is set with <A HREF="fli-99.htm#29735" CLASS="XRef">dereference</A> by passing a string, which is automatically converted using the Lisp function <CODE CLASS="Code">
+read-from-string</CODE>
+. Similarly, when <CODE CLASS="Code">
+wrap</CODE>
+ is dereferenced, the value stored as an <A HREF="fli-172.htm#15595" CLASS="XRef">:int</A> is converted using <CODE CLASS="Code">
+prin1-to-string</CODE>
+ to a Lisp string, which is the returned. The following two commands demonstrate this.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-914622"></A>(setf (fli:dereference wrap) &quot;#x100&quot;)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-914624"></A>(fli:dereference wrap)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-914626"></A>The first command sets the value stored at <CODE CLASS="Code">
+wrap</CODE>
+ to be 256 (100 in hex), by passing a string to it. The second command dereferences the value at <CODE CLASS="Code">
+wrap</CODE>
+, but returns it as a string. The pointer <CODE CLASS="Code">
+wrap</CODE>
+ can be coerced to return the value as an actual <A HREF="fli-172.htm#15595" CLASS="XRef">:int</A> as follows:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-914627"></A>(fli:dereference wrap :type :int)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-999574"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-999579"></A><A HREF="fli-28.htm#52701" CLASS="XRef">Encapsulated types</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-201.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-199.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.2.9  Mapping Nil to a Null Pointer
+</TITLE>
+
+<LINK REL="next" HREF="fli-55.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-53.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-45.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A> &gt; <A HREF="fli-45.htm">4.2  Modifying, passing and returning strings</A><BR><BR>
+</DIV><A HREF="fli-55.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-53.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888638"></A>4.2.9  <A NAME="66412"></A>Mapping Nil to a Null Pointer</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888639"></A>If you wish a string argument to accept <CODE CLASS="Code">
+nil</CODE>
+ and pass it as a null pointer, or to return a null pointer as Lisp value <CODE CLASS="Code">
+nil</CODE>
+,  use the <CODE CLASS="Code">
+:allow-null</CODE>
+ argument to the <A HREF="fli-185.htm#26451" CLASS="XRef">:reference</A> types.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888640"></A>The C function strcap in the following example modifies a string, but also accepts and returns a null pointer if passed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888641"></A>Windows version:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888642"></A>#include &lt;string.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888643"></A>#include &lt;ctype.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888644"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888645"></A>__declspec(dllexport) void __cdecl strcap(char *string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888646"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888647"></A>  int len;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888648"></A>  int ii;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888649"></A>  if (string) {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888650"></A>     len = strlen(string);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888651"></A>     if (len &gt; 0) {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888652"></A>        for (ii = len - 1; ii &gt; 0; ii--)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888653"></A>            if (isupper(string[ii]))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888654"></A>               string[ii] = tolower(string[ii]); </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888655"></A>        if (islower(string[0]))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888656"></A>           string[0] = toupper(string[0]);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888657"></A>     }</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888658"></A>  }</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888659"></A>  return string;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888660"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888661"></A>Linux/Unix/Macintosh version:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888662"></A>#include &lt;string.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888663"></A>#include &lt;ctype.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888664"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888665"></A>void strcap(char *string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888666"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888667"></A>  int len;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888668"></A>  int ii;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888669"></A>  if (string) {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888670"></A>     len = strlen(string);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888671"></A>     if (len &gt; 0) {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888672"></A>        for (ii = len - 1; ii &gt; 0; ii--)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888673"></A>            if (isupper(string[ii]))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888674"></A>               string[ii] = tolower(string[ii]); </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888675"></A>        if (islower(string[0]))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888676"></A>           string[0] = toupper(string[0]);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888677"></A>     }</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888678"></A>  }</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888679"></A>  return string;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888680"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888681"></A>With this following foreign function definition:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888682"></A>(fli:define-foreign-function (strcap &quot;strcap&quot; :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888683"></A>    ((string (:reference :ef-mb-string)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888684"></A>  :language</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888685"></A>  :c</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888686"></A>  :calling-convention</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888687"></A>  :cdecl)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-888688"></A>(strcap &quot;abC&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888689"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888690"></A>&quot;Abc&quot;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888691"></A>However <CODE CLASS="Code">
+(strcap nil)</CODE>
+ signals error because the <CODE CLASS="Code">
+:ef-mb-string</CODE>
+ type expects a string. </P>
+<P CLASS="Body">
+<A NAME="pgfId-888692"></A>Using <CODE CLASS="Code">
+:allow-null</CODE>
+ allows <CODE CLASS="Code">
+nil</CODE>
+ to be passed:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888693"></A>(fli:define-foreign-function (strcap &quot;strcap&quot; :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888694"></A>    ((string (:reference :ef-mb-string :allow-null t)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888695"></A>  :language</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888696"></A>  :c</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888697"></A>  :calling-convention</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888698"></A>  :cdecl)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-888699"></A>(strcap nil) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888700"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888701"></A>nil</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888710"></A>Note that <A HREF="fli-153.htm#28931" CLASS="XRef">with-foreign-string</A>, <A HREF="fli-80.htm#90659" CLASS="XRef">convert-to-foreign-string</A> and <A HREF="fli-78.htm#25318" CLASS="XRef">convert-from-foreign-string</A> also accept an <CODE CLASS="Code">
+:allow-null</CODE>
+ argument. So another way to call strcap and allow the null pointer is:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888712"></A>(fli:define-foreign-function (strcap &quot;strcap&quot; :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888713"></A>    ((string :pointer))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888714"></A>  :language</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888715"></A>  :c</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888716"></A>  :calling-convention</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888717"></A>  :cdecl)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888718"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888719"></A>(defun c-string-capitalize (string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888720"></A>  (fli:with-foreign-string (ptr elts bytes :allow-null t)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888721"></A>      string</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888722"></A>    (declare (ignore  elts bytes))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888723"></A>    (strcap ptr)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888724"></A>    (fli:convert-from-foreign-string ptr :allow-null t)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888725"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888726"></A>(c-string-capitalize &quot;abC&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888727"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888728"></A>&quot;Abc&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888729"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888730"></A>(c-string-capitalize nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888731"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888732"></A>nil</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-55.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-53.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

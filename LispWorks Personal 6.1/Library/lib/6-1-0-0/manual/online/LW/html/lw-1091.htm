@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-run-function
+</TITLE>
+
+<LINK REL="next" HREF="lw-1092.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1090.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1092.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1090.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886738"></A><A NAME="96518"></A>process<A NAME="marker-1059575"></A>-run-function</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886740"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902540"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902565"></A>Create a new process, passing it a function to run.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886742"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886743"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886744"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886745"></A>process-run-function <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+keywords</EM>
+ <EM CLASS="Variable">
+function</EM>
+ &amp;rest <EM CLASS="Variable">
+arguments</EM>
+ =&gt; <EM CLASS="Variable">
+process</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903734"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-903764"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A name for the new process.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912674"></A><EM CLASS="Variable">
+keywords</EM>
+</P>
+<P CLASS="RDescription-C">Keywords specifying properties of the new process. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912683"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A function to apply.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912761"></A><EM CLASS="Variable">
+arguments</EM>
+</P>
+<P CLASS="RDescription-C">Arguments to pass to <EM CLASS="Variable">
+function</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-907392"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-907441"></A><EM CLASS="Variable">
+process</EM>
+</P>
+<P CLASS="RDescription-C">The newly created process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1002793"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1002794"></A>This function creates a new Lisp process with name <EM CLASS="Variable">
+name. </EM>
+Other properties of <EM CLASS="Variable">
+process </EM>
+may be specified in keyword/value pairs in <EM CLASS="Variable">
+keywords</EM>
+:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1002818"></A><CODE CLASS="Code">
+:priority</CODE>
+</P>
+<P CLASS="RDescription-C">A <CODE CLASS="Code">
+fixnum</CODE>
+ representing the priority for the process. If <CODE CLASS="Code">
+:priority</CODE>
+ is not supplied, the process priority becomes the value of the variable <CODE CLASS="Code">
+*default-process-priority*</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1049068"></A><CODE CLASS="Code">
+:mailbox</P>
+<P CLASS="RDescription-C"></CODE>
+A mailbox object, a string, <CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+, used to initialize the <CODE CLASS="Code">
+process-mailbox</CODE>
+ of <EM CLASS="Variable">
+process</EM>
+.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1518901"></A>True values specify that <EM CLASS="Variable">
+process</EM>
+ should have a mailbox. A mailbox object is used as-is; a string is used as the name of a new mailbox; and <CODE CLASS="Code">
+t</CODE>
+ causes it to create a mailbox with the same name as <EM CLASS="Variable">
+process</EM>
+, that is, <EM CLASS="Variable">
+name</EM>
+.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1518808"></A>Note that both <A HREF="lw-1094.htm#17963" CLASS="XRef">process-send</A> and <A HREF="lw-1102.htm#24216" CLASS="XRef">process-wait-for-event</A> force the relevant process to have a mailbox.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1846170"></A><CODE CLASS="Code">
+:internal-server</CODE>
+<A NAME="marker-1846881"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1846792"></A>When true, this indicates that the process is an &quot;internal server&quot;, which means that it responds to requests for work from other processes. The main effect of this is that if the only processes that remain are &quot;internal servers&quot;, nothing is going to happen, so LispWorks quits. The system marks some of the processes that it creates as &quot;internal server&quot;.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1004290"></A>The new process is preset to apply <EM CLASS="Variable">
+function</EM>
+ to <EM CLASS="Variable">
+arguments</EM>
+ and runs in parallel, while <CODE CLASS="Code">
+process-run-function</CODE>
+ returns immediately.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009036"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1010666"></A>CL-USER 253 &gt; (defvar *stream* *standard-output*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010667"></A>*STREAM*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010668"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010669"></A>CL-USER 254 &gt; (mp:process-run-function </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010670"></A>               &quot;My process&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010671"></A>               '(:priority 42) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010672"></A>               #'(lambda (x) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010673"></A>                   (loop for i below x </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010674"></A>                         do (and (print i *stream*) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010675"></A>                                 (sleep 1))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010676"></A>                         finally </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010677"></A>                         (print (mp:process-priority </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010678"></A>                                 mp:*current-process*) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010679"></A>                                *stream*)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010680"></A>               3)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010681"></A>#&lt;MP:PROCESS Name &quot;My process&quot; Priority 850000 State &quot;Running&quot;&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010682"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010683"></A>0 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010684"></A>1 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010685"></A>2 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1010686"></A>42 </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1009053"></A>CL-USER 255 &gt;</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009054"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-912802"></A><A HREF="lw-1026.htm#32317" CLASS="XRef">*default-process-priority*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1092.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1090.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

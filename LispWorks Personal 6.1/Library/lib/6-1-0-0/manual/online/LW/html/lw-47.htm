@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.2.6  Directing trace output
+</TITLE>
+
+<LINK REL="next" HREF="lw-48.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-46.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-41.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-39.htm">5 The Trace Facility</A> &gt; <A HREF="lw-41.htm">5.2  Tracing options</A><BR><BR>
+</DIV><A HREF="lw-48.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-46.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886324"></A>5.2.6  Directing trace output</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886628"></A><A NAME="marker-886702"></A>:trace-output</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886631"></A>Trace keyword</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886326"></A><A NAME="marker-886325"></A>:trace-output<EM CLASS="Variable">
+ stream</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886328"></A><A NAME="marker-886327"></A>This option allows you to direct trace output to a stream other than the listener in which the original function call was made. By using this you can arrange to dispatch traced output from different functions to different places.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886651"></A>Consider the following example:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-886329"></A>In the listener, create a file stream as follows:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-886330"></A>CL-USER 129 &gt; (setq str (open &quot;trace.txt&quot; :direction :output))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886331"></A>Warning: Setting unbound variable STR</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886332"></A>#&lt;File stream &quot;/u/neald/trace.txt&quot;&gt;</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-886333"></A>Set the value of the <CODE CLASS="Code">
+:trace-output</CODE>
+ option for the function <CODE CLASS="Code">
+fac</CODE>
+ to <CODE CLASS="Code">
+str</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-886334"></A>Call the <CODE CLASS="Code">
+fac</CODE>
+ function, and then close the file stream as follows:</LI>
+</OL>
+<PRE CLASS="Code-first"><A NAME="pgfId-886335"></A>CL-USER 138 &gt; (fac 8)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886336"></A>40320</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886337"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886338"></A>CL-USER 139 &gt; (close str)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886339"></A>T</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886340"></A>Inspect the file <CODE CLASS="Code">
+trace.txt</CODE>
+ in order to see the trace output for the call of <CODE CLASS="Code">
+(fac 8)</CODE>
+. </P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-48.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-46.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

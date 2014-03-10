@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-selection
+</TITLE>
+
+<LINK REL="next" HREF="capiref-398.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-396.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-398.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-396.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3143189"></A><A NAME="90001"></A>set<A NAME="marker-4230025"></A>-selection</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-3143190"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3143192"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3143193"></A>Sets the primary selection.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4229540"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4229541"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3143194"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-5390221"></A>set-selection <EM CLASS="Variable">
+self</EM>
+ <EM CLASS="Variable">
+value</EM>
+ &amp;optional <EM CLASS="Variable">
+string</EM>
+ <EM CLASS="Variable">
+plist</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3143196"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3143197"></A><EM CLASS="Variable">
+self</EM>
+</P>
+<P CLASS="RDescription-C">A displayed CAPI pane or interface.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5396053"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp object (not necessarily a string) to make available within the local Lisp image.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5396054"></A><EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="RDescription-C">The string representation of <EM CLASS="Variable">
+value</EM>
+ to export, or <CODE CLASS="Code">
+nil</CODE>
+. If <CODE CLASS="Code">
+nil</CODE>
+ and <EM CLASS="Variable">
+value</EM>
+ is a string, then that will be exported as the string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5400179"></A><EM CLASS="Variable">
+plist</EM>
+</P>
+<P CLASS="RDescription-C">A property list of additional format/value pairs to export. The currently supported formats are <CODE CLASS="Code">
+:string</CODE>
+, whose value should be a string, and <CODE CLASS="Code">
+:image</CODE>
+ whose value should be a <A HREF="capiref-574.htm#77313" CLASS="XRef">image</A> object.  This allows you to export more than one format simultaneously.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5396055"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5396056"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A string, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3143201"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3143202"></A>The function <CODE CLASS="Code">
+set-selection</CODE>
+ sets the primary selection to be the text of <EM CLASS="Variable">
+string</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3143879"></A>On Microsoft Windows there is no notion of selection, so this mechanism is internal to Lisp.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3143880"></A>Note that X applications may or may not use the primary selection for their paste operations. The most likely explanation for apparent inconsistencies after <CODE CLASS="Code">
+set-selection</CODE>
+ is that the pasting application doesn't use the primary selection. For instance, Emacs is configurable by the variable interprogram-paste-function. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3143205"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3143209"></A><A HREF="capiref-375.htm#62388" CLASS="XRef">selection</A><BR>
+<A HREF="capiref-379.htm#73382" CLASS="XRef">set-clipboard</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-398.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-396.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

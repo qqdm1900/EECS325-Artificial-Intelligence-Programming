@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.5.1  Examples of compiler control
+</TITLE>
+
+<LINK REL="next" HREF="lw-112.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-110.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-110.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-105.htm">9 The Compiler</A> &gt; <A HREF="lw-110.htm">9.5  Compiler control</A><BR><BR>
+</DIV><A HREF="lw-112.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-110.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-110.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888012"></A>9.5.1  Examples of compiler control</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891137"></A>The following function, compiled with safety = 2, does not check the type of its argument because it merely reads:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888015"></A>(defun foo (x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888016"></A>  (declare (optimize (safety 2)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888013"></A>  (car x))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888031"></A>However the following function, also compiled with safety = 2, does check the type of its argument because it writes:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888032"></A>(defun set-foo (x y)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888033"></A>  (declare (optimize (safety 2)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888034"></A>  (setf (car x) y))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891298"></A>As another example, interpreted code and code compiled at at low safety does not check type declarations. To make LispWorks check declarations, you need to compile your code after doing:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891299"></A>(declaim (optimize (safety 3) (debug 3)))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-892518"></A>This last example shows how to copy efficiently bytes from a typed-aref vector (see <A HREF="lw-1405.htm#84662" CLASS="XRef">make-typed-aref-vector</A>) to an <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+ array. <CODE CLASS="Code">
+type</CODE>
+ and <CODE CLASS="Code">
+safety</CODE>
+ declarations cause the compiler to inline the code that deals specifically with <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+. This code was developed after an application was found to have a bottleneck in the original version of this function:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-892600"></A>(defun copy-typed-aref-vector-to-byte-vector</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892601"></A>       (byte-vector typed-vector length)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892602"></A>  (declare (optimize (safety 0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892603"></A>           (type (simple-array (unsigned-byte 8) 1) byte-vector)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892604"></A>           (fixnum length))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892605"></A>  (dotimes (index length)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892606"></A>    (declare (type fixnum index))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892607"></A>    (setf (aref byte-vector index)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892608"></A>          (sys:typed-aref '(unsigned-byte 8) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-892516"></A>                          typed-vector index))))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-112.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-110.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-110.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

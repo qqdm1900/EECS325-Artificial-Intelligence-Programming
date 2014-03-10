@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ disconnect
+</TITLE>
+
+<LINK REL="next" HREF="lw-1179.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1177.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1179.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1177.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-888550"></A><A NAME="41029"></A>disconnect<A NAME="marker-1047262"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888551"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888552"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888553"></A>Closes a connection to a database.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888554"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888555"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888556"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888557"></A>disconnect &amp;key <EM CLASS="Variable">
+database</EM>
+ <EM CLASS="Variable">
+error</EM>
+ =&gt; <EM CLASS="Variable">
+success</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888558"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888559"></A><EM CLASS="Variable">
+database</P>
+<P CLASS="RDescription-C"></EM>
+A database.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-943169"></A><EM CLASS="Variable">
+error</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888560"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888561"></A><EM CLASS="Variable">
+success</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888562"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888563"></A>The function <CODE CLASS="Code">
+disconnect</CODE>
+ closes a connection to a database specified by <EM CLASS="Variable">
+database. </EM>
+If successful, <EM CLASS="Variable">
+success</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ and if only one other connection exists, <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A>  is reset.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1373316"></A>The default value for <EM CLASS="Variable">
+database</EM>
+ is <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A>. If <EM CLASS="Variable">
+database</EM>
+ is a database object, then it is used directly. Otherwise, the list of connected databases is searched to find one with database as its connection specifications (see <A HREF="lw-1161.htm#38900" CLASS="XRef">connect</A>). If no such database is found, then if <EM CLASS="Variable">
+error</EM>
+ and <EM CLASS="Variable">
+database</EM>
+ are both non-nil an error is signaled, otherwise <CODE CLASS="Code">
+disconnect</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1373320"></A>Example</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888565"></A>(disconnect :database &quot;test&quot;)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888566"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888570"></A><A HREF="lw-1161.htm#38900" CLASS="XRef">connect</A><BR>
+<A HREF="lw-1163.htm#18962" CLASS="XRef">connected-databases</A><BR>
+<A HREF="lw-1168.htm#27666" CLASS="XRef">database-name</A><BR>
+<A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A><BR>
+<A HREF="lw-1186.htm#28246" CLASS="XRef">find-database</A><BR>
+<A HREF="lw-1254.htm#65419" CLASS="XRef">reconnect</A><BR>
+<A HREF="lw-1278.htm#21092" CLASS="XRef">status</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1179.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1177.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

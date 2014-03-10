@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.7.1  File encodings in the editor
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-147.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-145.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-145.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A> &gt <A HREF="eduser-m-136.htm">6.3  Programming the editor</A> &gt <A HREF="eduser-m-145.htm">6.3.7  Files</A><BR><BR>
+</DIV><A HREF="eduser-m-147.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-145.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-145.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-899271"></A>6.3.7.1  <A NAME="marker-899446"></A>File encodings in the editor</H3>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899273"></A>An editor buffer ideally should have an appropriate external format (or encoding) set before you write it to a file. Otherwise an external format specified in the value of the editor variable <A HREF="eduser-m-42.htm#80819" CLASS="XRef">output-format-default</A> is used. If the value of <A HREF="eduser-m-42.htm#80819" CLASS="XRef">output-format-default</A> is not an external-format specifier, then the external format is chosen similarly to the way <CODE CLASS="Code">
+cl:open</CODE>
+ does it. By default this chosen external format will be the Windows code page on Microsoft Windows, and Latin-1 on other platforms.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899274"></A>When using the Editor tool, use <A HREF="eduser-m-42.htm#79402" CLASS="XRef">Set External Format</A> to set interactively the external format for the current buffer, or set <B CLASS="Button">
+Preferences... &gt; Environment &gt; File Encodings &gt; Output</B>
+ (which in turn sets the editor variable <A HREF="eduser-m-42.htm#80819" CLASS="XRef">output-format-default</A>) to provide a global default value.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899275"></A>In an application which writes editor buffers to file, you can do this to set the external format of a given buffer:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-899276"></A> (setf (editor:buffer-external-format <EM CLASS="Variable">
+buffer</EM>
+) <EM CLASS="Variable">
+ef-spec</EM>
+)</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899357"></A>You can also set a global default external format for editor buffers:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-899363"></A>(setf (editor:variable-value 'editor:output-format-default</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899364"></A>                             :global)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-899358"></A>      <EM CLASS="Variable">ef-spec</EM>
+)</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899359"></A>Then <EM CLASS="Variable">
+ef-spec</EM>
+ will be used when a buffer itself does not have an external format.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-147.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-145.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-145.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

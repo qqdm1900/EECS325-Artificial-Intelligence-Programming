@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ make-barrier
+</TITLE>
+
+<LINK REL="next" HREF="lw-1056.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1054.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1056.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1054.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1396499"></A><A NAME="22917"></A>make<A NAME="marker-1396497"></A>-barrier</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1396500"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1396501"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1396502"></A>Returns a new barrier.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1396503"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1396504"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1396505"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1396506"></A>make-barrier <EM CLASS="Variable">
+count</EM>
+ &amp;key <EM CLASS="Variable">
+discount-on-abort</EM>
+ <EM CLASS="Variable">
+discount-on-timeout</EM>
+ <EM CLASS="Variable">
+callback</EM>
+ <EM CLASS="Variable">
+disable-on-unblock</EM>
+ <EM CLASS="Variable">
+name</EM>
+ =&gt; <EM CLASS="Variable">
+barrier</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1396507"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1396508"></A><EM CLASS="Variable">
+count</EM>
+</P>
+<P CLASS="RDescription-C">A positive fixnum or <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1396509"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1396510"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1396511"></A><EM CLASS="Variable">
+barrier</EM>
+</P>
+<P CLASS="RDescription-C">A barrier.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1396512"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1396513"></A>The function <CODE CLASS="Code">
+make-barrier</CODE>
+ returns a new barrier with count <EM CLASS="Variable">
+count</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1396514"></A><EM CLASS="Variable">
+count</EM>
+ can be <CODE CLASS="Code">
+t</CODE>
+, which is interpreted as <CODE CLASS="Code">
+most-positive-fixnum</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1396515"></A>The barrier has the name <EM CLASS="Variable">
+name</EM>
+, which is useful for debugging but is not used otherwise. If <EM CLASS="Variable">
+name</EM>
+ is omitted, then a default name is generated that is unique among all such default names.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1396516"></A><EM CLASS="Variable">
+discount-on-timeout</EM>
+ and <EM CLASS="Variable">
+discount-on-abort</EM>
+ determine the default behavior when a thread times out or aborts while in the function <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A>. See the documentation for <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1396526"></A>If <EM CLASS="Variable">
+disable-on-unblock</EM>
+ is true, then <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> will disable the barrier by default when it unblocks it. See <EM CLASS="Variable">
+disable-on-unblock</EM>
+ in the documentation for <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1396533"></A><EM CLASS="Variable">
+callback</EM>
+ is called by <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> just before it unblocks the barrier. It is called with a single argument (the barrier) while holding an internal lock on the barrier that will prevent other operations on the barrier from running. The callback is guaranteed to happen before <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> allows any of the other threads to continue.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1396537"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1396538"></A>Because the callback is called inside a lock, you should ensure that it is relatively short to prevent congestion if another thread tries to access the barrier. Allocating a few objects is reasonable. If there is a more expensive operation that has to be done by only one of the threads, it can be done by the thread that returned <CODE CLASS="Code">
+:unblocked</CODE>
+ from <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A>. The advantage of using the callback is that it is called before any of the waiting threads pass the barrier.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1396542"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1396490"></A><A HREF="lw-1005.htm#31699" CLASS="XRef">barrier-arriver-count</A><BR>
+<A HREF="lw-1006.htm#90936" CLASS="XRef">barrier-block-and-wait</A><BR>
+<A HREF="lw-1007.htm#17793" CLASS="XRef">barrier-change-count</A><BR>
+<A HREF="lw-1008.htm#26943" CLASS="XRef">barrier-count</A><BR>
+<A HREF="lw-1009.htm#63062" CLASS="XRef">barrier-disable</A><BR>
+<A HREF="lw-1010.htm#92294" CLASS="XRef">barrier-enable</A><BR>
+<A HREF="lw-1011.htm#81335" CLASS="XRef">barrier-name</A><BR>
+<A HREF="lw-1012.htm#49351" CLASS="XRef">barrier-pass-through</A><BR>
+<A HREF="lw-1013.htm#98210" CLASS="XRef">barrier-unblock</A><BR>
+<A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1056.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1054.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

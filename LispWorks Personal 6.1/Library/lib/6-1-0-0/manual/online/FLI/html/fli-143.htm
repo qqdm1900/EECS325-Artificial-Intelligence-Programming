@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-locale
+</TITLE>
+
+<LINK REL="next" HREF="fli-144.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-142.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-144.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-142.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1004237"></A><A NAME="33536"></A>set-locale<A NAME="marker-1004371"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1004345"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1004240"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1004911"></A>Sets the C locale and the default for FLI string conversions.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1010642"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1010643"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1010636"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1004465"></A>set-locale &amp;optional <EM CLASS="Variable">
+locale</EM>
+ =&gt; <EM CLASS="Variable">
+c-locale</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1010672"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1010694"></A><EM CLASS="Variable">
+locale</P>
+<P CLASS="RDescription-C"></EM>
+A string, the locale name.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1010697"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1010728"></A><EM CLASS="Variable">
+c-locale</P>
+<P CLASS="RDescription-C"></EM>
+A string naming the C locale, or <CODE CLASS="Code">
+nil</CODE>
+..</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1004244"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1004246"></A>This function can be called to set the C locale; if you set the locale in any other way, then Lisp might not do the right thing when passing strings and characters to C. It calls <CODE CLASS="Code">
+setlocale</CODE>
+ to tell the C library to switch and then calls <CODE CLASS="Code">
+</CODE>
+<A HREF="fli-144.htm#75458" CLASS="XRef">set-locale-encodings</A> to tell the FLI what conversions to do when passing strings and characters to C. The <EM CLASS="Variable">
+locale</EM>
+ argument should be a locale name; if not passed, it defaults according to the OS conventions.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1047768"></A>If <CODE CLASS="Code">
+set-locale</CODE>
+ fails to set the C locale, a warning is signaled, <CODE CLASS="Code">
+nil</CODE>
+ is returned and the FLI conversion defaults are not modified.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1047423"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1047486"></A>On a Windows system:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1047487"></A>(fli:set-locale &quot;English_UK&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1047488"></A>=&gt; </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1047437"></A>&quot;English_United Kingdom.1252&quot;</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1047544"></A>On a Linux system:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1047579"></A>(fli:set-locale)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1047580"></A>=&gt;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1047577"></A>&quot;en_US&quot;</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1004253"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1004853"></A><A HREF="fli-78.htm#25318" CLASS="XRef">convert-from-foreign-string</A><BR>
+<A HREF="fli-80.htm#90659" CLASS="XRef">convert-to-foreign-string</A><BR>
+<A HREF="fli-163.htm#35450" CLASS="XRef">:ef-mb-string</A><BR>
+<A HREF="fli-164.htm#37040" CLASS="XRef">:ef-wc-string</A><BR>
+<A HREF="fli-124.htm#63256" CLASS="XRef">*locale-external-formats*</A><BR>
+<A HREF="fli-144.htm#75458" CLASS="XRef">set-locale-encodings</A><BR>
+<A HREF="fli-153.htm#28931" CLASS="XRef">with-foreign-string</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-144.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-142.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

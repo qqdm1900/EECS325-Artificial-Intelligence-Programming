@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.9.1  Finding definitions in the LispWorks editor
+</TITLE>
+
+<LINK REL="next" HREF="lw-93.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-91.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-91.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-68.htm">7 Dspecs: Tools for Handling Definitions</A> &gt; <A HREF="lw-91.htm">7.9  Users of location information</A><BR><BR>
+</DIV><A HREF="lw-93.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-91.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-91.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-891327"></A>7.9.1  Finding definitions in the LispWorks editor</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891333"></A>Returning to our example parameterdef definer</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891347"></A> (defmacro parameterdef  (value name)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891334"></A>  `(defparameter ,name ,value))</PRE>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-891335"></A>Load a file <CODE CLASS="Code">
+foo.lisp</CODE>
+ containing</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-891353"></A><CODE CLASS="Code">
+(parameterdef 42 *foo*)</CODE>
+</P>
+<LI CLASS="Step">
+<A NAME="pgfId-892303"></A>Now use <B CLASS="Button">
+Expression &gt; Find Source</B>
+ on the symbol <CODE CLASS="Code">
+*foo*</CODE>
+. Notice that LispWorks knows which file the definition is in, but cannot find the defining top level form. </LI>
+<LI CLASS="Step">
+<A NAME="pgfId-903092"></A>Also notice that the Definitions tab of the Editor tool does not display the definition of <CODE CLASS="Code">
+*foo*</CODE>
+. This is because the Editor does not recognise <CODE CLASS="Code">
+parameterdef</CODE>
+ as a definer. When the LispWorks editor looks at the definitions in a buffer, it needs to know the dspecs that each defining form will generate when evaluated.  You can tell the editor how to parse a defining form to generate the dspec by using <A NAME="marker-903139"></A><A HREF="lw-705.htm#21533" CLASS="XRef">define-form-parser</A>.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-892304"></A>Now evaluate these forms to associate a parser with <CODE CLASS="Code">
+parameterdef</CODE>
+ and inform the dspec system that <CODE CLASS="Code">
+parameterdef</CODE>
+ is another way of naming a <CODE CLASS="Code">
+defparameter</CODE>
+ dspec:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-892305"></A>(dspec:define-form-parser parameterdef (value name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892306"></A>  `(parameterdef ,name))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892377"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892307"></A>(dspec:define-dspec-alias parameterdef (name)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-892308"></A>  `(defparameter ,name))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-892309"></A>Now use <B CLASS="Button">
+Expression &gt; Find Source</B>
+ on the symbol <CODE CLASS="Code">
+*foo*</CODE>
+ again. Notice that the source of the definition of <CODE CLASS="Code">
+*foo*</CODE>
+ is displayed correctly in the text tab of the Editor tool, and that the Definitions tab displays the definition as</LI>
+</OL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-892310"></A>(parameterdef *foo*)</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-93.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-91.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-91.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

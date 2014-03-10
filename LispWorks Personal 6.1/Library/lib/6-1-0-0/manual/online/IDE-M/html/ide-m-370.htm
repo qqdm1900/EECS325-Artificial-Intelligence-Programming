@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 17.8  Creating new inspection formats
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-371.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-369.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-352.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-352.htm">17 The Inspector</A><BR><BR>
+</DIV><A HREF="ide-m-371.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-369.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-352.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-855838"></A>17.8  Creating new inspection formats</H3>
+<P CLASS="Body">
+<A NAME="pgfId-855966"></A>There is a default inspection format for each Lisp object.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855858"></A>The Inspector tool can be customized by adding new inspection formats. To do this, you need to define new methods on the generic function<CODE CLASS="Code">
+ </CODE>
+<A NAME="marker-864873"></A><CODE CLASS="Code">
+get-inspector-values</CODE>
+. See the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ for a full description.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855860"></A><CODE CLASS="Code">
+get-inspector-values</CODE>
+<A NAME="marker-855859"></A> takes two arguments: <EM CLASS="Variable">
+object</EM>
+ and <EM CLASS="Variable">
+mode</EM>
+, and returns 5 values: <EM CLASS="Variable">
+names</EM>
+, <EM CLASS="Variable">
+values</EM>
+, <EM CLASS="Variable">
+getter</EM>
+, <EM CLASS="Variable">
+setter</EM>
+ and <EM CLASS="Variable">
+type</EM>
+.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855861"></A><EM CLASS="Variable">
+object</EM>
+</P>
+<P CLASS="Description-C">The object to be inspected.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855862"></A><EM CLASS="Variable">
+mode</P>
+<P CLASS="Description-C">This </EM>
+argument should be either <CODE CLASS="Code">
+nil</CODE>
+ or <CODE CLASS="Code">
+eql</CODE>
+ to some other symbol. The default format for inspecting any object is its nil format. The nil format is defined for all Lisp objects, but it might not be sufficiently informative for your classes and it may be overridden.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855863"></A><EM CLASS="Variable">
+names</EM>
+</P>
+<P CLASS="Description-C">The slot-names of <EM CLASS="Variable">
+object</EM>
+.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855864"></A><EM CLASS="Variable">
+values</EM>
+</P>
+<P CLASS="Description-C">The values of the slots corresponding to <EM CLASS="Variable">
+names</EM>
+. The Inspector displays the <EM CLASS="Variable">
+names</EM>
+ and <EM CLASS="Variable">
+values</EM>
+ in two columns in the scrollable pane.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855865"></A><EM CLASS="Variable">
+getter</EM>
+ </P>
+<P CLASS="Description-C">This is currently ignored. Use <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855866"></A><EM CLASS="Variable">
+setter</EM>
+</P>
+<P CLASS="Description-C">This is a function that takes four arguments: an object (of the same class as <EM CLASS="Variable">
+object</EM>
+), a slot-name, an index (the position of the slot-name in <EM CLASS="Variable">
+names</EM>
+, counting from 0), and finally a new-value. (It is usual to ignore either the slot-name or the index.) This function should be able to change the value of the appropriate slot of the given object to the new-value.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855867"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="Description-C">This is the message to be displayed in the message area of the Inspector. This is typically either <EM CLASS="Variable">
+mode</EM>
+ or--if <EM CLASS="Variable">
+mode</EM>
+ is nil--then the name of the class of <EM CLASS="Variable">
+object</EM>
+.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="ide-m-371.htm#pgfId-855868" CLASS="Hypertext">17.8.1  Example</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-371.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-369.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-352.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11.2  Setting up the profiler 
+</TITLE>
+
+<LINK REL="next" HREF="lw-173.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-171.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-170.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-170.htm">11 The Profiler</A><BR><BR>
+</DIV><A HREF="lw-173.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-171.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-170.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-885991"></A>11.2  <A NAME="marker-885990"></A>Setting up the profiler </H3>
+<P CLASS="Body">
+<A NAME="pgfId-885992"></A>Before a profiling session can start several parameters must be set, using the function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-886155"></A><A HREF="lw-840.htm#73344" CLASS="XRef">set-up-profiler</A>. There are four main areas to consider: the symbols to be profiled, the time interval between samples, the kind of profiling required, and the format of the output.</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-885998"></A>It is possible to keep track of every function called during a particular computation, but significant effort is involved in determining which symbols are suitable for profiling and in keeping track of the results. To minimize this effort you need to specify which symbols to profile, either by naming the required symbols, or by naming a package, all of whose symbols are profiled. The profiler first checks that these symbols have indeed got function definitions and are therefore suitable for profiling.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-885999"></A>You might want to specify the time interval between interrupts. The resolution of this value is clearly dependent on the operating system. In most cases the default value, 10ms, is adequate. This number is important, because with these statistical methods of program profiling the accuracy of the results increases with the number of samples taken. </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886719"></A>On Unix/Linux/FreeBSD systems the kind of profiling required may be set. This refers to what kind of time is monitored in order to determine when to interrupt the Lisp process. There are three possibilities for how the time interval is measured:</LI>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-886651"></A>The time the Lisp process is actually executing plus the time that the system is executing on behalf of the process. This is called <A NAME="marker-886652"></A><I CLASS="Italic">
+profile time</I>
+.</P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-886654"></A>Just the time that the process is actually executing. This is called <A NAME="marker-886653"></A><I CLASS="Italic">
+virtual time</I>
+. </P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-886656"></A><A NAME="marker-886655"></A>The actual elapsed time, called <I CLASS="Italic">
+real time</I>
+.</P>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887328"></A>The output can be presented as a tree of calls seen and a columnar report (<EM CLASS="Variable">
+style</EM>
+ <CODE CLASS="Code">
+:tree</CODE>
+), or just the columnar report (<EM CLASS="Variable">
+style</EM>
+ <CODE CLASS="Code">
+:list</CODE>
+). You can restrict the data shown in several ways, helping you to focus on the slowest parts of your program.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-886007"></A>Below is an example of setting up the profiler:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886008"></A>(set-up-profiler :symbols '(car cdr) :style :list)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886011"></A>Here the functions <CODE CLASS="Code">
+car</CODE>
+ and <CODE CLASS="Code">
+cdr</CODE>
+ are going to be profiled and the output will be just the columnar report.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888244"></A>The function <A HREF="lw-840.htm#73344" CLASS="XRef">set-up-profiler</A> adds symbols to the <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-888240"></A><A HREF="lw-818.htm#18560" CLASS="XRef">*profile-symbol-list*</A>. The functions <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-888245"></A><A HREF="lw-746.htm#28763" CLASS="XRef">add-symbol-profiler</A> and <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-888249"></A><A HREF="lw-823.htm#61517" CLASS="XRef">remove-symbol-profiler</A> can also be used to change the symbols profiled.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886018"></A>The function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-886178"></A><A HREF="lw-837.htm#43404" CLASS="XRef">set-profiler-threshold</A> can be used with <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-886179"></A><A HREF="lw-824.htm#35624" CLASS="XRef">reset-profiler</A> to control the effects of repeated profiler runs.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-173.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-171.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-170.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

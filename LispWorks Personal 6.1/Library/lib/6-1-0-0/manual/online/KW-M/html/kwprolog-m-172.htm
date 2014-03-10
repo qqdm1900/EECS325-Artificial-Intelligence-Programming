@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ A.2  Syntax 
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-173.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-171.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-168.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-168.htm">A Common Prolog</A><BR><BR>
+</DIV><A HREF="kwprolog-m-173.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-171.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-168.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading-App">
+<A NAME="pgfId-866014"></A>A.2  <A NAME="marker-866013"></A>Syntax </H3>
+<P CLASS="Body">
+<A NAME="pgfId-866015"></A>Common Prolog uses a Lisp-like syntax in which variables are prefixed with &quot;?&quot; and normal Lisp prefix notation is used. Goals are represented as either lists or simple vectors e.g. <CODE CLASS="Code">
+(reverse (1 2 3) ?x) or #(member ?x (1 2 3))</CODE>
+. A symbol beginning with <CODE CLASS="Code">
+?</CODE>
+ may be escaped by prefixing another <CODE CLASS="Code">
+?</CODE>
+.i.e. <CODE CLASS="Code">
+?foo</CODE>
+ is the variable named <CODE CLASS="Code">
+foo</CODE>
+; <CODE CLASS="Code">
+??foo</CODE>
+ is the symbol <CODE CLASS="Code">
+?foo</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866016"></A>The definition of append/3 from Prolog:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866017"></A>  append([], X, X).</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866018"></A>  append([U|X], Y, [U|Z]) :-</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866019"></A>          append(X, Y, Z)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866020"></A>translates to:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866022"></A>  (<A NAME="marker-866021"></A>defrel append</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866023"></A>    ((append () ?x ?x))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866024"></A>    ((append (?u . ?x) ?y (?u . ?z))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866025"></A>     (append ?x ?y ?z)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866026"></A>Unlike many Lisp-based logic systems, Common Prolog uses simple vectors to represent Prolog structured terms. Thus, <CODE CLASS="Code">
+functor</CODE>
+, <CODE CLASS="Code">
+arg</CODE>
+, and <CODE CLASS="Code">
+=..</CODE>
+ all behave in a standard fashion:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866027"></A>(arg 2 (foo 3 4) (3 4))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866029"></A>(<A NAME="marker-866028"></A>arg 2 #(foo 3 4) 4)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866031"></A>(<A NAME="marker-866030"></A>functor (foo 3 4) &#92;. 2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866032"></A>(functor #(foo 3 4) foo 2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866033"></A>(=.. #(foo 3 4) (foo 3 4))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866034"></A>(=.. (foo 3 4) (&#92;. foo (3 4)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-173.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-171.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-168.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

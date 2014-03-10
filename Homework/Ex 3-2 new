@@ -1,0 +1,16 @@
+
+(in-package #:cs325-user)
+
+(defun stable-union(a b)
+  (append a (stable-set-difference b a)))
+
+
+(defun stable-intersection(a b)
+  (cond ((null a)  nil)
+        ((member (car a) b) (adjoin (car a) (stable-intersection (cdr a) b)))
+        (t  (stable-intersection (cdr a) b))))
+
+(defun stable-set-difference(a b)
+  (cond ((null a) nil)
+        ((null (member (car a) b)) (adjoin (car a) (stable-set-difference (cdr a) b)))
+        (t (stable-set-difference (cdr a) b))))

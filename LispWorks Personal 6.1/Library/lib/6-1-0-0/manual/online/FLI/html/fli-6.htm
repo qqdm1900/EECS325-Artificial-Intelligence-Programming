@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.1.1  Defining the FLI  function
+</TITLE>
+
+<LINK REL="next" HREF="fli-7.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-5.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-5.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-4.htm">1 Introduction to the FLI</A> &gt; <A HREF="fli-5.htm">1.1  An example of interfacing to a foreign function</A><BR><BR>
+</DIV><A HREF="fli-7.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-5.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-5.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886606"></A>1.1.1  <A NAME="marker-888577"></A>Defining the FLI  function</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886607"></A>The FLI provides the macro <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A> for creating interfaces to foreign functions. It takes the name of the function you wish to interface to, the argument types the function accepts, and the result type the function returns.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886611"></A>Given the following C declaration to <CODE CLASS="Code">
+FahrenheitToCelsius</CODE>
+:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886612"></A>float FahrenheitToCelsius( int );</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886619"></A>The FLI interface is as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886623"></A>(fli:define-foreign-function </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886624"></A>    (fahrenheit-to-celsius &quot;FahrenheitToCelsius&quot; :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886625"></A>    ((fahrenheit :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886626"></A>  :result-type :float</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886627"></A>  :language :ansi-c</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886628"></A>  )</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886632"></A>The first argument to <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A> declares that <CODE CLASS="Code">
+fahrenheit-to-celsius</CODE>
+ is the name of the Lisp function that is generated to interface with the C function <CODE CLASS="Code">
+FahrenheitToCelsius</CODE>
+. The <CODE CLASS="Code">
+:source</CODE>
+ keyword is a directive to the <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A> name mangler that Fahrenheit<CODE CLASS="Code">
+ToCelsius</CODE>
+ is the name of the C function as seen in the source files. On some platforms the actual symbol name available in the foreign object file we are inferfacing with could include character prefixes such as &quot;<CODE CLASS="Code">
+.</CODE>
+&quot; and &quot;<CODE CLASS="Code">
+_</CODE>
+&quot;, and so the <CODE CLASS="Code">
+:source</CODE>
+ keyword encoding allows you to write cross-platform portable foreign language interfaces.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886633"></A>The second argument to <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>, <CODE CLASS="Code">
+((fahrenheit :int))</CODE>
+, is the argument list for the foreign function. In this case, only one argument is required. The first part of each argument descriptor is the lambda argument name. The rest of the argument describes the type of argument we are trying to interface to and how the conversion from Lisp to C is performed. In this case the foreign type <CODE CLASS="Code">
+:int</CODE>
+ specifies that we are interfacing between a Lisp integer and a C type &quot;int&quot;.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886634"></A>The <CODE CLASS="Code">
+:result-type</CODE>
+ keyword tells us that the conversion required between the C function and Lisp uses the foreign type <CODE CLASS="Code">
+:float</CODE>
+. This tells Lisp that C will return a result of type &quot;float&quot;, which needs to be converted to a Lisp single-float.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886635"></A>The final keyword argument, <CODE CLASS="Code">
+:language</CODE>
+, specifies which language the foreign function was written in. In this case the example uses ANSI C. This keyword determines how single-floating point values are passed to and returned from C functions as described for <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-7.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-5.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-5.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

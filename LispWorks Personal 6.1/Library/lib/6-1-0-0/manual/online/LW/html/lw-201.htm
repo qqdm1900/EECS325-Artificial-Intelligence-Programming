@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.5  Load and open your files on startup
+</TITLE>
+
+<LINK REL="next" HREF="lw-202.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-200.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-180.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-180.htm">12 Customization of LispWorks</A><BR><BR>
+</DIV><A HREF="lw-202.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-200.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-180.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-892505"></A>12.5  Load and open your files on startup</H3>
+<P CLASS="Body">
+<A NAME="pgfId-892506"></A>Suppose you always compile and load several files after LispWorks starts. You can arrange for this to happen automatically by adding forms like these in your initialization file:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-892507"></A>(defvar *my-files*</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892508"></A>        '(&quot;/path/to/foo1&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892509"></A>          &quot;/path/to/foo2&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892510"></A>          &quot;/path/to/foo3&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892511"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892512"></A>(dolist (file *my-files*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-892513"></A>  (compile-file file :load t))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-892514"></A>If you also want to open these files in the Editor tool, then you can add this form in your initialization file, after those above:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-892515"></A>(define-action &quot;Initialize LispWorks Tools&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892516"></A>               &quot;Open My Files&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892517"></A>               #'(lambda (screen)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892518"></A>                   (declare (ignore screen))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892519"></A>                   (dolist (file *my-files*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-892520"></A>                     (ed file))))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-202.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-200.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-180.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

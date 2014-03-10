@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ora-lob-read-into-plain-file
+</TITLE>
+
+<LINK REL="next" HREF="lw-1240.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1238.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1240.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1238.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1199371"></A><A NAME="59638"></A>ora<A NAME="marker-1199370"></A>-lob-read-into-plain-file</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1199372"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1199373"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1199374"></A>Writes the contents of a LOB into a file.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1199375"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1199376"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1199377"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1199378"></A>ora-lob-read-into-plain-file <EM CLASS="Variable">
+lob-locator</EM>
+ <EM CLASS="Variable">
+file-name</EM>
+ &amp;key <EM CLASS="Variable">
+offset</EM>
+ <EM CLASS="Variable">
+file-offset</EM>
+ <EM CLASS="Variable">
+if-exists</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1199379"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1199380"></A><EM CLASS="Variable">
+lob-locator</EM>
+</P>
+<P CLASS="RDescription-C">A LOB locator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1199381"></A><EM CLASS="Variable">
+file-name</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1199382"></A><EM CLASS="Variable">
+offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1203503"></A><EM CLASS="Variable">
+file-offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1199383"></A><EM CLASS="Variable">
+if-exists</EM>
+</P>
+<P CLASS="RDescription-C">A keyword or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1199389"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1201316"></A>The function <CODE CLASS="Code">
+ora-lob-read-into-plain-file</CODE>
+ writes the contents of a LOB into a file.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1201317"></A><EM CLASS="Variable">
+file-name</EM>
+ specifies the file to write, which should be a standard file. The file is always opened in a binary mode, so if the LOB is a CLOB, the file will be generated in the right format when reading it from the LOB.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1201319"></A><EM CLASS="Variable">
+offset</EM>
+ is the offset into the LOB from where to start reading. It starts from 1, counts characters in a CLOB, and if it is <CODE CLASS="Code">
+nil</CODE>
+ then the operation starts from the end of the previous read operation. The default value of <EM CLASS="Variable">
+offset</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1203541"></A><EM CLASS="Variable">
+file-offset</EM>
+ specifies the offset into the file to start the operation from. If <EM CLASS="Variable">
+file-offset</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then it starts writing at the start of the file. The default value of <EM CLASS="Variable">
+file-offset</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1201321"></A><EM CLASS="Variable">
+if-exists</EM>
+ is passed to <A HREF="lw-659.htm#39723" CLASS="XRef">open</A> when opening the file, with the standard Common Lisp meaning. The default value of <EM CLASS="Variable">
+if-exists</EM>
+ is <CODE CLASS="Code">
+:error</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1199403"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1585032"></A><CODE CLASS="Code">
+ora-lob-read-into-plain-file</CODE>
+ is available only when the &quot;oracle&quot; module is loaded. See the section <A HREF="lw-424.htm#Oracle LOB interface;Oracle locator objects;Oracle large objects " CLASS="XRef">Oracle LOB interface</A> for more information.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1199423"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1199334"></A><A HREF="lw-1244.htm#91603" CLASS="XRef">ora-lob-write-from-plain-file</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1240.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1238.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

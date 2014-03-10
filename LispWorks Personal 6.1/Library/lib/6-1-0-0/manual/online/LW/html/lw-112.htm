@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.6  Declare, proclaim, and declaim
+</TITLE>
+
+<LINK REL="next" HREF="lw-113.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-111.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-105.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-105.htm">9 The Compiler</A><BR><BR>
+</DIV><A HREF="lw-113.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-111.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-105.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886109"></A>9.6  Declare, proclaim, and declaim</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886113"></A>The special form <A NAME="marker-891789"></A><A HREF="lw-638.htm#20275" CLASS="XRef">declare</A> is used to:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891803"></A>declare Lisp variables as &quot;special&quot;, which affects the semantics of the appropriate bindings of the variables, or</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891809"></A>help the system (in reality the compiler) run your Lisp code faster, or</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891817"></A>make the code run with more sophisticated debugging options, or</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891859"></A>help you optimize your code</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-886114"></A><A HREF="lw-638.htm#20275" CLASS="XRef">declare</A> behaves computationally as if it is not present (other than to affect the semantics), and is only allowed in certain contexts, such as after the variable list in a <CODE CLASS="Code">
+let</CODE>
+, <CODE CLASS="Code">
+do</CODE>
+, <CODE CLASS="Code">
+defun</CODE>
+ and so on. Consult the syntax definition of each special form to see if it accepts <A HREF="lw-638.htm#20275" CLASS="XRef">declare</A> forms.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890437"></A>For the details, including some LispWorks extensions to Common Lisp, see the reference entry for <A HREF="lw-638.htm#20275" CLASS="XRef">declare</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890459"></A>The function <A NAME="marker-891887"></A><A HREF="lw-662.htm#19061" CLASS="XRef">proclaim</A> parses declarations in a specified list and then puts their semantics and advice into global effect. This can be useful when compiling a file for speedy execution, since a proclamation such as:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886127"></A>(proclaim '(optimize (speed 3) (space 0) (debug 0)))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886128"></A>causes the rest of the file to be compiled with these optimization levels in effect. (A lengthier way to do this is to make appropriate declarations in every function in the file.) Below are some more examples:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891940"></A>(proclaim '(special *fred*))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891941"></A>(proclaim '(type single-float x y z))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891942"></A>(proclaim '(optimize (safety 0) (speed 3)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891943"></A>Do not forget to quote the argument list if it is a constant list. This form:</P>
+<P CLASS="Body">
+<A NAME="pgfId-891948"></A><CODE CLASS="Code">
+(proclaim (special x))</CODE>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-891949"></A>attempts to call function <CODE CLASS="Code">
+special</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886373"></A><A NAME="marker-886376"></A><A HREF="lw-637.htm#27351" CLASS="XRef">declaim</A> is a macro equivalent to <A HREF="lw-662.htm#19061" CLASS="XRef">proclaim</A>.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="lw-113.htm#pgfId-886136" CLASS="Hypertext">9.6.1  Naming conventions</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-113.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-111.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-105.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

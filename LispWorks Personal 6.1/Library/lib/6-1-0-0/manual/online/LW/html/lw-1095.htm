@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-sharing-lock
+</TITLE>
+
+<LINK REL="next" HREF="lw-1096.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1094.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1096.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1094.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1319979"></A><A NAME="64466"></A>process<A NAME="marker-1319978"></A>-sharing-lock</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1319980"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1319981"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1319985"></A>Like <A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A>, but on a &quot;sharing&quot; lock.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1319986"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1319987"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1319988"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1319989"></A>process-sharing-lock <EM CLASS="Variable">
+sharing-lock</EM>
+ &amp;optional <EM CLASS="Variable">
+whostate</EM>
+ <EM CLASS="Variable">
+timeout</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1319990"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1319991"></A><EM CLASS="Variable">
+sharing-lock</EM>
+</P>
+<P CLASS="RDescription-C">A sharing lock.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1319992"></A><EM CLASS="Variable">
+whostate</EM>
+</P>
+<P CLASS="RDescription-C">The status of the process while the lock is locked, as seen in the Process Browser.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1319993"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A timeout period, in seconds.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1319994"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1319998"></A>This is like <A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A>, but the lock must be &quot;sharing&quot; and the lock will be locked in shared mode. That means that other threads can also lock it in shared mode. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1319999"></A>Before locking this waits for the lock to be free of any exclusive lock, but it does not check for other shared mode use of the same lock.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1320000"></A>Calls to <CODE CLASS="Code">
+process-sharing-lock</CODE>
+ should be matched by calls to <A HREF="lw-1096.htm#64071" CLASS="XRef">process-sharing-unlock</A>. Normally <A HREF="lw-1137.htm#42408" CLASS="XRef">with-sharing-lock</A> is the best way to achieve this.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1320007"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1320008"></A>It is possible to lock for sharing inside the scope of sharing lock and inside the scope of exclusive lock.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1459937"></A><CODE CLASS="Code">
+process-sharing-lock</CODE>
+ is guaranteed to return if it locked process, but may throw before locking, as described in <A HREF="lw-280.htm#95000" CLASS="XRef">Guarantees and limitations when locking and unlocking</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1320009"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1320013"></A><A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A><BR>
+<A HREF="lw-1096.htm#64071" CLASS="XRef">process-sharing-unlock</A><BR>
+<A HREF="lw-1137.htm#42408" CLASS="XRef">with-sharing-lock</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1096.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1094.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

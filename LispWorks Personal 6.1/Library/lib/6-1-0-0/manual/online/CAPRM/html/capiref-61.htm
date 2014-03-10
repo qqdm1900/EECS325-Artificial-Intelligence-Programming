@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ current-dialog-handle
+</TITLE>
+
+<LINK REL="next" HREF="capiref-62.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-60.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-62.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-60.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1826031"></A><A NAME="89555"></A>current<A NAME="marker-4012274"></A>-dialog<A NAME="marker-5355587"></A>-handle</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1826044"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1826051"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1827240"></A>Returns the underlying handle of the current dialog.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4012082"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4012083"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1827246"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1827653"></A>current-dialog-handle =&gt; <EM CLASS="Variable">
+handle</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1849070"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1849071"></A><EM CLASS="Variable">
+handle</EM>
+</P>
+<P CLASS="RDescription-C">A platform-specific value, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1827693"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1827722"></A>The function <CODE CLASS="Code">
+current-dialog-handle</CODE>
+ returns the underlying handle of the current dialog, as follows:</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-8059330"></A>Microsoft Windows</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8059356"></A>The hwnd of the dialog.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8059335"></A>GTK+</P>
+<P CLASS="RDescription-C">A pointer to the GdkWindow.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8059350"></A>Motif</P>
+<P CLASS="RDescription-C">A windowid of the dialog.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8059340"></A>Cocoa</P>
+<P CLASS="RDescription-C">The value returned by the NSWindow's <CODE CLASS="Code">
+windowNumber</CODE>
+ method.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5831455"></A>This value is useful if you want to perform some operation on the underlying handle that the CAPI does not supply.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1827786"></A>If there is no current dialog, <CODE CLASS="Code">
+current-dialog-handle</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1827801"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2375165"></A>Press on &quot;Get handle&quot; to see the handle of the dialog.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-2384335"></A>(capi:popup-confirmer</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2384336"></A> (make-instance </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2384337"></A>  'capi:push-button</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2384338"></A>  :text &quot;Get handle&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2384339"></A>  :callback-type :none</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2384340"></A>  :selection-callback </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2384341"></A>  #'(lambda ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2384342"></A>      (capi:display-message</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2384343"></A>       (format nil &quot;current-dialog-handle &#126;a&#126;%&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2384344"></A>               (capi:current-dialog-handle)))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2384345"></A> nil</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-2375178"></A> :title &quot;A dialog&quot;)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2375179"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1852062"></A><A HREF="capiref-409.htm#simple-pane-handle" CLASS="XRef">simple-pane-handle</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-62.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-60.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

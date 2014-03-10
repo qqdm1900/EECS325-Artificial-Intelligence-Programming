@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ save-argument-real-p
+</TITLE>
+
+<LINK REL="next" HREF="lw-826.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-824.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-826.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-824.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1202571"></A><A NAME="61005"></A>save<A NAME="marker-1202570"></A>-argument<A NAME="marker-1214039"></A>-real-p</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1202572"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1202573"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1202574"></A>Used to determine if a build script knows the real name of the image being saved.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1202575"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1202576"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1202577"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1205154"></A>save-argument-real-p =&gt; <EM CLASS="Variable">
+realp</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1205155"></A>Arguments</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1206707"></A>None</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1205156"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1202585"></A><EM CLASS="Variable">
+realp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1202586"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1207178"></A>The function <CODE CLASS="Code">
+save-argument-real-p</CODE>
+ can be used in a build script to determine if the argument passed to a subsequent call to <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> or <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> is the real filename of the application.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1209983"></A>The return value <EM CLASS="Variable">
+realp</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ in most cases. It is <CODE CLASS="Code">
+nil</CODE>
+ only when building an intermediate image for the purpose of building a universal binary, either by <A HREF="lw-829.htm#75131" CLASS="XRef">save-universal-from-script</A> or the Application Builder (see the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1209400"></A>Operations in a build script that are related to the path of the saved image, such as building an application bundle, should be executed only when this function returns <CODE CLASS="Code">
+t</CODE>
+. When using <A HREF="lw-829.htm#75131" CLASS="XRef">save-universal-from-script</A>, any required application bundle should be created before calling that function (see the <CODE CLASS="Code">
+save-macos-application.lisp</CODE>
+ example below). When using the Application Builder, any required application bundle should be created in the build script only when <CODE CLASS="Code">
+save-argument-real-p</CODE>
+ returns <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1209396"></A>On architectures that do not have universal binaries, this function always returns <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1202596"></A>Example</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1209889"></A>examples/configuration/save-macos-application.lisp</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1209891"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1209895"></A><A HREF="lw-829.htm#75131" CLASS="XRef">save-universal-from-script</A><BR>
+<A HREF="lw-756.htm#50341" CLASS="XRef">building-universal-intermediate-p</A><BR>
+<A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A><BR>
+<A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A><BR>
+<A HREF="lw-828.htm#62077" CLASS="XRef">save-image-with-bundle</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-826.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-824.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

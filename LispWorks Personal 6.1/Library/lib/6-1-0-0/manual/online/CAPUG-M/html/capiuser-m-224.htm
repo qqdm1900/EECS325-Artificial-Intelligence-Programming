@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 14.7  Defining new color models
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-225.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-223.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-216.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-216.htm">14 The Color System</A><BR><BR>
+</DIV><A HREF="capiuser-m-225.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-223.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886127"></A>14.7  Defining new color models</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886128"></A>Before using the definition described here, you should evaluate the form:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886129"></A>(require &quot;color-defmodel&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886130"></A>The macro <A NAME="marker-887654"></A><CODE CLASS="Code">
+define-color-models</CODE>
+ can be used to define new color models for use in the color system.</P>
+<P CLASS="Body-Next">
+<A NAME="pgfId-886136"></A>The default color models are defined by the following form:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886137"></A>(define-color-models ((:rgb (red 0.0 1.0) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886138"></A>                            (green 0.0 1.0) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886139"></A>                            (blue 0.0 1.0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886140"></A>                      (:hsv (hue 0.0 5.99999)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886141"></A>                            (saturation 0.0 1.0) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886142"></A>                            (value 0.0 1.0)) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886143"></A>                      (:gray (level 0.0 1.0))))</PRE>
+<P CLASS="Body-Next">
+<A NAME="pgfId-886144"></A>For example, to define a new color model YMC and keep the existing RGB, HSV and GRAY models:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886145"></A>(define-color-models ((:rgb (red 0.0 1.0) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886146"></A>                            (green 0.0 1.0) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886147"></A>                            (blue 0.0 1.0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886148"></A>                      (:hsv (hue 0.0 5.99999)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886149"></A>                            (saturation 0.0 1.0) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886150"></A>                            (value 0.0 1.0)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886151"></A>                      (:gray (level 0.0 1.0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886152"></A>                      (:ymc (yellow 0.0 1.0) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886153"></A>                            (magenta 0.0 1.0) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886154"></A>                            (cyan 0.0 1.0))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886155"></A>You must then define some functions to convert YMC color-specs to other color-specs. In this example, those functions are named </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886158"></A>make-ymc-from-rgb</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886159"></A>make-ymc-from-hsv</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886160"></A>make-ymc-from-gray</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886161"></A> and</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886162"></A>make-rgb-from-ymc</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886163"></A>make-hsv-from-ymc</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886164"></A>make-gray-from-ymc</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886165"></A>You can make this easier, of course, by defining the functions</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886166"></A>make-ymc-from-hsv</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886167"></A>make-ymc-from-gray</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886168"></A>make-hsv-from-ymc</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886169"></A>make-gray-from-ymc</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886170"></A>in terms of <CODE CLASS="Code">
+make-ymc-from-rgb</CODE>
+ and <CODE CLASS="Code">
+make-rgb-from-ymc</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886171"></A>If you never convert between YMC and any other model, you need only define the function <CODE CLASS="Code">
+make-rgb-from-ymc</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-225.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-223.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

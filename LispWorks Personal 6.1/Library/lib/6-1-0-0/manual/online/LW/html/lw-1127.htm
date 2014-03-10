@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ simple-lock-and-condition-variable-wait
+</TITLE>
+
+<LINK REL="next" HREF="lw-1128.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1126.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1128.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1126.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1668885"></A><A NAME="49462"></A>simple<A NAME="marker-1669250"></A>-lock-and-condition-variable-<A NAME="marker-1668884"></A>wait</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1668886"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1668887"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1668891"></A>A variant of <A HREF="lw-1039.htm#85947" CLASS="XRef">lock-and-condition-variable-wait</A> with a simpler lambda list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1802014"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1802015"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1668892"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1668893"></A>simple-lock-and-condition-variable-wait <EM CLASS="Variable">
+lock</EM>
+ <EM CLASS="Variable">
+lock-timeout</EM>
+ <EM CLASS="Variable">
+condvar</EM>
+ <EM CLASS="Variable">
+condvar-timeout</EM>
+ <EM CLASS="Variable">
+predicate</EM>
+ &amp;rest <EM CLASS="Variable">
+args</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1668894"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1668895"></A>The function <CODE CLASS="Code">
+simple-lock-and-condition-variable-wait</CODE>
+ is a variant of <A HREF="lw-1039.htm#85947" CLASS="XRef">lock-and-condition-variable-wait</A> that does not take keyword arguments. Also it takes the arguments of the <EM CLASS="Variable">
+predicate</EM>
+ as <CODE CLASS="Code">
+&amp;rest</CODE>
+. It interprets and acts on the arguments just like <A HREF="lw-1039.htm#85947" CLASS="XRef">lock-and-condition-variable-wait</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1668902"></A><CODE CLASS="Code">
+simple-lock-and-condition-variable-wait</CODE>
+ returns the result of the <EM CLASS="Variable">
+predicate</EM>
+ or the wait, like <A HREF="lw-1039.htm#85947" CLASS="XRef">lock-and-condition-variable-wait</A> when <EM CLASS="Variable">
+return-function</EM>
+ is not supplied.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1668906"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1668907"></A><CODE CLASS="Code">
+simple-lock-and-condition-variable-wait</CODE>
+ does not take wait reason arguments, so you should give names to the lock <EM CLASS="Variable">
+lock</EM>
+ and the condition variable <EM CLASS="Variable">
+condvar</EM>
+ for debugging (by passing <EM CLASS="Variable">
+name</EM>
+ in <A HREF="lw-1057.htm#93763" CLASS="XRef">make-lock</A> and <A HREF="lw-1056.htm#99681" CLASS="XRef">make-condition-variable</A>).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1668914"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1668918"></A><A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A><BR>
+<A HREF="lw-1039.htm#85947" CLASS="XRef">lock-and-condition-variable-wait</A><BR>
+<A HREF="lw-1038.htm#96844" CLASS="XRef">lock-and-condition-variable-signal</A><BR>
+<A HREF="lw-1037.htm#54717" CLASS="XRef">lock-and-condition-variable-broadcast</A><BR>
+<A HREF="lw-1017.htm#35505" CLASS="XRef">condition-variable-signal</A><BR>
+<A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1128.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1126.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

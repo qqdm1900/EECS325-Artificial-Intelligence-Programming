@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 8 Action Lists
+</TITLE>
+
+<LINK REL="next" HREF="lw-99.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-97.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A><BR><BR>
+</DIV><A HREF="lw-99.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-97.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="Chapter">
+<A NAME="pgfId-889198"></A><DIV>
+<IMG SRC="lw-12.gif">
+</DIV>
+8 <A NAME="71458"></A>Action <A NAME="marker-890108"></A>Lists</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889201"></A>Action-lists are a unified approach to various different mechanisms for running initializations, or &quot;<A NAME="marker-890109"></A>hook&quot; functions at various points during the life of the system. They provide central gathering points for applications to trigger on system-wide events such as start-up, disk-save, and so on. </P>
+<P CLASS="Body">
+<A NAME="pgfId-889204"></A>An action-list is a tagged list of data, to be executed (in some sense) in sequence whenever the circumstance identified by its tag occurs. It is expected that whatever code detects or causes the circumstance will take care of running the action-list.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889206"></A>An <A NAME="marker-890110"></A>execution-function can be specified for the action-list when it is created. Otherwise, the default behavior is to treat the data of each action as a callable and apply it to any additional arguments specified at execution time. At its simplest, an action-list emulates <CODE CLASS="Code">
+(map nil 'funcall)</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889208"></A>Names of action-lists and action-items are general lisp objects, compared with <CODE CLASS="Code">
+equalp</CODE>
+. This allows strings and other objects to be used as unique identifiers.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889210"></A>Actions can be specified to depend on other actions; when defining an action-item, you can say that it must be before or after other action-items using the <CODE CLASS="Code">
+:before</CODE>
+ and <CODE CLASS="Code">
+:after</CODE>
+ keywords. Aside from that, actions are assumed to have no dependencies, and no order of execution should be counted on for the actions in a list.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889212"></A>You can (and are encouraged to) specify a documentation string for action-lists or action-items.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889214"></A>In addition you can create action-lists that are not registered globally. This allows applications to have disembodied action lists for their own internal purposes. The other action-list functions allow an action-list to be passed in instead of a name, to accommodate this.</P>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-99.htm#pgfId-889665" CLASS="Hypertext">8.1  Defining action lists and actions</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-100.htm#pgfId-889215" CLASS="Hypertext">8.2  Exception handling variables</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-101.htm#pgfId-889305" CLASS="Hypertext">8.3  Other variables</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-102.htm#pgfId-889315" CLASS="Hypertext">8.4  Diagnostic utilities</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-103.htm#pgfId-889500" CLASS="Hypertext">8.5  Examples</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-104.htm#pgfId-890278" CLASS="Hypertext">8.6  Standard Action Lists</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-99.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-97.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.4.2  Defining an Objective-C class
+</TITLE>
+
+<LINK REL="next" HREF="objc-24.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-22.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-21.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-3.htm">1 Introduction to the Objective-C Interface</A> &gt; <A HREF="objc-21.htm">1.4  Defining Objective-C classes and methods</A><BR><BR>
+</DIV><A HREF="objc-24.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-22.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-21.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-890700"></A>1.4.2  <A NAME="24976"></A>Defining an Objective-C class<A NAME="marker-892442"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-891735"></A>An Objective-C class implemented in Lisp and its associated subclass of <A NAME="marker-891984"></A><A HREF="objc-69.htm#32015" CLASS="XRef">standard-objc-object</A> should be defined using the macro <A NAME="marker-892447"></A><A HREF="objc-40.htm#90461" CLASS="XRef">define-objc-class</A>. This has a syntax similar to <CODE CLASS="Code">
+defclass,</CODE>
+ with additional class options including <CODE CLASS="Code">
+:objc-class-name </CODE>
+<A NAME="marker-891742"></A>to specify the name of the Objective-C class.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891746"></A>If the superclass list is empty, then <A HREF="objc-69.htm#32015" CLASS="XRef">standard-objc-object</A> is used as the default superclass, otherwise <A HREF="objc-69.htm#32015" CLASS="XRef">standard-objc-object</A> must be somewhere on class precedence list or included explicitly.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891276"></A>For example, the following form defines a Lisp class called <CODE CLASS="Code">
+my-object</CODE>
+ and an associated Objective-C class called <CODE CLASS="Code">
+MyObject</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-890779"></A>(define-objc-class my-object ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890780"></A>  ((slot1 :initarg :slot1 :initform nil))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890777"></A>  (:objc-class-name &quot;MyObject&quot;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-890841"></A>The class <CODE CLASS="Code">
+my-object</CODE>
+ will inherit from <A HREF="objc-69.htm#32015" CLASS="XRef">standard-objc-object</A> and the class <CODE CLASS="Code">
+MyObject</CODE>
+ will inherit from <A NAME="marker-890896"></A><CODE CLASS="Code">
+NSObject</CODE>
+. See <A HREF="objc-27.htm#58888" CLASS="XRef">How inheritance works</A> for more details on inheritance.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893678"></A><A NAME="marker-893675"></A>The class returned by <CODE CLASS="Code">
+(find-class 'my-object)</CODE>
+ is associated with the Objective-C class object for <CODE CLASS="Code">
+MyObject</CODE>
+, so</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-893698"></A>(<A NAME="marker-893737"></A>objc-object-pointer (find-class 'my-object))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-893718"></A>and</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-893719"></A>(<A NAME="marker-893732"></A>coerce-to-objc-class &quot;MyObject&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-893726"></A>will return a pointer to the same foreign object.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893700"></A>When an instance of <CODE CLASS="Code">
+my-object</CODE>
+ is made using <CODE CLASS="Code">
+make-instance</CODE>
+, an <A NAME="marker-893699"></A>associated foreign Objective-C object of the class <CODE CLASS="Code">
+MyObject</CODE>
+ is allocated by calling the class's <A NAME="marker-893704"></A><CODE CLASS="Code">
+&quot;alloc&quot;</CODE>
+ method and initialized by calling the instance's <A NAME="marker-893705"></A><CODE CLASS="Code">
+&quot;init&quot;</CODE>
+ method. The <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-893706"></A><A HREF="objc-69.htm#99415" CLASS="XRef">:init-function</A> initarg can be used to call a different initialization method.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890803"></A>Conversely, if the <A NAME="marker-890850"></A><CODE CLASS="Code">
+&quot;allocWithZone:&quot;</CODE>
+ method is called for the class <CODE CLASS="Code">
+MyObject </CODE>
+(or a method such as <CODE CLASS="Code">
+&quot;alloc&quot;</CODE>
+ that calls <CODE CLASS="Code">
+&quot;allocWithZone:&quot;</CODE>
+), then an <A NAME="marker-892496"></A>associated object of type <CODE CLASS="Code">
+my-object</CODE>
+ is made.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-24.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-22.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-21.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

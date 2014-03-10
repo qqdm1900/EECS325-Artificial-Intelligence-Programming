@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ clipboard
+</TITLE>
+
+<LINK REL="next" HREF="capiref-39.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-37.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-39.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-37.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3119525"></A><A NAME="30401"></A>clipboard<A NAME="marker-3948274"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-3119526"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3119528"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3119529"></A>Returns the contents of the system clipboard.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3948093"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3948094"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3119530"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3119531"></A>clipboard <EM CLASS="Variable">
+self</EM>
+ &amp;optional <EM CLASS="Variable">
+format</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3126164"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3126179"></A><EM CLASS="Variable">
+self</EM>
+</P>
+<P CLASS="RDescription-C">A displayed CAPI pane or interface.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5414311"></A><EM CLASS="Variable">
+format</EM>
+</P>
+<P CLASS="RDescription-C">A keyword.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3126166"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3122720"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A string, an <A HREF="capiref-574.htm#77313" CLASS="XRef">image</A>, a Lisp object, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3119532"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3119533"></A>The function <CODE CLASS="Code">
+clipboard</CODE>
+ returns the contents of the system clipboard as a string, or <CODE CLASS="Code">
+nil</CODE>
+ if the clipboard is empty.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5414424"></A><EM CLASS="Variable">
+format</EM>
+ controls what kind of object is read. The following values of <EM CLASS="Variable">
+format</EM>
+ are recognized:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5414425"></A><CODE CLASS="Code">
+:string</P>
+<P CLASS="RDescription-C"></CODE>
+The object is a string. This the default value.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5414429"></A><CODE CLASS="Code">
+:image</P>
+<P CLASS="RDescription-C"></CODE>
+The object is of type <A HREF="capiref-574.htm#77313" CLASS="XRef">image</A>, converted from whatever format the platform supports.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5414430"></A><CODE CLASS="Code">
+:value</P>
+<P CLASS="RDescription-C"></CODE>
+The object is the Lisp value.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6043412"></A><CODE CLASS="Code">
+:metafile</CODE>
+</P>
+<P CLASS="RDescription-C">The object is a metafile.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5414434"></A>When <EM CLASS="Variable">
+format</EM>
+ is <CODE CLASS="Code">
+:image</CODE>
+, the image returned by <A HREF="capiref-38.htm#30401" CLASS="XRef">clipboard</A> is associated with <EM CLASS="Variable">
+self</EM>
+, so you can free it explicitly with <A HREF="capiref-555.htm#48924" CLASS="XRef">free-image</A> or it will be freed automatically when the pane is destroyed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6043033"></A>When <EM CLASS="Variable">
+format</EM>
+ is <CODE CLASS="Code">
+:metafile</CODE>
+ the object is a metafile which should be freed using <A HREF="capiref-149.htm#97372" CLASS="XRef">free-metafile</A> when no longer needed. See also <A HREF="capiref-96.htm#62616" CLASS="XRef">draw-metafile</A> and <A HREF="capiref-97.htm#17345" CLASS="XRef">draw-metafile-to-image</A>. <EM CLASS="Variable">
+format</EM>
+ <CODE CLASS="Code">
+:metafile</CODE>
+ is not supported on GTK+ or X11/Motif.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3123484"></A>The Microsoft Windows clipboard is usually set by the user with the <CODE CLASS="Code">
+Ctrl+C</CODE>
+ and <CODE CLASS="Code">
+Ctrl+X</CODE>
+ gestures. Note that the LispWorks editor uses these gestures when in Windows emulation mode.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3123508"></A>On X11/Motif, various gestures may set the clipboard. Note that LispWorks uses <CODE CLASS="Code">
+Ctrl+C</CODE>
+ and <CODE CLASS="Code">
+Ctrl+X</CODE>
+ when in KDE/Gnome editor emulation mode. The X clipboard can also be accessed by running the program <CODE CLASS="Code">
+xclipboard</CODE>
+ or the Emacs function <CODE CLASS="Code">
+x-get-clipboard</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5831372"></A>The Mac OS X clipboard is usually set by the user with the <CODE CLASS="Code">
+Command+C</CODE>
+ and <CODE CLASS="Code">
+Command+X</CODE>
+ gestures.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3123468"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3123469"></A><A HREF="capiref-39.htm#82688" CLASS="XRef">clipboard-empty</A><BR>
+<A HREF="capiref-96.htm#62616" CLASS="XRef">draw-metafile</A><BR>
+<A HREF="capiref-97.htm#17345" CLASS="XRef">draw-metafile-to-image</A><BR>
+<A HREF="capiref-555.htm#48924" CLASS="XRef">free-image</A><BR>
+<A HREF="capiref-149.htm#97372" CLASS="XRef">free-metafile</A><BR>
+<A HREF="capiref-574.htm#77313" CLASS="XRef">image</A><BR>
+<A HREF="capiref-375.htm#62388" CLASS="XRef">selection</A><BR>
+<A HREF="capiref-379.htm#73382" CLASS="XRef">set-clipboard</A><BR>
+<A HREF="capiref-442.htm#94380" CLASS="XRef">text-input-pane-paste</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-39.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-37.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

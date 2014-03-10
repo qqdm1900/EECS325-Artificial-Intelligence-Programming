@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.31  Running shell commands from the editor
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-89.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-87.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A><BR><BR>
+</DIV><A HREF="eduser-m-89.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-87.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-912700"></A>3.31  <A NAME="20667"></A>R<A NAME="marker-912699"></A>unning shell commands from the editor</H3>
+<P CLASS="Body">
+<A NAME="pgfId-912701"></A>The editor allows both single shell commands to be executed and also provides a means of running a shell interactively.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1055876"></A><A NAME="marker-1055875"></A>Shell Command </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1055877"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1055878"></A>Argument: <EM CLASS="Variable">
+command<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Meta+! </CODE>
+<EM CLASS="Variable">
+command</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1055879"></A>Executes the single shell command <EM CLASS="Variable">
+command</EM>
+. The output from the command is displayed in a Shell Output buffer. A prefix argument causes the output from the shell command to be sent to the <CODE CLASS="Code">
+*terminal-io*</CODE>
+ stream rather than the Shell Output buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-923815"></A><A NAME="marker-923814"></A>Run Command </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-923816"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-923817"></A>Argument: <EM CLASS="Variable">
+command<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-923818"></A>Executes the single shell command <EM CLASS="Variable">
+command</EM>
+ in a Shell window. When the command terminates, the subprocess is closed down.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-912713"></A>Shell<A NAME="marker-1030210"></A></P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-912714"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-912715"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-912716"></A>Opens a Shell window which allows the user to run a shell interactively. The major mode of the buffer is Shell mode, and the minor mode is Execute mode so the history key bindings available in the Listener can also be used in the Shell window.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-912717"></A>Whenever the working directory is changed within the shell, the editor attempts to keep track of these changes and update the default directory of the Shell buffer. When a shell command is issued beginning with a string matching one of the editor variables <A HREF="eduser-m-88.htm#65465" CLASS="XRef">shell-cd-regexp</A>, <A HREF="eduser-m-88.htm#91830" CLASS="XRef">shell-pushd-regexp</A> or <A HREF="eduser-m-88.htm#10833" CLASS="XRef">shell-popd-regexp</A>, the editor recognises this command as a change directory command and attempt to change the default directory of the Shell buffer accordingly. If you have your own aliases for any of the shell change directory commands, alter the value of the appropriate variable. For example, if the value of <A HREF="eduser-m-88.htm#65465" CLASS="XRef">shell-cd-regexp</A> is <CODE CLASS="Code">
+&quot;cd</CODE>
+&quot; and the shell command <CODE CLASS="Code">
+cd</CODE>
+ <CODE CLASS="Code">
+/Applications/LispWorks</CODE>
+ is issued, the next time the editor command <CODE CLASS="Code">
+Wfind File</CODE>
+ is issued, the default directory offered is <CODE CLASS="Code">
+/Applications/LispWorks</CODE>
+. If you find that the editor has not recognised a change directory command then the editor command <CODE CLASS="Code">
+cd</CODE>
+ may be used to change the default directory of the buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-912719"></A><A NAME="marker-912718"></A>CD </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-912720"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-912721"></A>Arguments: <EM CLASS="Variable">
+directory<BR>
+</EM>
+Key sequence: None<BR>
+Mode: Shell</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-912722"></A>Changes the directory associated with the current buffer to <EM CLASS="Variable">
+directory</EM>
+. The current directory is offered as a default.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-912724"></A><A NAME="marker-912723"></A><A NAME="65465"></A>shell-cd-regexp</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-912725"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-912726"></A>Default value: <CODE CLASS="Code">
+&quot;cd&quot;<BR>
+</CODE>
+Mode: Shell</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-912727"></A>A regular expression that matches the shell command to change the current working directory.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-912729"></A><A NAME="marker-912728"></A><A NAME="91830"></A>shell-pushd-regexp</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-912730"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-912731"></A>Default value: <CODE CLASS="Code">
+&quot;pushd&quot;<BR>
+</CODE>
+Mode: Shell</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-912732"></A>A regular expression that matches the shell command to push the current working directory onto the directory stack.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-912734"></A><A NAME="marker-912733"></A><A NAME="10833"></A>shell-popd-regexp</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-912735"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-912736"></A>Default value: <CODE CLASS="Code">
+&quot;popd&quot;<BR>
+</CODE>
+Mode: Shell</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-912737"></A>A regular expression that matches the shell command to pop the current working directory from the directory stack.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1022784"></A><A NAME="marker-1022817"></A>prompt-regexp-string</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1022802"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1022808"></A>Default value: <CODE CLASS="Code">
+&quot;^[^#$%&gt;<BR>
+]*[#$%&gt;] *&quot;<BR>
+</CODE>
+Mode: Shell</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1022782"></A>The regexp used to find the prompt in a <A NAME="marker-1030239"></A>Shell window. This variable is also used in the <A NAME="marker-1030138"></A>Listener.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-923846"></A><A NAME="marker-923845"></A>Interrupt Shell<A NAME="marker-1030229"></A> Subjob</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-923847"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-923848"></A>Argument: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+C Ctrl+C<BR>
+</CODE>
+Mode: Shell</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-923849"></A>Sends an interrupt signal to the subjob currently being run by the shell. This is equivalent to issuing the shell command <CODE CLASS="Code">
+Ctrl+C</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-924881"></A>Note: this command does not work on Microsoft Windows.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-923851"></A><A NAME="marker-923850"></A>Stop Shell<A NAME="marker-1030234"></A> Subjob</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-923852"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-923853"></A>Argument: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+C Ctrl+Z<BR>
+</CODE>
+Mode: Shell</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-923854"></A>Sends a stop signal to the subjob currently being run by the shell. This is equivalent to issuing the shell command <CODE CLASS="Code">
+Ctrl+Z</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-924887"></A>Note: this command does not work on Microsoft Windows.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-923856"></A><A NAME="marker-923855"></A>Shell Send<A NAME="marker-1030247"></A> Eof</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-923857"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-923858"></A>Argument: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+C Ctrl+D<BR>
+</CODE>
+Mode: Shell</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-923859"></A>Sends an end-of-file character (<CODE CLASS="Code">
+Ctrl+D</CODE>
+) to the shell, causing either the shell or its current subjob to finish.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-924894"></A>Note: this command does not work on Microsoft Windows.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-89.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-87.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

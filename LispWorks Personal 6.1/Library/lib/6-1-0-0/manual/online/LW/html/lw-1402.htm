@@ -1,0 +1,522 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ make-gesture-spec
+</TITLE>
+
+<LINK REL="next" HREF="lw-1403.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1401.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1403.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1401.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1443676"></A><A NAME="95339"></A>make<A NAME="marker-1443675"></A>-gesture-spec</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1443677"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054173"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1054174"></A>Create a Gesture Spec object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054175"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1054176"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054177"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1054178"></A>make-gesture-spec <EM CLASS="Variable">
+data</EM>
+ <EM CLASS="Variable">
+modifiers</EM>
+ &amp;optional <EM CLASS="Variable">
+can-shift-both-case-p</EM>
+ =&gt; <EM CLASS="Variable">
+gspec</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054179"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1054459"></A><EM CLASS="Variable">
+data</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer less than <CODE CLASS="Code">
+char-code-limit</CODE>
+, or a Gesture Spec keyword, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1054460"></A><EM CLASS="Variable">
+modifiers</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer less than 64, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1388957"></A><EM CLASS="Variable">
+can-shift-both-case-p</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1388962"></A>A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054461"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1054377"></A><EM CLASS="Variable">
+gspec</EM>
+</P>
+<P CLASS="RDescription-C">A Gesture Spec object</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054183"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1054184"></A>The function <CODE CLASS="Code">
+make-gesture-spec</CODE>
+ returns a new Gesture Spec object <EM CLASS="Variable">
+gspec. </EM>
+ This can be used to represent a keystroke consisting of the key indicated by <EM CLASS="Variable">
+data</EM>
+, modified by the modifier keys indicated by <EM CLASS="Variable">
+modifiers</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1054513"></A>If <EM CLASS="Variable">
+data</EM>
+ is an integer, it represents the key <CODE CLASS="Code">
+(code-char </CODE>
+<EM CLASS="Variable">
+data</EM>
+<CODE CLASS="Code">
+)</CODE>
+. If <EM CLASS="Variable">
+data</EM>
+ is a keyword, it must be one of the known Gesture Spec keywords and represents the key with the same name. If <EM CLASS="Variable">
+data</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then <EM CLASS="Variable">
+gspec</EM>
+ has a wild data component.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1386798"></A>These are the Gesture Spec keywords:</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387779"></A><CODE CLASS="Code">
+:f1</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387780"></A><CODE CLASS="Code">
+:f2</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387781"></A><CODE CLASS="Code">
+:f3</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387782"></A><CODE CLASS="Code">
+:f4</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387783"></A><CODE CLASS="Code">
+:f5</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387784"></A><CODE CLASS="Code">
+:f6</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387785"></A><CODE CLASS="Code">
+:f7</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387786"></A><CODE CLASS="Code">
+:f8</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387787"></A><CODE CLASS="Code">
+:f9</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387788"></A><CODE CLASS="Code">
+:f10</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387789"></A><CODE CLASS="Code">
+:f11</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387790"></A><CODE CLASS="Code">
+:f12</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387791"></A><CODE CLASS="Code">
+:f13</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387792"></A><CODE CLASS="Code">
+:f14</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387793"></A><CODE CLASS="Code">
+:f15</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387794"></A><CODE CLASS="Code">
+:f16</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387795"></A><CODE CLASS="Code">
+:f17</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387796"></A><CODE CLASS="Code">
+:f18</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387797"></A><CODE CLASS="Code">
+:f19</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387798"></A><CODE CLASS="Code">
+:f20</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387799"></A><CODE CLASS="Code">
+:f21</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387800"></A><CODE CLASS="Code">
+:f22</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387801"></A><CODE CLASS="Code">
+:f23</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387802"></A><CODE CLASS="Code">
+:f24</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387803"></A><CODE CLASS="Code">
+:f25</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387804"></A><CODE CLASS="Code">
+:f26</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387805"></A><CODE CLASS="Code">
+:f27</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387806"></A><CODE CLASS="Code">
+:f28</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387807"></A><CODE CLASS="Code">
+:f29</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387808"></A><CODE CLASS="Code">
+:f30</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387809"></A><CODE CLASS="Code">
+:f31</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387810"></A><CODE CLASS="Code">
+:f32</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387811"></A><CODE CLASS="Code">
+:f33</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387812"></A><CODE CLASS="Code">
+:f34</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387813"></A><CODE CLASS="Code">
+:f35</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387814"></A><CODE CLASS="Code">
+:help</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387815"></A><CODE CLASS="Code">
+:left</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387816"></A><CODE CLASS="Code">
+:right</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387817"></A><CODE CLASS="Code">
+:up</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387818"></A><CODE CLASS="Code">
+:down</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387819"></A><CODE CLASS="Code">
+:home</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387820"></A><CODE CLASS="Code">
+:prior</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387821"></A><CODE CLASS="Code">
+:next</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387822"></A><CODE CLASS="Code">
+:end</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387823"></A><CODE CLASS="Code">
+:begin</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387824"></A><CODE CLASS="Code">
+:select</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387825"></A><CODE CLASS="Code">
+:print</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387826"></A><CODE CLASS="Code">
+:execute</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387827"></A><CODE CLASS="Code">
+:insert</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387828"></A><CODE CLASS="Code">
+:undo</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387829"></A><CODE CLASS="Code">
+:redo</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387830"></A><CODE CLASS="Code">
+:menu</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387831"></A><CODE CLASS="Code">
+:find</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387832"></A><CODE CLASS="Code">
+:cancel</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387833"></A><CODE CLASS="Code">
+:break</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387834"></A><CODE CLASS="Code">
+:clear</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387835"></A><CODE CLASS="Code">
+:pause</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387836"></A><CODE CLASS="Code">
+:kp-f1</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387837"></A><CODE CLASS="Code">
+:kp-f2</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387838"></A><CODE CLASS="Code">
+:kp-f3</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387839"></A><CODE CLASS="Code">
+:kp-f4</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387840"></A><CODE CLASS="Code">
+:kp-enter</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387841"></A><CODE CLASS="Code">
+:applications-menu</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387842"></A><CODE CLASS="Code">
+:print-screen</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387843"></A><CODE CLASS="Code">
+:scroll-lock</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387844"></A><CODE CLASS="Code">
+:sys-req</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387845"></A><CODE CLASS="Code">
+:reset</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387846"></A><CODE CLASS="Code">
+:stop</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387847"></A><CODE CLASS="Code">
+:user</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387848"></A><CODE CLASS="Code">
+:system</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387849"></A><CODE CLASS="Code">
+:clear-line</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387850"></A><CODE CLASS="Code">
+:clear-display</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387851"></A><CODE CLASS="Code">
+:insert-line</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387852"></A><CODE CLASS="Code">
+:delete-line</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387853"></A><CODE CLASS="Code">
+:insert-char</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387854"></A><CODE CLASS="Code">
+:delete-char</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387855"></A><CODE CLASS="Code">
+:prev-item</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1387856"></A><CODE CLASS="Code">
+:next-item</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1386769"></A>Not all of these Gesture Spec keywords will be generated by all platforms and/or keyboards. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1054788"></A>If <EM CLASS="Variable">
+modifers</EM>
+ is an integer, it represents modifer keys according to the values <A HREF="lw-1371.htm#40072" CLASS="XRef">gesture-spec-accelerator-bit</A>, <A HREF="lw-1372.htm#45533" CLASS="XRef">gesture-spec-control-bit</A>, <A HREF="lw-1374.htm#49083" CLASS="XRef">gesture-spec-hyper-bit</A>, <A HREF="lw-1375.htm#37475" CLASS="XRef">gesture-spec-meta-bit</A>, <A HREF="lw-1378.htm#98364" CLASS="XRef">gesture-spec-shift-bit</A>, and <A HREF="lw-1379.htm#71521" CLASS="XRef">gesture-spec-super-bit</A>. If <EM CLASS="Variable">
+modifiers</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then <EM CLASS="Variable">
+gspec</EM>
+ has a wild modifiers component.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1388970"></A>The gesture <CODE CLASS="Code">
+Shift+X</CODE>
+ could potentially be represented by the unmodifed uppercase character <CODE CLASS="Code">
+X</CODE>
+, or lowercase <CODE CLASS="Code">
+x</CODE>
+ with the <CODE CLASS="Code">
+Shift</CODE>
+ modifier. In order to ensure a consistent representation the latter form is not supported by Gesture Specs by default. That is, a <CODE CLASS="Code">
+both-case-p</CODE>
+ character may not be combined with the single modifier <CODE CLASS="Code">
+Shift</CODE>
+ in the accelerator argument. This can be overridden by passing a true value for <EM CLASS="Variable">
+can-shift-both-case-p</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1389127"></A>A <CODE CLASS="Code">
+both-case-p</CODE>
+ character is allowed with <CODE CLASS="Code">
+Shift</CODE>
+ if there are other modifiers. See the below for examples.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1140005"></A>Wild Gesture Specs can be useful when specifying an input model for a <CODE CLASS="Code">
+capi:output-pane</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1078572"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1078742"></A>(sys:make-gesture-spec </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1078743"></A> 97</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1078744"></A> (logior sys:gesture-spec-control-bit</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1078608"></A>         sys:gesture-spec-meta-bit))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1137657"></A>A <CODE CLASS="Code">
+both-case-p</CODE>
+ character may not be combined with the single modifier <CODE CLASS="Code">
+Shift</CODE>
+ in the accelerator argument,  so code like this signals an error:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1138486"></A>(sys:make-gesture-spec </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1138487"></A> (char-code #&#92;x)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1137659"></A> sys:gesture-spec-shift-bit)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1138503"></A>Instead you should use:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1137660"></A>(sys:make-gesture-spec (char-code #&#92;X) 0)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1137661"></A>A <CODE CLASS="Code">
+both-case-p</CODE>
+ character is allowed with <CODE CLASS="Code">
+Shift</CODE>
+ if there are other modifiers:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1137945"></A>(sys:make-gesture-spec</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1137946"></A> (char-code #&#92;x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1137947"></A> (logior sys:gesture-spec-shift-bit</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1137663"></A>         sys:gesture-spec-meta-bit))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054189"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1054190"></A><A HREF="lw-1371.htm#40072" CLASS="XRef">gesture-spec-accelerator-bit</A><BR>
+<A HREF="lw-1372.htm#45533" CLASS="XRef">gesture-spec-control-bit</A><BR>
+<A HREF="lw-1373.htm#61293" CLASS="XRef">gesture-spec-data</A><BR>
+<A HREF="lw-1374.htm#49083" CLASS="XRef">gesture-spec-hyper-bit</A><BR>
+<A HREF="lw-1375.htm#37475" CLASS="XRef">gesture-spec-meta-bit</A><BR>
+<A HREF="lw-1376.htm#90167" CLASS="XRef">gesture-spec-modifiers</A><BR>
+<A HREF="lw-1377.htm#21052" CLASS="XRef">gesture-spec-p</A><BR>
+<A HREF="lw-1378.htm#98364" CLASS="XRef">gesture-spec-shift-bit</A><BR>
+<A HREF="lw-1379.htm#71521" CLASS="XRef">gesture-spec-super-bit</A><BR>
+<A HREF="lw-1416.htm#27502" CLASS="XRef">print-pretty-gesture-spec</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1403.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1401.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

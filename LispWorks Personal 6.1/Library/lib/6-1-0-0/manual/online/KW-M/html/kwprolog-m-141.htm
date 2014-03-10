@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ make-inferencing-state
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-142.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-140.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-104.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-104.htm">7 Reference Guide</A><BR><BR>
+</DIV><A HREF="kwprolog-m-142.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-140.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-993268"></A><A NAME="marker-993267"></A><A NAME="52497"></A>make-inferencing-state</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-993269"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1016713"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1016714"></A>Makes a new inferencing state.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-993270"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-993271"></A>make-inferencing-state <EM CLASS="Variable">
+name</EM>
+ &amp;key <EM CLASS="Variable">
+set-current-p</EM>
+ <EM CLASS="Variable">
+if-exists</EM>
+ =&gt; <EM CLASS="Variable">
+state</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-993272"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-993273"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">Any object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-993573"></A><EM CLASS="Variable">
+set-current-p</EM>
+</P>
+<P CLASS="RDescription-C">A boolean</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-993578"></A><EM CLASS="Variable">
+if-exists</EM>
+</P>
+<P CLASS="RDescription-C">Either <CODE CLASS="Code">
+:error</CODE>
+, <CODE CLASS="Code">
+:supersede</CODE>
+ or <CODE CLASS="Code">
+:overwrite</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-993274"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-993275"></A><EM CLASS="Variable">
+state</EM>
+</P>
+<P CLASS="RDescription-C">An inferencing state.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-993276"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-993277"></A>Returns an inferencing state named by <EM CLASS="Variable">
+name</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-993588"></A>If an inferencing state with the same name already exists (as compared using <CODE CLASS="Code">
+eql</CODE>
+), then the value of <EM CLASS="Variable">
+if-exists</EM>
+ determines what happens:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-993724"></A><CODE CLASS="Code">
+:error</CODE>
+</P>
+<P CLASS="RDescription-C">A continuable error is signaled. Invoking the <CODE CLASS="Code">
+continue</CODE>
+ restart causes the existing inferencing state to be returned.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-994510"></A><CODE CLASS="Code">
+:supersede</CODE>
+</P>
+<P CLASS="RDescription-C">The existing inferencing state is destroyed and a new one is returned.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-994676"></A><CODE CLASS="Code">
+:overwrite</CODE>
+</P>
+<P CLASS="RDescription-C">The existing inferencing state is returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-994705"></A>If <EM CLASS="Variable">
+set-current-p</EM>
+ is non-nil, then <A HREF="kwprolog-m-130.htm#84200" CLASS="XRef">*inferencing-state*</A> is set to new inferencing state.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-993278"></A>Examples</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-993279"></A>(make-inferencing-state 'my-state)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-993280"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-993284"></A><A HREF="kwprolog-m-121.htm#21512" CLASS="XRef">destroy-inferencing-state</A><BR>
+<A HREF="kwprolog-m-124.htm#82941" CLASS="XRef">find-inferencing-state</A><BR>
+<A HREF="kwprolog-m-130.htm#84200" CLASS="XRef">*inferencing-state*</A><BR>
+<A HREF="kwprolog-m-131.htm#84037" CLASS="XRef">inferencing-state-name</A><BR>
+<A HREF="kwprolog-m-136.htm#12849" CLASS="XRef">list-all-inferencing-states</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-142.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-140.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

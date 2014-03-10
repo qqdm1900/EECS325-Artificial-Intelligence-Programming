@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.5.3  Auto-saving files
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-44.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-42.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-40.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A> &gt <A HREF="eduser-m-40.htm">3.5  File handling</A><BR><BR>
+</DIV><A HREF="eduser-m-44.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-42.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884205"></A>3.5.3  <A NAME="marker-884203"></A>Auto-saving files</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884206"></A>The auto-save feature allows for periodic backups of the file associated with the current buffer. These backups are only made if auto-save is switched on.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884207"></A>This feature is useful if the LispWorks editor is killed in some way (for example, in the case of a system crash or accidental killing of the editor process) before a file is explicitly saved. If automatic backups are being made, the state of a file when it was last auto-saved can subsequently be recovered.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884208"></A>By default, automatic backups are made both after a predefined number of key strokes, and also after a predefined amount of time has elapsed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884209"></A>By default, auto-saved files are in the same directory as the original file, with the name of the auto-save file (or &quot;checkpoint file&quot;) being the name of the original file enclosed within <CODE CLASS="Code">
+#</CODE>
+ characters.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884211"></A><A NAME="marker-884210"></A>Toggle Auto Save</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884212"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884213"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884214"></A>Switches auto-save on if it is currently off, and off if it is currently on.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884215"></A>With a positive prefix argument, auto-save is switched on. With a negative or zero prefix argument, auto-save is switched off. Using prefix arguments with <CODE CLASS="Code">
+Toggle Auto Save</CODE>
+ disregards the current state of auto-save.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-937278"></A><A NAME="marker-937280"></A><CODE CLASS="Code">
+Auto Save Toggle</CODE>
+ is a synonym for <CODE CLASS="Code">
+Toggle Auto Save</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1022418"></A>auto-save is initially on or off in a new buffer according to the value of the editor variable <A HREF="eduser-m-43.htm#34976" CLASS="XRef">default-auto-save-on</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1022402"></A><A NAME="34976"></A>default<A NAME="marker-1022426"></A>-auto-save-on</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1022410"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1022403"></A>Default value: <CODE CLASS="Code">
+t</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1022336"></A>The default auto-save state of new buffers.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884217"></A><A NAME="marker-884216"></A>auto-save-filename-pattern</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884218"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1021593"></A>Default value: <EM CLASS="Variable">
+&quot;&#126;A#&#126;A#&quot;</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1021594"></A>This is a <CODE CLASS="Code">
+format</CODE>
+ control string used to make the filename of the checkpoint file. <CODE CLASS="Code">
+format</CODE>
+ is called with two arguments, the first being the directory namestring and the second being the file namestring of the default buffer pathname.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1021938"></A>The default value causes the auto-save file to be created in the same directory as the file for which it is a backup, and with the name surrounded by <CODE CLASS="Code">
+#</CODE>
+ characters.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1021940"></A><A NAME="marker-1021939"></A>auto-save-key-count-threshold</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884224"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884225"></A>Default value: 256</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884226"></A>Specifies the number of destructive/modifying keystrokes that automatically trigger an auto-save of a buffer. If the value is <CODE CLASS="Code">
+nil</CODE>
+, this feature is turned off.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884228"></A><A NAME="marker-884227"></A>auto-save-checkpoint-frequency</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884229"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1021271"></A>Default value: 300</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1021272"></A>Specifies the time interval in seconds after which all modified buffers which are in &quot;Save&quot; mode are auto-saved. If the value is <CODE CLASS="Code">
+nil</CODE>
+, zero or negative, this feature is turned off.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1021289"></A><A NAME="marker-1021288"></A>auto-save-cleanup-checkpoints</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1021290"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1021302"></A>Default value: <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1021303"></A>This variable controls whether an auto-save function will cleanup by deleting the checkpoint file for a buffer after it is saved.  If the value is true then this cleanup will occur.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-44.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-42.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

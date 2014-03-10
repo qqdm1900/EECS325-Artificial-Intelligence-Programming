@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.4  Defining new types
+</TITLE>
+
+<LINK REL="next" HREF="fli-57.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-55.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-43.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A><BR><BR>
+</DIV><A HREF="fli-57.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-55.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-43.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-888396"></A>4.4  <A NAME="46594"></A>Defining new types</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888398"></A><A NAME="marker-888397"></A>The FLI provides the <A HREF="fli-96.htm#39541" CLASS="XRef">define-foreign-type</A> macro for defining new FLI types, using the basic FLI types that you have seen in <A HREF="fli-16.htm#40862" CLASS="XRef">FLI Types</A>. The next example shows you how to define a new array type that only takes an odd number of dimensions.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886577"></A>(fli:define-foreign-type odd-array (element &amp;rest dimensions)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886544"></A>   (unless (oddp (length dimensions))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886545"></A>     (error &quot;Can't define an odd array with even dimensions - try </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886588"></A>adding an extra dimension!&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886547"></A>               `(:c-array ,element ,@dimensions))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886550"></A>The new array type is called <CODE CLASS="Code">
+odd-array</CODE>
+, and takes a FLI type and a sequence of numbers as its arguments. When trying to allocate an <CODE CLASS="Code">
+odd-array</CODE>
+, if there are an even number of items in the sequence then an error is raised. If there are an odd number of items then an instance of the array is allocated. The next command raises an error, because a 2 by 3 array has an even dimension.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886607"></A>(fli:allocate-foreign-object :type '(odd-array :int 2 3))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886556"></A>However, adding an extra dimension and defining a 2 by 3 by 4 array works:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886560"></A>(fli:allocate-foreign-object :type '(odd-array :int 2 3 4))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886638"></A>For more information on defining types see <A HREF="fli-96.htm#39541" CLASS="XRef">define-foreign-type</A>.<A NAME="marker-886714"></A></P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-57.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-55.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-43.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

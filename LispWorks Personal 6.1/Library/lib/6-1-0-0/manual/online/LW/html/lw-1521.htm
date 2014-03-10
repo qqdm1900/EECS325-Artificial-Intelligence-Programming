@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ LispWorksDlsym
+</TITLE>
+
+<LINK REL="next" HREF="lw-1522.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1520.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1519.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1519.htm">45 Dynamic library C functions</A><BR><BR>
+</DIV><A HREF="lw-1522.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1520.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1519.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-977592"></A><A NAME="87348"></A>LispWorksDlsym<A NAME="marker-977591"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-977593"></A>C function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-977594"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-977595"></A>Returns the address of a foreign callable.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-977596"></A>Signature</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-977597"></A>On Windows:</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-977859"></A>void __stdcall *LispWorksDlsym (const char * <EM CLASS="Variable">
+name</EM>
+)</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977874"></A>On Linux, Macintosh, FreeBSD and x86/x64 Solaris:</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-977837"></A>void *LispWorksDlsym (const char * <EM CLASS="Variable">
+name</EM>
+)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-978585"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-978586"></A>The C function <CODE CLASS="Code">
+LispWorksDlsym</CODE>
+ returns the address of a foreign callable <EM CLASS="Variable">
+name</EM>
+ which is defined in Lisp using <CODE CLASS="Code">
+fli:define-foreign-callable</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-978232"></A><CODE CLASS="Code">
+LispWorkDlsym</CODE>
+ first checks if the LispWorks dynamic library finished initializing, and if not uses <A HREF="lw-1520.htm#65792" CLASS="XRef">InitLispWorks</A> to initialize it (with <EM CLASS="Variable">
+MilliTimeOut</EM>
+ 200). If this fails <CODE CLASS="Code">
+LispWorkDlsym</CODE>
+ returns NULL. When the LispWorks dynamic library is initialized, <CODE CLASS="Code">
+LispWorksDlsym</CODE>
+ returns the address of <EM CLASS="Variable">
+name</EM>
+, or NULL if it is not defined.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977962"></A><CODE CLASS="Code">
+LispWorksDlsym</CODE>
+ is defined in each LispWorks dynamic library. For information about creating a LispWorks dynamic library, see <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> and <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A>. For an overview of LispWorks as a dynamic library, see <A HREF="lw-216.htm#48126" CLASS="XRef">LispWorks as a dynamic library</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-977611"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-977612"></A><A HREF="lw-1520.htm#65792" CLASS="XRef">InitLispWorks</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1522.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1520.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1519.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

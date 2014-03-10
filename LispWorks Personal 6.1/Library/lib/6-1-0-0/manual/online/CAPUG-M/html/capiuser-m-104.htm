@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.5.1  Switchable layouts
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-105.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-103.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-103.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-88.htm">7 Laying Out CAPI Panes</A> &gt <A HREF="capiuser-m-103.htm">7.5  Advanced pane layouts</A><BR><BR>
+</DIV><A HREF="capiuser-m-105.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-103.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-103.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-885049"></A>7.5.1  Switchable layouts</H3>
+<P CLASS="Body">
+<A NAME="pgfId-885050"></A>A switchable layout allows you to place CAPI objects on top of one another and determine which object is displayed on top through Lisp code, possibly linked to a button or menu option through a callback. Switchable layouts are set up using a <CODE CLASS="Code">
+switchable-layout</CODE>
+ element in a <CODE CLASS="Code">
+make-instance</CODE>
+. As with the other layouts, such as <CODE CLASS="Code">
+column-layout</CODE>
+ and <CODE CLASS="Code">
+row-layout</CODE>
+, the elements to be organized are given as a list to the <CODE CLASS="Code">
+:description</CODE>
+ keyword. Here is an example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-885051"></A>(setq switching-panes (make-instance </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885052"></A>                       'switchable-layout</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885053"></A>                       :description (list red-pane green-pane)))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885054"></A>(contain switching-panes)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-888759"></A>Note that the default pane to be displayed is the red pane, which was the first pane in the description list. The two panes can now be switched between using <CODE CLASS="Code">
+switchable-layout-visible-child</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888768"></A>(apply-in-pane-process</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888769"></A> switching-panes #'(setf switchable-layout-visible-child)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888770"></A> green-pane switching-panes)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888771"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888772"></A>(apply-in-pane-process</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888773"></A> switching-panes #'(setf switchable-layout-visible-child)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888763"></A> red-pane switching-panes)</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-105.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-103.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-103.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

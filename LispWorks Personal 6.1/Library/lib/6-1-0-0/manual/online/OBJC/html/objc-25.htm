@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.4.3.1  Special method argument and result conversion
+</TITLE>
+
+<LINK REL="next" HREF="objc-26.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-24.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-24.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-3.htm">1 Introduction to the Objective-C Interface</A> &gt; <A HREF="objc-21.htm">1.4  Defining Objective-C classes and methods</A> &gt; <A HREF="objc-24.htm">1.4.3  Defining Objective-C methods</A><BR><BR>
+</DIV><A HREF="objc-26.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-24.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-24.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-893141"></A>1.4.3.1  <A NAME="76969"></A>Special method argument and result conversion<A NAME="marker-893586"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-893146"></A>For certain types of argument, there is more than one useful conversion from the FLI value to a Lisp value. To control this, the argument specification can include an <EM CLASS="Variable">
+arg-style</EM>
+, which describes how the argument should be converted. If the <EM CLASS="Variable">
+arg-style</EM>
+ is specified as <CODE CLASS="Code">
+:foreign </CODE>
+then the argument is converted using normal FLI rules, but by default certain types are converted differently:</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-893379"></A>Special argument conversion for <CODE CLASS="Code">
+define-objc-method</CODE>
+<DIV>
+<IMG SRC="objc-4.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-893383"></A> Argument type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-893385"></A>Special argument behavior</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893391"></A><A NAME="marker-893387"></A><A HREF="objc-85.htm#93402" CLASS="XRef">ns-rect</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893393"></A>The argument is a vector.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893399"></A><A NAME="marker-893395"></A><A HREF="objc-83.htm#20818" CLASS="XRef">ns-point</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893401"></A>The argument is a vector.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893407"></A><A NAME="marker-893403"></A><A HREF="objc-86.htm#70754" CLASS="XRef">ns-size</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893409"></A>The argument is a vector.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893415"></A><A NAME="marker-893411"></A><A HREF="objc-84.htm#90173" CLASS="XRef">ns-range</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893417"></A>The argument is a cons.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893423"></A><A NAME="marker-893419"></A><A HREF="objc-52.htm#79705" CLASS="XRef">objc-bool</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893425"></A>The argument is <CODE CLASS="Code">
+nil</CODE>
+ or <CODE CLASS="Code">
+t</CODE>
+.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893430"></A><A NAME="marker-893427"></A><A HREF="objc-60.htm#36910" CLASS="XRef">objc-object-pointer</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893436"></A>Depending on the Objective-C class, allows automatic conversion to a string or array.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893442"></A><A NAME="marker-893438"></A><A HREF="objc-53.htm#76079" CLASS="XRef">objc-c-string</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893444"></A>The argument is a string.</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-893451"></A>Likewise, result conversion can be controlled by the <EM CLASS="Variable">
+result-style </EM>
+specification. If this is :<CODE CLASS="Code">
+foreign</CODE>
+ then the value is assumed to be suitable for conversion to the <EM CLASS="Variable">
+result-type</EM>
+ using the normal FLI rules, but if <EM CLASS="Variable">
+result-style</EM>
+ is :<CODE CLASS="Code">
+lisp</CODE>
+ then additional conversions are performed for specific values of <EM CLASS="Variable">
+result-type</EM>
+:</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-893469"></A><A NAME="64338"></A>Special result conversion for <CODE CLASS="Code">
+define-objc-method</CODE>
+<DIV>
+<IMG SRC="objc-4.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-893473"></A> Result type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-893475"></A>Special result types supported</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893481"></A><A NAME="marker-893477"></A><A HREF="objc-85.htm#93402" CLASS="XRef">ns-rect</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893483"></A>The result can be a vector.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893489"></A><A NAME="marker-893485"></A><A HREF="objc-83.htm#20818" CLASS="XRef">ns-point</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893545"></A>The result can be a vector.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893497"></A><A NAME="marker-893493"></A><A HREF="objc-86.htm#70754" CLASS="XRef">ns-size</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893551"></A>The result can be a vector.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893505"></A><A NAME="marker-893501"></A><A HREF="objc-84.htm#90173" CLASS="XRef">ns-range</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893557"></A>The result can be a cons.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893513"></A><A NAME="marker-893509"></A><A HREF="objc-52.htm#79705" CLASS="XRef">objc-bool</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893515"></A>The result can be <CODE CLASS="Code">
+nil</CODE>
+ or <CODE CLASS="Code">
+t</CODE>
+.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893521"></A><A NAME="marker-893517"></A><A HREF="objc-60.htm#36910" CLASS="XRef">objc-object-pointer</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893526"></A>The result can be a string or an array. An autoreleased <A NAME="marker-894269"></A><CODE CLASS="Code">
+NSString</CODE>
+ or <A NAME="marker-894264"></A><CODE CLASS="Code">
+NSArray</CODE>
+ is allocated.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893532"></A><A NAME="marker-893563"></A><A HREF="objc-55.htm#54158" CLASS="XRef">objc-class</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-893534"></A>The result can be a string naming a class.</P>
+</TD>
+</TR>
+</TABLE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-26.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-24.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-24.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

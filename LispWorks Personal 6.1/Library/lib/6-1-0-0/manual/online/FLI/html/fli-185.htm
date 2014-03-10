@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :reference
+</TITLE>
+
+<LINK REL="next" HREF="fli-186.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-184.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-156.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-156.htm">6 Type Reference</A><BR><BR>
+</DIV><A HREF="fli-186.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-184.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-919348"></A><A NAME="26451"></A>:reference<A NAME="marker-919347"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-919349"></A>FLI type descriptor</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888766"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888767"></A>Passes a foreign object of a specified type by reference, and automatically dereferences the object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888770"></A>Syntax</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888771"></A>:reference <EM CLASS="Variable">
+type</EM>
+ &amp;key <EM CLASS="Variable">
+allow-null</EM>
+ <EM CLASS="Variable">
+lisp-to-foreign-p</EM>
+ <EM CLASS="Variable">
+foreign-to-lisp-p</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888772"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888773"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">The type of the object to pass by reference.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-910041"></A><EM CLASS="Variable">
+allow-null</EM>
+</P>
+<P CLASS="RDescription-C">If non-nil, if the input argument is <CODE CLASS="Code">
+nil</CODE>
+ a null pointer is passed instead of a reference to an object containing <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-910050"></A><EM CLASS="Variable">
+lisp-to-foreign-p</EM>
+</P>
+<P CLASS="RDescription-C">If non-nil, allow conversion from Lisp to the foreign language. The default value is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-910063"></A><EM CLASS="Variable">
+foreign-to-lisp-p</EM>
+</P>
+<P CLASS="RDescription-C">If non-nil, allow conversion from the foreign language to Lisp. The default value is <CODE CLASS="Code">
+t</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888774"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888775"></A>The FLI <CODE CLASS="Code">
+:reference</CODE>
+ type is essentially the same as a <A HREF="fli-182.htm#28209" CLASS="XRef">:pointer</A> type, except that <CODE CLASS="Code">
+:reference</CODE>
+ is automatically dereferenced when it is processed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-915847"></A>The <CODE CLASS="Code">
+:reference</CODE>
+ type is useful as a foreign function argument. When a function is called with an argument of the type <CODE CLASS="Code">
+(:reference </CODE>
+<EM CLASS="Variable">
+type</EM>
+<CODE CLASS="Code">
+)</CODE>
+, an object of <EM CLASS="Variable">
+type</EM>
+ is dynamically allocated across the scope of the foreign function, and is automatically de-allocated once the foreign function terminates. The value of the argument is not copied into the temporary instance of the object if <EM CLASS="Variable">
+lisp-to-foreign-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, and similarly, the return value is not copied back into a Lisp object if <EM CLASS="Variable">
+foreign-to-lisp-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-967476"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-967542"></A>If the argument is of an aggregate type and <EM CLASS="Variable">
+foreign-to-lisp-p</EM>
+ is true, then a malloc'd copy is made which you should later free explicitly. It is usually better to use<A HREF="fli-182.htm#28209" CLASS="XRef">:pointer</A>, make the temporary foreign object using <A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A> and then copy whatever slots you need into a normal Lisp object on return.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888776"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888777"></A>In the following example an <CODE CLASS="Code">
+:int</CODE>
+ is allocated, and a pointer to the integer is bound to the Lisp variable <CODE CLASS="Code">
+number</CODE>
+. Then a pointer to <CODE CLASS="Code">
+number</CODE>
+, called <CODE CLASS="Code">
+point1</CODE>
+, is defined. The pointer <CODE CLASS="Code">
+point1</CODE>
+ is set to point to <CODE CLASS="Code">
+number</CODE>
+, itself a pointer, but to an <CODE CLASS="Code">
+:int</CODE>
+.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-916078"></A>(setq number (fli:allocate-foreign-object :type :int))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-916111"></A>(setf (fli:dereference number) 42)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-916142"></A>(setq point1 (fli:allocate-foreign-object </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-916155"></A>              :type '(:pointer :int)))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-916160"></A>(setf (fli:dereference point1) number)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-916173"></A>If <CODE CLASS="Code">
+point1</CODE>
+ is dereferenced, it returns a pointer to an <CODE CLASS="Code">
+:int</CODE>
+. To get at the value stored in the integer, we need to dereference twice:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-916233"></A>(fli:dereference (fli:dereference point1))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-916245"></A>However, if we dereference <CODE CLASS="Code">
+point1</CODE>
+ as a <CODE CLASS="Code">
+:reference</CODE>
+, we only have to dereference it once to get the value:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-916635"></A>(fli:dereference point1 :type '(:reference :int))</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888778"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888779"></A><A HREF="fli-186.htm#15890" CLASS="XRef">:reference-pass</A><BR>
+<A HREF="fli-187.htm#25276" CLASS="XRef">:reference-return</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-186.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-184.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

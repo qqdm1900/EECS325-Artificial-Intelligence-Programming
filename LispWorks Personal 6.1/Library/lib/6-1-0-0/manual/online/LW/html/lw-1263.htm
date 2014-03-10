@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ sql-database-error
+</TITLE>
+
+<LINK REL="next" HREF="lw-1264.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1262.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1264.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1262.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-996934"></A><A NAME="54951"></A>s<A NAME="marker-996933"></A>ql-database-error</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-994491"></A>Condition</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-994492"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-994493"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-994494"></A>Superclasses</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-994495"></A><CODE CLASS="Code">
+simple-error</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-994811"></A>Subclasses</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-994847"></A><A HREF="lw-1261.htm#22494" CLASS="XRef">sql-connection-error</A><BR>
+<A HREF="lw-1262.htm#21458" CLASS="XRef">sql-database-data-error</A><BR>
+<A HREF="lw-1273.htm#94734" CLASS="XRef">sql-temporary-error</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-999729"></A>Accessors</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-999745"></A><A NAME="marker-1000188"></A><CODE CLASS="Code">
+sql-error-error-id<BR>
+</CODE>
+<A NAME="marker-1000209"></A><CODE CLASS="Code">
+sql-error-secondary-error-id<BR>
+</CODE>
+<A NAME="marker-1000234"></A><CODE CLASS="Code">
+sql-error-database-message</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-994496"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-994497"></A>The condition class <CODE CLASS="Code">
+sql-database-error</CODE>
+ is used to signal errors in the database interface that Common SQL uses.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-999957"></A><CODE CLASS="Code">
+sql-error-error-id</CODE>
+ returns the primary error indentifier. On ODBC the value is a string. On Oracle it is some number, the &quot;v2 return code&quot; in the Cursor Data Area.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-999958"></A><CODE CLASS="Code">
+sql-error-secondary-error-id</CODE>
+ returns the secondary error indentifier. On ODBC this is the error code from the underlying database. On Oracle that is the &quot;v4 return code&quot; (also known as &quot;return code&quot;) in the Cursor Data Area, which is the useful code.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-999959"></A><CODE CLASS="Code">
+sql-error-database-message</CODE>
+ is a string (maybe <CODE CLASS="Code">
+nil</CODE>
+) that came back from the foreign code.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-999935"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1589256"></A>ODBC drivers for Oracle return the &quot;v4 return code&quot; as the underlying database code. Therefore in the event of an error on connection to an Oracle database, <CODE CLASS="Code">
+sql-error-secondary-error-id</CODE>
+ always returns the &quot;v4 return code&quot; whether the connection is through ODBC.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-994498"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-994499"></A><A HREF="lw-1275.htm#25606" CLASS="XRef">sql-user-error</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1264.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1262.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

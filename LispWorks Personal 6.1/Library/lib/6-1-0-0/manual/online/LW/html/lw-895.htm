@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ defadvice
+</TITLE>
+
+<LINK REL="next" HREF="lw-896.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-894.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-896.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-894.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1187582"></A><A NAME="marker-1187580"></A><A NAME="defadvice"></A>defadvice</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1187513"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-957486"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-957502"></A>Defines a new piece of advice.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886870"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886871"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886872"></A>Signature</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886873"></A>defadvice (<EM CLASS="Variable">dspec name advice-type</EM>
+ &amp;key <EM CLASS="Variable">where documentation</EM>
+)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886874"></A>            <EM CLASS="Variable">lambda-list</EM>
+ &amp;body <EM CLASS="Variable">body</EM>
+ =&gt; nil</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886875"></A><EM CLASS="Variable">dspec</EM>
+ ::= <EM CLASS="Variable">fn-name</EM>
+ |</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886876"></A>         <EM CLASS="Variable">macro-name</EM>
+ |</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886877"></A>         (method <EM CLASS="Variable">generic-fn-name</EM>
+ [(<EM CLASS="Variable">class</EM>
+*)])   </PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886879"></A><EM CLASS="Variable">
+advice-type</EM>
+ ::= :before |:after |:around </CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886880"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886881"></A><EM CLASS="Variable">
+dspec</EM>
+ </P>
+<P CLASS="RDescription-C">Specifies the functional definition to which the piece of advice belongs. There are three forms which this specification may take. The first one above specifies a function by its name; the second one specifies a macro by name; the third specifies a method by the name of its generic function and by a list of classes to specialize the arguments to the method. In the case of a method the list of classes must correspond exactly to the classes of the specialized parameters of an existing method, and the advice is then attached to this method. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-886882"></A>When advice is provided for a macro using <CODE CLASS="Code">
+defadvice</CODE>
+, then the function with which the advice is associated is the expansion function for that macro. Thus before and after advice for a macro receive the arguments given to the macro expansion function, which are normally the macro call form and an environment. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886883"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the piece of advice being created. It should of course be unique to the advised function, but does not need to be globally unique. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886884"></A><EM CLASS="Variable">
+advice-type</EM>
+</P>
+<P CLASS="RDescription-C">A keyword specifying the kind of advice wanted. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886885"></A><EM CLASS="Variable">
+where</P>
+<P CLASS="RDescription-C"></EM>
+Specifies where this advice should be placed in the ordering of pieces of advice for the function. By default a piece of advice is placed at the start of the corresponding section. If this argument is present and is <CODE CLASS="Code">
+:end</CODE>
+ then the advice is instead placed at the end of its section. The other permissible value for this argument is <CODE CLASS="Code">
+:start</CODE>
+, which places the advice at the start of its section in the ordering (as in the default behavior). </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886886"></A><EM CLASS="Variable">
+documentation</EM>
+</P>
+<P CLASS="RDescription-C">A string providing documentation on the piece of advice. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886887"></A> <EM CLASS="Variable">
+lambda-list</EM>
+</P>
+<P CLASS="RDescription-C">A lambda list for the piece of advice. In the case of before and after advice this should be compatible with the lambda list for the original definition, since such advice receives the same arguments as that function. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886888"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">The main body of the advice. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-964334"></A>Values </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-964335"></A><CODE CLASS="Code">
+defadvice</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886889"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886890"></A><CODE CLASS="Code">
+defadvice</CODE>
+ is the macro used to define a new piece of advice. Advice provides a way to change the behavior of existing functional definitions in the system. In a simple instance advice might be used to carry out some additional actions before or after the original definition. More sophisticated uses allow the definition to be replaced by new code that can access the original function repeatedly or as rarely as desired, and that can receive different numbers of arguments and return any values. A function may have any number of pieces of advice attached to it by using <CODE CLASS="Code">
+defadvice</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-886891"></A>There are three kinds of advice that may be defined: before, after and around advice. The first two kinds attach auxiliary code to be carried out alongside the original definition (before it for before advice, after it in the case of after advice). Around advice replaces the function altogether; it may define code that never accesses the original definition, that receives different numbers of arguments, and returns different values. All the pieces of advice for a function are ordered. The ordering is important in determining how all the pieces of advice for a function are combined. Around advice always comes first, then before advice, then the original definition, and lastly the after advice. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-886892"></A>Conceptually the before advice, the original definition and the after advice are amalgamated into one new construct. If this gets called then each of its components receives the same arguments in turn, and the values returned are those produced by the last piece of after advice to be called in this way (or the original function if there is no after advice). The code associated with before and after advice should not destructively modify its arguments. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-886893"></A>If around advice is present then the first piece of around advice is called, instead of the combination involving before and after advice discussed above. It does not have to access any of the other advice, nor the original definition. Its only link to the rest of the advice is by means of a call to <CODE CLASS="Code">
+call-next-advice</CODE>
+. It may invoke this as often as it chooses, and by doing so it accesses the next piece of around advice if present, or else it accesses the combination of before and after advice together with the original definition. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1184947"></A>Remove advice using <CODE CLASS="Code">
+remove-advice</CODE>
+ or <CODE CLASS="Code">
+delete-advice</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886897"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886898"></A><CODE CLASS="Code">
+defadvice</CODE>
+ is an extension to Common Lisp.    </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1184653"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1264422"></A><A HREF="lw-889.htm#32640" CLASS="XRef">call-next-advice</A><BR>
+<A HREF="lw-780.htm#80152" CLASS="XRef">delete-advice</A><BR>
+<A HREF="lw-961.htm#92651" CLASS="XRef">remove-advice</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-896.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-894.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

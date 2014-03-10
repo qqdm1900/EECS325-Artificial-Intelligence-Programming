@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ record-definition
+</TITLE>
+
+<LINK REL="next" HREF="lw-727.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-725.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-698.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-698.htm">30 The DSPEC Package</A><BR><BR>
+</DIV><A HREF="lw-727.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-725.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-949800"></A><A NAME="45470"></A>record<A NAME="marker-949799"></A>-definition</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-949801"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949802"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-949803"></A>Checks for existing definitions and records a new definition.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949804"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-949805"></A>dspec</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949806"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-949807"></A>record-definition <EM CLASS="Variable">
+dspec</EM>
+ <EM CLASS="Variable">
+location</EM>
+ &amp;key <EM CLASS="Variable">
+check-redefinition-p</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949808"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-949809"></A><EM CLASS="Variable">
+dspec</EM>
+</P>
+<P CLASS="RDescription-C">A dspec.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-949810"></A><EM CLASS="Variable">
+location</EM>
+</P>
+<P CLASS="RDescription-C">A pathname or keyword.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-949811"></A><EM CLASS="Variable">
+check-redefinition-p</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-949812"></A>A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-950475"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-950506"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949813"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-949814"></A>The function <CODE CLASS="Code">
+record-definition</CODE>
+ tells the system that <EM CLASS="Variable">
+dspec</EM>
+ is defined at <EM CLASS="Variable">
+location</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-949815"></A>The system-provided definer macros call the function <CODE CLASS="Code">
+record-definition</CODE>
+ with the current location.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-949816"></A><EM CLASS="Variable">
+location</EM>
+ should be a pathname or keyword as returned by <A HREF="lw-721.htm#15437" CLASS="XRef">location</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-949820"></A>When <EM CLASS="Variable">
+check-redefinition-p </EM>
+is true, it checks for existing definitions and reports these according to the value of <A HREF="lw-728.htm#81046" CLASS="XRef">*redefinition-action*</A>. The default value of <EM CLASS="Variable">
+check-redefinition-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-950569"></A>If the definition is made, then <EM CLASS="Variable">
+result</EM>
+ is true. If the definition is not made then <EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+. This can happen if you choose the <CODE CLASS="Code">
+&quot;Don't redefine ...&quot;</CODE>
+ restart at a redefinition error.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-975322"></A><B CLASS="Bold">
+Note:</B>
+ You should not usually call <CODE CLASS="Code">
+record-definition</CODE>
+, since all the system-provided definers call it. However, for new classes of definition which you add with <A HREF="lw-704.htm#64832" CLASS="XRef">define-dspec-class</A>, you should call <CODE CLASS="Code">
+record-definition</CODE>
+ for dspecs in their new classes.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-950057"></A>Compatibility note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-950107"></A><CODE CLASS="Code">
+record-definition</CODE>
+ was documented in the <CODE CLASS="Code">
+lispworks</CODE>
+ package in LispWorks 4.3 and earlier. Although it is currently still available there, this may change in future releases and you should now reference it via the <CODE CLASS="Code">
+dspec</CODE>
+ package.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949824"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-949828"></A><A HREF="lw-704.htm#64832" CLASS="XRef">define-dspec-class</A><BR>
+<A HREF="lw-728.htm#81046" CLASS="XRef">*redefinition-action*</A><BR>
+<A HREF="lw-721.htm#15437" CLASS="XRef">location</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-727.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-725.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

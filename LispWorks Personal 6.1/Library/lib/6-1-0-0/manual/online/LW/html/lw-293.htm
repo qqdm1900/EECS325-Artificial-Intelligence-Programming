@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.8  Process properties
+</TITLE>
+
+<LINK REL="next" HREF="lw-294.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-292.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-244.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A><BR><BR>
+</DIV><A HREF="lw-294.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-292.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-895633"></A>15.8  <A NAME="marker-895846"></A>Process properties</H3>
+<P CLASS="Body">
+<A NAME="pgfId-895634"></A>A &quot;process property&quot; is a pair of an indicator and a value that is associated with it for a process. </P>
+<P CLASS="Body">
+<A NAME="pgfId-895635"></A>LispWorks has two kinds of process properties: general and private. These two kinds of properties are stored separately, and the association of indicator/value in each property kind is independent of any in the other property kind.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895669"></A>General properties are stored in the process plist, and can be modified from other processes.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895637"></A>Private properties can only be modified by the current process. Private properties are faster to modify, because the modification does not need to be thread-safe. </P>
+<P CLASS="Body">
+<A NAME="pgfId-895638"></A>Otherwise there is little difference between general and private properties.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895732"></A><CODE CLASS="Code">
+</CODE>
+<A NAME="marker-895848"></A><A HREF="lw-1085.htm#98398" CLASS="XRef">process-plist</A> and <CODE CLASS="Code">
+(setf </CODE>
+<A HREF="lw-1085.htm#98398" CLASS="XRef">process-plist</A><CODE CLASS="Code">
+)</CODE>
+ are not thread safe. In LispWorks 5.1 and earlier the only interface to process properties is <A HREF="lw-1085.htm#98398" CLASS="XRef">process-plist</A>, but this does not work well in SMP LispWorks, and so it is deprecated. </P>
+<P CLASS="Body">
+<A NAME="pgfId-895640"></A>There is no parallel to <A HREF="lw-1085.htm#98398" CLASS="XRef">process-plist</A> for the private properties.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895641"></A>The general properties are accessed by: <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-895853"></A><A HREF="lw-1089.htm#77380" CLASS="XRef">process-property</A>, <CODE CLASS="Code">
+(setf </CODE>
+<A HREF="lw-1089.htm#77380" CLASS="XRef">process-property</A><CODE CLASS="Code">
+)</CODE>
+, <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-895858"></A><A HREF="lw-1117.htm#50862" CLASS="XRef">remove-process-property</A>, <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-895863"></A><A HREF="lw-1112.htm#30872" CLASS="XRef">pushnew-to-process-property</A> and <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-895868"></A><A HREF="lw-1115.htm#51356" CLASS="XRef">remove-from-process-property</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895809"></A>The private properties are accessed by: <A HREF="lw-1032.htm#16975" CLASS="XRef">get-process-private-property</A> (access from other processes), <A HREF="lw-1088.htm#10478" CLASS="XRef">process-private-property</A>, <CODE CLASS="Code">
+(setf </CODE>
+<A HREF="lw-1088.htm#10478" CLASS="XRef">process-private-property</A><CODE CLASS="Code">
+)</CODE>
+, <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-895883"></A><A HREF="lw-1116.htm#74063" CLASS="XRef">remove-process-private-property</A>, <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-895878"></A><A HREF="lw-1111.htm#30004" CLASS="XRef">pushnew-to-process-private-property</A> and <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-895873"></A><A HREF="lw-1114.htm#85043" CLASS="XRef">remove-from-process-private-property</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-294.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-292.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

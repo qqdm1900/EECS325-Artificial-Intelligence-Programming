@@ -1,0 +1,681 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ graphics-state
+</TITLE>
+
+<LINK REL="next" HREF="capiref-574.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-572.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-495.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-495.htm">2 GP Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-574.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-572.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1433439"></A><A NAME="marker-1433437"></A><A NAME="89232"></A>graphics-state</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1433440"></A><EM CLASS="Variable">
+Function</EM>
+</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1433441"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1433442"></A>The graphics state object, holding default parameters for drawing operations on an associated <EM CLASS="Variable">
+port</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1433443"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1433444"></A><CODE CLASS="Code">
+graphics-ports</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1433447"></A>Slots</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433449"></A><EM CLASS="Variable">
+transform</EM>
+<A NAME="marker-1433448"></A></P>
+<P CLASS="RDescription-C">A <A HREF="capiref-633.htm#46876" CLASS="XRef">transform</A> object which determines the coordinate transformation applying to the graphics port. The default value is the unit transform which leaves the port coordinates unchanged from those used by the host window system -- origin at top left, X increasing to the right and Y increasing down the screen. Allowed values are anything returned by the transform functions , described in section &quot;Graphics state transforms&quot; of the <I CLASS="Italic">
+CAPI User Guide</I>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433454"></A><EM CLASS="Variable">
+foreground</EM>
+<A NAME="marker-1433453"></A> </P>
+<P CLASS="RDescription-C">Determines the foreground color used in drawing functions. The value can be a pixel value, a color name symbol, a color name string or a color spec object. Using pixel values results in better performance. The default value is <CODE CLASS="Code">
+:black</CODE>
+. The value <CODE CLASS="Code">
+:color_highlighttext</CODE>
+ is useful for drawing text with the system highlighting.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433456"></A><EM CLASS="Variable">
+background</EM>
+<A NAME="marker-1433455"></A> </P>
+<P CLASS="RDescription-C">Determines the background color used in drawing functions which use a stipple. Valid values are the same as for <EM CLASS="Variable">
+foreground</EM>
+. The default value is <CODE CLASS="Code">
+:white</CODE>
+. The value <CODE CLASS="Code">
+:color_highlight</CODE>
+ is useful for drawing text with the system highlighting.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433458"></A><EM CLASS="Variable">
+operation</EM>
+<A NAME="marker-1433457"></A> </P>
+<P CLASS="RDescription-C">Determines the color combination used in the drawing primitives when the <EM CLASS="Variable">
+port</EM>
+'s <EM CLASS="Variable">
+drawing-mode</EM>
+ is <CODE CLASS="Code">
+:compatible</CODE>
+. Valid values are 0 to 15, being the same logical values as the <EM CLASS="Variable">
+op</EM>
+ arg to the Common Lisp function <CODE CLASS="Code">
+boole</CODE>
+. The default value is <CODE CLASS="Code">
+boole-1</CODE>
+. The section &quot;Graphics state operation&quot; in the <I CLASS="Italic">
+CAPI User Guide</I>
+ shows how to use <EM CLASS="Variable">
+operation</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433463"></A><EM CLASS="Variable">
+stipple</EM>
+<A NAME="marker-1433462"></A> </P>
+<P CLASS="RDescription-C">A 1-bit pixmap (&quot;bitmap&quot;) or <CODE CLASS="Code">
+nil</CODE>
+ (which is the default value). The bitmap is used in conjunction with the <EM CLASS="Variable">
+fill-style</EM>
+ when drawing. Here, <CODE CLASS="Code">
+nil</CODE>
+ means that all pixels are drawn in the <EM CLASS="Variable">
+foreground</EM>
+ color. A stipple is not transformed by the <EM CLASS="Variable">
+transform</EM>
+ parameter. Its origin is assumed to coincide with the origin of the port. The <EM CLASS="Variable">
+stipple</EM>
+ is tiled across the drawing. <EM CLASS="Variable">
+stipple</EM>
+ is ignored if a <EM CLASS="Variable">
+pattern</EM>
+ is given. If no <EM CLASS="Variable">
+fill-style</EM>
+ is given, or it is specified as <CODE CLASS="Code">
+:solid</CODE>
+, when a <EM CLASS="Variable">
+stipple</EM>
+ is given, then <EM CLASS="Variable">
+fill-style</EM>
+ defaults to <CODE CLASS="Code">
+:opaque-stippled</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433465"></A><EM CLASS="Variable">
+fill-style</EM>
+<A NAME="marker-1433464"></A> </P>
+<P CLASS="RDescription-C">Determines how the drawing is done. The value should be one of <CODE CLASS="Code">
+:solid</CODE>
+, <CODE CLASS="Code">
+:opaque-stippled</CODE>
+, <CODE CLASS="Code">
+:stippled</CODE>
+ or <CODE CLASS="Code">
+:tiled</CODE>
+. The default value <CODE CLASS="Code">
+:solid</CODE>
+ means that the <EM CLASS="Variable">
+foreground</EM>
+ is used everywhere. <CODE CLASS="Code">
+:opaque-stippled</CODE>
+ means that the <EM CLASS="Variable">
+stipple</EM>
+ bitmap is used with stipple 1s giving the <EM CLASS="Variable">
+foreground</EM>
+ and 0s the <EM CLASS="Variable">
+background</EM>
+. <CODE CLASS="Code">
+:stippled</CODE>
+ means that the <EM CLASS="Variable">
+stipple</EM>
+ bitmap is used with <EM CLASS="Variable">
+foreground</EM>
+ where there are 1s and where the are 0s, no drawing is done. If you specify a stipple but no <EM CLASS="Variable">
+fill-style</EM>
+, or a <EM CLASS="Variable">
+fill-style</EM>
+ of <CODE CLASS="Code">
+:solid</CODE>
+, it defaults to <CODE CLASS="Code">
+:opaque-stipple</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433467"></A><EM CLASS="Variable">
+pattern</EM>
+<A NAME="marker-1433466"></A> </P>
+<P CLASS="RDescription-C">An image the same depth as the <EM CLASS="Variable">
+port</EM>
+, or <CODE CLASS="Code">
+nil</CODE>
+. If non-nil, <EM CLASS="Variable">
+pattern</EM>
+ is used as the source of color for drawing instead of the <EM CLASS="Variable">
+foreground</EM>
+ and <EM CLASS="Variable">
+background</EM>
+ parameters. A pattern is not transformed by the <EM CLASS="Variable">
+transform</EM>
+ parameter. The <EM CLASS="Variable">
+pattern</EM>
+ is tiled across the drawing. When <EM CLASS="Variable">
+pattern</EM>
+ is specified, the <EM CLASS="Variable">
+stipple</EM>
+ value is ignored.The default value of <EM CLASS="Variable">
+pattern</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1433470"></A>See &quot;Working with images&quot; in the <I CLASS="Italic">
+CAPI User Guide</I>
+ for information on creating an image.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433473"></A><EM CLASS="Variable">
+thickness</EM>
+<A NAME="marker-1433472"></A> </P>
+<P CLASS="RDescription-C">A number (defaulting to 1) specifying the thickness of lines drawn. If <EM CLASS="Variable">
+scale-thickness</EM>
+ is non-nil, the value <EM CLASS="Variable">
+thickness</EM>
+ is in <EM CLASS="Variable">
+port</EM>
+ (transformed) coordinates, otherwise <EM CLASS="Variable">
+thickness</EM>
+ is in pixels.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433475"></A><EM CLASS="Variable">
+scale-thickness</EM>
+<A NAME="marker-1433474"></A> </P>
+<P CLASS="RDescription-C">A boolean, defaulting to <CODE CLASS="Code">
+t</CODE>
+ which means interpret the <EM CLASS="Variable">
+thickness</EM>
+ parameter in transformed port coordinates. If <EM CLASS="Variable">
+scale-thickness</EM>
+ is nil, <EM CLASS="Variable">
+thickness</EM>
+ is interpreted in pixels.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433477"></A><EM CLASS="Variable">
+dashed</EM>
+<A NAME="marker-1433476"></A> </P>
+<P CLASS="RDescription-C">A boolean, defaulting to <CODE CLASS="Code">
+nil</CODE>
+. If <EM CLASS="Variable">
+dashed</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ then lines are drawn as a dashed line using <EM CLASS="Variable">
+dash</EM>
+ as the mark-space specifier.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433479"></A><EM CLASS="Variable">
+dash</EM>
+<A NAME="marker-1433478"></A> </P>
+<P CLASS="RDescription-C">A list of two or more integer, or <CODE CLASS="Code">
+nil</CODE>
+. A list of integers specifies the alternate mark and space sizes for dashed lines. These mark and space values are interpreted in pixels only. The default value of <EM CLASS="Variable">
+dash</EM>
+ is <CODE CLASS="Code">
+(4 4)</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433481"></A><EM CLASS="Variable">
+line-end-style</EM>
+<A NAME="marker-1433480"></A></P>
+<P CLASS="RDescription-C">The value should be one of <CODE CLASS="Code">
+:butt</CODE>
+, <CODE CLASS="Code">
+:round</CODE>
+ or <CODE CLASS="Code">
+:projecting</CODE>
+ and specifies how to draw the ends of lines. The default value is <CODE CLASS="Code">
+:butt</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433483"></A><EM CLASS="Variable">
+line-joint-style</EM>
+<A NAME="marker-1433482"></A> </P>
+<P CLASS="RDescription-C">The value should be one of <CODE CLASS="Code">
+:bevel</CODE>
+, <CODE CLASS="Code">
+:miter</CODE>
+  or <CODE CLASS="Code">
+:round</CODE>
+ and specifies how to draw the areas where the edges of polygons meet. The default value is <CODE CLASS="Code">
+:miter</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433485"></A><EM CLASS="Variable">
+mask</EM>
+<A NAME="marker-1433484"></A></P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+, or a list specifying a shape inside which the drawing is done.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433487"></A><EM CLASS="Variable">
+mask-x</EM>
+<A NAME="marker-1433486"></A> </P>
+<P CLASS="RDescription-C">An integer specifying in window coordinates where in the port the X coordinate of the mask origin is to be considered to be. The default value is 0.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1585811"></A>The <EM CLASS="Variable">
+mask-x</EM>
+ parameter works only when the <EM CLASS="Variable">
+drawing-mode</EM>
+ is <CODE CLASS="Code">
+:compatible </CODE>
+and the platform is GTK+ or X11/Motif.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1585812"></A><EM CLASS="Variable">
+mask-x</EM>
+ is deprecated.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433489"></A><EM CLASS="Variable">
+mask-y</EM>
+<A NAME="marker-1433488"></A> </P>
+<P CLASS="RDescription-C">An integer specifying in window coordinates where in the port the Y coordinate of the mask origin is to be considered to be. The default value is 0.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1579206"></A>The <EM CLASS="Variable">
+mask-y</EM>
+ parameter works only when the <EM CLASS="Variable">
+drawing-mode</EM>
+ is <CODE CLASS="Code">
+:compatible </CODE>
+and the platform is GTK+ or X11/Motif.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1585794"></A><EM CLASS="Variable">
+mask-y</EM>
+ is deprecated.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1507806"></A><EM CLASS="Variable">
+mask-transform</P>
+<P CLASS="RDescription-C"></EM>
+<A NAME="marker-1507843"></A><A NAME="marker-1507848"></A>A <A HREF="capiref-633.htm#46876" CLASS="XRef">transform</A> object which determines the coordinate transformation use for the mask in <EM CLASS="Variable">
+drawing-mode</EM>
+ <CODE CLASS="Code">
+:quality</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433491"></A><EM CLASS="Variable">
+font</EM>
+<A NAME="marker-1433490"></A> </P>
+<P CLASS="RDescription-C">Either <CODE CLASS="Code">
+nil</CODE>
+ or a <A HREF="capiref-545.htm#46756" CLASS="XRef">font</A> object to be used by the <A HREF="capiref-522.htm#87126" CLASS="XRef">draw-character</A> and <A HREF="capiref-535.htm#53036" CLASS="XRef">draw-string</A> functions. The default value is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1765093"></A>Note that <EM CLASS="Variable">
+font</EM>
+ cannot be a <A HREF="capiref-546.htm#83691" CLASS="XRef">font-description</A>. Use <A HREF="capiref-543.htm#37094" CLASS="XRef">find-best-font</A> to convert a <A HREF="capiref-546.htm#83691" CLASS="XRef">font-description</A> to a <A HREF="capiref-545.htm#46756" CLASS="XRef">font</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433503"></A><EM CLASS="Variable">
+text-mode</EM>
+<A NAME="marker-1586807"></A><A NAME="marker-1433501"></A><A NAME="marker-1433502"></A></P>
+<P CLASS="RDescription-C">A keyword controlling the mode of rendering text, most importantly anti-aliasing.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433506"></A><EM CLASS="Variable">
+shape-mode</EM>
+<A NAME="marker-1433504"></A><A NAME="marker-1433505"></A></P>
+<P CLASS="RDescription-C">A keyword controlling the mode of drawing shapes (that is, anything except text).</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1433509"></A><EM CLASS="Variable">
+compositing-mode</EM>
+<A NAME="marker-1433507"></A><A NAME="marker-1433508"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1770980"></A>A keyword controlling the combining of new drawing with existing drawing.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1446202"></A>Accessors</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1446964"></A><A NAME="marker-1446963"></A>graphics-state-transform </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446966"></A><A NAME="marker-1446965"></A>graphics-state-foreground </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446968"></A><A NAME="marker-1446967"></A>graphics-state-background </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446970"></A><A NAME="marker-1446969"></A>graphics-state-operation </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446972"></A><A NAME="marker-1446971"></A>graphics-state-stipple </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446974"></A><A NAME="marker-1446973"></A>graphics-state-pattern </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446976"></A><A NAME="marker-1446975"></A>graphics-state-thickness </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446978"></A><A NAME="marker-1446977"></A>graphics-state-scale-thickness </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446980"></A><A NAME="marker-1446979"></A>graphics-state-dashed </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446982"></A><A NAME="marker-1446981"></A>graphics-state-dash </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446984"></A><A NAME="marker-1446983"></A>graphics-state-fill-style</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446986"></A><A NAME="marker-1446985"></A>graphics-state-line-end-style </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446988"></A><A NAME="marker-1446987"></A>graphics-state-line-joint-style </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446990"></A><A NAME="marker-1446989"></A>graphics-state-mask </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446992"></A><A NAME="marker-1446991"></A>graphics-state-mask-x </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446994"></A><A NAME="marker-1446993"></A>graphics-state-mask-y </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1523561"></A><A NAME="marker-1523563"></A>graphics-state-mask-transform</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446996"></A><A NAME="marker-1446995"></A>graphics-state-font</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1446998"></A><A NAME="marker-1446997"></A>graphics-state-text-mode</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1447000"></A><A NAME="marker-1446999"></A>graphics-state-shape-mode</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1447002"></A><A NAME="marker-1447001"></A>graphics-state-compositing-mode</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1433512"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1433513"></A>Each graphics port has a <CODE CLASS="Code">
+graphics-state</CODE>
+ object associated with it, providing the default values of graphics parameters for drawing operations. The drawing operations such as <A HREF="capiref-524.htm#83073" CLASS="XRef">draw-ellipse</A>, <A HREF="capiref-533.htm#31650" CLASS="XRef">draw-rectangle</A> and <A HREF="capiref-535.htm#53036" CLASS="XRef">draw-string</A> can override specific parameters by passing them as keyword arguments.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1447757"></A><CODE CLASS="Code">
+graphics-state</CODE>
+ objects are used in the <A HREF="capiref-656.htm#77571" CLASS="XRef">with-graphics-state</A> macro and modified using the accessor functions listed above. See &quot;Setting the graphics state&quot; in the <I CLASS="Italic">
+CAPI User Guide</I>
+ for examples.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1506658"></A><EM CLASS="Variable">
+mask</EM>
+ should be <CODE CLASS="Code">
+nil</CODE>
+ (the default), a list of the form (<EM CLASS="Variable">
+x</EM>
+ <EM CLASS="Variable">
+y</EM>
+ <EM CLASS="Variable">
+width</EM>
+ <EM CLASS="Variable">
+height</EM>
+), defining a rectangle inside which the drawing is done or a list of the form (<CODE CLASS="Code">
+:path</CODE>
+ <EM CLASS="Variable">
+path</EM>
+ <CODE CLASS="Code">
+:fill-rule</CODE>
+ <EM CLASS="Variable">
+fill-rule</EM>
+) specifying a path inside which the drawing is done. The mask is not tiled.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1506659"></A>In the latter case <EM CLASS="Variable">
+path</EM>
+ should be a path specification (see <A HREF="capiref-528.htm#10483" CLASS="XRef">draw-path</A>). The <EM CLASS="Variable">
+fill-rule</EM>
+ specifies how overlapping regions are filled. Possible values are <CODE CLASS="Code">
+:even-odd</CODE>
+ and <CODE CLASS="Code">
+:winding</CODE>
+. The <EM CLASS="Variable">
+mask</EM>
+ will be transformed by the <EM CLASS="Variable">
+mask-transform</EM>
+ parameter. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1506663"></A>There some examples of path masks in <CODE CLASS="Code">
+examples/capi/graphics/paths.lisp</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1522479"></A><EM CLASS="Variable">
+mask-transform</EM>
+ is used only in <EM CLASS="Variable">
+drawing-mode</EM>
+ <CODE CLASS="Code">
+:quality</CODE>
+. It is ignored in <EM CLASS="Variable">
+drawing-mode</EM>
+ <CODE CLASS="Code">
+:compatible</CODE>
+. The default value is the unit transform, which can also be specified as <CODE CLASS="Code">
+nil</CODE>
+. Other allowed values include anything returned by the transform functions, described in the section &quot;Graphics state transforms&quot; of the <I CLASS="Italic">
+CAPI User Guide</I>
+. The other allowed value of <EM CLASS="Variable">
+mask-transform</EM>
+ is the keyword <CODE CLASS="Code">
+:dynamic</CODE>
+ which is replaced by the current value of the <EM CLASS="Variable">
+transform</EM>
+ graphics state parameter when the drawing operation uses the mask.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1433561"></A>Each of <EM CLASS="Variable">
+text-mode</EM>
+ and <EM CLASS="Variable">
+shape-mode</EM>
+ can be one of:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433562"></A><CODE CLASS="Code">
+:plain</CODE>
+</P>
+<P CLASS="RDescription-C">No anti-aliasing.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433563"></A><CODE CLASS="Code">
+:antialias</CODE>
+</P>
+<P CLASS="RDescription-C">With anti-aliasing.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433564"></A><CODE CLASS="Code">
+:fastest</CODE>
+</P>
+<P CLASS="RDescription-C">Fastest rendering. The same as <CODE CLASS="Code">
+:plain</CODE>
+ except on Windows</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433565"></A><CODE CLASS="Code">
+:best</CODE>
+</P>
+<P CLASS="RDescription-C">Best display.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433566"></A><CODE CLASS="Code">
+:default</CODE>
+</P>
+<P CLASS="RDescription-C">The system default (which is <CODE CLASS="Code">
+:antialias</CODE>
+).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1761601"></A>Additionally <EM CLASS="Variable">
+text-mode</EM>
+ can be <CODE CLASS="Code">
+:compatible</CODE>
+, which causes  text to be drawn the way it would be drawn if <EM CLASS="Variable">
+drawing-mode</EM>
+ was <CODE CLASS="Code">
+:compatible</CODE>
+. This makes a difference only on Microsoft Windows, because on other platforms the default <EM CLASS="Variable">
+text-mode</EM>
+ draws like the <CODE CLASS="Code">
+:compatible</CODE>
+ one.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1433567"></A>The default of both <EM CLASS="Variable">
+text-mode</EM>
+ and <EM CLASS="Variable">
+shape-mode</EM>
+ is <CODE CLASS="Code">
+:default</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1433568"></A><EM CLASS="Variable">
+compositing-mode</EM>
+ is a keyword or an integer controlling the compositing mode, that is the way that a new drawing is combined with the existing value in the target of the drawing to generate the result.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1433569"></A>Two values of <EM CLASS="Variable">
+compositing-mode</EM>
+ are supported on all platforms other than Motif:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433570"></A><CODE CLASS="Code">
+:over</CODE>
+</P>
+<P CLASS="RDescription-C">Draw over the existing values. If the source is a solid color, then the result is simply the source. If the source has alpha value <EM CLASS="Variable">
+alpha</EM>
+, then it is blended with the destination, with the destination multiplied by the remainder of the alpha, that is (- 1 <EM CLASS="Variable">
+alpha</EM>
+).</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1433571"></A><CODE CLASS="Code">
+:copy</CODE>
+</P>
+<P CLASS="RDescription-C">The source is written to the destination ignoring the existing values. If the source has alpha and the target does not, that has the effect of converting semi-transparent source to solid.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1433572"></A>The default value of <EM CLASS="Variable">
+compositing-mode</EM>
+ is <CODE CLASS="Code">
+:over</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1433573"></A>The <CODE CLASS="Code">
+:copy</CODE>
+ value of <EM CLASS="Variable">
+compositing-mode</EM>
+ is especially useful for creating a transparent or semi-transparent <A HREF="capiref-606.htm#41840" CLASS="XRef">pixmap-port</A>, which can be displayed directly or converted to an image by <A HREF="capiref-598.htm#10786" CLASS="XRef">make-image-from-port</A>. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1433580"></A>On Cocoa 10.5 and later and GTK+ 2.8 or later, these additional keyword values of <EM CLASS="Variable">
+compositing-mode</EM>
+ are supported: <CODE CLASS="Code">
+:clear</CODE>
+, <CODE CLASS="Code">
+:over</CODE>
+, <CODE CLASS="Code">
+:in</CODE>
+, <CODE CLASS="Code">
+:out</CODE>
+, <CODE CLASS="Code">
+:atop</CODE>
+, <CODE CLASS="Code">
+:dest-over</CODE>
+, <CODE CLASS="Code">
+:dest-in</CODE>
+, <CODE CLASS="Code">
+:dest-out</CODE>
+, <CODE CLASS="Code">
+:dest-atop</CODE>
+, <CODE CLASS="Code">
+:xor</CODE>
+ and <CODE CLASS="Code">
+:add</CODE>
+. These correspond to the <CODE CLASS="Code">
+CAIRO_OPERATOR_*</CODE>
+ operators in Cairo, which are documented in <CODE CLASS="Code">
+<A HREF="http://cairographics.org/operators/" CLASS="URL">cairographics.org/operators</A></CODE>
+ and the <CODE CLASS="Code">
+CGBlendMode</CODE>
+ values which are documented in the CGContext Reference at <CODE CLASS="Code">
+<A HREF="http://developer.apple.com" CLASS="URL">developer.apple.com</A></CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1433583"></A><B CLASS="Bold">
+Note:</B>
+ on GTK+, the &quot;unbounded&quot; operators (<CODE CLASS="Code">
+:in</CODE>
+, <CODE CLASS="Code">
+:out</CODE>
+, <CODE CLASS="Code">
+:dest-in</CODE>
+ and <CODE CLASS="Code">
+:dest-atop</CODE>
+) do not work properly for shape drawings. They can only be used for image drawing and copying operations.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1433584"></A>Both Cocoa and GTK+ also allow <EM CLASS="Variable">
+compositing-mode</EM>
+ to be an integer, which is simply passed through to the underlying system. This allows using modes that are not available via keywords, but it is not portable. For Cocoa, it is a <CODE CLASS="Code">
+CGBlendMode</CODE>
+ as documented in the CGContext Reference. For GTK+ it is <CODE CLASS="Code">
+cairo_operator_t</CODE>
+, as documented in the entry for <CODE CLASS="Code">
+cairo_t</CODE>
+ in the Gnome documentation for Cairo.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1433585"></A><B CLASS="Bold">
+Note:</B>
+ For drawing images on Cocoa, only values that corresponding to available keywords work properly.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1433586"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1433587"></A><EM CLASS="Variable">
+operation</EM>
+ is not supported for drawing text on Microsoft Windows. </LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1433588"></A><EM CLASS="Variable">
+stipple</EM>
+ and <EM CLASS="Variable">
+fill-style</EM>
+ are supported only on X11/Motif.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1585862"></A><EM CLASS="Variable">
+mask-x</EM>
+ and <EM CLASS="Variable">
+mask-y</EM>
+ are supported only on GTK+ and X11/Motif, and only when the <EM CLASS="Variable">
+drawing-mode</EM>
+ is <CODE CLASS="Code">
+:compatible</CODE>
+.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1433589"></A><EM CLASS="Variable">
+pattern</EM>
+ is supported only on Microsoft Windows, GTK+ and X11/Motif.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1433590"></A><EM CLASS="Variable">
+operation</EM>
+ is not supported by Cocoa/Core Graphics so this slot or argument is ignored on Cocoa.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1433591"></A><EM CLASS="Variable">
+operation</EM>
+ is ignored when the port's <EM CLASS="Variable">
+drawing-mode</EM>
+ is <CODE CLASS="Code">
+:quality</CODE>
+.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1433592"></A><EM CLASS="Variable">
+text-mode</EM>
+<A NAME="marker-1586799"></A> and <EM CLASS="Variable">
+shape-mode</EM>
+ are supported only on Cocoa, Cairo and GDI+, which are used on Macintosh, GTK and Windows respectively when the <EM CLASS="Variable">
+drawing-mode</EM>
+ is <CODE CLASS="Code">
+:quality</CODE>
+. For more information about <EM CLASS="Variable">
+drawing-mode</EM>
+, see &quot;Drawing mode and anti-aliasing&quot; in the <I CLASS="Italic">
+CAPI User Guide</I>
+.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1433596"></A>Examples</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1433597"></A>examples/capi/graphics/compositing-mode-simple.lisp</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1433598"></A>examples/capi/graphics/compositing-mode.lisp</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1433599"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1433603"></A><A HREF="capiref-595.htm#28659" CLASS="XRef">make-graphics-state</A><BR>
+<A HREF="capiref-632.htm#60969" CLASS="XRef">set-graphics-state</A><BR>
+<A HREF="capiref-656.htm#77571" CLASS="XRef">with-graphics-state</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-574.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-572.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

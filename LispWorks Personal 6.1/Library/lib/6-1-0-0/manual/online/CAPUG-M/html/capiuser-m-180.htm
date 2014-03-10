@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.3.3  An example pinboard object
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-181.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-179.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-177.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-174.htm">12 Creating Your Own Panes</A> &gt <A HREF="capiuser-m-177.htm">12.3  Creating graphical objects</A><BR><BR>
+</DIV><A HREF="capiuser-m-181.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-179.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-177.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884653"></A>12.3.3  An example pinboard object</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890987"></A>To create your own <A NAME="marker-890985"></A>pinboard objects, the class <A NAME="marker-890986"></A><CODE CLASS="Code">
+drawn-pinboard-object</CODE>
+ is provided, which is a <CODE CLASS="Code">
+pinboard-object</CODE>
+ that accepts a <EM CLASS="Variable">
+display-callback</EM>
+ to display itself. The following example creates a new subclass of <CODE CLASS="Code">
+drawn-pinboard-object</CODE>
+ that displays an ellipse.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-890988"></A>(defun draw-ellipse-pane (gp pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890989"></A>                             x y</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890941"></A>                             width height)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890942"></A>  (with-geometry pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890943"></A>    (let ((x-radius</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890944"></A>           (1- (floor %width% 2)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890945"></A>          (y-radius</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890946"></A>           (1- (floor %height% 2))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890947"></A>      (gp:draw-ellipse </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890948"></A>       gp</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890949"></A>       (1+ (+ %x% x-radius))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890950"></A>       (1+ (+ %y% y-radius))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890951"></A>       x-radius y-radius</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890952"></A>       :filled t</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890953"></A>       :foreground </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890954"></A>       (if (&gt; x-radius y-radius) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890955"></A>           :red </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890956"></A>         :yellow)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890995"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890957"></A>(defclass ellipse-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890958"></A>     (drawn-pinboard-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890959"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890960"></A>  (:default-initargs</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890961"></A>   :display-callback 'draw-ellipse-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890962"></A>   :visible-min-width 50</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890963"></A>   :visible-min-height 50))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890996"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890964"></A>(contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890965"></A> (make-instance 'ellipse-pane)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890966"></A> :best-width 200</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884349"></A> :best-height 100)</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884923"></A>Figure 12.7  An ellipse-pane class<DIV>
+<IMG SRC="capiuser-m-69.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-75.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-885187"></A>The <CODE CLASS="Code">
+with-geometry</CODE>
+ macro is used to set the size and position, or geometry, of the ellipse drawn by the <CODE CLASS="Code">
+draw-ellipse-pane</CODE>
+ function. The fill color depends on the radii of the ellipse - try resizing the window to see this. See the <I CLASS="Italic">
+LispWorks CAPI Reference Manual</I>
+ for more details of <CODE CLASS="Code">
+drawn-pinboard-object</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885191"></A>Now that you have a new ellipse-pane class, you can create instances of them and place them inside layouts. For instance, the example below creates nine ellipse panes and place them in a three by three grid.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893504"></A>(contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893505"></A> (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893506"></A>  'grid-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893507"></A>  :description</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893508"></A>  (loop for i below 9</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893509"></A>        collect</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893510"></A>        (make-instance 'ellipse-pane))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893511"></A>  :columns 3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893512"></A> :best-width 300</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884375"></A> :best-height 400)</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884930"></A>Figure 12.8  <A NAME="marker-884382"></A><A NAME="marker-884383"></A><A NAME="marker-884384"></A><A NAME="marker-884385"></A>Nine ellipse-pane instances in a layout<DIV>
+<IMG SRC="capiuser-m-69.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-76.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884704"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-181.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-179.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-177.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

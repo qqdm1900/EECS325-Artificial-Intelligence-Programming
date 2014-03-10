@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.5.1  Strings and foreign callables
+</TITLE>
+
+<LINK REL="next" HREF="fli-59.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-57.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-57.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A> &gt; <A HREF="fli-57.htm">4.5  Foreign callables and foreign functions</A><BR><BR>
+</DIV><A HREF="fli-59.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-57.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-57.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-891400"></A>4.5.1  <A NAME="37071"></A>Strings and <A NAME="marker-891693"></A>foreign callables</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891626"></A>To interface to a C function which takes a pointer to a string <EM CLASS="Variable">
+form</EM>
+ and puts a string in the memory pointed to by <EM CLASS="Variable">
+result</EM>
+, declared like this:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891627"></A>void evalx(const char *form, char *result);</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891402"></A>you would define in Lisp:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891403"></A>(fli:define-foreign-function evalx </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891404"></A>    ((form (:reference-pass :ef-mb-string))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891405"></A>     (:ignore (:reference-return</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891406"></A>               (:ef-mb-string :limit 1000)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891407"></A>and call</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891408"></A>(evalx &quot;(+ 2 3)&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891409"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891410"></A>&quot;5&quot;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891413"></A>Now suppose instead that you want your C program to call a similar routine in a LispWorks for Windows DLL named &quot;evaluator&quot;, like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891414"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891547"></A> typedef void (_stdcall *evalx_func_type)(const char *form, char *result);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891548"></A> HINSTANCE dll = LoadLibrary(&quot;evaluator&quot;);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891417"></A> evalx_func_type evalx = (evalx_func_type) GetProcAddress(dll, &quot;evalx&quot;);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891418"></A> char result[1000];</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891419"></A> evalx(&quot;(+ 2 3)&quot;, result);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891420"></A> printf(&quot;%s&#92;n&quot;, result);</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891421"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891422"></A>You would put this foreign callable in your DLL built with LispWorks:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891637"></A>(fli:<A NAME="marker-891686"></A>define-foreign-callable</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891638"></A>    (&quot;evalx&quot; :calling-convention :stdcall)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891639"></A>    ((form (:reference :ef-mb-string</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891640"></A>            :lisp-to-foreign-p nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891641"></A>            :foreign-to-lisp-p t))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891642"></A>     (result (:reference (:ef-mb-string :limit 1000)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891643"></A>              :lisp-to-foreign-p t</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891644"></A>              :foreign-to-lisp-p nil)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891645"></A>  (multiple-value-bind (res err)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891646"></A>      (ignore-errors (read-from-string form))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891647"></A>    (setq result</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891648"></A>          (if (not (fixnump err))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891649"></A>              (format nil &quot;Error reading: &#126;a&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891650"></A>                      err)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891651"></A>            (multiple-value-bind (res err)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891652"></A>                (ignore-errors (eval res))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891653"></A>              (if (and (not res) err)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891654"></A>                  (format nil &quot;Error evaluating: &#126;a&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891655"></A>                          err)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891441"></A>                (princ-to-string res)))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891572"></A>Note: you could use <CODE CLASS="Code">
+:reference-return</CODE>
+ and <CODE CLASS="Code">
+:reference-pass</CODE>
+ in the foreign callable definition, but we have shown <CODE CLASS="Code">
+:reference</CODE>
+ with explicit <EM CLASS="Variable">
+lisp-to-foreign-p</EM>
+ and <EM CLASS="Variable">
+foreign-to-lisp-p</EM>
+ arguments to emphasise the direction of each conversion.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-59.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-57.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-57.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

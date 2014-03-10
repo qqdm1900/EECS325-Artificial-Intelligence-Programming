@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-other-threads-disabled
+</TITLE>
+
+<LINK REL="next" HREF="lw-1450.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1448.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1448.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1349002"></A><A NAME="71625"></A>with<A NAME="marker-1348932"></A>-other-threads-disabled</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1348935"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1348936"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1348937"></A>A debugging macro which executes code with all other threads temporarily disabled.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1348938"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1348939"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1348940"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1348941"></A>with-other-threads-disabled &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+results</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1348942"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1348943"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Code.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1348944"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1348945"></A><EM CLASS="Variable">
+results</EM>
+</P>
+<P CLASS="RDescription-C">The results of evaluating <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1348946"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1348947"></A>The macro <CODE CLASS="Code">
+with-other-threads-disabled</CODE>
+ disables all the other threads (that is, the <CODE CLASS="Code">
+mp:process</CODE>
+ objects), executes <EM CLASS="Variable">
+body</EM>
+ and then enables the other threads. Thus it guarantees &quot;single-thread execution&quot; for the forms in <EM CLASS="Variable">
+body</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1348948"></A>The point at which each of the other threads is stopped is not well-defined.  It is always a GC safe point, but it can be inside manipulating some data structure or inside a lock. As a result, if the code in <EM CLASS="Variable">
+body</EM>
+ accesses a data structure or tries to lock a lock, it may see an inconsistent structure or get an error about calling <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> when scheduling not is allowed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1348952"></A>As a result, <CODE CLASS="Code">
+with-other-threads-disabled</CODE>
+ is safe only if the code in <EM CLASS="Variable">
+body</EM>
+ does not do anything that accesses trees of pointers and expects them to be in a consistent state and does not use locks. Any other code may, rarely but not never, get some unexpected error.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1348953"></A><CODE CLASS="Code">
+with-other-threads-disabled</CODE>
+ is useful for:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1348954"></A>the most accurate timing possible of specific operations</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1348958"></A>running <A HREF="lw-845.htm#sweep-all-objects" CLASS="XRef">sweep-all-objects</A> reliably</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1348959"></A>&quot;freezing&quot; the program when something unexpected occurs and you want to debug it in the terminal.</LI>
+</UL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1348960"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1348961"></A><CODE CLASS="Code">
+with-other-threads-disabled</CODE>
+ cannot be guaranteed to be 100% safe in all cases, and therefore must not be used in end-user applications. It is useful for debugging purposes.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1348962"></A>The LispWorks IDE relies on multithreading and will not work while the code in <EM CLASS="Variable">
+body</EM>
+ executes.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1348963"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1348967"></A><A HREF="lw-845.htm#sweep-all-objects" CLASS="XRef">sweep-all-objects</A><BR>
+<A HREF="lw-674.htm#35434" CLASS="XRef">time</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1448.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

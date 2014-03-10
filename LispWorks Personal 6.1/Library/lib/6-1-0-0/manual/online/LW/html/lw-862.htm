@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ unwind-protect-blocking-interrupts-in-cleanups
+</TITLE>
+
+<LINK REL="next" HREF="lw-863.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-861.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-863.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-861.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1375502"></A><A NAME="95356"></A>unwind<A NAME="marker-1375774"></A>-protect-blocking-interrupts-in-cleanups</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1375503"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1375504"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1375505"></A>Does <CODE CLASS="Code">
+unwind-protect</CODE>
+ blocking interrupts around the cleanups.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1375506"></A>Package </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1375507"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1375508"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1375509"></A>unwind-protect-blocking-interrupts-in-cleanups <EM CLASS="Variable">
+protected-form</EM>
+ &amp;rest <EM CLASS="Variable">
+cleanups</EM>
+<CODE CLASS="Code">
+ =&gt; </CODE>
+<EM CLASS="Variable">
+results</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1375510"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1375511"></A><EM CLASS="Variable">
+protected-form</EM>
+</P>
+<P CLASS="RDescription-C">A form.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1375512"></A><EM CLASS="Variable">
+cleanups</EM>
+</P>
+<P CLASS="RDescription-C">Forms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1375513"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1375514"></A><EM CLASS="Variable">
+results</EM>
+</P>
+<P CLASS="RDescription-C">The values of <EM CLASS="Variable">
+protected-form</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1375515"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1375516"></A>The macro <CODE CLASS="Code">
+unwind-protect-blocking-interrupts-in-cleanups</CODE>
+ executes <EM CLASS="Variable">
+protected-form</EM>
+. On exit, whether local or not, the <EM CLASS="Variable">
+cleanups</EM>
+ are executed with interrupts blocked.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1375517"></A>In compiled code, the macro is equvalent to</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1375899"></A>(unwind-protect</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1375900"></A>    <EM CLASS="Variable">protected-form</EM>
+</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1375522"></A>  (mp:with-interrupts-blocked <EM CLASS="Variable">cleanup1</EM>
+ <EM CLASS="Variable">cleanup2</EM>
+ ..)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1376051"></A>However, in interpreted code the macro is expanded to ensure that the body of <CODE CLASS="Code">
+mp:with-interrupts-blocked</CODE>
+ actually happens. If the form above is interpreted the evaluator may throw (if the process is killed, for example) before completing macroexpansion of <CODE CLASS="Code">
+mp:with-interrupts-blocked</CODE>
+ and doing the actual blocking.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1376052"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1376053"></A><EM CLASS="Variable">
+cleanups</EM>
+ can block and unblock interrupts using <A HREF="lw-1021.htm#98454" CLASS="XRef">current-process-block-interrupts</A> and <A HREF="lw-1024.htm#86857" CLASS="XRef">current-process-unblock-interrupts</A>. This may be useful if some of the cleanups are essential and others are not.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1376054"></A>Blocking interrupts causes the process to not respond to interrupts, including killing. You should make sure that forms which are executed with interrupts blocked do not hang.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1375527"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1375528"></A><A HREF="lw-1021.htm#98454" CLASS="XRef">current-process-block-interrupts</A><BR>
+<A HREF="lw-1024.htm#86857" CLASS="XRef">current-process-unblock-interrupts</A><BR>
+<A HREF="lw-861.htm#25724" CLASS="XRef">unwind-protect-blocking-interrupts</A><BR>
+<A HREF="lw-1135.htm#43645" CLASS="XRef">with-interrupts-blocked</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-863.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-861.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.3.2  Persistent configuration
+</TITLE>
+
+<LINK REL="next" HREF="corba-62.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-60.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-59.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-56.htm">7 The LispWorks ORB</A> &gt <A HREF="corba-59.htm">7.3  Configuring a name service and an interface repository</A><BR><BR>
+</DIV><A HREF="corba-62.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-60.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-59.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-854113"></A>7.3.2  Persistent configuration</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853284"></A>The function <CODE CLASS="Code">
+corba:set-pluggable-module-details</CODE>
+ can be used for this purpose. For example,</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853285"></A>(corba:set-pluggable-module-details &quot;InterfaceRepository&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853314"></A>       :ior-string &quot;IOR:000000000000002149444c...&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853316"></A>(corba:set-pluggable-module-details &quot;NameService&quot; </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853318"></A>       :ior-string &quot;IOR:000000000000002149444c...&quot;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853286"></A>would direct the ORB to use the given IOR-described CORBA object as an interface repository or name service, respectively. Values set in this manner are persistent. The code</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853288"></A>(corba:get-pluggable-module-details orb &quot;InterfaceRepository&quot; </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853393"></A>      :ior-string)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853289"></A>returns a list of two values. The first is the object reference of the given service if it is contactable (nil if it is not). The second is the value that has been set using <CODE CLASS="Code">
+corba:set-pluggable-module-details</CODE>
+. Note the the standardized function <CODE CLASS="Code">
+op:resolve_initial_references</CODE>
+ should be used in application code to obtain the reference, not <CODE CLASS="Code">
+corba:get-pluggable-module-details</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853290"></A>Type information corresponding to IDL parsed by the IDL compiler is not added to the interface repository until the information is needed in response to a call to <CODE CLASS="Code">
+op:get_interface</CODE>
+ from a client.</P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-62.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-60.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-59.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

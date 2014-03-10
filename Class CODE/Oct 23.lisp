@@ -1,0 +1,45 @@
+(in-package :cs325-user)
+
+(define-test unify
+  (assert-equal '(nil) (unify 'a 'a))
+  (assert-equal '(((?x . a))) (unify '?x 'a))
+  (assert-equal '(((?x . a))) (unify 'a '?x))
+  (assert-equal '(((?x . a))) (unify '(?x a) '(a a)))
+  (assert-equal '(((?x . a))) (unify '(?x a) '(a ?x)))
+  (assert-equal nil (unify '(?x b) '(a ?x)))
+  (assert-equal '(((?y . a) (?x . ?y))) (unify '(?x a) '(?y ?y)))
+  (assert-equal '(((?x . a))) (unify '(a ?x) '(?x ?x)))
+  (assert-equal '(((?X . A) (?Y . ?X))) (unify '(?y ?y) '(?x a)))
+  (assert-equal nil (unify '?x '(f ?x)))
+  (assert-equal '(((?x . (f ?y)))) (unify '?x '(f ?y)))
+  (assert-equal '(((?x . mary) (?y . john)))
+                (unify '(loves john (mother-of ?x))
+                       '(loves ?y (mother-of mary))))
+  )
+
+(defun unify (x y &optional (lsts '(nil)))
+  (cond ((null lsts) nil)
+        ((eql x y) lsts)
+        ((?-p x) (update-bindings x y lsts))
+        ((?-p y) (update-bindings y x lsts))
+        ((or (atom x) (atom y)) nil)
+        (t (unify (cdr x) (cdr y)
+                  (unify (car x) (car y) lsts)))))
+
+(defun update-bindings (x y lsts)
+  (collect #'(lambda (lst) (bind x y lst))
+           lsts))
+
+(defun bind (x y lst)
+  (let ((v (assoc x lst)))
+    (cond ((null v) (list (cons (cons x y) lst)))
+          (t (unify (cdr v) y (list lst))))))
+
+(defun ?-p (x)
+  (and (symbolp x)
+       (eql (char (symbol-name x) 0) #\?)))
+
+(defun collect (fn lst)
+  (loop for x in lst
+        when (funcall fn x)
+        append it))

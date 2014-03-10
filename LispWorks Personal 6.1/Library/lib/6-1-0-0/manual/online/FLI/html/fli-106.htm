@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ foreign-array-pointer
+</TITLE>
+
+<LINK REL="next" HREF="fli-107.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-105.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-107.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-105.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-953051"></A><A NAME="20729"></A>foreign-array-pointer<A NAME="marker-998686"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-954705"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-952853"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-957379"></A>Returns a pointer to a specified element in an array.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-957374"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-955586"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-955581"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-955402"></A>foreign-array-pointer <EM CLASS="Variable">
+array</EM>
+ &amp;rest <EM CLASS="Variable">
+subscripts</EM>
+ =&gt; <EM CLASS="Variable">
+pointer</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-958413"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-958414"></A><EM CLASS="Variable">
+array</EM>
+</P>
+<P CLASS="RDescription-C">A FLI array or a pointer to a FLI array.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-964294"></A><EM CLASS="Variable">
+subscripts</EM>
+</P>
+<P CLASS="RDescription-C">A list of valid array indices for <EM CLASS="Variable">
+array</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-958415"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-958416"></A><EM CLASS="Variable">
+pointer</P>
+<P CLASS="RDescription-C"></EM>
+A pointer to the element at position <EM CLASS="Variable">
+subscripts</EM>
+ in <EM CLASS="Variable">
+array</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-958417"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-968845"></A>The function <CODE CLASS="Code">
+foreign-array-pointer</CODE>
+ returns a pointer to a specified element in an array. The value pointed to can then be obtained by dereferencing the pointer returned, or set to a specific value using <CODE CLASS="Code">
+(setf dereference)</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-958419"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-958420"></A>In this example a 3 by 2 array of integers is created, and a pointer to the element at position <CODE CLASS="Code">
+2 0</CODE>
+ is returned using <CODE CLASS="Code">
+foreign-array-pointer</CODE>
+.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-969112"></A>(setq array1 (fli:allocate-foreign-object </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-969340"></A>              :type '(:c-array :int 3 2)))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-969421"></A>(setq array-ptr (fli:foreign-array-pointer array1 2 0))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-969530"></A>The <CODE CLASS="Code">
+(setf dereference)</CODE>
+ function can now be used to set the value pointed to by <CODE CLASS="Code">
+array-ptr</CODE>
+.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-969562"></A>(setf (fli:dereference array-ptr) 42)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-958421"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-958422"></A><A HREF="fli-103.htm#24571" CLASS="XRef">foreign-aref</A><BR>
+<A HREF="fli-104.htm#17738" CLASS="XRef">foreign-array-dimensions</A><BR>
+<A HREF="fli-105.htm#23768" CLASS="XRef">foreign-array-element-type</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-107.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-105.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

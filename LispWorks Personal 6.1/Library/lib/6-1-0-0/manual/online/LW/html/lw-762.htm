@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ clean-generation-0
+</TITLE>
+
+<LINK REL="next" HREF="lw-763.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-761.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-763.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-761.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-887128"></A><A NAME="49619"></A>clean<A NAME="marker-1039597"></A>-generation-0</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-887129"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887130"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887131"></A>Attempts to promote all objects from generation zero into generation one, thereby clearing generation zero, in 32-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887132"></A>Package </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-887133"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887134"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-887135"></A>clean-generation-0 =&gt; 1</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887136"></A>Arguments</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-887137"></A>None</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887138"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887139"></A>Returns the value 1.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887140"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887141"></A>This is useful when passing from a phase of creating long-lived data to a phase of mostly ephemeral data, for example, the end of loading an application and the start of its use.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1095799"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1641093"></A>The function may not be very useful, as it may be more efficient to directly allocate the objects in a particular generation in the first place, using <A HREF="lw-747.htm#24777" CLASS="XRef">allocation-in-gen-num</A> or <A HREF="lw-832.htm#78764" CLASS="XRef">set-default-generation</A>.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1095696"></A><CODE CLASS="Code">
+clean-generation-0</CODE>
+ is implemented only in 32-bit LispWorks. It is not relevant to the Memory Management API in 64-bit implementations, where the same effect can be obtained by a call <CODE CLASS="Code">
+(gc-generation 0)</CODE>
+.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887142"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-887143"></A>;   allocate lots of non-ephemeral objects </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887144"></A>;   ......  </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-887145"></A>(clean-generation-0)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887148"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887152"></A><A HREF="lw-747.htm#24777" CLASS="XRef">allocation-in-gen-num</A><BR>
+<A HREF="lw-763.htm#48533" CLASS="XRef">collect-generation-2</A><BR>
+<A HREF="lw-764.htm#84396" CLASS="XRef">collect-highest-generation</A><BR>
+<A HREF="lw-787.htm#10988" CLASS="XRef">expand-generation-1</A><BR>
+<A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A><BR>
+<A HREF="lw-838.htm#24466" CLASS="XRef">set-promotion-count</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-763.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-761.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.5.1.1  Enclosing database identifiers
+</TITLE>
+
+<LINK REL="next" HREF="lw-392.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-390.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-390.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-389.htm">19.5  Symbolic SQL syntax</A> &gt; <A HREF="lw-390.htm">19.5.1  The &quot;[...]&quot; Syntax</A><BR><BR>
+</DIV><A HREF="lw-392.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-390.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-390.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-886522"></A>19.5.1.1  Enclosing database identifiers</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886523"></A>Database identifiers can be enclosed in the square bracket syntax as shown in the following examples.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886524"></A><CODE CLASS="Code">
+[foo] </CODE>
+=&gt; <CODE CLASS="Code">
+#&lt;SQL-IDENT &quot;FOO&quot;&gt;</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-893790"></A>This case corresponds to an unqualified SQL identifier as in: <CODE CLASS="Code">
+SELECT FOO FROM BAR</CODE>
+.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886525"></A><CODE CLASS="Code">
+[foo bar] </CODE>
+=&gt; <CODE CLASS="Code">
+#&lt;SQL-IDENT &quot;FOO.BAR&quot;&gt;</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-893821"></A>This corresponds to a qualified SQL identifier as in: <CODE CLASS="Code">
+SELECT FOO.BAR FROM FOO</CODE>
+</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886526"></A><CODE CLASS="Code">
+[&quot;foo&quot; bar]</CODE>
+ =&gt; <CODE CLASS="Code">
+#&lt;SQL-IDENT &quot;&#92;&quot;foo&#92;&quot;.BAR&quot;&gt;</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-893828"></A>This corresponds to a qualified SQL identifier with an aliased table name containing special characters as in: <CODE CLASS="Code">
+SELECT &quot;foo&quot;.BAR FROM BAZ &quot;foo&quot;</CODE>
+.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886527"></A><CODE CLASS="Code">
+[foo &quot;bar&quot;]</CODE>
+ =&gt; <CODE CLASS="Code">
+#&lt;SQL-IDENT FOO &#92;&quot;bar&#92;&quot;&gt;</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-893829"></A>This corresponds to an alias definition as in:<BR>
+<CODE CLASS="Code">
+SELECT &quot;bar&quot;.* FROM FOO &quot;bar&quot;.</CODE>
+</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886528"></A><CODE CLASS="Code">
+[foo :integer]</CODE>
+ =&gt; <CODE CLASS="Code">
+#&lt;SQL-IDENT &quot;FOO&quot; :INTEGER&gt;</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-893838"></A>As above, but including a type coercion component.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886529"></A><CODE CLASS="Code">
+[foo bar :integer]</CODE>
+ -&gt; <CODE CLASS="Code">
+#&lt;SQL-IDENT &quot;FOO.BAR&quot; :INTEGER&gt;</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-893855"></A>As above, but includes a type coercion component.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-893908"></A><CODE CLASS="Code">
+[&quot;foo&quot; bar :integer]</CODE>
+ -&gt; <CODE CLASS="Code">
+#&lt;SQL-IDENT &quot;&#92;&quot;foo&#92;&quot;.BAR&quot; :INTEGER&gt;</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-893909"></A>As above, but includes a type coercion component.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-392.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-390.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-390.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

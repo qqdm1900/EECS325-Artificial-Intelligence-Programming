@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ make-lock
+</TITLE>
+
+<LINK REL="next" HREF="lw-1058.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1056.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1058.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1056.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886423"></A><A NAME="93763"></A>make<A NAME="marker-1062085"></A>-lock</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886425"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-901826"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-901909"></A>Makes a lock.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886427"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886428"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886429"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886430"></A>make-lock &amp;key <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+important-p</EM>
+ <EM CLASS="Variable">
+safep</EM>
+ <EM CLASS="Variable">
+recursivep</EM>
+ <EM CLASS="Variable">
+sharing</EM>
+ =&gt; <EM CLASS="Variable">
+lock</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886431"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1195559"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1196320"></A><EM CLASS="Variable">
+important-p</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1581633"></A><EM CLASS="Variable">
+safep</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1309233"></A><EM CLASS="Variable">
+recursivep</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1309245"></A><EM CLASS="Variable">
+sharing</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906047"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-906216"></A><EM CLASS="Variable">
+lock</EM>
+</P>
+<P CLASS="RDescription-C">The lock object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886440"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886441"></A>The function <CODE CLASS="Code">
+make-lock</CODE>
+ creates a lock object. See <A HREF="lw-276.htm#63317" CLASS="XRef">Locks</A> for a general description of locks.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1196365"></A><EM CLASS="Variable">
+name</EM>
+ names the lock and can be queried with <A HREF="lw-1044.htm#27302" CLASS="XRef">lock-name</A>. The default value of <EM CLASS="Variable">
+name</EM>
+ is &quot;Anon&quot;.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1200114"></A><EM CLASS="Variable">
+important-p</EM>
+ controls whether the lock is automatically freed when the holder process finishes. When <EM CLASS="Variable">
+important-p</EM>
+ is true, the system notes that this lock is important, and automatically frees it when the holder process finishes. <EM CLASS="Variable">
+important-p</EM>
+ should be <CODE CLASS="Code">
+nil</CODE>
+ for locks which are managed completely by the application, as it is wasteful to record all locks in a global list if there is no need to free them automatically. This might be appropriate when two processes sharing a lock must both be running for the system to be consistent. If one process dies, then the other one kills itself. Thus the system does not need to worry about freeing the lock because no process could be waiting on it forever after the first process dies. The default value of <EM CLASS="Variable">
+important-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1201887"></A><EM CLASS="Variable">
+safep</EM>
+ controls whether the lock is safe. A safe lock gives an error if <A HREF="lw-1099.htm#96257" CLASS="XRef">process-unlock</A> is called on it when it is not locked by the current process, and potentially in other 'dangerous' circumstances. An unsafe lock does not signal these errors. The default value of <EM CLASS="Variable">
+safep</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1309342"></A><EM CLASS="Variable">
+recursivep</EM>
+, when true, allows the lock to be locked recursively. Trying to lock a lock that is already locked by the current thread just increments its lock count. If the lock is created with <EM CLASS="Variable">
+recursivep</EM>
+ <CODE CLASS="Code">
+nil</CODE>
+ then trying to lock again causes an error. This is useful for debugging code where the lock is never expected to be claimed recursively. The default value of <EM CLASS="Variable">
+recursivep</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1309284"></A><EM CLASS="Variable">
+sharing</EM>
+, when true, causes <EM CLASS="Variable">
+lock</EM>
+ to be a &quot;sharing&quot; lock object, which supports sharing and exclusive locking. At any given time, an sharing lock may be free, or it may be locked for sharing by any number of threads or locked for exclusive use by a single thread. Sharing locks are handled by different functions and methods from non-sharing locks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886445"></A>Example </H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1196963"></A>CL-USER 3 &gt; (setq *my-lock* (mp:make-lock </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196964"></A>                             :name &quot;my-lock&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196965"></A>#&lt;MP:LOCK &quot;my-lock&quot; Unlocked 2008CAC7&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196966"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196967"></A>CL-USER 4 &gt; (mp:process-lock *my-lock*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196968"></A>T</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196969"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196970"></A>CL-USER 5 &gt; *my-lock*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196971"></A>#&lt;MP:LOCK &quot;my-lock&quot; Locked once by &quot;CAPI Execution Listener 1&quot; 2008CAC7&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196972"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196973"></A>CL-USER 6 &gt; (mp:process-lock *my-lock*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196974"></A>T</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196975"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1196976"></A>CL-USER 7 &gt; *my-lock*</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1196977"></A>#&lt;MP:LOCK &quot;my-lock&quot; Locked 2 times by &quot;CAPI Execution Listener 1&quot; 2008CAC7&gt;</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886448"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886450"></A><A HREF="lw-1020.htm#19298" CLASS="XRef">*current-process*</A><BR>
+<A HREF="lw-1042.htm#58146" CLASS="XRef">lock-recursive-p</A><BR>
+<A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A><BR>
+<A HREF="lw-1099.htm#96257" CLASS="XRef">process-unlock</A><BR>
+<A HREF="lw-1118.htm#10391" CLASS="XRef">schedule-timer</A><BR>
+<A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1058.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1056.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

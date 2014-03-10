@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-ole-control-component
+</TITLE>
+
+<LINK REL="next" HREF="capiref-73.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-71.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-73.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-71.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-9801607"></A><A NAME="99091"></A>define<A NAME="marker-9801605"></A>-<A NAME="marker-9801606"></A>ole-control-component</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-9801608"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9801609"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9801610"></A>Defines a class that implements the OLE Control protocol for a CAPI pane.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9801611"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-9801612"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9801613"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-9801614"></A>define-ole-control-component <EM CLASS="Variable">
+class-name</EM>
+ (<EM CLASS="Variable">
+superclass-name</EM>
+*) <EM CLASS="Variable">
+slots</EM>
+ &amp;rest <EM CLASS="Variable">
+class-options</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9801615"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9801616"></A>The macro <CODE CLASS="Code">
+define-ole-control-component</CODE>
+ defines an Automation component class <EM CLASS="Variable">
+class-name</EM>
+ that also implements the OLE Control protocols and other named interfaces or a coclass. This allows a CAPI pane to be embedded in an OLE Control container implemented outside LispWorks.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9801617"></A>Each <EM CLASS="Variable">
+superclass-name</EM>
+ argument specifies a direct superclass of the new class, which can be any <CODE CLASS="Code">
+standard-class</CODE>
+ provided that certain standard classes are included somewhere in the overall class precedence list. These standard classes depend on the other options and provide the default superclass list if none is specified. The following standard classes are available:</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9801621"></A><A HREF="capiref-264.htm#76994" CLASS="XRef">ole-control-component</A> is always needed and provides an implementation of the OLE Control protocol.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9801622"></A><CODE CLASS="Code">
+com:standard-i-dispatch</CODE>
+ is always needed and provides a complete implementation of the i-dispatch interface, based on the type information in a type library.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9801623"></A><CODE CLASS="Code">
+com:standard-i-connection-point-container</CODE>
+ is needed if there are any source interfaces specified (via the <CODE CLASS="Code">
+:coclass</CODE>
+ or <CODE CLASS="Code">
+:source-interfaces</CODE>
+ options). This provides a complete implementation of the Connection Point protocols, used to support events.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9801624"></A><EM CLASS="Variable">
+slots</EM>
+ is a list of standard <CODE CLASS="Code">
+defclass</CODE>
+ slot definitions.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9801625"></A><EM CLASS="Variable">
+class-options</EM>
+ are standard <CODE CLASS="Code">
+defclass</CODE>
+ options. In addition the following options are recognized:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-9801627"></A>(:<CODE CLASS="Code">
+</CODE>
+<A NAME="marker-9801626"></A>coclass <EM CLASS="Variable">
+coclass-name</EM>
+)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-9801629"></A>(:<CODE CLASS="Code">
+</CODE>
+<A NAME="marker-9801628"></A>interfaces <EM CLASS="Variable">
+interface-name</EM>
+*)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-9801631"></A>(:<CODE CLASS="Code">
+</CODE>
+<A NAME="marker-9801630"></A>source-interfaces <EM CLASS="Variable">
+interface-name</EM>
+*)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-9801634"></A>See <CODE CLASS="Code">
+com:define-automation-component</CODE>
+ in the <I CLASS="Italic">
+LispWorks COM/Automation User Guide and Reference Manual</I>
+ for details of these options.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9801636"></A>Typically the <CODE CLASS="Code">
+:pane-function</CODE>
+ and <CODE CLASS="Code">
+:create-callback</CODE>
+ initargs are supplied using the <CODE CLASS="Code">
+:default-initarg</CODE>
+ option.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9801637"></A>Implementations of the methods in the <CODE CLASS="Code">
+:coclass</CODE>
+ and <CODE CLASS="Code">
+:interfaces</CODE>
+ options should be defined using <CODE CLASS="Code">
+com:define-com-method</CODE>
+, <CODE CLASS="Code">
+com:define-dispinterface-method</CODE>
+ or <CODE CLASS="Code">
+com:com-object-dispinterface-invoke</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9801638"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9801639"></A><CODE CLASS="Code">
+define-ole-control-component</CODE>
+ is implemented only in LispWorks for Windows. Load the functionality by <CODE CLASS="Code">
+(require &quot;embed&quot;)</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9801640"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9801644"></A><A HREF="capiref-264.htm#76994" CLASS="XRef">ole-control-component</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-73.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-71.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

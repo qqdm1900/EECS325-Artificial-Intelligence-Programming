@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-coerced-pointer
+</TITLE>
+
+<LINK REL="next" HREF="fli-149.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-147.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-149.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-147.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1058117"></A><A NAME="26364"></A>with-coerced-pointer<A NAME="marker-1058116"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-897786"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898662"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-936952"></A>Makes a temporary copy of a pointer, executes a list of forms which may use and alter the copy of the pointer across the scope of the macro, and then deallocates the memory provided for the copy of the pointer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-936935"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898663"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897787"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897788"></A>with-coerced-pointer (<EM CLASS="Variable">
+binding-name</EM>
+ &amp;key <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+pointer-type</EM>
+) <EM CLASS="Variable">
+pointer</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+last</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920296"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920297"></A><EM CLASS="Variable">
+binding-name</EM>
+</P>
+<P CLASS="RDescription-C">A temporary name used to access a copy of <EM CLASS="Variable">
+pointer</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-936868"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">The type of the object pointed to by the temporary pointer. This keyword can be used to access the data at the pointer as a different type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-936872"></A><EM CLASS="Variable">
+pointer-type</EM>
+</P>
+<P CLASS="RDescription-C">The pointer-type of the temporary pointer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-936878"></A><EM CLASS="Variable">
+pointer</EM>
+</P>
+<P CLASS="RDescription-C">A FLI pointer of which a copy is made. The lifetime of the copy is across the scope of the <CODE CLASS="Code">
+with-coerced-pointer</CODE>
+ macro.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-936894"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">A list of forms to be executed across the scope of the temporary pointer binding.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920298"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920299"></A><EM CLASS="Variable">
+last</P>
+<P CLASS="RDescription-C"></EM>
+The value of the last form in <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920300"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920301"></A>The macro <CODE CLASS="Code">
+with-coerced-pointer</CODE>
+ makes a temporary copy of a pointer, and executes a list of forms which may use the copy across the scope of the macro. Once the macro has terminated the memory allocated to the copy of the pointer is automatically freed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920302"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920303"></A>In the following example an array of ten integers is defined, pointed to by <CODE CLASS="Code">
+array-obj</CODE>
+. The macro <CODE CLASS="Code">
+with-coerced-pointer</CODE>
+ is used to return the values stored in the array, without altering <CODE CLASS="Code">
+array-obj</CODE>
+, or permanently tying up memory for a second pointer.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-936713"></A>(setf array-obj</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-936690"></A>      (fli:allocate-foreign-object :type :int</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-936691"></A>                  :nelems 10</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-936692"></A>                  :initial-contents </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-936738"></A>                  '(0 1 2 3 4 5 6 7 8 9)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-936688"></A>(fli:with-coerced-pointer (temp) array-obj</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-936662"></A>  (dotimes (x 10)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-936663"></A>    (print (fli:dereference temp))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-936664"></A>    (fli:incf-pointer temp)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920304"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920305"></A><A HREF="fli-73.htm#10368" CLASS="XRef">allocate-dynamic-foreign-object</A><BR>
+<A HREF="fli-119.htm#14842" CLASS="XRef">free-foreign-object</A><BR>
+<A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-149.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-147.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

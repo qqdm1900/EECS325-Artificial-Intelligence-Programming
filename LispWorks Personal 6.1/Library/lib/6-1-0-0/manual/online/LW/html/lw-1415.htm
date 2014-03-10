@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ pointer-from-address
+</TITLE>
+
+<LINK REL="next" HREF="lw-1416.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1414.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1416.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1414.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886416"></A><A NAME="24928"></A>pointer<A NAME="marker-1009791"></A>-from-address</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886417"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889721"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889731"></A>Returns the object into which the given address is pointing.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886418"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886419"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886420"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886421"></A>pointer-from-address <EM CLASS="Variable">
+address</EM>
+ =&gt; <EM CLASS="Variable">
+object</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890340"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890341"></A><EM CLASS="Variable">
+address</EM>
+</P>
+<P CLASS="RDescription-C">An integer giving the address of the object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890555"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890586"></A><EM CLASS="Variable">
+object</EM>
+</P>
+<P CLASS="RDescription-C">The object pointed to by <EM CLASS="Variable">
+address</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886422"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886423"></A>The function <CODE CLASS="Code">
+pointer-from-address</CODE>
+ returns the object into which the given integer <EM CLASS="Variable">
+address</EM>
+ is pointing. Note that this address may not be pointing into this object after a garbage collection, unless the object is static and is still referenced by another Lisp variable or object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886424"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1212768"></A>CL-USER 8 &gt; (setq static-string</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212769"></A>                  (make-array 3 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212770"></A>                              :element-type 'base-char </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212771"></A>                              :allocation :static))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212772"></A>Warning: Setting unbound variable STATIC-STRING</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212773"></A>&quot;)?&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212774"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212775"></A>CL-USER 9 &gt; (sys:object-address static-string)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212776"></A>537166552</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212777"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212778"></A>CL-USER 10 &gt; (sys:pointer-from-address *)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212779"></A>&quot;)?&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212780"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1212781"></A>CL-USER 11 &gt; (eq * static-string)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886440"></A>T</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886441"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886443"></A><A HREF="lw-1410.htm#44512" CLASS="XRef">object-address</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1416.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1414.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

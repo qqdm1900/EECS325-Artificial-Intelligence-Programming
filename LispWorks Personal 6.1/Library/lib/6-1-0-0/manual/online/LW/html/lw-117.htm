@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.7.2.1  Optimized and unoptimized INT32 code
+</TITLE>
+
+<LINK REL="next" HREF="lw-118.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-116.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-116.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-105.htm">9 The Compiler</A> &gt; <A HREF="lw-114.htm">9.7  Optimizing your code</A> &gt; <A HREF="lw-116.htm">9.7.2  Fast 32-bit arithmetic</A><BR><BR>
+</DIV><A HREF="lw-118.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-116.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-116.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-887653"></A>9.7.2.1  Optimized and unoptimized INT32 code</H3>
+<P CLASS="Body">
+<A NAME="pgfId-887776"></A>When optimized correctly, the intermediate <A HREF="lw-1386.htm#46746" CLASS="XRef">int32</A> objects are not constructed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887916"></A>In unoptimized code, sequences of operations like</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887917"></A>(<A NAME="marker-887922"></A>sys:int32+ (<A NAME="marker-887927"></A>sys:int32- a b) (sys:int32- c d))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887918"></A>will generate intermediate <A HREF="lw-1386.htm#46746" CLASS="XRef">int32</A> objects for the results of the subtraction, but the compiler can optimize these away because it knows that the function <A HREF="lw-1387.htm#39757" CLASS="XRef">int32+</A> consumes <A HREF="lw-1386.htm#46746" CLASS="XRef">int32</A> objects.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888949"></A><B CLASS="Bold">
+Note:</B>
+ the INT32 API is not designed to optimize <CODE CLASS="Code">
+sys:int32</CODE>
+ objects passed as arguments.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-118.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-116.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-116.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

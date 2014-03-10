@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.4  Tracing methods 
+</TITLE>
+
+<LINK REL="next" HREF="lw-53.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-51.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-39.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-39.htm">5 The Trace Facility</A><BR><BR>
+</DIV><A HREF="lw-53.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-51.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-39.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886050"></A>5.4  <A NAME="23164"></A>Tracing methods </H3>
+<P CLASS="Body">
+<A NAME="pgfId-886467"></A><A NAME="marker-886466"></A>You can also trace methods (primary and auxiliary) within a generic function. The following example shows how to specify any qualifiers and specializers.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-886468"></A>Type the following methods into the listener:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-886469"></A>(defmethod foo (x) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886470"></A>  (print 'there))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886471"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886472"></A>(defmethod foo :before ((x integer))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886473"></A>  (print 'hello))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-886474"></A>Next, trace only the second of these methods by typing the following <A NAME="marker-886475"></A>definition spec.</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886476"></A>(trace (method foo :before (integer)))</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-886477"></A>Test that the trace has worked by calling the methods in the listener:</LI>
+</OL>
+<PRE CLASS="Code-first"><A NAME="pgfId-886478"></A>CL-USER 226 &gt; (foo 'x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886479"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886480"></A>THERE </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886481"></A>THERE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886482"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886483"></A>CL-USER 227 &gt; (foo 4)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886484"></A>0 (METHOD FOO :BEFORE (INTEGER)) &gt; (4)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886485"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886486"></A>HELLO </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886487"></A>0 (METHOD FOO :BEFORE (INTEGER)) &lt; (HELLO)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886488"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886489"></A>THERE </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886490"></A>THERE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886491"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886492"></A>CL-USER 228 &gt; </PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-53.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-51.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-39.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

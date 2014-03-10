@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.1.3  Defining utilities for sharing an object reference
+</TITLE>
+
+<LINK REL="next" HREF="corba-14.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-12.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-10.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-9.htm">2 Quick Start Tutorial</A> &gt <A HREF="corba-10.htm">2.1  A CORBA-based Hello World </A><BR><BR>
+</DIV><A HREF="corba-14.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-12.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-854780"></A>2.1.3  <A NAME="marker-854903"></A><A NAME="marker-854945"></A><A NAME="marker-854943"></A><A NAME="marker-854941"></A>Defining utilities for sharing an object reference</H3>
+<P CLASS="Body">
+<A NAME="pgfId-854773"></A><A NAME="marker-855080"></A>Now we will define some utilities for communicating an object reference from the server to the client by converting the object reference into a string using ORB-supplied functions and writing it to a shared file. The client can then read the string from the shared file and convert it back into an object reference. Note that a real application would probably use a higher level service such as a Name Service for passing object references between applications.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-854784"></A>Create a file called <CODE CLASS="Code">
+shared.lisp</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-854787"></A>Enter the following Common Lisp code into the <CODE CLASS="Code">
+shared.lisp</CODE>
+ file:</LI>
+</OL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-854794"></A>(in-package &quot;CL-USER&quot;)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-854795"></A>(defparameter *hello-world-ior-file* </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854796"></A>  #+mswindows &quot;c:/temp/hello.ior&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-854797"></A>  #-mswindows &quot;/tmp/hello.ior&quot;)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-854798"></A>(defun object-to-file (orb object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854799"></A>  (with-open-file (st *hello-world-ior-file* :direction :output</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854800"></A>                                          :if-exists :supersede)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-854801"></A>    (prin1 (op:object_to_string orb object) st)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-854802"></A>(defun file-to-object (orb)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854803"></A>  (with-open-file (st *hello-world-ior-file*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-854804"></A>    (op:string_to_object orb (read st))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-854782"></A>This code does the following:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-854807"></A><CODE CLASS="Code">
+object-to-file</CODE>
+ opens the shared file and uses the <CODE CLASS="Code">
+op:object_to_string</CODE>
+ function to convert the object reference into a string, which is then written into the file</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-854812"></A><CODE CLASS="Code">
+file-to-object</CODE>
+ performs the inverse operation: it reads the string from the file and uses <CODE CLASS="Code">
+op:string_to_object</CODE>
+ to convert the string back into a client-side proxy object</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-854837"></A>Save and close the <CODE CLASS="Code">
+shared.lisp</CODE>
+ file.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-854838"></A>Add <CODE CLASS="Code">
+shared.lisp</CODE>
+ to the defsystem by adding one line of code to the <CODE CLASS="Code">
+defsys.lisp</CODE>
+ file, which should then look like this:</LI>
+</UL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-854841"></A>(in-package &quot;CL-USER&quot;)</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-854842"></A>(require &quot;corba-orb&quot;)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-854843"></A>(defsystem hello-world-corba-object ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854844"></A>  :members (</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854845"></A>            (&quot;hello-world&quot; :type :idl-file)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854853"></A>            &quot;shared&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-854846"></A>            ))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-854847"></A>:rules ((:in-order-to :compile :all</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854848"></A>         (:requires (:load :previous)))))</PRE>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-14.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-12.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

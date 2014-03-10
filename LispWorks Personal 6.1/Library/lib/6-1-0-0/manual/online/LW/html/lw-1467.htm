@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ tstr
+</TITLE>
+
+<LINK REL="next" HREF="lw-1468.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1466.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1450.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1450.htm">41 Miscellaneous WIN32 symbols</A><BR><BR>
+</DIV><A HREF="lw-1468.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1466.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1037783"></A><A NAME="15645"></A>ts<A NAME="marker-1038209"></A>tr</H4>
+<P CLASS="REntry2">
+<A NAME="pgfId-1037784"></A>lp<A NAME="marker-1038222"></A>ctstr</P>
+<P CLASS="REntry2">
+<A NAME="pgfId-1037785"></A>lp<A NAME="marker-1038235"></A>tstr</P>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1037786"></A>FLI type descriptors</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1037787"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1037788"></A>Types which automatically switch between ANSI and Unicode strings.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1037789"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1037790"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1037791"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1037792"></A>tstr &amp;key <EM CLASS="Variable">
+length</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1037793"></A>lpctstr &amp;key <EM CLASS="Variable">
+max-length</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1037794"></A>lptstr &amp;key <EM CLASS="Variable">
+max-length</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1037795"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1037796"></A><CODE CLASS="Code">
+tstr</CODE>
+ is an ANSI/Unicode string.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1037797"></A><CODE CLASS="Code">
+lpctstr</CODE>
+ is a reference-pass pointer to ANSI/Unicode string.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1037798"></A><CODE CLASS="Code">
+lptstr</CODE>
+ is a reference (in/out) pointer to an ANSI/Unicode string.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1037799"></A>Each of these three types automatically switch between ANSI and Unicode, which makes them ideal for use with the <CODE CLASS="Code">
+:dbcs</CODE>
+ <EM CLASS="Variable">
+encoding</EM>
+ option in <CODE CLASS="Code">
+fli:define-foreign-function</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1037800"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1037801"></A>This calls <CODE CLASS="Code">
+GetDriveTypeA</CODE>
+ on Windows ME, and <CODE CLASS="Code">
+GetDriveTypeW</CODE>
+ on Windows XP/Vista/7.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1037802"></A>The argument is passed as ANSI or Unicode respectively:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1037803"></A>(fli:define-foreign-function (%get-drive-type &quot;GetDriveType&quot; :dbcs)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1037804"></A>    ((lpRootPathName W:LPCTSTR))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1037805"></A>    :result-type (:unsigned :int))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1037806"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1037807"></A>(defconstant +drive-types+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1037808"></A>   #(:unknown :none :removable :fixed :remote :cdrom :ramdisk))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1037809"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1037810"></A>(defun get-drive-information (drive)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1037811"></A>  (the drive-type (svref +drive-types+ (%get-drive-type drive))))</PRE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1468.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1466.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

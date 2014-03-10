@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.2  Creating a window
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-12.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-10.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-9.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-9.htm">2 Getting Started </A><BR><BR>
+</DIV><A HREF="capiuser-m-12.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-10.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-9.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-887268"></A>2.2  Creating a window</H3>
+<P CLASS="Body">
+<A NAME="pgfId-887269"></A>This section shows how easy it is to create a simple window, and how to include CAPI elements, such as panes, in your window.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-884180"></A>Enter the following in a listener</LI>
+</OL>
+<PRE CLASS="Code-first"><A NAME="pgfId-887814"></A>(make-instance 'interface</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887829"></A>               :visible-min-width 200</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887830"></A>               :title &quot;My Interface&quot;)</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887831"></A>(display *)</CODE>
+<P CLASS="Figure">
+<A NAME="pgfId-887802"></A>Figure 2.1  Creating a simple window<DIV>
+<IMG SRC="capiuser-m-6.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-5.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884996"></A>A small window appears on your screen, called &quot;My Interface&quot;. This is the most simple type of window that can be created with the CAPI.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886791"></A>Note: By default this window has a menu bar with the <B CLASS="Button">
+Works</B>
+ menu. The <B CLASS="Button">
+Works</B>
+<A NAME="marker-886792"></A> menu gives you access to a variety of LispWorks tools, just like the <B CLASS="Button">
+Works</B>
+ menu of any window in the LispWorks IDE. It is automatically provided by default for any interface you create. You can omit it by passing <CODE CLASS="Code">
+:auto-menus</CODE>
+ <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884977"></A>The usual way to display an instance of a CAPI window is <CODE CLASS="Code">
+display</CODE>
+<A NAME="marker-884976"></A>. However, another function, <A NAME="marker-884978"></A><CODE CLASS="Code">
+contain</CODE>
+, is provided to help you during the course of development.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891465"></A>Notice that the &quot;My Interface&quot; window cannot be made smaller than the minimum width specified. All CAPI geometry values (window size and position) are integers and represent pixel values relative to the topmost/leftmost visible pixel of the primary monitor.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884200"></A>Only a top level CAPI element is shown by <CODE CLASS="Code">
+display</CODE>
+<A NAME="marker-884199"></A> -- that is, an instance of an <CODE CLASS="Code">
+interface</CODE>
+. To display other CAPI elements (for example, buttons, editor panes, and so on), you must provide information about how they are to be arranged in the window. Such an arrangement is called a <A NAME="marker-884201"></A><I CLASS="Italic">
+layout</I>
+ -- you will learn more about layouts in <A HREF="capiuser-m-88.htm#48708" CLASS="XRef">Laying Out CAPI Panes</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884205"></A>On the other hand, <CODE CLASS="Code">
+contain</CODE>
+ automatically provides a default layout for any CAPI element you specify, and subsequently displays it. During development, it can be useful for displaying individual elements of interest on your screen, without having to create an interface for them explicitly. However, <CODE CLASS="Code">
+contain</CODE>
+ is only provided as a development tool, and should not be used for the final implementation of a CAPI element. See <A HREF="capiuser-m-134.htm#42333" CLASS="XRef">Defining Interface Classes</A> on how to display CAPI elements in an interface.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892142"></A>Note that a displayed CAPI element should only be accessed in its own thread. See <A HREF="capiuser-m-48.htm#25412" CLASS="XRef">The correct thread for CAPI operations</A> for more information about this.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885881"></A>This is how you can create and display a button using <CODE CLASS="Code">
+contain</CODE>
+<A NAME="marker-885825"></A>.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-884208"></A>Enter the following into a listener:</LI>
+</OL>
+<PRE CLASS="Code-first"><A NAME="pgfId-884211"></A>(make-instance '<A NAME="marker-884210"></A>push-button</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884212"></A>               :data &quot;Button&quot;) </PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887837"></A>(contain *)</CODE>
+<P CLASS="Figure">
+<A NAME="pgfId-887844"></A>Figure 2.2  Creating a push-button interface<DIV>
+<IMG SRC="capiuser-m-6.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-7.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-886871"></A>This creates an interface which contains a single push-button, with a label specified by the <CODE CLASS="Code">
+:data</CODE>
+<A NAME="marker-886873"></A> keyword. Notice that you could have performed the same example using <A NAME="marker-886874"></A><CODE CLASS="Code">
+display</CODE>
+, but you would also have had to create a layout so that the button could have been placed in an interface and displayed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884223"></A>You can click on the button, and it will respond in the way you would expect (it will depress). However, no code will be run which performs an action associated with the button. How to link code to window items is the topic of the next section.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-12.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-10.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-9.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="readme.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.19.2  Problems with CAPI on GTK+
+</TITLE>
+
+<LINK REL="next" HREF="readme-481.htm" TYPE="text/html">
+<LINK REL="prev" HREF="readme-479.htm" TYPE="text/html">
+<LINK REL="up" HREF="readme-478.htm" TYPE="text/html">
+<LINK REL="top" HREF="readme.htm" TYPE="text/html">
+<LINK REL="contents" HREF="readme-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="readme-485.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="readme.htm">LispWorks Release Notes and Installation Guide</A> &gt; <A HREF="readme-292.htm">13 Release Notes</A> &gt; <A HREF="readme-478.htm">13.19  Known Problems</A><BR><BR>
+</DIV><A HREF="readme-481.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-479.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-478.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-934451"></A>13.19.2  <A NAME="38778"></A>Problems with CAPI on GTK+</H3>
+<P CLASS="Body">
+<A NAME="pgfId-934482"></A>The <A NAME="marker-934522"></A><CODE CLASS="Code">
+capi:interface-override-cursor</CODE>
+ is ignored by <A NAME="marker-963465"></A><CODE CLASS="Code">
+capi:text-input-pane</CODE>
+ which always displays its usual I-beam cursor.  This is due to a limitation in the way that text-input-pane is implemented by GTK.</P>
+<P CLASS="Body">
+<A NAME="pgfId-935271"></A>The normal navigation gesture (<CODE CLASS="Code">
+Tab</CODE>
+) is treated as an editor command in <A NAME="marker-935272"></A><CODE CLASS="Code">
+capi:editor-pane</CODE>
+ and IDE tools based on this. Instead, use <CODE CLASS="Code">
+Ctrl+Tab</CODE>
+ to navigate from an editor pane in GTK+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-935276"></A>In GTK+ versions older than 2.12, the value of <A NAME="marker-935275"></A><CODE CLASS="Code">
+capi:option-pane</CODE>
+ <EM CLASS="Variable">
+enabled-positions</EM>
+ has no effect on the visible representation of the items. In later versions of GTK+, the disabled items are grayed out.</P>
+<P CLASS="Body">
+<A NAME="pgfId-951701"></A>In GTK+ versions older than 2.12, <A NAME="marker-951720"></A><CODE CLASS="Code">
+capi:display-tooltip</CODE>
+ does not work. In version 2.12 and later, the <CODE CLASS="Code">
+:x</CODE>
+ and <CODE CLASS="Code">
+:y</CODE>
+ keyword arguments of <CODE CLASS="Code">
+capi:display-tooltip</CODE>
+ might not be handled.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Release Notes and Installation Guide - 23 Dec 2011</I></P>
+<P><A HREF="readme-481.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-479.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-478.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

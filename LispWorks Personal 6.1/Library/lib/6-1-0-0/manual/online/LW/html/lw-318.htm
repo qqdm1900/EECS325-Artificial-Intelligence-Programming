@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 17.2.2  Resolving ambiguities
+</TITLE>
+
+<LINK REL="next" HREF="lw-319.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-317.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-316.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-314.htm">17 The Parser Generator</A> &gt; <A HREF="lw-316.htm">17.2  Grammar rules</A><BR><BR>
+</DIV><A HREF="lw-319.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-317.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-316.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886005"></A>17.2.2  <A NAME="marker-886004"></A>Resolving ambiguities</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886006"></A>If the grammar is ambiguous, there is conflict between rules of the grammar: either between reducing with two different rules or between reducing by a rule and shifting an input symbol. Such a conflict is resolved at parser generation time by selecting the highest priority action, where the priority of a reduce action is determined by the closeness of the rule to the beginning of the grammar. A priority is assigned to a shift by associating it with the rule that results in the shift being performed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886007"></A>For example, if the grammar contains the two rules:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886008"></A>Rule a: <EM CLASS="Variable">
+statement</EM>
+ -&gt; <CODE CLASS="Code">
+:if</CODE>
+ <EM CLASS="Variable">
+expression</EM>
+ <CODE CLASS="Code">
+:then</CODE>
+ <EM CLASS="Variable">
+statement</EM>
+ <CODE CLASS="Code">
+:else</CODE>
+ <EM CLASS="Variable">
+statement</EM>
+ </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886009"></A>Rule b: <EM CLASS="Variable">
+statement</EM>
+ -&gt; <CODE CLASS="Code">
+:if</CODE>
+ <EM CLASS="Variable">
+expression</EM>
+ <CODE CLASS="Code">
+:then</CODE>
+ <EM CLASS="Variable">
+statement</EM>
+</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-886010"></A>this results in a conflict in the parser between a shift of <CODE CLASS="Code">
+:else</CODE>
+, for rule a, and a reduce by rule b. This conflict may be resolved by listing rule a earlier in the grammar than rule b. This ensures that the shift is always done.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886011"></A>Note that ambiguities cannot always be resolved successfully in this way. In this example, if the ambiguity is resolved the other way around, by listing rule b first, this results in the <CODE CLASS="Code">
+if ... then ... </CODE>
+part of an <CODE CLASS="Code">
+if ... then ... else ... </CODE>
+statement being reduced, and a syntax error is produced for the <CODE CLASS="Code">
+else</CODE>
+ part.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886012"></A>During parser generation, any conflicts between rules are reported, together with information about how the conflict was resolved.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-319.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-317.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-316.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.3.2.2  Allocation in different generations 
+</TITLE>
+
+<LINK REL="next" HREF="lw-140.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-138.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-137.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-128.htm">10 Storage Management</A> &gt; <A HREF="lw-135.htm">10.3  Memory Management in 32-bit LispWorks</A> &gt; <A HREF="lw-137.htm">10.3.2  Allocation of objects </A><BR><BR>
+</DIV><A HREF="lw-140.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-138.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-137.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-886659"></A>10.3.2.2  Allocation in different generations </H3>
+<P CLASS="Body">
+<A NAME="pgfId-886660"></A>Objects that are known to have long life can be allocated directly in a higher generation, by using <CODE CLASS="Code">
+allocation-in-gen-num</CODE>
+<A NAME="marker-886943"></A> and <CODE CLASS="Code">
+set-default-generation</CODE>
+<A NAME="marker-886944"></A>. Note that both these functions have a global effect, that is any object allocated after a call to <CODE CLASS="Code">
+set-default-generation</CODE>
+ or within the body of <CODE CLASS="Code">
+allocation-in-gen-num</CODE>
+ is allocated in the specified generation, unless it is explicitly allocated in a different generation. Therefore careless use of these functions may lead to allocation of ephemeral garbage in high generations, which is very inefficient. Conversely, if a long-lasting object is allocated to a low generation, it has to survive several garbage collections before being automatically promoted to the next generation.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894697"></A>The best way to control the allocation generation for an array is to call <A HREF="lw-653.htm#34584" CLASS="XRef">make-array</A> with <EM CLASS="Variable">
+allocation</EM>
+ <CODE CLASS="Code">
+:long-lived</CODE>
+ or a number.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890190"></A>See also <A HREF="lw-162.htm#20919" CLASS="XRef">Allocation of interned symbols and packages</A> and <A HREF="lw-163.htm#28819" CLASS="XRef">Allocation of stacks</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-140.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-138.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-137.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

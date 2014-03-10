@@ -1,0 +1,822 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ connect
+</TITLE>
+
+<LINK REL="next" HREF="lw-1162.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1160.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1162.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1160.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-887997"></A><A NAME="38900"></A>connect<A NAME="marker-1047111"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-887998"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887999"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888000"></A>Opens a connection to a database.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888001"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888002"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888003"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1413625"></A>connect <EM CLASS="Variable">
+connection-spec</EM>
+ &amp;key <EM CLASS="Variable">
+if-exists</EM>
+ <EM CLASS="Variable">
+database-type</EM>
+ <EM CLASS="Variable">
+interface</EM>
+ <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+encoding</EM>
+ <EM CLASS="Variable">
+signal-rollback-errors</EM>
+ <EM CLASS="Variable">
+default-table-type</EM>
+ <EM CLASS="Variable">
+default-table-extra-options</EM>
+ <EM CLASS="Variable">
+date-string-format</EM>
+ <EM CLASS="Variable">
+sql-mode</EM>
+ <EM CLASS="Variable">
+prefetch-rows-number </EM>
+                <EM CLASS="Variable">
+prefetch-memory</EM>
+ =&gt; <EM CLASS="Variable">
+database</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888005"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888006"></A><EM CLASS="Variable">
+connection-spec</EM>
+</P>
+<P CLASS="RDescription-C">The connection specifications.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888007"></A><EM CLASS="Variable">
+if-exists</P>
+<P CLASS="RDescription-C"></EM>
+A keyword.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888008"></A><EM CLASS="Variable">
+database-type</P>
+<P CLASS="RDescription-C"></EM>
+A database type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-948034"></A><EM CLASS="Variable">
+interface</EM>
+</P>
+<P CLASS="RDescription-C">A displayed CAPI element, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1312752"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1274554"></A><EM CLASS="Variable">
+encoding</EM>
+</P>
+<P CLASS="RDescription-C">A keyword naming an encoding.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1283622"></A><EM CLASS="Variable">
+signal-rollback-errors</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1283665"></A><CODE CLASS="Code">
+nil</CODE>
+, the keyword <CODE CLASS="Code">
+:default</CODE>
+, or a function designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1290184"></A><EM CLASS="Variable">
+default-table-type</EM>
+</P>
+<P CLASS="RDescription-C">A string, the keyword <CODE CLASS="Code">
+:support-transactions</CODE>
+, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1291927"></A><EM CLASS="Variable">
+default-table-extra-options</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1291939"></A>A string or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1292225"></A><EM CLASS="Variable">
+date-string-format</EM>
+</P>
+<P CLASS="RDescription-C">A string, or the keyword <CODE CLASS="Code">
+:standard</CODE>
+, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1292229"></A><EM CLASS="Variable">
+sql-mode</EM>
+</P>
+<P CLASS="RDescription-C">A string or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1415107"></A><EM CLASS="Variable">
+prefetch-rows-number</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1415211"></A>An integer or the keyword <CODE CLASS="Code">
+:default</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1415212"></A><EM CLASS="Variable">
+prefetch-memory</EM>
+</P>
+<P CLASS="RDescription-C">An integer or the keyword <CODE CLASS="Code">
+:default</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1415213"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888010"></A><EM CLASS="Variable">
+database</P>
+<P CLASS="RDescription-C"></EM>
+A database.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888011"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-967833"></A>The function <CODE CLASS="Code">
+connect</CODE>
+ opens a connection to a database of type <EM CLASS="Variable">
+database-type</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1049172"></A>The allowed values for <EM CLASS="Variable">
+database-type</EM>
+ are <CODE CLASS="Code">
+:odbc</CODE>
+, <CODE CLASS="Code">
+:odbc-driver</CODE>
+, <CODE CLASS="Code">
+:mysql</CODE>
+, <CODE CLASS="Code">
+:postgresql</CODE>
+, <CODE CLASS="Code">
+:oracle8</CODE>
+ and <CODE CLASS="Code">
+:oracle</CODE>
+, though not all of these are supported on some platforms. See <A HREF="lw-346.htm#72269" CLASS="XRef">Supported databases</A> for details of per-platform database support.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1049246"></A>The default for <EM CLASS="Variable">
+database-type</EM>
+ is the value of <A HREF="lw-1170.htm#43947" CLASS="XRef">*default-database-type*</A>. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1049233"></A><CODE CLASS="Code">
+connect</CODE>
+ sets the variable <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A> to an instance of the database opened, and returns that instance.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1346092"></A>If <EM CLASS="Variable">
+connection-spec</EM>
+ is a list it is interpreted as a plist of keywords and values. Some of the keywords are <EM CLASS="Variable">
+database-type</EM>
+ specific, see the documentation for each database. General keywords are:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1346094"></A><CODE CLASS="Code">
+:username</CODE>
+</P>
+<P CLASS="RDescription-C">User name</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1346095"></A><CODE CLASS="Code">
+:password</CODE>
+</P>
+<P CLASS="RDescription-C">Password</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1346096"></A><CODE CLASS="Code">
+:connection</CODE>
+</P>
+<P CLASS="RDescription-C">A specification of the connection. In general, this is supposed to be sufficient information (other than the username and password) to open a connection.The precise meaning varies according to the <EM CLASS="Variable">
+database-type</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1347687"></A>If <EM CLASS="Variable">
+connection-spec</EM>
+ is a string, it is interpreted canonically as:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1347688"></A><EM CLASS="Variable">
+username</EM>
+/<EM CLASS="Variable">
+password</EM>
+@<EM CLASS="Variable">
+connection</EM>
+</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1370187"></A>where <EM CLASS="Variable">
+connection</EM>
+ can be omitted along with the '<CODE CLASS="Code">
+@</CODE>
+' in cases when there is a default connection, <EM CLASS="Variable">
+password</EM>
+ can be omitted along with the preceding '<CODE CLASS="Code">
+/</CODE>
+', and <EM CLASS="Variable">
+username</EM>
+ can be omitted if there is a default user. For example, if you have an Oracle user matching the current Unix username and that does not need a password to connect, you can call </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1370168"></A>(connect &quot;/&quot;)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1346105"></A>Specific <EM CLASS="Variable">
+database-type</EM>
+s may allow more elaborate syntax, but conforming to the pattern above. See the section <A HREF="lw-347.htm#72214" CLASS="XRef">Initialization</A> for details.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1370109"></A>Addtionally for <EM CLASS="Variable">
+database-type</EM>
+s <CODE CLASS="Code">
+:odbc</CODE>
+ and <CODE CLASS="Code">
+:odbc-driver</CODE>
+, if <EM CLASS="Variable">
+connection-spec</EM>
+ does not include the '@' character then the string is interpreted in a special way, for backward compatibility with LispWorks 4.4 and earlier versions. See the section <A HREF="lw-355.htm#81667" CLASS="XRef">Connecting to ODBC</A> for details.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-963522"></A>The argument <EM CLASS="Variable">
+if-exists</EM>
+ modifies the behavior of <CODE CLASS="Code">
+connect</CODE>
+ as follows:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888016"></A><CODE CLASS="Code">
+:new</CODE>
+</P>
+<P CLASS="RDescription-C">Makes a new connection even if connections to the same database already exist.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888017"></A><CODE CLASS="Code">
+:warn-new</CODE>
+</P>
+<P CLASS="RDescription-C">Makes a new connection but warns about existing connections.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888018"></A><CODE CLASS="Code">
+:error</CODE>
+</P>
+<P CLASS="RDescription-C">Makes a new connection but signals an error for existing connections.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888019"></A><CODE CLASS="Code">
+:warn-old</CODE>
+</P>
+<P CLASS="RDescription-C">Selects old connection if one exists (and warns) or makes a new one.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-915193"></A><CODE CLASS="Code">
+:old</CODE>
+</P>
+<P CLASS="RDescription-C">Selects old connection if one exists or makes a new one.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-915194"></A>The default value of <EM CLASS="Variable">
+if-exists</EM>
+ is the value of <A HREF="lw-1162.htm#16189" CLASS="XRef">*connect-if-exists*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-948845"></A><EM CLASS="Variable">
+interface</EM>
+ is used if <CODE CLASS="Code">
+connect</CODE>
+ needs to display a dialog to ask the user for username and password. If <EM CLASS="Variable">
+interface</EM>
+ is a CAPI element, this is used. If <EM CLASS="Variable">
+interface</EM>
+ is any other value (the default value is <CODE CLASS="Code">
+nil</CODE>
+), and <CODE CLASS="Code">
+connect</CODE>
+ is called in a process which is associated with a CAPI interface, then this CAPI interface is used. <EM CLASS="Variable">
+interface</EM>
+ has been added because dialogs asking for passwords can fail otherwise. This depends on the driver that the datasource uses: the problem has only been observed using MS SQL on Microsoft Windows.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1332504"></A><EM CLASS="Variable">
+name</EM>
+ can be passed to explicitly specify the name of the connection. If <EM CLASS="Variable">
+name</EM>
+ is supplied then it is used as-is for the connection name. Therefore it can be found by another call to <CODE CLASS="Code">
+connect</CODE>
+ and calls to <A HREF="lw-1186.htm#28246" CLASS="XRef">find-database</A>. Connection names are compared with <CODE CLASS="Code">
+equalp</CODE>
+. If <EM CLASS="Variable">
+name</EM>
+ is not supplied, then a unique database name is constructed from <EM CLASS="Variable">
+connection-spec</EM>
+ and a counter.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1327643"></A><B CLASS="Bold">
+Note:</B>
+ all the Common SQL functions that accept the keyword argument <CODE CLASS="Code">
+:database</CODE>
+ use <A HREF="lw-1186.htm#28246" CLASS="XRef">find-database</A> to find the database if the given value is not a database. Therefore these functions can now find only databases that that were opened with an explicit <EM CLASS="Variable">
+name</EM>
+:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1332541"></A>(connect ... :name <EM CLASS="Variable">
+name</EM>
+ ...)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1332464"></A><EM CLASS="Variable">
+encoding</EM>
+ specifies the encoding to use in the connection. The value should be a keyword naming an acceptable encoding, or <CODE CLASS="Code">
+nil</CODE>
+ (the default). The value <CODE CLASS="Code">
+:unicode</CODE>
+ is accepted for all <EM CLASS="Variable">
+database-type</EM>
+s, and this will try to make a connection that can support sending and retrieving double-byte string values. Other values are <EM CLASS="Variable">
+database-type</EM>
+ specific:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1283129"></A><CODE CLASS="Code">
+:mysql</CODE>
+</P>
+<P CLASS="RDescription-C">If <EM CLASS="Variable">
+encoding</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ or <CODE CLASS="Code">
+:default</CODE>
+ then the encoding is chosen according to the default character set of the connection (if available) and if that fails the encoding <CODE CLASS="Code">
+:utf-8</CODE>
+ is used. The other recognised values of <EM CLASS="Variable">
+encoding</EM>
+ are <CODE CLASS="Code">
+:unicode</CODE>
+, <CODE CLASS="Code">
+:utf-8</CODE>
+, <CODE CLASS="Code">
+:ascii</CODE>
+, <CODE CLASS="Code">
+:latin-1</CODE>
+, <CODE CLASS="Code">
+:euc</CODE>
+ and <CODE CLASS="Code">
+:sjis</CODE>
+.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1283200"></A><CODE CLASS="Code">
+:unicode</CODE>
+ uses <CODE CLASS="Code">
+:utf-8</CODE>
+ internally.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1540912"></A><CODE CLASS="Code">
+:postgresql</CODE>
+</P>
+<P CLASS="RDescription-C">If <EM CLASS="Variable">
+encoding</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ or <CODE CLASS="Code">
+:default</CODE>
+ LispWorks does not set anything in the connection. If the connection character set is SQL_ASCII, LispWorks uses <CODE CLASS="Code">
+:latin-1</CODE>
+ to convert to and from Lisp strings, otherwise it uses <CODE CLASS="Code">
+:utf-8</CODE>
+.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1546680"></A>If <EM CLASS="Variable">
+encoding</EM>
+ is one of the keywords listed below, LispWorks uses it as the external format for converting to and from Lisp strings, and LispWorks also sets the connection character set to the corresponding string:</P>
+<TABLE>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1543143"></A>Keyword</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1543145"></A>character-set</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1543147"></A>alias</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543149"></A><CODE CLASS="Code">
+:utf-8</CODE>
+</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543151"></A>UTF-8</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543153"></A><CODE CLASS="Code">
+:unicode</CODE>
+</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543155"></A><CODE CLASS="Code">
+:latin-1</CODE>
+</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543157"></A>SQL_ASCII</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543159"></A><CODE CLASS="Code">
+</CODE>
+&nbsp;</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543161"></A><CODE CLASS="Code">
+:ascii</CODE>
+</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543163"></A>SQL_ASCII</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543165"></A><CODE CLASS="Code">
+</CODE>
+&nbsp;</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543167"></A><CODE CLASS="Code">
+:gbk</CODE>
+</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543461"></A>GBK</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543171"></A><CODE CLASS="Code">
+</CODE>
+&nbsp;</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543173"></A><CODE CLASS="Code">
+:euc-jp</CODE>
+</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543532"></A>EUC_JP</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543566"></A><CODE CLASS="Code">
+:euc</CODE>
+</LI>
+</OL>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543179"></A><CODE CLASS="Code">
+:sjis</CODE>
+</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543181"></A>SJIS</LI>
+</OL>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<OL>
+<LI CLASS="CellBody-small">
+<A NAME="pgfId-1543183"></A><CODE CLASS="Code">
+:shift-jis</CODE>
+</LI>
+</OL>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1540929"></A>An alias maps to the corresponding keyword.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1540931"></A>In addition, <EM CLASS="Variable">
+encoding</EM>
+ can be a string or a cons of a keyword and a string. If it is a string LispWorks uses <CODE CLASS="Code">
+:utf-8</CODE>
+ as the external format, and sets the connection character set to the string. If it is a cons, the keyword (the car) is used as the external format, and the string (cdr) is used to set the character set.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1540939"></A>See &quot;character set support&quot; in the PostgreSQL manual for known character sets.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1282839"></A><CODE CLASS="Code">
+:oracle</CODE>
+</P>
+<P CLASS="RDescription-C">The only recognised values of <EM CLASS="Variable">
+encoding</EM>
+ are <CODE CLASS="Code">
+nil</CODE>
+ and <CODE CLASS="Code">
+:unicode</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1283429"></A><CODE CLASS="Code">
+:oracle8</CODE>
+</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+encoding</EM>
+ is ignored.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1283245"></A><CODE CLASS="Code">
+:odbc</CODE>
+ or <CODE CLASS="Code">
+:odbc-driver</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1540818"></A>The valid values of <EM CLASS="Variable">
+encoding</EM>
+ are <CODE CLASS="Code">
+:unicode</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+. When <EM CLASS="Variable">
+encoding</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ it uses the default multibyte encoding.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1283699"></A><EM CLASS="Variable">
+signal-rollback-errors</EM>
+ controls what happens when an attempted <A HREF="lw-1256.htm#15063" CLASS="XRef">rollback</A> causes an error, for databases that do not support rollback properly (for example MySQL with the default settings). For <EM CLASS="Variable">
+database-type</EM>
+s other than <CODE CLASS="Code">
+:mysql</CODE>
+ <EM CLASS="Variable">
+signal-rollback-errors</EM>
+ is ignored and such an error is always signalled. For <EM CLASS="Variable">
+database-type</EM>
+ <CODE CLASS="Code">
+:mysql</CODE>
+ <EM CLASS="Variable">
+signal-rollback-errors</EM>
+ is interpreted as follows:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1283704"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+<P CLASS="RDescription-C">Ignore the error.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1283705"></A><CODE CLASS="Code">
+:default</CODE>
+</P>
+<P CLASS="RDescription-C">If <EM CLASS="Variable">
+default-table-type</EM>
+ is <CODE CLASS="Code">
+:support-transactions</CODE>
+, <CODE CLASS="Code">
+&quot;innodb&quot;</CODE>
+ or <CODE CLASS="Code">
+&quot;bdb&quot;</CODE>
+, then rollback errors are signalled. Otherwise rollback errors are not signalled.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1290034"></A>Function designator</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1290035"></A>The function <EM CLASS="Variable">
+signal-rollback-errors</EM>
+ should take two arguments: the database object and a string (for an error message). The function is called when a rollback signalled an error.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1290262"></A>The default value of <EM CLASS="Variable">
+signal-rollback-errors</EM>
+ is <CODE CLASS="Code">
+:default</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1290332"></A><EM CLASS="Variable">
+default-table-type</EM>
+ specifies the default value of the <CODE CLASS="Code">
+:type</CODE>
+ argument to <A HREF="lw-1165.htm#41485" CLASS="XRef">create-table</A>. See <A HREF="lw-1165.htm#41485" CLASS="XRef">create-table</A> for details. The default value of <EM CLASS="Variable">
+default-table-type</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1291853"></A><EM CLASS="Variable">
+default-table-extra-options</EM>
+ specifies the default value of the <CODE CLASS="Code">
+:extra-options</CODE>
+ argument to <A HREF="lw-1165.htm#41485" CLASS="XRef">create-table</A>. See <A HREF="lw-1165.htm#41485" CLASS="XRef">create-table</A> for details. The default value of <EM CLASS="Variable">
+default-table-extra-options</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1297777"></A><EM CLASS="Variable">
+date-string-format</EM>
+ specifies which format to use to represent dates. If the value is a string, it should be appropriate for the <EM CLASS="Variable">
+database-type.</EM>
+ The value <CODE CLASS="Code">
+:standard</CODE>
+ means that the standard SQL date format is used. If the value is <CODE CLASS="Code">
+nil</CODE>
+ (the default), then the date format is not changed. Currently only <EM CLASS="Variable">
+database-type</EM>
+ <CODE CLASS="Code">
+:oracle</CODE>
+ uses the value of <EM CLASS="Variable">
+date-string-format</EM>
+, and in this case it must be a valid date format string for Oracle.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1311476"></A><EM CLASS="Variable">
+sql-mode</EM>
+ specifies the mode of the SQL connection for <EM CLASS="Variable">
+database-type</EM>
+ <CODE CLASS="Code">
+:mysql</CODE>
+. By default (that is, when <EM CLASS="Variable">
+sql-mode</EM>
+ is not supplied) <CODE CLASS="Code">
+connect</CODE>
+ sets the mode of the connection to ANSI, by executing this statement:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1311477"></A>    &quot;set sql_mode='ansi'&quot;</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1309843"></A><EM CLASS="Variable">
+sql-mode</EM>
+ can be supplied as <CODE CLASS="Code">
+nil</CODE>
+, in which case no statement is executed. Otherwise it should be a string which is a valid setting for <CODE CLASS="Code">
+sql_mode</CODE>
+, and then <CODE CLASS="Code">
+connect</CODE>
+ executes the statement:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1309844"></A>   set sql_mode='<EM CLASS="Variable">
+sql-mode</EM>
+'</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1379538"></A>When <EM CLASS="Variable">
+database-type</EM>
+ is not <CODE CLASS="Code">
+:mysql</CODE>
+, <EM CLASS="Variable">
+sql-mode</EM>
+ is ignored.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1415255"></A><EM CLASS="Variable">
+prefetch-rows-number</EM>
+ and <EM CLASS="Variable">
+prefetch-memory</EM>
+ are used when <EM CLASS="Variable">
+database-type</EM>
+ is <CODE CLASS="Code">
+:oracle</CODE>
+, and specify the amount of data to prefetch when performing queries. <EM CLASS="Variable">
+prefetch-rows-number</EM>
+ is the number of rows to prefetch, with default value 100. <EM CLASS="Variable">
+prefetch-memory</EM>
+ is the maximum number of bytes to prefetch, with default value #x100000. <EM CLASS="Variable">
+prefetch-rows-number</EM>
+ and <EM CLASS="Variable">
+prefetch-memory</EM>
+ can both also have the value <CODE CLASS="Code">
+:default</CODE>
+, which allows the database to choose the amount to prefetch.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1312843"></A>Compatibility note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1312845"></A>LispWorks 4.4 (and previous versions) use <EM CLASS="Variable">
+connection-spec</EM>
+ passed to <CODE CLASS="Code">
+connect</CODE>
+ as the database name. <CODE CLASS="Code">
+connect</CODE>
+ checks if a connection with this name already exists (according to the value of  <EM CLASS="Variable">
+if-exists</EM>
+). <CODE CLASS="Code">
+find-database</CODE>
+ can be used to find a database using this name.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1312847"></A>LispWorks 5.0 (and later versions) does not use <EM CLASS="Variable">
+connection-spec</EM>
+ as the name. Instead, by default it generates a name from the <EM CLASS="Variable">
+connection-spec</EM>
+. The name is intended to be unique (by including a counter). Thus normally <CODE CLASS="Code">
+connect</CODE>
+ will not find an existing connection even if it is called again with identical value of <EM CLASS="Variable">
+connection-spec</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915195"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888023"></A>The following example connects LispWorks to the <CODE CLASS="Code">
+info</CODE>
+ database.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-888024"></A>(connect &quot;info&quot;)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-888025"></A>The next example connects to the ODBC database <CODE CLASS="Code">
+personnel</CODE>
+ using the username &quot;admin&quot; and the password &quot;secret&quot;.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-888026"></A>(connect &quot;personnel/admin/secret&quot; :database-type :odbc)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1312167"></A>The next example opens a connection to MySQL which treats quotes as in ANSI but does not set other ANSI features:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1312569"></A>(sql:connect &quot;me/mypassword/mydb&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1312169"></A>             :sql-mode &quot;ANSI_QUOTES&quot;)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888027"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888031"></A><A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A><BR>
+<A HREF="lw-1170.htm#43947" CLASS="XRef">*default-database-type*</A><BR>
+<A HREF="lw-1163.htm#18962" CLASS="XRef">connected-databases</A><BR>
+<A HREF="lw-1162.htm#16189" CLASS="XRef">*connect-if-exists*</A><BR>
+<A HREF="lw-1168.htm#27666" CLASS="XRef">database-name</A><BR>
+<A HREF="lw-1178.htm#41029" CLASS="XRef">disconnect</A><BR>
+<A HREF="lw-1186.htm#28246" CLASS="XRef">find-database</A><BR>
+<A HREF="lw-1254.htm#65419" CLASS="XRef">reconnect</A><BR>
+<A HREF="lw-1278.htm#21092" CLASS="XRef">status</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1162.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1160.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

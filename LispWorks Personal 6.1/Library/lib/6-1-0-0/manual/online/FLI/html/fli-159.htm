@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :c-array
+</TITLE>
+
+<LINK REL="next" HREF="fli-160.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-158.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-156.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-156.htm">6 Type Reference</A><BR><BR>
+</DIV><A HREF="fli-160.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-158.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-888391"></A><A NAME="10956"></A>:c-array<A NAME="marker-917469"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888392"></A>FLI type descriptor</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888393"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888394"></A>Converts between a FLI array and a C array type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888397"></A>Syntax</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888398"></A>:c-array <EM CLASS="Variable">
+type</EM>
+ &amp;rest <EM CLASS="Variable">
+dimensions</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888399"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888400"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">The type of the elements of the array.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-904915"></A><EM CLASS="Variable">
+dimensions</EM>
+</P>
+<P CLASS="RDescription-C">A sequence of the dimensions of the new array.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888401"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888402"></A>The FLI <CODE CLASS="Code">
+:c-array</CODE>
+ type converts between FLI arrays and the C array type. In C, pointers are used to access the elements of an array. The implementation of the <CODE CLASS="Code">
+:c-array</CODE>
+ type takes this into account, by automatically dereferencing any pointers returned when accessing an array using <A HREF="fli-103.htm#24571" CLASS="XRef">foreign-aref</A>, unlike <A HREF="fli-169.htm#27695" CLASS="XRef">:foreign-array</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-984613"></A>When using the <CODE CLASS="Code">
+:c-array</CODE>
+ type in the specification of an argument to <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>, a pointer to the array is passed to the foreign function, as specified by the C language. You are allowed to call the foreign function with a FLI pointer pointing to an object of type <EM CLASS="Variable">
+type</EM>
+ instead of a FLI array.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1000657"></A>When using the <CODE CLASS="Code">
+:c-array</CODE>
+ type in other situations, it acts as an aggregate type. In particular, <CODE CLASS="Code">
+:c-array</CODE>
+ with more than one dimension is an array containing embedded arrays, not an array of pointers.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906702"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1000912"></A><CODE CLASS="Code">
+:c-array</CODE>
+ uses the C convention that the first index value of an array is <CODE CLASS="Code">
+0</CODE>
+.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1000952"></A>Only use the <CODE CLASS="Code">
+:c-array</CODE>
+ type when the corresponding C code uses an array with a constant declared size. If you need a dynamically sized array, then use a pointer type, allocate the array using the <EM CLASS="Variable">
+nelems</EM>
+ argument to <A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A> or <A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A> and use <A HREF="fli-99.htm#29735" CLASS="XRef">dereference</A> to access the elements. The pointer type is more efficient than making <CODE CLASS="Code">
+:c-array</CODE>
+ types dynamically with different dimensions because the FLI caches information about every different FLI type descriptor that is used.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888403"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888404"></A>The following code defines a 3 by 3 array of integers.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-905919"></A>(setq aaa (fli:allocate-foreign-object</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-905920"></A>              :type '(:c-array :int 3 3)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1001400"></A>The type of this is equivalent to the C declaration</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1001390"></A>int aaa[3][3];</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-905881"></A>The next example defines an array of arrays of bytes.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-906127"></A>(setq bbb (fli:allocate-foreign-object</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-906136"></A>              :type '(:c-array (:c-array :byte 3) 2)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1002904"></A>The type of this is equivalent to the C declaration</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1002906"></A>int bbb[2][3];</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-906141"></A>Note the reversal of the 3 and 2.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1003280"></A>See <A HREF="fli-103.htm#24571" CLASS="XRef">foreign-aref</A> and <A HREF="fli-106.htm#20729" CLASS="XRef">foreign-array-pointer</A> for more examples on the use of arrays.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888405"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888406"></A><A HREF="fli-103.htm#24571" CLASS="XRef">foreign-aref</A><BR>
+<A HREF="fli-169.htm#27695" CLASS="XRef">:foreign-array</A><BR>
+<A HREF="fli-106.htm#20729" CLASS="XRef">foreign-array-pointer</A><BR>
+<A HREF="fli-24.htm#43208" CLASS="XRef">Arrays</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-160.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-158.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

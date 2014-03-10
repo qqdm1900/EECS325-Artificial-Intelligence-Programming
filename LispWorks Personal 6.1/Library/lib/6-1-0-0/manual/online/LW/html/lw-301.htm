@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.10.2  Ensuring order of memory between operations in different threads
+</TITLE>
+
+<LINK REL="next" HREF="lw-302.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-300.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-298.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-298.htm">15.10  Low level atomic operations</A><BR><BR>
+</DIV><A HREF="lw-302.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-300.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-298.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-899379"></A>15.10.2  <A NAME="66402"></A>Ensuring order of memory between operations in different threads</H3>
+<P CLASS="Body">
+<A NAME="pgfId-899380"></A>A set of synchronization functions is provided which ensure order of memory between operations in different threads. These are <A HREF="lw-1358.htm#58075" CLASS="XRef">ensure-loads-after-loads</A>, <A HREF="lw-1359.htm#32625" CLASS="XRef">ensure-memory-after-store</A>, <A HREF="lw-1360.htm#31415" CLASS="XRef">ensure-stores-after-memory</A> and <A HREF="lw-1361.htm#21112" CLASS="XRef">ensure-stores-after-stores</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899393"></A><B CLASS="Bold">
+Note:</B>
+ You should have a good understanding of multiprocessing issues at the CPU level to write code that actually needs these functions.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899394"></A>The effect of each of these functions is to ensure that all the operations of the first type (the word following the <CODE CLASS="Code">
+ensure-</CODE>
+) that are in the program after the call to the function are executed after all the operations of the second type (last word in the function name) that are in the program before the call to the function.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899395"></A>Before or after &quot;in the program&quot; means the order that a programmer interpreting (correctly) the program would expect the operations to be executed. On a modern CPU this is not necessarily the same as the actual execution order. On a single CPU the end result is guaranteed to be the same, but on a computer with multiple CPU cores it is not.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899396"></A>An operation of type <EM CLASS="Variable">
+load</EM>
+ is an operation that reads data from an object into a local variable. Typical <EM CLASS="Variable">
+load</EM>
+ operations are <CODE CLASS="Code">
+car</CODE>
+, <CODE CLASS="Code">
+cdr</CODE>
+, <CODE CLASS="Code">
+svref</CODE>
+, structure accessors, <CODE CLASS="Code">
+slot-value</CODE>
+ and getting the value of a symbol. A <EM CLASS="Variable">
+store</EM>
+ operation is an operation that modifies data in an object. A <EM CLASS="Variable">
+memory</EM>
+ operation is either a <EM CLASS="Variable">
+load</EM>
+ or a <EM CLASS="Variable">
+store</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899397"></A>You need these functions when you need to synchronize between threads and you do not want to use the system supplied synchronization objects (<A HREF="lw-276.htm#63317" CLASS="XRef">Locks</A>, mailboxes, <A HREF="lw-287.htm#75086" CLASS="XRef">Condition variables</A>, <A HREF="lw-289.htm#69010" CLASS="XRef">Counting semaphores</A>, <A HREF="lw-288.htm#82662" CLASS="XRef">Synchronization barriers</A>). In most cases you should try first to use a synchronization object. Using the synchronization functions described in this section is useful if you can identify a serious bottleneck in your code that can be optimized using them.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899412"></A>For simple cases you should consider whether <A HREF="lw-1448.htm#87198" CLASS="XRef">with-modification-check-macro</A> and <A HREF="lw-1447.htm#50273" CLASS="XRef">with-modification-change</A> gives you the functionality you need.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-302.htm#pgfId-899417" CLASS="Hypertext">15.10.2.1  Example of ensuring order of memory</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-302.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-300.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-298.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

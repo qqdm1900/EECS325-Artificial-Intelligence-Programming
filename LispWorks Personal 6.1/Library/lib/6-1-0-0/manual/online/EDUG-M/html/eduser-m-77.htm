@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.24.4  Defining modes
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-78.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-76.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-73.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A> &gt <A HREF="eduser-m-73.htm">3.24  Modes</A><BR><BR>
+</DIV><A HREF="eduser-m-78.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-76.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-73.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-893293"></A>3.24.4  Defining modes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-924160"></A>New modes can be defined using the <CODE CLASS="Code">
+defmode</CODE>
+ function.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-924162"></A><A NAME="marker-924161"></A>editor:defmode</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1051347"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-936973"></A>defmode <EM CLASS="Variable">
+name</EM>
+ &amp;key <EM CLASS="Variable">
+setup-function</EM>
+ <EM CLASS="Variable">
+syntax-table</EM>
+ <EM CLASS="Variable">
+key-bindings</EM>
+ <EM CLASS="Variable">
+no-redefine</EM>
+ <EM CLASS="Variable">
+vars</EM>
+ <EM CLASS="Variable">
+cleanup-function</EM>
+ <EM CLASS="Variable">
+major-p</EM>
+ <EM CLASS="Variable">
+transparent-p</EM>
+ <EM CLASS="Variable">
+precedence</EM>
+ =&gt; nil</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1051159"></A>Defines a new editor mode called <EM CLASS="Variable">
+name</EM>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1051241"></A><EM CLASS="Variable">
+name</EM>
+ is a string containing the name of the mode being defined. <EM CLASS="Variable">
+setup-function</EM>
+ is a function which sets up a buffer in this mode. <EM CLASS="Variable">
+key-bindings</EM>
+ is a quoted list of key-binding directions. <EM CLASS="Variable">
+no-redefine</EM>
+ is a boolean: if true, the mode cannot be re-defined. The default value of <EM CLASS="Variable">
+no-redefine </EM>
+is <CODE CLASS="Code">
+nil</CODE>
+. <EM CLASS="Variable">
+vars</EM>
+ is a quoted list of editor variables and values. <EM CLASS="Variable">
+aliases</EM>
+ is a quoted list of synonyms for <EM CLASS="Variable">
+name. cleanup-function</EM>
+ is a function which is called upon exit from a buffer in this mode. <EM CLASS="Variable">
+major-p</EM>
+ is a boolean: if true, the mode is defined as major, otherwise minor. The default value of <EM CLASS="Variable">
+major-p </EM>
+is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-893319"></A>By default, any mode defined is a minor one--specification of major-mode status is made by supplying a true value for <EM CLASS="Variable">
+major-p</EM>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-893320"></A><CODE CLASS="Code">
+defmode</CODE>
+ is essentially for the purposes of mode specification--not all of the essential definitions required to establish a new Editor mode are made in a <CODE CLASS="Code">
+defmode</CODE>
+ call. In the example, below, other required calls are shown.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-893321"></A><EM CLASS="Variable">
+key-bindings</EM>
+ can be defined by supplying a quoted list of bindings, where a binding is a list containing as a first element the (string) name of the Editor command being bound, and as the second, the key binding description (see <A HREF="eduser-m-133.htm#57056" CLASS="XRef">Advanced Features</A>, for example key-bindings).</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-893322"></A>The state of Editor variables can be changed in the definition of a mode. These are supplied as a quoted list <EM CLASS="Variable">
+vars</EM>
+ of dotted pairs, where the first element of the pair is the (symbol) name of the editor variable to be changed, and the second is the new value.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020404"></A>Both <EM CLASS="Variable">
+setup-function</EM>
+ and <EM CLASS="Variable">
+cleanup-function</EM>
+ are called with the mode and the buffer locked. They can modify the buffer itself, but they must not wait for anything that happens on another process, and they must not modify the mode (for example by setting a variable in the mode), and must not try to update the display.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-893323"></A>As an example tet us define a minor mode, <CODE CLASS="Code">
+Foo</CODE>
+. <CODE CLASS="Code">
+Foo</CODE>
+ has a set-up function, called <CODE CLASS="Code">
+setup-foo-mode</CODE>
+. All files with suffix <CODE CLASS="Code">
+.foo</CODE>
+ invoke <CODE CLASS="Code">
+Foo</CODE>
+-mode. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-978533"></A>Here is the <CODE CLASS="Code">
+defmode</CODE>
+ form:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-893325"></A>(editor:defmode &quot;Foo&quot; :setup-function 'setup-foo-mode)</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-893326"></A>The next piece of code makes <CODE CLASS="Code">
+.foo</CODE>
+ files invoke <CODE CLASS="Code">
+Foo</CODE>
+-mode:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893327"></A>(editor:define-file-type-hook (&quot;foo&quot;) (buffer type)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893328"></A>   (declare (ignore type))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893329"></A>   (setf (editor:buffer-minor-mode buffer &quot;Foo&quot;) t))</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-893330"></A>The next form defines the set-up function:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-978718"></A>(defun setup-foo-mode (buffer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-978719"></A>  (setf (editor:buffer-major-mode buffer) &quot;Lisp&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-978720"></A>  (let ((pathname (editor:buffer-pathname buffer)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-978721"></A>    (unless (and pathname</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-978722"></A>                 (probe-file pathname))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-978723"></A>      (editor:insert-string</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-978724"></A>       (editor:buffer-point buffer)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893339"></A>       #.(format nil &quot;;;; -*- mode :foo -*-&#126;2%(in-package &#92;&quot;CL-USER&#92;&quot;)&#126;2%&quot;)))))</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-893340"></A>Now, any files with the suffix <CODE CLASS="Code">
+.foo</CODE>
+ invoke the <CODE CLASS="Code">
+Foo</CODE>
+ minor mode when loaded into the Editor.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-78.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-76.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-73.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

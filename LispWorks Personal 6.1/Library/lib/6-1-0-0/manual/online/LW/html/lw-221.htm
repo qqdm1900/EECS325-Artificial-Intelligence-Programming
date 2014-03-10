@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.2.3  Example
+</TITLE>
+
+<LINK REL="next" HREF="lw-222.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-220.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-218.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-216.htm">13 LispWorks as a dynamic library</A> &gt; <A HREF="lw-218.htm">13.2  Creating a dynamic library</A><BR><BR>
+</DIV><A HREF="lw-222.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-220.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-218.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-892336"></A>13.2.3  Example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-892420"></A>This script saves an image <CODE CLASS="Code">
+hello.dll</CODE>
+ which is a Windows DLL:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-892421"></A>-------------------- hello.lisp -------------------------</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892438"></A>(in-package &quot;CL-USER&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892439"></A>(load-all-patches)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892440"></A>;; The signature of this function is suitable for use with</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892441"></A>;; rundll32.exe.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892442"></A>(fli:define-foreign-callable (&quot;Hello&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892443"></A>                              :calling-convention :stdcall)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892444"></A>    ((hwnd w:hwnd)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892445"></A>     (hinst w:hinstance)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892446"></A>     (string :pointer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892447"></A>     (cmd-show :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892448"></A>  (capi:display-message &quot;Hello world&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892449"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892450"></A>(save-image &quot;hello&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892451"></A>            :dll-exports '(&quot;Hello&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892452"></A>            :environment nil)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-892337"></A>---------------------------------------------------------</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-892360"></A>Run the script by</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-892481"></A>lispworks-6-1-0-x86-win32.exe -build hello.lisp</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-892503"></A>on the command line, or use the Application Builder tool.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892485"></A>(See <A HREF="lw-188.htm#36195" CLASS="XRef">Saving a LispWorks image</A> for more information about how to save an image.)</P>
+<P CLASS="Body">
+<A NAME="pgfId-892369"></A>You can test the DLL by running </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-892494"></A>rundll32 hello.dll,Hello</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-892495"></A>on the command line.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892379"></A>To see the dialog, you may need to dismiss the LispWorks splashscreen first.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-222.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-220.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-218.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ current-process-pause
+</TITLE>
+
+<LINK REL="next" HREF="lw-1024.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1022.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1024.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1022.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1429586"></A><A NAME="40640"></A>current<A NAME="marker-1447145"></A>-process-pause</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1429587"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1429588"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1429589"></A>Sleeps for a specified time, but can be woken up.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1429590"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1429591"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1429592"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1429593"></A>current-process-pause <EM CLASS="Variable">
+time</EM>
+ &amp;optional <EM CLASS="Variable">
+function</EM>
+ &amp;rest <EM CLASS="Variable">
+args</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1429594"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1431611"></A><EM CLASS="Variable">
+time</EM>
+</P>
+<P CLASS="RDescription-C">A positive number</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1431644"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1431649"></A><EM CLASS="Variable">
+args</EM>
+</P>
+<P CLASS="RDescription-C">Arguments passed to <EM CLASS="Variable">
+function</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1429596"></A>Values</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-1431590"></A>The keyword <CODE CLASS="Code">
+:poked</CODE>
+, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1429598"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1431664"></A>The function <CODE CLASS="Code">
+current-process-pause</CODE>
+ sleeps for <EM CLASS="Variable">
+time</EM>
+ seconds, but wakes up if another process did something to wake up the current process (normally this is <A HREF="lw-1086.htm#16739" CLASS="XRef">process-poke</A>, but it can also be <A HREF="lw-1078.htm#62800" CLASS="XRef">process-interrupt</A>, <A HREF="lw-1097.htm#48925" CLASS="XRef">process-stop</A>, <A HREF="lw-1100.htm#39078" CLASS="XRef">process-unstop</A> or <A HREF="lw-1080.htm#65256" CLASS="XRef">process-kill</A>).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1431665"></A><CODE CLASS="Code">
+current-process-pause</CODE>
+ is quite similar to <CODE CLASS="Code">
+cl:sleep</CODE>
+, but it returns if anything causes the process to wake up, even if the time did not pass.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1431666"></A>If <EM CLASS="Variable">
+function</EM>
+ is passed just before going to sleep, <CODE CLASS="Code">
+current-process-pause</CODE>
+ applies <EM CLASS="Variable">
+function</EM>
+ to <EM CLASS="Variable">
+args</EM>
+, and if this returns a true value <CODE CLASS="Code">
+current-process-pause</CODE>
+ returns it immediately. <EM CLASS="Variable">
+function</EM>
+ and <EM CLASS="Variable">
+args</EM>
+ are not used otherwise. If another process calls <A HREF="lw-1086.htm#16739" CLASS="XRef">process-poke</A> on the current process after setting something that causes function to return true, it guarantees that <CODE CLASS="Code">
+current-process-pause</CODE>
+ will return immediately without sleeping.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1431667"></A>If another process woke up the current process, <CODE CLASS="Code">
+current-process-pause</CODE>
+ returns the keyword <CODE CLASS="Code">
+:poked</CODE>
+. If it slept the full time, it returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1429600"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1433016"></A>In contrast to <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A>, the <EM CLASS="Variable">
+function</EM>
+ argument to <CODE CLASS="Code">
+current-process-pause</CODE>
+ is applied only once, and within the dynamic scope of <CODE CLASS="Code">
+current-process-pause</CODE>
+. It therefore does not have any of the restrictions that the <EM CLASS="Variable">
+wait-function</EM>
+ of <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> has.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1433017"></A>The purpose of <EM CLASS="Variable">
+function</EM>
+ is to guard against the possibility that another process pokes the current process while it is in the process of going to sleep.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1433018"></A>There is no way to distinguish between the function returning <CODE CLASS="Code">
+:poked</CODE>
+ and the process being poked in some way.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1431272"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1434210"></A>Supposed you want to have a process that each minute does some cleanup, but may also be told by other processes to go and do the cleanup. The process be doing:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1434809"></A>(loop</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1434810"></A>  (mp:current-process-pause 60 'check-for-need-cleanup)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1434212"></A>  (do-cleanup))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1434213"></A>Another process which wants to provoke a cleanup will do:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1434214"></A>(setup-cleanup-flag)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1434820"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1434215"></A>(mp:process-poke *cleanup-process*)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1434216"></A>Note that <CODE CLASS="Code">
+check-for-need-cleanup</CODE>
+ is passed to <CODE CLASS="Code">
+current-process-pause</CODE>
+, because another process may call <A HREF="lw-1086.htm#16739" CLASS="XRef">process-poke</A> after <CODE CLASS="Code">
+current-process-pause</CODE>
+ was called but before it went to sleep. If <CODE CLASS="Code">
+check-for-need-cleanup</CODE>
+ was not passed, <CODE CLASS="Code">
+current-process-pause</CODE>
+ would unnecessariliy sleep the whole 60 seconds in this case. The same thing could be implemented by <A HREF="lw-1108.htm#68857" CLASS="XRef">process-wait-with-timeout</A>, but the implementation above does not require a wait function that can run in another dynamic scope repeatedly at arbitrary times, and it uses much less system resources. It is also easier to debug.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1429602"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1429603"></A><A HREF="lw-1086.htm#16739" CLASS="XRef">process-poke</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1024.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1022.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

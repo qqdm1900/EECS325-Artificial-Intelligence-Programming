@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ without-interrupts
+</TITLE>
+
+<LINK REL="next" HREF="lw-1139.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1137.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1139.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1137.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-887088"></A><A NAME="33567"></A>without<A NAME="marker-1059531"></A>-interrupts</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-887089"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903011"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-903017"></A>Causes any interrupts that occur during the execution of a body of code to be queued, in non-SMP LispWorks only.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887090"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-887091"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887092"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-887093"></A>without-interrupts &amp;rest <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904324"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-913779"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">The forms to execute while interrupts are queued.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-908399"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-913738"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The result of executing <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887094"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887095"></A>While <EM CLASS="Variable">
+body</EM>
+ is executing, all interrupts (for example, preemption, keyboard break etc.) are queued. They are executed when <EM CLASS="Variable">
+body</EM>
+ exits.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1688877"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1688878"></A><CODE CLASS="Code">
+without-interrupts</CODE>
+ is not supported in SMP LispWorks, that is on Microsoft Windows, Mac OS X, Linux, FreeBSD and x86/x64 Solaris platforms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887098"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887099"></A>To ensure that the seconds and milliseconds slots are always consistent in non-SMP LispWorks, you can use <CODE CLASS="Code">
+without-interrupts</CODE>
+ within the function which sets them.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-887100"></A>(defstruct elapsed-time</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887101"></A>  seconds</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-887102"></A>  milliseconds)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-887103"></A>(defun update-elapsed-time-atomically </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887104"></A>     (elapsed-time seconds milliseconds)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887105"></A>  (mp:without-interrupts</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887106"></A>   (setf (elapsed-time-seconds elapsed-time) seconds</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887107"></A>         (elapsed-time-milliseconds elapsed-time)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-887108"></A>         milliseconds)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887109"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887111"></A><A HREF="lw-1139.htm#39632" CLASS="XRef">without-preemption</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1139.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1137.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

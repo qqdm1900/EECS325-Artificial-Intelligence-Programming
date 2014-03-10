@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-drop-object-supported-formats
+</TITLE>
+
+<LINK REL="next" HREF="capiref-387.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-385.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-387.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-385.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-7393092"></A><A NAME="marker-7630753"></A><A NAME="28147"></A>set<A NAME="marker-7398920"></A>-drop-object-supported-formats</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-7393093"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7393094"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-7393095"></A>Sets the list of formats for a drop object</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7393096"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-7393097"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7393098"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-7393099"></A>set-drop-object-supported-formats <EM CLASS="Variable">
+drop-object</EM>
+ <EM CLASS="Variable">
+formats</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7399004"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-7399024"></A><EM CLASS="Variable">
+drop-object</EM>
+</P>
+<P CLASS="RDescription-C">A <EM CLASS="Variable">
+drop-object</EM>
+, as passed to the <EM CLASS="Variable">
+drop-callback</EM>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-7465495"></A><EM CLASS="Variable">
+formats</EM>
+</P>
+<P CLASS="RDescription-C">A list of format keywords</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7393102"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-7464328"></A>The function <CODE CLASS="Code">
+set-drop-object-supported-formats</CODE>
+ sets the list of formats that the drop object <EM CLASS="Variable">
+drop-object</EM>
+ wants to receive.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9621361"></A>The <CODE CLASS="Code">
+:string</CODE>
+ format can be used to receive a string from another application and the <CODE CLASS="Code">
+:filename-list</CODE>
+ format can be used to receive a list of filenames from another application such as the Macintosh Finder or the Windows Explorer. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-9627869"></A>GTK+ supports dragging of list of URIs. LispWorks uses a list of URIs to pass/receive the data with the format <CODE CLASS="Code">
+:filename-list</CODE>
+, and also adds the format <CODE CLASS="Code">
+:uris</CODE>
+. The behavior is as follows:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-9627870"></A>For dragging with format <CODE CLASS="Code">
+:filename-list</CODE>
+ (that is, call <A HREF="capiref-95.htm#29125" CLASS="XRef">drag-pane-object</A> with a plist containing <CODE CLASS="Code">
+:filename-list</CODE>
+, or including <CODE CLASS="Code">
+:filename-list</CODE>
+ in the value that <EM CLASS="Variable">
+drag-callback</EM>
+ returns) the argument must be a list of pathname designators. LispWorks canonicalizes the pathnames and converts them to file URIs.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-9627871"></A>For dragging with format <CODE CLASS="Code">
+:uris</CODE>
+, each value in the list must either a string containing a colon, or a pathname designator. A string containing a colon is passed unchanged. Other it is assumed to be a pathname designator, and is converted to a file URI.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-9627872"></A>For dropping with format <CODE CLASS="Code">
+:filename-list</CODE>
+ (that is, calling <A HREF="capiref-106.htm#55927" CLASS="XRef">drop-object-get-object</A> with <CODE CLASS="Code">
+:filename-list</CODE>
+), LispWorks converts each file URI to the corresponding filename string (without checking whether it is a proper file name), and discards all other URIs.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-9627873"></A>For dropping with format <CODE CLASS="Code">
+:uris</CODE>
+, LispWorks returns all the URIs as strings.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-9621362"></A>There is an example of <CODE CLASS="Code">
+:filename-list</CODE>
+ and <CODE CLASS="Code">
+:uris</CODE>
+ in<BR>
+<CODE CLASS="Code">
+examples/capi/elements/gtk-filename-list-and-uris.lisp</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9621364"></A><A NAME="marker-9621363"></A>On Cocoa and GTK+ the <CODE CLASS="Code">
+:image</CODE>
+ format can be used to receive images. The value passed needs to be an <A HREF="capiref-574.htm#77313" CLASS="XRef">image</A> obtect.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7465530"></A>Any other keyword in <EM CLASS="Variable">
+formats</EM>
+ is assumed to be a private format that can only be used to receive objects from with the same Lisp image.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9432026"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-7399067"></A><CODE CLASS="Code">
+set-drop-object-supported-formats</CODE>
+ should only be called within a <EM CLASS="Variable">
+drop-callback</EM>
+. See <A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A> for information about drop callbacks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7636557"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-7636558"></A>See<BR>
+<CODE CLASS="Code">
+examples/capi/output-panes/drag-and-drop.lisp<BR>
+examples/capi/choice/drag-and-drop.lisp<BR>
+examples/capi/choice/list-panel-drag-images.lisp</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7393108"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8061315"></A><A HREF="capiref-108.htm#35546" CLASS="XRef">drop-object-provides-format</A><BR>
+<A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-387.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-385.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

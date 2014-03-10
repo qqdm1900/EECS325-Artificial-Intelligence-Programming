@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ dereference
+</TITLE>
+
+<LINK REL="next" HREF="fli-100.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-98.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-100.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-98.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-896287"></A><A NAME="29735"></A>dereference<A NAME="marker-998682"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-896288"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898384"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-913240"></A>Accesses and returns the value of a foreign object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913184"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898385"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896289"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-896290"></A>dereference <EM CLASS="Variable">
+pointer</EM>
+ &amp;key <EM CLASS="Variable">
+index</EM>
+ <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+copy-foreign-object</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1114603"></A>(setf dereference) <EM CLASS="Variable">
+value</EM>
+ <EM CLASS="Variable">
+pointer</EM>
+ &amp;key <EM CLASS="Variable">
+index</EM>
+ <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+copy-foreign-object</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906101"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-906111"></A><EM CLASS="Variable">
+pointer</EM>
+</P>
+<P CLASS="RDescription-C">An instance of a FLI pointer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-906121"></A><EM CLASS="Variable">
+index</EM>
+</P>
+<P CLASS="RDescription-C">An integer. If <EM CLASS="Variable">
+index</EM>
+ is supplied, <CODE CLASS="Code">
+dereference</CODE>
+ assumes that <EM CLASS="Variable">
+pointer</EM>
+ points to one element in an array of object, and returns the element at the <EM CLASS="Variable">
+index</EM>
+ position in the array.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-906148"></A><EM CLASS="Variable">
+type</P>
+<P CLASS="RDescription-C"></EM>
+The foreign object type that <EM CLASS="Variable">
+pointer</EM>
+ points to. If the specified type is different to the actual type, <CODE CLASS="Code">
+dereference</CODE>
+ returns the value of the object in the format of <EM CLASS="Variable">
+type</EM>
+ where possible.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-906249"></A><EM CLASS="Variable">
+copy-foreign-object</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-906258"></A>This option is only important when dealing with aggregate FLI types, which cannot be returned by value.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-908525"></A>If set to <CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+dereference</CODE>
+ makes a copy of the aggregate object pointed to by <EM CLASS="Variable">
+pointer</EM>
+ and returns the copy. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-908520"></A>If set to <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+dereference</CODE>
+ returns the aggregate object directly. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-908515"></A>If set to <CODE CLASS="Code">
+:error</CODE>
+ then <CODE CLASS="Code">
+dereference</CODE>
+ signals an error. This is the default value for <EM CLASS="Variable">
+copy-foreign-object</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906372"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-906382"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RDescription-C">The value of the dereferenced object at <EM CLASS="Variable">
+pointer</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906402"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-906418"></A>The function <CODE CLASS="Code">
+dereference</CODE>
+ accesses and returns the value of the FLI object pointed to by <EM CLASS="Variable">
+pointer</EM>
+, unless <EM CLASS="Variable">
+pointer</EM>
+ points to an aggregate type. In the case of aggregates, the return value is specified by using the <EM CLASS="Variable">
+copy-foreign-object</EM>
+ option.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1009247"></A>An error is signaled if <EM CLASS="Variable">
+value</EM>
+ is an aggregate type and <EM CLASS="Variable">
+copy-foreign-object</EM>
+ is not set accordingly.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-906700"></A>The value of an object at <EM CLASS="Variable">
+pointer</EM>
+ can be changed using <CODE CLASS="Code">
+(setf dereference)</CODE>
+. See the examples section for an example of this.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1326115"></A>An error is signaled if <EM CLASS="Variable">
+pointer</EM>
+ is a null pointer. You can use <A HREF="fli-130.htm#30112" CLASS="XRef">null-pointer-p</A> to detect null pointers.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906787"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-906826"></A>In the following example a <CODE CLASS="Code">
+LONG</CODE>
+ type is defined and an instance, pointed to by <CODE CLASS="Code">
+point</CODE>
+, with a specified initial value of 10 is created with memory allocated using <A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A>. The <CODE CLASS="Code">
+dereference</CODE>
+ function is then used to get the value that <CODE CLASS="Code">
+point</CODE>
+ points to. </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-908506"></A>(fli:define-c-typedef LONG :long)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-906828"></A>(setq point (fli:allocate-foreign-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-906829"></A>             :type 'LONG</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-906830"></A>             :initial-element 10))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-906831"></A>(fli:dereference point)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-907075"></A>Finally, the value of the object of type <CODE CLASS="Code">
+LONG</CODE>
+ is changed to 20 using <CODE CLASS="Code">
+(setf dereference)</CODE>
+.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-907021"></A>(setf (fli:dereference point) 20)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-908646"></A>In the next example, a boolean FLI type is defined, but is accessed as a <CODE CLASS="Code">
+char</CODE>
+.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-908701"></A>(fli:define-c-typedef BOOL (:boolean :int))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-908706"></A>(setq point2 (fli:allocate-foreign-object :type 'BOOL))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-908757"></A>(fli:dereference point2 :type :char)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-907130"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-907140"></A><A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A><BR>
+<A HREF="fli-119.htm#14842" CLASS="XRef">free-foreign-object</A><BR>
+<A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A><BR>
+<A HREF="fli-130.htm#30112" CLASS="XRef">null-pointer-p</A><BR>
+<A HREF="fli-16.htm#40862" CLASS="XRef">FLI Types</A><BR>
+<A HREF="fli-39.htm#79887" CLASS="XRef">Pointer dereferencing and coercing</A><BR>
+<A HREF="fli-50.htm#31319" CLASS="XRef">Calling a C function that takes an array of strings</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-100.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-98.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

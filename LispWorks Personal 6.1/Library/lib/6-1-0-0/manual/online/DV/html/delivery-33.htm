@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.1  Separate runtime initializations from the build phase
+</TITLE>
+
+<LINK REL="next" HREF="delivery-34.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-32.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-32.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-32.htm">3 Writing Code Suitable for Delivery</A><BR><BR>
+</DIV><A HREF="delivery-34.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-32.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-32.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-865880"></A>3.1  <A NAME="44952"></A>Separate runtime initializations from the build phase</H3>
+<P CLASS="Body">
+<A NAME="pgfId-865882"></A>To deliver a runtime application correctly, you need two distinct phases: the <EM CLASS="Variable">
+build phase</EM>
+, and the <EM CLASS="Variable">
+runtime phase</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865883"></A>In the build phase the delivery script loads the application code including the definition of its start-up function, but should not actually do any runtime initialization. It then saves the executable to disk, with the start-up function primed as the entry point.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865884"></A>In the runtime phase the end-user runs the executable which calls its start-up function. This function must perform any required runtime initializations, and not attempt to load any more application code.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865885"></A>You may have developed or inherited a program with a control file which loads your application, initializes and starts it successfully in the LispWorks IDE, but which fails when used as a delivery script. For example it might run code which relies on multiprocessing.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865886"></A>To correctly deliver this program as a LispWorks runtime application you will need to remove those forms from the control file which do runtime initialization, and move them to the runtime by adding them to the start-up function. Take care to preserve the order of initializations when you do this.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-34.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-32.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-32.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

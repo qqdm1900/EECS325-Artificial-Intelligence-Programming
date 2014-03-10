@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.9.8  Image access
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-215.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-213.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-204.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-181.htm">13 Graphics Ports</A> &gt <A HREF="capiuser-m-204.htm">13.9  Working with images</A><BR><BR>
+</DIV><A HREF="capiuser-m-215.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-213.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-204.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-906009"></A>13.9.8  Image access</H3>
+<P CLASS="Body">
+<A NAME="pgfId-906011"></A>You can read and write pixel values in an <CODE CLASS="Code">
+image</CODE>
+ via an Image Access object, but only if the image is a Plain Image. You can ensure you have a Plain Image by using the result of </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-906163"></A>(load-image <EM CLASS="Variable">
+pane</EM>
+ <EM CLASS="Variable">
+image</EM>
+ :force-plain t)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-906285"></A>To read and/or write pixel values, follow these steps:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-906019"></A>Start with a Graphics Port (for example a <CODE CLASS="Code">
+capi:output-pane</CODE>
+) and an  <CODE CLASS="Code">
+image</CODE>
+ object associated with it, which is a Plain Image. See above for how to create an image object.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-906417"></A>Construct an Image Access object by calling <A NAME="marker-906416"></A><CODE CLASS="Code">
+make-image-access</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-906418"></A>To read pixels from the image, first call <A NAME="marker-906424"></A><CODE CLASS="Code">
+image-access-transfer-from-image</CODE>
+ on the image access object. This notionally transfers all the pixel data from the window system into the access object. It might do nothing if the window system allows fast access to the pixel data directly. Then call <A NAME="marker-906429"></A><CODE CLASS="Code">
+image-access-pixel</CODE>
+ with the coordinates of each pixel. The pixel values are like those returned from <A NAME="marker-906434"></A><CODE CLASS="Code">
+color:convert-color</CODE>
+ and can be converted to RGB using <A NAME="marker-906439"></A><CODE CLASS="Code">
+color:unconvert-color</CODE>
+ if required.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-906239"></A>To write pixels to the image, you must have already called <A NAME="marker-906444"></A><CODE CLASS="Code">
+image-access-transfer-from-image</CODE>
+. Then call <CODE CLASS="Code">
+(setf image-access-pixel)</CODE>
+ with the coordinaes of each pixel to write, and then call <A NAME="marker-906449"></A><CODE CLASS="Code">
+image-access-transfer-to-image</CODE>
+ on the Image Access object. This notionally transfers all the pixel data back to the window system from the access object. It might do nothing if the window system allows fast access to the pixel data directly.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-906035"></A>Free the image access object by calling <A NAME="marker-906454"></A><CODE CLASS="Code">
+free-image-access</CODE>
+ on it.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-906294"></A>There is an example that demonstrates the uses of Image Access objects in:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-909616"></A>examples/capi/graphics/image-access.lisp</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-909597"></A>This further example demonstrates the uses of Image Access objects with colors that have an alpha component:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-909625"></A>examples/capi/graphics/image-access-alpha.lisp</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-215.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-213.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-204.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

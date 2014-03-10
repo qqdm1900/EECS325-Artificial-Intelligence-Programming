@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ connect-to-named-pipe
+</TITLE>
+
+<LINK REL="next" HREF="lw-1453.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1451.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1450.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1450.htm">41 Miscellaneous WIN32 symbols</A><BR><BR>
+</DIV><A HREF="lw-1453.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1451.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1041926"></A><A NAME="24757"></A>c<A NAME="marker-1046843"></A>onnect-to-named<A NAME="marker-1047047"></A>-pipe</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1041927"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1041928"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1041929"></A>Opens a stream connection to a named pipe.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1059165"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1059166"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1041930"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1041931"></A>connect-to-named-pipe <EM CLASS="Variable">
+name</EM>
+ &amp;key <EM CLASS="Variable">
+host</EM>
+ <EM CLASS="Variable">
+errorp</EM>
+ <EM CLASS="Variable">
+direction</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1041932"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041933"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041934"></A><EM CLASS="Variable">
+host</EM>
+</P>
+<P CLASS="RDescription-C">A string or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041935"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041936"></A><EM CLASS="Variable">
+direction</EM>
+</P>
+<P CLASS="RDescription-C">One of the keywords <CODE CLASS="Code">
+:io</CODE>
+, <CODE CLASS="Code">
+:input</CODE>
+ and <CODE CLASS="Code">
+:output</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1041937"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041938"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">A stream or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041939"></A><EM CLASS="Variable">
+keyword</EM>
+</P>
+<P CLASS="RDescription-C">A keyword or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041940"></A><EM CLASS="Variable">
+condition</EM>
+</P>
+<P CLASS="RDescription-C">An error condition or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1041941"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1041942"></A>The function <CODE CLASS="Code">
+connect-to-named-pipe</CODE>
+ opens a connection to a named pipe and returns a stream connected to it that can be used like any other stream.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1041943"></A><EM CLASS="Variable">
+name</EM>
+ is the pipe name. It can contain any character except <CODE CLASS="Code">
+#&#92;&#92;</CODE>
+ (according to the MSDN). For successful connection another process must have already created a pipe with that name, with the right input/output direction and permissions for the caller of <CODE CLASS="Code">
+connect-to-named-pipe</CODE>
+, and tried to connect to it but has not succeeded yet.  In LispWorks this is done by <A HREF="lw-1461.htm#10506" CLASS="XRef">open-named-pipe-stream</A>. The Windows function is <CODE CLASS="Code">
+ConnectNamedPipe</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1041944"></A><EM CLASS="Variable">
+host</EM>
+, if non-nil, specifies a host on which the named pipe was created. <EM CLASS="Variable">
+host</EM>
+ <CODE CLASS="Code">
+nil</CODE>
+ means the current machine.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1041945"></A><EM CLASS="Variable">
+direction</EM>
+ specifies the direction of input/output. It needs be allowed by the pipe (in inverse, that is if <CODE CLASS="Code">
+connect-to-named-pipe</CODE>
+ gets direction <CODE CLASS="Code">
+:input</CODE>
+ then the pipe must have been opened for output, for example by calling <A HREF="lw-1461.htm#10506" CLASS="XRef">open-named-pipe-stream</A> with <EM CLASS="Variable">
+direction</EM>
+ <CODE CLASS="Code">
+:output</CODE>
+ or <CODE CLASS="Code">
+:io</CODE>
+). The default value of <EM CLASS="Variable">
+direction</EM>
+ is <CODE CLASS="Code">
+:io</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1041946"></A><EM CLASS="Variable">
+errorp</EM>
+ specifies what to do in case of failure. If it is non-nil (the default), an error is signaled. If it is <CODE CLASS="Code">
+nil</CODE>
+, then <CODE CLASS="Code">
+connect-to-named-pipe</CODE>
+ returns <EM CLASS="Variable">
+stream</EM>
+ <CODE CLASS="Code">
+nil</CODE>
+, <EM CLASS="Variable">
+keyword</EM>
+ is a descriptive keyword, and <EM CLASS="Variable">
+condition</EM>
+ is an error condition. <EM CLASS="Variable">
+keyword</EM>
+ can be one of:</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1041947"></A><CODE CLASS="Code">
+:does-not-exist</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1047814"></A>There is no named pipe with this name.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041948"></A><CODE CLASS="Code">
+:all-in-use</CODE>
+</P>
+<P CLASS="RDescription-C">There is at least one named pipe with this name, but all are already connected.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1041949"></A><CODE CLASS="Code">
+:access-denied</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1055582"></A>There is already a named pipe with this name, but it denies access. That may be either because the permissions of the named pipe do not allow the connection,                    or because other security features of the host system block the connection.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041950"></A><CODE CLASS="Code">
+:error</CODE>
+</P>
+<P CLASS="RDescription-C">An unknown error.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1041951"></A>On success <CODE CLASS="Code">
+connect-to-named-pipe</CODE>
+ returns a stream and the other two returned values are both <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1041952"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1041953"></A><A HREF="lw-1461.htm#10506" CLASS="XRef">open-named-pipe-stream</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1453.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1451.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-output-to-fasl-file
+</TITLE>
+
+<LINK REL="next" HREF="lw-871.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-869.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-871.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-869.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-891199"></A><A NAME="85892"></A>with<A NAME="marker-1043880"></A>-output-to-fasl-file</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-891200"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891201"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-891202"></A>Sends output to a fasl file on disk.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891203"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-891204"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891205"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-891206"></A>with-output-to-fasl-file (<EM CLASS="Variable">
+stream</EM>
+ <EM CLASS="Variable">
+pathname</EM>
+ &amp;rest <EM CLASS="Variable">
+options</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891207"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-891208"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">Stream to be bound to the fasl file to be created.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-891209"></A><EM CLASS="Variable">
+pathname</EM>
+ </P>
+<P CLASS="RDescription-C">Name of the fasl file to be created.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-891210"></A><EM CLASS="Variable">
+body</EM>
+ </P>
+<P CLASS="RDescription-C">Forms, some of which may be dumped. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891211"></A>Values</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-891212"></A>Returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891213"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1342319"></A><CODE CLASS="Code">
+with-output-to-fasl-file</CODE>
+ is used in conjunction with <A HREF="lw-783.htm#61552" CLASS="XRef">dump-form</A>. The <EM CLASS="Variable">
+body</EM>
+ forms are executed, and during the execution, <A HREF="lw-783.htm#61552" CLASS="XRef">dump-form</A> may be called to dump selected forms. Dumped forms are evaluated if the file <EM CLASS="Variable">
+pathname</EM>
+ is later loaded by <A HREF="lw-1399.htm#80440" CLASS="XRef">load-data-file</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1680877"></A>To be able to load the output file, it must have a file type that LispWorks recognizes as a binary file. You can do it by:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1680922"></A>using the default binary file type, either by using the value of <A HREF="lw-1339.htm#75927" CLASS="XRef">*binary-file-type*</A> as in the example below, or <CODE CLASS="Code">
+compile-file-pathname</CODE>
+.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1680928"></A>using another file type, which you add to <A HREF="lw-1340.htm#22217" CLASS="XRef">*binary-file-types*</A>.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-1342314"></A>If the file <EM CLASS="Variable">
+pathname</EM>
+ already exists, it is superseded.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1044434"></A>A fasl file created using <CODE CLASS="Code">
+with-output-to-fasl-file</CODE>
+ must be loaded only by <A HREF="lw-1399.htm#80440" CLASS="XRef">load-data-file</A>, and not by <CODE CLASS="Code">
+load</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891254"></A>Example </H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1224173"></A>CL-USER 12 &gt; (with-output-to-fasl-file (s &quot;/tmp/foo.fasl&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1224174"></A>               (dump-form '(print 'hello) s)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1224175"></A>NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1224176"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1224177"></A>CL-USER 13 &gt; (let ((sys:*binary-file-type* &quot;fasl&quot;)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1224178"></A>               (sys:load-data-file &quot;/tmp/foo.fasl&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1224179"></A>; Loading fasl file &quot;/tmp/foo.fasl&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1224180"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1224181"></A>HELLO </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-891262"></A>#P&quot;/tmp/foo.fasl&quot;</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891263"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-891267"></A><A HREF="lw-783.htm#61552" CLASS="XRef">dump-form</A><BR>
+<A HREF="lw-784.htm#28477" CLASS="XRef">dump-forms-to-file</A><BR>
+<A HREF="lw-1399.htm#80440" CLASS="XRef">load-data-file</A><BR>
+<A HREF="lw-1339.htm#75927" CLASS="XRef">*binary-file-type*</A><BR>
+<A HREF="lw-1340.htm#22217" CLASS="XRef">*binary-file-types*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-871.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-869.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

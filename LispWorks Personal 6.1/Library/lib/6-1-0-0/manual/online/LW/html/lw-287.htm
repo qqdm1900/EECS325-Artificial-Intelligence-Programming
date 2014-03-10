@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.6.1  Condition variables
+</TITLE>
+
+<LINK REL="next" HREF="lw-288.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-286.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-286.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-286.htm">15.6  Synchronization between threads </A><BR><BR>
+</DIV><A HREF="lw-288.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-286.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-286.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-893997"></A>15.6.1  <A NAME="75086"></A><A NAME="marker-894093"></A>Condition variables</H3>
+<P CLASS="Body">
+<A NAME="pgfId-894011"></A>A condition variable allows you to wait for some condition to be satisfied, based on the values stored in shared data that is protected by a lock.  The condition is typically something like data becoming available in a queue.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894012"></A>The function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-894347"></A><A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A> is used to wait for a condition variable to be signalled. It is always called with the lock held, which is automatically released while waiting and reclaimed before continuing.  More than one thread can wait for a particular condition variable, so after being notified about the condition changing, you should check the shared data to see if it represents a useful state and call <A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A> again if not.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894013"></A>The function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-894352"></A><A HREF="lw-1017.htm#35505" CLASS="XRef">condition-variable-signal</A> is used to wake exactly one thread that is waiting for the condition variable.  If no threads are waiting, then nothing happens.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894014"></A>Alternatively, the function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-894357"></A><A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A> can be used to wake all of the threads that are waiting at the time it is called.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894015"></A>Any threads that wait after the call to <A HREF="lw-1017.htm#35505" CLASS="XRef">condition-variable-signal</A> or <A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A> will not be woken until the next call.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894016"></A>In most uses of condition variables, the call to <A HREF="lw-1017.htm#35505" CLASS="XRef">condition-variable-signal</A> or <A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A> should be made while holding the lock that waiter used when calling <A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A> for this condition variable. This ensures that the signal is not lost if another thread is just about to call <A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894017"></A>The function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-894362"></A><A HREF="lw-1019.htm#32684" CLASS="XRef">condition-variable-wait-count</A> can be used to determine the current number of threads waiting for a condition variable.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894018"></A>The condition variable implementation in LispWorks aims to comply with the POSIX standard where possible.</P>
+<P CLASS="Body">
+<A NAME="pgfId-897850"></A><A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A>, <A HREF="lw-1017.htm#35505" CLASS="XRef">condition-variable-signal</A> and <A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A> have corresponding functions <A HREF="lw-1039.htm#85947" CLASS="XRef">lock-and-condition-variable-wait</A>, <A HREF="lw-1038.htm#96844" CLASS="XRef">lock-and-condition-variable-signal</A> and <A HREF="lw-1037.htm#54717" CLASS="XRef">lock-and-condition-variable-broadcast</A>. For <A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A> there is also <A HREF="lw-1127.htm#49462" CLASS="XRef">simple-lock-and-condition-variable-wait</A>, which is simpler to use. The <CODE CLASS="Code">
+lock-and-condition-*</CODE>
+ functions perform the equivalent of locking and in the scope of the lock doing something and calling the corresponding <CODE CLASS="Code">
+condition-*</CODE>
+ function.</P>
+<P CLASS="Body">
+<A NAME="pgfId-897851"></A>The <CODE CLASS="Code">
+lock-and-condition-*</CODE>
+ functions not only make it simpler to code, they also make it easier to avoid mistakes, and can optimize some cases (in particular, the quite common case when there is no need to lock on exit from <A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A>). They are the recommended interface.</P>
+<P CLASS="Body">
+<A NAME="pgfId-897852"></A>The <CODE CLASS="Code">
+lock-and-condition-*</CODE>
+ functions can be used together with <CODE CLASS="Code">
+condition-*</CODE>
+ functions on the same locks and condition variables.  </P>
+<P CLASS="Body">
+<A NAME="pgfId-897848"></A><B CLASS="Bold">
+Note:</B>
+ In cases when only one process waits for the condition, using <A HREF="lw-1104.htm#39610" CLASS="XRef">process-wait-local</A> for waiting and <A HREF="lw-1086.htm#16739" CLASS="XRef">process-poke</A> for signalling is easier, and involves less overhead.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-288.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-286.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-286.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,538 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ def-view-class
+</TITLE>
+
+<LINK REL="next" HREF="lw-1173.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1171.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1173.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1171.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-888283"></A><A NAME="47877"></A>def<A NAME="marker-1046925"></A>-view-class</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888284"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888285"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888286"></A>Extends the syntax of <A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A> to allow specified slots to be mapped onto the attributes of database views.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888287"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888288"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888289"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888290"></A>def-view-class <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+superclasses</EM>
+ <EM CLASS="Variable">
+slots</EM>
+ &amp;rest <EM CLASS="Variable">
+class-options</EM>
+ =&gt; <EM CLASS="Variable">
+class</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888291"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888292"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A class name.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888293"></A><EM CLASS="Variable">
+superclasses</EM>
+</P>
+<P CLASS="RDescription-C">The superclasses of the class to be created.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888294"></A><EM CLASS="Variable">
+slots</EM>
+</P>
+<P CLASS="RDescription-C">The slot definitions of the new class.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888295"></A><EM CLASS="Variable">
+class-options</EM>
+</P>
+<P CLASS="RDescription-C">The class options of the new class.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888296"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888297"></A><EM CLASS="Variable">
+class</EM>
+</P>
+<P CLASS="RDescription-C">The defined class.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888298"></A>Slot Options </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888299"></A>The slot options for <CODE CLASS="Code">
+def-view-class</CODE>
+ are <CODE CLASS="Code">
+:db-kind</CODE>
+ and <CODE CLASS="Code">
+:db-info</CODE>
+. In addition the slot option <CODE CLASS="Code">
+:type</CODE>
+ is treated specially for View Classes.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-888300"></A><CODE CLASS="Code">
+:db-kind</CODE>
+ may be one of <CODE CLASS="Code">
+:base</CODE>
+, <CODE CLASS="Code">
+:key</CODE>
+, <CODE CLASS="Code">
+:join</CODE>
+, or <CODE CLASS="Code">
+:virtual</CODE>
+. The default is <CODE CLASS="Code">
+:base</CODE>
+. Each value is described below:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888301"></A><CODE CLASS="Code">
+:base</CODE>
+</P>
+<P CLASS="RDescription-C">This indicates that this slot corresponds to an ordinary attribute of the database view. You can name the database attribute by using the keyword <CODE CLASS="Code">
+:column</CODE>
+. By default, the database attribute is named by the slot.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888302"></A><CODE CLASS="Code">
+:key</P>
+<P CLASS="RDescription-C"></CODE>
+This indicates that this slot corresponds to part of the unique key for this view. A <CODE CLASS="Code">
+:key</CODE>
+ slot is also a <CODE CLASS="Code">
+:base</CODE>
+ slot. All View Classes must have <CODE CLASS="Code">
+:key</CODE>
+ fields that uniquely distinguish the instances, to maintain object identity.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1415924"></A>To specify a key which spans multiple slots, each of the slots should have <CODE CLASS="Code">
+:db-kind :key</CODE>
+. The underlying requirement is that tuples of the form (key1 ... keyN) are unique. The <CODE CLASS="Code">
+:db-kind :key</CODE>
+ slots do not need to be keys in the table.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888303"></A><CODE CLASS="Code">
+:join</CODE>
+</P>
+<P CLASS="RDescription-C">This indicates that this slot corresponds to a join. A slot of this type will contain View Class objects. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888304"></A><CODE CLASS="Code">
+:virtual</CODE>
+</P>
+<P CLASS="RDescription-C">This indicates that this slot is an ordinary CLOS slot not associated with a database column. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-888305"></A>A join is defined by the slot option <CODE CLASS="Code">
+:db-info</CODE>
+, which takes a list. Items in the list may be:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888306"></A><CODE CLASS="Code">
+:join-class</CODE>
+ <EM CLASS="Variable">
+class-name</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-891834"></A>This is the class to join on.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888307"></A><CODE CLASS="Code">
+:home-key</CODE>
+ <EM CLASS="Variable">
+slot-name</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-891836"></A>This is the slot of the defining class to be a subject for the join. The argument <EM CLASS="Variable">
+slot-name</EM>
+ may be an element or a list of elements, where elements can be symbols, <CODE CLASS="Code">
+nil</CODE>
+, strings, integers or floats.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888308"></A><CODE CLASS="Code">
+:foreign-key</CODE>
+ <EM CLASS="Variable">
+slot-name</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-891837"></A>This is the name of the slot of the <CODE CLASS="Code">
+:join-class</CODE>
+ to be a subject for the join. The <EM CLASS="Variable">
+slot-name</EM>
+ may be an element or a list of elements, where elements can be symbols, <CODE CLASS="Code">
+nil</CODE>
+, strings, integers or floats.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888309"></A><CODE CLASS="Code">
+:target-slot</CODE>
+ <EM CLASS="Variable">
+target-slot</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-891843"></A>This is the name of a <CODE CLASS="Code">
+:join</CODE>
+ slot in <CODE CLASS="Code">
+:join-class</CODE>
+. This is optional and is only specified if you want the defining slot to contain instances of this target slot as opposed to those of <CODE CLASS="Code">
+:join-class</CODE>
+. The actual behavior depends on the value of <EM CLASS="Variable">
+set</EM>
+. An example of its usage is when the <CODE CLASS="Code">
+:join-class</CODE>
+ is an intermediate class and you are really only interested in it as a route to the <CODE CLASS="Code">
+:target-slot</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1010176"></A><CODE CLASS="Code">
+:retrieval</CODE>
+ <EM CLASS="Variable">
+retrieval-time</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1010177"></A><EM CLASS="Variable">
+retrieval-time</EM>
+ can be <CODE CLASS="Code">
+:deferred</CODE>
+, which defers filling this slot from the database until the slot itself is accessed. This is the default value.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1010193"></A><EM CLASS="Variable">
+retrieval-time</EM>
+ can alternatively be <CODE CLASS="Code">
+:immediate</CODE>
+ which generates the join SQL for this slot whenever a query is generated on the class. In other words, this is an intermediate class only, which is present for the purpose of joining two entities of other classes together. When  <EM CLASS="Variable">
+retrieval-time</EM>
+ is <CODE CLASS="Code">
+:immediate</CODE>
+, then <EM CLASS="Variable">
+set</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888312"></A><CODE CLASS="Code">
+:set</CODE>
+ <EM CLASS="Variable">
+set</EM>
+</P>
+<P CLASS="RDescription-C">When <EM CLASS="Variable">
+set</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ and <EM CLASS="Variable">
+target-slot</EM>
+ is defined, the slot will contain a list of pairs (<EM CLASS="Variable">
+target-value</EM>
+ <EM CLASS="Variable">
+join-instance</EM>
+) where <EM CLASS="Variable">
+target-value</EM>
+ is the value of the target slot and <EM CLASS="Variable">
+join-instance</EM>
+ is the corresponding instance of the join class.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1011128"></A>When <EM CLASS="Variable">
+set</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ and <EM CLASS="Variable">
+target-slot</EM>
+ is undefined, the slot will contain a list of instances of the join class.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1010241"></A>When <EM CLASS="Variable">
+set</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ the slot will contain a single instance.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1011189"></A>The default value of <EM CLASS="Variable">
+set</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-888314"></A>The syntax for <CODE CLASS="Code">
+:home-key</CODE>
+ and <CODE CLASS="Code">
+:foreign-key</CODE>
+ means that an object from a join class will only be included in the join slot if the values from <EM CLASS="Variable">
+home-key</EM>
+ are <CODE CLASS="Code">
+equal</CODE>
+ to the values in <EM CLASS="Variable">
+foreign-key</EM>
+, in order. These values are calculated as follows: if the element in the list is a symbol it is taken to be a slot name and the value of the slot is used, otherwise the element is taken to be the value. See the second example below.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-888315"></A>The <CODE CLASS="Code">
+:type</CODE>
+ slot option is treated specially for View Classes. There is a need for stringent type-checking in View Classes because of the translation into database data, and therefore <CODE CLASS="Code">
+:type</CODE>
+ is mandatory for slots with <CODE CLASS="Code">
+:db-kind</CODE>
+ <CODE CLASS="Code">
+:base</CODE>
+ or <CODE CLASS="Code">
+:key</CODE>
+. Some methods are provided for type checking and type conversion. For example, a <CODE CLASS="Code">
+:type</CODE>
+ specifier of <CODE CLASS="Code">
+(string 10)</CODE>
+ in SQL terms means allow a character type value with length of less than or equal to 10. The following Lisp types are accepted for <EM CLASS="Variable">
+type</EM>
+, and correspond to the SQL type shown:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-993726"></A><CODE CLASS="Code">
+(string n)</CODE>
+</P>
+<P CLASS="RDescription-C">CHAR(n)</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-993727"></A><CODE CLASS="Code">
+integer</CODE>
+</P>
+<P CLASS="RDescription-C">INTEGER</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-993728"></A><CODE CLASS="Code">
+(integer </CODE>
+<EM CLASS="Variable">
+n</EM>
+<CODE CLASS="Code">
+)</CODE>
+</P>
+<P CLASS="RDescription-C">INTEGER(n)</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-990373"></A><CODE CLASS="Code">
+float</CODE>
+</P>
+<P CLASS="RDescription-C">FLOAT</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-991704"></A><CODE CLASS="Code">
+(float </CODE>
+<EM CLASS="Variable">
+n</EM>
+<CODE CLASS="Code">
+)</CODE>
+</P>
+<P CLASS="RDescription-C">FLOAT(n)</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-991705"></A><CODE CLASS="Code">
+sql:universal-time</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1048356"></A>TIMESTAMP</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888316"></A>Class Options</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1446137"></A><CODE CLASS="Code">
+def-view-class</CODE>
+ recognizes the following class options in addition to the standard class options defined for <A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A>:</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1446141"></A><CODE CLASS="Code">
+(:base-table </CODE>
+<A NAME="marker-1446146"></A><EM CLASS="Variable">
+table-name</EM>
+<CODE CLASS="Code">
+)</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1446142"></A>The slots of the class <EM CLASS="Variable">
+name</EM>
+ will be read from the table <EM CLASS="Variable">
+table-name.</EM>
+ If you do not specify the <CODE CLASS="Code">
+:base-table</CODE>
+ option, then <EM CLASS="Variable">
+table-name</EM>
+ defaults to the name of the class.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888318"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888319"></A>The macro <CODE CLASS="Code">
+def-view-class</CODE>
+ creates a class called <EM CLASS="Variable">
+name</EM>
+ which maps onto a database view. Such a class is called a View Class. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1458924"></A>The macro <CODE CLASS="Code">
+def-view-class</CODE>
+ extends the syntax of <A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A> to allow special <EM CLASS="Variable">
+base slots</EM>
+ to be mapped onto the attributes of database views (presently single tables). When a <CODE CLASS="Code">
+select</CODE>
+ query that names a View Class is submitted, then the corresponding database view is queried, and the slots in the resulting View Class instances are filled with attribute values from the database.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-903877"></A>If <EM CLASS="Variable">
+superclasses</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then <A HREF="lw-1276.htm#30446" CLASS="XRef">standard-db-object</A> automatically becomes the superclass of the newly-defined View Class. If <EM CLASS="Variable">
+superclasses</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, it must include <A HREF="lw-1276.htm#30446" CLASS="XRef">standard-db-object</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888320"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888321"></A>The following example shows a class corresponding to the traditional employees table, with the employee's department given by a join with the departments table.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888322"></A>(def-view-class employee (standard-db-object)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888323"></A>   ((employee-number :db-kind :key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888324"></A>                     :column empno </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888325"></A>                     :type integer)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888326"></A>    (employee-name :db-kind :base </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888327"></A>                   :column ename </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888328"></A>                   :type (string 20)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888329"></A>                   :accessor employee-name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888330"></A>    (employee-department :db-kind :base </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888331"></A>                         :column deptno </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888332"></A>                         :type integer</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888333"></A>                         :accessor employee-department)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888334"></A>    (employee-job :db-kind :base </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888335"></A>                  :column job </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888336"></A>                  :type (string 9))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888337"></A>    (employee-manager :db-kind :base </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888338"></A>                      :column mgr </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888339"></A>                      :type integer)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888340"></A>    (employee-location :db-kind :join</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888341"></A>                       :db-info (:join-class department</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888342"></A>                                 :retrieval :deferred</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888343"></A>                                 :set nil</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888344"></A>                                 :home-key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888345"></A>                                    employee-department</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888346"></A>                                 :foreign-key</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888347"></A>                                    department-number</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888348"></A>                                 :target-slot</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888349"></A>                                    department-loc)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888350"></A>                        :accessor employee-location))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-888351"></A>                (:base-table emp))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-888352"></A>The following example illustrates how elements or lists of elements can follow <CODE CLASS="Code">
+:home-key</CODE>
+ and <CODE CLASS="Code">
+:foreign-key</CODE>
+ in the <CODE CLASS="Code">
+:db-info</CODE>
+ slot option.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-934328"></A>(def-view-class flex-schema ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934329"></A>  ((name        :type (string 8) :db-kind :key)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934330"></A>   (description :type (string 256))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934331"></A>   (classes :db-kind :join</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934332"></A>            :db-info (:home-key name</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934333"></A>                      :foreign-key schema-name</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934334"></A>                      :join-class flex-class</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934335"></A>                      :retrieval :deferred)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-934326"></A>                (:base-table flex_schema))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888353"></A>(def-view-class flex-class ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888354"></A>   ((schema-name :type (string 8) :db-kind :key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888355"></A>                                 :column schema_name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888356"></A>    (name        :type (string 32) :db-kind :key)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888357"></A>    (base-name   :type (string 64) :column base_name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888358"></A>    (super-classes :db-kind :join</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888359"></A>                   :db-info (:home-key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888360"></A>                              (schema-name name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888361"></A>                             :foreign-key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888362"></A>                              (schema-name class-name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888363"></A>                             :join-class </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888364"></A>                              flex-superclass</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888365"></A>                             :retrieval :deferred))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888366"></A>    (schema :db-kind :join</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888367"></A>            :db-info (:home-key schema-name</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888368"></A>                      :foreign-key name</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888369"></A>                      :join-class flex-schema</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888370"></A>                      :set nil))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888371"></A>    (properties  :db-kind :join</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888372"></A>          :db-info (:home-key (schema-name name &quot;&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888373"></A>                    :foreign-key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888374"></A>                     (schema-name class-name slot-name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888375"></A>                    :join-class flex-property</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888376"></A>                    :retrieval :deferred)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-888377"></A>   (:base-table flex_class))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888378"></A>(def-view-class flex-slot ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888379"></A>   ((schema-name :type (string 8) :db-kind :key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888380"></A>                 :column schema_name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888381"></A>    (class-name  :type (string 32) :db-kind :key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888382"></A>                 :column class_name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888383"></A>    (name        :type (string 32) :db-kind :key)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888384"></A>    (class :db-kind :join</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888385"></A>           :db-info (:home-key (schema-name class-name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888386"></A>                     :foreign-key (schema-name name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888387"></A>                     :join-class flex-class</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888388"></A>                     :set nil))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888389"></A>    (properties  :db-kind :join</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888390"></A>         :db-info (:home-key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888391"></A>                     (schema-name class-name name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888392"></A>                   :foreign-key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888393"></A>                     (schema-name class-name slot-name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888394"></A>                   :join-class flex-property</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888395"></A>                   :retrieval :deferred)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-888396"></A>   (:base-table flex_slot))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888397"></A>(def-view-class flex-property ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888398"></A>   ((schema-name :type (string 8) :db-kind  :key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888399"></A>                 :column schema_name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888400"></A>    (class-name  :type (string 32) :db-kind :key</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888401"></A>                 :column class_name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888402"></A>    (slot-name   :type (string 32) :db-kind :key</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888403"></A>                 :column slot_name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888404"></A>    (property    :type (string 32) :db-kind :key)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888405"></A>    (values :db-kind :join</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888406"></A>      :db-info (:home-key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888407"></A>                 (schema-name class-name </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888408"></A>                  slot-name property)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888409"></A>                :foreign-key </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888410"></A>                 (schema-name class-name </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888411"></A>                  slot-name property)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888412"></A>                      :join-class flex-property-value</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888413"></A>                      :retrieval :deferred)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-888414"></A>   (:base-table flex_property))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888415"></A>(def-view-class flex-property-value ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888416"></A>   ((schema-name :type (string 8) :db-kind  :key</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888417"></A>                 :column schema_name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888418"></A>    (class-name  :type (string 32) :db-kind :key</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888419"></A>                 :column class_name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888420"></A>    (slot-name   :type (string 32) :column slot_name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888421"></A>    (property    :type (string 32) :db-kind :key)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888422"></A>    (order       :type integer)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888423"></A>    (value       :type (string 128)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-888424"></A>   (:base-table flex_property_value))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888425"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888429"></A><A HREF="lw-1167.htm#22704" CLASS="XRef">create-view-from-class</A><BR>
+<A HREF="lw-1173.htm#42260" CLASS="XRef">delete-instance-records</A><BR>
+<A HREF="lw-1183.htm#10982" CLASS="XRef">drop-view-from-class</A><BR>
+<A HREF="lw-1276.htm#30446" CLASS="XRef">standard-db-object</A><BR>
+<A HREF="lw-1285.htm#20154" CLASS="XRef">update-record-from-slot</A><BR>
+<A HREF="lw-1284.htm#38636" CLASS="XRef">update-records-from-instance</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1173.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1171.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

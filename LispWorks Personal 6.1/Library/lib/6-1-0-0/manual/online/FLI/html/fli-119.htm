@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ free-foreign-object
+</TITLE>
+
+<LINK REL="next" HREF="fli-120.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-118.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-120.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-118.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-896779"></A><A NAME="25051"></A><A NAME="14842"></A>free-foreign-object<A NAME="marker-998693"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-896780"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898499"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-919810"></A>Deallocates the space in memory pointed to by a pointer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-919757"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898500"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896781"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-896782"></A>free-foreign-object <EM CLASS="Variable">
+pointer</EM>
+ =&gt; <EM CLASS="Variable">
+null-pointer</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-901890"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-901910"></A><EM CLASS="Variable">
+pointer</P>
+<P CLASS="RDescription-C"></EM>
+A pointer to the object to de-allocate.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-901928"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-901978"></A><EM CLASS="Variable">
+null-pointer</P>
+<P CLASS="RDescription-C"></EM>
+A pointer with address zero.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902018"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902036"></A>The <CODE CLASS="Code">
+free-foreign-object</CODE>
+ function deallocates the space in memory pointed to by <EM CLASS="Variable">
+pointer</EM>
+, which frees the memory for other uses. The address of <EM CLASS="Variable">
+pointer</EM>
+ is the start of a block of memory previously allocated by <A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-902072"></A>If <EM CLASS="Variable">
+pointer</EM>
+ is a null pointer then <CODE CLASS="Code">
+free-foreign-object</CODE>
+ takes no action.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902357"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902366"></A>In the following example a boolean type is defined and an instance is created with memory allocated using <A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A>. The function <CODE CLASS="Code">
+free-foreign-object</CODE>
+ is then used to free up the memory used by the boolean.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-902391"></A>(fli:define-c-typedef BOOL (:boolean :int))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-902408"></A>(setq point (fli:allocate-foreign-object :type 'BOOL))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-902475"></A>(fli:free-foreign-object point)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902232"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902312"></A><A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-120.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-118.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

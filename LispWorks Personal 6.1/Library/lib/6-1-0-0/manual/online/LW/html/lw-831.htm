@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-array-weak
+</TITLE>
+
+<LINK REL="next" HREF="lw-832.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-830.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-832.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-830.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1202395"></A><A NAME="15774"></A>set<A NAME="marker-1202394"></A>-array<A NAME="marker-1268626"></A>-weak</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-958485"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-958486"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-958487"></A>Sets the weakness state of an array.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-958488"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-958489"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-958490"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-958491"></A>set-array-weak <EM CLASS="Variable">
+array</EM>
+ <EM CLASS="Variable">
+weakp</EM>
+ =&gt; <EM CLASS="Variable">
+weakp</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-958492"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-958493"></A><EM CLASS="Variable">
+array</EM>
+</P>
+<P CLASS="RDescription-C">A non-displaced array, with <CODE CLASS="Code">
+array-element-type t</CODE>
+. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-959807"></A><EM CLASS="Variable">
+weakp</EM>
+</P>
+<P CLASS="RDescription-C">If <EM CLASS="Variable">
+weakp</EM>
+  is non-nil, the array is made weak. If <EM CLASS="Variable">
+weakp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, the array is made non-weak. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-959808"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-958501"></A>Returns <EM CLASS="Variable">
+weakp</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-958502"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-959822"></A>By default, arrays are non-weak, and they keep alive all the objects that are stored in them. A weak array may remove a pointer if the object that it points to is not pointed to from somewhere else. When a pointer is removed like this, it is replaced in array with <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-961154"></A>Pointers are replaced by <CODE CLASS="Code">
+nil</CODE>
+ after a garbage collector (GC) operation that identifies that they can be replaced. This means that if the object that is pointed to has been promoted to a higher generation, a garbage collection of the higher generation is required to remove the pointer. Note that by default the system does not automatically GC the blocking generation or higher. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-959892"></A>The weakness state of an array can be changed many times.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-963171"></A>In all implementations, <EM CLASS="Variable">
+array</EM>
+ must not be a displaced array, and the <CODE CLASS="Code">
+array-element-type</CODE>
+ of array must be <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1069959"></A>In 64-bit LispWorks, an additional requirement is that <EM CLASS="Variable">
+array</EM>
+ must be an adjustable array.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-985747"></A><CODE CLASS="Code">
+set-array-weak</CODE>
+ can be called at any moment.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1131829"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1664782"></A>An array can be made weak at creation time using the <CODE CLASS="Code">
+:weak</CODE>
+ argument to <A HREF="lw-653.htm#34584" CLASS="XRef">make-array</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-958507"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-958508"></A><A HREF="lw-751.htm#80685" CLASS="XRef">array-weak-p</A><BR>
+<A HREF="lw-767.htm#80789" CLASS="XRef">copy-to-weak-simple-vector</A><BR>
+<A HREF="lw-834.htm#set-hash-table-weak" CLASS="XRef">set-hash-table-weak</A><BR>
+<A HREF="lw-653.htm#34584" CLASS="XRef">make-array</A><BR>
+<A HREF="lw-808.htm#11103" CLASS="XRef">mark-and-sweep</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-832.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-830.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

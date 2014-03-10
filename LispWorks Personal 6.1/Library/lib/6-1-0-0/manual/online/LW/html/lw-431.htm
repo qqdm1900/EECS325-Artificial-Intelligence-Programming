@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.11.4  Retrieving LOB Locators as streams
+</TITLE>
+
+<LINK REL="next" HREF="lw-432.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-430.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-424.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-424.htm">19.11  Oracle LOB interface</A><BR><BR>
+</DIV><A HREF="lw-432.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-430.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-424.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-911241"></A>19.11.4  <A NAME="53100"></A>Retrieving LOB Locators as streams</H3>
+<P CLASS="Body">
+<A NAME="pgfId-911243"></A>To retrieve LOB locators as streams, specify the type of retrieved object as <CODE CLASS="Code">
+:input-stream</CODE>
+ or <CODE CLASS="Code">
+:output-stream</CODE>
+ in the query. For example:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-911245"></A>(sql:select [image :input-stream] :from [mytable] :flatp t)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-911247"></A>returns a list of streams.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911249"></A>For example, to print the name of all images that start with some &quot;magic number&quot;, that is a sequence of 4 specific bytes (#xf5 #x12 #x4e #x23):</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-912271"></A>(let ((array (make-array 4 :element-type '(unsigned-byte 8))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912272"></A>  (sql:do-query ((name lob-stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912273"></A>                 [sql:select [name][image :input-stream] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912274"></A>                             :from [mytable]])</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912275"></A>                (when (and (eq (read-sequence array lob-stream ) 4)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912276"></A>                           (eq (aref array 0) #xf5)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912277"></A>                           (eq (aref array 0) #x12)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912278"></A>                           (eq (aref array 0) #x4e)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912279"></A>                           (eq (aref array 0) #x23))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-911260"></A>                  (print name))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-911261"></A>Closing the stream also frees the LOB object.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911263"></A>When using <CODE CLASS="Code">
+:output-stream</CODE>
+, it is important to call <CODE CLASS="Code">
+force-output</CODE>
+ before trying to commit the changes, because the stream is buffered.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-432.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-430.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-424.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

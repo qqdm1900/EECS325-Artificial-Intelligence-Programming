@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.1.6  Building and testing the application
+</TITLE>
+
+<LINK REL="next" HREF="corba-17.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-15.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-10.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-9.htm">2 Quick Start Tutorial</A> &gt <A HREF="corba-10.htm">2.1  A CORBA-based Hello World </A><BR><BR>
+</DIV><A HREF="corba-17.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-15.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-854102"></A>2.1.6  <A NAME="marker-854909"></A><A NAME="marker-854929"></A>Building and testing the application</H3>
+<P CLASS="Body">
+<A NAME="pgfId-854212"></A>To build and test this distributed Hello World application, you must copy the rest of the source code from <A HREF="corba-17.htm#59791" CLASS="XRef">Complete source code for the Hello World example</A> into the respective files. The code can also be found in the <CODE CLASS="Code">
+corba/hello-world</CODE>
+ subdirectory of the standard examples directory. </P>
+<P CLASS="Body">
+<A NAME="pgfId-854233"></A>After supplementing your files with the complete source code, perform the following steps in the Listener to run the example:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-853552"></A>Load the defsystem file by entering:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-853261"></A>(load (example-file &quot;corba/hello-world/defsys&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855393"></A>(compile-system &quot;HELLO-WORLD-CORBA-OBJECT&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855394"></A>                :t-dir (get-temp-directory)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853362"></A>                :load t)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-854254"></A>Now, you can run the application to test that it works. </P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-854265"></A>If you are using LispWorks on a UNIX platform and not running with multiprocessing enabled, then call:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853264"></A>(mp:initialize-multiprocessing)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-853265"></A>You need to run the server first so that it is waiting and ready to receive calls from the client. </P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-854234"></A>Enter the command:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853266"></A>(cl-user::server-startup)</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-853267"></A>You can then run the client using:</LI>
+</OL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853268"></A>(cl-user::run-client)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-853537"></A>Note that you do not have to be running the client and the server in the same Lisp image (although you can if desired). In the simple example we have just implemented, they must be running on the same machine (to allow the object reference to be shared using a single file), but we have true location transparency in the way the client can be written with no regard for the location of the server process.<A NAME="marker-855048"></A></P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-17.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-15.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

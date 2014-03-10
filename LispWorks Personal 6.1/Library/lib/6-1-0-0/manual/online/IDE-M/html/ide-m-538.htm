@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 27.8  Building universal binaries
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-539.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-537.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-521.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-521.htm">27 The Application Builder</A><BR><BR>
+</DIV><A HREF="ide-m-539.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-537.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-521.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-902635"></A>27.8  <A NAME="40303"></A>Building universal binaries</H3>
+<P CLASS="Body">
+<A NAME="pgfId-902639"></A>You can build a universal binary on an Intel Macintosh computer by clicking the <IMG SRC="ide-m-377.gif" ALIGN="ABSBOTTOM">
+ button, using the same script as was used to build a normal (&quot;thin&quot;) image.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902640"></A>This actually runs two LispWorks subprocesses. One builds the Intel part of the binary, and the other builds the PowerPC part of the binary under Rosetta. Both LispWorks subprocesses load the script. Afterwards, the Application Builder creates the universal binary.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902641"></A>If the script is just a load-and-deliver script, then no special modifications to it are required.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902642"></A>If the script takes special action about the pathname of the delivered application which should be done only once, some special considerations are needed. The script should call <A NAME="marker-902643"></A><CODE CLASS="Code">
+save-argument-real-p</CODE>
+, and do the special action only when this returns <CODE CLASS="Code">
+t</CODE>
+. For an example, create a new script with the Capi option selected (check <A HREF="ide-m-527.htm#89150" CLASS="XRef">Creating a new delivery script</A> for information about creating a script). There is also an example in the LispWorks library, at <CODE CLASS="Code">
+Library/lib/6-1-0-0/examples/configuration/save-macos-application.lisp</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902653"></A>When you have saved a universal binary, you can invoke it as PowerPC by choosing the <B CLASS="Button">
+Works &gt; Build&gt; Run With Arguments</B>
+<A NAME="marker-902654"></A><A NAME="marker-902655"></A> command or clicking the <IMG SRC="ide-m-378.gif" ALIGN="ABSBOTTOM">
+ toolbar button (see <A HREF="ide-m-533.htm#97961" CLASS="XRef">Running the saved application</A> for details).</P>
+<P CLASS="Body">
+<A NAME="pgfId-902662"></A>Note: The option of building a universal binary is available only in an image that is itself a universal binary, such as the supplied LispWorks image.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902663"></A>Note: Whilst the delivery script should call <CODE CLASS="Code">
+save-image</CODE>
+ or <CODE CLASS="Code">
+deliver</CODE>
+, these functions never save a universal binary. Universal binaries can only be saved by <A NAME="marker-902664"></A><CODE CLASS="Code">
+create-universal-binary</CODE>
+, <A NAME="marker-902665"></A><CODE CLASS="Code">
+save-universal-from-script</CODE>
+ (which calls <CODE CLASS="Code">
+create-universal-binary</CODE>
+) or by using the Application Builder tool (which calls <CODE CLASS="Code">
+save-universal-from-script</CODE>
+). </P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-539.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-537.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-521.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

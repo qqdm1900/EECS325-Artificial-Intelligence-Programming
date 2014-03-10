@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ replace-items
+</TITLE>
+
+<LINK REL="next" HREF="capiref-354.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-352.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-354.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-352.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3232578"></A><A NAME="71343"></A>replace<A NAME="marker-4216966"></A>-items</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-3232579"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3232581"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3232582"></A>Replaces some items in a collection.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4216951"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4216952"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3232583"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3232584"></A>replace-items <EM CLASS="Variable">
+collection</EM>
+ <EM CLASS="Variable">
+items</EM>
+ &amp;key <EM CLASS="Variable">
+start</EM>
+ <EM CLASS="Variable">
+new-selection</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3232585"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3232586"></A><EM CLASS="Variable">
+collection</EM>
+</P>
+<P CLASS="RDescription-C">A collection.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3232587"></A><EM CLASS="Variable">
+items</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3233669"></A><EM CLASS="Variable">
+start</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3233670"></A><EM CLASS="Variable">
+new-selection</EM>
+</P>
+<P CLASS="RDescription-C">A list specifying the selection.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3232588"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3232591"></A>The generic function <CODE CLASS="Code">
+replace-items</CODE>
+ replaces some items in the <EM CLASS="Variable">
+<A HREF="capiref-45.htm#36673" CLASS="XRef">collection</A></EM>
+ <EM CLASS="Variable">
+collection</EM>
+ from <EM CLASS="Variable">
+items</EM>
+. <CODE CLASS="Code">
+replace-items</CODE>
+ can only be used when the <A HREF="capiref-45.htm#36673" CLASS="XRef">collection</A> has the default <EM CLASS="Variable">
+items-get-function</EM>
+ <CODE CLASS="Code">
+svref</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3234384"></A><EM CLASS="Variable">
+start</EM>
+ should be a non-negative integer and less than the number of items in <EM CLASS="Variable">
+collection</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3234050"></A>Items in <EM CLASS="Variable">
+collection</EM>
+ are replaced starting at index <EM CLASS="Variable">
+start</EM>
+, and proceeding until the end of the list <EM CLASS="Variable">
+items</EM>
+, or the end of the items in <EM CLASS="Variable">
+collection</EM>
+. If <EM CLASS="Variable">
+items</EM>
+ is too long, the surplus is quietly ignored. <CODE CLASS="Code">
+replace-items</CODE>
+ never alters the number of items in the collection.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3233731"></A>If supplied, <EM CLASS="Variable">
+new-selection</EM>
+ should be a list of items specifying the new selection in collection. To specify no selection, pass <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3233864"></A>If <EM CLASS="Variable">
+new-selection</EM>
+ is not supplied, then <CODE CLASS="Code">
+replace-items</CODE>
+ attempts to preserve the selection. If some of the selected items are replaced, then the selection on these items is removed, but if a selected item simply moves, then the selection moves with it.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3232599"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3232603"></A><A HREF="capiref-11.htm#52257" CLASS="XRef">append-items</A><BR>
+<A HREF="capiref-45.htm#36673" CLASS="XRef">collection</A><BR>
+<A HREF="capiref-351.htm#83078" CLASS="XRef">remove-items</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-354.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-352.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

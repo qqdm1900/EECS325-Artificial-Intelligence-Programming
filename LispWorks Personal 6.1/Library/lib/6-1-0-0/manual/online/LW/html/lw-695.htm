@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *print-restart-frames*
+</TITLE>
+
+<LINK REL="next" HREF="lw-696.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-694.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-683.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-683.htm">29 The DBG Package</A><BR><BR>
+</DIV><A HREF="lw-696.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-694.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886533"></A>*print<A NAME="marker-898105"></A>-restart-frames*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886535"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889586"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890368"></A>Controls whether restart frames are printed in debugger output.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886537"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886538"></A>dbg</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886539"></A>Initial Value</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886540"></A>nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886541"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886542"></A>This variable is used by the debugger when it displays the stack frames. Restart frames are formed when restarts are established (see <A HREF="lw-25.htm#86196" CLASS="XRef">The stack in the debugger</A>), but are normally not shown by the debugger. However if <CODE CLASS="Code">
+*print-restart-frames*</CODE>
+ is set to <CODE CLASS="Code">
+t</CODE>
+ then the restart frames are shown.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886546"></A>Example</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886547"></A>USER 43 &gt; (setq dbg:*print-restart-frames* t)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886549"></A>T </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886550"></A>USER 44 &gt; (truncate 12.5 0.0)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886552"></A>Error: Division-by-zero caused by TRUNCATE</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886553"></A>        of (12.5 0.0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886554"></A>  1 (continue) Return a value to use</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886555"></A>  2 Supply new arguments to use</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886556"></A>  3 (abort) return to top loop level 0.</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886558"></A>Type :c followed by a number to proceed</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886560"></A>USER 45 : 1 &gt; :b 5 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886561"></A>Restart frame: (ABORT) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886562"></A>Catch frame: (NIL) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886563"></A>Catch frame: #:|block-catcher-3223| </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886564"></A>Call to DIVISION-BY-ZERO-ERROR  : </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886565"></A>Call to TRUNCATEANY  : </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886566"></A>USER 46 : 1 &gt; </PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886567"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886568"></A><CODE CLASS="Code">
+*print-restart-frames*</CODE>
+ is an extension to Common Lisp.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-696.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-694.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

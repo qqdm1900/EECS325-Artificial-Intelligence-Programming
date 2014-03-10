@@ -1,0 +1,596 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.5  Compiler control
+</TITLE>
+
+<LINK REL="next" HREF="lw-111.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-109.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-105.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-105.htm">9 The Compiler</A><BR><BR>
+</DIV><A HREF="lw-111.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-109.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-105.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-890345"></A>9.5  <A NAME="marker-890344"></A><A NAME="62271"></A>Compiler control</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890347"></A>There are ways to control the nature of compiled code via the <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-890346"></A><A HREF="lw-638.htm#20275" CLASS="XRef">declare</A> special form and <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-890348"></A><A HREF="lw-662.htm#19061" CLASS="XRef">proclaim</A> function. See later in this chapter for fuller discussion of these two forms.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886023"></A><A NAME="marker-886972"></A>In particular there are a set of <A NAME="marker-886974"></A>optimize qualities which take integral values from 0 to 3, in order to control the trade-offs between code size, speed, compilation time, debuggability of the resulting code, and the safety of the code (whether type checks are omitted). For example: </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886024"></A>(proclaim '(optimize (speed 3) (safety 0) (debug 0)))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886025"></A>tells the compiler to concentrate on code speed rather than anything else, and </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886026"></A>(proclaim '(optimize (safety 3)))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886027"></A>ensures that the compiler never takes liberties with Lisp semantics and produces code that checks for every kind of signallable error.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886028"></A>The important declarations to the compiler are type declarations and optimize declarations. To declare that the type of the value of a variable can be relied upon to be unchanging (and hence allow the compiler to omit various checks in the code), say:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886029"></A>(declare (type <EM CLASS="Variable">
+the-type</EM>
+ <EM CLASS="Variable">
+variable</EM>
+ * )</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886030"></A><A NAME="marker-887379"></A>Optimize declarations have various qualities, and these take values from 0 to 3. The names are <CODE CLASS="Code">
+safety</CODE>
+<A NAME="marker-887380"></A>, <CODE CLASS="Code">
+fixnum-safety</CODE>
+<A NAME="marker-887381"></A>, <CODE CLASS="Code">
+float</CODE>
+<A NAME="marker-887382"></A>, <CODE CLASS="Code">
+sys:interruptable</CODE>
+<A NAME="marker-887383"></A>, <CODE CLASS="Code">
+debug</CODE>
+<A NAME="marker-887384"></A>, <CODE CLASS="Code">
+speed</CODE>
+<A NAME="marker-887385"></A>, <CODE CLASS="Code">
+compilation-speed</CODE>
+<A NAME="marker-887386"></A>, and <CODE CLASS="Code">
+space</CODE>
+<A NAME="marker-887387"></A>. </P>
+<P CLASS="Body">
+<A NAME="pgfId-890369"></A>Most of the qualities default to 1 (but <CODE CLASS="Code">
+safety</CODE>
+ and <CODE CLASS="Code">
+fixnum-safety</CODE>
+ default to 3 and <CODE CLASS="Code">
+interruptable</CODE>
+ defaults to 0). You can either associate an optimize quality with a new value (with local lexical scope if in <A HREF="lw-638.htm#20275" CLASS="XRef">declare</A>, and global scope if <A HREF="lw-662.htm#19061" CLASS="XRef">proclaim</A>), or just give it by itself, which implies the value 3 (taken to mean &quot;maximum&quot; in some loose sense).</P>
+<P CLASS="Body">
+<A NAME="pgfId-886032"></A>Thus you ensure code is at maximum safety by:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886033"></A>(proclaim '(optimize (safety 3)))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886034"></A> or</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886035"></A>(proclaim '(optimize safety))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886036"></A>and reduce debugging information to a minimum by</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886037"></A>(proclaim '(optimize (debug 0)))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887298"></A>Normally code is interruptible, but when going for the extreme levels of speed and &quot;undebuggability&quot; this ceases to be the case unless you also ensure it th<A NAME="marker-887159"></A>us:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886039"></A>(proclaim '(optimize (debug 0) (safety 0) (speed 3) interruptable))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886041"></A>The <A NAME="marker-886040"></A>levels of <CODE CLASS="Code">
+safety</CODE>
+ have the following implications:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886042"></A>0 implies no type checking upon reading or writing from defstructs, arrays and objects in general, nor any checking of array index bounds.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886043"></A>1 implies no type checking upon reading from defstructs, arrays and objects in general, nor any checking of array index bounds when reading. However, array index bounds are checked when writing.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886044"></A>2 implies type checking when writing, but not when reading. Other than this the compiler generates generally safe code, but allows <CODE CLASS="Code">
+type</CODE>
+ and <CODE CLASS="Code">
+fixnum-safety</CODE>
+ declarations to take effect. Array index bounds are checked for both reading and writing.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886045"></A>3 (default) implies complete type and bounds checking, and disallows <CODE CLASS="Code">
+fixnum-safety</CODE>
+ and <CODE CLASS="Code">
+type</CODE>
+ declarations from taking any effect.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-886046"></A>The levels of <CODE CLASS="Code">
+fixnum-safety</CODE>
+ have the following implications:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886047"></A>0 implies no type checking of arguments to numeric operations, which are assumed to be fixnums. Also the result is assumed, without checking, to not overflow - this level means single machine instructions can be generated for most common integer operations, but risks generating values that may confuse the garbage collector.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886048"></A>1 implies that numeric operations do not check their argument types (assumed fixnum), but do signal an error if the result would have been out of range.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886049"></A>2 implies that numeric operations signal an error if their arguments are non-fixnum, and also check for overflow.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-890393"></A>3 (default) implies complete conformance to the semantics of Common Lisp numbers, so that types other than integers are handled in compiled code.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-890394"></A>Additionally if the level of <CODE CLASS="Code">
+float</CODE>
+ (really this should be called &quot;float-safety&quot;) is 0 then the compiler reduces allocation during float calculations.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891287"></A> The effects of combining these qualities is summarized below:</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-891145"></A>Combining debug and safety levels in the compiler<DIV>
+<IMG SRC="lw-14.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-891149"></A>Keyword settings</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-891151"></A>Operations</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891153"></A><CODE CLASS="Code">
+safety=0</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891155"></A>Array access optimizations</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891157"></A><CODE CLASS="Code">
+debug&gt;0</CODE>
+   </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891159"></A>Dumps symbol names for arglist</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891161"></A><CODE CLASS="Code">
+debug&gt;=2</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891163"></A>Ensure debugger knows values of args (and<BR>
+variable when source debugging is on)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891165"></A><CODE CLASS="Code">
+debug&lt;1</CODE>
+   </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891167"></A>Does not generate any debug info at all</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891169"></A><CODE CLASS="Code">
+debug=3</CODE>
+   </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891174"></A>Avoids <A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A> and<BR>
+<CODE CLASS="Code">
+find-class</CODE>
+ optimizations</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891176"></A><CODE CLASS="Code">
+debug=3</CODE>
+   </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891178"></A>Avoids <CODE CLASS="Code">
+gethash</CODE>
+ and <CODE CLASS="Code">
+puthash</CODE>
+ optimizations</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891180"></A><CODE CLASS="Code">
+debug=3</CODE>
+   </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891182"></A>Avoids <CODE CLASS="Code">
+ldb</CODE>
+ and <CODE CLASS="Code">
+dpb</CODE>
+ optimizations</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891184"></A><CODE CLASS="Code">
+debug=3</CODE>
+   </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891186"></A>Avoids an optimization to <CODE CLASS="Code">
+last</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891188"></A><CODE CLASS="Code">
+safety&gt;1</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891190"></A>Be careful when multiple value counts are wrong</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891192"></A><CODE CLASS="Code">
+safety&lt;1</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891194"></A>Do not check array indices during write</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891196"></A><CODE CLASS="Code">
+safety&lt;2</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891198"></A>Do not check array indices during read </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891200"></A><CODE CLASS="Code">
+speed&gt;space</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891202"></A>Inline map functions (unless <CODE CLASS="Code">
+debug&gt;2</CODE>
+) </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891204"></A><CODE CLASS="Code">
+debug&lt;=2</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891206"></A>Optimize (merge) tail calls</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891208"></A><CODE CLASS="Code">
+debug&lt;2</CODE>
+ and <CODE CLASS="Code">
+safety&lt;2</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891210"></A>Self calls</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891212"></A><CODE CLASS="Code">
+safety&gt;=2</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891214"></A>Check get special</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891216"></A><CODE CLASS="Code">
+safety&lt;2</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891218"></A>Do not check types during write </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891220"></A><CODE CLASS="Code">
+safety&lt;3</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891222"></A>Do not check types during read</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891224"></A><CODE CLASS="Code">
+safety&gt;=1</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891226"></A>Check structure access</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891228"></A><CODE CLASS="Code">
+safety&lt;=1</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891230"></A>Inline structure readers, with no type check</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891232"></A><CODE CLASS="Code">
+safety=0</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891234"></A>Inline structure writers, with no type check</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891240"></A><CODE CLASS="Code">
+safety&gt;1</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891242"></A>Check number of args </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891244"></A><CODE CLASS="Code">
+safety&gt;=1</CODE>
+ or<BR>
+<CODE CLASS="Code">
+interruptible&gt;0</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891246"></A>Check stack overflow</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891248"></A><CODE CLASS="Code">
+safety&gt;1</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891250"></A>Ensures the thing being funcalled is a function </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891252"></A><CODE CLASS="Code">
+safety&lt;3</CODE>
+ and<BR>
+<CODE CLASS="Code">
+fixnum-safety=2</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891254"></A>Fixnum-only arithmetic with errors for<BR>
+non fixnum arguments.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891256"></A><CODE CLASS="Code">
+safety&lt;3</CODE>
+ and<BR>
+<CODE CLASS="Code">
+fixnum-safety=1</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891258"></A>No fixnum overflow checks </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891260"></A><CODE CLASS="Code">
+safety&lt;3</CODE>
+ and<BR>
+<CODE CLASS="Code">
+fixnum-safety=0</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891262"></A>No fixnum arithmetic checks at all </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891264"></A><CODE CLASS="Code">
+safety&gt;2</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891266"></A><CODE CLASS="Code">
+char=</CODE>
+ checks for arguments of type <CODE CLASS="Code">
+character</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891268"></A><CODE CLASS="Code">
+safety&gt;=2</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891270"></A>Ensures symbols in <CODE CLASS="Code">
+progv</CODE>
+ </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891272"></A><CODE CLASS="Code">
+debug=3</CODE>
+   </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891274"></A>Avoids &quot;ad hoc&quot; predicate type transforms </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891276"></A><CODE CLASS="Code">
+compilation-speed=3</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891278"></A>Reuse virtual registers in very large functions</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891280"></A><CODE CLASS="Code">
+debug=3</CODE>
+ and <CODE CLASS="Code">
+safety=3</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891282"></A><CODE CLASS="Code">
+(declare (type foo x))</CODE>
+ and <BR>
+<CODE CLASS="Code">
+(the foo x) </CODE>
+ensure a type check</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891284"></A><CODE CLASS="Code">
+float=0</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-891286"></A>Optimize floating point calculations</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-891291"></A>The other <A NAME="marker-891290"></A>optimize qualities are: <CODE CLASS="Code">
+speed</CODE>
+ -- the attention to fast code, <CODE CLASS="Code">
+space</CODE>
+ -- the degree of compactness, <CODE CLASS="Code">
+compilation-speed</CODE>
+ -- speed of compilation, <CODE CLASS="Code">
+interruptable</CODE>
+ -- whether code must be interruptible when unsafe.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886107"></A>Note that if you compile code with a low level of safety, you may get <A NAME="marker-886106"></A>segmentation violations if the code is incorrect (for example, if type checking is turned off and you supply incorrect types). You can check this by interpreting the code rather than compiling<A NAME="marker-886973"></A> it.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="lw-111.htm#pgfId-888012" CLASS="Hypertext">9.5.1  Examples of compiler control</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-111.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-109.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-105.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

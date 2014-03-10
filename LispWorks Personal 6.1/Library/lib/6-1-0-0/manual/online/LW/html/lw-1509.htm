@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ dde-server-request
+</TITLE>
+
+<LINK REL="next" HREF="lw-1510.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1508.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1507.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1507.htm">44 The DDE server interface</A><BR><BR>
+</DIV><A HREF="lw-1510.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1508.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1507.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-912252"></A><A NAME="15464"></A>dde<A NAME="marker-937302"></A>-server-request</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-912253"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912254"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-912255"></A>Called when a request transaction is received.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912256"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-912257"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912258"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-912259"></A>dde-server-request <EM CLASS="Variable">
+server</EM>
+ <EM CLASS="Variable">
+topic</EM>
+ <EM CLASS="Variable">
+item</EM>
+ &amp;key <EM CLASS="Variable">
+format</EM>
+ &amp;allow-other-keys =&gt; <EM CLASS="Variable">
+data</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912260"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912261"></A><EM CLASS="Variable">
+server</EM>
+</P>
+<P CLASS="RDescription-C">A server object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912262"></A><EM CLASS="Variable">
+topic</EM>
+</P>
+<P CLASS="RDescription-C">A topic object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912263"></A><EM CLASS="Variable">
+item</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912264"></A><EM CLASS="Variable">
+format</EM>
+</P>
+<P CLASS="RDescription-C">A keyword.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912265"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912266"></A><EM CLASS="Variable">
+data</EM>
+</P>
+<P CLASS="RDescription-C">The returned data.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912267"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-912268"></A>The generic function <CODE CLASS="Code">
+dde-server-request</CODE>
+ is called in response to a request transaction. A method specializing on the classes of <EM CLASS="Variable">
+server</EM>
+ and <EM CLASS="Variable">
+topic</EM>
+ should return the data in <EM CLASS="Variable">
+item</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-912269"></A>The expected format of the data is given by <EM CLASS="Variable">
+format</EM>
+, which defaults to <CODE CLASS="Code">
+:text</CODE>
+. The set of supported formats may be extended in future releases, so applications should always check the value of the format parameter and reject transactions which use formats not supported by the application.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-912270"></A>If the request fails, <CODE CLASS="Code">
+nil</CODE>
+ should be returned.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912271"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-912275"></A><A HREF="lw-1501.htm#39143" CLASS="XRef">dde-poke</A><BR>
+<A HREF="lw-1503.htm#15159" CLASS="XRef">dde-request</A><BR>
+<A HREF="lw-1508.htm#40819" CLASS="XRef">dde-server-poke</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1510.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1508.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1507.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

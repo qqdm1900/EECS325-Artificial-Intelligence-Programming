@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.10  Coping with intern and find-symbol at runtime
+</TITLE>
+
+<LINK REL="next" HREF="delivery-248.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-246.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-211.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-211.htm">9 Delivery and Internal Systems</A><BR><BR>
+</DIV><A HREF="delivery-248.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-246.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-211.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-855739"></A>9.10  <A NAME="95851"></A>Coping with intern and find-symbol at runtime</H3>
+<P CLASS="Body">
+<A NAME="pgfId-855740"></A>If you want to delete or smash a package, but discover that a symbol is created in it at runtime with <CODE CLASS="Code">
+intern</CODE>
+<A NAME="marker-855741"></A>, or found in it with <CODE CLASS="Code">
+intern</CODE>
+ or <CODE CLASS="Code">
+find-symbol</CODE>
+<A NAME="marker-855742"></A>, you have two choices: either change the source to create or manipulate the symbol in another package, or keep the package after all. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855743"></A>If you cannot or do not want to change the source, and the package is large, you face the annoying prospect of having to keep a lot of code in the image for the sake of one symbol created or manipulated at runtime. Fortunately, there are ways to get around this. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855744"></A>The method is to migrate the symbols by hand into new or smaller, &quot;dummy&quot; packages. This is the only working method if at compile time you do not know the names of the symbols to be saved. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855745"></A>Create a special package or packages for the symbols mentioned in these calls, and delete the original packages. When this package is created (with <CODE CLASS="Code">
+make-package</CODE>
+ or <CODE CLASS="Code">
+defpackage</CODE>
+), it should use as few of the other packages in the application as possible. Typically, <CODE CLASS="Code">
+:use nil</CODE>
+ suffices. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-855746"></A>(rename-package &quot;XYZ&quot; &quot;XXX&quot;) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855747"></A>(push &quot;XXX&quot; *delete-packages*) ; discard pkg</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-855748"></A>(make-package &quot;XYZ&quot; :use nil)  ; new pkg to reference</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-855749"></A>This allows the real package <CODE CLASS="Code">
+XYZ</CODE>
+ to be deleted without breaking a call to <CODE CLASS="Code">
+intern</CODE>
+ such as the following: </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855750"></A>(intern &quot;FISH&quot; &quot;XYZ&quot;) <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-861299"></A></CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-248.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-246.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-211.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

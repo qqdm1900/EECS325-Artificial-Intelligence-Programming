@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-foreign-block-invoker
+</TITLE>
+
+<LINK REL="next" HREF="fli-90.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-88.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-90.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-88.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1527318"></A><A NAME="93330"></A>define<A NAME="marker-1527316"></A>-foreign-block-<A NAME="marker-1527317"></A>invoker</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1527319"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1527320"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1527321"></A>Defines an invoker of a foreign block, in LispWorks for Macintosh.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1555176"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1555177"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1527322"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1527323"></A>define-foreign-block-invoker <EM CLASS="Variable">
+the-name</EM>
+ <EM CLASS="Variable">
+args</EM>
+ &amp;key <EM CLASS="Variable">
+lambda-list</EM>
+ <EM CLASS="Variable">
+documentation</EM>
+ <EM CLASS="Variable">
+result-type</EM>
+ <EM CLASS="Variable">
+language</EM>
+ <EM CLASS="Variable">
+stack</EM>
+ <EM CLASS="Variable">
+no-check</EM>
+ <EM CLASS="Variable">
+reentrant</EM>
+ <EM CLASS="Variable">
+calling-convention</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1527324"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1527325"></A><EM CLASS="Variable">
+the-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1527326"></A><EM CLASS="Variable">
+args</EM>
+</P>
+<P CLASS="RDescription-C">Arguments.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527330"></A>The other arguments are as for <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1527331"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1527332"></A>The macro <CODE CLASS="Code">
+define-foreign-block-invoker</CODE>
+ defines an invoker of a foreign block.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527333"></A>It defines <EM CLASS="Variable">
+the-name</EM>
+ to be a function that can be used to invoke foreign blocks which takes arguments that match <EM CLASS="Variable">
+args</EM>
+. The block is then invoked by simply calling the function <EM CLASS="Variable">
+the-name</EM>
+ with the block and arguments:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1527334"></A>(<EM CLASS="Variable">
+the-name</EM>
+ <EM CLASS="Variable">
+block</EM>
+ <EM CLASS="Variable">
+arg1</EM>
+ <EM CLASS="Variable">
+arg2</EM>
+ ...)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1548162"></A>The <EM CLASS="Variable">
+block</EM>
+ argument is of type <A HREF="fli-170.htm#70852" CLASS="XRef">foreign-block-pointer</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527337"></A><CODE CLASS="Code">
+define-foreign-block-invoker</CODE>
+ is very similar to <A HREF="fli-93.htm#40564" CLASS="XRef">define-foreign-funcallable</A> and <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>, and all the remaining arguments are interpreted in the same way.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1527344"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1527345"></A>The lambda list of the invoker is <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+block</EM>
+<CODE CLASS="Code">
+ . </CODE>
+<EM CLASS="Variable">
+args</EM>
+<CODE CLASS="Code">
+)</CODE>
+. When <EM CLASS="Variable">
+lambda-list</EM>
+ is supplied, <CODE CLASS="Code">
+define-foreign-block-invoker</CODE>
+ inserts in front of the supplied <EM CLASS="Variable">
+lambda-list</EM>
+ an additional argument for the block. Therefore a supplied <EM CLASS="Variable">
+lambda-list</EM>
+ must not include an argument for the block. Similarly a supplied <EM CLASS="Variable">
+lambda-list</EM>
+ in <A HREF="fli-93.htm#40564" CLASS="XRef">define-foreign-funcallable</A> should not include an argument for the function.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527349"></A><CODE CLASS="Code">
+define-foreign-block-invoker</CODE>
+ returns <EM CLASS="Variable">
+the-name</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527350"></A><CODE CLASS="Code">
+define-foreign-block-invoker</CODE>
+ is implemented in LispWorks for Macintosh only.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1552875"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1553793"></A>See</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1553794"></A><CODE CLASS="Code">
+(</CODE>
+sys:example-file &quot;misc/invoke-foreign-block.lisp&quot;)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1527351"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1527355"></A><A HREF="fli-93.htm#40564" CLASS="XRef">define-foreign-funcallable</A><BR>
+<A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A><BR>
+<A HREF="fli-170.htm#70852" CLASS="XRef">foreign-block-pointer</A><BR>
+<A HREF="fli-64.htm#29000" CLASS="XRef">Block objects in C (foreign blocks)</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-90.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-88.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

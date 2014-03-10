@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.6  Modules
+</TITLE>
+
+<LINK REL="next" HREF="delivery-237.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-235.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-211.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-211.htm">9 Delivery and Internal Systems</A><BR><BR>
+</DIV><A HREF="delivery-237.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-235.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-211.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-855436"></A>9.6  <A NAME="98267"></A>Modules</H3>
+<P CLASS="Body">
+<A NAME="pgfId-855437"></A>Part of the system is implemented using load on demand modules that are loaded automatically when a function is called. Most of these modules are only useful during development, so are not needed in the application.  However, in some cases the application may need some module.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855444"></A>You can obtain the list of loaded modules by entering</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855446"></A> :bug-form nil </CODE>
+<P CLASS="Body">
+<A NAME="pgfId-855448"></A>in a Listener. This prints, inter alia, the list of loaded modules.</P>
+<P CLASS="Body">
+<A NAME="pgfId-862214"></A>To obtain a minimal list of modules, follow these steps:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-855456"></A>Start a fresh LispWorks image, making sure it does not load any irrelevant code (for example in your <CODE CLASS="Code">
+.lispworks</CODE>
+ init file):<BR>
+<BR>
+<CODE CLASS="Code">
+C:&#92;Program Files&#92;LispWorks&gt; lispworks-6-1-0-x86-win32.exe -init -</CODE>
+</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855458"></A>Load the application and run it. </LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855985"></A>Exercise the application, to ensure that any entry points for load on demand modules are called.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855459"></A>Enter <CODE CLASS="Code">
+:bug-form nil</CODE>
+ in a Listener. The list of loaded modules should include only modules that your application needs.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-855463"></A>Once you know a module is required in your application, you need to load it before delivering, by calling <CODE CLASS="Code">
+require</CODE>
+<A NAME="marker-857801"></A>:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855466"></A>(require <EM CLASS="Variable">
+module-name</EM>
+)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-862217"></A>Add the call to <CODE CLASS="Code">
+require</CODE>
+ to your delivery script.</P>
+<P CLASS="Body">
+<A NAME="pgfId-856063"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+require</CODE>
+ is case-sensitive, and generally <EM CLASS="Variable">
+module-name</EM>
+ is lowercase for LispWorks modules.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-237.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-235.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-211.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

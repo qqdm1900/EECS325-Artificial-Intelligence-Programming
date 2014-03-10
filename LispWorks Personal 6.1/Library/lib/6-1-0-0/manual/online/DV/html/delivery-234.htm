@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.5.1  Foreign Language Interface templates
+</TITLE>
+
+<LINK REL="next" HREF="delivery-235.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-233.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-233.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-211.htm">9 Delivery and Internal Systems</A> &gt; <A HREF="delivery-233.htm">9.5  Delivery and the FLI</A><BR><BR>
+</DIV><A HREF="delivery-235.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-233.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-233.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-861389"></A>9.5.1  <A NAME="92532"></A>Foreign Language Interface templates</H3>
+<P CLASS="Body">
+<A NAME="pgfId-855411"></A><A NAME="marker-856932"></A>The Foreign Language Interface requires compiled code (known as FLI templates) to convert between foreign objects and Lisp objects. Most of these FLI templates are already available in the image, and most applications do not need extra templates.</P>
+<P CLASS="Body">
+<A NAME="pgfId-858526"></A>However it is difficult to know in advance exactly which FLI templates will be needed. When a new template is actually required, it is compiled. In a delivered image where the compiler has been removed, this causes an error like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-858469"></A>FLI template needs to be compiled</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-858470"></A>(see 'Foreign Language Interface templates' in the LispWorks Delivery User Guide):</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-858471"></A>  (FLI::DEFINE-PRECOMPILED-FOREIGN-OBJECT-SETTER-FUNCTIONS ((:FLOAT :SIZE 4)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-858476"></A>To solve this you need to find which templates your application uses that are not already available, compile them, and load them before delivering.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855413"></A>To find which templates your application needs, do the following:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-855414"></A>Start the undelivered application image (that is, LispWorks with your application code loaded). </LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855415"></A>Call  </LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855416"></A>    (FLI:START-COLLECTING-TEMPLATE-INFO)</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-855417"></A>Exercise the application. </LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855418"></A>Call </LI>
+</OL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855419"></A>   (FLI:PRINT-COLLECTED-TEMPLATE-INFO)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-855420"></A>This prints all the templates that were generated while exercising your application. These FLI template forms should be put in a file which is compiled and loaded as part of your application . <CODE CLASS="Code">
+FLI:PRINT-COLLECTED-TEMPLATE-INFO</CODE>
+ takes a keyword <CODE CLASS="Code">
+:OUTPUT-STREAM</CODE>
+ to make this easier, for example:</P>
+<PRE CLASS="Code-body"><A NAME="pgfId-855421"></A>(with-open-file (stream &quot;fli-templates.lisp&quot; :direction :output)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855422"></A>                (FLI:PRINT-COLLECTED-TEMPLATE-INFO </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-855423"></A>                  :OUTPUT-STREAM <EM CLASS="Variable">stream</EM>
+))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-855424"></A>Once you have compiled the file containing the templates, it should be loaded as part of your application.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-235.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-233.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-233.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

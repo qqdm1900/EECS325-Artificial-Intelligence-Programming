@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.2  Parsing IDL into stubs and skeletons
+</TITLE>
+
+<LINK REL="next" HREF="corba-59.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-57.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-56.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-56.htm">7 The LispWorks ORB</A><BR><BR>
+</DIV><A HREF="corba-59.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-57.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-56.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853370"></A>7.2  <A NAME="marker-853724"></A><A NAME="marker-853754"></A><A NAME="marker-853752"></A><A NAME="marker-853748"></A>Parsing IDL into stubs and skeletons</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853371"></A>The interface to the IDL parser is currently via defsystem. Once the <BR>
+<CODE CLASS="Code">
+corba-support</CODE>
+ module has been loaded, defsystem will have been extended with the following extra types:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853273"></A>:idl-file </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853274"></A>:idl-client-definition </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853275"></A>:idl-server-definition </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853276"></A>The <CODE CLASS="Code">
+:idl-file</CODE>
+ type instructs the IDL parser to generate code for both the client-side stubs and the server-side skeletons. The <CODE CLASS="Code">
+:idl-client-definition</CODE>
+ type instructs the IDL parser to generate code only for the client-side stubs. The <CODE CLASS="Code">
+:idl-server-definition</CODE>
+ type instructs the IDL parser to generate code only for the server-side skeletons.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853279"></A>For example, a typical use would be something like:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853280"></A>(defsystem server-side ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853686"></A>  :members (            </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853687"></A>            (&quot;grid&quot; :type :idl-file)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853688"></A>            &quot;grid-impl&quot;		</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853329"></A>            )</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853331"></A>  :rules</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853333"></A>  ((:in-order-to :compile :all</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853335"></A>    (:requires (:load :previous)))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-853281"></A>(defsystem client-side ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853339"></A>  :members (</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853341"></A>            (&quot;grid&quot; :type :idl-client-definition)))</PRE>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-59.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-57.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-56.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

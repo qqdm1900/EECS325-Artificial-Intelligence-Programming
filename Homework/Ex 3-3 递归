@@ -1,0 +1,7 @@
+(defun occurrences(lst &optional alst)
+  (cond((null lst)  (sort alst #'> :key #'cdr))
+       ((assoc (car lst) alst) 
+        (incf (cdr (assoc (car lst) alst)))
+        (occurrences (cdr lst) alst)) 
+        (t  (setq alst (acons (car lst) 1 alst))
+           (occurrences (cdr lst) alst))))

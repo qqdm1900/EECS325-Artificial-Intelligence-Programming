@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 14.2.1  Inheritance across metaclasses
+</TITLE>
+
+<LINK REL="next" HREF="lw-241.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-239.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-239.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-228.htm">14 The Metaobject Protocol</A> &gt; <A HREF="lw-239.htm">14.2  Common problems when using the MOP</A><BR><BR>
+</DIV><A HREF="lw-241.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-239.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-239.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888917"></A>14.2.1  Inheritance across metaclasses</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888950"></A>Usually an inherited class is of the same metaclass as the parent class.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888961"></A>For other kinds of inheritance, you need to define a method on <A NAME="marker-891101"></A><CODE CLASS="Code">
+validate-superclass</CODE>
+ which returns true when called with the respective metaclasses. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888972"></A>(defclass mclass-1 (standard-class)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888973"></A>  ())</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888974"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888975"></A>(defclass mclass-2 (standard-class)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888976"></A>  ())</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888977"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888978"></A>(defclass a ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888979"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888980"></A>  (:metaclass mclass-1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888981"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888982"></A>(defmethod validate-superclass </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888983"></A>           ((class mclass-2) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888984"></A>            (superclass mclass-1)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888985"></A>  t)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888986"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888987"></A>(defclass b (a)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888988"></A>  ()</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889043"></A>  (:metaclass mclass-2))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889044"></A>Without the <CODE CLASS="Code">
+validate-superclass</CODE>
+ method, the last form signals an error because <CODE CLASS="Code">
+mclass-1</CODE>
+ is an invalid superclass<A NAME="marker-889066"></A><A NAME="marker-889067"></A> of <CODE CLASS="Code">
+mclass-2</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-241.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-239.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-239.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ A.6.2.2  deflogfun
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-186.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-184.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-183.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-168.htm">A Common Prolog</A> &gt; <A HREF="kwprolog-m-181.htm">A.6  Calling Prolog From Lisp</A> &gt; <A HREF="kwprolog-m-183.htm">A.6.2  Interface Functions</A><BR><BR>
+</DIV><A HREF="kwprolog-m-186.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-184.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-183.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading-App">
+<A NAME="pgfId-866263"></A>A.6.2.2  deflogfun</H3>
+<P CLASS="Body">
+<A NAME="pgfId-869726"></A>A different interface is available for predicates which will be called often from Lisp. The macro <CODE CLASS="Code">
+deflogfun</CODE>
+ may be used to generate normal Lisp functions that run with precompiled goals.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866264"></A>(deflogfun break-up (y) (append ?a ?b y) (?a ?b))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866265"></A>then:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866266"></A>(break-up '(foo bar baz))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866267"></A>returns:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866268"></A>(NIL (FOO BAR BAZ))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866269"></A>T</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866270"></A>(break-up '(foo bar baz) :all :values) </CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866271"></A>returns:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866272"></A>(NIL (FOO BAR BAZ))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866273"></A>((FOO) (BAR BAZ))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866274"></A>((FOO BAR) (BAZ))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866275"></A>((FOO BAR BAZ) NIL)</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866276"></A>(break-up '(foo bar baz) :all :list) </CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866277"></A>returns:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866278"></A>((NIL (FOO BAR BAZ)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866279"></A> ((FOO) (BAR BAZ)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866280"></A> ((FOO BAR) (BAZ))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866281"></A> ((FOO BAR BAZ) NIL))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866282"></A>T</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-869765"></A>The generated function works like the Lisp functions <A HREF="kwprolog-m-106.htm#39551" CLASS="XRef">any</A> and <A HREF="kwprolog-m-125.htm#28635" CLASS="XRef">findall</A>, returning solutions to a prolog expression.</P>
+<P CLASS="Body">
+<A NAME="pgfId-869767"></A>The form</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-869769"></A>(deflogfun <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+args</EM>
+ <EM CLASS="Variable">
+sample-expr</EM>
+ <EM CLASS="Variable">
+return-expr</EM>
+)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-869771"></A>defines a Lisp function called <EM CLASS="Variable">
+name</EM>
+, whose lambda list is the list <EM CLASS="Variable">
+args</EM>
+.  The function will also take a keyword argument <CODE CLASS="Code">
+:all</CODE>
+.  If the function is called with <CODE CLASS="Code">
+:all nil</CODE>
+ (the default), then it returns the first solution, like <A HREF="kwprolog-m-106.htm#39551" CLASS="XRef">any</A>.  If the function is called with <CODE CLASS="Code">
+:all t</CODE>
+, then it returns a list of all the solutions, like <A HREF="kwprolog-m-125.htm#28635" CLASS="XRef">findall</A>. If the function is called with <CODE CLASS="Code">
+:all :values</CODE>
+, then it returns multiple values, with one value per solution.</P>
+<P CLASS="Body">
+<A NAME="pgfId-869756"></A>The <EM CLASS="Variable">
+sample-expr</EM>
+ is like the second argument to <A HREF="kwprolog-m-106.htm#39551" CLASS="XRef">any</A>, that is, it is the prolog query expression.  The <EM CLASS="Variable">
+return-expr</EM>
+ is like the first argument to <CODE CLASS="Code">
+clog:any</CODE>
+, that is, it defines how the result will be formed from the results of the query.  If any of the symbols mention in <EM CLASS="Variable">
+args</EM>
+ appears in <EM CLASS="Variable">
+sample-expr</EM>
+ or <EM CLASS="Variable">
+return-expr</EM>
+, then its value is subsituted.  All other symbols in <EM CLASS="Variable">
+sample-expr</EM>
+ and <EM CLASS="Variable">
+return-expr</EM>
+ remain unchanged.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-186.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-184.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-183.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

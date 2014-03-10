@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ prompt-for-value
+</TITLE>
+
+<LINK REL="next" HREF="capiref-331.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-329.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-331.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-329.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3832413"></A>prompt<A NAME="marker-4211494"></A>-for-value</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-3832414"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3832415"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3832416"></A>Prompts the user for a form to evaluate.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4211475"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4211476"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3832418"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3832419"></A>prompt-for-value <EM CLASS="Variable">
+message</EM>
+ &amp;key <EM CLASS="Variable">
+package</EM>
+ <EM CLASS="Variable">
+initial-value</EM>
+ <EM CLASS="Variable">
+value-function</EM>
+ <EM CLASS="Variable">
+pane-args</EM>
+ <EM CLASS="Variable">
+popup-args</EM>
+ <EM CLASS="Variable">
+continuation</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3832420"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3832421"></A>The function <CODE CLASS="Code">
+prompt-for-value</CODE>
+ prompts the user for a form and returns the result of evaluating that form.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3834203"></A>The form is read in the <EM CLASS="Variable">
+package</EM>
+ if specified or <CODE CLASS="Code">
+*package*</CODE>
+ if not and the result is the evaluation of the form. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-3834247"></A>If <EM CLASS="Variable">
+initial-value</EM>
+ is supplied it provides a default form.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3834300"></A>If <EM CLASS="Variable">
+value-function</EM>
+ is supplied it overrides the default value function which reads the form and evaluates it.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6679677"></A>If <A NAME="marker-6691364"></A><EM CLASS="Variable">
+continuation</EM>
+ is non-nil, then it must be a function with a lambda list that accepts two arguments. The <EM CLASS="Variable">
+continuation</EM>
+ function is called with the values that would normally be returned by <CODE CLASS="Code">
+prompt-for-value</CODE>
+. On Cocoa, passing <EM CLASS="Variable">
+continuation</EM>
+ causes the dialog to be made as a window-modal sheet and <CODE CLASS="Code">
+prompt-for-value</CODE>
+ returns immediately, leaving the dialog on the screen. The <A HREF="capiref-482.htm#92889" CLASS="XRef">with-dialog-results</A> macro provides a convenient way to create a <EM CLASS="Variable">
+continuation</EM>
+ function.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3834204"></A>The prompter is created by passing a <A HREF="capiref-430.htm#26824" CLASS="XRef">text-input-pane</A> to <A HREF="capiref-300.htm#12695" CLASS="XRef">popup-confirmer</A>. Arguments can be passed to the <CODE CLASS="Code">
+make-instance</CODE>
+ of the pane and the call to <CODE CLASS="Code">
+</CODE>
+<A HREF="capiref-300.htm#12695" CLASS="XRef">popup-confirmer</A> using <EM CLASS="Variable">
+pane-args</EM>
+ and <EM CLASS="Variable">
+popup-args</EM>
+ respectively. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3832430"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-3834326"></A>(capi:prompt-for-value </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3834327"></A> &quot;Square&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3834328"></A> :initial-value '(+ 1 2 3) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3834329"></A> :value-function </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3834330"></A> #'(lambda (text) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3834331"></A>     (let ((res (eval (read-from-string text))))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-3832433"></A>       (* res res))))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3832434"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3832438"></A><A HREF="capiref-323.htm#11514" CLASS="XRef">prompt-for-form</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-331.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-329.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

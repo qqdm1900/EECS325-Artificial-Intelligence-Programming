@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.9.2  Case of table names and and database names
+</TITLE>
+
+<LINK REL="next" HREF="lw-411.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-409.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-408.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-408.htm">19.9  Using MySQL</A><BR><BR>
+</DIV><A HREF="lw-411.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-409.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-408.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-908481"></A>19.9.2  <A NAME="marker-910704"></A>Case<A NAME="marker-910951"></A> of table names and and database names</H3>
+<P CLASS="Body">
+<A NAME="pgfId-908483"></A>MySQL is case sensitive on table names and database names when the server is on a Unix machine. MySQL does not automatically change raw names to uppercase as specified by the SQL standard. However, Common SQL is geared towards uppercasing all names, so this may cause some mismatches. In general, Common SQL uppercases strings, and uses symbol names, which are normally uppercase, as-is.</P>
+<P CLASS="Body">
+<A NAME="pgfId-908487"></A>One solution, possible only if you control the naming of tables and databases, is to make them all have the same case. If this is uppercase, that suffices. If it is lowercase, you need to set the variable <CODE CLASS="Code">
+lower_case_table_names</CODE>
+ in the configuration of the server.</P>
+<P CLASS="Body">
+<A NAME="pgfId-908491"></A>If you cannot make all the names the same case, you have to get the case right. This can be achieved in several ways:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-908885"></A>Specify tables names using strings, for example:</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-908886"></A><CODE CLASS="Code">
+(sql:select [*] :from [&quot;TableNAMEwithVARIABLEcase&quot;])</CODE>
+</P>
+<P CLASS="Step-C">
+<A NAME="pgfId-908887"></A>Note that this does not work in LispWorks 4.4 and previous versions.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-909087"></A>Pass the Lisp string directly:</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-908499"></A><CODE CLASS="Code">
+(sql:select [*] :from &quot;TableNAMEwithVARIABLEcase&quot;)</CODE>
+</P>
+<P CLASS="Step-C">
+<A NAME="pgfId-908501"></A>Note that in this case the table name is passed to the database inside double quotes. That works only when the mode of the Common SQL connection contains <CODE CLASS="Code">
+ANSI_QUOTES</CODE>
+ (which is the default, see <A HREF="lw-412.htm#50687" CLASS="XRef">SQL mode</A> for details).</P>
+<LI CLASS="Step">
+<A NAME="pgfId-908503"></A>Specify table names as escaped symbols:</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-908505"></A><CODE CLASS="Code">
+(sql:select [*] :from [|TableNAMEwithVARIABLEcase|])</CODE>
+</P>
+<LI CLASS="Step">
+<A NAME="pgfId-908509"></A>Construct the whole query string and pass it to <CODE CLASS="Code">
+query</CODE>
+ rather than using <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A>:</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-908512"></A><CODE CLASS="Code">
+(sql:query &quot;select * from TableNAMEwithVARIABLEcase&quot;)</CODE>
+</P>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-411.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-409.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-408.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

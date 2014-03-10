@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-action-list-mapping
+</TITLE>
+
+<LINK REL="next" HREF="lw-1001.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-999.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-1001.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-999.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1142766"></A><A NAME="33626"></A>with-<A NAME="marker-1142976"></A>action-list-mapping</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1142840"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1142851"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1142865"></A>Maps over an action list's actions with given variables bound to the executing action and its data.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1142867"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1142881"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1142883"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1142767"></A>with-action-list-mapping <EM CLASS="Variable">
+action-list</EM>
+ <EM CLASS="Variable">
+item-var</EM>
+ <EM CLASS="Variable">
+data-var</EM>
+ &amp;optional <EM CLASS="Variable">
+post-process</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1142771"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1143540"></A><EM CLASS="Variable">
+action-list</EM>
+</P>
+<P CLASS="RDescription-C">An action list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1143632"></A><EM CLASS="Variable">
+item-var</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1143653"></A><EM CLASS="Variable">
+data-var</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1143674"></A><EM CLASS="Variable">
+post-process</EM>
+</P>
+<P CLASS="RDescription-C">A keyword.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1143695"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">A body of Lisp code.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1143569"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1142772"></A>The <CODE CLASS="Code">
+with-action-list-mapping</CODE>
+ macro maps over an action-list's action-items. During execution, the symbols specified for <EM CLASS="Variable">
+item-var</EM>
+ and <EM CLASS="Variable">
+data-var</EM>
+ are bound to the executing action-item and its data respectively. See <A HREF="lw-918.htm#19789" CLASS="XRef">execute-actions</A> for more on post-processing. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1143294"></A>If this function is invoked with the keyword argument <CODE CLASS="Code">
+:post-process :collect</CODE>
+, a list the values returned by each action-item's setf operation are returned. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1143065"></A>Examples</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1143108"></A>(defun my-execution-function </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1143193"></A>          (the-action-list other-args</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1142777"></A>           &amp;key (post-process nil)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1142778"></A>           &amp;allow-other-keys)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1142779"></A>    (declare (ignore other-args))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1142780"></A>    (with-action-list-mapping (the-action-list</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1142781"></A>                               an-action-item</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1142782"></A>                               action-item-data</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1142783"></A>                               post-process)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1142784"></A>      (do-something-interesting-first)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1142785"></A>      (setf (symbol-value (car action-item-data))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1142786"></A>            (apply (cadr action-item-data)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1142787"></A>                   (cddr action-item-data)))))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1142764"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1143265"></A><A HREF="lw-918.htm#19789" CLASS="XRef">execute-actions</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1001.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-999.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

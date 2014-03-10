@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ print-profile-list
+</TITLE>
+
+<LINK REL="next" HREF="lw-815.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-813.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-815.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-813.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-889479"></A><A NAME="46635"></A>print<A NAME="marker-1041387"></A>-profile-list</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-889480"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889481"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889482"></A>Prints a report of symbols that have been profiled.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889483"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889484"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1321487"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1321488"></A>print-profile-list &amp;key <EM CLASS="Variable">
+sort</EM>
+ <EM CLASS="Variable">
+limit</EM>
+ <EM CLASS="Variable">
+cutoff</EM>
+ <EM CLASS="Variable">
+collapse</EM>
+ =&gt; nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1321489"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889488"></A><EM CLASS="Variable">
+sort</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+:call</CODE>
+, <CODE CLASS="Code">
+:profile</CODE>
+ or <CODE CLASS="Code">
+:top</CODE>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889493"></A><EM CLASS="Variable">
+limit</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1321180"></A><EM CLASS="Variable">
+collapse</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1321220"></A><EM CLASS="Variable">
+cutoff</EM>
+</P>
+<P CLASS="RDescription-C">A real number.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889494"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889495"></A><CODE CLASS="Code">
+print-profile-list</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889496"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1308714"></A>The function <CODE CLASS="Code">
+print-profile-list</CODE>
+ prints a report of symbols, after profiling using <A HREF="lw-816.htm#18999" CLASS="XRef">profile</A>, or <A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A> followed by <A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1308715"></A>If the profiler was set up with <EM CLASS="Variable">
+style</EM>
+ <CODE CLASS="Code">
+:tree</CODE>
+, then a tree of calls is  printed first, according to <EM CLASS="Variable">
+limit</EM>
+, <EM CLASS="Variable">
+cutoff</EM>
+ and <EM CLASS="Variable">
+collapse</EM>
+. Then a columnar report is printed showing how often each function was called, profiled and found on the top of the stack. This report is sorted by the column indicated by the value of <EM CLASS="Variable">
+sort</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1309343"></A>If the profiler was set up with <EM CLASS="Variable">
+style</EM>
+ <CODE CLASS="Code">
+:list</CODE>
+, then only the columnar report is printed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1312351"></A><EM CLASS="Variable">
+sort</EM>
+ can take these values:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1311573"></A><CODE CLASS="Code">
+:call</CODE>
+</P>
+<P CLASS="RDescription-C">Sort by the number of times the function was called.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1311574"></A><CODE CLASS="Code">
+:profile</CODE>
+</P>
+<P CLASS="RDescription-C">Sort by the number of times the function was found on the stack.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1311575"></A><CODE CLASS="Code">
+:top</CODE>
+</P>
+<P CLASS="RDescription-C">Sort by the number of times the function was found at the top of the stack.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1314484"></A>If <EM CLASS="Variable">
+sort</EM>
+ is not passed then the results are printed as after the profiling run. The default is the value of the variable <A HREF="lw-777.htm#86505" CLASS="XRef">*default-profiler-sort*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1320859"></A><EM CLASS="Variable">
+limit</EM>
+ is the maximum number of lines printed in the columnar report as described for <A HREF="lw-776.htm#68580" CLASS="XRef">*default-profiler-limit*</A>. The default is the value of the variable <A HREF="lw-776.htm#68580" CLASS="XRef">*default-profiler-limit*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1320951"></A><EM CLASS="Variable">
+cutoff</EM>
+ is the minimum percentage that the profiler will display in the output tree as described for <A HREF="lw-775.htm#55188" CLASS="XRef">*default-profiler-cutoff*</A>. The default is the value of the variable <A HREF="lw-775.htm#55188" CLASS="XRef">*default-profiler-cutoff*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1321111"></A><EM CLASS="Variable">
+collapse</EM>
+ controls collapsing of the output tree as described for <A HREF="lw-774.htm#64371" CLASS="XRef">*default-profiler-collapse*</A>. The default is the value of the variable <A HREF="lw-774.htm#64371" CLASS="XRef">*default-profiler-collapse*</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1680329"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1680360"></A>You should not call <CODE CLASS="Code">
+print-profile-lis</CODE>
+t while the profiler is running (see <A HREF="lw-816.htm#18999" CLASS="XRef">profile</A> and <A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A>) or suspended (see <A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A>).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889498"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889499"></A>First set up the profiler : </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1317368"></A>CL-USER 1 &gt; (set-up-profiler </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1317369"></A>              :symbols </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1317319"></A>              '(cadr car eql fixnump + 1+ caadr cddr))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1319920"></A>CL-USER 2 &gt; (profile (dotimes (a 1000000 nil)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1319921"></A>                        (+ a a)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-889501"></A>                        (car '(foo))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-889504"></A>Then call <CODE CLASS="Code">
+print-profile-list</CODE>
+: </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1320074"></A>CL-USER 3 &gt; (print-profile-list :sort :call)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320075"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320076"></A>profile-stacks called 327 times</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320077"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320078"></A>Cumulative profile summary</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320079"></A>Symbol                                    called  profile   (%)      top   (%)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320080"></A>CADR                                     5000012       13 (  4)       13 (  4)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320081"></A>CDDR                                     3000000        3 (  1)        3 (  1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320082"></A>EQL                                      2000202        4 (  1)        4 (  1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320083"></A>FIXNUMP                                  2000003        2 (  1)        2 (  1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320084"></A>CAR                                      1000000        1 (  0)        1 (  0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320085"></A>+                                        1000000        3 (  1)        3 (  1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320086"></A>CAADR                                    1000000        2 (  1)        2 (  1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320087"></A>1+                                       1000000        2 (  1)        2 (  1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320088"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1320089"></A>Top of stack not monitored 91% of the time</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-889505"></A>NIL</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889514"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889515"></A>You can suppress printing of those symbols that are currently profiled but which were not called in the profiling run by setting <A NAME="marker-1031606"></A><CODE CLASS="Code">
+system:*profiler-print-out-all*</CODE>
+ to <CODE CLASS="Code">
+nil</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1031466"></A><CODE CLASS="Code">
+system:*profiler-print-out-all</CODE>
+* is a variable defined when the profiler is loaded by <A HREF="lw-840.htm#73344" CLASS="XRef">set-up-profiler</A>. Its initial value is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1321270"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1321315"></A><A HREF="lw-774.htm#64371" CLASS="XRef">*default-profiler-collapse*</A><BR>
+<A HREF="lw-775.htm#55188" CLASS="XRef">*default-profiler-cutoff*</A><BR>
+<A HREF="lw-776.htm#68580" CLASS="XRef">*default-profiler-limit*</A><BR>
+<A HREF="lw-777.htm#86505" CLASS="XRef">*default-profiler-sort*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-815.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-813.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

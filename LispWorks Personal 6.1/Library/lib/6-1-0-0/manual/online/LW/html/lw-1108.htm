@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-wait-with-timeout
+</TITLE>
+
+<LINK REL="next" HREF="lw-1109.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1107.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1109.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1107.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1059439"></A><A NAME="68857"></A>process<A NAME="marker-1059438"></A>-wait-with-timeout</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1059440"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902863"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902868"></A>Suspend the current process until certain conditions are true, or until a timeout expires.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886855"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886856"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886857"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886858"></A>process-wait-with-timeout <EM CLASS="Variable">
+wait-reason</EM>
+ <EM CLASS="Variable">
+timeout</EM>
+ &amp;optional <EM CLASS="Variable">
+wait-function</EM>
+ &amp;rest <EM CLASS="Variable">
+wait-arguments</EM>
+ =&gt; <EM CLASS="Variable">
+bool</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903916"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-913241"></A><EM CLASS="Variable">
+wait-reason</EM>
+</P>
+<P CLASS="RDescription-C">A string describing the reason that the process is waiting.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-913326"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A timeout, in seconds.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-913242"></A><EM CLASS="Variable">
+wait-function</EM>
+</P>
+<P CLASS="RDescription-C">A function to test.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-913243"></A><EM CLASS="Variable">
+wait-arguments</EM>
+</P>
+<P CLASS="RDescription-C">The arguments to apply to <EM CLASS="Variable">
+wait-function</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-908042"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-908089"></A><EM CLASS="Variable">
+bool</P>
+<P CLASS="RDescription-C"></EM>
+A boolean. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886860"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886862"></A>This function uses <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> to suspend the current Lisp process until the predicate <EM CLASS="Variable">
+wait-function</EM>
+ applied to <EM CLASS="Variable">
+wait-arguments</EM>
+ returns <CODE CLASS="Code">
+t</CODE>
+, or until <EM CLASS="Variable">
+timeout</EM>
+ seconds have passed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1123158"></A><EM CLASS="Variable">
+bool</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ if the timeout occurred before <EM CLASS="Variable">
+wait-function</EM>
+ returned true. <EM CLASS="Variable">
+bool</EM>
+ is true otherwise.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886863"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1058427"></A><A HREF="lw-1079.htm#82143" CLASS="XRef">process-join</A><BR>
+<A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1109.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1107.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

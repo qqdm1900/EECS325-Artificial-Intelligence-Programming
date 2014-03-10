@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ convert-to-dynamic-foreign-string
+</TITLE>
+
+<LINK REL="next" HREF="fli-82.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-80.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-82.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-80.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-897436"></A><A NAME="10790"></A>convert-to-dynamic-foreign-string<A NAME="marker-998678"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-897437"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898102"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-970803"></A>Converts a Lisp string to a foreign string within the scope of the body of a <CODE CLASS="Code">
+with-dynamic-foreign-objects</CODE>
+ macro.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-970521"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898103"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897438"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897439"></A>convert-to-dynamic-foreign-string <EM CLASS="Variable">
+string</EM>
+ &amp;key <EM CLASS="Variable">
+external-format</EM>
+ <EM CLASS="Variable">
+null-terminated-p</EM>
+ <EM CLASS="Variable">
+allow-null</EM>
+ =&gt; <EM CLASS="Variable">
+pointer</EM>
+, <EM CLASS="Variable">
+length</EM>
+, <EM CLASS="Variable">
+byte-count</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-917164"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-917165"></A><EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-970910"></A><EM CLASS="Variable">
+external-format</EM>
+</P>
+<P CLASS="RDescription-C">An external format specification.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-971107"></A><EM CLASS="Variable">
+null-terminated-p</EM>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+t</CODE>
+, the foreign string terminates with a null character. The default value<EM CLASS="Variable">
+ </EM>
+is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1034600"></A><EM CLASS="Variable">
+allow-null</EM>
+</P>
+<P CLASS="RDescription-C">A boolean. The default is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-917166"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-917167"></A><EM CLASS="Variable">
+pointer</EM>
+</P>
+<P CLASS="RDescription-C">A FLI pointer to the foreign string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1007872"></A><EM CLASS="Variable">
+length</P>
+<P CLASS="RDescription-C"></EM>
+The length of the string (including the terminating null character if there is one).</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1034669"></A><EM CLASS="Variable">
+byte-count</EM>
+</P>
+<P CLASS="RDescription-C">The number of bytes in the converted string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-917168"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-917169"></A>The function <CODE CLASS="Code">
+convert-to-dynamic-foreign-string</CODE>
+ converts a Lisp string to a foreign string, and returns a pointer to the string and the length of the string. The memory allocation for the string and pointer is within the scope of the body of a <A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A> command.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1038005"></A>The <EM CLASS="Variable">
+external-format</EM>
+ argument is interpreted as by <A HREF="fli-153.htm#28931" CLASS="XRef">with-foreign-string</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-973194"></A>The <EM CLASS="Variable">
+null-terminated-p</EM>
+ keyword specifies whether the foreign string is terminated with a null character. It defaults to <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040893"></A>If <EM CLASS="Variable">
+allow-null</EM>
+ is non-nil, then if <EM CLASS="Variable">
+string</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ a null pointer <EM CLASS="Variable">
+pointer</EM>
+ is returned. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-917172"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-917173"></A><A HREF="fli-73.htm#10368" CLASS="XRef">allocate-dynamic-foreign-object</A><BR>
+<A HREF="fli-78.htm#25318" CLASS="XRef">convert-from-foreign-string</A><BR>
+<A HREF="fli-80.htm#90659" CLASS="XRef">convert-to-foreign-string</A><BR>
+<A HREF="fli-143.htm#33536" CLASS="XRef">set-locale</A><BR>
+<A HREF="fli-144.htm#75458" CLASS="XRef">set-locale-encodings</A><BR>
+<A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A><BR>
+<A HREF="fli-153.htm#28931" CLASS="XRef">with-foreign-string</A><BR>
+<A HREF="fli-50.htm#31319" CLASS="XRef">Calling a C function that takes an array of strings</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-82.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-80.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

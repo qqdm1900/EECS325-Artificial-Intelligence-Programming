@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-application-interface
+</TITLE>
+
+<LINK REL="next" HREF="capiref-378.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-376.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-378.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-376.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-5091276"></A><A NAME="61976"></A>set<A NAME="marker-5111555"></A>-application-interface</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-5091277"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7637560"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-7637561"></A>Specifies the main Cocoa application interface.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5091278"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-5091279"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5091280"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-5091281"></A>set-application-interface <EM CLASS="Variable">
+interface</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5703353"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5703391"></A><EM CLASS="Variable">
+interface</EM>
+</P>
+<P CLASS="RDescription-C">An object of type <A HREF="capiref-41.htm#30158" CLASS="XRef">cocoa-default-application-interface</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5091282"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5091288"></A>The function <CODE CLASS="Code">
+set-application-interface</CODE>
+ sets <EM CLASS="Variable">
+interface</EM>
+ as the main application interface. This interface is used to supply the application menu and receives various callbacks associated with the application.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7637488"></A><CODE CLASS="Code">
+set-application-interface</CODE>
+ must be called before any CAPI functions that make the <A HREF="capiref-363.htm#41931" CLASS="XRef">screen</A> object (such as <A HREF="capiref-59.htm#18970" CLASS="XRef">convert-to-screen</A> and <A HREF="capiref-76.htm#40005" CLASS="XRef">display</A>)<EM CLASS="Variable">
+.</EM>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7637213"></A><EM CLASS="Variable">
+interface</EM>
+ should not be displayed like a normal interface.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-10682603"></A>An application can only have one application menu and one dock menu. Because the LispWorks IDE already provides these menus, calling <CODE CLASS="Code">
+set-application-interface</CODE>
+ while running the LispWorks IDE will add a submenu to the <B CLASS="Button">
+LispWorks</B>
+ application menu to contain the <EM CLASS="Variable">
+application-menu</EM>
+ and <EM CLASS="Variable">
+menu-bar-items</EM>
+ of your application, and you can test them there. Likewise, a submenu will be added to the LispWorks Dock icon menu. Other aspects of the application interface can only be tested when running it standalone.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7637618"></A><CODE CLASS="Code">
+set-application-interface</CODE>
+ is only applicable when running under Cocoa.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9138556"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9138557"></A>See these files in the <CODE CLASS="Code">
+examples</CODE>
+ subdirectory of the LispWorks library:</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9138558"></A><CODE CLASS="Code">
+capi/applications/cocoa-application.lisp</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9138559"></A><CODE CLASS="Code">
+capi/applications/cocoa-application-single-window.lisp</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9138560"></A><CODE CLASS="Code">
+delivery/macos/multiple-window-application.lisp</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9138561"></A><CODE CLASS="Code">
+delivery/macos/single-window-application.lisp</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5703567"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5703587"></A><A HREF="capiref-41.htm#30158" CLASS="XRef">cocoa-default-application-interface</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-378.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-376.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

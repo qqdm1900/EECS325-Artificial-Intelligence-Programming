@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.7.3  Floating point optimization
+</TITLE>
+
+<LINK REL="next" HREF="lw-121.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-119.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-114.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-105.htm">9 The Compiler</A> &gt; <A HREF="lw-114.htm">9.7  Optimizing your code</A><BR><BR>
+</DIV><A HREF="lw-121.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-119.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-114.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889166"></A>9.7.3  <A NAME="marker-889476"></A>Floating point optimization</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889173"></A>The declaration <CODE CLASS="Code">
+float</CODE>
+<A NAME="marker-889172"></A> allows generation of more efficient code using float numbers. It reduces allocation during float calculations. It is best used with safety 0. That is, you declare <CODE CLASS="Code">
+(optimize (float 0) (safety 0))</CODE>
+ as in this example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889174"></A>(progn</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889175"></A>  (setf a </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889176"></A>        (make-array 1000 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889177"></A>                    :initial-element 1D0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889178"></A>                    :element-type 'double-float))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889179"></A>  nil ; to avoid printing the large array</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889180"></A>  )</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889181"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889182"></A>(compile </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889183"></A> (defun test (a)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889184"></A>   (declare (optimize (speed 3) (safety 0) (float 0)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889185"></A>   (declare (type (simple-array double-float  (1000))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889186"></A>                  a))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889187"></A>   (let ((sum 0D0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889188"></A>     (declare (type double-float sum))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889189"></A>     (dotimes (i 1000)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889190"></A>       (incf sum (the double-float (aref a i))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889191"></A>     sum)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889192"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889193"></A>(time (test a))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889194"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889195"></A>Timing the evaluation of (TEST A)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889196"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889197"></A>user time    =      0.000</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889198"></A>system time  =      0.000</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889199"></A>Elapsed time =   0:00:00</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889200"></A>Allocation   = 16 bytes standard / 0 bytes conses</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890003"></A>0 Page faults</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-892043"></A><B CLASS="Bold">
+Note:</B>
+ In some cases, the operations cannot be fully optimized with <CODE CLASS="Code">
+float 0</CODE>
+, which can cause the compiled code to be larger because the unboxing and boxing of floats will be inline.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-121.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-119.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-114.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

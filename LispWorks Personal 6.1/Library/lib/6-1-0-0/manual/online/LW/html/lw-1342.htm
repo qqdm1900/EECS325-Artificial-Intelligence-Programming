@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ call-system-showing-output
+</TITLE>
+
+<LINK REL="next" HREF="lw-1343.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1341.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1343.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1341.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1042461"></A><A NAME="20692"></A>call<A NAME="marker-1042459"></A>-system<A NAME="marker-1042460"></A>-showing<A NAME="marker-1042471"></A>-output</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1042462"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1042463"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-920457"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920458"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-960900"></A>call-system-showing-output <EM CLASS="Variable">
+command</EM>
+ &amp;key <EM CLASS="Variable">
+current-directory</EM>
+ <EM CLASS="Variable">
+prefix</EM>
+ <EM CLASS="Variable">
+show-cmd</EM>
+ <EM CLASS="Variable">
+output-stream</EM>
+ <EM CLASS="Variable">
+wait</EM>
+ <EM CLASS="Variable">
+shell-type</EM>
+ <EM CLASS="Variable">
+kill-process-on-abort</EM>
+ =&gt; <EM CLASS="Variable">
+status</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-960901"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-949084"></A><EM CLASS="Variable">
+command</EM>
+</P>
+<P CLASS="RDescription-C">A string, a list of strings, a simple-vector of strings, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1021149"></A><EM CLASS="Variable">
+current-directory</EM>
+</P>
+<P CLASS="RDescription-C">A string. Supported only on Microsoft Windows.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920463"></A><EM CLASS="Variable">
+prefix</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1620064"></A><EM CLASS="Variable">
+show-cmd</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1620065"></A><EM CLASS="Variable">
+output-stream</EM>
+</P>
+<P CLASS="RDescription-C">An output stream or <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+:tty</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1620066"></A><EM CLASS="Variable">
+wait</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039771"></A><EM CLASS="Variable">
+shell-type</P>
+<P CLASS="RDescription-C"></EM>
+A string. Supported only on Unix/Linux/Mac OS X.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1240220"></A><EM CLASS="Variable">
+kill-process-on-abort</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1240228"></A>A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-962527"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-962535"></A><EM CLASS="Variable">
+status</EM>
+</P>
+<P CLASS="RDescription-C">The exit status of the invoked shell or process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-962529"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1042432"></A><CODE CLASS="Code">
+call-system-showing-output</CODE>
+ is an extension to <CODE CLASS="Code">
+call-system</CODE>
+ which allows output to be redirected. On Unix/Linux/Mac OS X this means it can be redirected to places other than the shell process from which the LispWorks image was invoked. <CODE CLASS="Code">
+call-system-showing-output</CODE>
+ therefore allows the user to, for example, invoke a shell command and redirect the output to the current Listener window.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1042436"></A>The argument <EM CLASS="Variable">
+command </EM>
+is interpreted as by <A HREF="lw-1341.htm#26978" CLASS="XRef">call-system</A>. On Microsoft Windows there is one difference: when <EM CLASS="Variable">
+command</EM>
+ is a list or vector and the executable  (that is, the first element of the sequence <EM CLASS="Variable">
+command</EM>
+) in <CODE CLASS="Code">
+call-system-showing-output</CODE>
+ is not a GUI application, LispWorks hides the first window, which is the console that the executable will normally open. Note that for a non-direct command (that is, a string) LispWorks always hides the first window (which is the console) in both <A HREF="lw-1341.htm#26978" CLASS="XRef">call-system</A> and <CODE CLASS="Code">
+call-system-showing-output</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1042437"></A><EM CLASS="Variable">
+prefix</EM>
+ is a prefix to be printed at the start of any output line. The default value is <CODE CLASS="Code">
+&quot;; &quot;</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-949259"></A><EM CLASS="Variable">
+show-cmd</EM>
+ specifies whether or not the <EM CLASS="Variable">
+cmd</EM>
+ invoked will be printed as well as the output for that command. If <CODE CLASS="Code">
+t</CODE>
+ then  <EM CLASS="Variable">
+cmd</EM>
+ will be printed. The default value for <EM CLASS="Variable">
+show-cmd</EM>
+ is<CODE CLASS="Code">
+ t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1620073"></A><EM CLASS="Variable">
+output-stream</EM>
+ specifies where the output will be sent to. If <EM CLASS="Variable">
+output-stream</EM>
+ is an output stream, the output is written to it. If <EM CLASS="Variable">
+output-stream</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, the output is written to <CODE CLASS="Code">
+*standard-output*</CODE>
+. If <EM CLASS="Variable">
+output-stream</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, the output is collected as a string, and returned as a second value from <CODE CLASS="Code">
+call-system-showing-output</CODE>
+. If <EM CLASS="Variable">
+output-stream</EM>
+ is <CODE CLASS="Code">
+:tty</CODE>
+, <CODE CLASS="Code">
+call-system-showing-output</CODE>
+ behaves like <A HREF="lw-1341.htm#26978" CLASS="XRef">call-system</A>. The default value is <CODE CLASS="Code">
+*standard-output*</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-949325"></A>If <EM CLASS="Variable">
+wait</EM>
+ is true, <CODE CLASS="Code">
+call-system-showing-output</CODE>
+ does not return until the process has exited. If <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+call-system-showing-output</CODE>
+ returns immediately and no output is shown. The default for <EM CLASS="Variable">
+wait</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040136"></A><EM CLASS="Variable">
+shell-type</EM>
+ is a string naming a UNIX shell. The default<EM CLASS="Variable">
+ </EM>
+ is<EM CLASS="Variable">
+ </EM>
+<CODE CLASS="Code">
+&quot;/bin/sh&quot;</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1240240"></A>If <EM CLASS="Variable">
+kill-process-on-abort</EM>
+ is true, then when <CODE CLASS="Code">
+call-system-showing-output</CODE>
+ is aborted the process is killed. The default value of <EM CLASS="Variable">
+kill-process-on-abort</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-949308"></A><CODE CLASS="Code">
+call-system-showing-output</CODE>
+ returns the exit status of the shell invoked to execute the command on Unix/Linux/Mac OS X/FreeBSD, or the process created on Microsoft Windows.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949839"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1009064"></A>On Linux:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1021376"></A>CL-USER 1 &gt; (sys:call-system-showing-output &quot;pwd&quot; :prefix &quot;***&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009065"></A>***pwd</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009066"></A>***/amd/xanfs1-cam/u/ldisk/sp/lispsrc/v42/builds</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009067"></A>0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009068"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009069"></A>CL-USER 2 &gt; (sys:call-system-showing-output &quot;pwd&quot; :prefix &quot;&amp;&amp;&amp;&quot; :show-cmd nil)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009070"></A>&amp;&amp;&amp;/amd/xanfs1-cam/u/ldisk/sp/lispsrc/v42/builds</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1009071"></A>0</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1009072"></A>On Microsoft Windows:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1021696"></A>CL-USER 223 &gt; (sys:call-system-showing-output</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009073"></A>                        &quot;cmd /c type hello.txt&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009074"></A>                        :prefix &quot;***&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009075"></A>***cmd /c type hello.txt</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009076"></A>***Hi there</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009077"></A>0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009078"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009079"></A>CL-USER 224 &gt; (sys:call-system-showing-output</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009080"></A>                        &quot;cmd /c type hello.txt&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009081"></A>                        :prefix &quot;&amp;&amp;&amp;&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009082"></A>                        :show-cmd nil)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009083"></A>&amp;&amp;&amp;Hi there</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1009084"></A>0</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956987"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1238188"></A><A HREF="lw-1341.htm#26978" CLASS="XRef">call-system</A><BR>
+<A HREF="lw-1411.htm#15712" CLASS="XRef">open-pipe</A><BR>
+<A HREF="lw-1420.htm#31535" CLASS="XRef">run-shell-command</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1343.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1341.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ selection
+</TITLE>
+
+<LINK REL="next" HREF="capiref-376.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-374.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-376.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-374.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3142235"></A><A NAME="62388"></A>selection<A NAME="marker-4227249"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-3142236"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3142238"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3142239"></A>Returns the primary selection.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4227219"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4227220"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3142240"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3142241"></A>selection <EM CLASS="Variable">
+self</EM>
+ &amp;optional <EM CLASS="Variable">
+format</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3142242"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3142243"></A><EM CLASS="Variable">
+self</EM>
+</P>
+<P CLASS="RDescription-C">A displayed CAPI pane or interface.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5414197"></A><EM CLASS="Variable">
+format</EM>
+</P>
+<P CLASS="RDescription-C">A keyword.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3142244"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5416269"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A string, an <A HREF="capiref-574.htm#77313" CLASS="XRef">image</A>, a Lisp object, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3142246"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3142247"></A>The function <CODE CLASS="Code">
+selection</CODE>
+ returns the contents of the primary selection as a string, or <CODE CLASS="Code">
+nil</CODE>
+ if there is no selection.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5413905"></A><EM CLASS="Variable">
+format</EM>
+ controls what kind of object is read. The following values of <EM CLASS="Variable">
+format</EM>
+ are recognized:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5414042"></A><CODE CLASS="Code">
+:string</P>
+<P CLASS="RDescription-C"></CODE>
+The object is a string. This the default value.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5414068"></A><CODE CLASS="Code">
+:image</P>
+<P CLASS="RDescription-C"></CODE>
+The object is of type <A HREF="capiref-574.htm#77313" CLASS="XRef">image</A>, converted from whatever format the platform supports.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5414087"></A><CODE CLASS="Code">
+:value</P>
+<P CLASS="RDescription-C"></CODE>
+The object is the Lisp value.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5413909"></A>When <EM CLASS="Variable">
+format</EM>
+ is <CODE CLASS="Code">
+:image</CODE>
+, the image returned by <CODE CLASS="Code">
+selection</CODE>
+ is associated with <EM CLASS="Variable">
+self</EM>
+, so you can free it explicitly with <A HREF="capiref-555.htm#48924" CLASS="XRef">free-image</A> or it will be freed automatically when the pane is destroyed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3142248"></A>On Microsoft Windows there is no notion of selection, so this mechanism is internal to Lisp.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3143106"></A>Note that X applications may or may not use the primary selection for their paste operations. For instance, Emacs is configurable by the variable interprogram-paste-function<CODE CLASS="Code">
+.</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3143107"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3143108"></A><A HREF="capiref-38.htm#30401" CLASS="XRef">clipboard</A><BR>
+<A HREF="capiref-555.htm#48924" CLASS="XRef">free-image</A><BR>
+<A HREF="capiref-574.htm#77313" CLASS="XRef">image</A><BR>
+<A HREF="capiref-376.htm#42272" CLASS="XRef">selection-empty</A><BR>
+<A HREF="capiref-397.htm#90001" CLASS="XRef">set-selection</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-376.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-374.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

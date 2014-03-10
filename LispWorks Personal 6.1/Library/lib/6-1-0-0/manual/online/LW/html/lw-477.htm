@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 21.6.7  Using SSL objects directly
+</TITLE>
+
+<LINK REL="next" HREF="lw-478.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-476.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-466.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-457.htm">21 TCP/IP socket communication and SSL</A> &gt; <A HREF="lw-466.htm">21.6  Socket Stream SSL interface</A><BR><BR>
+</DIV><A HREF="lw-478.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-476.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-466.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889528"></A>21.6.7  Using SSL objects directly</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889530"></A>The C objects SSL and SSL_CTX are represented in LispWorks by foreign pointers with type <A HREF="lw-622.htm#94102" CLASS="XRef">ssl-pointer</A> and <A HREF="lw-618.htm#89480" CLASS="XRef">ssl-ctx-pointer</A>, which correspond to the C types SSL* and SSL_CTX*. These foreign types should be used for any foreign function that takes or returns these C types, and must be used when passing a foreign pointer as the value of the <CODE CLASS="Code">
+:ssl-ctx</CODE>
+ argument.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889531"></A>Making SSL objects is a way of getting access to them to perform configuration, but, especially in the case of the SSL_CTX, it is a useful way to avoid repeated calls to the configuration routines which may be time consuming. For example, if we have defined a function <CODE CLASS="Code">
+configure-a-ctx</CODE>
+, and we want to read once every 60 seconds from some URL, we can write:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889532"></A>(loop (with-open-stream</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889533"></A>          (str (comm:open-tcp-stream <EM CLASS="Variable">some-url</EM>
+ 443 :ssl-ctx t</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889534"></A>                                     :ctx-configure-callback 'configure-a-ctx))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889535"></A>        (read-something str))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889536"></A>      (sleep 60))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889537"></A>This will cause <CODE CLASS="Code">
+configure-a-ctx</CODE>
+ to be called each time. If it is expensive, we can call it only once by changing the code to:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889538"></A>(let ((ctx (comm:make-ssl-ctx :ssl-side :client)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889539"></A>  (configure-a-ctx ctx)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889540"></A>  (loop (with-open-stream</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889541"></A>    (str (comm:open-tcp-stream <EM CLASS="Variable">some-url</EM>
+ 443 :ssl-ctx ctx))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889542"></A>          (read-something str))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889543"></A>        (sleep 60))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889544"></A>  (ssl-ctx-free ctx))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889545"></A>The SSL objects could be made either by <A HREF="lw-596.htm#88348" CLASS="XRef">make-ssl-ctx</A> or <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-893199"></A><A HREF="lw-621.htm#27721" CLASS="XRef">ssl-new</A> or by user code that calls the C functions SSL_CTX_new and SSL_new. <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-893204"></A><A HREF="lw-583.htm#11969" CLASS="XRef">destroy-ssl-ctx</A> frees the SSL_CTX object. To free an SSL object you would call <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-893209"></A><A HREF="lw-582.htm#95157" CLASS="XRef">destroy-ssl</A>. See the manual entries for full descriptions of these functions.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-478.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-476.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-466.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

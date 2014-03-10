@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.8.3  Callbacks
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-88.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-86.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-84.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-63.htm">6 Choices</A> &gt <A HREF="capiuser-m-84.htm">6.8  General properties of choices </A><BR><BR>
+</DIV><A HREF="capiuser-m-88.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-86.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-84.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884422"></A>6.8.3  Callbacks<A NAME="marker-884695"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-884424"></A><A NAME="marker-884423"></A>All choices can have callbacks associated with them. Callbacks are invoked both by mouse button presses and keyboard gestures that change the selection or are &quot;Action Gestures&quot; such as <CODE CLASS="Code">
+Return</CODE>
+. Different sorts of gesture can have different sorts of callback associated with them.</P>
+<P CLASS="Body">
+<A NAME="pgfId-908781"></A>The following callbacks are available: <CODE CLASS="Code">
+:selection-callback</CODE>
+<A NAME="marker-908760"></A>, <CODE CLASS="Code">
+:retract-callback</CODE>
+<A NAME="marker-908761"></A> (called when a deselection is made), <CODE CLASS="Code">
+:extend-callback</CODE>
+<A NAME="marker-908763"></A>, <CODE CLASS="Code">
+:action-callback</CODE>
+<A NAME="marker-908764"></A> (called when a double-click occurs) and  <CODE CLASS="Code">
+:alternative-action-callback</CODE>
+<A NAME="marker-908765"></A> (called when a modified double-click occurs). What makes one choice different from another is that they permit different combinations of these callbacks. This is a consequence of the differing interactions. For example, you cannot have an <CODE CLASS="Code">
+:extend-callback</CODE>
+ in a radio button panel, because you cannot extend selection in one.</P>
+<P CLASS="Body">
+<A NAME="pgfId-908698"></A>Callbacks pass data to the function they call. There are default arguments for each type of callback. Using the <CODE CLASS="Code">
+:callback-type</CODE>
+<A NAME="marker-908699"></A> keyword allows you to change these defaults. Example values of <EM CLASS="Variable">
+callback-type</EM>
+ are  <A NAME="marker-908700"></A><CODE CLASS="Code">
+:interface</CODE>
+ (which causes the interface to be passed as an argument to the callback function),  <A NAME="marker-908701"></A><CODE CLASS="Code">
+:data</CODE>
+ (the value of the selected data is passed), <A NAME="marker-908702"></A><CODE CLASS="Code">
+:element</CODE>
+ (the element containing the callback is passed) and <CODE CLASS="Code">
+:none</CODE>
+<A NAME="marker-908703"></A> (no arguments are passed). Also there is a variety of composite <CODE CLASS="Code">
+:callback-type</CODE>
+ values, such as  <CODE CLASS="Code">
+:data-interface</CODE>
+<A NAME="marker-908704"></A> (which causes two arguments, the data and the interface, to be passed). See the <CODE CLASS="Code">
+callbacks</CODE>
+ entry in the <I CLASS="Italic">
+LispWorks CAPI Reference Manual</I>
+ for a complete description of <CODE CLASS="Code">
+:callback-type</CODE>
+ values.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890607"></A>The following example uses a push button and a callback function to display the arguments it receives.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-885011"></A>(defun show-callback-args (arg1 arg2)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886795"></A>  (display-message &quot;The arguments were &#126;S and &#126;S&quot; arg1 arg2))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-886796"></A>(setq example-button </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886797"></A>      (make-instance 'push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886777"></A>                     :text &quot;Push Me&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886778"></A>                     :callback 'show-callback-args</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886779"></A>                     :data &quot;Here is some data&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885014"></A>                     :callback-type :data-interface))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886783"></A>(contain example-button)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-884991"></A>Try changing the <CODE CLASS="Code">
+:callback-type</CODE>
+ to other values.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885019"></A>If you do not use the <CODE CLASS="Code">
+:callback-type</CODE>
+ argument and you do not know what the default is, you can define your callback function with lambda list <CODE CLASS="Code">
+(&amp;rest args)</CODE>
+ to account for all the arguments that might be passed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885013"></A>Specifying a callback that is invalid for a particul<A NAME="marker-885113"></A>ar choice causes a compile-time error.<I CLASS="Italic">
+</I>
+<A NAME="marker-884431"></A><A NAME="marker-884432"></A></P>
+<P CLASS="Body">
+<A NAME="pgfId-884768"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-88.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-86.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-84.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

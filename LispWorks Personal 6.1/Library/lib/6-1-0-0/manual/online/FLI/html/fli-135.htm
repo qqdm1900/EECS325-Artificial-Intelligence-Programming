@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ pointer-eq
+</TITLE>
+
+<LINK REL="next" HREF="fli-136.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-134.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-136.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-134.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-897732"></A><A NAME="11054"></A>pointer-eq<A NAME="marker-998701"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-898606"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898618"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-928667"></A>Test whether two pointers point to the same memory address.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-928658"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898619"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898607"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898608"></A>pointer-eq <EM CLASS="Variable">
+pointer1</EM>
+ <EM CLASS="Variable">
+pointer2</EM>
+ =&gt; boolean</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920118"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920119"></A><EM CLASS="Variable">
+pointer1</EM>
+</P>
+<P CLASS="RDescription-C">A FLI pointer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-928290"></A><EM CLASS="Variable">
+pointer2</EM>
+</P>
+<P CLASS="RDescription-C">A FLI pointer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920120"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920121"></A><CODE CLASS="Code">
+boolean</P>
+<P CLASS="RDescription-C"></CODE>
+If <EM CLASS="Variable">
+pointer1</EM>
+ points to the same address as <EM CLASS="Variable">
+pointer2</EM>
+, <CODE CLASS="Code">
+pointer-eq</CODE>
+ returns <CODE CLASS="Code">
+t</CODE>
+, otherwise it returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920122"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920123"></A>The function <CODE CLASS="Code">
+pointer-eq</CODE>
+ tests whether two pointers point to the same address, and returns <CODE CLASS="Code">
+t</CODE>
+ if they do, and <CODE CLASS="Code">
+nil</CODE>
+ if they do not.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920124"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920125"></A>In the following example a pointer, <CODE CLASS="Code">
+point1</CODE>
+, is defined, and <CODE CLASS="Code">
+point2</CODE>
+ is set equal to it. Both are then tested to see if they are equal to each other using <CODE CLASS="Code">
+pointer-eq</CODE>
+. Then <CODE CLASS="Code">
+point2</CODE>
+ is defined to point to a different object, and the two pointers are tested for equality again.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-930050"></A>(setq point1 (fli:allocate-foreign-object :type :int))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-930064"></A>(setq point2 point1)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-930065"></A>(fli:pointer-eq point1 point2)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-930113"></A>(setq point2 (fli:allocate-foreign-object :type :int))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-930036"></A>(fli:pointer-eq point1 point2)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920126"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920127"></A><A HREF="fli-130.htm#30112" CLASS="XRef">null-pointer-p</A><BR>
+<A HREF="fli-137.htm#16544" CLASS="XRef">pointerp</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-136.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-134.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

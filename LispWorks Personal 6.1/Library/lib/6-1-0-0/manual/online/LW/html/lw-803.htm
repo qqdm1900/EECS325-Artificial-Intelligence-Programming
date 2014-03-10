@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *handle-existing-defpackage*
+</TITLE>
+
+<LINK REL="next" HREF="lw-804.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-802.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-804.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-802.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-897039"></A><A NAME="69988"></A>*handle<A NAME="marker-1041106"></A>-existing-defpackage*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-897449"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-899317"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-899377"></A>Controls LispWorks' response when <A HREF="lw-640.htm#28819" CLASS="XRef">defpackage</A> is used on an existing package that is different from the definition given.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-899578"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-899596"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-899628"></A>Initial value</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-899646"></A>(:warn :modify)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-899656"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-899684"></A>The standard explicitly declines to define what <A HREF="lw-640.htm#28819" CLASS="XRef">defpackage</A> does if the named package already exists and is in a different state to that described by the <A HREF="lw-640.htm#28819" CLASS="XRef">defpackage</A> form. The variable <CODE CLASS="Code">
+*handle-existing-defpackage*</CODE>
+ is an extension to Common Lisp which allows you to select between alternative behaviors that are known to be useful.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-900351"></A>The two alternatives are to modify the package to conform exactly to the definition, removing features if necessary, or to merely add features specified in the <A HREF="lw-640.htm#28819" CLASS="XRef">defpackage</A> but missing from the package. You can also control whether a condition is signalled.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-900704"></A>The variable consists of a list of any of the following:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900725"></A><CODE CLASS="Code">
+:error</CODE>
+</P>
+<P CLASS="RDescription-C">Signal an error.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900758"></A><CODE CLASS="Code">
+:warn</CODE>
+</P>
+<P CLASS="RDescription-C">Signal a warning.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900763"></A><CODE CLASS="Code">
+:add</CODE>
+</P>
+<P CLASS="RDescription-C">Add the new symbols to the externals, imports, and so on.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900802"></A><CODE CLASS="Code">
+:modify</CODE>
+</P>
+<P CLASS="RDescription-C">Modify the package to have only these externals.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900803"></A><CODE CLASS="Code">
+:verbose</CODE>
+</P>
+<P CLASS="RDescription-C">The signalled errors or warnings also contain details of the differences.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-900804"></A>The options <CODE CLASS="Code">
+:error</CODE>
+ and <CODE CLASS="Code">
+:warn</CODE>
+ cannot be specified at the same time. One of <CODE CLASS="Code">
+:add</CODE>
+ and <CODE CLASS="Code">
+:modify</CODE>
+ must be specified. Undistinguished internals (that is, internal symbols that are not imported or shadowed), <CODE CLASS="Code">
+:intern</CODE>
+ options and sizes are ignored when deciding whether to signal.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-901021"></A>Note that when you use <CODE CLASS="Code">
+:modify</CODE>
+ some symbols can be uninterned if <A HREF="lw-640.htm#28819" CLASS="XRef">defpackage</A> imports another symbol with the same name from another package through <CODE CLASS="Code">
+:import-from</CODE>
+, <CODE CLASS="Code">
+:shadowing-import-from</CODE>
+ or <CODE CLASS="Code">
+:export</CODE>
+. This happens whether the symbol has a definition as a function, a variable, or nay other Lisp construct, so after making such a change in the package, you should re-execute the definitions that were (presumably erroneously) attached to the uninterned symbols.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-899694"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-900137"></A><CODE CLASS="Code">
+*handle-existing-defpackage*</CODE>
+ is an extension to Common Lisp.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900344"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-912296"></A><A HREF="lw-640.htm#28819" CLASS="XRef">defpackage</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-804.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-802.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

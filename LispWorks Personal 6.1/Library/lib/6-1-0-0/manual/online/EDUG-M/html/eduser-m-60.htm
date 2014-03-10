@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.16  Indentation
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-61.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-59.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A><BR><BR>
+</DIV><A HREF="eduser-m-61.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-59.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884854"></A>3.16  <A NAME="10755"></A>I<A NAME="marker-884852"></A>ndentation</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884855"></A>This section contains details of commands used to indent text. Indentation is usually achieved by inserting tab or space characters into the text so as to indent that text a predefined number of spaces.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884856"></A>The effect of the editor indentation commands depends on the major mode of the buffer. Where relevant, the command details given below provide information on how they operate in Text mode and Lisp mode. The operation of commands in Fundamental mode is generally the same as that of Text mode.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884858"></A><A NAME="marker-884857"></A><A NAME="28320"></A>Indent</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884859"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884860"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Tab</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884861"></A>In Text mode, <A HREF="eduser-m-60.htm#44461" CLASS="XRef">spaces-for-tab</A> <CODE CLASS="Code">
+#&#92;Space</CODE>
+ characters are inserted. A prefix argument causes this to occur at the start of the appropriate number of lines (starting from the current line).</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884863"></A>In Lisp mode, the current line is indented according to the structure of the current Lisp form. A prefix argument <EM CLASS="Variable">
+p</EM>
+ causes <EM CLASS="Variable">
+p</EM>
+ lines to be indented according to Lisp syntax.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-926971"></A>See <A HREF="eduser-m-150.htm#19213" CLASS="XRef">editor:*indent-with-tabs*</A> for control over the insertion of <CODE CLASS="Code">
+#&#92;Tab</CODE>
+ characters by this and other indentation commands.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020621"></A>Note: the key sequence <CODE CLASS="Code">
+Tab</CODE>
+ is overridden in Lisp mode to perform <A HREF="eduser-m-101.htm#82309" CLASS="XRef">Indent Selection or Complete Symbol</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884867"></A><A NAME="marker-884865"></A><A NAME="44461"></A>spaces-for-tab</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884868"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884869"></A>Default value: 8</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884870"></A>Determines the width of the whitespace (that is, the number of <CODE CLASS="Code">
+#&#92;Space</CODE>
+ characters) used to display a <CODE CLASS="Code">
+#&#92;Tab</CODE>
+ character.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884872"></A>Indent Re<A NAME="marker-1055409"></A>gion</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884873"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884874"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+Ctrl+&#92;</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884875"></A>Indents all the text in the region between the mark and the current point. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884877"></A>In Text mode a block of whitespace, which is <A HREF="eduser-m-60.htm#44461" CLASS="XRef">spaces-for-tab</A> wide, is inserted at the start of each line within the region.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884878"></A>In Lisp mode the text is indented according to the syntax of the Lisp form. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884879"></A>In both cases, a prefix argument causes any existing indentation to be deleted and replaced with a block of whitespace of the appropriate width.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884881"></A><A NAME="marker-884880"></A>Indent Rigidly</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884882"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884883"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X Tab</CODE>
+ or <CODE CLASS="Code">
+Ctrl+X Ctrl+I</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884884"></A>Indents each line in the region between the current point and the mark by a block of whitespace which is <A HREF="eduser-m-60.htm#44461" CLASS="XRef">spaces-for-tab</A> wide. Any existing whitespace at the beginning of the lines is retained. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884886"></A>A positive prefix argument causes the lines to be indented by the appropriate number of spaces, in addition to their existing space. A negative prefix argument causes the lines to be shifted to the left by the appropriate number of spaces. Where necessary, tabs are converted to spaces.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1020517"></A><A NAME="marker-1020516"></A><A NAME="31285"></A>Indent Selection</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1020518"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020519"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020579"></A>Indents all the text in the selection or the current line if there is no selection.  With a prefix argument <EM CLASS="Variable">
+p</EM>
+, any existing indentation is deleted and replaced with a block of space <EM CLASS="Variable">
+p</EM>
+ columns wide.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020606"></A>See also <A HREF="eduser-m-101.htm#82309" CLASS="XRef">Indent Selection or Complete Symbol</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884888"></A>Delete In<A NAME="marker-1055431"></A>dentation</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884889"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884890"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+Shift+^</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884891"></A>Joins the current line with the previous one, deleting all whitespace at the beginning of the current line and at the end of the previous line. The deleted whitespace is normally replaced with a single space. However, if the deleted whitespace is at the beginning of a line, or immediately after a <CODE CLASS="Code">
+(</CODE>
+, or immediately before a <CODE CLASS="Code">
+)</CODE>
+, then the whitespace is merely deleted without any characters being inserted. If the preceding character is a sentence terminator, then two spaces are left instead of one. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884892"></A>A prefix argument causes the following line to be joined with the current line.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884894"></A>Back to Ind<A NAME="marker-1055459"></A>entation</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884895"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884896"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+M</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884897"></A>Moves the current point to the first character in the current line that is not a whitespace character.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884899"></A><A NAME="marker-884898"></A>Indent New Line</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884900"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884901"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884902"></A>Moves everything to the right of the current point to a new line and indents it. Any whitespace before the current point is deleted. If there is a <A HREF="eduser-m-62.htm#46529" CLASS="XRef">fill-prefix</A>, this is inserted at the start of the new line instead. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884904"></A>A prefix argument causes the current point to be moved down the appropriate number of lines and indented.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884906"></A><A NAME="marker-884905"></A>Quote Tab</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884907"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884908"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884909"></A>Inserts a <CODE CLASS="Code">
+Tab</CODE>
+ character. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884910"></A>A prefix argument causes the appropriate number of tab characters to be inserted.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-61.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-59.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

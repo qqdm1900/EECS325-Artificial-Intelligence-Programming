@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.7  Possible explanations for a frozen image 
+</TITLE>
+
+<LINK REL="next" HREF="delivery-257.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-255.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-249.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-249.htm">10 Troubleshooting</A><BR><BR>
+</DIV><A HREF="delivery-257.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-255.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-249.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-857494"></A>10.7  Possible explanations for a frozen image </H3>
+<P CLASS="Body">
+<A NAME="pgfId-857495"></A>The image may die or hang up without issuing any useful message, either at runtime or possibly during delivery. Some possible remedies follow:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-852339"></A>Deliver the application at a lower delivery level. </LI>
+</UL>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-853219"></A>If things work after this, try the same level, but override the changed keywords one by one. </P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-852343"></A>Retain more packages, with the keyword <CODE CLASS="Code">
+:packages-to-keep</CODE>
+</LI>
+</UL>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-853268"></A>For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-852344"></A>(deliver 'application-entry </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852345"></A>            &quot;application&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852346"></A>            5 </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-852347"></A>            :packages-to-keep '(&quot;LISPWORKS&quot;))</PRE>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-852348"></A>The <CODE CLASS="Code">
+COMMON-LISP</CODE>
+  package normally should not be deleted or smashed, so it is unlikely to cause problems , but <CODE CLASS="Code">
+LISPWORKS</CODE>
+ and the packages defined in the application itself are worth investigating. </P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-853285"></A>If this gets the image working again, try to find out why the package is required and see if you can eliminate this need. See <A HREF="delivery-237.htm#37111" CLASS="XRef">Symbol and package issues during delivery</A> for more information on keeping and throwing away packages.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-257.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-255.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-249.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

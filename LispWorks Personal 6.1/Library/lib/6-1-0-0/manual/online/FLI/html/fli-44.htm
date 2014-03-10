@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.1  Passing a string to a Windows function
+</TITLE>
+
+<LINK REL="next" HREF="fli-45.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-43.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-43.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A><BR><BR>
+</DIV><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-43.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-43.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886369"></A>4.1  <A NAME="28337"></A>Passing a string<A NAME="marker-887562"></A> to a Windows function</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886370"></A>The following example shows how to define a Lisp function which calls a Win32 API function to change the title of the active window. It demonstrates the use of <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A> and <A HREF="fli-153.htm#28931" CLASS="XRef">with-foreign-string</A> to pass a Lisp string to a Windows function.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886305"></A>The first step involves defining a FLI type to correspond to the Windows <CODE CLASS="Code">
+hwnd</CODE>
+ type, which is the window handle type.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886306"></A>(fli:define-c-typedef fli-hwnd</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886307"></A>  (:unsigned :long))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886308"></A>The next step consists of the foreign function definitions. The first foreign function returns the window handle of the active window, by calling the Windows function <CODE CLASS="Code">
+GetActiveWindow</CODE>
+. It takes no arguments.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886309"></A>(fli:define-foreign-function (get-act-window &quot;GetActiveWindow&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886310"></A>    ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886311"></A>  :result-type fli-hwnd</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886312"></A>  :documentation &quot;Returns the window handle of the active window for the current thread. If no active window is associated with the current thread then it returns 0.&quot;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886318"></A>The next foreign function uses the Windows function <CODE CLASS="Code">
+SetWindowText</CODE>
+ to set the text of the active window titlebar. It takes a window handle and a pointer to a FLI string as its arguments.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886319"></A>(fli:define-foreign-function (set-win-text &quot;SetWindowText&quot; :dbcs)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886320"></A>    ((hwnd fli-hwnd)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886321"></A>     (lpstring :pointer))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886322"></A>  :result-type :boolean</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886323"></A>  :documentation &quot;Sets the text of the window titlebar.&quot;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886324"></A>The foreign function <CODE CLASS="Code">
+set-win-text</CODE>
+ returns a boolean to indicate whether it has successfully changed the title bar.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886325"></A>The required FLI data types and foreign functions have been defined. What is now required is a Lisp function which uses them to change the titlebar of the active window. The next function does this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886326"></A>(defun set-active-window-text (new-text)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886327"></A>  (let ((active-window (get-act-window))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886328"></A>        (external-format (if (string= (software-type)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886329"></A>                                      &quot;Windows NT&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886330"></A>                             :unicode</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886331"></A>                           :ascii)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886332"></A>    (unless (zerop active-window)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886333"></A>      (fli:with-foreign-string (new-ptr element-count byte-count </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886334"></A>                                :external-format external-format)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886335"></A>                               new-text</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886336"></A>        (declare (ignore element-count byte-count))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886337"></A>        (set-win-text active-window new-ptr)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886338"></A>The function <CODE CLASS="Code">
+set-active-window-text</CODE>
+ takes a Lisp string as its argument, and does the following:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-886339"></A> It calls the foreign function <CODE CLASS="Code">
+get-act-window</CODE>
+ to set the variable <CODE CLASS="Code">
+active-window</CODE>
+ to be the handle of the active window. If no window is active, this will be zero.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-886340"></A>The variable <CODE CLASS="Code">
+external-format</CODE>
+ is set to be <CODE CLASS="Code">
+:unicode</CODE>
+ if the operating system is Windows NT or a later system based on it (which expects strings to be passed to it in Unicode format), otherwise it is set to be <CODE CLASS="Code">
+:ascii</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-886341"></A>If <CODE CLASS="Code">
+active-window</CODE>
+ is zero, then there is no active window, and the function terminates, returning <CODE CLASS="Code">
+nil</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-886342"></A>If <CODE CLASS="Code">
+active-window</CODE>
+ is not zero, then it contains a window handle, and the following happens:</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-886349"></A>The function uses <A HREF="fli-153.htm#28931" CLASS="XRef">with-foreign-string</A> to convert the Lisp string argument of the function into a FLI string, and a pointer to the FLI string is allocated, ready to be handed to the foreign function <CODE CLASS="Code">
+set-win-text</CODE>
+ that we defined earlier. The encoding of the string is <CODE CLASS="Code">
+external-format</CODE>
+, which is the encoding suitable for the operating system running on the computer. Once the window title has been set, <A HREF="fli-153.htm#28931" CLASS="XRef">with-foreign-string</A> automatically deallocates the memory that was allocated for the FLI string and the pointer. The function then terminates, returning <CODE CLASS="Code">
+t</CODE>
+.</P>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-886350"></A>You can test that this is what happens by entering the command:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886351"></A>(set-active-window-text &quot;A new title for the active window&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886353"></A>See <A HREF="fli-153.htm#28931" CLASS="XRef">with-foreign-string</A>, for more details on the use of foreign strings.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-43.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-43.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

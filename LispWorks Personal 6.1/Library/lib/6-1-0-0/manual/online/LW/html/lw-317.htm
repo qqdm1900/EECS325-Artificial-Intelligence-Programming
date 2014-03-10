@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 17.2.1  Example
+</TITLE>
+
+<LINK REL="next" HREF="lw-318.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-316.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-316.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-314.htm">17 The Parser Generator</A> &gt; <A HREF="lw-316.htm">17.2  Grammar rules</A><BR><BR>
+</DIV><A HREF="lw-318.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-316.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-316.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-885993"></A>17.2.1  Example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-885994"></A>If a grammar contains the production:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885995"></A><EM CLASS="Variable">
+expression</EM>
+ -&gt; <EM CLASS="Variable">
+expression operator expression</EM>
+</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-885996"></A>with a semantic representation of a list of the individual semantic values, the Lisp grammar would contain the rule:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885997"></A>((<EM CLASS="Variable">
+expression expression operator expression</EM>
+)  (list $1 $2 $3))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-885998"></A>Error productions of the form:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885999"></A>((<EM CLASS="Variable">
+nt</EM>
+ :error)  (<EM CLASS="Variable">
+some error behavior</EM>
+))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886000"></A>are explained in the section below.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886001"></A>The first rule of the grammar should be of the form:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886002"></A>((<EM CLASS="Variable">
+nt</EM>
+ nt1)  $1)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886003"></A>where the non-terminal <EM CLASS="Variable">
+nt</EM>
+ has no other productions and <CODE CLASS="Code">
+nt1</CODE>
+ serves as the main &quot;top-level&quot; non-terminal.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-318.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-316.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-316.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

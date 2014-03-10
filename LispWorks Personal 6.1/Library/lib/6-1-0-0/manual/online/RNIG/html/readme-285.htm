@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="readme.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.9.5  Reporting crashes
+</TITLE>
+
+<LINK REL="next" HREF="readme-286.htm" TYPE="text/html">
+<LINK REL="prev" HREF="readme-284.htm" TYPE="text/html">
+<LINK REL="up" HREF="readme-280.htm" TYPE="text/html">
+<LINK REL="top" HREF="readme.htm" TYPE="text/html">
+<LINK REL="contents" HREF="readme-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="readme-485.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="readme.htm">LispWorks Release Notes and Installation Guide</A> &gt; <A HREF="readme-245.htm">12 Troubleshooting, Patches and Reporting Bugs</A> &gt; <A HREF="readme-280.htm">12.9  Reporting bugs</A><BR><BR>
+</DIV><A HREF="readme-286.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-284.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-280.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-902954"></A>12.9.5  Reporting crashes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-902955"></A>Very occasionally, there are circumstances where it is not possible to generate a bug report form from the running Lisp which has the bug. For example, a delivered image may lack the debugger, or the bug may cause lisp to crash completely. In such circumstances:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-911071"></A>It is still useful for us to see a bug report form from your lisp image so that we can see your system details. Generate the form before your code is loaded or a broken call is made, and attach it to your report.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-907346"></A>Create a file <CODE CLASS="Code">
+init.lisp</CODE>
+ which loads your code that leads to the crash.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-911187"></A><A NAME="marker-917373"></A>Run LispWorks with <CODE CLASS="Code">
+init.lisp</CODE>
+ as the initialization file and with output redirected to a file. For example, on Mac OS X:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-907347"></A>% &quot;/Applications/LispWorks 6.1/LispWorks.app/Contents/MacOS/lispworks-6-1-0-macos-universal&quot; -init init.lisp &gt; lw.out</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-902958"></A>where <CODE CLASS="Code">
+%</CODE>
+ denotes a Unix shell prompt.</P>
+<P CLASS="Step-C">
+<A NAME="pgfId-911088"></A>On Windows:</P>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-911092"></A><CODE CLASS="Code">
+C:&#92;&gt; &quot;Program Files&#92;LispWorks&#92;lispworks-6-1-0-x86-win32.exe&quot;</CODE>
+ -init init.lisp &gt; lw.out</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-911093"></A>where C:&#92;&gt;<CODE CLASS="Code">
+ </CODE>
+denotes the prompt in a MS-DOS command window.</P>
+<P CLASS="Step-C">
+<A NAME="pgfId-905725"></A>On Linux:</P>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-905731"></A>% /usr/bin/lispworks-6-1-0-x86-linux -init init.lisp &gt; lw.out</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-905669"></A>where <CODE CLASS="Code">
+%</CODE>
+ denotes a Unix shell prompt.</P>
+<P CLASS="Step-C">
+<A NAME="pgfId-906843"></A>On UNIX (SPARC in this example):</P>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-906846"></A>% /usr/lib/lispworks/lib/6-1-0-0/config/lispworks-<EM CLASS="Literal">
+6-1-0</EM>
+-sparc-solaris -init init.lisp &gt; lw.out</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-911149"></A>Attach the <CODE CLASS="Code">
+lw.out</CODE>
+ file to your report. In general it is not useful to edit the output of your Lisp image, so please send it as-is. Where output files are very large (&gt; 2MB) and repetitive, the first and last 200 lines might be adequate.</LI>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Release Notes and Installation Guide - 23 Dec 2011</I></P>
+<P><A HREF="readme-286.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-284.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-280.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

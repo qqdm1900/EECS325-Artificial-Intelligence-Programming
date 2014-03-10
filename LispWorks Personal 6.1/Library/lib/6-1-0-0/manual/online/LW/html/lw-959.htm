@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ rebinding
+</TITLE>
+
+<LINK REL="next" HREF="lw-960.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-958.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-960.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-958.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1170200"></A><A NAME="42423"></A>rebinding<A NAME="marker-1419210"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888733"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-959933"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-959961"></A>Ensures unique names for all the variables in a groups of forms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888734"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888735"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888736"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888737"></A>rebinding (&amp;rest <EM CLASS="Variable">
+vars</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+form</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-968009"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-968054"></A>vars</P>
+<P CLASS="RDescription-C">The variables to be rebound.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-994048"></A>body</P>
+<P CLASS="RDescription-C">A body of forms, the variables in which should be unique.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-971404"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-971437"></A>Returns the body wrapped in a form that creates unique names for each variable.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888738"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888739"></A>Returns the <EM CLASS="Variable">
+body</EM>
+ wrapped in a form which creates a unique name for each of the variables (compare with <CODE CLASS="Code">
+gensym</CODE>
+) and binds these names to the values of the variables. This ensures that the body can refer to the variables without name clashes with other variables elsewhere.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888740"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888741"></A>After defining</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888742"></A>(defmacro lister (x y)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888743"></A>   (rebinding (x y)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-888744"></A>      '(list ,x ,y)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-888745"></A>the form<CODE CLASS="Code">
+ (lister i j)</CODE>
+ macroexpands to</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888746"></A>(LET* ((#:X-77 I)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888747"></A>       (#:Y-78 J))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-888748"></A>          (LIST #:X-77 #:Y-78))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888749"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1428528"></A><A HREF="lw-1001.htm#81090" CLASS="XRef">with-unique-names</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-960.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-958.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

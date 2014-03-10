@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 20.2.5  Stream output
+</TITLE>
+
+<LINK REL="next" HREF="lw-456.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-454.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-450.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-448.htm">20 User Defined Streams</A> &gt; <A HREF="lw-450.htm">20.2  An illustrative example of user defined streams</A><BR><BR>
+</DIV><A HREF="lw-456.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-454.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888220"></A>20.2.5  <A NAME="14180"></A>Stream output<A NAME="marker-888757"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-888324"></A>The following method for <A NAME="marker-891379"></A><CODE CLASS="Code">
+<A HREF="lw-1325.htm#24631" CLASS="XRef">stream-write-char</A></CODE>
+ uses <CODE CLASS="Code">
+write-char</CODE>
+ to write a character to the stream. If the character written to <CODE CLASS="Code">
+unicode-ls-stream</CODE>
+ is a <CODE CLASS="Code">
+#&#92;Newline</CODE>
+, then the method writes a <CODE CLASS="Code">
+#&#92;Line-Separator</CODE>
+ to the file stream.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888222"></A>(defmethod stream:stream-write-char ((stream unicode-ls-stream) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888223"></A>                                     char)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888224"></A>  (write-char (if (eq char #&#92;Newline)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888225"></A>                   #&#92;Line-Separator</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888226"></A>               char)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888227"></A>              (ls-stream-file-stream stream)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888347"></A>The default method for <CODE CLASS="Code">
+<A HREF="lw-1327.htm#29575" CLASS="XRef">stream-write-string</A></CODE>
+ calls <CODE CLASS="Code">
+<A HREF="lw-1325.htm#24631" CLASS="XRef">stream-write-char</A></CODE>
+ repeatedly to write a string to the stream. However, the following is a more efficient implementation for our stream.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888185"></A>(defmethod stream:stream-write-string ((stream unicode-ls-stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888245"></A>                                        string &amp;optional (start 0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888246"></A>                                        (end (length string)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888229"></A>  (loop with i = start</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888230"></A>        until (&gt;= i end)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888231"></A>        do (let* ((newline (position #&#92;Newline </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888250"></A>                            string :start i :end end))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888232"></A>                  (this-end (or newline end)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888233"></A>             (write-string string (ls-stream-file-stream stream) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888770"></A>                           :start i :end this-end)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888234"></A>             (incf i this-end)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888235"></A>             (when newline </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888236"></A>                   (stream:stream-terpri stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888237"></A>                   (incf i)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888238"></A>        finally (return string)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888397"></A>We do not need to define our own method for <CODE CLASS="Code">
+<A HREF="lw-1321.htm#17886" CLASS="XRef">stream-terpri</A></CODE>
+, as the default uses <CODE CLASS="Code">
+<A HREF="lw-1325.htm#24631" CLASS="XRef">stream-write-char</A></CODE>
+, and therefore works appropriately</P>
+<P CLASS="Body">
+<A NAME="pgfId-888379"></A>To be useful, the <A NAME="marker-891435"></A><CODE CLASS="Code">
+<A HREF="lw-1309.htm#10148" CLASS="XRef">stream-line-column</A></CODE>
+ and <A NAME="marker-891447"></A><CODE CLASS="Code">
+<A HREF="lw-1320.htm#22566" CLASS="XRef">stream-start-line-p</A></CODE>
+ generic functions need to know the number of characters preceding a <CODE CLASS="Code">
+#&#92;Line-Separator</CODE>
+. However, since the LispWorks file stream records line position only by <CODE CLASS="Code">
+#&#92;Newline</CODE>
+ characters, this information is not available. Hence we define the two generic functions to return <CODE CLASS="Code">
+nil</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888251"></A>(defmethod stream:stream-line-column </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888385"></A>  ((stream unicode-ls-stream))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888253"></A>  nil)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-888255"></A>(defmethod stream:stream-start-line-p </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888390"></A>  ((stream unicode-ls-stream))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888256"></A>  nil)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888654"></A>Finally, the methods for <A NAME="marker-891478"></A><CODE CLASS="Code">
+<A HREF="lw-1307.htm#28071" CLASS="XRef">stream-force-output</A></CODE>
+, <A NAME="marker-891483"></A><CODE CLASS="Code">
+<A HREF="lw-1305.htm#25423" CLASS="XRef">stream-finish-output</A></CODE>
+ and <A NAME="marker-891488"></A><CODE CLASS="Code">
+<A HREF="lw-1302.htm#42637" CLASS="XRef">stream-clear-output</A></CODE>
+ are &quot;trampolined&quot; from the standard <CODE CLASS="Code">
+force-output</CODE>
+, <CODE CLASS="Code">
+finish-output</CODE>
+ and <CODE CLASS="Code">
+clear-output</CODE>
+ functions.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888257"></A>(defmethod stream:stream-force-output ((stream </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888274"></A>                                        unicode-ls-stream))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888263"></A>  (force-output (ls-stream-file-stream stream)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-888265"></A>(defmethod stream:stream-finish-output ((stream </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888275"></A>                                         unicode-ls-stream))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888266"></A>  (finish-output (ls-stream-file-stream stream)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-888268"></A>(defmethod stream:stream-clear-output ((stream </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888276"></A>                                        unicode-ls-stream))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888269"></A>  (clear-output (ls-stream-file-stream stream)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-456.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-454.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

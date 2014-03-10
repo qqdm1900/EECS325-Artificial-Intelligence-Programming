@@ -1,0 +1,46 @@
+
+;;;ex 2-4
+(defun greater (x y)
+  (cond  ((>= x y) x)
+         ((< x y) y)))
+
+;;;ex 2-7
+(defun has-list-p (lst)
+   (if (null lst)
+       nil
+       (if (listp (car lst))
+           t
+           (has-list-p (cdr lst)))))
+
+;;;ex 2-8 (a) Iteration
+(defun print-dots (int)
+  (do ((i int (- i 1)))
+      ((= i 0) 'done)
+    (format t ".")))
+
+
+;;;ex 2-8 (a) Recursion
+(defun print-dots (int)
+  (if (= int 0)
+      'done
+      (progn
+        (format t ".")
+        (print-dots (- int 1)))))
+
+;;;ex 2-8 (b) Iteration
+(defun get-a-count (lst)
+  (let ((count 0))
+    (dolist (x lst)
+      (if (eql 'a x)
+         (setf count (+ count 1))))
+    count))
+
+
+
+;;;ex 2-8 (b) Recursion
+(defun get-a-count (lst)
+  (if (null lst)
+      0
+    (if (eql 'a (car lst))
+        (+ (get-a-count (cdr lst)) 1)
+        (get-a-count (cdr lst)))))

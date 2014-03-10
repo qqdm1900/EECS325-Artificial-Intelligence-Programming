@@ -1,0 +1,314 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ barrier-wait
+</TITLE>
+
+<LINK REL="next" HREF="lw-1015.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1013.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1015.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1013.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1815163"></A><A NAME="72003"></A>barrier<A NAME="marker-1815162"></A>-wait</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1380060"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349233"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1349234"></A>Waits on a barrier until enough threads arrive.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349235"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1349236"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349237"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1349238"></A>barrier-wait <EM CLASS="Variable">
+barrier</EM>
+ &amp;key <EM CLASS="Variable">
+timeout</EM>
+ <EM CLASS="Variable">
+callback</EM>
+ <EM CLASS="Variable">
+pass-through</EM>
+ <EM CLASS="Variable">
+discount-on-abort</EM>
+ <EM CLASS="Variable">
+discount-on-timeout</EM>
+ <EM CLASS="Variable">
+disable-on-unblock</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349239"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1349240"></A><EM CLASS="Variable">
+barrier</EM>
+</P>
+<P CLASS="RDescription-C">A barrier.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1349241"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative number.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1349242"></A><EM CLASS="Variable">
+pass-through</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1349243"></A><EM CLASS="Variable">
+discount-on-abort</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1349244"></A><EM CLASS="Variable">
+discount-on-timeout</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1380987"></A>A boolean.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1349245"></A><EM CLASS="Variable">
+disable-on-unblock</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1381983"></A>A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1349246"></A><EM CLASS="Variable">
+callback</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349247"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1349248"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+nil</CODE>
+ or one of the keywords <CODE CLASS="Code">
+:unblocked</CODE>
+, <CODE CLASS="Code">
+:passed-through</CODE>
+ and <CODE CLASS="Code">
+:timeout</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349249"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1349250"></A>The function <CODE CLASS="Code">
+barrier-wait</CODE>
+ waits on a barrier until enough threads arrive. When <CODE CLASS="Code">
+barrier-wait</CODE>
+ is called it &quot;arrives&quot;, and when the number of arrivers reaches the count of the barrier (that is, the <EM CLASS="Variable">
+count</EM>
+ argument to <A HREF="lw-1055.htm#22917" CLASS="XRef">make-barrier</A>), <CODE CLASS="Code">
+barrier-wait</CODE>
+ returns. Effectively, the last &quot;arriver&quot; unblocks the barrier and wakes up all the other waiting threads.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349251"></A><EM CLASS="Variable">
+timeout</EM>
+ is the maximum time to wait in seconds.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349252"></A>If <EM CLASS="Variable">
+pass-through</EM>
+ is true, it does not actually wait.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349253"></A><EM CLASS="Variable">
+discount-on-abort</EM>
+ controls whether to change the arrivers count on an abort.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349254"></A><EM CLASS="Variable">
+discount-on-timeout</EM>
+ controls whether to change the arrivers count on a timeout.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349255"></A><EM CLASS="Variable">
+disable-on-unblock</EM>
+ controls whether to disable the barrier when unblocking.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349256"></A><EM CLASS="Variable">
+callback</EM>
+, if supplied, specifies a callback called before unblocking.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349257"></A><CODE CLASS="Code">
+barrier-wait</CODE>
+ first checks if the barrier is disabled, and if it is <CODE CLASS="Code">
+barrier-wait</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+ immediately. It then checks the number of arrivers, which is the number of other calls to <CODE CLASS="Code">
+barrier-wait</CODE>
+ on the same barrier since it was last unblocked or created.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349258"></A>If the number of arrivers is less than the count minus 1, <CODE CLASS="Code">
+barrier-wait</CODE>
+ increases the number of arrivers, and then waits for the barrier to be unblocked (unless <EM CLASS="Variable">
+pass-through</EM>
+ is true). If the number of arrivers is the count minus 1, <CODE CLASS="Code">
+barrier-wait</CODE>
+ unblocks the barrier (described below) and returns <CODE CLASS="Code">
+:unblocked</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349259"></A><EM CLASS="Variable">
+discount-on-abort</EM>
+, <EM CLASS="Variable">
+discount-on-timeout</EM>
+, <EM CLASS="Variable">
+disable-on-unblock</EM>
+ and <EM CLASS="Variable">
+callback</EM>
+ allow you to control the waiting and also the unblocking of the barrier. For each of these, the effective value is either that supplied to <CODE CLASS="Code">
+barrier-wait</CODE>
+, or if it was not supplied to <CODE CLASS="Code">
+barrier-wait</CODE>
+, the value in the barrier itself (see <A HREF="lw-1055.htm#22917" CLASS="XRef">make-barrier</A>).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349260"></A><EM CLASS="Variable">
+timeout</EM>
+ can be used to limit the time that <CODE CLASS="Code">
+barrier-wait</CODE>
+ waits. It is either a number of seconds or <CODE CLASS="Code">
+nil</CODE>
+, meaning no timeout. If <CODE CLASS="Code">
+barrier-wait</CODE>
+ times out, it returns <CODE CLASS="Code">
+:timeout</CODE>
+. By default it does not change the number of arrivers after a timeout, so the call is still counted as an &quot;arrival&quot;, but this can be changed by using <EM CLASS="Variable">
+discount-on-timeout</EM>
+. If <EM CLASS="Variable">
+discount-on-timeout</EM>
+ is true then after a timeout <CODE CLASS="Code">
+barrier-wait</CODE>
+ decrements the arrivers count, so the call has no overall effect on the arrivers count.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349261"></A>If <CODE CLASS="Code">
+barrier-wait</CODE>
+ is aborted while it waits (for example by <A HREF="lw-1080.htm#65256" CLASS="XRef">process-kill</A> or throwing using <A HREF="lw-1078.htm#62800" CLASS="XRef">process-interrupt</A>), by default it does not change the arrivers count, so the call still counts as an arrival, but this can be changed by using <EM CLASS="Variable">
+discount-on-abort</EM>
+. If <EM CLASS="Variable">
+discount-on-abort</EM>
+ is true, then on aborting <CODE CLASS="Code">
+barrier-wait</CODE>
+ decrements the arrivers count, so the call has no overall effect on the arrivers count.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1623474"></A>If <CODE CLASS="Code">
+barrier-wait</CODE>
+ would have waited but <EM CLASS="Variable">
+pass-through</EM>
+ is true, it returns the symbol <CODE CLASS="Code">
+:passed-through</CODE>
+ instead of waiting. Hence a call to <CODE CLASS="Code">
+barrier-wait</CODE>
+ with a true value of <EM CLASS="Variable">
+pass-through</EM>
+ has the effect of incrementing the arriver count, and unblocking other waiters if needed, but never itself waiting.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1623475"></A>Unblocking the barrier: when the number of arrivers is the count of the barrier minus 1, <CODE CLASS="Code">
+barrier-wait</CODE>
+ &quot;unblocks the barrier&quot;. This involves the following steps:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1349264"></A>If <EM CLASS="Variable">
+callback</EM>
+ is true it is called with the barrier while holding an internal lock on the barrier. See the comment in <A HREF="lw-1055.htm#22917" CLASS="XRef">make-barrier</A>. If the callback aborts, nothing has been changed in the barrier (including no change to the arrivers).</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1349265"></A>The barrier is marked as unblocked for the currently waiting threads.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1349266"></A>The number of arrivers in the barrier is reset to 0. Unless the next step disables the barrier, this means that any subsequent call to <CODE CLASS="Code">
+barrier-wait</CODE>
+ will wait, as if the barrier had just been created.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1349267"></A>If <EM CLASS="Variable">
+disable-on-unblock</EM>
+ is true, <CODE CLASS="Code">
+barrier-wait</CODE>
+ then disables the barrier. That means that until it is enabled, any call to <CODE CLASS="Code">
+barrier-wait</CODE>
+ will return immediately.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1349268"></A>It wakes up all the waiting threads.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1349269"></A>It returns the symbol <CODE CLASS="Code">
+:unblocked</CODE>
+.</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-1621834"></A>The possible values of <EM CLASS="Variable">
+result</EM>
+ occur in these circumstances:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1623374"></A><CODE CLASS="Code">
+t</CODE>
+</P>
+<P CLASS="RDescription-C">The current process waited and some other process unblocked the barrier.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1621835"></A><CODE CLASS="Code">
+:unblocked</CODE>
+</P>
+<P CLASS="RDescription-C">The current process unblocked the barrier.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1621836"></A><CODE CLASS="Code">
+:timeout</CODE>
+</P>
+<P CLASS="RDescription-C">The wait timed out.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1621837"></A><CODE CLASS="Code">
+:passed-through</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1623418"></A>Pass through because <EM CLASS="Variable">
+pass-through</EM>
+ was true.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1621838"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+<P CLASS="RDescription-C">The barrier is disabled.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349271"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1394831"></A><A HREF="lw-1005.htm#31699" CLASS="XRef">barrier-arriver-count</A><BR>
+<A HREF="lw-1006.htm#90936" CLASS="XRef">barrier-block-and-wait</A><BR>
+<A HREF="lw-1007.htm#17793" CLASS="XRef">barrier-change-count</A><BR>
+<A HREF="lw-1008.htm#26943" CLASS="XRef">barrier-count</A><BR>
+<A HREF="lw-1009.htm#63062" CLASS="XRef">barrier-disable</A><BR>
+<A HREF="lw-1010.htm#92294" CLASS="XRef">barrier-enable</A><BR>
+<A HREF="lw-1011.htm#81335" CLASS="XRef">barrier-name</A><BR>
+<A HREF="lw-1012.htm#49351" CLASS="XRef">barrier-pass-through</A><BR>
+<A HREF="lw-1013.htm#98210" CLASS="XRef">barrier-unblock</A><BR>
+<A HREF="lw-1055.htm#22917" CLASS="XRef">make-barrier</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1015.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1013.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

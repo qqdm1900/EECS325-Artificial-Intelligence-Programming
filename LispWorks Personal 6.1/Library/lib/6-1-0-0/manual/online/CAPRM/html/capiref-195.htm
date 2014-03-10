@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ interface-menu-groups
+</TITLE>
+
+<LINK REL="next" HREF="capiref-196.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-194.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-196.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-194.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-4692718"></A><A NAME="78390"></A>interface<A NAME="marker-4692717"></A>-menu-groups</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-4692719"></A>Generic Function </H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4692720"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4692721"></A>Used when an embedded document sets the <EM CLASS="Variable">
+menu-bar-items</EM>
+ to its menus, on Windows.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4692722"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4692723"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4692724"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4692725"></A>interface-menu-groups <EM CLASS="Variable">
+interface</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4692726"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-4692730"></A><EM CLASS="Variable">
+interface</P>
+<P CLASS="RDescription-C"></EM>
+A CAPI <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4713250"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-4713294"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4712953"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4696108"></A>The generic function <CODE CLASS="Code">
+interface-menu-groups</CODE>
+ is called when an embedded document sets the menu bar of its containing interface.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4696109"></A>Then, the menu bar for the embedded document includes three groups of menus that are supplied by the container (file-group, view-group, windows-group). <CODE CLASS="Code">
+interface-menu-groups</CODE>
+ is used to define these groups of menus.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4713690"></A><CODE CLASS="Code">
+interface-menu-groups</CODE>
+ should return a list of length 3. Each element is a list of menus. In this list, each item is either a menu object, or a cons. When it is a cons, the car is a menu object and the cdr is a string, which overrides the the title of the menu.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4696111"></A>The default method, on interface, simply returns <CODE CLASS="Code">
+(nil nil nil)</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4699399"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9124817"></A><CODE CLASS="Code">
+interface-menu-groups</CODE>
+ is implemented only in LispWorks for Windows. Load the functionality by <CODE CLASS="Code">
+(require &quot;embed&quot;)</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4713858"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4713890"></A>See the example in <CODE CLASS="Code">
+examples/com/ole/simple-container/doc-viewer-pair.lisp</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4692758"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4692709"></A><A HREF="capiref-270.htm#79990" CLASS="XRef">ole-control-pane</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-196.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-194.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

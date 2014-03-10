@@ -1,0 +1,24 @@
+
+(defun bst-elements (bst)
+  (when bst
+    (append (bst-elements (node-r bst))
+            (list (node-elt bst))
+            (bst-elements (node-l bst)))))
+This is correct, but CONSful. Only N conses should be needed to get N numbers out. Look at *all* the functions Graham defined for BST. One doesn't require any knowledge of BST structure.
+
+(defun position+ (lst)
+  (let ((i -1))
+    (mapcar #'(lambda (x) (+ x (incf i))) lst)))
+
+
+(defun bst-traverse (fn bst)
+  (when bst
+    (bst-traverse fn (node-l bst))
+    (funcall fn (node-elt bst))
+    (bst-traverse fn (node-r bst))))
+
+
+(defun bst-elements (bst)
+  (let ((lst nil))
+    (bst-traverse #'(lambda (x) (push x lst)) bst)
+    lst))

@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.7.1  Marks
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-49.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-47.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-47.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A> &gt <A HREF="eduser-m-47.htm">3.7  Marks and regions</A><BR><BR>
+</DIV><A HREF="eduser-m-49.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-47.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-47.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884488"></A>3.7.1  <A NAME="75070"></A>M<A NAME="marks"></A>arks</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884491"></A><A NAME="marker-884489"></A><A NAME="94905"></A>Set Mark</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884492"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884494"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+Space</CODE>
+ or Middle Mouse Button</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020640"></A>With no prefix argument, pushes the current point onto the mark ring, effectively setting the mark to the current point, and makes the activates the region.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020778"></A>With a prefix argument equal to the value of the <A HREF="eduser-m-39.htm#90873" CLASS="XRef">prefix-argument-default</A>, <A HREF="eduser-m-48.htm#43063" CLASS="XRef">Pop and Goto Mark</A> is invoked.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884500"></A>With a prefix argument equal to the square of the <A HREF="eduser-m-39.htm#90873" CLASS="XRef">prefix-argument-default</A><CODE CLASS="Code">
+ </CODE>
+(achieved by typing <CODE CLASS="Code">
+Ctrl+U Ctrl+U</CODE>
+ before invoking <CODE CLASS="Code">
+Set Mark)</CODE>
+, <A HREF="eduser-m-48.htm#70776" CLASS="XRef">Pop Mark</A> is invoked.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884503"></A><A NAME="marker-884501"></A><A NAME="43063"></A>Pop and Goto Mark</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884504"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884505"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020795"></A>Moves the current point to the mark without saving the current point on the mark ring (in contrast with <A HREF="eduser-m-48.htm#28603" CLASS="XRef">Exchange Point and Mark</A>). After the current point has been moved to the mark, the mark ring is rotated. The current region is de-activated.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-925654"></A><A NAME="70776"></A>Pop M<A NAME="marker-1054973"></A>ark</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-925655"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884511"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+Ctrl+Space</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020815"></A>Rotates the mark ring so that the previous mark becomes the current mark. The point is not moved but the current region is de-activated.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884515"></A><A NAME="marker-884513"></A><A NAME="28603"></A>Exchange Point and Mark</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884516"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884517"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X Ctrl+X</CODE>
+</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884519"></A>editor:exchange-point-and-mark-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+buffer</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-904444"></A>Sets the mark to the current point and moves the current point to the previous mark. This command can therefore be used to examine the extent of the current region.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884520"></A>The argument <EM CLASS="Variable">
+buffer</EM>
+<I CLASS="Italic">
+ </I>
+is the buffer in which to exchange the point and mark. The default value is the current buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1019810"></A>Mark Wo<A NAME="marker-1054995"></A>rd</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1019811"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1019812"></A>Arguments: <EM CLASS="Variable">
+number<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Meta+@</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1019813"></A>Marks the word following the current point. A prefix argument, if supplied, specifies the number of words marked.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884522"></A><A NAME="marker-884521"></A>Mark Sentence</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884523"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884524"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884525"></A>Puts the mark at the end of the current sentence and the current point at the start of the current sentence. The sentence thereby becomes the current region. If the current point is initially located between two sentences then the mark and current point are placed around the next sentence.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884527"></A>Mark Pa<A NAME="marker-1055017"></A>ragraph</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884528"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884529"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+H</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884530"></A>Puts the mark at the end of the current paragraph and the current point at the start of the current paragraph. The paragraph thereby becomes the current region. If the current point is initially located between two paragraphs, then the mark and current point are placed around the next paragraph.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884532"></A><A NAME="marker-884531"></A>Mark Whole Buffer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884533"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884534"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X H</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884535"></A>Sets the mark at the end of the current buffer and the current point at the beginning of the current buffer. The current region is thereby set as the whole of the buffer.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884536"></A>A non-nil prefix argument causes the mark to be set as the start of the buffer and the current point at the end.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-49.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-47.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-47.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

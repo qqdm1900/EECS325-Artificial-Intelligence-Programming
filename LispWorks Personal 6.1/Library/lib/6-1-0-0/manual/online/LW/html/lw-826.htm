@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ save-current-session
+</TITLE>
+
+<LINK REL="next" HREF="lw-827.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-825.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-827.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-825.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1435276"></A><A NAME="14361"></A>save-current<A NAME="marker-1435274"></A>-session</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1435277"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1435278"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1435279"></A>Saves the LispWorks session.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1435280"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1435281"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1437435"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1437436"></A>save-current-session <EM CLASS="Variable">
+pathname</EM>
+ &amp;rest <EM CLASS="Variable">
+save-image-args</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1437437"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1435285"></A><EM CLASS="Variable">
+pathname</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1437466"></A><EM CLASS="Variable">
+save-image-args</EM>
+</P>
+<P CLASS="RDescription-C">Arguments.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1435286"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1435287"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1435288"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1437978"></A>The function <CODE CLASS="Code">
+save-current-session</CODE>
+ closes all windows and stops multiprocessing, saves an image at the location supplied in <EM CLASS="Variable">
+pathname</EM>
+, and restarts multiprocessing and the windows. For more information see <A HREF="lw-194.htm#51156" CLASS="XRef">Saved sessions</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1437979"></A><EM CLASS="Variable">
+save-image-args</EM>
+ are passed to the saving function, which is <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> on Windows, GTK and Motif, or <A HREF="lw-828.htm#62077" CLASS="XRef">save-image-with-bundle</A> on Cocoa.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1435289"></A><CODE CLASS="Code">
+save-current-session</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+ if the pathname supplied is unacceptable (not writable), otherwise it returns <CODE CLASS="Code">
+t</CODE>
+. The actual operation is done asynchronously.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1438159"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1438216"></A><CODE CLASS="Code">
+save-current-session</CODE>
+ is intended for saving the state of a windowing image. Whilst <CODE CLASS="Code">
+save-current-session</CODE>
+ can be used to save a session in a console image, this achieves nothing more than <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A>.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1518716"></A>The released LispWorks image runs the default session. Therefore after you have used <CODE CLASS="Code">
+save-current-session</CODE>
+, starting the supplied image (for example via the Windows start menu or MAc OS X Dock) will run itself only if the default session is &quot;LispWorks Release&quot;.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1435294"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1438113"></A><A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A><BR>
+<A HREF="lw-828.htm#62077" CLASS="XRef">save-image-with-bundle</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-827.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-825.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

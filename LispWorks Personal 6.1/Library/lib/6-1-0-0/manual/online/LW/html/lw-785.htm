@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ enlarge-generation
+</TITLE>
+
+<LINK REL="next" HREF="lw-786.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-784.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-786.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-784.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1022687"></A><A NAME="45760"></A>enlarge<A NAME="marker-1039961"></A>-generation</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1022688"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1022689"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1022690"></A>Enlarges a generation in 32-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1022691"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1022692"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1022693"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1022694"></A>enlarge-generation <EM CLASS="Variable">
+gen-num</EM>
+ <EM CLASS="Variable">
+size</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1022695"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1022696"></A><EM CLASS="Variable">
+gen-num</P>
+<P CLASS="RDescription-C"></EM>
+A generation number.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1045840"></A><EM CLASS="Variable">
+size</EM>
+</P>
+<P CLASS="RDescription-C">The amount (in bytes) by which the generation is to be enlarged.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1047999"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1048682"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1045841"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1025986"></A>The function <CODE CLASS="Code">
+enlarge-generation</CODE>
+ enlarges generation <EM CLASS="Variable">
+gen-num</EM>
+ by <EM CLASS="Variable">
+size</EM>
+ bytes. If possible, an existing segment in generation <EM CLASS="Variable">
+gen-num</EM>
+ is enlarged, otherwise a new segment of size <EM CLASS="Variable">
+size</EM>
+ is added to the generation.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1048699"></A><EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ on success and <CODE CLASS="Code">
+nil</CODE>
+ on failure.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1026038"></A>This function is useful when it is known that a generation will need to grow. After <CODE CLASS="Code">
+enlarge-generation</CODE>
+ is called, the garbage collector is saved the work of deducing that the generation must grow.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1028609"></A><CODE CLASS="Code">
+enlarge-generation</CODE>
+ is most useful in non-interactive applications, where relatively long GC delays are not a problem. In this case, enlarging generations 0 and 1 by several Mb may improve the overall performance of the GC.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1102687"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1663595"></A><CODE CLASS="Code">
+enlarge-generation</CODE>
+ is implemented only in 32-bit LispWorks. It is not relevant to the Memory Management API in 64-bit implementations. In 64-bit implementations you can use <A HREF="lw-1424.htm#88236" CLASS="XRef">set-default-segment-size</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1102779"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1102837"></A><A HREF="lw-1424.htm#88236" CLASS="XRef">set-default-segment-size</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-786.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-784.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

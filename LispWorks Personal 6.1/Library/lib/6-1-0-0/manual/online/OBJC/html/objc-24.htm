@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.4.3  Defining Objective-C methods
+</TITLE>
+
+<LINK REL="next" HREF="objc-25.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-23.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-21.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-3.htm">1 Introduction to the Objective-C Interface</A> &gt; <A HREF="objc-21.htm">1.4  Defining Objective-C classes and methods</A><BR><BR>
+</DIV><A HREF="objc-25.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-23.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-21.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889872"></A>1.4.3  Defining Objective-C methods<A NAME="marker-892534"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-890952"></A>A class defined with <A HREF="objc-40.htm#90461" CLASS="XRef">define-objc-class</A> has no methods associated with it by default, other than those inherited from the its ancestor classes. New methods can be defined (or overridden) by using the macros <A NAME="marker-892539"></A><A HREF="objc-42.htm#19291" CLASS="XRef">define-objc-method</A> for instance methods and <A NAME="marker-892544"></A><A HREF="objc-41.htm#10195" CLASS="XRef">define-objc-class-method</A> for class methods. </P>
+<P CLASS="Body">
+<A NAME="pgfId-891198"></A>Note that the Lisp method definition form is separate from the class definition, unlike in Objective-C where it is embedded in the <CODE CLASS="Code">
+@implementation</CODE>
+<A NAME="marker-892548"></A> block. Also, there is no Lisp equivalent of the <CODE CLASS="Code">
+@interface</CODE>
+<A NAME="marker-892549"></A> block: the methods of an Objective-C class are just those whose defining forms have been evaluated.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890966"></A>When defining a method, various things must be specified:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891050"></A>The <A NAME="marker-892153"></A>method name, which is a string as described in <A HREF="objc-12.htm#48470" CLASS="XRef">Method naming</A>.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891055"></A>The return type, which is an Objective-C FLI type.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891056"></A>The Lisp class for which this method applies.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-890986"></A>Any extra arguments and their Objective-C FLI types.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-891016"></A>For example, a method that would be implemented in an Objective-C class as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891183"></A>@implementation MyObject</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891184"></A>- (unsigned int)areaOfWidth:(unsigned int)width</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891185"></A>                height:(unsigned int)height</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891186"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891187"></A>  return width*height;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891188"></A>}</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891091"></A>@end</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891081"></A>could be defined in Lisp for instances of the <CODE CLASS="Code">
+MyObject</CODE>
+ class from <A HREF="objc-23.htm#24976" CLASS="XRef">Defining an Objective-C class</A> using the form:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891167"></A>(define-objc-method (&quot;areaOfWidth:height:&quot; (:unsigned :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891168"></A>    ((self my-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891169"></A>     (width (:unsigned :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891170"></A>     (height (:unsigned :int)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891021"></A>  (* width height))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891147"></A>The variable <CODE CLASS="Code">
+self</CODE>
+ is bound to a Lisp object of type <CODE CLASS="Code">
+my-object</CODE>
+ and <CODE CLASS="Code">
+width</CODE>
+ and <CODE CLASS="Code">
+height</CODE>
+ are bound to non-negative integers. The area is returned to the caller as an integer.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="objc-25.htm#pgfId-893141" CLASS="Hypertext">1.4.3.1  Special method argument and result conversion</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="objc-26.htm#pgfId-893747" CLASS="Hypertext">1.4.3.2  Defining a method that returns a structure</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-25.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-23.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-21.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

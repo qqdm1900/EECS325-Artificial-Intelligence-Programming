@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.7.4  Tail call optimization
+</TITLE>
+
+<LINK REL="next" HREF="lw-122.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-120.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-114.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-105.htm">9 The Compiler</A> &gt; <A HREF="lw-114.htm">9.7  Optimizing your code</A><BR><BR>
+</DIV><A HREF="lw-122.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-120.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-114.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889221"></A>9.7.4  <A NAME="marker-889364"></A>Tail call optimization</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889233"></A>In 64-bit LispWorks and on x86 platforms the compiler optimizes tail calls unless</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-889236"></A>The compiler optimize quality <CODE CLASS="Code">
+debug</CODE>
+ is 3, or</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-889238"></A>There is something with dynamic scope on the stack, such as a special binding, a catch or <CODE CLASS="Code">
+dynamic-extent</CODE>
+ allocation (so it is not really a tail call)</LI>
+
+<P CLASS="Body">
+<A NAME="pgfId-889242"></A>On all other platforms the compiler optimizes tail calls unless 1.) or 2.) above apply, or</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-889245"></A>The call has more than 4 arguments and this is more than the number of fixed (not <CODE CLASS="Code">
+&amp;optional</CODE>
+/<CODE CLASS="Code">
+&amp;rest</CODE>
+/<CODE CLASS="Code">
+&amp;key</CODE>
+) parameters in the calling function.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-889249"></A>The call has more than 4 arguments and the calling function has <CODE CLASS="Code">
+&amp;rest</CODE>
+/<CODE CLASS="Code">
+&amp;key</CODE>
+ parameters.</LI>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-122.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-120.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-114.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ item-pane-interface-copy-object
+</TITLE>
+
+<LINK REL="next" HREF="capiref-208.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-206.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-208.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-206.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-9713899"></A><A NAME="95982"></A>item<A NAME="marker-9728498"></A>-pane-interface-copy-<A NAME="marker-9728529"></A>object</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-9713900"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9713901"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9726548"></A>Determines what <A HREF="capiref-285.htm#60928" CLASS="XRef">pane-interface-copy-object</A> returns from a <A HREF="capiref-33.htm#22482" CLASS="XRef">choice</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9713902"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-9713903"></A>item-pane-interface-copy-object <EM CLASS="Variable">
+item</EM>
+ <EM CLASS="Variable">
+choice</EM>
+ <EM CLASS="Variable">
+interface</EM>
+ =&gt; <EM CLASS="Variable">
+object</EM>
+, <EM CLASS="Variable">
+string</EM>
+, <EM CLASS="Variable">
+plist</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9713904"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9713905"></A>The generic function <CODE CLASS="Code">
+item-pane-interface-copy-object</CODE>
+ is used by the method of <A HREF="capiref-285.htm#60928" CLASS="XRef">pane-interface-copy-object</A> that specializes on <A HREF="capiref-33.htm#22482" CLASS="XRef">choice</A> to decide what to return.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9824933"></A>If only one item is selected, the <A HREF="capiref-285.htm#60928" CLASS="XRef">pane-interface-copy-object</A> method for <A HREF="capiref-33.htm#22482" CLASS="XRef">choice</A> returns what <CODE CLASS="Code">
+item-pane-interface-copy-object</CODE>
+ returns for this item. In this case all three of the return values are used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9713907"></A>If multiple items are selected, <A HREF="capiref-285.htm#60928" CLASS="XRef">pane-interface-copy-object</A> applies <CODE CLASS="Code">
+item-pane-interface-copy-object</CODE>
+ to each one, and returns a list of the returned objects as the first value, and a concatenation of returned strings (separated by newlines) as the second value.  The plist is ignored if the there more than one element.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9713908"></A>The default method returns the item and its print representation (using the <EM CLASS="Variable">
+print-function</EM>
+ of the <A HREF="capiref-33.htm#22482" CLASS="XRef">choice</A>), and no third return value.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9718420"></A>You can define your own methods for <CODE CLASS="Code">
+item-pane-interface-copy-object</CODE>
+. This is useful to make <A HREF="capiref-10.htm#93323" CLASS="XRef">active-pane-copy</A> work properly for a <A HREF="capiref-33.htm#22482" CLASS="XRef">choice</A>, in cases where the actual items in the choice are not the objects that are displayed in the choice as far as the user is concerned. For example, you may have a structure</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-9713910"></A>(defstruct my-item</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9713911"></A>  real-object</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-9713912"></A>  color)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-9713913"></A>To give different colors to different lines in a <A HREF="capiref-214.htm#30299" CLASS="XRef">list-panel</A>. In this case <A HREF="capiref-285.htm#60928" CLASS="XRef">pane-interface-copy-object</A> (and hence <A HREF="capiref-10.htm#93323" CLASS="XRef">active-pane-copy</A> when the <A HREF="capiref-214.htm#30299" CLASS="XRef">list-panel</A> is active) will return the <CODE CLASS="Code">
+my-item</CODE>
+ structure, while the user will expect the real object. This can be fixed by adding a method:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-9727573"></A>(defmethod item-pane-interface-copy-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9727574"></A>           ((item my-item) pane interface)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9727575"></A>  (let ((real-object (my-item-real-object item)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9727576"></A>    (values real-object</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-9713918"></A>            (print-a-real-object real-object))))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9713919"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9713920"></A><A HREF="capiref-285.htm#60928" CLASS="XRef">pane-interface-copy-object</A><BR>
+<A HREF="capiref-10.htm#93323" CLASS="XRef">active-pane-copy</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-208.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-206.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

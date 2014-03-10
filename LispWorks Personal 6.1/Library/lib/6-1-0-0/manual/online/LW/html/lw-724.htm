@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ name-only-form-parser
+</TITLE>
+
+<LINK REL="next" HREF="lw-725.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-723.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-698.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-698.htm">30 The DSPEC Package</A><BR><BR>
+</DIV><A HREF="lw-725.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-723.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-916040"></A><A NAME="64100"></A>name<A NAME="marker-916039"></A>-only-form-parser</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-916041"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-916042"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-916043"></A>A pre-defined form parser.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-916044"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-916045"></A>dspec</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-916046"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-916047"></A>name-only-form-parser <EM CLASS="Variable">
+top-level-form</EM>
+ <EM CLASS="Variable">
+getter</EM>
+ =&gt; <EM CLASS="Variable">
+dspec</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-916048"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-916049"></A><EM CLASS="Variable">
+top-level-form</EM>
+</P>
+<P CLASS="RDescription-C">A top level defining form.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-948788"></A><EM CLASS="Variable">
+getter</EM>
+</P>
+<P CLASS="RDescription-C">The subform getter function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-916050"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-916051"></A><EM CLASS="Variable">
+dspec</EM>
+</P>
+<P CLASS="RDescription-C">A dspec.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-916052"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-947393"></A>The function <CODE CLASS="Code">
+name-only-form-parser</CODE>
+ is a predefined form parser for use with <A HREF="lw-705.htm#21533" CLASS="XRef">define-form-parser</A>.  The parser consumes one subform and returns it.  </P>
+<P CLASS="RBody">
+<A NAME="pgfId-947625"></A><CODE CLASS="Code">
+name-only-form-parser</CODE>
+ can be used for function definitions where the function name is an abbreviation for the full dspec. It is the predefined parser for <CODE CLASS="Code">
+defun</CODE>
+, <CODE CLASS="Code">
+defmacro</CODE>
+ and <CODE CLASS="Code">
+defgeneric</CODE>
+ forms.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-916057"></A>You can define it to be the parser for your defining forms. using <A HREF="lw-705.htm#21533" CLASS="XRef">define-form-parser</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-916061"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-916062"></A>(defmacro my-definer (name &amp;body body)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-916063"></A>  `(defun ,name (x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-916064"></A>     ,@body))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-916065"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-916066"></A>(dspec:define-form-parser </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-916067"></A>    (my-definer (:parser </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-916068"></A>                 dspec:name-only-form-parser)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-916069"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-916073"></A><A HREF="lw-705.htm#21533" CLASS="XRef">define-form-parser</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-725.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-723.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

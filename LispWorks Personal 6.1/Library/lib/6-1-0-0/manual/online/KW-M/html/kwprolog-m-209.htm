@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ B.3  Uncertain Reasoning Facility
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-210.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-208.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-206.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-206.htm">B Examples</A><BR><BR>
+</DIV><A HREF="kwprolog-m-210.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-208.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-206.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading-App">
+<A NAME="pgfId-866330"></A>B.3  <A NAME="57105"></A>Uncertain Reasoning Facility</H3>
+<P CLASS="Body">
+<A NAME="pgfId-866331"></A>Below is the complete code which implements the uncertain reasoning facility of <A HREF="kwprolog-m-80.htm#64448" CLASS="XRef">Reasoning with Certainty Factors</A>. The implementation is exactly as described with a few extra considerations to check the rule interpreter is running before returning an uncertain value, that the objects have a certainty-factor slot and so on.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866335"></A>;;; -----SIMPLE REASONING WITH UNCERTAINTY FACTORS ----</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866336"></A>(in-package kw-user)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866337"></A>;;; default certainty factor</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866338"></A>(defvar *c-factor* 1)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866339"></A>;;; implication strength of a rule</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866340"></A>(defvar *implication-strength* 1)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866341"></A>(defun default-c-factor ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866342"></A>  &quot;if the forward chainer is not running, certainty</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866343"></A>   factor is just 1&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866344"></A>  (if *in-interpreter*</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866345"></A>      (* *implication-strength* *c-factor*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866346"></A>    1))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866347"></A>;;; uncertain objects need a slot to store their</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866348"></A>;;; `probability' this slot defaults to the value</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866349"></A>;;; returned by default-c-factor</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866350"></A>(def-kb-class uncertain-kb-object ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866351"></A>  ((c-factor :initform (default-c-factor)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866352"></A>             :initarg :c-factor)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866353"></A>(defun object-c-factor (obj)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866354"></A>  &quot;if an object has no uncertainty slot, return 1 (i.e.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866355"></A>   certain)&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866356"></A>  (if (slot-exists-p obj `c-factor)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866357"></A>      (slot-value obj `c-factor)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866358"></A>    1))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866359"></A>(defun inst-c-factor (inst)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866360"></A>  &quot;the certainty factor of an instantiation&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866361"></A>  (token-c-factor (inst-token inst)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866362"></A>(defun token-c-factor (token)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866363"></A>  &quot;the certainty factor of an ANDed list of objects</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866364"></A>   (just multiply them)&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866365"></A>  (reduce `* (mapcar `object-c-factor token)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866366"></A>(defun implication-strength (val)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866367"></A>  &quot;for a rule to set the implication strength&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866368"></A>  (setq *implication-strength* val))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866369"></A>;;; this function increases the certainty of the object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866370"></A>;;; which is the first argument by an amount dependent</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866371"></A>;;; on the combined certainty of the remaining</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866372"></A>;;; arguments</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866373"></A>(defun add-evidence (obj &amp;rest token)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866374"></A>  &quot;increments the certainty of obj based on the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866375"></A>   certainty of token&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866376"></A>  (let ((c-f (slot-value obj `c-factor)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866377"></A>    (setf (slot-value obj `c-factor)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866378"></A>          (+ c-f</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866379"></A>             (* (- 1 c-f) *implication-strength*     </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866380"></A>                (token-c-factor token))))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866381"></A>;;; this tactic is dynamic as the certainty factor slot</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866382"></A>;;; gets changed by calling add-evidence</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866383"></A>(deftactic certainty :dynamic (i1 i2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866384"></A>  &quot;a conflict resolution tactic to prefer more certain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866385"></A>   instantiations&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866386"></A>  (&gt; (inst-c-factor i1) (inst-c-factor i2)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866387"></A>;;; Before firing a rule this meta-interpreter just</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866388"></A>;;; sets the value of *c-factor* to the certainty of</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866389"></A>;;; the instantiation so that any new uncertain objects</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866390"></A>;;; made get this (times *implication-strength*) as</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866391"></A>;;; their certainty. Also sets *implication-strength*</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866392"></A>;;; to 1 as a default in case the rule doesn't set it.</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866393"></A>(defrule uncertain-context :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866394"></A>  ((uncertain-context)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866395"></A>   &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866396"></A>   (start-cycle)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866397"></A>   (instantiation ?inst)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866398"></A>   ((progn (setq *c-factor* (inst-c-factor ?inst))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866399"></A>      (setq *implication-strength* 1)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866400"></A>   (fire-rule ?inst)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866401"></A>   (cut)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866402"></A>   (uncertain-context)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866403"></A>Below are some example rules using this facility for a simple car maintenance problem.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866404"></A>;;; ---------------- SOME EXAMPLE RULES ---------------</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866405"></A>;;; to run: (run-diagnose)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866406"></A>(def-kb-struct start)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866407"></A>(def-kb-class symptom (uncertain-kb-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866408"></A>  ((type :initarg :type)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866409"></A>(def-kb-class fault (uncertain-kb-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866410"></A>  ((type :initarg :type)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866411"></A>(def-kb-class remedy (uncertain-kb-object)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866412"></A>  ((type :initarg :type)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866413"></A>;;; this context sets up the initial hypotheses and</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866414"></A>;;; gathers evidence this doesn't need the meta</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866415"></A>;;; -interpreter as that's only necesssary for</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866416"></A>;;; transparent assignment of certainty factors to new</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866417"></A>;;; objects</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866418"></A>(defcontext diagnose :strategy ())</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866419"></A>(defrule start-rule :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866420"></A>  :context diagnose</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866421"></A>  (start ?s)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866422"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866423"></A>  (assert (symptom ? type over-heat c-factor 1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866424"></A>  (assert (symptom ? type power-loss c-factor 1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866425"></A>  (assert (fault ? type lack-of-oil c-factor 0.5))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866426"></A>  (assert (fault ? type lack-of-water c-factor 0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866427"></A>  (assert (fault ? type battery c-factor 0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866428"></A>  (assert (fault ? type unknown c-factor 0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866429"></A>  (context (cure)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866430"></A>               ; next context onto agenda</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866431"></A>(defrule diagnose1 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866432"></A>  :context diagnose</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866433"></A>  (symptom ?s type over-heat)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866434"></A>  (fault ?f type lack-of-water)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866435"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866436"></A>  ((implication-strength 0.9))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866437"></A>  ((add-evidence ?f ?s)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866438"></A>(defrule diagnose2 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866439"></A>  :context diagnose</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866440"></A>  (symptom ?s type overheat)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866441"></A>  (fault ?f type unknown)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866442"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866443"></A>  ((implication-strength 0.1))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866444"></A>  ((add-evidence ?f ?s)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866445"></A>(defrule diagnose3 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866446"></A>  :context diagnose</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866447"></A>  (symptom ?s type wont-start)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866448"></A>  (fault ?f type battery)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866449"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866450"></A>  ((implication-strength 0.9))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866451"></A>  ((add-evidence ?f ?s)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866452"></A>(defrule diagnose4 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866453"></A>  :context diagnose</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866454"></A>  (symptom ?s type wont-start)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866455"></A>  (fault ?f type unknown)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866456"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866457"></A>  ((implication-strength 0.1))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866458"></A>  ((add-evidence ?f ?s)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866459"></A>(defrule diagnose5 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866460"></A>  :context diagnose</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866461"></A>  (symptom ?s type power-loss)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866462"></A>  (fault ?f type lack-of-oil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866463"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866464"></A>  ((implication-strength 0.9))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866465"></A>  ((add-evidence ?f ?s)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866466"></A>(defrule diagnose6 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866467"></A>  :context diagnose</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866468"></A>  (symptom ?s type power-loss)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866469"></A>  (fault ?f type unknown)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866470"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866471"></A>  ((implication-strength 0.1))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866472"></A>  ((add-evidence ?f ?s)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866473"></A>;;; any two distinct symptoms strengthens the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866474"></A>;;; hypothesis that there's something more serious</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866475"></A>;;; going wrong</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866476"></A>(defrule diagnose7 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866477"></A>  :context diagnose</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866478"></A>  (symptom ?s1 type ?t1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866479"></A>  (symptom ?s2 type ?t2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866480"></A>  (test (not (eq ?t1 ?t2)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866481"></A>  (fault ?f type unknown)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866482"></A>  --&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866483"></A>  ((add-evidence ?f ?s1 ?s2)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866484"></A>;;; here we need the meta-interpreter to assign the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866485"></A>;;; right certainty factors to the remedy objects. Also</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866486"></A>;;; use certainty as a conflict resolution tactic to</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866487"></A>;;; print the suggested remedies out in order</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866488"></A>(defcontext cure :strategy (priority certainty)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866489"></A>                :meta ((uncertain-context)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866490"></A>(defrule cure1 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866491"></A>  :context cure</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866492"></A>  (fault ?f type unknown)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866493"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866494"></A>  ((implication-strength 0.1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866495"></A>  (assert (remedy ? type cross-fingers))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866496"></A>  ((implication-strength 0.9))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866497"></A>  (assert (remedy ? type go-to-garage)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866498"></A>(defrule cure2 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866499"></A>  :context cure</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866500"></A>  (fault ?f type lack-of-oil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866501"></A>  --&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866502"></A>  (assert (remedy ? type add-oil)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866503"></A>(defrule cure3 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866504"></A>  :context cure</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866505"></A>  (fault ?f type lack-of-water)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866506"></A>  --&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866507"></A>  (assert (remedy ? type add-water)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866508"></A>(defrule cure4 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866509"></A>  :context cure</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866510"></A>  (fault ?f type battery)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866511"></A>  --&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866512"></A>  (assert (remedy ? type new-battery)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866513"></A>(defrule print-cures :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866514"></A>  :context cure</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866515"></A>  :priority 5</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866516"></A>  (remedy ?r type ?t)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866517"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866518"></A>  ((format t &quot;&#126;%Suggest remedy &#126;a with certainty-factor</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866519"></A>             &#126;a&quot; ?t (slot-value ?r `c-factor))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866520"></A>(defun run-diagnose ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866521"></A>  (reset)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866522"></A>  (make-instance `start)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866523"></A>  (infer :contexts `(diagnose)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-210.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-208.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-206.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

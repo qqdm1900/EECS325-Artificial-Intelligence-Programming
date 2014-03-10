@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-system-message-log
+</TITLE>
+
+<LINK REL="next" HREF="lw-840.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-838.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-840.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-838.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1406982"></A><A NAME="97394"></A>set<A NAME="marker-1408768"></A>-system-message-log</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1406984"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1406985"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1406986"></A>Manipulates the system message log.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1406987"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1406988"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1406989"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1406990"></A>set-system-message-log &amp;key <EM CLASS="Variable">
+stream</EM>
+ <EM CLASS="Variable">
+collect</EM>
+ <EM CLASS="Variable">
+get</EM>
+ <EM CLASS="Variable">
+callback</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1408030"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1408031"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">An output stream designator, or <CODE CLASS="Code">
+:no-change</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1408032"></A><EM CLASS="Variable">
+collect</EM>
+</P>
+<P CLASS="RDescription-C">A boolean, or <CODE CLASS="Code">
+:no-change.</CODE>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1406994"></A><EM CLASS="Variable">
+get</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+:keep</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1406995"></A><EM CLASS="Variable">
+callback</EM>
+</P>
+<P CLASS="RDescription-C">A function designator, or <CODE CLASS="Code">
+:no-change</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1406996"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1406997"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A list of strings, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1406998"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1406999"></A>The function <CODE CLASS="Code">
+set-system-message-log</CODE>
+ manipulates the system message log. This log is used by the system to produce messages that indicate that something is not as expected, but is not an error. For example, putting a bad Break-Gesture in a GTK resource file.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1407000"></A>If <EM CLASS="Variable">
+stream</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ or a stream, the system message log stream is set, with <CODE CLASS="Code">
+t</CODE>
+ meaning <CODE CLASS="Code">
+*standard-output*</CODE>
+. This stream is used when writing messages.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1407001"></A>When <EM CLASS="Variable">
+collect</EM>
+ is true but not <CODE CLASS="Code">
+:no-change</CODE>
+, messages are collected in an internal list, which can be retrieved by using <EM CLASS="Variable">
+get</EM>
+.  </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1407002"></A><EM CLASS="Variable">
+callback</EM>
+ can be a designator for a function of one argument, a string. This function is called when a message is generated. The callback must not try to perform GUI operations.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1407003"></A>The default value of each of <EM CLASS="Variable">
+stream</EM>
+, <EM CLASS="Variable">
+collect</EM>
+ and <EM CLASS="Variable">
+callback</EM>
+ is <CODE CLASS="Code">
+:no-change</CODE>
+, which does not change the current setting.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1407004"></A>When <EM CLASS="Variable">
+get</EM>
+ is supplied <CODE CLASS="Code">
+set-system-message-log</CODE>
+ returns a list of the messages that has been collected. Each message is a single string. If <EM CLASS="Variable">
+get</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, the internal list is reset to <CODE CLASS="Code">
+nil</CODE>
+. If <EM CLASS="Variable">
+get</EM>
+ is :keep, the internal list is not reset, so the next call with <EM CLASS="Variable">
+get</EM>
+ will get them again.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1407005"></A><CODE CLASS="Code">
+set-system-message-log</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+ if <EM CLASS="Variable">
+get</EM>
+ is not supplied.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1407006"></A><CODE CLASS="Code">
+set-system-message-log</CODE>
+ returns the list of collected messages if <EM CLASS="Variable">
+get</EM>
+ is supplied.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1407007"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1407008"></A><EM CLASS="Variable">
+stream</EM>
+, <EM CLASS="Variable">
+callback</EM>
+ and <EM CLASS="Variable">
+collect</EM>
+ are mutually independent. It is possible to set the system to any combination of these.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1407009"></A>The order of operation when a message is generated is first to print, then call the callback, and then collect.  </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1407010"></A>When collecting messages it can accumulate, so it is important to periodically get the message to ensure it does not bloat the memory.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1407011"></A>Using <EM CLASS="Variable">
+collect</EM>
+ <CODE CLASS="Code">
+t</CODE>
+ when it is already collecting has no effect, in particular it does not affect the list of collected messages.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-840.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-838.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

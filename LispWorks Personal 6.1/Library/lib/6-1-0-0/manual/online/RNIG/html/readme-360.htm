@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="readme.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.5.1.1  Specifying the drawing mode
+</TITLE>
+
+<LINK REL="next" HREF="readme-361.htm" TYPE="text/html">
+<LINK REL="prev" HREF="readme-359.htm" TYPE="text/html">
+<LINK REL="up" HREF="readme-359.htm" TYPE="text/html">
+<LINK REL="top" HREF="readme.htm" TYPE="text/html">
+<LINK REL="contents" HREF="readme-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="readme-485.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="readme.htm">LispWorks Release Notes and Installation Guide</A> &gt; <A HREF="readme-292.htm">13 Release Notes</A> &gt; <A HREF="readme-358.htm">13.5  New graphics ports features</A> &gt; <A HREF="readme-359.htm">13.5.1  Quality drawing</A><BR><BR>
+</DIV><A HREF="readme-361.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-359.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-359.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-956115"></A>13.5.1.1  Specifying the drawing mode</H3>
+<P CLASS="Body">
+<A NAME="pgfId-956116"></A>There are two possible values for a port's <EM CLASS="Variable">
+drawing-mode</EM>
+:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-955629"></A><CODE CLASS="Code">
+:quality</CODE>
+ causes all drawing operations to make full use of the graphics port <EM CLASS="Variable">
+transform</EM>
+. In particular, text, images and ellipses are scaled and rotated and coordinates are treated as floating point rather than being rounded to the nearest integer. It also supports anti-aliasing and alpha blending. <EM CLASS="Variable">
+operation</EM>
+ is not supported in this mode, but <EM CLASS="Variable">
+compositing-mode</EM>
+ is supported (see below).</LI>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-954022"></A>On Microsoft Windows <CODE CLASS="Code">
+:quality</CODE>
+ uses GDI+.</P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-963069"></A>On GTK+ <CODE CLASS="Code">
+:quality</CODE>
+ uses Cairo, which is available in GTK+ version 2.8 and later.</P>
+<LI CLASS="Bullet">
+<A NAME="pgfId-963071"></A><CODE CLASS="Code">
+:compatible</CODE>
+ generates the same output as previous versions of LispWorks. Text and images are not scaled or rotated, ellipses are not rotated correctly and other shapes are drawn as if the drawing function was called with transformed coordinates</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-952818"></A>In most cases the drawing mode defaults to <CODE CLASS="Code">
+:quality</CODE>
+ so the output of your program may differ from LispWorks 6.0. </P>
+<P CLASS="Body">
+<A NAME="pgfId-963103"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+gp:pixblt</CODE>
+, <CODE CLASS="Code">
+gp:clear-rectangle</CODE>
+ and the graphics state parameters <EM CLASS="Variable">
+mask-x</EM>
+ and <EM CLASS="Variable">
+mask-y</EM>
+ are all deprecated. For alternatives see <A HREF="readme-376.htm#18903" CLASS="XRef">copy-area added, pixblt deprecated</A> and the sections immediately following it.</P>
+<P CLASS="Body">
+<A NAME="pgfId-963107"></A>To use the old drawing mode, do for example:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-952820"></A>(make-instance 'capi:output-pane :drawing-mode :compatible ...)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-952822"></A>For more information see &quot;Drawing mode and anti-aliasing&quot; in the <I CLASS="Italic">
+CAPI User Guide</I>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Release Notes and Installation Guide - 23 Dec 2011</I></P>
+<P><A HREF="readme-361.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-359.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-359.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.2  List panels 
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-70.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-68.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-63.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-63.htm">6 Choices</A><BR><BR>
+</DIV><A HREF="capiuser-m-70.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-68.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-63.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884217"></A>6.2  <A NAME="marker-884629"></A>List panels </H3>
+<P CLASS="Body">
+<A NAME="pgfId-884219"></A>Lists of selectable items can be created with the <A NAME="marker-884218"></A><CODE CLASS="Code">
+list-panel</CODE>
+ class. Here is a simple example of a list panel: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886714"></A>(setq list </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886715"></A>      (make-instance 'list-panel</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886716"></A>                     :items '(one two three four)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886717"></A>                     :visible-min-height '(character 2)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884732"></A>                     :print-function 'string-capitalize))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886727"></A>(contain list)</CODE>
+<P CLASS="Figure">
+<A NAME="pgfId-884736"></A>Figure 6.4  A list panel<DIV>
+<IMG SRC="capiuser-m-23.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-26.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884738"></A>Notice how the items in the list panel are passed as symbols, and a <EM CLASS="Variable">
+print-function</EM>
+ is specified which controls how those items are displayed on the screen.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884739"></A>Any item on the list can be selected by clicking on it with the mouse.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884741"></A><A NAME="marker-884740"></A>By default, list panels are single selection -- that is, only one item in the list may be selected at once. You can use the <CODE CLASS="Code">
+:interaction</CODE>
+ keyword to change this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884742"></A>(make-instance 'list-panel</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884744"></A>               :<A NAME="marker-884743"></A>items (list &quot;One&quot; &quot;Two&quot; &quot;Three&quot; &quot;Four&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884745"></A>               :interaction :multiple-selection)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884746"></A>(contain *)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884748"></A>You can add callbacks to any items in the list using the <CODE CLASS="Code">
+:selection-callback</CODE>
+<A NAME="marker-904409"></A> keyword.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884749"></A>(make-instance 'list-panel</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884750"></A>               :items (list &quot;One&quot; &quot;Two&quot; &quot;Three&quot; &quot;Four&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884751"></A>               :selection-callback 'test-callback)</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884726"></A>(contain *)</CODE>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-70.htm#pgfId-884232" CLASS="Hypertext">6.2.1  List interaction </A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-71.htm#pgfId-884252" CLASS="Hypertext">6.2.2  Extended selection</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-72.htm#pgfId-884864" CLASS="Hypertext">6.2.3  Deselection, retraction, and actions</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-73.htm#pgfId-884291" CLASS="Hypertext">6.2.4  Selections</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-74.htm#pgfId-908567" CLASS="Hypertext">6.2.5  Images and appearance</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-75.htm#pgfId-904066" CLASS="Hypertext">6.2.6  Filters</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-70.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-68.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-63.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

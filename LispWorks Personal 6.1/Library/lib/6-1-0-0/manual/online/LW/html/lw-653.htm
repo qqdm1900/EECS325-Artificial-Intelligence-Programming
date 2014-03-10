@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ make-array
+</TITLE>
+
+<LINK REL="next" HREF="lw-654.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-652.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-654.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-652.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1039764"></A><A NAME="34584"></A>make<A NAME="marker-1039763"></A>-array</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1039765"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039766"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039767"></A>Creates and returns a new array which, in addition to the standard functionality, can be a weak array or statically allocated.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039768"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039769"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039770"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039771"></A>make-array <EM CLASS="Variable">
+dimensions</EM>
+ &amp;key <EM CLASS="Variable">
+element-type</EM>
+ <EM CLASS="Variable">
+initial-element</EM>
+ <EM CLASS="Variable">
+initial-contents</EM>
+ <EM CLASS="Variable">
+adjustable</EM>
+ <EM CLASS="Variable">
+fill-pointer</EM>
+ <EM CLASS="Variable">
+displaced-to</EM>
+ <EM CLASS="Variable">
+displaced-index-offset</EM>
+ <EM CLASS="Variable">
+weak</EM>
+ <EM CLASS="Variable">
+allocation</EM>
+ <EM CLASS="Variable">
+single-thread</EM>
+ =&gt; <EM CLASS="Variable">
+new-array</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039772"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039773"></A><EM CLASS="Variable">
+weak</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1072855"></A><EM CLASS="Variable">
+allocation</EM>
+</P>
+<P CLASS="RDescription-C">A fixnum, <CODE CLASS="Code">
+nil</CODE>
+, or one of the keywords <CODE CLASS="Code">
+:new</CODE>
+, <CODE CLASS="Code">
+:static</CODE>
+, <CODE CLASS="Code">
+:old</CODE>
+ and <CODE CLASS="Code">
+:long-lived</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1153088"></A><EM CLASS="Variable">
+single-thread</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039774"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039775"></A>The standard definition of <CODE CLASS="Code">
+make-array</CODE>
+ is extended to accept the keyword arguments <CODE CLASS="Code">
+:weak</CODE>
+, <CODE CLASS="Code">
+:allocation</CODE>
+ and <CODE CLASS="Code">
+:single-thread</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039776"></A>If <EM CLASS="Variable">
+weak</EM>
+ is non-nil, then <EM CLASS="Variable">
+displaced-to</EM>
+ must be <CODE CLASS="Code">
+nil</CODE>
+ and if <EM CLASS="Variable">
+element-type</EM>
+ is supplied it must have <CODE CLASS="Code">
+upgraded-array-element-type</CODE>
+ <CODE CLASS="Code">
+t</CODE>
+, otherwise an error is signalled. That is, you cannot make a weak array which is displaced or has <CODE CLASS="Code">
+array-element-type</CODE>
+ other than <CODE CLASS="Code">
+t</CODE>
+. When <EM CLASS="Variable">
+weak</EM>
+ is non-nil, it makes <EM CLASS="Variable">
+new-array</EM>
+ weak.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039778"></A>If <EM CLASS="Variable">
+weak</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then <CODE CLASS="Code">
+make-array</CODE>
+ behaves in the standard way, and <EM CLASS="Variable">
+new-array</EM>
+ is not weak. The value <EM CLASS="Variable">
+weak</EM>
+ defaults to <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1043067"></A>See <A HREF="lw-831.htm#15774" CLASS="XRef">set-array-weak</A> for a description of weak arrays.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1072415"></A>The possible values for <EM CLASS="Variable">
+allocation</EM>
+ have the following meanings:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1074471"></A><CODE CLASS="Code">
+:new</P>
+<P CLASS="RDescription-C"></CODE>
+Allocate the array normally.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1074484"></A><CODE CLASS="Code">
+nil</P>
+<P CLASS="RDescription-C"></CODE>
+Same meaning as <CODE CLASS="Code">
+:new</CODE>
+. This is the default value.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1074566"></A><CODE CLASS="Code">
+:static</CODE>
+</P>
+<P CLASS="RDescription-C">Allocate the array in a static segment.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1074951"></A><CODE CLASS="Code">
+:long-lived</CODE>
+</P>
+<P CLASS="RDescription-C">Allocate the array assuming it is going to be long-lived.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1075171"></A><CODE CLASS="Code">
+:old</P>
+<P CLASS="RDescription-C"></CODE>
+Same meaning as <CODE CLASS="Code">
+:long-lived</CODE>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1072421"></A>A fixnum <EM CLASS="Variable">
+n</EM>
+</P>
+<P CLASS="RDescription-C">Allocate the array in generation <EM CLASS="Variable">
+n</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1072423"></A>Arrays (including strings) that are passed by address to foreign functions must be static, and so must should be created with <CODE CLASS="Code">
+:allocation :static</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1072389"></A>Allocation with <CODE CLASS="Code">
+:old</CODE>
+ or <CODE CLASS="Code">
+:long-lived</CODE>
+ is useful when you know that the array will be long-lived, because your program will avoid the overhead of promoting it to the older generations.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1153096"></A>If <EM CLASS="Variable">
+single-thread</EM>
+ is true then the system knows that <EM CLASS="Variable">
+new-array</EM>
+ will always be accessed in a single thread context. That makes some operations faster, in particular <CODE CLASS="Code">
+vector-pop</CODE>
+ and <CODE CLASS="Code">
+vector-push</CODE>
+. The default value of <EM CLASS="Variable">
+single-thread</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039783"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039787"></A><A HREF="lw-751.htm#80685" CLASS="XRef">array-weak-p</A><BR>
+<A HREF="lw-830.htm#23970" CLASS="XRef">set-array-single-thread-p</A><BR>
+<A HREF="lw-831.htm#15774" CLASS="XRef">set-array-weak</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-654.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-652.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

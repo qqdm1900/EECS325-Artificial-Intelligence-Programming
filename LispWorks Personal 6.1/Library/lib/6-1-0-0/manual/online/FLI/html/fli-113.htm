@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ foreign-slot-value
+</TITLE>
+
+<LINK REL="next" HREF="fli-114.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-112.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-114.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-112.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-927181"></A><A NAME="41440"></A>foreign-slot-value<A NAME="marker-998691"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-918846"></A>Function </H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898431"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-913252"></A>Returns the value of a slot in a foreign object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913251"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898432"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886084"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-895773"></A>foreign-slot-value <EM CLASS="Variable">
+object</EM>
+ <EM CLASS="Variable">
+slot-name</EM>
+ &amp;key <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+object-type</EM>
+ <EM CLASS="Variable">
+copy-foreign-object</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1115131"></A>(setf foreign-slot-value) <EM CLASS="Variable">
+value</EM>
+ <EM CLASS="Variable">
+object</EM>
+ <EM CLASS="Variable">
+slot-name</EM>
+ &amp;key <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+object-type</EM>
+ <EM CLASS="Variable">
+copy-foreign-object</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-907587"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-907597"></A><EM CLASS="Variable">
+object</EM>
+</P>
+<P CLASS="RDescription-C">Either an instance of or a pointer to a FLI structure.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-907607"></A><EM CLASS="Variable">
+slot-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or a list of symbols identifying the slot to be accessed.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920851"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">The type of <EM CLASS="Variable">
+value</EM>
+. Specifying <EM CLASS="Variable">
+type</EM>
+ makes accessing the object faster. If the specified type is different to the actual type, <CODE CLASS="Code">
+foreign-slot-value</CODE>
+ returns the <EM CLASS="Variable">
+value</EM>
+ in the format of <EM CLASS="Variable">
+type</EM>
+ where possible.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1137994"></A><EM CLASS="Variable">
+object-type</EM>
+</P>
+<P CLASS="RDescription-C">The FLI structure type that contains <EM CLASS="Variable">
+slot-name</EM>
+. If this is passed, the compiler might be able to optimize the access to the slot.  If this is omitted, the object type is determined dynamically from <EM CLASS="Variable">
+object</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-908843"></A><EM CLASS="Variable">
+copy-foreign-object</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-908995"></A>This option is only important when dealing with slots which are aggregate FLI types, and cannot be returned by value. The recognized values are <CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+nil</CODE>
+ and <CODE CLASS="Code">
+:error</CODE>
+:</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-908996"></A>If <EM CLASS="Variable">
+copy-foreign-object</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+foreign-slot-value</CODE>
+ makes a copy of the aggregate slot of the object pointed to by <EM CLASS="Variable">
+pointer</EM>
+ and returns the copy. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-908997"></A>If <EM CLASS="Variable">
+copy-foreign-object</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+foreign-slot-value</CODE>
+ returns the aggregate slot of the object directly. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-908998"></A>If <EM CLASS="Variable">
+copy-foreign-object</EM>
+ is <CODE CLASS="Code">
+:error</CODE>
+ then <CODE CLASS="Code">
+foreign-slot-value</CODE>
+ signals an error. This is the default value for <EM CLASS="Variable">
+copy-foreign-object</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-907800"></A>Value</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-909310"></A><EM CLASS="Variable">
+value</P>
+<P CLASS="RDescription-C"></EM>
+The value of the slot <EM CLASS="Variable">
+slot-name</EM>
+ in the FLI object <EM CLASS="Variable">
+object</EM>
+ is returned.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-908214"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-908298"></A>The function <CODE CLASS="Code">
+foreign-slot-value</CODE>
+ returns the value of a slot in a specified object. An error is signaled if the slot is an aggregate type and <EM CLASS="Variable">
+copy-foreign-object</EM>
+ is not set accordingly.  Use <A HREF="fli-111.htm#29211" CLASS="XRef">foreign-slot-pointer</A> to access such aggregate slots.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1312906"></A>If <EM CLASS="Variable">
+slot-name</EM>
+ is a symbol then it names the slot of <EM CLASS="Variable">
+object</EM>
+ to be accessed. If <EM CLASS="Variable">
+slot-name</EM>
+ is a list of symbols, then these symbols name slots in nested structures starting with the outermost structure <EM CLASS="Variable">
+object</EM>
+, as in the <CODE CLASS="Code">
+inner</CODE>
+/<CODE CLASS="Code">
+middle</CODE>
+/<CODE CLASS="Code">
+outer</CODE>
+ example below.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-921902"></A>The function <CODE CLASS="Code">
+(setf foreign-slot-value)</CODE>
+ can be used to set the value of a slot in a structure, as shown in the example below.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913261"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-913271"></A>In the following example a foreign structure is defined, an instance of the structure is made with <CODE CLASS="Code">
+my-pos</CODE>
+ pointing to the instance, and <CODE CLASS="Code">
+foreign-slot-value</CODE>
+ is used to set the <CODE CLASS="Code">
+y</CODE>
+ slot of the object to 10.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-921144"></A>(fli:define-c-struct POS</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-921236"></A>  (x :int)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-921249"></A>  (y :int)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-921254"></A>  (z :int))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-921259"></A>(setq my-pos (fli:allocate-foreign-object :type 'POS))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-921796"></A>(setf (fli:foreign-slot-value my-pos 'y) 10)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-922184"></A>The next forms both return the value of the <CODE CLASS="Code">
+y</CODE>
+ slot at <CODE CLASS="Code">
+my-pos</CODE>
+, which is 10.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-921957"></A>(fli:foreign-slot-value my-pos 'y)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1139230"></A>(fli:foreign-slot-value my-pos 'y :object-type 'pos)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1218807"></A>See the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ section &quot;Optimizing your code&quot; for an example showing how to inline foreign slot access.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1312945"></A>This example accesses a slot in nested structures:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1313825"></A>(fli:define-c-struct inner</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313826"></A>  (v1 :int)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313827"></A>  (v2 :int))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313828"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313829"></A>(fli:define-c-struct middle</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313830"></A>  (i1 (:struct inner))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313831"></A>  (i2 (:struct inner)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313832"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313833"></A>(fli:define-c-struct outer</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313834"></A>  (m1 (:struct middle))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313835"></A>  (m2 (:struct middle)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313836"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313837"></A>(fli:with-dynamic-foreign-objects</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1313838"></A>    ((obj (:struct outer)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1313149"></A>  (setf (fli:foreign-slot-value obj '(m1 i2 v1)) 99))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913277"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-913314"></A><A HREF="fli-111.htm#29211" CLASS="XRef">foreign-slot-pointer</A><BR>
+<A HREF="fli-110.htm#30205" CLASS="XRef">foreign-slot-offset</A><BR>
+<A HREF="fli-99.htm#29735" CLASS="XRef">dereference</A><BR>
+<A HREF="fli-152.htm#53979" CLASS="XRef">with-foreign-slots</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-114.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-112.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

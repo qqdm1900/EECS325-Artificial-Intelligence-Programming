@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ prepare-statement
+</TITLE>
+
+<LINK REL="next" HREF="lw-1252.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1250.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1252.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1250.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1625751"></A><A NAME="97309"></A>prepare<A NAME="marker-1625749"></A>-statement<A NAME="marker-1625750"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1625752"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1625753"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1625754"></A>Returns a prepared-statement object for a sql-exp in a database.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1625755"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1625756"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1625757"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1625758"></A>prepare-statement <EM CLASS="Variable">
+sql-exp</EM>
+ &amp;key <EM CLASS="Variable">
+database</EM>
+ <EM CLASS="Variable">
+variable-types</EM>
+ <EM CLASS="Variable">
+count</EM>
+ <EM CLASS="Variable">
+flatp</EM>
+ <EM CLASS="Variable">
+result-types</EM>
+ =&gt; <EM CLASS="Variable">
+prepared-statement</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1625759"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1625760"></A><EM CLASS="Variable">
+sql-exp</P>
+<P CLASS="RDescription-C"></EM>
+A SQL expression.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1625761"></A><EM CLASS="Variable">
+database</EM>
+</P>
+<P CLASS="RDescription-C">A database.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1625762"></A><EM CLASS="Variable">
+variable-types</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1625763"></A><EM CLASS="Variable">
+count</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1625764"></A><EM CLASS="Variable">
+flatp</P>
+<P CLASS="RDescription-C"></EM>
+A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1625765"></A><EM CLASS="Variable">
+result-types</EM>
+</P>
+<P CLASS="RDescription-C">A list of symbols.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1625766"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1625767"></A><EM CLASS="Variable">
+prepared-statement</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1635829"></A>A prepared-statement.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1625768"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1625769"></A>The function <CODE CLASS="Code">
+prepare-statement</CODE>
+ returns a prepared-statement object for the SQL statement <EM CLASS="Variable">
+sql-exp</EM>
+ in the database <EM CLASS="Variable">
+database</EM>
+. <EM CLASS="Variable">
+sql-exp</EM>
+ can contain bind-variables in the form <CODE CLASS="Code">
+:n</CODE>
+ where <EM CLASS="Variable">
+n</EM>
+ is a positive integer.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1625770"></A>If <EM CLASS="Variable">
+database</EM>
+ is supplied, then the prepared-statement is associated with the database. Otherwise <A HREF="lw-1258.htm#92324" CLASS="XRef">set-prepared-statement-variables</A> will do the association even if it is called without a database.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1625774"></A>If <EM CLASS="Variable">
+variable-types</EM>
+ is supplied, then it should be a list containing a keyword element for each bind-variable in <EM CLASS="Variable">
+sql-exp</EM>
+. It has an effect in two cases:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1625775"></A><CODE CLASS="Code">
+:string</CODE>
+ forces the variable to be passed to the database as a string.  That may be useful if you have numeric values in Lisp which are stored as strings in the database.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1625776"></A><CODE CLASS="Code">
+:date</CODE>
+ cause an integer to be interpreted as a universal-time and be converted properly to an Oracle date.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-1625777"></A>If <EM CLASS="Variable">
+variable-types</EM>
+ is not supplied, then the types will be chosen dynamically from the values passed to <A HREF="lw-1258.htm#92324" CLASS="XRef">set-prepared-statement-variables</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1625781"></A>If <EM CLASS="Variable">
+count</EM>
+ is supplied, then it should equal the maximum number of bind-variables in the sql-exp. If <EM CLASS="Variable">
+count</EM>
+ is not supplied, then it is calculated from <EM CLASS="Variable">
+sql-exp</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1625785"></A><EM CLASS="Variable">
+flatp</EM>
+ and <EM CLASS="Variable">
+result-types</EM>
+ are interpreted the same as in <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1625786"></A>The result of <CODE CLASS="Code">
+prepare-statement</CODE>
+ is a prepared-statement. This can be used by calling <A HREF="lw-1258.htm#92324" CLASS="XRef">set-prepared-statement-variables</A> to actually bind the variable, and then use one of the querying or executing interfaces that take a SQL expression argument: <A HREF="lw-1185.htm#32625" CLASS="XRef">execute-command</A>, <A HREF="lw-1253.htm#39816" CLASS="XRef">query</A>, <A HREF="lw-1179.htm#26371" CLASS="XRef">do-query</A>, <A HREF="lw-1259.htm#54409" CLASS="XRef">simple-do-query</A>, <A HREF="lw-1200.htm#17430" CLASS="XRef">map-query</A> and the <CODE CLASS="Code">
+loop for...being each record</CODE>
+ construct.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1625805"></A>A prepared-statement that is associated with a database should be destroyed (by <A HREF="lw-1176.htm#53936" CLASS="XRef">destroy-prepared-statement</A>) before the database is closed, otherwise it may leak memory.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1625809"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1625810"></A><EM CLASS="Variable">
+sql-exp</EM>
+ can be any valid SQL expression, not only a query. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1625811"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1625812"></A>Create a prepared-statement for a SQL expression:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1635717"></A>(setq <EM CLASS="Variable">ps</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1635718"></A>      (sql:prepare-statement</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1625813"></A>       &quot;insert into TABLETWO values(:1, :2)&quot;))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1625814"></A>Then insert records into TABLETWO (which has two columns) by repeatedly doing:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1635440"></A>(sql:set-prepared-statement-variables</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1635441"></A>  <EM CLASS="Variable">ps</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1635442"></A>  (list <EM CLASS="Variable">value1</EM>
+ <EM CLASS="Variable">value2</EM>
+))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1635443"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1625816"></A>(sql:execute-command <EM CLASS="Variable">ps</EM>
+))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1625817"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1625821"></A><A HREF="lw-1253.htm#39816" CLASS="XRef">query</A><BR>
+<A HREF="lw-1179.htm#26371" CLASS="XRef">do-query</A><BR>
+<A HREF="lw-1259.htm#54409" CLASS="XRef">simple-do-query</A><BR>
+<A HREF="lw-1200.htm#17430" CLASS="XRef">map-query</A><BR>
+<A HREF="lw-1257.htm#30104" CLASS="XRef">select</A><BR>
+<A HREF="lw-1258.htm#92324" CLASS="XRef">set-prepared-statement-variables</A><BR>
+<A HREF="lw-1176.htm#53936" CLASS="XRef">destroy-prepared-statement</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1252.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1250.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

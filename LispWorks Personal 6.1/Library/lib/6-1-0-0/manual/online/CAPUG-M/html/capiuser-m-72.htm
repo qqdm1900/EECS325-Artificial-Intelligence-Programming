@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.2.3  Deselection, retraction, and actions
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-73.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-71.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-69.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-63.htm">6 Choices</A> &gt <A HREF="capiuser-m-69.htm">6.2  List panels </A><BR><BR>
+</DIV><A HREF="capiuser-m-73.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-71.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-69.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884864"></A>6.2.3  <A NAME="marker-884651"></A>Deselection, <A NAME="marker-884652"></A>retraction, and <A NAME="marker-884653"></A>actions</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884268"></A><A NAME="marker-884267"></A>As well as selecting items, users often want to deselect them. Items in multiple-selection and extended-selection lists may be deselected. </P>
+<P CLASS="Body">
+<A NAME="pgfId-884269"></A>In a multiple-selection list, deselection is done by clicking on the selected item again with either of the selection or extension gestures.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884270"></A>In an extended-selection list, deselection is done by performing the extension gesture upon the selected item. (If this was done using the selection gesture, the list would behave as a single-selection list and all other selections would be lost.)</P>
+<P CLASS="Body">
+<A NAME="pgfId-884271"></A>Just like a selection, a deselection -- or <I CLASS="Italic">
+retraction</I>
+ -- can have a callback associated with it. </P>
+<P CLASS="Body-Next">
+<A NAME="pgfId-884272"></A>For a multiple-selection list panel, there may be the following callbacks:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-884274"></A><CODE CLASS="Code">
+:selection-callback </CODE>
+<A NAME="marker-884273"></A>-- called when a selection is made</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-884276"></A><CODE CLASS="Code">
+:retract-callback</CODE>
+<A NAME="marker-884275"></A> -- called when a selection is retracted </LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-884879"></A>Consider the following example. The function <CODE CLASS="Code">
+set-title</CODE>
+ changes the title of the interface to the value of the argument passed to it. By using this as the callback to the <CODE CLASS="Code">
+check-button-panel</CODE>
+, the title of the interface is set to the current selection. The <EM CLASS="Variable">
+retract-callback</EM>
+ function displays a message dialog with the name of the button retracted.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-890701"></A>Display the example window:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-890809"></A>(defun set-title (data interface)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890810"></A>  (setf (interface-title interface)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884885"></A>        (format nil &quot;&#126;A&quot; (string-capitalize data))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890814"></A>(make-instance '<A NAME="marker-884884"></A>check-button-panel</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884886"></A>               :items '(one two three four five)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884887"></A>               :print-function 'string-capitalize</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884888"></A>               :selection-callback 'set-title</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884937"></A>               :retract-callback 'test-callback)</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-890736"></A>(contain *)</CODE>
+<P CLASS="Figure">
+<A NAME="pgfId-890743"></A>Figure 6.5  The example check button panel before the callback.<DIV>
+<IMG SRC="capiuser-m-23.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-27.gif">
+</DIV>
+
+<LI CLASS="Step">
+<A NAME="pgfId-890780"></A>Try selecting one of the check buttons. The window title will change:</LI>
+
+<P CLASS="Figure">
+<A NAME="pgfId-890787"></A>Figure 6.6  The example check button panel after the callback.<DIV>
+<IMG SRC="capiuser-m-23.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-28.gif">
+</DIV>
+
+<LI CLASS="Step">
+<A NAME="pgfId-890788"></A>Now de-select the button. Notice that the <EM CLASS="Variable">
+retract-callback</EM>
+ is called.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-890697"></A>For an extended-selection list pane, there may be the following callbacks:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-884280"></A><CODE CLASS="Code">
+:selection-callback </CODE>
+-- called when a selection is made</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-884281"></A><CODE CLASS="Code">
+:retract-callback</CODE>
+ -- called when a selection is retracted </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-884283"></A><CODE CLASS="Code">
+:extend-callback</CODE>
+<A NAME="marker-884282"></A> -- called when a selection is extended</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-884284"></A>Also available in extended-selection and single-selection lists is the action callback. This is called when you double-click on an item. </P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-884287"></A><CODE CLASS="Code">
+:action-callback</CODE>
+<A NAME="marker-884285"></A> -- called when a double-click occurs <A NAME="marker-884286"></A></LI>
+</UL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-73.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-71.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-69.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

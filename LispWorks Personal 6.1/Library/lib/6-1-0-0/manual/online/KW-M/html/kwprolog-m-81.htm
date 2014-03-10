@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.1.2  User-definable Conflict Resolution
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-82.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-80.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-75.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A> &gt; <A HREF="kwprolog-m-75.htm">6.1  Control Flow</A><BR><BR>
+</DIV><A HREF="kwprolog-m-82.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-80.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-75.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-891802"></A>6.1.2  <A NAME="marker-891800"></A><A NAME="55302"></A>User-definable Conflict Resolution</H3>
+<P CLASS="Body">
+<A NAME="pgfId-895768"></A>A <A NAME="marker-895766"></A>conflict resolution strategy is a list of <A NAME="marker-895767"></A>conflict resolution tactics. A conflict resolution tactic is a function which takes as arguments two rule instantiations, and returns <CODE CLASS="Code">
+t</CODE>
+ if and only if the first is preferred to the second, otherwise <CODE CLASS="Code">
+NIL</CODE>
+. A conflict resolution tactic may be defined by</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-895770"></A>(<A NAME="marker-895769"></A>deftactic &lt;tactic-name&gt; {&lt;type&gt;} &lt;lambda-list&gt; [&lt;doc-string] &lt;body&gt;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891808"></A>where <CODE CLASS="Code">
+&lt;tactic-name&gt;</CODE>
+ is the name of the tactic and of the function being defined which implements it, and <CODE CLASS="Code">
+&lt;lambda-list&gt;</CODE>
+ is a two argument lambda-list. <CODE CLASS="Code">
+&lt;type&gt;</CODE>
+ may be either <CODE CLASS="Code">
+:static</CODE>
+ or <CODE CLASS="Code">
+:dynamic</CODE>
+, defaulting to <CODE CLASS="Code">
+:dynamic</CODE>
+. A dynamic tactic is one which looks into the objects which match the rule to make up the instantiation; a static one does not. For example, a tactic which prefers instantiations which match, say, truck objects to instantiations which do not could be defined as static. However, if it looks into the slot values of the truck object it should be defined as dynamic. Static tactics are treated more efficiently but wrongly declaring a tactic as static will lead to incorrect conflict resolution. If <A NAME="marker-895774"></A><EM CLASS="Variable">
+doc-string</EM>
+ is given, then it should be a string. The value can be retrieved by calling the function <CODE CLASS="Code">
+documentation</CODE>
+ with doc-type <CODE CLASS="Code">
+function</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891809"></A>It is an absolute requirement that there exist no instantiations for which</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891810"></A>(&lt;tactic-name&gt; &lt;instantiation1&gt; &lt;instantiation2&gt;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891811"></A>and</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891812"></A>(&lt;tactic-name&gt; &lt;instantiation2&gt; &lt;instantiation1&gt;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891813"></A>both return <CODE CLASS="Code">
+t</CODE>
+. Consequently, for any single given instantiation</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891814"></A>(&lt;tactic-name&gt; &lt;instantiation&gt; &lt;instantiation&gt;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891815"></A>must return <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891816"></A>The function which defines a conflict resolution tactic should be computationally cheap as it is used repeatedly and frequently to compare many different pairs of instantiations.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="kwprolog-m-82.htm#pgfId-891817" CLASS="Hypertext">6.1.2.1  Examples</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-82.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-80.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-75.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

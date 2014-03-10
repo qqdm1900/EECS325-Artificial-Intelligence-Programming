@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.1.2  IDL for the checkingAccount interface
+</TITLE>
+
+<LINK REL="next" HREF="corba-32.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-30.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-29.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-28.htm">4 Writing and Compiling IDL</A> &gt <A HREF="corba-29.htm">4.1  Designing the IDL</A><BR><BR>
+</DIV><A HREF="corba-32.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-30.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-29.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-855645"></A>4.1.2  <A NAME="marker-856049"></A><A NAME="marker-856079"></A>IDL for the checkingAccount interface</H3>
+<P CLASS="Body">
+<A NAME="pgfId-854453"></A>The bank application also manages another sort of account called a checking account. While an ordinary account must maintain a positive balance, a <CODE CLASS="Code">
+checkingAccount</CODE>
+ may be overdrawn up to an agreed limit. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855646"></A>We use IDL's notion of interface inheritance to capture the intuition that a checking account is a special form of account:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853266"></A>// in module BankingDemo </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853704"></A>interface checkingAccount : account { </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853706"></A>  readonly attribute long limit; </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853708"></A>}; </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853267"></A>The declaration <CODE CLASS="Code">
+checkingAccount : account</CODE>
+ specifies that the interface <CODE CLASS="Code">
+checkingAccount</CODE>
+ inherits all the operations and attributes declared in the <CODE CLASS="Code">
+account</CODE>
+ interface. The body of the definition states that a <CODE CLASS="Code">
+checkingAccount</CODE>
+ also supports the additional <CODE CLASS="Code">
+limit</CODE>
+ attribute.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853270"></A>The fact that <CODE CLASS="Code">
+checkingAccount</CODE>
+ inherits some operations from <CODE CLASS="Code">
+account</CODE>
+ does not imply that the methods implementing those operations need to be inherited too. We will exploit this flexibility to provide a specialized <CODE CLASS="Code">
+debit</CODE>
+ method for <CODE CLASS="Code">
+checkingAccounts</CODE>
+.</P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-32.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-30.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-29.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

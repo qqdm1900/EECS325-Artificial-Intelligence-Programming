@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.18  Buffers
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-65.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-63.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A><BR><BR>
+</DIV><A HREF="eduser-m-65.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-63.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-885004"></A>3.18  <A NAME="59060"></A><A NAME="marker-885002"></A>Buffers</H3>
+<P CLASS="Body">
+<A NAME="pgfId-885005"></A>This section contains details of commands used to manipulate buffers.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885007"></A><A NAME="marker-885006"></A>Select Buffer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885008"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885009"></A>Arguments: <EM CLASS="Variable">
+buffer-name<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X B </CODE>
+<EM CLASS="Variable">
+buffer-name</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885010"></A>Displays a buffer called <EM CLASS="Variable">
+buffer-name</EM>
+ in the current window. If no buffer name is provided, the last buffer accessed in the current window is displayed. If the buffer that is selected is already being displayed in another window, any modifications to that buffer are shown simultaneously in both windows.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885012"></A><A NAME="marker-885011"></A>Select Buffer Other Window</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885013"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885014"></A>Arguments: <EM CLASS="Variable">
+buffer-name<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885015"></A>Displays a buffer called <EM CLASS="Variable">
+buffer-name</EM>
+ in a new window. If no buffer name is provided, the last buffer displayed in the current window is selected. If the buffer that is selected is already being displayed in another window, any modifications to that buffer are shown simultaneously in both windows.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885017"></A>Select Pr<A NAME="marker-1055525"></A>evious Buffer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885018"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885020"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+Ctrl+L</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885021"></A>Displays the last buffer<I CLASS="Italic">
+ </I>
+accessed in a new window. If the buffer that is selected is already being displayed in another window, any modifications to that buffer are shown simultaneously in both windows.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907148"></A>A prefix argument causes the appropriately numbered buffer, from the top of the buffer history, to be selected.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-907150"></A>Circulate B<A NAME="marker-1055547"></A>uffers</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-907151"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907101"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+Ctrl+Shift+L</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907102"></A>Move through the buffer history, selecting the successive previous buffers.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885024"></A><A NAME="marker-885023"></A>Kill Buffer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885025"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885026"></A>Arguments: <EM CLASS="Variable">
+buffer-name<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X K </CODE>
+<EM CLASS="Variable">
+buffer-name</EM>
+</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885027"></A>editor:kill-buffer-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+buffer-name</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885028"></A>Deletes a buffer called <EM CLASS="Variable">
+buffer-name</EM>
+<I CLASS="Italic">
+.</I>
+ If no buffer name is provided, the current buffer is deleted. If the buffer that is selected for deletion has been modified then confirmation is asked for before deletion takes place.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885030"></A><A NAME="marker-885029"></A>List Buffers</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885031"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885032"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X Ctrl+B</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885033"></A>Displays a list of all the existing buffers in the Buffers window in the Editor tool. Information is given on the name of the buffer, its mode, whether it has been modified or not, the pathname of any file it is associated with, and its size. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885034"></A>A buffer can be selected by clicking the left mouse button on the buffer name. The buttons on the toolbar can then be used to modify the selected buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885036"></A><A NAME="marker-885035"></A>Create Buffer </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885037"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885038"></A>Arguments: <EM CLASS="Variable">
+buffer-name<BR>
+</EM>
+Key sequence: None</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885039"></A>editor:create-buffer-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+buffer-name</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885040"></A>Creates a buffer<I CLASS="Italic">
+ </I>
+called <EM CLASS="Variable">
+buffer-name</EM>
+<I CLASS="Italic">
+.</I>
+ If no buffer name is provided then the current buffer is selected. If a buffer with the specified name already exists then this becomes the current buffer instead, and no new buffer is created.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-940647"></A><A NAME="marker-940646"></A><A NAME="87801"></A>New Buffer </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-940648"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-940649"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-940651"></A>Creates a new unnamed buffer. The buffer is in Lisp mode.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1022452"></A>default<A NAME="marker-1022480"></A>-buffer-element-type</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1030075"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1030076"></A>Default value: <A NAME="marker-1030086"></A><CODE CLASS="Code">
+lw:simple-char</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1030077"></A>The character element type used when a new buffer is created, for example by <A HREF="eduser-m-64.htm#87801" CLASS="XRef">New Buffer</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885042"></A><A NAME="marker-885041"></A>Insert Buffer </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885043"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885044"></A>Arguments: <EM CLASS="Variable">
+buffer-name<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885045"></A>Inserts the contents of a buffer called <EM CLASS="Variable">
+buffer-name</EM>
+<I CLASS="Italic">
+ </I>
+at the current point. If no buffer name is provided, the contents of the last buffer displayed in the current window are inserted.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885047"></A><A NAME="marker-885046"></A>Rename Buffer </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885048"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885049"></A>Arguments: <EM CLASS="Variable">
+new-name<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885050"></A>Changes the name of the current buffer to <EM CLASS="Variable">
+new-name</EM>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-905602"></A>Print Buffer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-905603"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-905604"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-905605"></A>Prints the current buffer, using <CODE CLASS="Code">
+capi:print-text</CODE>
+. See the <I CLASS="Italic">
+CAPI Reference Manual</I>
+ for details of this function.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885057"></A><A NAME="marker-885056"></A>Toggle Buffer Read-Only</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885058"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885059"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X Ctrl+Q</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885060"></A>Makes the current buffer read only, so that no modification to its contents are allowed. If it is already read only, this restriction is removed.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885062"></A><A NAME="marker-885061"></A>Check Buffer Modified</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885063"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885064"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X Shift+&#126;</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885065"></A>Checks whether the current buffer is modified or not.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885067"></A>Buffer Not<A NAME="marker-1055569"></A> Modified</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885068"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885069"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+Shift+&#126;</CODE>
+</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885070"></A>editor:buffer-not-modified-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+buffer</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885071"></A>Makes the current buffer not modified.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885072"></A>The argument <EM CLASS="Variable">
+buffer</EM>
+<I CLASS="Italic">
+ </I>
+is the name of the buffer to be un-modified. The default is the current buffer.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-65.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-63.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

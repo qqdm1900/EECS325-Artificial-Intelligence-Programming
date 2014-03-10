@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.2.3  Using the debugger when tracing
+</TITLE>
+
+<LINK REL="next" HREF="lw-45.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-43.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-41.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-39.htm">5 The Trace Facility</A> &gt; <A HREF="lw-41.htm">5.2  Tracing options</A><BR><BR>
+</DIV><A HREF="lw-45.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-43.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886283"></A>5.2.3  Using the debugger when tracing</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886600"></A><A NAME="marker-886697"></A>:break</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886602"></A>Trace keyword</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886285"></A><A NAME="marker-886284"></A>:break<EM CLASS="Variable">
+ form</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886288"></A><A NAME="marker-886286"></A><A NAME="marker-886287"></A>If <EM CLASS="Variable">
+form</EM>
+ evaluates to non-nil, the debugger is entered directly from <A HREF="lw-675.htm#58889" CLASS="XRef">trace</A>. If it returns <CODE CLASS="Code">
+nil</CODE>
+, tracing continues as normal. This option lets you force entry to the debugger by supplying a <EM CLASS="Variable">
+form</EM>
+ as simple as <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886289"></A>Upon entry to the traced function, the standard trace information is printed, any supplied <CODE CLASS="Code">
+:before</CODE>
+ forms<EM CLASS="Variable">
+ </EM>
+are executed, and then <EM CLASS="Variable">
+form</EM>
+ is evaluated. </P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886603"></A><A NAME="marker-886698"></A>:break-on-exit</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886616"></A>Trace keyword</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886291"></A><A NAME="marker-886290"></A>:break-on-exit<EM CLASS="Variable">
+ form</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886292"></A>Like <CODE CLASS="Code">
+:break</CODE>
+, this option allows you to enter the debugger from <A HREF="lw-675.htm#58889" CLASS="XRef">trace</A>. It differs in that the debugger is entered <I CLASS="Italic">
+after</I>
+ the function call is complete.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886293"></A>Upon exit from the traced function, the standard trace information is printed, and then <EM CLASS="Variable">
+form</EM>
+ is evaluated. Finally, any supplied <CODE CLASS="Code">
+:after</CODE>
+ forms are executed. </P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886843"></A><A NAME="marker-886866"></A>:backtrace</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886850"></A>Trace keyword</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886851"></A>:backtrace <EM CLASS="Variable">
+backtrace</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886852"></A>Generates a backtrace on each call to the traced function. <EM CLASS="Variable">
+backtrace</EM>
+ can be any of the following values:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886853"></A><CODE CLASS="Code">
+:quick</CODE>
+</P>
+<P CLASS="Description-C">Like the <CODE CLASS="Code">
+:bq</CODE>
+ debugger command.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886855"></A><CODE CLASS="Code">
+t</CODE>
+</P>
+<P CLASS="Description-C">Like the <CODE CLASS="Code">
+:b</CODE>
+ debugger command.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886857"></A><CODE CLASS="Code">
+:verbose</CODE>
+</P>
+<P CLASS="Description-C">Like the <CODE CLASS="Code">
+:b :verbose</CODE>
+ debugger command.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886859"></A><CODE CLASS="Code">
+:bug-form</CODE>
+</P>
+<P CLASS="Description-C">Like the <CODE CLASS="Code">
+:bug-form</CODE>
+ debugger command.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-45.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-43.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

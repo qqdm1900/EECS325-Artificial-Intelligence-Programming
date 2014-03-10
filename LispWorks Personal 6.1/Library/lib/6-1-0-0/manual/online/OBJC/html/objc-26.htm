@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.4.3.2  Defining a method that returns a structure
+</TITLE>
+
+<LINK REL="next" HREF="objc-27.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-25.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-24.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-3.htm">1 Introduction to the Objective-C Interface</A> &gt; <A HREF="objc-21.htm">1.4  Defining Objective-C classes and methods</A> &gt; <A HREF="objc-24.htm">1.4.3  Defining Objective-C methods</A><BR><BR>
+</DIV><A HREF="objc-27.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-25.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-24.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-893747"></A>1.4.3.2  Defining a method that returns a structure<A NAME="marker-893746"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-893755"></A>When a the return type of a method is a structure type such as <A HREF="objc-85.htm#93402" CLASS="XRef">ns-rect</A> then the conversion specified in <A HREF="objc-25.htm#64338" CLASS="XRef">Special result conversion for define-objc-method</A> can be used. Alternatively, and for any other structure defined with <A NAME="marker-893759"></A><A HREF="objc-44.htm#38029" CLASS="XRef">define-objc-struct</A>, the method can specify a variable as its <EM CLASS="Variable">
+result-style</EM>
+. This variable is bound to a pointer to a foreign structure of the appropriate type and the method should set the slots in this structure to specify the result. For example, the following definitions show a method that returns a stucture:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893806"></A>(define-objc-struct (pair</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893807"></A>                     (:foreign-name &quot;_Pair&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893808"></A>  (:first :float)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893804"></A>  (:second :float))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893823"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893814"></A>(define-objc-method (&quot;pair&quot; (:struct pair) result-pair)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893815"></A>    ((this my-object))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893816"></A>  (setf (fli:foreign-slot-value result-pair :first) 1f0</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893817"></A>        (fli:foreign-slot-value result-pair :second) 2f0))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-27.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-25.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-24.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

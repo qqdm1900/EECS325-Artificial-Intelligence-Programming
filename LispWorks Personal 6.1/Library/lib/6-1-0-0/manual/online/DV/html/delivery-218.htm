@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.1.4  Compression of CLOS metaobjects
+</TITLE>
+
+<LINK REL="next" HREF="delivery-219.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-217.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-212.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-211.htm">9 Delivery and Internal Systems</A> &gt; <A HREF="delivery-212.htm">9.1  Delivery and CLOS</A><BR><BR>
+</DIV><A HREF="delivery-219.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-217.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-212.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-852470"></A>9.1.4  Compression of CLOS metaobjects</H3>
+<P CLASS="Body">
+<A NAME="pgfId-854185"></A>To reduce the size of the delivered image, the delivery process compresses the representation of CLOS metaobjects (classes, generic functions and methods). This includes: </P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-854190"></A>nullifying the class direct slots of the class.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-854192"></A>Changing the effective slots to a function that is used in the initialization of the instance. This is controlled by <CODE CLASS="Code">
+:metaclasses-to-keep-effective-slots</CODE>
+ and <CODE CLASS="Code">
+:classes-to-keep-effective-slots</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-854198"></A>Compressing the representation of method objects. This is controlled by :<CODE CLASS="Code">
+keep-clos</CODE>
+. If <CODE CLASS="Code">
+:keep-clos</CODE>
+ is <CODE CLASS="Code">
+t</CODE>
+, the representation of method objects is not compressed. There is also no compression if you add a method  to <CODE CLASS="Code">
+method-qualifiers</CODE>
+, <CODE CLASS="Code">
+method-specializers</CODE>
+ or <CODE CLASS="Code">
+method-function</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-854203"></A>Compressing the representation of generic functions. This is not done if <CODE CLASS="Code">
+:keep-clos </CODE>
+is <CODE CLASS="Code">
+t</CODE>
+, or if you add methods to any of the accessors of generic functions.</LI>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-219.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-217.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-212.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.18  Interrogate-Symbols
+</TITLE>
+
+<LINK REL="next" HREF="delivery-268.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-266.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-249.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-249.htm">10 Troubleshooting</A><BR><BR>
+</DIV><A HREF="delivery-268.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-266.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-249.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-855028"></A>10.18  <A NAME="56826"></A>Interrogate-Symbols</H3>
+<P CLASS="Body">
+<A NAME="pgfId-855029"></A><CODE CLASS="Code">
+interrogate-symbols</CODE>
+ is designed to find why symbols are left in the image even though they should not be. Since keeping information in the image would itself keep symbols, the facility has as little functionality as possible. The result is a non-intuitive interface, and you should be ready for this. You are encouraged to try other methods first. In particular, you might consider contacting Lisp Support first. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855030"></A>To use <CODE CLASS="Code">
+interrogate-symbols</CODE>
+ pass <CODE CLASS="Code">
+:interrogate-symbols</CODE>
+ <CODE CLASS="Code">
+t</CODE>
+ to <CODE CLASS="Code">
+deliver</CODE>
+. This loads the interrogate symbol facility. and causes the delivered image to check for the command line argument <CODE CLASS="Code">
+-interrogate-symbols</CODE>
+ on startup. If this command line argument appears, the image first does symbol interrogation, and then proceeds to run the application as normal. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855031"></A>Symbol interrogation starts by building an internal table of reverse pointers, during which the image prints some messages about its progress. When it finishes, it prompts: </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855032"></A>Enter Symbol &gt;</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-855034"></A>The input is read one line at a time. Each line is interpreted as a single string, as follows:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-855035"></A>If the string does not contain the character <CODE CLASS="Code">
+#&#92;:</CODE>
+, and does not begin with <CODE CLASS="Code">
+#&#92;+</CODE>
+, it is a symbol name. The string is used as the argument to <CODE CLASS="Code">
+find-symbol </CODE>
+(in the current package). </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-855539"></A>Note the string is used as-is, so it must not contain escape characters or  leading or trailing spaces, and must be in the right case. For example, the symbol that is printed </P>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855036"></A>SETF::&#92;&quot;USER&#92;&quot; &#92;&quot;WHATEVER&#92;&quot;</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-855037"></A>must be entered:</P>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855038"></A>SETF::&quot;USER&quot; &quot;WHATEVER&quot;  </CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-855039"></A>[ omitting the escape characters <CODE CLASS="Code">
+#&#92;&#92;</CODE>
+ ] and to find the symbol <CODE CLASS="Code">
+CAR</CODE>
+, you must enter <CODE CLASS="Code">
+CAR</CODE>
+, and not <CODE CLASS="Code">
+car. #&#92;</CODE>
+: characters after the first one (or the first pair) are taken as part of the symbol.  </P>
+<P CLASS="Step-C">
+<A NAME="pgfId-855041"></A>If the symbol is found, the image prints a list, when the first element is the symbol, the second element is a list of <I CLASS="Italic">
+interesting</I>
+ symbols that point to that symbol (possibly through <I CLASS="Italic">
+uninteresting</I>
+ symbols), and the third element is a list of symbols that point to the symbol directly. A symbol B points to symbol B directly when there is a chain of pointers from A to B which does not go via another symbol.</P>
+<P CLASS="Step-C">
+<A NAME="pgfId-855042"></A>An <I CLASS="Italic">
+interesting</I>
+ symbol is a symbol in another package, or a symbol from the same package which is pointed to by a symbol from another package. The idea is that the interesting symbols are the symbols that are most likely to be worth further investigation. </P>
+<P CLASS="Step-C">
+<A NAME="pgfId-855043"></A>Both the second and the third element may be the symbol <CODE CLASS="Code">
+:MANY</CODE>
+ rather than a list, if there are more the <CODE CLASS="Code">
+sys::*maximum-interrogate-return*</CODE>
+ (default value <CODE CLASS="Code">
+30</CODE>
+) of them.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-855044"></A>If the string contains a <CODE CLASS="Code">
+#&#92;:</CODE>
+ character or a pair of <CODE CLASS="Code">
+#&#92;:</CODE>
+ characters, and there are characters after it, it is a package name followed by a symbol name. The characters up to the first <CODE CLASS="Code">
+#&#92;:</CODE>
+ are used to search for the package. If it is found, it skips the <CODE CLASS="Code">
+#&#92;:</CODE>
+, and if the following characters are <CODE CLASS="Code">
+#&#92;:</CODE>
+ it skips them, too.  The rest of the string is then used as a symbol name. Like in 1. above, both the package name and the symbol name must match exactly the actual package and symbol name. The output is the same as in 1. </LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855045"></A>If the string starts with <CODE CLASS="Code">
+#&#92;+</CODE>
+ followed by a string as in 1. or 2., then the symbol is found as in 1. or 2. Instead of looking for symbols that point to it, the image builds a tree of rereverse pointers starting from the symbol, going to depth <CODE CLASS="Code">
+sys::*check-symbol-depth*</CODE>
+. In the tree, the <CODE CLASS="Code">
+car</CODE>
+ is an object and the <CODE CLASS="Code">
+cdr</CODE>
+ is a list of pointers to it. Each pointer may be a single object (if it has reached the depth limit, or found an object that is already in the tree), or a recursive tree. The tree may be quite extensive.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855046"></A>If the first <CODE CLASS="Code">
+#&#92;:</CODE>
+ character (or pair) is the last character in the string, than the line specifies a package name. If the string does not start with a <CODE CLASS="Code">
+#&#92;+</CODE>
+, the image prints each symbol from other packages that points (as defined in 1.above) to symbols in the package, followed by a list of the symbols in the package that it points to. To construct is this it has to check the reverse pointers from all the symbols in the package, which may take a long time if the package contains many symbols. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-855047"></A>This option is especially useful in conjunction with the <CODE CLASS="Code">
+:smash-packages-symbols</CODE>
+ keyword to <CODE CLASS="Code">
+deliver</CODE>
+, to find why a package that should have gone remains in the image. </P>
+<LI CLASS="Step">
+<A NAME="pgfId-855048"></A>If the string ends with <CODE CLASS="Code">
+#&#92;:</CODE>
+ as in 4. above, but starts with <CODE CLASS="Code">
+#&#92;+</CODE>
+, then the rest of the string is treated as in 4., but the image simply prints for each the symbol in the package the same information that 1. prints for a single symbol.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-854117"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-268.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-266.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-249.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

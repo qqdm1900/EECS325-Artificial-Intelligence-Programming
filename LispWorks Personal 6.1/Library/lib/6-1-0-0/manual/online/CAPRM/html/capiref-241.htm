@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ map-pane-children
+</TITLE>
+
+<LINK REL="next" HREF="capiref-242.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-240.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-242.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-240.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-899625"></A><A NAME="60027"></A>map<A NAME="marker-4170421"></A>-pane-children</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-899815"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-899629"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1116888"></A>Calls a function on each of a pane's children.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4170393"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4170394"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1116879"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-899631"></A>map-pane-children <EM CLASS="Variable">
+pane</EM>
+ <EM CLASS="Variable">
+function</EM>
+ &amp;key <EM CLASS="Variable">
+visible</EM>
+ <EM CLASS="Variable">
+test</EM>
+ <EM CLASS="Variable">
+reverse</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2913702"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2913703"></A><EM CLASS="Variable">
+pane</EM>
+</P>
+<P CLASS="RDescription-C">A CAPI pane.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2919013"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A function of one argument.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2919018"></A><EM CLASS="Variable">
+visible</EM>
+</P>
+<P CLASS="RDescription-C">A boolean. The default value is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2920269"></A><EM CLASS="Variable">
+test</EM>
+</P>
+<P CLASS="RDescription-C">A function of one argument, or <CODE CLASS="Code">
+nil</CODE>
+. The default is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2920284"></A><EM CLASS="Variable">
+reverse</EM>
+</P>
+<P CLASS="RDescription-C">A boolean. The default value is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2913704"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1529900"></A>The function <CODE CLASS="Code">
+map-pane-children</CODE>
+ applies <EM CLASS="Variable">
+function</EM>
+ to <EM CLASS="Variable">
+pane</EM>
+'s immediate children.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2925634"></A>If <EM CLASS="Variable">
+visible</EM>
+ is true, then <EM CLASS="Variable">
+function</EM>
+ is applied only to the visible children.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2925635"></A>If <EM CLASS="Variable">
+test</EM>
+ is non-nil, it is a function which is applied first to each child, and only those for which <EM CLASS="Variable">
+test</EM>
+ returns a true value are then passed to <EM CLASS="Variable">
+function</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2926939"></A>If <EM CLASS="Variable">
+reverse</EM>
+ is non-nil, the order in which the children are processed is reversed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1529757"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2946056"></A>This example constructs a pinboard containing random ellipses. A repainting function is mapped over them, restricted to those with width greater than height.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-2953337"></A>(defun random-color () </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946057"></A>  (aref #(:red :blue :green :yellow :cyan </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946058"></A>          :magenta :pink :purple :black :white) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946059"></A>        (random 10)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946060"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946061"></A>(defun random-origin () </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946062"></A>  (list (random 350) (random 250)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946063"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946064"></A>(defun random-size () </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946065"></A>  (list (+ 10 (random 40)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946066"></A>        (+ 10 (random 40))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946067"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953608"></A>(setf ellipses</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953609"></A>      (capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953610"></A>       (make-instance </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953611"></A>        'capi:pinboard-layout </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953612"></A>        :children </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953613"></A>        (loop for i below 40</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953614"></A>              for origin = (random-origin)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953615"></A>              for size = (random-size)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953616"></A>              collect </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953617"></A>              (make-instance 'capi:ellipse </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953618"></A>                             :x (first origin) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953619"></A>                             :y (second origin)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953620"></A>                             :width (first size) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953621"></A>                             :height (second size)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953622"></A>                             :graphics-args </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953623"></A>                             (list :foreground </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953624"></A>                                   (random-color)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946085"></A>                             :filled t)))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2953648"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946086"></A>(defun repaint (ellipse) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946087"></A>  (setf (capi:pinboard-object-graphics-args ellipse)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946088"></A>       (list :foreground (random-color)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946089"></A>  (capi:redraw-pinboard-object ellipse t))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946090"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946091"></A>(defun widep (ellipse)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946092"></A>  (capi:with-geometry ellipse</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2946093"></A>      (&gt; capi:%width% capi:%height%)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1532637"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-2953683"></A>(capi:map-pane-children ellipses 'repaint :test 'widep)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2953747"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2953748"></A><A HREF="capiref-242.htm#93902" CLASS="XRef">map-pane-descendant-children</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-242.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-240.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

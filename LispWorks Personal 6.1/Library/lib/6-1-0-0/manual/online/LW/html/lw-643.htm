@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ disassemble
+</TITLE>
+
+<LINK REL="next" HREF="lw-644.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-642.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-644.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-642.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1039467"></A><A NAME="30702"></A>disassemble<A NAME="marker-1039466"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1039468"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039469"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039470"></A>Prints the machine code of a compiled function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039471"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039472"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039473"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039474"></A>disassemble <EM CLASS="Variable">
+name-or-function</EM>
+ =&gt; nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039475"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039476"></A><EM CLASS="Variable">
+name-or-function</EM>
+</P>
+<P CLASS="RDescription-C">Either a function object, a lambda expression or a symbol with a function definition.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039477"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039478"></A>This function prints the machine code of a compiled function, to <CODE CLASS="Code">
+*standard-ouput*</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039479"></A>On UNIX and Mac OS X, the number of instructions in the disasembly is also printed, at the end.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039480"></A>If the function denoted by <EM CLASS="Variable">
+name-or-function </EM>
+is not compiled then it is first compiled using the function <CODE CLASS="Code">
+compile</CODE>
+.  This happens if <EM CLASS="Variable">
+name-or-function</EM>
+ is a lambda expression or an symbol naming an interpreted function.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039481"></A>An error is signalled if <EM CLASS="Variable">
+name-or-function</EM>
+ is not suitable. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039482"></A>Examples </H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039483"></A>(disassemble  #'(lambda (x) (progn x)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039484"></A>(disassemble  'cons)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039485"></A>(disassemble  #'map)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039486"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039487"></A>The output from <CODE CLASS="Code">
+disassemble</CODE>
+ lacks useful information such as local and lexical variable names and symbol names. The representation of integers or characters or Lisp objects in general is not easily readable without detailed knowledge of the internals of the Lisp system and the host machine instruction set.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039488"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039492"></A><A HREF="lw-634.htm#28197" CLASS="XRef">compile</A><BR>
+<A HREF="lw-635.htm#53982" CLASS="XRef">compile-file</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-644.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-642.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

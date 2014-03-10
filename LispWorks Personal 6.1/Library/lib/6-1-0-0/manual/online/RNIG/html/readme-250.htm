@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="readme.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.1.4  Memory requirements
+</TITLE>
+
+<LINK REL="next" HREF="readme-251.htm" TYPE="text/html">
+<LINK REL="prev" HREF="readme-249.htm" TYPE="text/html">
+<LINK REL="up" HREF="readme-246.htm" TYPE="text/html">
+<LINK REL="top" HREF="readme.htm" TYPE="text/html">
+<LINK REL="contents" HREF="readme-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="readme-485.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="readme.htm">LispWorks Release Notes and Installation Guide</A> &gt; <A HREF="readme-245.htm">12 Troubleshooting, Patches and Reporting Bugs</A> &gt; <A HREF="readme-246.htm">12.1  Troubleshooting</A><BR><BR>
+</DIV><A HREF="readme-251.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-249.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-246.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-909289"></A>12.1.4  <A NAME="41983"></A>Memory<A NAME="marker-912034"></A> requirements</H3>
+<P CLASS="Body">
+<A NAME="pgfId-909298"></A>To run the full LispWorks system, with its GUI, you will need around 30MB of swap space for the image and whatever else is necessary to accommodate your application.</P>
+<P CLASS="Body">
+<A NAME="pgfId-917502"></A>We recommend that you routinely check the size of your image using <CODE CLASS="Code">
+cl:room</CODE>
+, whether you see warning messages or not.</P>
+<P CLASS="Body">
+<A NAME="pgfId-909299"></A>When running a large image, you may occasionally see </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-909300"></A>&lt;**&gt; Failed to enlarge memory</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-909301"></A>printed to the standard output. </P>
+<P CLASS="Body">
+<A NAME="pgfId-909302"></A>The message means that the LispWorks image is close to the limit: it attempted to expand one of the GC generations, but there was not enough swap space to accommodate the resulting growth in image size. When this happens, the garbage collector is invoked. It will usually manage to free the required space, but if it cannot then crashes may result. Therefore you should take action to reduce allocation or increase available memory when you see this message.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911979"></A>Check the size of the image, both by <CODE CLASS="Code">
+cl:room</CODE>
+ and by OS facilities (such as <CODE CLASS="Code">
+ps</CODE>
+ or <CODE CLASS="Code">
+top</CODE>
+ on *nix, Task Manager on Windows) to see if all the sizes are as expected. If there are large discrepencies, check them.</P>
+<P CLASS="Body">
+<A NAME="pgfId-909303"></A>Occasionally, however, continued demand for additional memory will end up exhausting resources. You will then see the message above repeatedly, and there will be little or no other activity apparent in the image. At this point you should restart the image, or increase swap space. In cases where external libraries are mapped above LispWorks and inhibit its growth, you may be able to relocate LispWorks, as described under &quot;Startup relocation&quot; in the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Release Notes and Installation Guide - 23 Dec 2011</I></P>
+<P><A HREF="readme-251.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-249.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-246.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

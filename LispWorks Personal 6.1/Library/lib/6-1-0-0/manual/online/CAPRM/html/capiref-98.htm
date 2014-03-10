@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ drawn-pinboard-object
+</TITLE>
+
+<LINK REL="next" HREF="capiref-99.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-97.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-99.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-97.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-2495636"></A><A NAME="61619"></A>drawn<A NAME="marker-4039581"></A>-pinboard-object</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-2481747"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892708"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892449"></A>The class <CODE CLASS="Code">
+drawn-pinboard-object</CODE>
+ is a subclass of <A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A> which is drawn by a supplied function, and is provided as a means of the user creating their own pinboard objects. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4036974"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4036975"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892452"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-892454"></A><A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892456"></A>Initargs</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892458"></A><CODE CLASS="Code">
+:display-callback</CODE>
+<A NAME="marker-952827"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-892751"></A>Called to display the object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892460"></A>Accessors</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-892462"></A><A NAME="marker-3760297"></A>drawn-pinboard-object-display-callback</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892464"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892466"></A>The <EM CLASS="Variable">
+display-callback</EM>
+ is called with the output pane to draw on, the <CODE CLASS="Code">
+drawn-pinboard-object</CODE>
+ itself, and the <EM CLASS="Variable">
+x</EM>
+, <EM CLASS="Variable">
+y</EM>
+, <EM CLASS="Variable">
+width</EM>
+ and <EM CLASS="Variable">
+height</EM>
+ of the object, and it is expected to redraw that section. The <EM CLASS="Variable">
+display-callback</EM>
+ should not draw outside the object's bounds.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2578167"></A>An alternative way of doing this is to create a subclass of <A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A> and to provide a method for <CODE CLASS="Code">
+</CODE>
+<A HREF="capiref-99.htm#11889" CLASS="XRef">draw-pinboard-object</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2578171"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-892474"></A>(defun draw-an-ellipse </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892520"></A>       (output-pane self x y width height)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892476"></A>       (let ((x-radius (floor width 2))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892477"></A>             (y-radius (floor height 2)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892478"></A>              (gp:draw-ellipse output-pane</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892479"></A>                (+ x x-radius) (+ y y-radius)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892480"></A>                x-radius y-radius</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892481"></A>                :foreground :red</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-892482"></A>                :filled t)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-892486"></A>(capi:contain (make-instance </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892515"></A>                'capi:drawn-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892488"></A>                :visible-min-width 200</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892489"></A>                :visible-min-height 100</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892490"></A>                :display-callback 'draw-an-ellipse))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892494"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892496"></A><A HREF="capiref-293.htm#24209" CLASS="XRef">pinboard-layout</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-99.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-97.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

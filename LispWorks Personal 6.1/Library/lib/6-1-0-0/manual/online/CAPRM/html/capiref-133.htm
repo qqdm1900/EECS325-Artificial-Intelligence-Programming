@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ execute-with-interface
+</TITLE>
+
+<LINK REL="next" HREF="capiref-134.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-132.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-134.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-132.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1361492"></A><A NAME="execute-with-interface"></A>execute<A NAME="marker-4066936"></A>-with-interface</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1361493"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1361494"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1361495"></A>Allows functions to be executed in the event process of a given interface.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4066460"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4066461"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1361497"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1361498"></A>execute-with-interface <EM CLASS="Variable">
+interface</EM>
+ <EM CLASS="Variable">
+function</EM>
+ &amp;rest <EM CLASS="Variable">
+args</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7361858"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-7362037"></A><EM CLASS="Variable">
+interface</EM>
+</P>
+<P CLASS="RDescription-C">An <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A></P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-7362667"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-7362679"></A><EM CLASS="Variable">
+args</EM>
+</P>
+<P CLASS="RDescription-C">Arguments passed to <EM CLASS="Variable">
+function</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1361499"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1361500"></A>The function <CODE CLASS="Code">
+execute-with-interface </CODE>
+is a useful way of operating on an <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A> owned by another process.  It takes a top-level interface, a function and some arguments and queues the function to be run by that process when it next enters its event loop (for an interface owned by the current process, it calls the function immediately).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8927143"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-7362947"></A><CODE CLASS="Code">
+execute-with-interface</CODE>
+ applies <EM CLASS="Variable">
+function</EM>
+ even if <EM CLASS="Variable">
+interface</EM>
+ does not have a screen representation, for example when it is destroyed. To call <EM CLASS="Variable">
+function</EM>
+ only if <EM CLASS="Variable">
+interface</EM>
+ has a representation, use <A HREF="capiref-134.htm#18700" CLASS="XRef">execute-with-interface-if-alive</A>.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-5925452"></A>All accesses (reads as well as writes) on a CAPI interface and its sub-elements should be performed in the interface process. Within a callback on the interface this happens automatically, but <CODE CLASS="Code">
+execute-with-interface</CODE>
+ is a useful utility in other circumstances.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-8927328"></A><CODE CLASS="Code">
+execute-with-interface</CODE>
+ calls <EM CLASS="Variable">
+function</EM>
+ on the current process if <EM CLASS="Variable">
+interface</EM>
+ does not have a process.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-9979881"></A><A HREF="capiref-12.htm#92272" CLASS="XRef">apply-in-pane-process</A> and <A HREF="capiref-13.htm#95274" CLASS="XRef">apply-in-pane-process-if-alive</A>  are other ways to call a function in the appropriate CAPI process. They takes panes of all classes, not merely <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A>.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8927329"></A>Example</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1697655"></A>(setq a (capi:display (make-instance 'capi:interface)))</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1699524"></A>(capi:execute-with-interface </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1699525"></A> a 'break </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1697656"></A> &quot;Break inside the interface process&quot;)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1909517"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1910606"></A><A HREF="capiref-12.htm#92272" CLASS="XRef">apply-in-pane-process</A><BR>
+<A HREF="capiref-13.htm#95274" CLASS="XRef">apply-in-pane-process-if-alive</A><BR>
+<A HREF="capiref-134.htm#18700" CLASS="XRef">execute-with-interface-if-alive</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-134.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-132.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

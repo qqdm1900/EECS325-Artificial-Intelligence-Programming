@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ wait-processing-events
+</TITLE>
+
+<LINK REL="next" HREF="lw-1134.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1132.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1134.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1132.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1084230"></A><A NAME="29061"></A>wait<A NAME="marker-1084713"></A>-processing-events</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1084231"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1084232"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1084233"></A>Waits processing events.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1802585"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1802586"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1084234"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1084842"></A>wait-processing-events <EM CLASS="Variable">
+timeout</EM>
+ &amp;key <EM CLASS="Variable">
+wait-reason</EM>
+ <EM CLASS="Variable">
+wait-function wait-args</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1084949"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1084950"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A number or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1084966"></A><EM CLASS="Variable">
+wait-reason</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1084981"></A><EM CLASS="Variable">
+wait-function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1085000"></A><EM CLASS="Variable">
+wait-args</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1084240"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1084241"></A><EM CLASS="Variable">
+result</P>
+<P CLASS="RDescription-C"></EM>
+<CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1084242"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1084244"></A>The function <CODE CLASS="Code">
+wait-processing-events</CODE>
+ does not return until one of two conditions is met:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1757885"></A><EM CLASS="Variable">
+timeout</EM>
+ is non-nil and <EM CLASS="Variable">
+timeout</EM>
+ seconds have passed.</LI>
+<P CLASS="RBullet-C">
+<A NAME="pgfId-1757963"></A>In this case, <EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1085131"></A><EM CLASS="Variable">
+wait-function</EM>
+ returns a true value.</LI>
+<P CLASS="RBullet-C">
+<A NAME="pgfId-1757999"></A>In this case, <EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-1085180"></A><EM CLASS="Variable">
+wait-reason</EM>
+ provides the value returned by <A HREF="lw-1109.htm#98388" CLASS="XRef">process-whostate</A> when called on the current process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1085498"></A><EM CLASS="Variable">
+wait-function</EM>
+ is called periodically with arguments <EM CLASS="Variable">
+wait-args</EM>
+. <EM CLASS="Variable">
+wait-function</EM>
+ may be called many times and in several places. Therefore <EM CLASS="Variable">
+wait-function</EM>
+ should be fast and make no assumptions about its dynamic context.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1105876"></A><CODE CLASS="Code">
+wait-processing-events </CODE>
+processes all events sent to the current process, including system events such as window messages on Microsoft Windows, and objects sent by other processes via <A HREF="lw-1094.htm#17963" CLASS="XRef">process-send</A>. In the latter case, the objects must be lists of the form <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+function</EM>
+<CODE CLASS="Code">
+ . </CODE>
+<EM CLASS="Variable">
+arguments</EM>
+<CODE CLASS="Code">
+)</CODE>
+, which cause <EM CLASS="Variable">
+function</EM>
+ to be applied to <EM CLASS="Variable">
+arguments</EM>
+ (the values are discarded).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1106093"></A><CODE CLASS="Code">
+wait-processing-events</CODE>
+ is a useful alternative to <CODE CLASS="Code">
+sleep</CODE>
+ in a situation where you want to process events to see window updates and so on.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1084255"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1270089"></A><A HREF="lw-1094.htm#17963" CLASS="XRef">process-send</A><BR>
+<A HREF="lw-1109.htm#98388" CLASS="XRef">process-whostate</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1134.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1132.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

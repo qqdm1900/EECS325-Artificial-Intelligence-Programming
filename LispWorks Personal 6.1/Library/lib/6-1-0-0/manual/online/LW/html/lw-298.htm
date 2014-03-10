@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.10  Low level atomic operations
+</TITLE>
+
+<LINK REL="next" HREF="lw-299.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-297.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-244.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A><BR><BR>
+</DIV><A HREF="lw-299.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-297.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-899237"></A>15.10  <A NAME="marker-899235"></A><A NAME="72244"></A>Low level atomic operations</H3>
+<P CLASS="Body">
+<A NAME="pgfId-899238"></A>Low level atomic operations are defined in all cases for a specific set of places. These places are listed in <A HREF="lw-298.htm#24834" CLASS="XRef">Places for low-level atomic operations</A>:</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-899245"></A><A NAME="24834"></A>Places for low-level atomic operations<DIV>
+<IMG SRC="lw-21.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-899249"></A>Place</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-899251"></A>Notes</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899253"></A>(<CODE CLASS="Code">
+symbol-value</CODE>
+ <EM CLASS="Variable">
+symbol</EM>
+)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899255"></A>When <EM CLASS="Variable">
+symbol</EM>
+ is dynamically bound, this means the dynamically bound value.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899257"></A>A dynamically bound <EM CLASS="Variable">
+symbol</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899259"></A>The dynamically bound value.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899261"></A>A lexically bound <EM CLASS="Variable">
+symbol</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899263"></A>It is an error to use a low level atomic operation on a lexically bound symbol.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899265"></A>(<CODE CLASS="Code">
+car</CODE>
+ <EM CLASS="Variable">
+cons</EM>
+)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899267"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899269"></A>(<CODE CLASS="Code">
+cdr</CODE>
+ <EM CLASS="Variable">
+cons</EM>
+)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899271"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899273"></A>(<CODE CLASS="Code">
+the</CODE>
+ <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+place</EM>
+)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899275"></A>For another <EM CLASS="Variable">
+place</EM>
+ listed in this table.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899277"></A>(<CODE CLASS="Code">
+svref</CODE>
+ <EM CLASS="Variable">
+sv</EM>
+ <EM CLASS="Variable">
+index</EM>
+)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899279"></A>Only <CODE CLASS="Code">
+simple-vector</CODE>
+.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899281"></A>Structure accessors </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899283"></A>The structure must be defined at compile time.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899285"></A>(<CODE CLASS="Code">
+slot-value</CODE>
+ <EM CLASS="Variable">
+object</EM>
+ <EM CLASS="Variable">
+slot-name</EM>
+)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-899287"></A>See below.</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-899289"></A>Notes about atomic <CODE CLASS="Code">
+slot-value</CODE>
+<A NAME="marker-899288"></A> operations:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-899293"></A>They ignore the MOP <A HREF="lw-572.htm#59914" CLASS="XRef">slot-value-using-class</A> protocol and can only be used for <CODE CLASS="Code">
+:instance</CODE>
+ and <CODE CLASS="Code">
+:class</CODE>
+ allocated slots.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-899294"></A>They are slower than the atomic operations on other types of object because they have to lock the instance. Normally it would be better to have a slot pointing to some other object (for example a structure) and do the atomic operations on that object.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-899295"></A>The low level atomic operations implicitly ensure order of memory between operations in different threads.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899304"></A>The low level atomic operations are: <A HREF="lw-1336.htm#98408" CLASS="XRef">atomic-push</A>, <A HREF="lw-1335.htm#98291" CLASS="XRef">atomic-pop</A>, <A HREF="lw-1334.htm#23044" CLASS="XRef">atomic-fixnum-incf</A>, <A HREF="lw-1334.htm#42128" CLASS="XRef">atomic-fixnum-decf</A>, <A HREF="lw-1332.htm#18429" CLASS="XRef">atomic-incf</A>, <A HREF="lw-1332.htm#10326" CLASS="XRef">atomic-decf</A>, <A HREF="lw-1333.htm#36022" CLASS="XRef">atomic-exchange</A> and <A HREF="lw-1346.htm#59556" CLASS="XRef">compare-and-swap</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899324"></A>Application of macros that are defined by <A HREF="lw-1352.htm#71198" CLASS="XRef">define-atomic-modify-macro</A> is also restricted to the places in <A HREF="lw-298.htm#24834" CLASS="XRef">Places for low-level atomic operations</A> above, because they implicitly use low level atomic operations.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899328"></A>You can test whether a place is suitable for use with these operations by the predicate <A HREF="lw-1401.htm#43111" CLASS="XRef">low-level-atomic-place-p</A>.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="lw-299.htm#pgfId-899333" CLASS="Hypertext">15.10.1  Aids for implementing modification checks</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="lw-301.htm#pgfId-899379" CLASS="Hypertext">15.10.2  Ensuring order of memory between operations in different threads</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-299.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-297.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

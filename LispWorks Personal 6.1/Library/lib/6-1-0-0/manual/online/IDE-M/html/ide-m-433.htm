@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 22.7.6  Effect of compiler transforms
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-434.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-432.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-427.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-411.htm">22 The Profiler</A> &gt; <A HREF="ide-m-427.htm">22.7  Profiling pitfalls</A><BR><BR>
+</DIV><A HREF="ide-m-434.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-432.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-427.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-867451"></A>22.7.6  Effect of compiler transforms</H3>
+<P CLASS="Body">
+<A NAME="pgfId-867456"></A>The compiler may transform some functions such that they are present in the source code but not in the compiled code.</P>
+<P CLASS="Body">
+<A NAME="pgfId-867457"></A>For example, the compiler transforms this source expression: </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-867458"></A>(member 'x '(x y z) :test #'eq)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-867459"></A>into this compiled expression: </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-867460"></A>(memq 'x '(x y z))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-867461"></A>Therefore function <CODE CLASS="Code">
+memq</CODE>
+ will appear instead of <CODE CLASS="Code">
+member</CODE>
+ in the profile results.</P>
+<P CLASS="Body">
+<A NAME="pgfId-867454"></A>Similarly, you cannot profile inlined functions.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-434.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-432.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-427.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

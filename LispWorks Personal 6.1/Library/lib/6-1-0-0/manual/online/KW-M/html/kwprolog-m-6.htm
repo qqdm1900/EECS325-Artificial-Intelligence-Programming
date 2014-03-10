@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.3  Technical Overview
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-7.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-5.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-3.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-3.htm">1 Introduction</A><BR><BR>
+</DIV><A HREF="kwprolog-m-7.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-5.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-3.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-889820"></A>1.3  <A NAME="marker-889819"></A>Technical Overview</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889821"></A>KnowledgeWorks includes:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889822"></A>High performance inferencing mechanisms:</LI>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-889826"></A> <B CLASS="Bold">
+forward chaining</B>
+<A NAME="marker-889823"></A><A NAME="marker-889824"></A><A NAME="marker-889825"></A> (OPS compatible)</P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-889829"></A> <B CLASS="Bold">
+backward chaining</B>
+<A NAME="marker-889827"></A><A NAME="marker-889828"></A> (Prolog compatible)</P>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889831"></A>A powerful standard <B CLASS="Bold">
+object system</B>
+<A NAME="marker-889830"></A> (CLOS)</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889833"></A>A flexible standard<A NAME="marker-889832"></A> <B CLASS="Bold">
+procedural language</B>
+ (Common Lisp)</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889835"></A><B CLASS="Bold">
+Metaprotocols</B>
+<A NAME="marker-889834"></A> for extending the object and rule systems (MOP &amp; MRP -- see below)</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891026"></A>Support for multiple independent inferencing operations using inferencing state objects.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889838"></A>A full set of <B CLASS="Bold">
+graphical tools</B>
+<A NAME="marker-889836"></A> for developing and <A NAME="marker-889837"></A>debugging knowledge bases</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889841"></A>Built using the CAPI and integrated with the LispWorks IDE.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889843"></A><B CLASS="Bold">
+Integration</B>
+ within larger applications, possibly following a completely different paradigm</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-889942"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="kwprolog-m-4.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-889943"></A>KnowledgeWorks rules perform pattern-matching directly over the <EM CLASS="Emphasis">
+object base</EM>
+ (KnowledgeWorks <A NAME="marker-889944"></A>CLOS objects and KnowledgeWorks structures). Forward chaining rules use this pattern-matching to perform <A NAME="marker-889945"></A>actions, while backward chaining rules use it to deduce <A NAME="marker-889946"></A>goals. The actions of forward chaining rules can call backward chaining rules, and the backward chaining <A NAME="marker-889947"></A><A NAME="marker-889948"></A>inference engine may also invoke the forward chainer. Forward chaining rules may be grouped to increase the modularity of the rulebase and to introduce a mechanism for procedural control by explicit invocation of rule groups.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889950"></A>KnowledgeWorks <A NAME="marker-889949"></A>CLOS objects are conventional CLOS objects with the simple addition of a <A NAME="marker-889951"></A>mixin class providing KnowledgeWorks functionality, and they can be used outside the rulebase as ordinary CLOS objects. Any existing CLOS code may simply be reused and augmented with rules by adding the <A NAME="marker-889952"></A>mixin to chosen classes.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889954"></A>LispWorks CLOS includes an implementation of the <A NAME="marker-889953"></A>Meta Object Protocol (MOP) which allows the object system to be extended and customized in a standard way. In the same spirit of self-reflection, KnowledgeWorks rule-based system can be extended and customized using a <A NAME="marker-889955"></A>Meta Rule Protocol (MRP) which allows meta-interpreters to be defined for rules. Together these protocols mean that KnowledgeWorks defines a region rather than a point in space of <A NAME="marker-889956"></A>KBS shells, and ensure that developers are not constrained by the default behavior of the system.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889957"></A>KnowledgeWorks has a comprehensive programming environment that enables rapid development and debugging of rulebases. Tools are provided that enable the interactive examination of classes and objects. Graphical debugging windows allow forward and backward chaining rules to be single-stepped and monitored. The full LispWorks programming environment and tools are also available, for example, the editor which allows rules to be defined and redefined incrementally and dynamically (see the <I CLASS="Italic">
+LispWorks Editor User Guide</I>
+).</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="kwprolog-m-7.htm#pgfId-891497" CLASS="Hypertext">1.3.1  Appearance of the graphical tools</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-7.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-5.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-3.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

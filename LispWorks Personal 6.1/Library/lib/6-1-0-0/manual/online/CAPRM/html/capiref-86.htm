@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ display-replacable-dialog
+</TITLE>
+
+<LINK REL="next" HREF="capiref-87.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-85.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-87.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-85.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-4744019"></A><A NAME="92308"></A>display<A NAME="marker-4744018"></A>-replacable-dialog</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-4744020"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4744021"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4715434"></A>Displays a replacable dialog.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4715435"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4715436"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4715437"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4715438"></A>display-replacable-dialog <EM CLASS="Variable">
+interface</EM>
+ &amp;rest <EM CLASS="Variable">
+args</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4715439"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-4715440"></A><EM CLASS="Variable">
+interface</EM>
+</P>
+<P CLASS="RDescription-C">An interface.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-4715444"></A><EM CLASS="Variable">
+args</EM>
+</P>
+<P CLASS="RDescription-C">Other arguments as for <A HREF="capiref-77.htm#34181" CLASS="XRef">display-dialog</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4752697"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-4752698"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The value returned by the dialog.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4715445"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4738814"></A>The function <CODE CLASS="Code">
+display-replacable-dialog</CODE>
+ displays a dialog that can be replaced by another dialog.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4738815"></A><EM CLASS="Variable">
+interface</EM>
+ is a CAPI interface to be displayed as a dialog.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4744213"></A>The arguments <EM CLASS="Variable">
+args</EM>
+ are interpreted the same as the arguments to <A HREF="capiref-77.htm#34181" CLASS="XRef">display-dialog</A>, except that <EM CLASS="Variable">
+modal</EM>
+ is ignored. <CODE CLASS="Code">
+display-replacable-dialog</CODE>
+ displays the dialog like <A HREF="capiref-77.htm#34181" CLASS="XRef">display-dialog</A>. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-4738816"></A>Within the scope of <CODE CLASS="Code">
+display-replacable-dialog</CODE>
+ (that is, inside the callbacks) the programmer can call <A HREF="capiref-352.htm#47963" CLASS="XRef">replace-dialog</A> which replaces the dialog by a new dialog and destroys the existing one. There can be many calls to <A HREF="capiref-352.htm#47963" CLASS="XRef">replace-dialog</A> inside the same scope of <CODE CLASS="Code">
+display-replacable-dialog</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4738817"></A><CODE CLASS="Code">
+display-replacable-dialog</CODE>
+ returns the last dialog that was displayed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4738818"></A>Inside <CODE CLASS="Code">
+display-replacable-dialog</CODE>
+, the functions that use the current dialog, such as <A HREF="capiref-136.htm#33351" CLASS="XRef">exit-dialog</A> and <A HREF="capiref-6.htm#24290" CLASS="XRef">abort-dialog</A>, work in the same way that they work inside <A HREF="capiref-77.htm#34181" CLASS="XRef">display-dialog</A>, except that they don't affect the return value of <CODE CLASS="Code">
+display-replacable-dialog</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4715466"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4715470"></A><A HREF="capiref-6.htm#24290" CLASS="XRef">abort-dialog</A><BR>
+<A HREF="capiref-77.htm#34181" CLASS="XRef">display-dialog</A><BR>
+<A HREF="capiref-136.htm#33351" CLASS="XRef">exit-dialog</A><BR>
+<A HREF="capiref-352.htm#47963" CLASS="XRef">replace-dialog</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-87.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-85.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.4.4  How inheritance works
+</TITLE>
+
+<LINK REL="next" HREF="objc-28.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-26.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-21.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-3.htm">1 Introduction to the Objective-C Interface</A> &gt; <A HREF="objc-21.htm">1.4  Defining Objective-C classes and methods</A><BR><BR>
+</DIV><A HREF="objc-28.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-26.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-21.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-891317"></A>1.4.4  <A NAME="58888"></A>How inheritance works<A NAME="marker-892554"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-891324"></A><A HREF="objc-23.htm#24976" CLASS="XRef">Defining an Objective-C class</A> introduced the <A NAME="marker-892452"></A><A HREF="objc-40.htm#90461" CLASS="XRef">define-objc-class</A> macro with the <CODE CLASS="Code">
+:objc-class-name</CODE>
+ class option for naming the Objective-C class. Since this macro is like <CODE CLASS="Code">
+defclass</CODE>
+, it can specify any number of superclasses from which the Lisp class will inherit and also provides a way for superclass of the Objective-C class to be chosen:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891347"></A>If some of the Lisp classes in the class precedence list were defined with <A HREF="objc-40.htm#90461" CLASS="XRef">define-objc-class</A> and given an <A NAME="marker-892504"></A>associated Objective-C class name, then the first such class name is used. It is an error for several such classes to be in the class precedence list unless their associated Objective-C classes are also superclasses of each other in the same order as the precedence list.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891450"></A>If no superclasses have an associated Objective-C class, then the <CODE CLASS="Code">
+:objc-superclass-name</CODE>
+<A NAME="marker-891449"></A> class option can be used to specify the superclass explicitly.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891452"></A>Otherwise <A NAME="marker-891451"></A><CODE CLASS="Code">
+NSObject</CODE>
+ is used as the superclass.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-891456"></A>For example, both of these definitions define an Objective-C class that inherits from <CODE CLASS="Code">
+MyObject</CODE>
+, via <CODE CLASS="Code">
+my-object</CODE>
+ in the case of <CODE CLASS="Code">
+my-special-object</CODE>
+ and explicitly for <CODE CLASS="Code">
+my-other-object</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891462"></A>(define-objc-class my-special-object (my-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891463"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891464"></A>  (:objc-class-name &quot;MySpecialObject&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891465"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891466"></A>(define-objc-class my-other-object ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891467"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891468"></A>  (:objc-class-name &quot;MyOtherObject&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891469"></A>  (:objc-superclass-name &quot;MyObject&quot;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891459"></A>The set of methods available for a given Objective-C class consists of those defined on the class itself as well as those inherited from its superclasses.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-28.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-26.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-21.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

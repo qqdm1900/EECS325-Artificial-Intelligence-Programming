@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ list-attribute-types
+</TITLE>
+
+<LINK REL="next" HREF="lw-1192.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1190.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1192.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1190.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1001436"></A><A NAME="63513"></A>list<A NAME="marker-1047417"></A>-attribute-types</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1001437"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001439"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1001440"></A>Returns type information for a table's attributes.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001441"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1001442"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001443"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1001444"></A>list-attribute-types <EM CLASS="Variable">
+table</EM>
+ &amp;key <EM CLASS="Variable">
+database owner</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+ </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001445"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001446"></A><EM CLASS="Variable">
+table</EM>
+ </P>
+<P CLASS="RDescription-C">A table.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001448"></A><EM CLASS="Variable">
+database</P>
+<P CLASS="RDescription-C"></EM>
+A database.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001449"></A><EM CLASS="Variable">
+owner</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+:all</CODE>
+ or a string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001450"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001451"></A><EM CLASS="Variable">
+result</P>
+<P CLASS="RDescription-C"></EM>
+A list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001452"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1001453"></A>The function <CODE CLASS="Code">
+list-attribute-types</CODE>
+ returns type information for the attributes in the table given by <EM CLASS="Variable">
+table</EM>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1002449"></A><EM CLASS="Variable">
+database</EM>
+ has a default value of <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001454"></A>If <EM CLASS="Variable">
+owner</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+,  only user-owned attributes are considered. This is the default.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001455"></A>If <EM CLASS="Variable">
+owner</EM>
+ is <CODE CLASS="Code">
+:all</CODE>
+, all attributes are considered.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001456"></A>If <EM CLASS="Variable">
+owner</EM>
+ is a string, this denotes a username and only attributes owned by <EM CLASS="Variable">
+owner</EM>
+ are considered.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001457"></A><EM CLASS="Variable">
+result</EM>
+ is a list in which each element is a list (<EM CLASS="Variable">
+attribute</EM>
+ <EM CLASS="Variable">
+datatype</EM>
+ <EM CLASS="Variable">
+precision</EM>
+ <EM CLASS="Variable">
+scale</EM>
+ <EM CLASS="Variable">
+nullable</EM>
+). <EM CLASS="Variable">
+attribute</EM>
+ is a string denoting the atribute name. <EM CLASS="Variable">
+datatype</EM>
+ is the vendor-specific type as described in <A HREF="lw-1157.htm#10521" CLASS="XRef">attribute-type</A>. <EM CLASS="Variable">
+nullable</EM>
+ is 1 if the attribute accepts the value NULL, and 0 otherwise.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001458"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1001459"></A>To print the type of every attribute in the database, do</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1003565"></A>(loop for tab in </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1003566"></A>      (sql:list-tables)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1003567"></A>      do </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1003568"></A>      (loop for type-info in </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1003569"></A>            (sql:list-attribute-types tab)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1003570"></A>            do</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1003571"></A>            (format t &quot;&#126;&amp;Table &#126;S Attribute &#126;S Type &#126;S&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1003572"></A>                    tab</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1003573"></A>                    (first type-info)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1001468"></A>                    (second type-info))))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001469"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1001473"></A><A HREF="lw-1157.htm#10521" CLASS="XRef">attribute-type</A><BR>
+<A HREF="lw-1192.htm#15639" CLASS="XRef">list-attributes</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1192.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1190.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-atomic-modify-macro
+</TITLE>
+
+<LINK REL="next" HREF="lw-1353.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1351.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1353.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1351.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1377357"></A><A NAME="71198"></A>define<A NAME="marker-1381325"></A>-atomic-modify-macro</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1377358"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1377359"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1377360"></A>An atomic version of <CODE CLASS="Code">
+define-modify-macro</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1377361"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1377362"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1377363"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1377364"></A>define-atomic-modify-macro <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+lambda-list</EM>
+ <EM CLASS="Variable">
+function</EM>
+ &amp;optional <EM CLASS="Variable">
+doc-string</EM>
+ =&gt; <EM CLASS="Variable">
+name</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1377365"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1377366"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1377367"></A><EM CLASS="Variable">
+lambda-list</EM>
+</P>
+<P CLASS="RDescription-C">A <CODE CLASS="Code">
+define-modify-macro</CODE>
+ lambda list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1377368"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1377369"></A><EM CLASS="Variable">
+doc-string</EM>
+</P>
+<P CLASS="RDescription-C">A string, not evaluated.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1377370"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1377371"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1377372"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1377373"></A>The macro <CODE CLASS="Code">
+define-atomic-modify-macro</CODE>
+ has the same syntax as <CODE CLASS="Code">
+cl:define-modify-macro</CODE>
+, and performs a similar operation.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1377374"></A>The resulting macro <EM CLASS="Variable">
+name</EM>
+ can be used only on one of the specific set of places defined for low level atomic operations as listed in <A HREF="lw-298.htm#72244" CLASS="XRef">Low level atomic operations</A>. The macro <EM CLASS="Variable">
+name</EM>
+ reads the value of the <EM CLASS="Variable">
+place</EM>
+, calls the function <EM CLASS="Variable">
+function</EM>
+, and then writes the result of the function call if the value in <EM CLASS="Variable">
+place</EM>
+ has not changed since it was first read. If that value did change, the operation is repeated until it succeeds.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1377375"></A>Note that this means:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1377376"></A>The function <EM CLASS="Variable">
+function</EM>
+ may be called more than once for each invocation of the defined macro. Therefore <EM CLASS="Variable">
+function</EM>
+ should not have any side effects.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1377377"></A><EM CLASS="Variable">
+function</EM>
+ must be thread-safe, because it may run concurrently in several threads if the defined macro <EM CLASS="Variable">
+name</EM>
+ is used from several threads simultaneously.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1377378"></A>It is possible in principle for the value to change more than once between reading the <EM CLASS="Variable">
+place</EM>
+ and writing the new value. This may end up resetting the value in <EM CLASS="Variable">
+place</EM>
+ to its original value, and hence the operation will succeed. This is equivalent to the code being invoked after the last change, unless <EM CLASS="Variable">
+function</EM>
+ itself looks at <EM CLASS="Variable">
+place</EM>
+, which may cause inconsistent results.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1444494"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1445429"></A><A HREF="lw-1401.htm#43111" CLASS="XRef">low-level-atomic-place-p</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1353.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1351.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

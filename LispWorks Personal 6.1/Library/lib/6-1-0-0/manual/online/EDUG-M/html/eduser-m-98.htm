@@ -1,0 +1,418 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.3.2  Definition searching
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-99.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-97.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-96.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-93.htm">4 Editing Lisp Programs</A> &gt <A HREF="eduser-m-96.htm">4.3  Functions and definitions</A><BR><BR>
+</DIV><A HREF="eduser-m-99.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-97.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-96.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-883902"></A>4.3.2  <A NAME="marker-883900"></A>Definition searching</H3>
+<P CLASS="Body">
+<A NAME="pgfId-883903"></A>Definition searching involves taking a name for a function (or a macro, variable, editor command, and so on), and finding the actual definition of that function. This is particularly useful in large systems, where code may exist in a large number of source files.</P>
+<P CLASS="Body">
+<A NAME="pgfId-898515"></A>Function definitions are found by using information provided either by LispWorks source recording or by a Tags file. If source records or Tags information have not been made available to LispWorks, then the following commands do not work. To make the information available to LispWorks, set the variable <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+ appropriately. See the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ for details.</P>
+<P CLASS="Body">
+<A NAME="pgfId-898506"></A><A NAME="marker-898505"></A>Source records are created if the variable <CODE CLASS="Code">
+*record-source-files*</CODE>
+ is true when definitions are compiled, evaluated or loaded. See the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ for details.</P>
+<P CLASS="Body">
+<A NAME="pgfId-883909"></A>Tag information is set up by the editor itself, and can be saved to a file for future use. For each file in a defined system, the tag file contains a relevant file name entry, followed by names and positions of each defining form in that file. Before tag searching can take place, there must exist a buffer containing the required tag information. You can specify a previously saved tag file as the current tag buffer, or you can create a new one using <A HREF="eduser-m-98.htm#29695" CLASS="XRef">Create Tags Buffer</A>. GNU Emacs tag files are fully compatible with LispWorks editor tag files.</P>
+<P CLASS="Body">
+<A NAME="pgfId-965220"></A>After a command such as <CODE CLASS="Code">
+Meta+.</CODE>
+ (<A HREF="eduser-m-98.htm#10196" CLASS="XRef">Find Source</A>), if there are multiple definitions repeated use of <CODE CLASS="Code">
+Meta+,</CODE>
+ (<A HREF="eduser-m-98.htm#28035" CLASS="XRef">Continue Tags Search</A>) finds them in turn. If you then wish to revisit a particular definition, try the commands <A HREF="eduser-m-50.htm#32120" CLASS="XRef">Go Back</A> and <A HREF="eduser-m-50.htm#61953" CLASS="XRef">Select Go Back</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-883913"></A><A NAME="10196"></A>Find So<A NAME="marker-969533"></A>urce </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-883914"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883915"></A>Argument: <EM CLASS="Variable">
+name<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Meta+. </CODE>
+<EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883916"></A>Tries to find the source code for <EM CLASS="Variable">
+name</EM>
+. The symbol under the current point is offered as a default value for <EM CLASS="Variable">
+name</EM>
+<I CLASS="Italic">
+. </I>
+A prefix argument automatically causes this default value to be used. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883917"></A>If the source code for <EM CLASS="Variable">
+name</EM>
+ is found, the file in which it is contained is displayed in a buffer. When there is more than one definition for <EM CLASS="Variable">
+name</EM>
+, <CODE CLASS="Code">
+Find Source </CODE>
+finds the first definition, and<CODE CLASS="Code">
+ Meta+,</CODE>
+ (<A HREF="eduser-m-98.htm#28035" CLASS="XRef">Continue Tags Search</A>) finds subsequent definitions.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-898565"></A><CODE CLASS="Code">
+Find Source</CODE>
+ searches for definitions according to the value of <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+. You can control which source record information is searched, and the order in which these are searched, by setting this variable appropriately. See the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ for details. There is an example setting for this variable in the configuration files supplied.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-898569"></A>If <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+ contains the value <CODE CLASS="Code">
+:tags</CODE>
+, <CODE CLASS="Code">
+Find Source</CODE>
+ prompts for the name of a tags file, and this is used for the current and subsequent searches.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-925917"></A>The found source is displayed according to the value of <A HREF="eduser-m-151.htm#88714" CLASS="XRef">editor:*source-found-action*</A>. This depends on the buffer with the found definition being in Lisp mode. For information on how to ensure this for particular file types, see <A HREF="eduser-m-94.htm#25263" CLASS="XRef">Automatic entry into lisp mode</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-883924"></A><A NAME="marker-883923"></A><A NAME="37515"></A>Find Source for Dspec</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-883925"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883926"></A>Argument: <EM CLASS="Variable">
+dspec<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883928"></A>This command is similar to <CODE CLASS="Code">
+Find Source</CODE>
+, but takes a definition spec <EM CLASS="Variable">
+dspec</EM>
+ instead of a name as its argument.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886829"></A>For example, given a generic function <CODE CLASS="Code">
+foo</CODE>
+ of one argument, with methods specializing on classes <CODE CLASS="Code">
+bar</CODE>
+ and <CODE CLASS="Code">
+baz</CODE>
+,</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-920099"></A>Find Source for Dspec foo </CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-920100"></A>will find each method definition in turn (with the continuation via <CODE CLASS="Code">
+Meta+</CODE>
+,) whereas</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-898603"></A>Find Source for Dspec (method foo (bar))</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-898604"></A>finds only the definition of the method on <CODE CLASS="Code">
+bar</CODE>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-919853"></A><A NAME="marker-919851"></A><A NAME="72074"></A>Find Command Definition</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-919854"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-919855"></A>Argument: <EM CLASS="Variable">
+command<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-919856"></A>This command is similar to <A HREF="eduser-m-98.htm#10196" CLASS="XRef">Find Source</A>, but takes the name of an editor command, and tries to find its source code.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-919878"></A>Except in the Personal Edition, you can use this command to find the definitions of the predefined editor commands. See the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ chapter &quot;Customization of LispWorks&quot; for details.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-919905"></A><A NAME="marker-919929"></A>Edit Editor Command</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-919906"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-919907"></A>Argument: <EM CLASS="Variable">
+command<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-919908"></A>This is a synonym for <A HREF="eduser-m-98.htm#72074" CLASS="XRef">Find Command Definition</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-898606"></A><A NAME="marker-898605"></A>View Source Search</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-883931"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883932"></A>Argument: <EM CLASS="Variable">
+function<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883934"></A>Shows the results of the latest source search (initiated by <A HREF="eduser-m-98.htm#10196" CLASS="XRef">Find Source</A> or <A HREF="eduser-m-98.htm#37515" CLASS="XRef">Find Source for Dspec</A> or <A HREF="eduser-m-98.htm#72074" CLASS="XRef">Find Command Definition</A>) in the Find Definitions view of the Editor. See the chapter on the Editor tool in the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+ for more information about the Find Definitions view.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-919956"></A><A NAME="marker-919955"></A><A NAME="74484"></A>List Definitions</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-919957"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-919958"></A>Argument: <EM CLASS="Variable">
+name<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-920040"></A>List the definitions for <EM CLASS="Variable">
+name</EM>
+. The symbol under the current point is offered as a default value for <EM CLASS="Variable">
+name</EM>
+<I CLASS="Italic">
+. </I>
+A prefix argument automatically causes this default value to be used.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-920060"></A>This command searches for definitions and shows the results in the Find Definitions view of the Editor tool instead of finding the first definition. It does not set up the <CODE CLASS="Code">
+Meta+,</CODE>
+ action. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-920066"></A>See the chapter on the Editor tool in the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+ for more information about the Find Definitions view.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-919973"></A><A NAME="marker-919972"></A>List Definitions For Dspec</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-919974"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-919975"></A>Argument: <EM CLASS="Variable">
+dspec<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-920050"></A>This command is similar to <A HREF="eduser-m-98.htm#74484" CLASS="XRef">List Definitions</A>, but takes a definition spec <EM CLASS="Variable">
+dspec</EM>
+ instead of a name as its argument.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-919944"></A>This command searches for definitions and shows the results in the Find Definitions view of the Editor tool instead of finding the first definition.  This command does not set up the <CODE CLASS="Code">
+Meta+,</CODE>
+ action. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-920069"></A>See the chapter on the Editor tool in the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+ for more information about the Find Definitions view.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-883938"></A><A NAME="marker-883936"></A><A NAME="29695"></A>Create Tags Buffer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-883939"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883940"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883941"></A>Creates a buffer containing Tag search information, for all the <CODE CLASS="Code">
+.lisp</CODE>
+ files in the current directory. If you want to use this information at a later date then save this buffer to a file (preferably a file called <CODE CLASS="Code">
+TAGS</CODE>
+ in the current directory). </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883942"></A>The format of the information contained in this buffer is compatible with that of GNU Emacs tags files. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883943"></A>A prefix argument causes the user to be prompted for the name of a file containing a list of files, to be used for constructing the tags table.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-883946"></A><A NAME="79036"></A>Find Ta<A NAME="marker-969643"></A>g </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-883947"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-898641"></A>Key sequence: <CODE CLASS="Code">
+Meta+?</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883949"></A>Tries to find the source code for a name containing a partial or complete match a supplied string by examining the Tags information indicated by the value of <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-898635"></A>The text under the current point is offered as a default value for the string<I CLASS="Italic">
+.</I>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885696"></A>If the source code for a match is found, the file in which it is contained is displayed. When there is more than one definition, <CODE CLASS="Code">
+Find Tag</CODE>
+ finds the first definition, and<CODE CLASS="Code">
+ Meta+,</CODE>
+ (<A HREF="eduser-m-98.htm#28035" CLASS="XRef">Continue Tags Search</A>) finds subsequent definitions.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-891751"></A>The found source is displayed according to the value of <A HREF="eduser-m-151.htm#88714" CLASS="XRef">editor:*source-found-action*</A>.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885694"></A>If there is no tags information indicated by the value of <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+, <CODE CLASS="Code">
+Find Tag</CODE>
+ prompts for the name of a tags file. The default is a file called <CODE CLASS="Code">
+TAGS</CODE>
+ in the current directory. If there is no such file, you can create one using <A HREF="eduser-m-98.htm#29695" CLASS="XRef">Create Tags Buffer</A>. If you want to search a different directory, specify the name of a tags file in that directory.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886824"></A>See the chapter on the <CODE CLASS="Code">
+DSPEC</CODE>
+ package in the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+<I CLASS="Italic">
+ </I>
+for information on how to use the <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+ variable to control how this command operates. There is an example setting for this variable in the configuration files supplied.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885708"></A>See also <A HREF="eduser-m-98.htm#10196" CLASS="XRef">Find Source</A><EM CLASS="Callout">
+, </EM>
+<A HREF="eduser-m-98.htm#37515" CLASS="XRef">Find Source for Dspec</A> and <A HREF="eduser-m-98.htm#29695" CLASS="XRef">Create Tags Buffer</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-883958"></A><A NAME="marker-883957"></A><A NAME="29107"></A>Tags Search</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-883959"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883960"></A>Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883961"></A>Exhaustively searches each file mentioned in the Tags files indicated by the value of <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+ for a supplied string <EM CLASS="Variable">
+string</EM>
+. Note that this does not merely search for definitions, but for any occurence of the string.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-898701"></A>If <EM CLASS="Variable">
+string</EM>
+ is found, it is displayed in a buffer containing the relevant file. When there is more than one definition, <CODE CLASS="Code">
+Tags Search </CODE>
+finds the first definition, and<CODE CLASS="Code">
+ Meta+,</CODE>
+ (<A HREF="eduser-m-98.htm#28035" CLASS="XRef">Continue Tags Search</A>) finds subsequent definitions.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883963"></A>If there is no Tags file on <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+, <CODE CLASS="Code">
+Tags Search</CODE>
+ prompts for the name of a tags file. The default is a file called <CODE CLASS="Code">
+TAGS</CODE>
+ in the current directory. If there is no such file, you can create one using <A HREF="eduser-m-98.htm#29695" CLASS="XRef">Create Tags Buffer</A>. If you want to search a different directory, specify the name of a tags file in that directory.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-883966"></A><A NAME="28035"></A>Continue Tags<A NAME="marker-969717"></A> Search</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-883967"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883969"></A>Argument: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+,</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883970"></A>Searches for the next match in the current search. This command is only applicable if issued immediately after a <A HREF="eduser-m-98.htm#10196" CLASS="XRef">Find Source</A>, <A HREF="eduser-m-98.htm#37515" CLASS="XRef">Find Source for Dspec</A>, <A HREF="eduser-m-98.htm#72074" CLASS="XRef">Find Command Definition</A>, <A HREF="eduser-m-100.htm#56622" CLASS="XRef">Edit Callers</A>, <A HREF="eduser-m-100.htm#76023" CLASS="XRef">Edit Callees</A>, <A HREF="eduser-m-98.htm#79036" CLASS="XRef">Find Tag</A> or <A HREF="eduser-m-98.htm#29107" CLASS="XRef">Tags Search</A> command.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-883975"></A><A NAME="marker-883974"></A>Tags Query Replace</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-883976"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883977"></A>Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883978"></A>Alows you to replace occurrences of a supplied string <EM CLASS="Variable">
+target</EM>
+ by a second supplied string <EM CLASS="Variable">
+replacement</EM>
+ in each Tags file indicated by the value of <CODE CLASS="Code">
+dspec:*active-finders*.</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-898766"></A>Each time <EM CLASS="Variable">
+target</EM>
+ is found, an action must be specified from the keyboard. For details of the possible actions see <A HREF="eduser-m-70.htm#query replace" CLASS="XRef">Query Replace</A>.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883983"></A>If there is no Tags file indicated by <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+, <CODE CLASS="Code">
+Tags Query Replace</CODE>
+ prompts for the name of a tags file. The default is a file called <CODE CLASS="Code">
+TAGS</CODE>
+ in the current directory. If there is no such file, you can create one using <A HREF="eduser-m-98.htm#29695" CLASS="XRef">Create Tags Buffer</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-883986"></A><A NAME="marker-883985"></A><A NAME="20615"></A>Visit Tags File </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-883987"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883988"></A>Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883989"></A>Prompts for a Tags file <EM CLASS="Variable">
+file</EM>
+ and makes the source finding commands use it. This is done by modifying, if necessary, the value of <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-898781"></A>If <EM CLASS="Variable">
+file</EM>
+ is already in <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+, this command does nothing.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-898805"></A>If there are other Tags files indicated then <CODE CLASS="Code">
+Visit Tags File</CODE>
+ prompts for whether to add simply add <EM CLASS="Variable">
+file</EM>
+ as the last element of <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+, or to save the current value of <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+ and start a new list of active finders, setting <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+ to the new value (<CODE CLASS="Code">
+:internal</CODE>
+ <EM CLASS="Variable">
+file</EM>
+). In this case, the previous active finders list can be restored by the command <A HREF="eduser-m-98.htm#16445" CLASS="XRef">Rotate Active Finders</A>.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-898927"></A>If the value <CODE CLASS="Code">
+:tags</CODE>
+ appears on the list <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+ then <EM CLASS="Variable">
+file</EM>
+ replaces this value in the list.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-898943"></A>If there is no tags information indicated then <CODE CLASS="Code">
+Visit Tags File</CODE>
+ simply adds <EM CLASS="Variable">
+file</EM>
+ as the last element of <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-898865"></A><A NAME="marker-898864"></A><A NAME="16445"></A>Rotate Active Fi<A NAME="marker-969755"></A>nders</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-898866"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-898867"></A>Key sequence: <CODE CLASS="Code">
+Meta+Ctrl+.</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-965199"></A>Rotates the active finders history, activating the least recent one. This modifies the value of <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-965200"></A>The active finders history can have length greater than 1 if <A HREF="eduser-m-98.htm#20615" CLASS="XRef">Visit Tags File</A> started a new list of active finders, or if a buffer associated with a TAGS file on <CODE CLASS="Code">
+dspec:*active-finders*</CODE>
+ was killed.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-906187"></A><CODE CLASS="Code">
+Visit Other Tags File</CODE>
+<A NAME="marker-906186"></A> is a synonym for <CODE CLASS="Code">
+Rotate Active Finders</CODE>
+.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-99.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-97.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-96.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ double-headed-arrow-pinboard-object
+</TITLE>
+
+<LINK REL="next" HREF="capiref-94.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-92.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-94.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-92.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-2471609"></A><A NAME="32069"></A>double<A NAME="marker-4036614"></A>-headed-arrow-pinboard-object</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-2471610"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2471612"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2471616"></A>A <A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A> that draws itself as an arrow, which can switch dynamically from double-headed to single-headed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4036587"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4036588"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2471617"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-2471621"></A><A HREF="capiref-14.htm#79864" CLASS="XRef">arrow-pinboard-object</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2471624"></A>Initargs</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-2471625"></A><CODE CLASS="Code">
+:double-head-predicate</CODE>
+<A NAME="marker-2481682"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-2480736"></A>A function determining whether a single or double arrowhead is drawn.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2471632"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2481744"></A><EM CLASS="Variable">
+double-head-predicate</EM>
+ should be a function of two arguments returning a boolean value. The first argument is the output pane on which the arrow pinboard object is drawn. The second argument is the arrow pinboard object itself.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2481824"></A><EM CLASS="Variable">
+double-head-predicate</EM>
+ should return a true value if the arrow is to be double-headed, and <CODE CLASS="Code">
+nil</CODE>
+ if a single-headed arrow should be drawn. It is called each time the arrow object is redrawn.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2481982"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-2482251"></A>(defvar *doublep* t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2495622"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531270"></A>(let ((dhr </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531271"></A>       (capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531272"></A>        (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531273"></A>         'capi:pinboard-layout</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531274"></A>         :description</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531275"></A>         (list</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531276"></A>          (make-instance </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531277"></A>           'capi:double-headed-arrow-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531278"></A>           :double-head-predicate</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531279"></A>           #'(lambda (x y) *doublep*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531280"></A>           :start-x 5 :start-y 5 :end-x 95 :end-y 95)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531281"></A>          (make-instance </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531282"></A>           'capi:double-headed-arrow-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531283"></A>           :double-head-predicate</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531284"></A>           #'(lambda (x y) *doublep*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531285"></A>           :head-direction :backwards</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531286"></A>            :start-x 5 :start-y 95 :end-x 95 :end-y 5)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531287"></A>        :visible-min-width 100</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531288"></A>        :visible-min-height 100)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531289"></A>  (dotimes (x 10)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531290"></A>    (sleep 1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531291"></A>    (setq *doublep* (not *doublep*))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2531292"></A>    (mapcar 'capi:redraw-pinboard-object </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-2495634"></A>            (capi:layout-description dhr))))</PRE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-94.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-92.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

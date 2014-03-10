@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-process-profiling
+</TITLE>
+
+<LINK REL="next" HREF="lw-837.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-835.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-837.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-835.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1250071"></A><A NAME="26339"></A>set-<A NAME="marker-1250070"></A>process-profiling</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1250072"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1250073"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1250074"></A>Controls the set of processes that are profiled.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1250075"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1250076"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1250077"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1250078"></A>set-process-profiling <EM CLASS="Variable">
+flag</EM>
+ <EM CLASS="Variable">
+processes</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1251979"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1253388"></A><EM CLASS="Variable">
+flag</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+:add</CODE>
+, <CODE CLASS="Code">
+:remove</CODE>
+ or <CODE CLASS="Code">
+:set</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1251981"></A><EM CLASS="Variable">
+processes</EM>
+</P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+:current</CODE>
+, <CODE CLASS="Code">
+:all</CODE>
+, a <CODE CLASS="Code">
+mp:process</CODE>
+ object, or a list of <CODE CLASS="Code">
+mp:process</CODE>
+ objects which may also contain <CODE CLASS="Code">
+:current</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1251982"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1253504"></A>The function <CODE CLASS="Code">
+set-process-profiling</CODE>
+ modifies the set of processes for which profiling information is (or will be) collected.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1253505"></A>If <CODE CLASS="Code">
+set-process-profiling</CODE>
+ is called while profiling (that is after a call to <A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A> and before the next call to <A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A> with <EM CLASS="Variable">
+print</EM>
+ non-nil) the system immediately starts collecting profile information for the new set of processes.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1253506"></A>When <A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A> is called without passing <EM CLASS="Variable">
+processes</EM>
+, it sets the processes to profile according to the last call to <CODE CLASS="Code">
+set-process-profiling</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1253507"></A><EM CLASS="Variable">
+flag</EM>
+ determines how the set of processes to profile is modified:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1253508"></A><CODE CLASS="Code">
+:add</CODE>
+</P>
+<P CLASS="RDescription-C">The given processes are added to the set.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1253509"></A><CODE CLASS="Code">
+:remove</CODE>
+</P>
+<P CLASS="RDescription-C">The given processes are removed from the set.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1253510"></A><CODE CLASS="Code">
+:set</CODE>
+</P>
+<P CLASS="RDescription-C">The given processes are used as the set.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1253511"></A><EM CLASS="Variable">
+processes</EM>
+ controls which processes are added to the set, removed from the set or are contained in the set, as follows:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1253512"></A><CODE CLASS="Code">
+:current</CODE>
+</P>
+<P CLASS="RDescription-C">Means the current process. When <A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A> is called it interprets <CODE CLASS="Code">
+:current</CODE>
+ to mean the current process at the time it is called. If <CODE CLASS="Code">
+set-process-profiling</CODE>
+ is called while profiling, <CODE CLASS="Code">
+:current</CODE>
+ is interpreted as the current process when <CODE CLASS="Code">
+set-process-profiling</CODE>
+ is called.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1253513"></A><CODE CLASS="Code">
+:all</CODE>
+</P>
+<P CLASS="RDescription-C">Means all processes, including those which are created after profiling started.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1253514"></A>A <CODE CLASS="Code">
+mp:process</CODE>
+ object</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1254470"></A>Means that process.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1253515"></A>A list</P>
+<P CLASS="RDescription-C">Means the processes in that list. The list can contain the symbol <CODE CLASS="Code">
+:current</CODE>
+, which is interpreted as described above.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1253516"></A><CODE CLASS="Code">
+set-process-profiling</CODE>
+ can be called whether or not the profiler is collecting information. See <A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A> and <A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1253518"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1253519"></A>Add <EM CLASS="Variable">
+process1</EM>
+ to the set:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1253520"></A>(set-process-profiling :add <EM CLASS="Variable">
+process1</EM>
+)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1253521"></A>Turn off profiling for the current process:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1253522"></A>(set-process-profiling :remove :current)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1253523"></A>Turn off all profiling:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1253524"></A>(set-process-profiling :remove :all)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1253525"></A>Set all processes for later profiling:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1253526"></A>(set-process-profiling :set :all)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1250095"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1250099"></A><A HREF="lw-816.htm#18999" CLASS="XRef">profile</A><BR>
+<A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A><BR>
+<A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-837.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-835.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

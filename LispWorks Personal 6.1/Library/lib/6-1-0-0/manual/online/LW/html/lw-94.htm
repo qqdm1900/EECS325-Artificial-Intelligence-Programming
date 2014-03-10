@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.9.3  The editor's implicit form parser
+</TITLE>
+
+<LINK REL="next" HREF="lw-95.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-93.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-91.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-68.htm">7 Dspecs: Tools for Handling Definitions</A> &gt; <A HREF="lw-91.htm">7.9  Users of location information</A><BR><BR>
+</DIV><A HREF="lw-95.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-93.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-91.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-893903"></A>7.9.3  The editor's implicit form parser</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893909"></A>When testing your form parsers bear in mind that the LispWorks editor has an implicit form parser, independent of explicit parsers defined in the dspec system. It tries to parse a dspec from a top level form which is of length 2 or more and whose car has symbol name beginning with <CODE CLASS="Code">
+&quot;DEF&quot;</CODE>
+. That is:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-893914"></A>(defxyz <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+forms</EM>
+)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-893916"></A>gets parsed as</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-893918"></A>(defxyz <EM CLASS="Variable">
+name</EM>
+)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-893920"></A>which may be a dspec (and thus provides a match for the source location commands). This mechanism operates only when there's no explicit parser defined for <CODE CLASS="Code">
+defxyz</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-894008"></A>The editor's implicit form parser is useful because it matches a common simple case. However it does not work for the <CODE CLASS="Code">
+parameterdef</CODE>
+ example, because that definer's symbol name does not begin with <CODE CLASS="Code">
+&quot;DEF&quot;</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-95.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-93.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-91.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

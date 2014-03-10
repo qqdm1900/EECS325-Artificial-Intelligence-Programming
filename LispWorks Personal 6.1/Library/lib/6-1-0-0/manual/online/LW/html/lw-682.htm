@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ deftransform
+</TITLE>
+
+<LINK REL="next" HREF="lw-683.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-681.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-681.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-681.htm">28 The COMPILER Package</A><BR><BR>
+</DIV><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-681.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-681.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886264"></A>deftransform<A NAME="marker-888196"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886167"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886704"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886730"></A>Defines a function that computes the expansion of a form.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886169"></A>Package </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886170"></A>compiler</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886171"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886172"></A>deftransform <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+transform-name</EM>
+ <EM CLASS="Variable">
+lambda-list</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+list-of-transforms</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886173"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886174"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the function to which the transform is to be applied. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886613"></A><EM CLASS="Variable">
+transform-name</EM>
+</P>
+<P CLASS="RDescription-C">The symbol naming the transformation -- it should be unique for the function being transformed -- and provides a handle with which to redefine an existing transform.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886175"></A><EM CLASS="Variable">
+lambda-list</P>
+<P CLASS="RDescription-C"></EM>
+This must match against the form being expanded before expansion is allowed to take place, in the sense that it must be valid to call a function with such a lambda list using the arguments supplied in the candidate-form for expansion.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886176"></A><EM CLASS="Variable">
+body</EM>
+ </P>
+<P CLASS="RDescription-C">The body of the expander function, the result of which replaces the original form (unless it evaluates to <CODE CLASS="Code">
+compiler::%pass%</CODE>
+, in which case no transformation is applied). </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886797"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886798"></A><EM CLASS="Variable">
+list-of-transforms</EM>
+</P>
+<P CLASS="RDescription-C">A list of the names of transforms defined for the function, including the one just added. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886177"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886178"></A><CODE CLASS="Code">
+deftransform</CODE>
+, like <CODE CLASS="Code">
+defmacro</CODE>
+, defines a function that computes the expansion of a form. Transforms are only used by the compiler and not by the interpreter. <CODE CLASS="Code">
+deftransform</CODE>
+ allows you to add to the optimizations performed by the compiler. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886181"></A>Examples </H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886182"></A>(compiler:deftransform  +  +-of-2  (x y)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886183"></A> '(system::|+2| ,x ,y))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886184"></A>(compiler:deftransform  +  +-of-many (x &amp;rest y)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886185"></A> '(system::|+2| ,x (+ ,@y)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886187"></A> ;; now an expression like (+ a b c 4 5 7 d e f)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886631"></A> ;; compiles to use the binary version</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886632"></A> ;; of + (inlined by default),   </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886633"></A> ;; rather than the full (slow) version of +</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886191"></A>(compiler:deftransform  list  list-of-1 (x)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-889150"></A> '(cons ,x '()))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886193"></A>(compiler:deftransform  list  list-of-2 (x y)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886194"></A> '(cons ,x (cons ,y '())))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886196"></A> ;; save having to call list - </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886814"></A> ;; cons is inlined by default</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886198"></A>(compiler:deftransform  constant  my-trans  (x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886199"></A>     (cond  ((constantp x)   x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886200"></A>            ((consp x)     '(quote ,(eval x)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886201"></A>            (t 'compiler::%pass%)))  ; give up if not a cons</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886203"></A>(compile (defun three-list () (constant (list 1 2 3))))</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886205"></A> ;; the function three-list returns the </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886638"></A> ;; same list (1 2 3)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886206"></A> ;; every time it is called...</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-886207"></A>The <CODE CLASS="Code">
+list-of-2</CODE>
+ example returns </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886208"></A>(LIST-OF-2 LIST-OF-1 COMPILER::LIST-TRANSFORM)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-886209"></A>as its result, since a similar transform already exists in the compiler, by the name <CODE CLASS="Code">
+compiler::list*-transform</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886210"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886211"></A><CODE CLASS="Code">
+deftransform</CODE>
+ differs from <CODE CLASS="Code">
+defmacro</CODE>
+ in various ways: </P>
+<P CLASS="RBody">
+<A NAME="pgfId-886212"></A>The evaluation of the body can return <CODE CLASS="Code">
+compiler:%pass%</CODE>
+ indicating that the form is not to be expanded (in other words, the transform method has elected to give up trying to improve the code). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-886213"></A>The compiler only calls the expander function if the arguments match the lambda list -- macros are unconditionally expanded.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886214"></A>There can be several <CODE CLASS="Code">
+deftransforms</CODE>
+ for the same symbol, each having a different name. (The compiler calls each one in turn until one succeeds. This repeats until they all pass, so that the replacement form may itself be transformed.) </P>
+<P CLASS="RBody">
+<A NAME="pgfId-886215"></A>If a transform takes keyword arguments the compiler preserves the correct order of evaluation. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-886216"></A>A carelessly written <CODE CLASS="Code">
+deftransform</CODE>
+ may lead the compiler to transform valid Common Lisp into incorrect code -- there is no semantic checking of the transform.   </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886217"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886219"></A><A HREF="lw-634.htm#28197" CLASS="XRef">compile</A><BR>
+<A HREF="lw-635.htm#53982" CLASS="XRef">compile-file</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-681.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-681.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

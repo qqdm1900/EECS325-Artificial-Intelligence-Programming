@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ convert-from-foreign-string
+</TITLE>
+
+<LINK REL="next" HREF="fli-79.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-77.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-79.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-77.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1093356"></A><A NAME="25318"></A>convert-from-foreign-string<A NAME="marker-1093355"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-897856"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898030"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-970160"></A>Converts a foreign string to a Lisp string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-969582"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898031"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897857"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897858"></A>convert-from-foreign-string <EM CLASS="Variable">
+pointer</EM>
+ &amp;key <EM CLASS="Variable">
+external-format length</EM>
+ <EM CLASS="Variable">
+null-terminated-p</EM>
+ <EM CLASS="Variable">
+allow-null</EM>
+ =&gt; <EM CLASS="Variable">
+string</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915700"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-915701"></A><EM CLASS="Variable">
+pointer</EM>
+</P>
+<P CLASS="RDescription-C">A pointer to a foreign string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-970187"></A><EM CLASS="Variable">
+external-format</EM>
+</P>
+<P CLASS="RDescription-C">An external format specification.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-970192"></A><EM CLASS="Variable">
+length</EM>
+</P>
+<P CLASS="RDescription-C">The length of the string to convert.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-970197"></A><EM CLASS="Variable">
+null-terminated-p</EM>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+t</CODE>
+, it is assumed the string terminates with a null character. The default value for <EM CLASS="Variable">
+null-terminated-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1034726"></A><EM CLASS="Variable">
+allow-null</EM>
+</P>
+<P CLASS="RDescription-C">A boolean. The default is false.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915702"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-915703"></A><EM CLASS="Variable">
+string</P>
+<P CLASS="RDescription-C"></EM>
+A Lisp string, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915704"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-915705"></A>The function <CODE CLASS="Code">
+convert-from-foreign-string</CODE>
+, given a pointer to a foreign string, converts the foreign string to a Lisp string. The pointer does not need to be of the correct type, as it will automatically be coerced to the correct type as specified by  <EM CLASS="Variable">
+external-format</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039682"></A>The <EM CLASS="Variable">
+external-format</EM>
+ argument is interpreted as by <A HREF="fli-153.htm#28931" CLASS="XRef">with-foreign-string</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-973756"></A>Either <EM CLASS="Variable">
+length</EM>
+ or <EM CLASS="Variable">
+null-terminated-p</EM>
+ must be non-nil. If <EM CLASS="Variable">
+null-terminated-p</EM>
+ is true and <EM CLASS="Variable">
+length</EM>
+ is not specified, it is assumed that the foreign string to be converted is terminated with a null character.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1041834"></A>If <EM CLASS="Variable">
+allow-null</EM>
+ is true, then if a null pointer <EM CLASS="Variable">
+pointer</EM>
+ is passed, <CODE CLASS="Code">
+nil</CODE>
+ is returned. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915708"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-915709"></A><A HREF="fli-80.htm#90659" CLASS="XRef">convert-to-foreign-string</A><BR>
+<A HREF="fli-143.htm#33536" CLASS="XRef">set-locale</A><BR>
+<A HREF="fli-144.htm#75458" CLASS="XRef">set-locale-encodings</A><BR>
+<A HREF="fli-153.htm#28931" CLASS="XRef">with-foreign-string</A><BR>
+<A HREF="fli-47.htm#73135" CLASS="XRef">Modifying a string in a C function</A><BR>
+<A HREF="fli-54.htm#66412" CLASS="XRef">Mapping Nil to a Null Pointer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-79.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-77.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

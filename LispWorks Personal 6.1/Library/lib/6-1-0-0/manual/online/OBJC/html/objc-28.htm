@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.4.5  Invoking methods in the superclass
+</TITLE>
+
+<LINK REL="next" HREF="objc-29.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-27.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-21.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-3.htm">1 Introduction to the Objective-C Interface</A> &gt; <A HREF="objc-21.htm">1.4  Defining Objective-C classes and methods</A><BR><BR>
+</DIV><A HREF="objc-29.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-27.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-21.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-887739"></A>1.4.5  Invoking methods in the superclass</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889877"></A>Within the body of a <A NAME="marker-892559"></A><A HREF="objc-42.htm#19291" CLASS="XRef">define-objc-method</A> or <A NAME="marker-892564"></A><A HREF="objc-41.htm#10195" CLASS="XRef">define-objc-class-method</A> form, the local macro <A NAME="marker-892569"></A><A HREF="objc-39.htm#24229" CLASS="XRef">current-super</A> can be used to obtain a special object which will make <A NAME="marker-892132"></A><A HREF="objc-47.htm#46194" CLASS="XRef">invoke</A> call the method in the superclass of the defining class. This is equivalent to using <CODE CLASS="Code">
+super</CODE>
+<A NAME="marker-892573"></A> in Objective-C.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891667"></A>For example, the Objective-C code:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891538"></A>@implementation MySpecialObject</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891539"></A>- (unsigned int)areaOfWidth:(unsigned int)width</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891540"></A>                height:(unsigned int)height</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891541"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891542"></A>  return 4*[super areaOfWidth:width height:height];</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891543"></A>}</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891544"></A>@end</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891536"></A>could be written as follows in Lisp:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891611"></A>(define-objc-method (&quot;areaOfWidth:height:&quot; (:unsigned :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891612"></A>    ((self my-special-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891613"></A>     (width (:unsigned :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891614"></A>     (height (:unsigned :int)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891615"></A>  (* 4 (invoke (current-super) &quot;areaOfWidth:height:&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891605"></A>                               width height)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-29.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-27.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-21.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

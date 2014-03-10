@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-action-item-error-handling
+</TITLE>
+
+<LINK REL="next" HREF="lw-1000.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-998.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-1000.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-998.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1143871"></A><A NAME="20074"></A>with-<A NAME="marker-1144389"></A>action-item-error-handling</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1143974"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1143982"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1143988"></A>Executes a body of code across action lists and items, signalling errors and then continuing to the next action item.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1143990"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1144003"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1143872"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1144038"></A>with-action-item-error-handling <EM CLASS="Variable">
+action-list-var</EM>
+ <EM CLASS="Variable">
+action-item-var</EM>
+ <EM CLASS="Variable">
+ignore-errors-p</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1143875"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1144160"></A><EM CLASS="Variable">
+action-list-var</EM>
+</P>
+<P CLASS="RDescription-C">A variable.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1144162"></A><EM CLASS="Variable">
+action-item-var</EM>
+</P>
+<P CLASS="RDescription-C">A variable.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1144167"></A><EM CLASS="Variable">
+ignore-errors-p</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1144183"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">A body of Lisp code.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1144192"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1143876"></A>The <CODE CLASS="Code">
+with-action-item-error-handling</CODE>
+ macro executes the <EM CLASS="Variable">
+body</EM>
+ with <EM CLASS="Variable">
+action-list-var</EM>
+ and <EM CLASS="Variable">
+action-item-var</EM>
+ are bound to the action list and item respectively. If <EM CLASS="Variable">
+ignore-errors-p</EM>
+ is set to <CODE CLASS="Code">
+t</CODE>
+ then errors are handled. The behavior of the handler is to signal a warning in which the action-list, item and original error are all reported; execution then continues with the next action-item.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1144328"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1143880"></A>(defun my-execution-function (the-action-list </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1144390"></A>                              other-args</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1143881"></A>                              &amp;key ignore-errors-p</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1143882"></A>                              &amp;allow-other-keys)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1143883"></A>    (with-action-list-mapping (the-action-list</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1143884"></A>                               an-action-item</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1143885"></A>                               action-item-data)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1143886"></A>      (with-action-item-error-handling (the-action-list</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1143887"></A>                                        an-action-item</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1143888"></A>                                        ignore-errors-p)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1143889"></A>        (do-something-interesting-first)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1143890"></A>        (apply (car action-item-data) other-args (cdr action-item-data)))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1143892"></A>If this function was invoked with the keyword argument <CODE CLASS="Code">
+:ignore-errors-p t</CODE>
+, and an error was signalled while executing the body-form(s) for one of the action-items, then a warning such as:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1143894"></A>Warning: Got an error 'The variable *PREV-STATE* is </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1144566"></A>unbound.' while executing action &quot;Initialize State&quot; in list &quot;Startup Inits&quot;.</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1143897"></A>would be signalled and execution would continue with the next action-item.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1143857"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1144670"></A><A HREF="lw-936.htm#23394" CLASS="XRef">*handle-missing-action-in-action-list*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1000.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-998.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

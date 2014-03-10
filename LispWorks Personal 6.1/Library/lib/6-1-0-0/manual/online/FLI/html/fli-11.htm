@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.2.2  Defining a FLI function
+</TITLE>
+
+<LINK REL="next" HREF="fli-12.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-10.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-9.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-4.htm">1 Introduction to the FLI</A> &gt; <A HREF="fli-9.htm">1.2  Using the FLI to get the cursor position</A><BR><BR>
+</DIV><A HREF="fli-12.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-10.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-9.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886887"></A>1.2.2  <A NAME="30878"></A>Defining a FLI function</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886888"></A>This next step uses the <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A> macro to define a FLI function, or interface<A NAME="marker-886889"></A> function, to be used to call the <CODE CLASS="Code">
+GetCursorPos</CODE>
+ function. An interface function takes its arguments, converts them into a C format, calls the foreign function, receives the return values, and converts them into a suitable Lisp format.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886890"></A>(fli:define-foreign-function (get-cursor-position &quot;GetCursorPos&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886891"></A>  ((lp-point lppoint))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886892"></A>  :result-type bool)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886893"></A>In this example, the defined FLI function is <CODE CLASS="Code">
+get-cursor-position</CODE>
+. It takes as its argument a pointer of type <CODE CLASS="Code">
+lppoint</CODE>
+, converts this to a C format, and calls <CODE CLASS="Code">
+GetCursorPos</CODE>
+. It takes the return value it receives from <CODE CLASS="Code">
+GetCursorPos</CODE>
+ and converts it into the FLI <CODE CLASS="Code">
+bool</CODE>
+ type we defined earlier.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886894"></A>We have now defined all the types and functions required to get the cursor position. The next step is to allocate memory for an instance of the <CODE CLASS="Code">
+tagPOINT</CODE>
+ structure using <A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A>. The following line of code binds <CODE CLASS="Code">
+location</CODE>
+ to a pointer that points to such an instance.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886895"></A>(setq location (fli:allocate-foreign-object :type 'point))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886896"></A>Finally, we can use our interface function <CODE CLASS="Code">
+get-cursor-position</CODE>
+ to get the cursor position:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886897"></A>(get-cursor-position location)</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-12.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-10.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-9.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.3  Creating graphical objects
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-178.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-176.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-174.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-174.htm">12 Creating Your Own Panes</A><BR><BR>
+</DIV><A HREF="capiuser-m-178.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-176.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-174.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884254"></A>12.3  Creating graphical objects</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884255"></A>A common feature needed by an application is to have a number of objects displayed in a window and to make events affect the object underneath the cursor. The CAPI provides the ability to create graphical objects, to place them into a window at a specified size and position, and to display them as necessary. Also a function is provided to determine which object is under any given point so that events can be dispatched correctly.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884257"></A>These graphical objects are called <A NAME="marker-884256"></A><I CLASS="Italic">
+pinboard objects</I>
+, as they can only be displayed if they are contained within a <CODE CLASS="Code">
+pinboard-layout</CODE>
+<A NAME="marker-884258"></A>. To define a <A NAME="marker-884259"></A>pinboard-object, you define a subclass of <CODE CLASS="Code">
+drawn-pinboard-object</CODE>
+<A NAME="marker-884260"></A> and specify a drawing routine for it (and you can also specify constraints on the size of your object). You can then make instances of these objects and place them into layouts just as if they were ordinary panes. You can also place these objects inside layouts as long as there is a <CODE CLASS="Code">
+pinboard-layout</CODE>
+ higher up the layout hierarchy that contains the panes.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888806"></A>Note: <CODE CLASS="Code">
+pinboard-object</CODE>
+s are implement as graphics on a native window. Compare this with <CODE CLASS="Code">
+simple-pane</CODE>
+ and its subclasses, where each instance is itself a native window. A consequence of this is that <CODE CLASS="Code">
+simple-pane</CODE>
+s do not work well within a <CODE CLASS="Code">
+pinboard-layout</CODE>
+, since they always appear above the <CODE CLASS="Code">
+pinboard-object</CODE>
+s. For example, to put labels on a pinboard, use <CODE CLASS="Code">
+item-pinboard-object</CODE>
+ rather than <CODE CLASS="Code">
+display-pane</CODE>
+ or <CODE CLASS="Code">
+title-pane</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884262"></A>Here is an example of the built-in pinboard object class <A NAME="marker-884261"></A><CODE CLASS="Code">
+item-pinboard-object</CODE>
+ which displays its text like a <CODE CLASS="Code">
+title-pane</CODE>
+. Note that the function <A NAME="marker-884263"></A><CODE CLASS="Code">
+contain</CODE>
+ always creates a <CODE CLASS="Code">
+pinboard-layout</CODE>
+ as part of the wrapper for the object to be contained, and so it is possible to test the display of <CODE CLASS="Code">
+pinboard-object</CODE>
+s in just the same way as you can test other classes of CAPI object.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-890908"></A>(contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890909"></A>  ;; CONTAIN makes a pinboard-layout if needed, so we don't</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890910"></A>  ;; need one explicitly in this example.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890911"></A>  ;; You will need an explicit pinboard-layout if you define</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890912"></A>  ;; your own interface class.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890913"></A>  (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890914"></A>   'item-pinboard-object</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884268"></A>   :text &quot;Hello world&quot;))</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884889"></A>Figure 12.4  A pinboard object<DIV>
+<IMG SRC="capiuser-m-69.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-72.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-888833"></A>There is another example illustrating <CODE CLASS="Code">
+item-pinboard-object</CODE>
+ in the file</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-888843"></A>examples/capi/graphics/pinboard-object-text-pane.lisp</CODE>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-178.htm#pgfId-908938" CLASS="Hypertext">12.3.1  Buffered drawing</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-179.htm#pgfId-884279" CLASS="Hypertext">12.3.2  The implementation of graph panes</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-180.htm#pgfId-884653" CLASS="Hypertext">12.3.3  An example pinboard object</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-178.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-176.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-174.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

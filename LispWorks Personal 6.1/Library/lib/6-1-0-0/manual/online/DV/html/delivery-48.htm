@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.4.5  Further example
+</TITLE>
+
+<LINK REL="next" HREF="delivery-49.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-47.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-42.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-36.htm">4 Delivering your Application</A> &gt; <A HREF="delivery-42.htm">4.4  Delivering a dynamic library</A><BR><BR>
+</DIV><A HREF="delivery-49.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-47.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-42.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-865947"></A>4.4.5  Further example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-865959"></A>This example builds a dynamic library which in principle could be loaded by any application and called to calculate square numbers. </P>
+<P CLASS="Body">
+<A NAME="pgfId-865960"></A>For illustrative purposes, we show how to load the dynamic library into the LispWorks development image. This illustrates some platform-specific initialization. Then we use the library, ensure it exits cleanly, and finally delete the dynamic library file.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866864"></A>Note that on Linux/Macintosh/FreeBSD, to deliver a dynamic library, the build machine must have a C compiler installed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865961"></A>For convenience the code is presented without external files. To run it, copy each form in turn and enter it at the Listener prompt.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-866155"></A>Define a path for the dynamic library:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-866156"></A>(defvar *dynamic-library-path*</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866157"></A>  (merge-pathnames (make-pathname :name &quot;CalculateSquareExample&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866158"></A>                                  :type scm::*object-file-suffix*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866159"></A>                   (get-temp-directory)))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-866160"></A>Define a function to create the dynamic library:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-866161"></A>(defun save-dynamic-library ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866162"></A>  (let* ((file (open-temp-file :file-type &quot;lisp&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866163"></A>         (ns (namestring file)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866164"></A>    (format file</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866165"></A>      &quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866166"></A>        (fli:define-foreign-callable (calculate-square :result-type :int)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866167"></A>            ((arg :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866168"></A>          (* arg arg))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866169"></A>    (deliver nil &#126;s 5 :dll-exports '(&#92;&quot;calculate_square&#92;&quot;))&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866170"></A>      (namestring *dynamic-library-path*))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866171"></A>    (close file)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866172"></A>    (sys:call-system-showing-output (list (lisp-image-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866173"></A>                                          &quot;-build&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866174"></A>                                         ns ))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866175"></A>    (delete-file file nil)))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-866176"></A>Create the dynamic library:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866177"></A>(save-dynamic-library)</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-866178"></A>Define functions to use the dynamic library:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-866179"></A>(fli:define-foreign-function (my-quit-lispworks &quot;QuitLispWorks&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866180"></A>    ((force :int)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866181"></A>     (milli-timeout :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866182"></A>  :result-type :int</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866183"></A>  ;; specifying :module ensures the foreign function finds</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866184"></A>  ;;  the function in our module</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866185"></A>  :module 'my-dynamic-library)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866186"></A>(fli:define-foreign-function (my-init-lispworks &quot;InitLispWorks&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866187"></A>    ((milli-timeout :int)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866188"></A>     (base-address (:pointer-integer :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866189"></A>     (reserve-size (:pointer-integer :int)) ; really size_t</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866190"></A>     )</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866191"></A>  :result-type :int</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866192"></A>  :module 'my-dynamic-library)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866193"></A>(fli:define-foreign-function calculate-square</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866194"></A>    ((arg :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866195"></A>  :result-type :int</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866196"></A>  :module 'my-dynamic-library)</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-866197"></A>Define a function to load the dynamic library, use it, and then unload it:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-866198"></A>(defun run-the-dynamic-library ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866199"></A>  (fli:register-module 'my-dynamic-library</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866200"></A>                       :connection-style :immediate</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866201"></A>                       :file-name *dynamic-library-path*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866325"></A>;; Windows and Mac OS X can detect and resolve memory clashes.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866326"></A>  ;; On other platforms, tell the library to load at different</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866327"></A>  ;;  address (that is, relocate) because otherwise it will use</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866328"></A>  ;;  the same address as the running LispWorks development image.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866329"></A>  ;; Relocation may be needed when loading a LispWorks dynamic </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866330"></A>  ;; library in other applications.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866208"></A>  #-(or mswindows darwin)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866209"></A>  (my-init-lispworks 0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866210"></A>                     #+lispworks-64bit #x5000000000</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866211"></A>                     #+lispworks-32bit #x50000000</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866212"></A>                     0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866213"></A>  (dotimes (x 4)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866214"></A>    (format t &quot;square of &#126;d = &#126;d&#126;%&quot; x</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866215"></A>            (calculate-square x)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866216"></A>  (my-quit-lispworks 0 1000)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866217"></A>  (fli:disconnect-module 'my-dynamic-library))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-866218"></A>Use the dynamic library:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866219"></A>(run-the-dynamic-library)</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-866220"></A>Check the output to see that it computed square numbers.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-866221"></A>(optional) Delete the dynamic library file:</LI>
+</OL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866222"></A>(delete-file *dynamic-library-path* nil)</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-49.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-47.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-42.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

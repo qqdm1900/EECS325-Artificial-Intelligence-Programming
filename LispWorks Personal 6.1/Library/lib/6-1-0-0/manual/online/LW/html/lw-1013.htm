@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ barrier-unblock
+</TITLE>
+
+<LINK REL="next" HREF="lw-1014.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1012.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1014.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1012.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1349207"></A><A NAME="98210"></A>barrier<A NAME="marker-1351486"></A>-unblock</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1349209"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349210"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1349211"></A>Unblocks a barrier.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349212"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1349213"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349214"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1349215"></A>barrier-unblock <EM CLASS="Variable">
+barrier</EM>
+ &amp;key <EM CLASS="Variable">
+disable</EM>
+ <EM CLASS="Variable">
+reset-count</EM>
+ <EM CLASS="Variable">
+kill-waiting</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349216"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1349217"></A><EM CLASS="Variable">
+disable</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1349218"></A><EM CLASS="Variable">
+reset-count</EM>
+</P>
+<P CLASS="RDescription-C">A positive fixnum, <CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1349219"></A><EM CLASS="Variable">
+kill-waiting</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349220"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1349221"></A>The function <CODE CLASS="Code">
+barrier-unblock</CODE>
+ unblocks the barrier <EM CLASS="Variable">
+barrier</EM>
+, potentially disabling it, resetting its count or killing the waiting processes.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349222"></A>Without keyword arguments, <CODE CLASS="Code">
+barrier-unblock</CODE>
+ unblocks the barrier, which means that any thread that is waiting on the barrier wakes and returns from <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A>, and the arriver count is reset to 0.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349223"></A>If <EM CLASS="Variable">
+disable</EM>
+ is true, or if <EM CLASS="Variable">
+disable</EM>
+ is not passed and the barrier was made with <EM CLASS="Variable">
+disable-on-unblock</EM>
+ true, then <CODE CLASS="Code">
+barrier-unblock</CODE>
+ also disables the barrier, so any further calls to <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> return <CODE CLASS="Code">
+nil</CODE>
+ immediately.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349224"></A>If <EM CLASS="Variable">
+reset-count</EM>
+ is true, it must be valid count (a positive fixnum or <CODE CLASS="Code">
+t</CODE>
+), and <CODE CLASS="Code">
+barrier-unblock</CODE>
+ sets the count of the barrier to this value. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1349225"></A>If <EM CLASS="Variable">
+kill-waiting</EM>
+ is true, instead of waking up the waiting threads, <CODE CLASS="Code">
+barrier-unblock</CODE>
+ kills them (by <A HREF="lw-1080.htm#65256" CLASS="XRef">process-kill</A>).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349226"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1821750"></A><A HREF="lw-1080.htm#65256" CLASS="XRef">process-kill</A><BR>
+<A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A><BR>
+<A HREF="lw-1055.htm#22917" CLASS="XRef">make-barrier</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1014.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1012.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

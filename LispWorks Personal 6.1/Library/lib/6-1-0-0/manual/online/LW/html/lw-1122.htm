@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ semaphore-acquire
+</TITLE>
+
+<LINK REL="next" HREF="lw-1123.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1121.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1123.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1121.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1397422"></A><A NAME="45644"></A>semaphore<A NAME="marker-1398158"></A>-acquire</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1397423"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1397424"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1397425"></A>Acquires units from a semaphore.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1397426"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1397427"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1397428"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1397429"></A>semaphore-acquire <EM CLASS="Variable">
+sem</EM>
+ &amp;key <EM CLASS="Variable">
+timeout</EM>
+ <EM CLASS="Variable">
+wait-reason</EM>
+ <EM CLASS="Variable">
+count</EM>
+ =&gt; <EM CLASS="Variable">
+flag</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1397430"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1397431"></A><EM CLASS="Variable">
+sem</EM>
+</P>
+<P CLASS="RDescription-C">A semaphore.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1397432"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative real.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1397433"></A><EM CLASS="Variable">
+wait-reason</EM>
+</P>
+<P CLASS="RDescription-C">A string or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1397434"></A><EM CLASS="Variable">
+count</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative fixnum.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1398546"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1398547"></A><EM CLASS="Variable">
+flag</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1398548"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1397438"></A>The function <CODE CLASS="Code">
+semaphore-acquire</CODE>
+ acquires <EM CLASS="Variable">
+count</EM>
+ units from the semaphore <EM CLASS="Variable">
+sem</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1397439"></A>It attempts to atomically decrement the semaphore's unit count by <EM CLASS="Variable">
+count</EM>
+. If this gives a non negative result, then it changes the semaphore's unit count accordingly and returns true. The default value of <EM CLASS="Variable">
+count</EM>
+ is 1.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1397440"></A>However, if decrementing the semaphore's unit count would result in a negative number then <CODE CLASS="Code">
+semaphore-acquire</CODE>
+ waits until the semaphore's unit count is larger than <EM CLASS="Variable">
+count</EM>
+ and tries again. If <EM CLASS="Variable">
+wait-reason</EM>
+ is true, then it is used as the thread's <EM CLASS="Variable">
+wait-reason</EM>
+ when waiting for the semaphore.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1397441"></A>If <EM CLASS="Variable">
+timeout</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+semaphore-acquire</CODE>
+ can wait forever. If <EM CLASS="Variable">
+timeout</EM>
+ is true, it should be an integer. If the semaphore count cannot be decremented within <EM CLASS="Variable">
+timeout</EM>
+ seconds, then <CODE CLASS="Code">
+semaphore-acquire</CODE>
+ returns false and the semaphore is unaffected. Pass <EM CLASS="Variable">
+timeout</EM>
+ 0 if you do not want to wait at all.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1689056"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1689084"></A>You can get the current unit count of a semaphore by calling <A HREF="lw-1123.htm#51983" CLASS="XRef">semaphore-count</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1397442"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1397443"></A><A HREF="lw-1060.htm#32254" CLASS="XRef">make-semaphore</A><BR>
+<A HREF="lw-1123.htm#51983" CLASS="XRef">semaphore-count</A><BR>
+<A HREF="lw-1125.htm#82988" CLASS="XRef">semaphore-release</A><BR>
+<A HREF="lw-1126.htm#58355" CLASS="XRef">semaphore-wait-count</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1123.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1121.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

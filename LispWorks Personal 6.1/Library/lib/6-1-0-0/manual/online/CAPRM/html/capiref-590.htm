@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ list-known-image-formats
+</TITLE>
+
+<LINK REL="next" HREF="capiref-591.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-589.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-495.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-495.htm">2 GP Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-591.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-589.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1554040"></A><A NAME="50874"></A><A NAME="marker-1554038"></A>list-known-image<A NAME="marker-1554039"></A>-formats</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1554041"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1554042"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1554043"></A>Returns the known image formats. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1554044"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1554045"></A>graphics-ports</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1554046"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1554047"></A>list-known-image-formats <EM CLASS="Variable">
+screen-spec</EM>
+ &amp;optional <EM CLASS="Variable">
+for-writing-too</EM>
+ =&gt; <EM CLASS="Variable">
+formats</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1554048"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1554049"></A><EM CLASS="Variable">
+screen-spec</EM>
+</P>
+<P CLASS="RDescription-C">A CAPI object, a plist, or <CODE CLASS="Code">
+nil</CODE>
+. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1554050"></A><EM CLASS="Variable">
+for-writing-too</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1554051"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1554052"></A><EM CLASS="Variable">
+formats</EM>
+</P>
+<P CLASS="RDescription-C">A list of keywords.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1554053"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1554054"></A>The function <CODE CLASS="Code">
+list-known-image-formats</CODE>
+ returns a list of keywords which specify known image formats. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1554058"></A><EM CLASS="Variable">
+screen-spec</EM>
+ is an object that <A HREF="capiref-59.htm#18970" CLASS="XRef">convert-to-screen</A> can recognize, typically a pane or simply <CODE CLASS="Code">
+nil</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1554059"></A>If <EM CLASS="Variable">
+for-writing-too</EM>
+ is not supplied or is <CODE CLASS="Code">
+nil</CODE>
+, then <EM CLASS="Variable">
+formats</EM>
+ is a list of formats that can be loaded. All the formats in the list can be loaded, but on Cocoa and Windows the list is not exhaustive, and it may be possible to load formats that are not listed. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1554060"></A>If <EM CLASS="Variable">
+for-writing-too</EM>
+ is supplied as non-nil, then formats is a list of types that <A HREF="capiref-540.htm#89695" CLASS="XRef">externalize-and-write-image</A> can write. In this case the list is exhaustive on all platforms, and <A HREF="capiref-540.htm#89695" CLASS="XRef">externalize-and-write-image</A> can write a format if and only if it appears in the list. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1554067"></A>All platforms (except Motif) can read and write <CODE CLASS="Code">
+:bmp</CODE>
+, <CODE CLASS="Code">
+:jpg</CODE>
+, <CODE CLASS="Code">
+:png</CODE>
+ and <CODE CLASS="Code">
+:tiff</CODE>
+  images, and also recognize <CODE CLASS="Code">
+:jpeg</CODE>
+ as an alias for <CODE CLASS="Code">
+:jpg</CODE>
+, so the list will always include all of these keywords. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1554068"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1554072"></A><A HREF="capiref-59.htm#18970" CLASS="XRef">convert-to-screen</A><BR>
+<A HREF="capiref-540.htm#89695" CLASS="XRef">externalize-and-write-image</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-591.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-589.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

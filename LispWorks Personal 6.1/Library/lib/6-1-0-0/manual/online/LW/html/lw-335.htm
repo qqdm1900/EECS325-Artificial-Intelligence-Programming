@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 18.2.5  Execute transactions
+</TITLE>
+
+<LINK REL="next" HREF="lw-336.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-334.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-329.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-323.htm">18 Dynamic Data Exchange</A> &gt; <A HREF="lw-329.htm">18.2  Client interface</A><BR><BR>
+</DIV><A HREF="lw-336.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-334.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-329.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886771"></A>18.2.5  <A NAME="12751"></A>Execute transactions</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886986"></A>A client can issue an execute transaction across a conversation, or in the case of an automatically established conversation, to a recognized server. There is no need to specify a topic, as an execute transaction instructs the server application to execute a command.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886998"></A>The command and its arguments are issued to the server in the form of a string in a standard format (see <A HREF="lw-328.htm#39720" CLASS="XRef">Execute transactions</A>). LispWorks provides two ways of issuing an execute transaction, namely <A NAME="marker-891165"></A><A HREF="lw-1497.htm#23817" CLASS="XRef">dde-execute-string</A> and <A NAME="marker-891170"></A><A HREF="lw-1495.htm#13766" CLASS="XRef">dde-execute-command</A> (and the corresponding <CODE CLASS="Code">
+*</CODE>
+ functions that automatically manage conversations).</P>
+<P CLASS="Body">
+<A NAME="pgfId-887057"></A>The following example shows how <A NAME="marker-891180"></A><A HREF="lw-1498.htm#10579" CLASS="XRef">dde-execute-string*</A> can issue a command to a server designated by <CODE CLASS="Code">
+:excel</CODE>
+ on the topic <CODE CLASS="Code">
+:system</CODE>
+, in order to open a file called <CODE CLASS="Code">
+foo.xls</CODE>
+:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886778"></A>(dde-execute-string* :excel :system &quot;[open(&#92;&quot;foo.xls&#92;&quot;)]&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887512"></A>The function <A HREF="lw-1495.htm#13766" CLASS="XRef">dde-execute-command</A> takes the command to issue, and its arguments, and marshals these into an appropriate string for you. The following example shows how <A NAME="marker-891214"></A><A HREF="lw-1496.htm#40384" CLASS="XRef">dde-execute-command*</A> can issue the same command as in the previous example:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886859"></A>(dde-execute-command* :excel :system `open `(&quot;foo.xls&quot;))</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-336.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-334.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-329.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ tracking-pinboard-layout
+</TITLE>
+
+<LINK REL="next" HREF="capiref-462.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-460.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-462.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-460.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3288944"></A>tracking<A NAME="marker-4233879"></A>-pinboard-layout</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-3288945"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3288947"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3288948"></A>A pinboard with automatic highlighting.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4233862"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4233863"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3288949"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3288953"></A><A HREF="capiref-293.htm#24209" CLASS="XRef">pinboard-layout</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3288967"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3288968"></A>The class <CODE CLASS="Code">
+tracking-pinboard-layout</CODE>
+ provides a pinboard which tracks mouse movement by highlighting its objects as the mouse cursor moves over them.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3289984"></A>This functionality is implemented via a <CODE CLASS="Code">
+:motion</CODE>
+ specification in the <EM CLASS="Variable">
+input-model</EM>
+. Therefore, you may not specify <CODE CLASS="Code">
+:motion</CODE>
+ in the <EM CLASS="Variable">
+input-model</EM>
+ of a <CODE CLASS="Code">
+tracking-pinboard-layout</CODE>
+. See <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A> for a description of <EM CLASS="Variable">
+input-model</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3290286"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-3291599"></A>(defclass my-ellipse (capi:drawn-pinboard-object)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291600"></A>  ((color :initarg :color </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291601"></A>          :initform :red </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291602"></A>          :accessor my-ellipse-color)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291603"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291604"></A>(defun draw-my-ellipse </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291605"></A>       (output-pane self x y width height)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291606"></A>       (let ((x-radius (floor width 2))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291607"></A>             (y-radius (floor height 2)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291608"></A>              (gp:draw-ellipse output-pane</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291609"></A>                (+ x x-radius) (+ y y-radius)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291610"></A>                x-radius y-radius</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291611"></A>                :foreground </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291612"></A>                (my-ellipse-color self)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291613"></A>                :filled t)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291614"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292799"></A>(defun change-ellipse-color (pinboard x y)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292800"></A>  (let ((ellipse </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292801"></A>         (capi:pinboard-object-at-position </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292802"></A>          pinboard x y)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292803"></A>    (when ellipse</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292804"></A>      (let ((color </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292805"></A>             (capi:prompt-for-color </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292806"></A>              &quot;New color&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292807"></A>              :color </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292808"></A>              (my-ellipse-color ellipse) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292809"></A>              :owner </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292810"></A>              (capi:convert-to-screen))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292811"></A>        (when color</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292812"></A>          (setf (my-ellipse-color ellipse) color)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292813"></A>          (capi:with-geometry ellipse</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292814"></A>            (gp:invalidate-rectangle </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292815"></A>             pinboard </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292816"></A>             capi:%x%</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292817"></A>             capi:%y%</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3292818"></A>             capi:%width%</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291634"></A>             capi:%height%)))))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291635"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291636"></A>(capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291637"></A> (make-instance </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291638"></A>  'capi:tracking-pinboard-layout</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291639"></A>  :description </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291640"></A>  (loop for i below 20 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291641"></A>        collect</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291642"></A>        (make-instance 'my-ellipse</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291643"></A>                       :x (+ 5 (random 290))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291644"></A>                       :y (+ 5 (random 290)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291645"></A>                       :height (+ 10 (random 50)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291646"></A>                       :width (+ 10 (random 50)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291647"></A>                       :color </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291648"></A>                       (apply 'color:make-rgb </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291649"></A>                        (loop for i below 3 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291650"></A>                              collect (random 1.0)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291651"></A>                       :display-callback </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291652"></A>                       'draw-my-ellipse))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3291653"></A>  :input-model '(((:button-1 :press) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-3290287"></A>                  change-ellipse-color))))</PRE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-462.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-460.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

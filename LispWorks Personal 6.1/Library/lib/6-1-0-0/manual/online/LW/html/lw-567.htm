@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-a-slot-option
+</TITLE>
+
+<LINK REL="next" HREF="lw-568.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-566.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-559.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-559.htm">25 The CLOS Package</A><BR><BR>
+</DIV><A HREF="lw-568.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-566.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-559.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-898902"></A><A NAME="94386"></A>process<A NAME="marker-911395"></A>-a-slot-option</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-895685"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895696"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902175"></A>Describes how a <A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A> slot option is parsed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897360"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897405"></A>clos</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897437"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897502"></A>process-a-slot-option <EM CLASS="Variable">
+metaclass</EM>
+ <EM CLASS="Variable">
+option</EM>
+ <EM CLASS="Variable">
+value</EM>
+ <EM CLASS="Variable">
+already-processed-other-options</EM>
+ <EM CLASS="Variable">
+slot</EM>
+ =&gt; <EM CLASS="Variable">
+processed-options</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897528"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-902305"></A><EM CLASS="Variable">
+metaclass</EM>
+</P>
+<P CLASS="RDescription-C">The metaclass of the class being parsed.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-902306"></A><EM CLASS="Variable">
+option</EM>
+</P>
+<P CLASS="RDescription-C">The slot option name.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-929950"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RDescription-C">The value of the slot option.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-929951"></A><EM CLASS="Variable">
+already-processed-other-options</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-929952"></A>A plist of initargs for non-standard options that have been processed already.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-902817"></A><EM CLASS="Variable">
+slot</EM>
+</P>
+<P CLASS="RDescription-C">The whole slot description.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897595"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897657"></A><EM CLASS="Variable">
+processed-options</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-902974"></A>A plist of initargs.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897679"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-903257"></A><A NAME="marker-905641"></A><A NAME="marker-905654"></A>The generic function <CODE CLASS="Code">
+process-a-slot-option</CODE>
+ describes how the value of a slot option is parsed. It is called at <A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A> macroexpansion time. By default LispWorks parses slot options as defined in AMOP, but you need to supply a method if you need slot options with different behavior.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-903258"></A><EM CLASS="Variable">
+processed-options</EM>
+ should be a plist of slot initargs and values containing those from <EM CLASS="Variable">
+already-processed-other-options</EM>
+ together with initargs for <EM CLASS="Variable">
+option</EM>
+ as required. These are added to any other initargs for the slot.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897732"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-903832"></A>(defclass extended-class (standard-class)())</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904130"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904151"></A>(defmethod clos:process-a-slot-option </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904152"></A>           ((class extended-class) option value </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904153"></A>            already-processed-options slot)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904154"></A>  (if (eq option :extended-slot)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904155"></A>      (list* :extended-slot </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904156"></A>             value </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904157"></A>             already-processed-options)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904134"></A>    (call-next-method)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904135"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-911288"></A>(defclass extended-direct-slot-definition </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-911289"></A>          (clos:standard-direct-slot-definition)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-911290"></A>  ((extended-slot :initarg :extended-slot :initform nil)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-911291"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-911292"></A>(defmethod clos:direct-slot-definition-class </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-911293"></A>           ((x extended-class) &amp;rest initargs)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-911294"></A>  'extended-direct-slot-definition)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-911286"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-903839"></A>(defclass test ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-903840"></A>  ((regular :initform 3)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-903841"></A>   (extended :extended-slot t :initform 4))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-897753"></A>  (:metaclass extended-class))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-904183"></A>To add a slot option <CODE CLASS="Code">
+:special-reader</CODE>
+ whose value is a non-evaluated symbol naming a reader:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-904185"></A>(defmethod clos:process-a-slot-option </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904186"></A>           ((class my-metaclass) option value</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904187"></A>            already-processed-options slot)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904189"></A>  (if (and (eq option :special-reader) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904190"></A>           (symbolp value))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904191"></A>      (list* :special-reader </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904192"></A>             `',value already-processed-options)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-904193"></A>    (call-next-method)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-904195"></A>To allow repeated <CODE CLASS="Code">
+:special-reader</CODE>
+ options which are combined into a list:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-904782"></A>(defmethod clos:process-a-slot-option </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904783"></A>           ((class my-metaclass) option value</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904784"></A>            already-processed-options slot)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904786"></A>  (if (and (eq option :special-reader) (symbolp value))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904787"></A>      (let ((existing (getf </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904788"></A>                       already-processed-options</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904789"></A>                       :special-reader)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904790"></A>        (if existing ; this is a quoted list of symbols</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904791"></A>            (progn</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904792"></A>              (setf (cdr (last (cadr existing))) (list value))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904793"></A>              already-processed-options)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904794"></A>          (list* :special-reader</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904795"></A>                 `'(,value) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904796"></A>                 already-processed-options)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-904371"></A>    (call-next-method)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904386"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-897839"></A><A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A><BR>
+<A HREF="lw-566.htm#39713" CLASS="XRef">process-a-class-option</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-568.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-566.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-559.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

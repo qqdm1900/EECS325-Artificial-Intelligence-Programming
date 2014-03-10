@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.5.2  Tab layouts
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-106.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-104.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-103.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-88.htm">7 Laying Out CAPI Panes</A> &gt <A HREF="capiuser-m-103.htm">7.5  Advanced pane layouts</A><BR><BR>
+</DIV><A HREF="capiuser-m-106.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-104.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-103.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888764"></A>7.5.2  Tab layouts</H3>
+<P CLASS="Body">
+<A NAME="pgfId-885061"></A>In its simplest mode, a tab layout is similar to a switchable layout, except that each pane is provided with a labelled tab, like the tabs on filing cabinet folders or address books. If the tab is clicked on by the user, the pane it is attached to is pulled to the front. Don't forget to close the switchable layout window created in the last example before displaying this: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-885062"></A>(make-instance 'tab-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885063"></A>               :items (list (list &quot;one&quot; red-pane)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885064"></A>                            (list &quot;two&quot; green-pane)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885065"></A>                            (list &quot;three&quot; blue-pane))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885066"></A>               :print-function 'car</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885067"></A>               :visible-child-function 'second)</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885068"></A>(contain *)</CODE>
+<P CLASS="Figure">
+<A NAME="pgfId-889848"></A>Figure 7.7  A tab layout<DIV>
+<IMG SRC="capiuser-m-33.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-39.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-889981"></A>The example needs the <CODE CLASS="Code">
+:print-function</CODE>
+ to be <CODE CLASS="Code">
+car</CODE>
+, or else the tabs will be labelled with the object numbers of the panes as well as the title provided in the list.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885070"></A>However, a tab layout can also be used in a non-switchable manner, with each tab responding with a callback to alter the appearance of only one pane. In this mode the <CODE CLASS="Code">
+:description</CODE>
+ keyword is used to describe the main layout of the tab pane. In the following example the tabs alter the choice of starting node for one graph pane, by using a callback to the <CODE CLASS="Code">
+graph-pane-roots</CODE>
+ accessor:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-885071"></A>(defun tab-graph (items)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885072"></A>  (let* ((gp (make-instance 'graph-pane))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885073"></A>         (tl (make-instance 'tab-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885074"></A>               :description (list gp)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885075"></A>               :items items</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885076"></A>               :visible-child-function nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885077"></A>               :key-function nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885078"></A>               :print-function (lambda (x) (format nil &quot;&#126;R&quot; x))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885079"></A>               :callback-type :data</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885080"></A>               :selection-callback #'(lambda (data)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885081"></A>                                       (setf (graph-pane-roots gp)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885082"></A>                                             (list data))))))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885083"></A>  (contain tl)))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885084"></A>(tab-graph '(1 2 4 5 7))</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-106.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-104.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-103.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

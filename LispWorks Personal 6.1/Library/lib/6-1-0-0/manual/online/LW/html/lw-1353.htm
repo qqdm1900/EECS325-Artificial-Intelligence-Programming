@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-top-loop-command
+</TITLE>
+
+<LINK REL="next" HREF="lw-1354.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1352.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1354.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1352.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1033205"></A>define<A NAME="marker-1033716"></A>-top<A NAME="marker-1039296"></A>-loop-command</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1033206"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1033207"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1033208"></A>Defines a top level loop command.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1033209"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1033210"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1033211"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1036174"></A>define-top-loop-command <EM CLASS="Variable">
+name-and-options</EM>
+ <EM CLASS="Variable">
+lambda-list</EM>
+ <EM CLASS="Variable">
+form*</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1036175"></A><EM CLASS="Variable">
+name-and-options</EM>
+ ::= <EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1036176"></A>                   | (<EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+option*</EM>
+)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1036177"></A><EM CLASS="Variable">
+option</EM>
+ ::= (:aliases <EM CLASS="Variable">
+alias*</EM>
+)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1036178"></A>         | (:result-type <EM CLASS="Variable">
+result-type</EM>
+)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1033213"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1037015"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A keyword naming the command.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1037016"></A><EM CLASS="Variable">
+alias</EM>
+</P>
+<P CLASS="RDescription-C">A keyword naming an alias for the command.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1037017"></A><EM CLASS="Variable">
+lambda-list</EM>
+</P>
+<P CLASS="RDescription-C">A destructuring lambda list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039002"></A><EM CLASS="Variable">
+result-type</EM>
+</P>
+<P CLASS="RDescription-C">One of the symbols <CODE CLASS="Code">
+values</CODE>
+, <CODE CLASS="Code">
+eval</CODE>
+ and <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1033215"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1033744"></A>The macro <CODE CLASS="Code">
+define-top-loop-command</CODE>
+ defines a top level loop command called <EM CLASS="Variable">
+name</EM>
+ which takes the parameters specified by <EM CLASS="Variable">
+lambda-list</EM>
+.  If <CODE CLASS="Code">
+&amp;whole</CODE>
+ is used in <EM CLASS="Variable">
+lambda-list</EM>
+ then the variable will be bound to a list containing the whole command line, including the command name, but the command name is not included in <EM CLASS="Variable">
+lambda-list</EM>
+ otherwise.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1033745"></A>If any aliases are specified in <EM CLASS="Variable">
+option</EM>
+, these keywords will also invoke the command.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1033746"></A>When the command is used, each form is evaluated in sequence with the variables from <EM CLASS="Variable">
+lambda-list</EM>
+ bound to the subsequent forms on the command line.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1033747"></A>If <EM CLASS="Variable">
+result-type</EM>
+ is <CODE CLASS="Code">
+values</CODE>
+ (the default), then the values of the last form will be returned to the top level loop.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1033748"></A>If <EM CLASS="Variable">
+result-type</EM>
+ is <CODE CLASS="Code">
+eval</CODE>
+, then the value of the last form should be a form and is evaluated by the top level loop as if it had been entered at the prompt.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1033749"></A>If <EM CLASS="Variable">
+result-type</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then the last form should return two values.  If the second value is <CODE CLASS="Code">
+nil</CODE>
+ then the first value is treated as a list of values to returned to the top level loop.  If the second value is non-nil then the first value should be a form and is evaluated by the top level loop as if it had been entered at the prompt.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039065"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1655539"></A>For details of pre-defined top level loop commands, enter <CODE CLASS="Code">
+:?</CODE>
+ at the Listener prompt.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038643"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1033753"></A>Given this definition:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1038735"></A>(define-top-loop-command (:lave </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1038736"></A>                          (:result-type eval)) (form)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1033756"></A>  (reverse form))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1033757"></A>then the command line</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1033758"></A>:lave (1 2 list)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1033759"></A>will evaluate the form <CODE CLASS="Code">
+(list 2 1)</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1033760"></A>Here are definitions for two commands both of which will run <A HREF="lw-629.htm#93989" CLASS="XRef">apropos</A>:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1038917"></A>(define-top-loop-command (:apropos-eval </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1038918"></A>                          (:result-type eval))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1038919"></A>                         (&amp;rest args)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1038920"></A>  `(apropos ,@args))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1038921"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1038934"></A>(define-top-loop-command :apropos-noeval (&amp;rest args)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1033764"></A>  (apply 'apropos args))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1033765"></A>The first one will evaluate the arguments before calling <A HREF="lw-629.htm#93989" CLASS="XRef">apropos</A> whereas the second one will just pass the forms, so</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1033766"></A>:apropos-noeval foo</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1033767"></A>will find all the symbols containing the string <CODE CLASS="Code">
+foo</CODE>
+, whereas</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1033768"></A>(setq foo &quot;bar&quot;)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1033769"></A>:apropos-eval foo</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1033217"></A>will find all the symbols containing the string <CODE CLASS="Code">
+bar</CODE>
+.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1354.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1352.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

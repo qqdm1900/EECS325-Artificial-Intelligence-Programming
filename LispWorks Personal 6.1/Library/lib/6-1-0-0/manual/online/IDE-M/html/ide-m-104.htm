@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.3  What is saved and what is not saved
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-105.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-103.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-101.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-101.htm">5 Session Saving</A><BR><BR>
+</DIV><A HREF="ide-m-105.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-103.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-101.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-865809"></A>5.3  <A NAME="10736"></A>What is saved and what is not saved</H3>
+<P CLASS="Body">
+<A NAME="pgfId-865811"></A>All Lisp code and data that was loaded into the image or was created in it is saved. This includes all editor buffers, the Listener history and the values of <CODE CLASS="Code">
+cl:*</CODE>
+, <CODE CLASS="Code">
+cl:**</CODE>
+ and <CODE CLASS="Code">
+cl:***</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865813"></A>All threads are killed before saving, so any data that is accessible only through a <CODE CLASS="Code">
+mp:process</CODE>
+ object, or by a dynamically bound variable, is not accessible. </P>
+<P CLASS="Body">
+<A NAME="pgfId-865815"></A>All windows are closed, so any data that is accessible only within the windowing system is not accessible after saving a session.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865817"></A>The windows are automatically re-opened after saving the session and all Lisp data within the CAPI panes is retained.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865873"></A>External connections (including open files, sockets and database connections) become invalid when the saved session is restarted. In the image from which the session was saved, the connections are not explicitly affected but if these connections are thread-specific, they will be affected because the thread is killed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-867349"></A>In recreated Shell tools the command history is recovered but the side effects of those commands are not. Debugger and Stepper windows are not re-opened because they contain the state of threads that have been killed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865912"></A>See &quot;Saving a session programmatically&quot; in the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ for interfaces allowing you to control what happens when saving a session. </P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-105.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-103.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-101.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

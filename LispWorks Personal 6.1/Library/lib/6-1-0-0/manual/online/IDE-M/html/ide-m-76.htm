@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.13.1  Regular expression syntax
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-77.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-75.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-75.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-21.htm">3 Common Features</A> &gt; <A HREF="ide-m-75.htm">3.13  Regexp matching</A><BR><BR>
+</DIV><A HREF="ide-m-77.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-75.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-75.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-962292"></A>3.13.1  <A NAME="marker-962514"></A><A NAME="11189"></A>Regular expression syntax</H3>
+<P CLASS="Description-Item">
+<A NAME="pgfId-962298"></A><CODE CLASS="Code">
+.</CODE>
+</P>
+<P CLASS="Description-C">Matches any single character except a newline. For example, <CODE CLASS="Code">
+c.r</CODE>
+ matches any three character string starting with <CODE CLASS="Code">
+c</CODE>
+ and ending with <CODE CLASS="Code">
+r</CODE>
+.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-962299"></A><CODE CLASS="Code">
+*</CODE>
+</P>
+<P CLASS="Description-C">Matches the previous regexp any number of times (including zero times). For example, <CODE CLASS="Code">
+ca*r</CODE>
+ matches strings beginning with <CODE CLASS="Code">
+c</CODE>
+ and ending with <CODE CLASS="Code">
+r</CODE>
+, with any number of <CODE CLASS="Code">
+a</CODE>
+s in-between.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-962300"></A><CODE CLASS="Code">
++</CODE>
+</P>
+<P CLASS="Description-C">Matches the previous regexp any number of times, but at least once. For example, <CODE CLASS="Code">
+ca+r</CODE>
+ matches strings beginning with <CODE CLASS="Code">
+c</CODE>
+ and ending with <CODE CLASS="Code">
+r</CODE>
+, with at least one <CODE CLASS="Code">
+a</CODE>
+ in-between.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-962385"></A><CODE CLASS="Code">
+?</CODE>
+</P>
+<P CLASS="Description-C">Matches the previous regexp either 0 or 1 times. For example, <CODE CLASS="Code">
+ca?r</CODE>
+ matches either the string <CODE CLASS="Code">
+cr</CODE>
+ or <CODE CLASS="Code">
+car</CODE>
+, and nothing else.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-962303"></A><CODE CLASS="Code">
+^</CODE>
+</P>
+<P CLASS="Description-C">Matches the next regexp as long as it is at the beginning of a line. For example, <CODE CLASS="Code">
+^foo</CODE>
+ matches the string <CODE CLASS="Code">
+foo</CODE>
+ as long as it is at the beginning of a line.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-962304"></A><CODE CLASS="Code">
+$</CODE>
+</P>
+<P CLASS="Description-C">Matches the previous regexp as long as it is at the end of a line. For example, <CODE CLASS="Code">
+foo$</CODE>
+ matches the string <CODE CLASS="Code">
+foo</CODE>
+ as long as it is at the end of a line.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-962305"></A><CODE CLASS="Code">
+[ ]</CODE>
+</P>
+<P CLASS="Description-C">Contains a character set to be used for matching, where the other special characters mentioned do not apply. The empty string is automatically part of the character set. For example, <CODE CLASS="Code">
+[a.b]</CODE>
+ matches either <CODE CLASS="Code">
+a</CODE>
+ or <CODE CLASS="Code">
+.</CODE>
+ or <CODE CLASS="Code">
+b</CODE>
+ or the empty string. The regexp <CODE CLASS="Code">
+c[ad]*r</CODE>
+ matches strings beginning with <CODE CLASS="Code">
+c</CODE>
+ and ending with <CODE CLASS="Code">
+r</CODE>
+ , with any number of <CODE CLASS="Code">
+a</CODE>
+s and <CODE CLASS="Code">
+d</CODE>
+s in-between.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-962306"></A>The characters <CODE CLASS="Code">
+-</CODE>
+ and <CODE CLASS="Code">
+^</CODE>
+ have special meanings inside character sets. <CODE CLASS="Code">
+-</CODE>
+ defines a range and <CODE CLASS="Code">
+^</CODE>
+ defines a complement character set. For example, <CODE CLASS="Code">
+[a-d]</CODE>
+ matches any character in the range <CODE CLASS="Code">
+a</CODE>
+ to <CODE CLASS="Code">
+d</CODE>
+ inclusive, and <CODE CLASS="Code">
+[^ab]</CODE>
+ matches any character except <CODE CLASS="Code">
+a</CODE>
+ or <CODE CLASS="Code">
+b</CODE>
+.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-962307"></A><CODE CLASS="Code">
+&#92;</CODE>
+</P>
+<P CLASS="Description-C">Quotes the special characters. For example, <CODE CLASS="Code">
+&#92;*</CODE>
+ matches the character <CODE CLASS="Code">
+*</CODE>
+ (that is, <CODE CLASS="Code">
+*</CODE>
+ has lost its special meaning).</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-962308"></A><CODE CLASS="Code">
+&#92;|</CODE>
+</P>
+<P CLASS="Description-C">Specifies an alternative. For example, <CODE CLASS="Code">
+ab&#92;|cd</CODE>
+ matches either <CODE CLASS="Code">
+ab</CODE>
+ or <CODE CLASS="Code">
+cd</CODE>
+.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-962309"></A><CODE CLASS="Code">
+&#92;( , &#92;)</CODE>
+</P>
+<P CLASS="Description-C">Provides a grouping construct. For example, <CODE CLASS="Code">
+ab&#92;(cd&#92;|ef&#92;)</CODE>
+ matches either <CODE CLASS="Code">
+abcd</CODE>
+ or <CODE CLASS="Code">
+abef</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-77.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-75.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-75.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

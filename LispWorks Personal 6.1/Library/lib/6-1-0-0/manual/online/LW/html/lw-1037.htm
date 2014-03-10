@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ lock-and-condition-variable-broadcast
+</TITLE>
+
+<LINK REL="next" HREF="lw-1038.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1036.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1038.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1036.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1653343"></A><A NAME="54717"></A>lock<A NAME="marker-1669275"></A>-and-condition-variable-<A NAME="marker-1666668"></A>broadcast</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1653344"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1653345"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1653346"></A>Locks, applies a setup function, calls <A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A> and unlocks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1803003"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1803004"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1653347"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1653348"></A>lock-and-condition-variable-broadcast <EM CLASS="Variable">
+lock</EM>
+ <EM CLASS="Variable">
+condvar</EM>
+ <EM CLASS="Variable">
+lock-timeout</EM>
+ <EM CLASS="Variable">
+setup-function</EM>
+ &amp;rest <EM CLASS="Variable">
+args</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1653349"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1653350"></A>The function <CODE CLASS="Code">
+lock-and-condition-variable-broadcast</CODE>
+ locks the lock <EM CLASS="Variable">
+lock</EM>
+, applies the function <EM CLASS="Variable">
+setup-function</EM>
+, calls <A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A> and unlocks. <CODE CLASS="Code">
+lock-and-condition-variable-broadcast</CODE>
+ makes it easier to avoid mistakes in using a condition variable.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1653351"></A><CODE CLASS="Code">
+lock-and-condition-variable-broadcast</CODE>
+ performs the equivalent of:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1653352"></A>(mp:with-lock (<EM CLASS="Variable">lock</EM>
+ nil <EM CLASS="Variable">lock-timeout</EM>
+)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1653353"></A>  (apply <EM CLASS="Variable">setup-function</EM>
+ <EM CLASS="Variable">args</EM>
+)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1653354"></A>  (mp:condition-variable-broadcast <EM CLASS="Variable">condvar</EM>
+))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1655129"></A>It returns the result of the call to <A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1655136"></A>See <A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A> and <A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A> for more details.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1655138"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1653358"></A><EM CLASS="Variable">
+setup-function</EM>
+ is called with the lock held, so it should do the minimum amount of work and avoid locking other locks. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1653360"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1666682"></A><A HREF="lw-1039.htm#85947" CLASS="XRef">lock-and-condition-variable-wait</A><BR>
+<A HREF="lw-1127.htm#49462" CLASS="XRef">simple-lock-and-condition-variable-wait</A><BR>
+<A HREF="lw-1038.htm#96844" CLASS="XRef">lock-and-condition-variable-signal</A><BR>
+<A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A><BR>
+<A HREF="lw-1017.htm#35505" CLASS="XRef">condition-variable-signal</A><BR>
+<A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A><BR>
+<A HREF="lw-1110.htm#44826" CLASS="XRef">processes-count</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1038.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1036.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

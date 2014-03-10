@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-join
+</TITLE>
+
+<LINK REL="next" HREF="lw-1080.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1078.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1080.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1078.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1526604"></A><A NAME="82143"></A>process<A NAME="marker-1526603"></A>-join</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1526605"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1529052"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1529053"></A>Waits until a specified process dies, or a <EM CLASS="Variable">
+timeout</EM>
+ is reached.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1529054"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1526609"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1526610"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1526611"></A>process-join <EM CLASS="Variable">
+process</EM>
+ &amp;key <EM CLASS="Variable">
+timeout</EM>
+ =&gt; <EM CLASS="Variable">
+flag</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1526612"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1526613"></A><EM CLASS="Variable">
+process</EM>
+</P>
+<P CLASS="RDescription-C">A process.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1527733"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative number.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1526614"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1526615"></A><EM CLASS="Variable">
+flag</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1526616"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1527539"></A><A NAME="marker-1527723"></A>The function <CODE CLASS="Code">
+process-join</CODE>
+ waits until the process <EM CLASS="Variable">
+process</EM>
+ dies, or <EM CLASS="Variable">
+timeout</EM>
+ seconds passed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527540"></A>If the process dies then <CODE CLASS="Code">
+process-join</CODE>
+ returns <CODE CLASS="Code">
+t</CODE>
+. If the timeout passed it returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527541"></A><CODE CLASS="Code">
+process-join</CODE>
+ can be used on dead processes, and in this case returns <CODE CLASS="Code">
+t</CODE>
+ immediately. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527542"></A>The effect of <CODE CLASS="Code">
+process-join</CODE>
+ is similar to</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1527543"></A>(mp:process-wait-with-timeout</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1527544"></A> &quot;Waiting for process to die&quot; <EM CLASS="Variable">timeout</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1527546"></A> #'(lambda (x)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1527547"></A>     (not (mp:process-alive-p x))) <EM CLASS="Variable">process</EM>
+)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1527549"></A>but the call above may not return until the next time the scheduler runs, possibly causing a delay. In contrast <CODE CLASS="Code">
+process-join</CODE>
+ returns immediately when the process dies.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1530051"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1530133"></A><A HREF="lw-1108.htm#68857" CLASS="XRef">process-wait-with-timeout</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1080.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1078.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

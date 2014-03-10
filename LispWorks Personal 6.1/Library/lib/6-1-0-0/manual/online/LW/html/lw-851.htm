@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *traced-results*
+</TITLE>
+
+<LINK REL="next" HREF="lw-852.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-850.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-852.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-850.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886258"></A><A NAME="76538"></A>*traced<A NAME="marker-1043627"></A>-results*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886259"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886260"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886261"></A>The list of results from the function being traced.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886262"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886263"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886264"></A>Initial Value</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886265"></A>nil </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886266"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886267"></A>Upon leaving a function that is being traced, <CODE CLASS="Code">
+*traced-results*</CODE>
+ is bound to the list of results from the function. <CODE CLASS="Code">
+*traced-results*</CODE>
+ is then printed after the function name in the output from tracing. It is accessible in the <CODE CLASS="Code">
+:after</CODE>
+ forms to <A HREF="lw-675.htm#58889" CLASS="XRef">trace</A>. However care should be used when manipulating this variable, since it is the value of <CODE CLASS="Code">
+*traced-results*</CODE>
+ itself that is used when returning from the traced function. Thus if this value is altered by the <CODE CLASS="Code">
+:after</CODE>
+ forms then the caller of the traced function receives the altered results. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886268"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886269"></A>USER 5 &gt; (trace (ceiling</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886270"></A>                   :after</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886271"></A>                  ((setq *traced-results*</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886272"></A>                     (mapcar #'1- *traced-results*)))))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886273"></A>CEILING </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886274"></A>USER 6 &gt; (multiple-value-call #'+ (ceiling 4 3))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886275"></A>0 CEILING &gt; (4 3) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886276"></A>0 CEILING &lt; (2 -2)  </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886277"></A> (1 -3) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886278"></A>-2   </PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886279"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886280"></A><CODE CLASS="Code">
+*traced-results*</CODE>
+ is an extension to Common Lisp.   </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886281"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886285"></A><A HREF="lw-675.htm#58889" CLASS="XRef">trace</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-852.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-850.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

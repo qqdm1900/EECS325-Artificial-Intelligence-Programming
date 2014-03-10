@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.9.3  External images
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-208.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-206.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-204.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-181.htm">13 Graphics Ports</A> &gt <A HREF="capiuser-m-204.htm">13.9  Working with images</A><BR><BR>
+</DIV><A HREF="capiuser-m-208.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-206.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-204.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-905553"></A>13.9.3  External images</H3>
+<P CLASS="Body">
+<A NAME="pgfId-905567"></A>An External Image is an intermediate object. It is a representation of a graphic but is not associated with a port and cannot be used directly for drawing.</P>
+<P CLASS="Body">
+<A NAME="pgfId-905568"></A>An object of type <CODE CLASS="Code">
+external-image</CODE>
+ is created by reading an image from a file, or by externalizing an <CODE CLASS="Code">
+image</CODE>
+ object, or by copying an existing <CODE CLASS="Code">
+external-image</CODE>
+. Or, if you have the image bitmap data, you can create one directly as in the <CODE CLASS="Code">
+examples/capi/buttons/button.lisp</CODE>
+ example. </P>
+<P CLASS="Body">
+<A NAME="pgfId-905875"></A>The <CODE CLASS="Code">
+external-image</CODE>
+ contains the bitmap data, potentially compressed. You can copy <CODE CLASS="Code">
+external-image</CODE>
+ objects, or write them to file, or compress the data.</P>
+<P CLASS="Body">
+<A NAME="pgfId-908679"></A>You cannot query the size of the image in an <CODE CLASS="Code">
+external-image</CODE>
+ object directly. To get the dimensions without actually drawing it on screen see <A HREF="capiuser-m-199.htm#65674" CLASS="XRef">Pixmap graphics ports</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-912463"></A>If you create an <CODE CLASS="Code">
+image</CODE>
+ and want to externalize it to write it to file, follow this example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-912534"></A>(let ((image (gp:make-image-from-port <EM CLASS="Variable">pane</EM>
+ 10 10 200 200)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912535"></A>  (unwind-protect</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912536"></A>      (gp:externalize-and-write-image <EM CLASS="Variable">pane</EM>
+ image <EM CLASS="Variable">filename</EM>
+)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-913081"></A>(gp:free-image <EM CLASS="Variable">pane</EM>
+ image)))</PRE>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="capiuser-m-208.htm#pgfId-912464" CLASS="Hypertext">13.9.3.1  Transparency</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="capiuser-m-209.htm#pgfId-905579" CLASS="Hypertext">13.9.3.2  Converting an external image</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-208.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-206.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-204.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

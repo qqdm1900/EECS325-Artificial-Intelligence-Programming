@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ole-control-component
+</TITLE>
+
+<LINK REL="next" HREF="capiref-265.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-263.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-265.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-263.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-7267094"></A><A NAME="76994"></A>ole<A NAME="marker-7282328"></A>-<A NAME="marker-7282453"></A>control-component</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-7267095"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7267096"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-7267097"></A>An implementation of the interfaces in the OLE Control protocol.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7267098"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-7267099"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7267100"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-7267104"></A><CODE CLASS="Code">
+com:standard-i-unknown</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7267108"></A>Initargs</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-7282504"></A><CODE CLASS="Code">
+:pane-function</CODE>
+<A NAME="marker-7282761"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-7282615"></A>A function that is called when OLE embeds the Control in a container.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-7282507"></A><CODE CLASS="Code">
+:create-callback</CODE>
+<A NAME="marker-7282778"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-7282682"></A>A function called just after the pane is created.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-7282509"></A><CODE CLASS="Code">
+:destroy-callback</CODE>
+<A NAME="marker-7282795"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-7282454"></A>A function called just before the pane is destroyed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7282833"></A>Readers</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-7282861"></A><A NAME="marker-7282908"></A>ole-control-component-pane</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7267114"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-7282962"></A>The class <CODE CLASS="Code">
+ole-control-component</CODE>
+ provides an implementation of the interfaces in the OLE Control protocol, to allow a CAPI pane to be embedded in an OLE Control container implemented outside LispWorks. It is typically used with the macro <A HREF="capiref-72.htm#99091" CLASS="XRef">define-ole-control-component</A> to define a subclass of <CODE CLASS="Code">
+ole-control-component</CODE>
+ that implements a particular coclass from a type library. Instances of this class are usually created by the COM runtime system, not by explicit calls to <CODE CLASS="Code">
+make-instance</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7282964"></A>A function designator <EM CLASS="Variable">
+pane-function</EM>
+ must be supplied. <EM CLASS="Variable">
+pane-function</EM>
+ that is called when OLE embeds the Control in a container. It receives the component as its argument and should return a CAPI pane that will implement the visual aspects of the control.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7286493"></A><B CLASS="Bold">
+Note:</B>
+ The pane returned by <EM CLASS="Variable">
+pane-function</EM>
+ must be a <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A>, <A HREF="capiref-211.htm#12861" CLASS="XRef">layout</A> or <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A> in the current implementation. The pane is stored in the component and can be accessed using the reader <CODE CLASS="Code">
+ole-control-component-pane</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7282966"></A><EM CLASS="Variable">
+create-callback</EM>
+, if non-nil, is a function called when the pane returned by <EM CLASS="Variable">
+pane-function</EM>
+ has been created in the window system. The argument is the pane itself. <EM CLASS="Variable">
+create-callback</EM>
+ can perform initialization such as loading images.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7282968"></A><EM CLASS="Variable">
+destroy-callback</EM>
+, if non-nil, is a function called when the pane returned by <EM CLASS="Variable">
+pane-function</EM>
+ is going to be destroyed. The argument is the pane itself. <EM CLASS="Variable">
+destroy-callback</EM>
+ can perform cleanups.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7282970"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9123917"></A>When using an <CODE CLASS="Code">
+ole-control-component</CODE>
+, the normal hierarchy of CAPI objects such as a layout and an interface do not exist above it. The layout and control of the top level window is the responsibility of the application that embeds the control. It can communicate with the control by using COM/Automation.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7282948"></A><CODE CLASS="Code">
+ole-control-component</CODE>
+ is implemented only in LispWorks for Windows. Load the functionality by <CODE CLASS="Code">
+(require &quot;embed&quot;)</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-7267154"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-7267158"></A><A HREF="capiref-72.htm#99091" CLASS="XRef">define-ole-control-component</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-265.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-263.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

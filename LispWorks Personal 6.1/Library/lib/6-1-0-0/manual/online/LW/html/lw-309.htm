@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 16.2.4  DEFSYSTEM rules 
+</TITLE>
+
+<LINK REL="next" HREF="lw-310.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-308.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-305.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-303.htm">16 Common Defsystem and ASDF</A> &gt; <A HREF="lw-305.htm">16.2  Defining a system </A><BR><BR>
+</DIV><A HREF="lw-310.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-308.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-305.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-887023"></A>16.2.4  <A NAME="38133"></A>DEFSYSTEM rules </H3>
+<P CLASS="Body">
+<A NAME="pgfId-887025"></A><A NAME="marker-887024"></A>Rules may be defined in a system which modify the default behavior of that system, ensuring, for instance, that certain files are always loaded or compiled before others.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891799"></A>Rules apply to files and subsystems alike as members of their parent system, but are not inherited by subsystems.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887026"></A>When you invoke an action such as compiling a system, the following happens by default:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887027"></A>Each member of the system is considered in turn, in the order they are given in the system definition. </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887028"></A>If the member is itself a system then the action is performed on that system too, and so on recursively. </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887029"></A>If the member is a file and action-specific constraints are satisfied, the file action is inserted into a <I CLASS="Italic">
+plan</I>
+<A NAME="marker-887030"></A>. </LI>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-887031"></A>For example, in the case of compiling, a &quot;compile this file&quot; event is put into the plan if the source file is newer than the object file. </P>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887032"></A>After the plan has been assembled, it can be viewed or executed.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-887033"></A>This behavior can be modified by describing dependencies between the members using <I CLASS="Italic">
+rules</I>
+. These are specified using the <CODE CLASS="Code">
+:rules</CODE>
+<A NAME="marker-890158"></A> keyword to <A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887034"></A>A rule has three components: </P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-887035"></A>The target(s). </P>
+<P CLASS="Description-C">The action that is performed if the rule executes successfully.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-887036"></A>This is an action-member description like <CODE CLASS="Code">
+:compile &quot;foo&quot;</CODE>
+. The member can be an actual member of the system or <CODE CLASS="Code">
+:all</CODE>
+<A NAME="marker-890116"></A> (meaning the rule should apply to each member of the system). </P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-887037"></A>The actions that the target(s) are <CODE CLASS="Code">
+:caused-by</CODE>
+<A NAME="marker-890117"></A>. </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-887038"></A>The actions that cause the rule to execute successfully.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-887039"></A>This is a list of action-member descriptions. The member of each of these descriptions should be either a real system member, or <CODE CLASS="Code">
+:previous</CODE>
+, which means all members listed before the member of the target in the system description. </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-887040"></A>If any of these descriptions are already in the current plan (as a result of other rules executing successfully, or as a result of default system behavior), they trigger successful execution of this rule.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-887041"></A>The actions that the target(s) <CODE CLASS="Code">
+:requires</CODE>
+<A NAME="marker-890118"></A>. </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-887042"></A>The actions that need to be performed before the rule can execute successfully.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-887043"></A>This is a list of action-member descriptions that should be planned for before the action on the target(s). Again, each member should either be a real member of the system, or <CODE CLASS="Code">
+:previous</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887044"></A>The use of the keyword <CODE CLASS="Code">
+:previous</CODE>
+<A NAME="marker-890159"></A> means, for example, that you can specify that in order to compile a file in the system, all the members that come before it must be loaded.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887045"></A>When the action and member of a target are matched during the traversal of the list of members, the target is inserted into the plan if either of the following are true:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887046"></A>any of the action-member descriptions in the <CODE CLASS="Code">
+:caused-by</CODE>
+ clause is already in the plan, or </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887047"></A>any implicit conditions (such as the source file being newer than the object file) are satisfied.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-887048"></A>If the target is put into the plan then other targets are inserted beforehand if the action-member description of any <CODE CLASS="Code">
+:requires</CODE>
+<A NAME="marker-890111"></A> clause is not already in the plan.<A NAME="marker-887049"></A></P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-310.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-308.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-305.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

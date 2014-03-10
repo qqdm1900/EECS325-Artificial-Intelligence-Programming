@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.2.10  Example
+</TITLE>
+
+<LINK REL="next" HREF="lw-270.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-268.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-246.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-246.htm">15.2  The process programming interface </A><BR><BR>
+</DIV><A HREF="lw-270.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-268.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-246.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889557"></A>15.2.10  Example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886038"></A>The following example allows two (or more) multiplication tables to be printed out simultaneously.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886039"></A>First, the function to print out a multiplication table. </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886040"></A>(in-package &quot;USER&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886041"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886042"></A>(defun print-table (number total stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886043"></A>(do ((i 1 (+ i 1)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886044"></A>((&gt; i total))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886045"></A> (format stream &quot;&#126;S X &#126;S = &#126;S&#126;%&quot; number i (* i number))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886046"></A> (mp:process-allow-scheduling)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886047"></A>Note the use of <A HREF="lw-1069.htm#32835" CLASS="XRef">process-allow-scheduling</A> to allow the process to be interrupted once during each iteration of the do loop.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886048"></A>Now we define the function that calls <CODE CLASS="Code">
+print-table</CODE>
+ within multiprocessing: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886049"></A>(defun process-print-table (name number total)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886050"></A>  (mp:process-run-function name nil</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886051"></A>    #'print-table number total *standard-output*))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891843"></A>The <CODE CLASS="Code">
+nil</CODE>
+ argument is used because no keywords are specified.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891844"></A><CODE CLASS="Code">
+process-print-table</CODE>
+ can now be called from two separate Listener windows to print out different multiplication tables simultaneously, for example:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886054"></A>(process-print-table &quot;t1&quot; 5 50)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886055"></A>in one Listener and: </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886056"></A>(process-print-table &quot;t2&quot; 6 50)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886057"></A> in another Listener.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-270.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-268.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-246.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

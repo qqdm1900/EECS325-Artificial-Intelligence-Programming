@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 14.4  Color aliases
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-222.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-220.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-216.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-216.htm">14 The Color System</A><BR><BR>
+</DIV><A HREF="capiuser-m-222.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-220.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886025"></A>14.4  Color aliases</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886726"></A>You can enter a color alias in the color database using the function <A NAME="marker-887766"></A><CODE CLASS="Code">
+define-color-alias</CODE>
+. You can remove an entry in the color database using <A NAME="marker-887771"></A><CODE CLASS="Code">
+delete-color-translation</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887804"></A><CODE CLASS="Code">
+define-color-alias</CODE>
+ makes an entry in the color database under a name, which should be a symbol. LispWorks by convention uses keyword symbols. The name points to either a color-spec or another color name (symbol):</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887797"></A>(define-color-alias :wire-color :darkslategray)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887844"></A>Attempting to replace an existing color-spec in the color database results in an error. By default, replacement of existing aliases is allowed but there is an option to control this (see the <I CLASS="Italic">
+LispWorks CAPI Reference Manual</I>
+ entry for define-color-alias).</P>
+<P CLASS="Body">
+<A NAME="pgfId-886721"></A><CODE CLASS="Code">
+delete-color-translation</CODE>
+ removes an entry from the color-database. Both original entries and aliases can be removed:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887828"></A>(delete-color-translation :wire-color)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886035"></A>As described in <A HREF="capiuser-m-220.htm#25581" CLASS="XRef">Color specs</A>, the function <CODE CLASS="Code">
+get-color-spec</CODE>
+ returns the color-spec associated with a color alias. The function <A NAME="marker-887818"></A><CODE CLASS="Code">
+get-color-alias-translation</CODE>
+ returns the ultimate color name for an alias:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886039"></A>(define-color-alias :lispworks-blue </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886040"></A>            (make-rgb 0.70s0 0.90s0 0.99s0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886041"></A>(define-color-alias :color-background </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886042"></A>                   :lispworks-blue)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886043"></A>(define-color-alias :listener-background </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886044"></A>                   :color-background)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-886045"></A>(get-color-alias-translation :listener-background)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886046"></A>         =&gt; :lispworks-blue</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886047"></A>(get-color-alias-translation :color-background)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886048"></A>         =&gt; :lispworks-blue</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889348"></A>There is a system-defined color alias <CODE CLASS="Code">
+:transparent</CODE>
+ which is useful when specified as the <EM CLASS="Variable">
+background</EM>
+ of a pane. It is currently supported only on Cocoa. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889364"></A>(capi:popup-confirmer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889365"></A> (make-instance 'capi:display-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889366"></A>                :text</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889367"></A>                (format nil &quot;The background of this pane&#126;%is transparent&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889368"></A>                :background :transparent)  </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889355"></A> &quot;&quot;)</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-222.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-220.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

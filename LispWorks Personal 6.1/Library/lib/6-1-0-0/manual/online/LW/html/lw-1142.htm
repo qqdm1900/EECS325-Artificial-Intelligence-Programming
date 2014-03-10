@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ defparser
+</TITLE>
+
+<LINK REL="next" HREF="lw-1143.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1141.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1141.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1141.htm">36 The PARSERGEN Package</A><BR><BR>
+</DIV><A HREF="lw-1143.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1141.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1141.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886166"></A>defparser<A NAME="marker-887845"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886168"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886352"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886358"></A>Creates a parsing function of the given name for the grammar defined.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886170"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886171"></A>parsergen</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886172"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886173"></A>defparser <EM CLASS="Variable">
+name</EM>
+ {<EM CLASS="Variable">
+rule</EM>
+}* =&gt; <EM CLASS="Variable">
+parsing-function</EM>
+</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886175"></A><EM CLASS="Variable">
+rule</EM>
+ ::= <EM CLASS="Variable">
+normal-rule</EM>
+ | <EM CLASS="Variable">
+error-rule</EM>
+</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-889006"></A><EM CLASS="Variable">
+normal-rule</EM>
+ ::= ((<EM CLASS="Variable">
+non-terminal</EM>
+ {<EM CLASS="Variable">
+grammar-symbol</EM>
+}*) {<EM CLASS="Variable">
+form</EM>
+}*)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-889011"></A><EM CLASS="Variable">
+error-rule</EM>
+ ::=  ((<EM CLASS="Variable">
+non-terminal</EM>
+ :error) {<EM CLASS="Variable">
+form</EM>
+}*)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886180"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886181"></A><EM CLASS="Variable">
+name</EM>
+ </P>
+<P CLASS="RDescription-C">The name of the parser.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886182"></A>The rules define the productions of the grammar and the associated forms define the semantic actions for the rules.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886398"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886405"></A><EM CLASS="Variable">
+parsing-function</EM>
+</P>
+<P CLASS="RDescription-C">The symbol name of the parsing function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886183"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886184"></A><CODE CLASS="Code">
+defparser</CODE>
+ creates a parsing function of the given name for the grammar defined. The parsing function is defined as if by:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886185"></A>(defun &lt;name&gt; (lexer &amp;optional (symbol-to-string #'identify))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-886186"></A>The <EM CLASS="Variable">
+lexer</EM>
+ parameter is a function of no arguments that returns two values: the next grammar token on the input and the associated semantic value.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886187"></A>The optional symbol-to-string function can be used to define a printed representation of the grammar tokens. The function should take a grammar symbol as its single argument and returns an object to be used as a print representation for the grammar token.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886191"></A>For a full description and examples, see <A HREF="lw-314.htm#39496" CLASS="XRef">The Parser Generator</A>.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1143.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1141.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1141.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

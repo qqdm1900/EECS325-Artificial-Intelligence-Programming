@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ B.1  The Tutorial
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-208.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-206.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-206.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-206.htm">B Examples</A><BR><BR>
+</DIV><A HREF="kwprolog-m-208.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-206.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-206.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading-App">
+<A NAME="pgfId-866002"></A>B.1  The Tutorial</H3>
+<P CLASS="Body">
+<A NAME="pgfId-866006"></A>The code for the tutorial (<A HREF="kwprolog-m-9.htm#37263" CLASS="XRef">Tutorial</A>) is reproduced for easy reference.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866007"></A>; -*-mode : lisp ; package : kw-user -*-</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866008"></A>(in-package kw-user)</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866009"></A>;;; ---------------- OBJECT DEFINITIONS ------------</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866010"></A>(def-kb-class node ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866011"></A>   ((animal :initform nil :accessor node-animal</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866012"></A>            :initarg :animal)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866013"></A>    (question :initform nil :accessor node-question</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866014"></A>              :initarg :question)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866015"></A>    (yes-node :initform nil :accessor node-yes-node</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866016"></A>              :initarg :yes-node)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866017"></A>    (no-node :initform nil :accessor node-no-node</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866018"></A>             :initarg :no-node)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866019"></A>(def-kb-class root ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866020"></A>   ((node :initform nil :accessor root-node</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866021"></A>          :initarg :node)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866022"></A>(def-kb-struct current-node node)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866023"></A>(def-kb-struct game-over node animal answer)</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866024"></A>;;; -------------- FORWARD CHAINING RULES -------------</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866025"></A>;;; if there is no question we are about to ask then</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866026"></A>;;; ask the question which is the root question of the</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866027"></A>;;; question tree</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866028"></A>(defrule play :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866029"></A>  (root ?r node ?node)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866030"></A>  (not (current-node ? node ?))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866031"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866032"></A>  ((tk:send-a-message</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866033"></A>     (format nil &quot;  ANIMAL GUESSING GAME - &#126;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866034"></A>          think of an animal to continue&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866035"></A>  (assert (current-node ? node ?node)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866036"></A>;;; ask a yes/no question - these are non-leaf questions</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866037"></A>(defrule y-n-question :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866038"></A>  (current-node ?current node ?node)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866039"></A>  (node ?node animal nil question ?q yes-node ?y-n</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866040"></A>    no-node ?n-n)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866041"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866042"></A>  ((tk:confirm-yes-or-no ?q) ?answer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866043"></A>  (erase ?current)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866044"></A>  ((find-new-node ?answer ?y-n ?n-n) ?new-current)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866045"></A>  (assert (current-node ? node ?new-current)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866046"></A>(defun find-new-node (answer yes-node no-node)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866047"></A>  (if answer yes-node no-node))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866048"></A>;;; ask an animal question - these a leaf questions</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866049"></A>(defrule animal-question :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866050"></A>  (current-node ?current node ?node)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866051"></A>  (node ?node animal ?animal question nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866052"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866053"></A>  ((tk:confirm-yes-or-no</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866054"></A>     (format nil &quot;Is it a &#126;a?&quot; ?animal)) ?answer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866055"></A>  (erase ?current)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866056"></A>  (assert (game-over ? node ?node animal ?animal</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866057"></A>    answer ?answer)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866058"></A>;;; add new nodes to the tree for the new animal and</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866059"></A>;;; the question that distinguishes it</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866060"></A>(defrule new-question :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866061"></A>  :priority 20</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866062"></A>  (game-over ? node ?node animal ?animal answer nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866063"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866064"></A>  (fetch-new-animal ?new-animal)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866065"></A>  ((tk:popup-prompt-for-string</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866066"></A>    (format nil &quot;Tell me a question for which the &#126;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866067"></A>           answer is yes for a &#126;a and no for a &#126;a&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866068"></A>           ?new-animal ?animal)) ?question)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866069"></A>  (assert (node ?yes-node question nil </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866070"></A>           animal ?new-animal))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866071"></A>  (assert (node ?no-node question nil animal ?animal))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866072"></A>  (assert (node ?node animal nil yes-node ?yes-node</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866073"></A>           no-node ?no-node question ?question)))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866074"></A>;;; game is over</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866075"></A>(defrule game-finished :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866076"></A>  :priority 15</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866077"></A>  (game-over ?g)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866078"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866079"></A>  (erase ?g)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866080"></A>;  (test (not (tk:confirm-yes-or-no &quot;Play again?&quot;)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866081"></A>  (return))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866082"></A>;;; --------------- BACKWARD CHAINING ----------------</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866083"></A>;;; prompt user for new animal</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866084"></A>(defrule fetch-new-animal :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866085"></A>   ((fetch-new-animal ?new-animal)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866086"></A>    &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866087"></A>;    (repeat)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866088"></A>    ((string-upcase</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866089"></A>       (tk:popup-prompt-for-string </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866090"></A>                &quot;What was your animal?&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866091"></A>     ?new-animal)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866092"></A>    (not (= ?new-animal &quot;NIL&quot;)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866093"></A>                ; check if abort was pressed</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866094"></A>    (or</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866095"></A>     (doesnt-exist-already ?new-animal)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866096"></A>     (and ((tk:send-a-message &quot;Animal exists already&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866097"></A>          (fail)))))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866098"></A>;;; check if a node already refers to this animal</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866099"></A>(defrule doesnt-exist-already :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866100"></A>  ((doesnt-exist-already ?animal)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866101"></A>   &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866102"></A>   (node ? animal ?animal)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866103"></A>   (cut)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866104"></A>   (fail))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866105"></A>  ((doesnt-exist-already ?animal)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866106"></A>   &lt;-- ))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866107"></A>;;; --------------- SAVING THE ANIMAL BASE ------------</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866108"></A>;;; writes out code which when loaded reconstructs the</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866109"></A>;;; tree of questions</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866110"></A>(defun save-animals (filename)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866111"></A>  (let* ((start-node (any `?node `(root ? node ?node)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866112"></A>         (code `(make-instance `root</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866113"></A>                 :node ,(node-code start-node)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866114"></A>         (*print-pretty* t))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866115"></A>    (with-open-file</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866116"></A>     (stream filename :direction :output</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866117"></A>                      :if-exists :supersede)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866118"></A>      (write `(in-package kw-user) :stream stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866119"></A>      (write-char #&#92;Newline stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866120"></A>      (write code :stream stream))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866121"></A>    nil))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866122"></A>(defun node-code (node)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866123"></A>  (when node</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866124"></A>    `(make-instance `node </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866125"></A>                   :question ,(node-question node)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866126"></A>       :animal `,(node-animal node)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866127"></A>       :yes-node ,(node-code (node-yes-node node))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866128"></A>       :no-node ,(node-code (node-no-node node)))))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-208.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-206.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-206.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

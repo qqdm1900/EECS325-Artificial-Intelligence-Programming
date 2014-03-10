@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ unwind-protect-blocking-interrupts
+</TITLE>
+
+<LINK REL="next" HREF="lw-862.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-860.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-862.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-860.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1374144"></A><A NAME="25724"></A>unwind<A NAME="marker-1374555"></A>-protect-blocking-interrupts</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1374145"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1374146"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1374147"></A>Does <CODE CLASS="Code">
+unwind-protect</CODE>
+ blocking interrupts.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1374148"></A>Package </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1374149"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1374150"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1374151"></A>unwind-protect-blocking-interrupts <EM CLASS="Variable">
+protected-form</EM>
+ &amp;rest <EM CLASS="Variable">
+cleanups</EM>
+<CODE CLASS="Code">
+ =&gt; </CODE>
+<EM CLASS="Variable">
+results</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1374152"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1374153"></A><EM CLASS="Variable">
+protected-form</EM>
+</P>
+<P CLASS="RDescription-C">A form.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1375083"></A><EM CLASS="Variable">
+cleanups</EM>
+</P>
+<P CLASS="RDescription-C">Forms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1374154"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1374155"></A><EM CLASS="Variable">
+results</EM>
+</P>
+<P CLASS="RDescription-C">The values of <EM CLASS="Variable">
+protected-form</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1374156"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1374645"></A>The macro <CODE CLASS="Code">
+unwind-protect-blocking-interrupts</CODE>
+ executes <EM CLASS="Variable">
+protected-form</EM>
+ with interrupts blocked. On exit, whether local or not, the <EM CLASS="Variable">
+cleanups</EM>
+ are executed with interrupts blocked.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1374647"></A>In compiled code, the macro is equvalent to</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1374649"></A>(mp:with-interrupts-blocked</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1374650"></A> (unwind-protect</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1374651"></A>     <EM CLASS="Variable">protected-form</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1374652"></A>   (mp:current-process-block-interrupts)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1374653"></A>   <EM CLASS="Variable">cleanup1</EM>
+ <EM CLASS="Variable">cleanup2</EM>
+ ..)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1375166"></A>However, in interpreted code the macro is expanded to ensure that the call to <CODE CLASS="Code">
+(mp:current-process-block-interrupts)</CODE>
+ actually happens. If the above form is interpreted and <EM CLASS="Variable">
+protected-form</EM>
+ uses <A HREF="lw-1024.htm#86857" CLASS="XRef">current-process-unblock-interrupts</A>, the evaluator may throw (if the process is killed, for example) before calling <A HREF="lw-1024.htm#86857" CLASS="XRef">current-process-unblock-interrupts</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1375248"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1375249"></A>Both the protected form and the cleanups can block and unblock interrupts using <A HREF="lw-1021.htm#98454" CLASS="XRef">current-process-block-interrupts</A> and <A HREF="lw-1024.htm#86857" CLASS="XRef">current-process-unblock-interrupts</A>. Typically the protected form would set up something and then unblock the interrupts. The cleanups may unblock interrupts if some of the cleanups are essential and others are not.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1374157"></A>Blocking interrupts causes the process to not respond to interrupts, including killing. You should make sure that forms which are executed with interrupts blocked do not hang.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1374160"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1374164"></A><A HREF="lw-1021.htm#98454" CLASS="XRef">current-process-block-interrupts</A><BR>
+<A HREF="lw-1024.htm#86857" CLASS="XRef">current-process-unblock-interrupts</A><BR>
+<A HREF="lw-862.htm#95356" CLASS="XRef">unwind-protect-blocking-interrupts-in-cleanups</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-862.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-860.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.16.1  Example 1
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-159.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-157.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-157.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A> &gt <A HREF="eduser-m-136.htm">6.3  Programming the editor</A> &gt <A HREF="eduser-m-157.htm">6.3.16  Examples</A><BR><BR>
+</DIV><A HREF="eduser-m-159.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-157.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-157.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-884183"></A>6.3.16.1  Example 1</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884184"></A>The following simple example creates a new editor command called Current<CODE CLASS="Code">
+ Line</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884186"></A>(editor:defcommand &quot;Current Line&quot; (p)  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884187"></A>    &quot;Computes the line number of the current point and</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884188"></A>     prints it in the Echo Area&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884189"></A>    &quot;Prints the line number of the current point&quot;  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884190"></A>    (let* ((cpoint (editor:current-point))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884191"></A>           (svpoint (editor:copy-point cpoint))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884192"></A>           (count 0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884193"></A>          (editor:beginning-of-buffer-command nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884194"></A>          (loop</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884195"></A>             (if (editor:point&gt; cpoint svpoint)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884196"></A>                 (return))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884197"></A>             (unless (editor:next-line-command nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884198"></A>                 (return))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884199"></A>             (incf count))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884200"></A>          (editor:move-point cpoint svpoint)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884201"></A>          (editor:message &quot;Current Line Number: &#126;S &quot; count)))</PRE>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-159.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-157.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-157.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

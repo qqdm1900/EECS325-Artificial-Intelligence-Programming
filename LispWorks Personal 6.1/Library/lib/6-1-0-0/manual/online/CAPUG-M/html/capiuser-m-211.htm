@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.9.5  Loading images
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-212.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-210.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-204.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-181.htm">13 Graphics Ports</A> &gt <A HREF="capiuser-m-204.htm">13.9  Working with images</A><BR><BR>
+</DIV><A HREF="capiuser-m-212.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-210.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-204.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-902397"></A>13.9.5  <A NAME="97422"></A>Loading images</H3>
+<P CLASS="Body">
+<A NAME="pgfId-905779"></A>To create an <CODE CLASS="Code">
+image</CODE>
+ object suitable for drawing on a given pane, use one of <A NAME="marker-906359"></A><CODE CLASS="Code">
+convert-external-image</CODE>
+, <A NAME="marker-906364"></A><CODE CLASS="Code">
+read-and-convert-external-image</CODE>
+, <A NAME="marker-906369"></A><CODE CLASS="Code">
+load-image</CODE>
+, <A NAME="marker-906374"></A><CODE CLASS="Code">
+make-image-from-port</CODE>
+, <A NAME="marker-906379"></A><CODE CLASS="Code">
+make-sub-image</CODE>
+ or (on Microsoft Windows)  <A NAME="marker-906384"></A><CODE CLASS="Code">
+load-icon-image</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-909163"></A>Images need to be freed after use. When the pane that an image was created for is destroyed, the image is freed automatically. However if you want to remove the image before the pane is destroyed, you must make an explicit call <A NAME="marker-909149"></A><CODE CLASS="Code">
+free-image</CODE>
+. If the image is not freed, then a memory leak will occur.</P>
+<P CLASS="Body">
+<A NAME="pgfId-905806"></A>Another way to create an <CODE CLASS="Code">
+image</CODE>
+ object is to supply a registered image identifier in a CAPI class that suports images. For example you can specify an <EM CLASS="Variable">
+image</EM>
+ in a <CODE CLASS="Code">
+capi:image-pinboard-object</CODE>
+. Then, an <CODE CLASS="Code">
+image</CODE>
+ object is created implicitly when the pinboard object is displayed and freed implicitly when the pinboard object is destroyed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-908102"></A>In all cases, the functions that create the <CODE CLASS="Code">
+image</CODE>
+ object require the pane to be already created. So if you are displaying the image when first displaying your window, take care to create the <CODE CLASS="Code">
+image</CODE>
+ object late enough, for example in the <CODE CLASS="Code">
+:create-callback</CODE>
+<A NAME="marker-908131"></A> of the interface or in the first <CODE CLASS="Code">
+:display-callback</CODE>
+<A NAME="marker-908136"></A> of the pane.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-212.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-210.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-204.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

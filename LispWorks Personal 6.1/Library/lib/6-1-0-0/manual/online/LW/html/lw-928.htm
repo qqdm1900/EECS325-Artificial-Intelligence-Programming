@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ get-inspector-values
+</TITLE>
+
+<LINK REL="next" HREF="lw-929.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-927.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-929.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-927.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-887821"></A>get<A NAME="marker-1418632"></A>-inspector-values</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-887823"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-958620"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-958621"></A>Customizes the information displayed in the LispWorks IDE Inspector tool.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887825"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-887826"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887827"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-887828"></A>get-inspector-values <EM CLASS="Variable">
+object</EM>
+ <EM CLASS="Variable">
+mode</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887829"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887830"></A><EM CLASS="Variable">
+object</EM>
+ </P>
+<P CLASS="RDescription-C">The object to be inspected.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887831"></A><EM CLASS="Variable">
+mode</EM>
+</P>
+<P CLASS="RDescription-C">Name of a mode, or <CODE CLASS="Code">
+nil</CODE>
+. <CODE CLASS="Code">
+nil</CODE>
+ defines the default inspection format for object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-966079"></A>Values </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-966080"></A>Returns five values: <EM CLASS="Variable">
+names</EM>
+, <EM CLASS="Variable">
+values</EM>
+, <EM CLASS="Variable">
+getter</EM>
+, <EM CLASS="Variable">
+setter</EM>
+ and <EM CLASS="Variable">
+type</EM>
+. <EM CLASS="Variable">
+names</EM>
+ and <EM CLASS="Variable">
+values</EM>
+ are the two lists displayed in columns in the inspector window. <EM CLASS="Variable">
+getter</EM>
+ is ignored. <EM CLASS="Variable">
+setter</EM>
+ is a function used to updated slot values. <EM CLASS="Variable">
+type</EM>
+ is displayed at the foot of the inspector window.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887832"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887833"></A>This generic function allows you to customize the LispWorks IDE Inspector by adding new formats (corresponding to different values of mode) in which instances of a particular class can be inspected. Mode <CODE CLASS="Code">
+nil</CODE>
+ is the default mode, which is always present (it can be overwritten).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-887835"></A>LispWorks includes methods for:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-887836"></A>(get-inspector-values (object nil)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887837"></A>(get-inspector-values (standard-object nil)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887838"></A>(get-inspector-values (structured-object nil)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887839"></A>(get-inspector-values (sequence nil)) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-887840"></A>(get-inspector-values cons nil))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-887841"></A>and so on. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887844"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887845"></A>This example allows inspection of a CLOS object, displaying only direct slots form a chosen class in its class precedence list. This can be useful when an object inherits many slots from superclasses, and the inherited slots are of no interest. </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-887846"></A>(defmethod lispworks:get-inspector-values </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887847"></A>         ((object standard-object)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887848"></A>          (mode (eql 'direct-as)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887849"></A>         (declare (ignore mode))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887850"></A>         (loop with object-class =</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887851"></A>                (class-of object) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887852"></A>               with precedence-list = </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887853"></A>                (class-precedence-list object-class)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887854"></A>               with items = </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887855"></A>                (loop for super in precedence-list </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887856"></A>                      collecting (list* </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887857"></A>                                  (format nil &quot;&#126;a&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887858"></A>                                   (class-name super))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887859"></A>                                   super))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887860"></A>               with class = </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887861"></A>                (or (capi:prompt-with-list items</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1059149"></A>                        &quot;Direct slots as ...&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887864"></A>                    object-class)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887865"></A>                            ;; default if no selection</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887866"></A>               with slots = </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887867"></A>                (class-direct-slots class)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887868"></A>               for slot in slots </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887869"></A>               for name = </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887870"></A>                    (clos::slot-definition-name slot)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887871"></A>               collect name into names</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887872"></A>               collect (if (slot-boundp object name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887873"></A>                           (slot-value object name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887874"></A>                         :slot-unbound)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887875"></A>               into values</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887876"></A>               finally</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887877"></A>               (return </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887878"></A>                (values </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887879"></A>                 names</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887880"></A>                 values</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887881"></A>                 nil</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887882"></A>                 #'(lambda </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887883"></A>                    (x slot-name index new-value)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887884"></A>                    (declare (ignore index))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887885"></A>                    (setf (slot-value x slot-name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887886"></A>                          new-value))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887887"></A>                 (format nil &quot;&#126;a - direct slots as &#126;a&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887888"></A>                         (class-name object-class)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-887889"></A>                         (class-name class))))))</PRE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-929.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-927.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

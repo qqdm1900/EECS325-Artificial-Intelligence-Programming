@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.4.2  Grouping subdefinitions together
+</TITLE>
+
+<LINK REL="next" HREF="lw-80.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-78.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-77.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-68.htm">7 Dspecs: Tools for Handling Definitions</A> &gt; <A HREF="lw-77.htm">7.4  Types of relations between definitions</A><BR><BR>
+</DIV><A HREF="lw-80.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-78.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-77.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-887812"></A>7.4.2  <A NAME="marker-893346"></A>Grouping subdefinitions together</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890101"></A>Some definition forms are macros that expand into a group of other definitions, for example <CODE CLASS="Code">
+defstruct</CODE>
+. When the form is associated with a dspec class, the subdefinitions can be automatically recorded as being subforms of the new definition, by use of the <A HREF="lw-702.htm#80510" CLASS="XRef">def</A> macro.  </P>
+<P CLASS="Body">
+<A NAME="pgfId-892166"></A>This means that the dspec system knows that the subdefinitions were inside the main definition (indeed, inside this particular form). Therefore</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-892174"></A>Location queries can retrieve this information.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-892175"></A>The source location commands in the LispWorks IDE, when passed a subdefinition, know to search for the main definition given in the <A HREF="lw-702.htm#80510" CLASS="XRef">def</A>.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-892202"></A><B CLASS="Bold">
+Note:</B>
+ to make source location work you will also need a <A HREF="lw-705.htm#21533" CLASS="XRef">define-form-parser</A> definition for the macro that expands into the <A HREF="lw-702.htm#80510" CLASS="XRef">def</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892167"></A><B CLASS="Bold">
+Note:</B>
+ <A HREF="lw-702.htm#80510" CLASS="XRef">def</A> defines a relation between two particular definitions, for example <CODE CLASS="Code">
+(defstruct foo)</CODE>
+ and <CODE CLASS="Code">
+(defun make-foo)</CODE>
+, not between the two dspec classes.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-80.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-78.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-77.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

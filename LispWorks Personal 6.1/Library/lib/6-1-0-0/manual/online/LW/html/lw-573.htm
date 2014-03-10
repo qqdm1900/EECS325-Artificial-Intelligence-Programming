@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ trace-new-instances-on-access
+</TITLE>
+
+<LINK REL="next" HREF="lw-574.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-572.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-559.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-559.htm">25 The CLOS Package</A><BR><BR>
+</DIV><A HREF="lw-574.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-572.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-559.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886364"></A><A NAME="14685"></A>trace<A NAME="marker-911450"></A>-new-instances-on-access</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886365"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886366"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886367"></A>Traces new instances of a given class, based on access modes.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886368"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886369"></A>clos</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886370"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886371"></A>trace-new-instances-on-access <EM CLASS="Variable">
+class-designator </EM>
+                            &amp;key <EM CLASS="Variable">
+read</EM>
+ <EM CLASS="Variable">
+write</EM>
+ <EM CLASS="Variable">
+slot-names</EM>
+ <EM CLASS="Variable">
+break</EM>
+ <EM CLASS="Variable">
+when</EM>
+ <EM CLASS="Variable">
+process</EM>
+ <EM CLASS="Variable">
+trace-output</EM>
+ <EM CLASS="Variable">
+entrycond</EM>
+ <EM CLASS="Variable">
+eval-before</EM>
+ <EM CLASS="Variable">
+before</EM>
+ <EM CLASS="Variable">
+backtrace</EM>
+ =&gt; t</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886373"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886374"></A><EM CLASS="Variable">
+class-designator</EM>
+</P>
+<P CLASS="RDescription-C">The class to trace.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886378"></A>Values</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-886379"></A>Returns <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886380"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886381"></A>Causes new instances of the class given by <EM CLASS="Variable">
+class-designator</EM>
+ to be traced for the access modes given by <EM CLASS="Variable">
+read</EM>
+, <EM CLASS="Variable">
+write</EM>
+ and <EM CLASS="Variable">
+slot-names</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-929358"></A>The keyword arguments control which type of access are traced, and provide preconditions for tracing, code to run before access, and how to print any trace output. They are interpreted as described for <A HREF="lw-574.htm#31743" CLASS="XRef">trace-on-access</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886442"></A>This function, when used with the <CODE CLASS="Code">
+:break</CODE>
+ keyword, replaces the deprecated function <A HREF="lw-560.htm#25014" CLASS="XRef">break-new-instances-on-access</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886382"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886383"></A>(trace-new-instances-on-access 'capi:display-pane</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886384"></A>                               :slot-names nil)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-920505"></A>Suppose you have a bug whereby the slot <CODE CLASS="Code">
+bar</CODE>
+ of an instance of your class <CODE CLASS="Code">
+foo</CODE>
+ is incorrectly being set to a negative integer value. You could cause entry into the debugger at the point where the slot is set incorrectly by evaluating this form:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-920550"></A>(clos:trace-new-instances-on-access</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-920551"></A>  'foo</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-920552"></A>  :slot-names '(bar)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-920553"></A>  :read nil</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-920554"></A>  :when '(and (integerp (car *traced-arglist*))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-920555"></A>              (&lt; (car *traced-arglist*) 0))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-920536"></A>  :break t)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-920548"></A>and running your program.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886385"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886443"></A><A HREF="lw-560.htm#25014" CLASS="XRef">break-new-instances-on-access</A><BR>
+<A HREF="lw-577.htm#98129" CLASS="XRef">untrace-new-instances-on-access</A><BR>
+<A HREF="lw-574.htm#31743" CLASS="XRef">trace-on-access</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-574.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-572.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-559.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

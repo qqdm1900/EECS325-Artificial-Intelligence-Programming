@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ barrier-block-and-wait
+</TITLE>
+
+<LINK REL="next" HREF="lw-1007.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1005.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1007.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1005.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1743599"></A><A NAME="90936"></A>barrier<A NAME="marker-1757382"></A>-block-and-wait</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1743600"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1743601"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1743602"></A>Enables a barrier, waits until a specified number of arrivers arrive, and then wakes immediately.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1803076"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1803077"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1743603"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1745810"></A>barrier-block-and-wait <EM CLASS="Variable">
+barrier</EM>
+ <EM CLASS="Variable">
+count</EM>
+ &amp;key <EM CLASS="Variable">
+wait-if-used-p</EM>
+ <EM CLASS="Variable">
+errorp</EM>
+ <EM CLASS="Variable">
+timeout</EM>
+ <EM CLASS="Variable">
+unblock</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1745811"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1743606"></A><EM CLASS="Variable">
+barrier</EM>
+</P>
+<P CLASS="RDescription-C">A barrier object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1743607"></A><EM CLASS="Variable">
+count</EM>
+</P>
+<P CLASS="RDescription-C">A positive integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1743608"></A><EM CLASS="Variable">
+wait-if-used-p</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1743609"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1743610"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+ or a positive real.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1743611"></A><EM CLASS="Variable">
+unblock</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1743612"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1743613"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">An integer, a symbol or a <CODE CLASS="Code">
+mp:process</CODE>
+ object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1743614"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1743615"></A>The function <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ enables the barrier <EM CLASS="Variable">
+barrier</EM>
+ with <CODE CLASS="Code">
+t</CODE>
+, that is it makes any number of arrivers wait, and then waits until <EM CLASS="Variable">
+count</EM>
+ arrivers arrive.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1743616"></A><EM CLASS="Variable">
+wait-if-used-p</EM>
+ controls whether to wait if another process is already inside <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+. The default value of <EM CLASS="Variable">
+wait-if-used-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1743617"></A><EM CLASS="Variable">
+barrier</EM>
+ is a barrier object made by <A HREF="lw-1055.htm#22917" CLASS="XRef">make-barrier</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1743618"></A><EM CLASS="Variable">
+errorp</EM>
+ controls whether to signal an error if another process is already inside <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ and <EM CLASS="Variable">
+wait-if-used-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+. The default value of <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1743619"></A><EM CLASS="Variable">
+timeout</EM>
+, if non-nil, specifies the time in seconds to wait before timing out. The default value of <EM CLASS="Variable">
+timeout</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1743620"></A><EM CLASS="Variable">
+unblock</EM>
+ specifies whether processes that already wait on the barrier should be unblocked first. The default value of <EM CLASS="Variable">
+unblock</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1743621"></A><CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ is &quot;using&quot; the barrier, and only one process can do it the same time. <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ first tries to mark the barrier as used by the current process. It will fail if another process is inside <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ with the same barrier. In this case it does one of three options:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1743622"></A>By default, it returns the other process.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1743623"></A>If <EM CLASS="Variable">
+wait-if-used-p</EM>
+ is non-nil, it calls <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> on the barrier <EM CLASS="Variable">
+barrier</EM>
+ (without any keyword argument) and returns the result.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1743624"></A>If <EM CLASS="Variable">
+errorp</EM>
+ is non-nil, it calls <CODE CLASS="Code">
+error</CODE>
+.</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-1743625"></A>Once <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ has successfully marked <EM CLASS="Variable">
+barrier</EM>
+ as used, it changes its count to <CODE CLASS="Code">
+t</CODE>
+ as if by calling <CODE CLASS="Code">
+(barrier-change-count </CODE>
+<EM CLASS="Variable">
+barrier</EM>
+<CODE CLASS="Code">
+ t)</CODE>
+, which will cause other <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> calls to wait. If <EM CLASS="Variable">
+unblock</EM>
+ is non-nil, it first unblocks all processes that wait on the barrier, so the effect is the same as <CODE CLASS="Code">
+(barrier-enable </CODE>
+<EM CLASS="Variable">
+barrier</EM>
+<CODE CLASS="Code">
+ t)</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1743626"></A>It then waits until the arriver count of the barrier is equal or bigger than <EM CLASS="Variable">
+count</EM>
+, or, if <EM CLASS="Variable">
+timeout</EM>
+ is supplied, <EM CLASS="Variable">
+timeout</EM>
+ seconds passed. It then returns the number of arrivers.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1743627"></A><EM CLASS="Variable">
+result</EM>
+ can be one of three types:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1743628"></A><CODE CLASS="Code">
+integer</CODE>
+</P>
+<P CLASS="RDescription-C">The call was successful, and <EM CLASS="Variable">
+result</EM>
+ is the number of arrivers.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1743629"></A><CODE CLASS="Code">
+symbol</CODE>
+</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+barrier</EM>
+ was in use, and <EM CLASS="Variable">
+wait-if-used-p</EM>
+ is non-nil, so <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> was called. <EM CLASS="Variable">
+result</EM>
+ is the result of <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1743630"></A><CODE CLASS="Code">
+mp:process</CODE>
+</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+barrier</EM>
+ is in use, and <EM CLASS="Variable">
+result</EM>
+ is the process that uses it.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1743631"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1743632"></A>When <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ returns the barrier is still set with <CODE CLASS="Code">
+t</CODE>
+, that is calls to <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> on barrier will wait. Normally the current process will go on to do some operations that require the other processes to wait, and then release them by calling <A HREF="lw-1009.htm#63062" CLASS="XRef">barrier-disable</A> or <A HREF="lw-1010.htm#92294" CLASS="XRef">barrier-enable</A>.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1743633"></A>In typical usage, the arriver count is just increased by one by each call to <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A>, so as long as other processes use only <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> (or <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ with <EM CLASS="Variable">
+wait-if-used-p</EM>
+ non-nil), <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ will return after <EM CLASS="Variable">
+count</EM>
+ processes called <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> and are waiting. That is the intention of <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+. If other processes call functions that manipulate the arriver count or the count (<A HREF="lw-1009.htm#63062" CLASS="XRef">barrier-disable</A>, <A HREF="lw-1010.htm#92294" CLASS="XRef">barrier-enable</A>, <A HREF="lw-1013.htm#98210" CLASS="XRef">barrier-unblock</A>, <A HREF="lw-1007.htm#17793" CLASS="XRef">barrier-change-count</A>), then <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ will &quot;get confused&quot;, in the sense that while its behavior is still well-defined, it is not intuitive.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1743634"></A>With the default keyword values (maybe with <EM CLASS="Variable">
+timeout</EM>
+), <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ is useful for controlling a fixed set of processes by another &quot;master&quot; process. The processes in the set need to call <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> at appropriate points. When the &quot;master&quot; process wants to stop them for a while, it calls <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+. When it wants to restart them, it calls <A HREF="lw-1009.htm#63062" CLASS="XRef">barrier-disable</A>.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1743635"></A>The argument <EM CLASS="Variable">
+wait-if-used-p</EM>
+ is useful when any member of a group of processes may decide that it needs to stop all the other processes in the group. In this case, this process will call <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ with <EM CLASS="Variable">
+wait-if-used-p</EM>
+ non-nil (and count the number of processes in the group minus one). If two of the processes happen to call it at the same time, one will get the barrier, and the other process will have to wait.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1743636"></A>The effect of <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ can be approximated by using <A HREF="lw-1007.htm#17793" CLASS="XRef">barrier-change-count</A> followed by normal <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> that checks the arrivers count in the wait function. <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ has two advantages:</LI>
+<P CLASS="RStep-C">
+<A NAME="pgfId-1743637"></A>a) It checks against more than one process trying to do it at the same time.</P>
+<P CLASS="RStep-C">
+<A NAME="pgfId-1743638"></A>b) <CODE CLASS="Code">
+barrier-block-and-wait</CODE>
+ will wake up immediately when the arriver count reaches the right number. <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> will wake up only when the scheduler checks the wait function and wakes it up.</P>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1743639"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1813132"></A><A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A><BR>
+<A HREF="lw-1055.htm#22917" CLASS="XRef">make-barrier</A><BR>
+<A HREF="lw-1010.htm#92294" CLASS="XRef">barrier-enable</A><BR>
+<A HREF="lw-1009.htm#63062" CLASS="XRef">barrier-disable</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1007.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1005.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

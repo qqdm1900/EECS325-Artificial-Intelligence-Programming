@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-gen-num-gc-threshold
+</TITLE>
+
+<LINK REL="next" HREF="lw-1428.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1426.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1428.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1426.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1168350"></A><A NAME="95845"></A>set<A NAME="marker-1168349"></A>-gen-num-gc-threshold</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1168351"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1168352"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1168353"></A>Sets the additional allocation threshold that triggers a GC in the blocking generation in 64-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1168354"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1168355"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1168356"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1168357"></A>set-gen-num-gc-threshold <EM CLASS="Variable">
+gen-num</EM>
+ <EM CLASS="Variable">
+threshold</EM>
+ =&gt; <EM CLASS="Variable">
+old-threshold</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1168358"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1185192"></A><EM CLASS="Variable">
+gen-num</EM>
+</P>
+<P CLASS="RDescription-C">An integer between 0 and 7, inclusive.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1168362"></A><EM CLASS="Variable">
+threshold</EM>
+</P>
+<P CLASS="RDescription-C">An integer greater than 12800, or a real in the inclusive range [0 100], or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1168363"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1168364"></A><EM CLASS="Variable">
+old-threshold</EM>
+</P>
+<P CLASS="RDescription-C">A number.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1168365"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1168366"></A>The function <CODE CLASS="Code">
+set-gen-num-gc-threshold</CODE>
+ sets the threshold for additional allocation that triggers a garbage collection (GC) in generation <EM CLASS="Variable">
+gen-num</EM>
+ when this is the blocking generation (as set by <A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A>). A GC is triggered when the allocation in generation <EM CLASS="Variable">
+gen-num</EM>
+ grows more than <EM CLASS="Variable">
+threshold</EM>
+ over the allocation after the last GC of this generation (or a GC of a higher generation).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1170027"></A>To set the threshold, <EM CLASS="Variable">
+threshold</EM>
+ can be an integer greater than 12800, which is interpreted as the absolute value. Alternatively <EM CLASS="Variable">
+threshold</EM>
+ can be a real number in the inclusive range [0 100], which is multiplied by the allocation since the previous GC to get the actual threshold to set.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1170028"></A>The default threshold for all generations is 1. That is, for all generations <EM CLASS="Variable">
+gen-num</EM>
+, when generation <EM CLASS="Variable">
+gen-num </EM>
+is the blocking generation and allocation in it has doubled since the previous GC, generation <EM CLASS="Variable">
+gen-num</EM>
+ is collected automatically.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1170029"></A><CODE CLASS="Code">
+set-gen-num-gc-threshold</CODE>
+ can be called when the generation <EM CLASS="Variable">
+gen-num</EM>
+ is not the blocking generation, and will set the value for that <EM CLASS="Variable">
+gen-num</EM>
+. Such a call will not take effect until the generation <EM CLASS="Variable">
+gen-num</EM>
+ becomes the blocking generation, as set by a call to <A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A> (with <CODE CLASS="Code">
+:do-gc </CODE>
+non-nil).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1170030"></A>Increasing the threshold reduces the number of GC calls, but may increase the virtual memory usage.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1170031"></A><CODE CLASS="Code">
+set-gen-num-gc-threshold</CODE>
+ returns the old threshold for the generation <EM CLASS="Variable">
+gen-num</EM>
+. It can be called with <EM CLASS="Variable">
+threshold</EM>
+ <CODE CLASS="Code">
+nil</CODE>
+ to return the threshold value without changing it.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1168382"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1657514"></A><CODE CLASS="Code">
+set-gen-num-gc-threshold</CODE>
+ is implemented only in 64-bit LispWorks. It is not relevant to the Memory Management API in 32-bit implementations.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1168385"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1168386"></A><A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1428.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1426.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

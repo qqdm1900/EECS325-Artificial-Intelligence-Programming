@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ dde-connect
+</TITLE>
+
+<LINK REL="next" HREF="lw-1492.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1490.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1485.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1485.htm">43 The  DDE client interface</A><BR><BR>
+</DIV><A HREF="lw-1492.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1490.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1485.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886498"></A><A NAME="35496"></A>dde<A NAME="marker-937095"></A>-connect</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886956"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886500"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887013"></A>Attempts to create a conversation with a specified DDE server.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886978"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-887016"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886979"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886986"></A>dde-connect <EM CLASS="Variable">
+service</EM>
+ <EM CLASS="Variable">
+topic</EM>
+ &amp;key <EM CLASS="Variable">
+class</EM>
+ <EM CLASS="Variable">
+errorp</EM>
+ =&gt; <EM CLASS="Variable">
+object</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887024"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887026"></A><EM CLASS="Variable">
+service</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887080"></A><EM CLASS="Variable">
+topic</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887081"></A><EM CLASS="Variable">
+class</EM>
+</P>
+<P CLASS="RDescription-C">The class of the conversation object to create.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887082"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887028"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887030"></A><EM CLASS="Variable">
+object</EM>
+</P>
+<P CLASS="RDescription-C">A conversation object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887032"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887034"></A>The function <CODE CLASS="Code">
+dde-connect</CODE>
+ attempts to create a conversation with a DDE server. If <EM CLASS="Variable">
+server</EM>
+ names a client service registered with <A HREF="lw-1505.htm#34026" CLASS="XRef">define-dde-client</A>, the registered service name is used as the DDE service name. If <EM CLASS="Variable">
+server</EM>
+ is any other symbol, the print name of the symbol is used as the DDE service name. If <EM CLASS="Variable">
+server</EM>
+ is a string, that string is used as the DDE service name.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886513"></A>The <EM CLASS="Variable">
+topic</EM>
+ argument specifies the DDE topic name to be used in the conversation. If it is a symbol, the symbol's print name is used. If it is a string, the string is used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886517"></A>The <EM CLASS="Variable">
+class</EM>
+ argument specifies the class of the conversation object to create. It must be a subclass of <CODE CLASS="Code">
+dde-client-conversation</CODE>
+, or <CODE CLASS="Code">
+nil</CODE>
+. If it is <CODE CLASS="Code">
+nil</CODE>
+ (the default value), then a conversation of class <CODE CLASS="Code">
+dde-client-conversation</CODE>
+ is created, unless <EM CLASS="Variable">
+server</EM>
+ names a client service registered with <A HREF="lw-1505.htm#34026" CLASS="XRef">define-dde-client</A>, in which case the registered class (if any) is used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886524"></A>On executing successfully, this function returns a conversation object. If unsuccessful, the behavior depends on the value of <EM CLASS="Variable">
+errorp</EM>
+. If <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ (the default value), then an error is raised. If <EM CLASS="Variable">
+errorp</EM>
+ is false, the function returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886529"></A>Note that conversation objects may only be used within the thread (lightweight process) in which they were created.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896173"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896249"></A><A HREF="lw-1492.htm#16522" CLASS="XRef">dde-disconnect</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1492.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1490.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1485.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

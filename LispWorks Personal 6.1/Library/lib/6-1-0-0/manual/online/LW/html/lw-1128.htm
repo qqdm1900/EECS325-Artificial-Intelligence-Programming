@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ symeval-in-process
+</TITLE>
+
+<LINK REL="next" HREF="lw-1129.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1127.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1129.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1127.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1171676"></A><A NAME="marker-915755"></A><A NAME="55206"></A>symeval<A NAME="marker-1171902"></A>-in-process</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1171677"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171678"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1171679"></A>Reads the value of symbol which is dynamically bound in a given process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171680"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1171681"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171682"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1172610"></A>symeval-in-process <EM CLASS="Variable">
+symbol</EM>
+ <EM CLASS="Variable">
+process</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+, <EM CLASS="Variable">
+flag</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1173374"></A>(setf symeval-in-process) <EM CLASS="Variable">
+value</EM>
+ <EM CLASS="Variable">
+symbol</EM>
+ <EM CLASS="Variable">
+process</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171684"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1172556"></A><EM CLASS="Variable">
+symbol</EM>
+</P>
+<P CLASS="RDescription-C">A symbol</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1171685"></A><EM CLASS="Variable">
+process</EM>
+</P>
+<P CLASS="RDescription-C">A process</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171686"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1172692"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp object</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1172693"></A><EM CLASS="Variable">
+flag</EM>
+</P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+nil</CODE>
+ or the keyword <CODE CLASS="Code">
+:unbound</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171948"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1172886"></A>The function <CODE CLASS="Code">
+symeval-in-process</CODE>
+ reads the value of the symbol <EM CLASS="Variable">
+symbol</EM>
+ in the process <EM CLASS="Variable">
+process</EM>
+ if it is bound dynamically. The global value of <EM CLASS="Variable">
+symbol</EM>
+ is never returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1172083"></A>If <EM CLASS="Variable">
+symbol</EM>
+ is not bound in <EM CLASS="Variable">
+process</EM>
+, then <EM CLASS="Variable">
+value</EM>
+ and <EM CLASS="Variable">
+flag</EM>
+ are both <CODE CLASS="Code">
+nil</CODE>
+. If <EM CLASS="Variable">
+symbol</EM>
+ is bound in <EM CLASS="Variable">
+process</EM>
+ but <CODE CLASS="Code">
+makunbound</CODE>
+ has been called within the dynamic scope of the binding, <EM CLASS="Variable">
+value</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ and <EM CLASS="Variable">
+flag</EM>
+ is <CODE CLASS="Code">
+:unbound</CODE>
+. Otherwise, <EM CLASS="Variable">
+value</EM>
+ is the value of <EM CLASS="Variable">
+symbol</EM>
+ and <EM CLASS="Variable">
+flag</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1172085"></A>In addition, the form</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1173294"></A>(setf (symeval-in-process <EM CLASS="Variable">
+symbol</EM>
+ <EM CLASS="Variable">
+process</EM>
+) <EM CLASS="Variable">
+value</EM>
+)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1174193"></A>sets the value of <EM CLASS="Variable">
+symbol</EM>
+ to <EM CLASS="Variable">
+value</EM>
+ in <EM CLASS="Variable">
+process</EM>
+. It is an error if <EM CLASS="Variable">
+process</EM>
+ has no binding for <EM CLASS="Variable">
+symbol</EM>
+. This <CODE CLASS="Code">
+setf</CODE>
+ form returns <EM CLASS="Variable">
+value</EM>
+ as specified by Common Lisp.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1261126"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1261134"></A><CODE CLASS="Code">
+symeval-in-process</CODE>
+ is mostly intended for debugging. It is OK to call it on a thread known to be idle, or in <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> or <A HREF="lw-1097.htm#48925" CLASS="XRef">process-stop</A>, but it should not be called while the thread is running.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1129.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1127.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

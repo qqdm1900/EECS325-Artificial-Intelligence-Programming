@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ switchable-layout
+</TITLE>
+
+<LINK REL="next" HREF="capiref-425.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-423.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-425.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-423.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3260003"></A><A NAME="30881"></A>switchable<A NAME="marker-4231976"></A>-layout</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-913455"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913162"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-913164"></A>A subclass of <CODE CLASS="Code">
+simple-layout</CODE>
+ that displays only one of its children at a time, and provides functionality for switching the displayed child to one of the other children.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4231959"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4231960"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913167"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-913169"></A><A HREF="capiref-406.htm#10300" CLASS="XRef">simple-layout</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913171"></A>Initargs</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-913173"></A><CODE CLASS="Code">
+:visible-child</CODE>
+<A NAME="marker-952952"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-3281180"></A>The currently visible pane from the children.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-7382849"></A><CODE CLASS="Code">
+:combine-child-constraints</CODE>
+<A NAME="marker-7382848"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-7382850"></A>A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913175"></A>Readers</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-913177"></A><A NAME="marker-3835018"></A>switchable-layout-visible-child<BR>
+<A NAME="marker-7382911"></A>switchable-layout-combine-child-constraints</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913179"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-913181"></A>The <CODE CLASS="Code">
+switchable-layout</CODE>
+ has a <EM CLASS="Variable">
+description</EM>
+ which is its list of children. The argument <EM CLASS="Variable">
+visible-child</EM>
+ specifies the initially visible child (which defaults to the first of the children). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-2178933"></A><CODE CLASS="Code">
+switchable-layout</CODE>
+ inherits most of its layout behavior from <A HREF="capiref-406.htm#10300" CLASS="XRef">simple-layout</A> as it only ever lays out one child at a time.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7383351"></A><EM CLASS="Variable">
+combine-child-constraints</EM>
+ influences the initial size of the layout. When <EM CLASS="Variable">
+combine-child-constraints</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ the constraints of the switchable layout depend only on its currently visible child pane. Switching to a different child pane might cause the layout to resize. When <EM CLASS="Variable">
+combine-child-constraints</EM>
+ is non-nil, the constraints depend on all of the child panes, including those that are not visible. This might increase the time taken to create the switchable layout initially, but can prevent unexpected resizing later. The default value of <EM CLASS="Variable">
+combine-child-constraints</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913185"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4428232"></A>(setq children (list</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428233"></A>                (make-instance 'capi:push-button</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428234"></A>                               :text &quot;Press Me&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428235"></A>                (make-instance 'capi:list-panel</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428236"></A>                               :items '(1 2 3 4 5))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428237"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428238"></A>(setq layout (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428239"></A>              (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428240"></A>               'capi:switchable-layout</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428241"></A>               :description children)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428242"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428243"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428244"></A> layout #'(setf capi:switchable-layout-visible-child)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428245"></A> (second children) layout)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428246"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428247"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4428248"></A>  layout #'(setf capi:switchable-layout-visible-child) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1168068"></A>  (first children) layout)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-3483632"></A>There is a further example in the file <CODE CLASS="Code">
+examples/capi/layouts/switchable.lisp</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913219"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-913221"></A><A HREF="capiref-406.htm#10300" CLASS="XRef">simple-layout</A><BR>
+<A HREF="capiref-425.htm#93842" CLASS="XRef">switchable-layout-switchable-children</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-425.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-423.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

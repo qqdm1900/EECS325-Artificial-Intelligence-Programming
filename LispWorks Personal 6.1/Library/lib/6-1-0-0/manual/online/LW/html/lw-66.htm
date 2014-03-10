@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.5  Examples
+</TITLE>
+
+<LINK REL="next" HREF="lw-67.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-65.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-59.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-59.htm">6 The Advice Facility</A><BR><BR>
+</DIV><A HREF="lw-67.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-65.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-59.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886117"></A>6.5  <A NAME="marker-886116"></A>Examples</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886118"></A>So far you have only seen examples of before and after pieces of advice. This section contains some further examples. Suppose that you define a function <CODE CLASS="Code">
+alpha</CODE>
+ that squares a number, and then decide that you intended to return the reciprocal of the square instead. You might proceed as follows.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886119"></A>CL-USER 30 &gt; (defun alpha (x) (* x x))   </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886120"></A>ALPHA  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886121"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886122"></A>CL-USER 31 &gt; (defadvice</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886123"></A>             (alpha reciprocal :around)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886124"></A>             (num)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886125"></A>             (/ (call-next-advice num)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886126"></A>NIL  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886127"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886128"></A>CL-USER 32 &gt; (alpha -5)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886129"></A>1/25  </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886130"></A>First you change <CODE CLASS="Code">
+alpha</CODE>
+ to return the reciprocal of the square. Do this by defining an around method to take the reciprocal of the result produced by the next piece of advice (which initially is the original definition). Now suppose that you later decide that you would like <CODE CLASS="Code">
+alpha</CODE>
+ to return the sum of the squares of the reciprocals in a certain range. You can achieve this by adding an extra layer of around advice. This must iterate over the range required, summing the results obtained by the calls to the next piece of advice (which currently yields the reciprocal of the square of its argument).</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886131"></A>CL-USER 36 &gt; (defadvice</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886132"></A>             (alpha sum-over-range :around)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886133"></A>             (start end)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886134"></A>             (loop for i from start upto end</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886135"></A>               summing (call-next-advice i)))  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886136"></A>NIL  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886137"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886138"></A>CL-USER 37 &gt; (alpha 2 5)  </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886139"></A>1669/3600  </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886140"></A>Note that <CODE CLASS="Code">
+alpha</CODE>
+ now behaves as a function requiring two arguments; the outer piece of around advice determines the external interface to the function, and uses the inner pieces of advice as it needs - in this case invoking the inner advice a variable number of times depending on the range specified. The use of the words &quot;outer&quot; and &quot;inner&quot; corresponds to earlier and later pieces of around advice in the ordering discussed above, but is more descriptive of their behavior.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886141"></A>You now realize that taking the reciprocal of zero gives an error. You decide that you wish to generate an error if <CODE CLASS="Code">
+alpha</CODE>
+ is called in such a way as to cause this, but that you want to generate the error yourself. You also decide to add a warning message for negative arguments. As you want these actions to be performed as the last (that is innermost) in the chain of around advice, you specify this in the call to <A HREF="lw-895.htm#defadvice" CLASS="XRef">defadvice</A> by giving it a <CODE CLASS="Code">
+:where</CODE>
+ keyword with value <CODE CLASS="Code">
+:end</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886142"></A>CL-USER 41 &gt; (defadvice</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886143"></A>             (alpha zero-or-negative</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886144"></A>               :around :where :end)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886145"></A>             (x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886146"></A>             (unless (plusp x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886147"></A>             (format t</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886148"></A>            &quot;&#126;%**Warning: alpha is being called with &#126;A&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886149"></A>                x))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886150"></A>             (if (zerop x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886151"></A>              (error &quot;Alpha cannot be called with zero&quot;)
+             (call-next-advice x)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886152"></A>NIL </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886153"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886154"></A>CL-USER 42 &gt; (alpha -5 -2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886155"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886156"></A>**Warning: alpha is being called with -5 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886157"></A>**Warning: alpha is being called with -4 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886494"></A>**Warning: alpha is being called with -3 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886158"></A>**Warning: alpha is being called with -2 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886159"></A>1669/3600 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886160"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886161"></A>CL-USER 43 &gt; (alpha 0 3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886162"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886163"></A>**Warning: alpha is being called with 0 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886164"></A>Error: alpha cannot be called with zero  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886165"></A> 1 (abort) return to level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886166"></A> 2 return to top loop level 0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886167"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886168"></A>Type :c followed by a number to proceed</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886169"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886170"></A>CL-USER 44 : 1 &gt; :a</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886171"></A>Finally you decide to alter <CODE CLASS="Code">
+alpha</CODE>
+ yet again, this time to produce approximations to &#960;. &#960;2/ 6 is the sum of the reciprocals of the squares of all the positive integers. So you can generate an approximation to &#960; using the sum of the reciprocals of the squares of the integers from one to some limit. (In fact this is not an efficient way of calculating &#960;, but it could be of interest.)</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886172"></A>CL-USER 51 &gt; (defadvice</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886173"></A>                 (alpha pi-approximation :around)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886174"></A>                 (limit)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886175"></A>               (sqrt</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886176"></A>                (* 6 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886177"></A>                   (call-next-advice 1.0 limit))))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886178"></A>NIL </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886180"></A>Next, try calling the following in turn:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886495"></A>(alpha 10.0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886183"></A>(alpha 100.0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886186"></A>(alpha 1000.0)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887867"></A>pi</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887868"></A>Lastly, here is a simple example showing a use of advice with an <CODE CLASS="Code">
+&amp;rest</CODE>
+ lambda list:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887854"></A>(defun foo (a b c)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887855"></A>  (print (list a b c)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887898"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887904"></A>(defadvice (foo and-rest-advice :around) (&amp;rest args)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887905"></A>  (format t &quot;advice called with args &#126;S&quot; args)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887850"></A>  (apply #'call-next-advice args))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-67.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-65.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-59.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

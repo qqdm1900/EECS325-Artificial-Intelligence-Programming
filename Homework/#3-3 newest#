@@ -1,0 +1,12 @@
+(in-package #:cs325-user)
+	
+(defun occurrences (lst)
+  (do ((l lst (cdr l))
+       (lst1 nil (add-items (car l) lst1)))
+      ((null l) (sort lst1 #'> :key #'cdr))))
+
+(defun add-items (a lst)
+  (let ((p (assoc a lst)))
+    (cond (p (incf (cdr p)) lst)
+	  (t (acons a 1) lst)))))
+       

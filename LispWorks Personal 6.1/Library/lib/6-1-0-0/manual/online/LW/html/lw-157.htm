@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.4.5  Tuning the garbage collector
+</TITLE>
+
+<LINK REL="next" HREF="lw-158.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-156.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-152.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-128.htm">10 Storage Management</A> &gt; <A HREF="lw-152.htm">10.4  Memory Management in 64-bit LispWorks</A><BR><BR>
+</DIV><A HREF="lw-158.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-156.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-152.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-891798"></A>10.4.5  Tuning the garbage collector</H3>
+<P CLASS="Body">
+<A NAME="pgfId-892296"></A>The GC settings are tuned for typical cases, so in general you do not need to change them. If you are considering tuning the GC, contact Lisp Support.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892303"></A>The main tools for seeing how the GC behaves are the macro <A NAME="marker-892304"></A><CODE CLASS="Code">
+</CODE>
+<A NAME="marker-892305"></A><A HREF="lw-789.htm#58380" CLASS="XRef">extended-time</A> and periodical calls to <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-892309"></A><A HREF="lw-664.htm#94982" CLASS="XRef">room</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890644"></A>In the output of <CODE CLASS="Code">
+(room)</CODE>
+ (or the more verbose <CODE CLASS="Code">
+(room t)</CODE>
+), the allocation in each generation is presented according to the allocation type, which may be useful to decide on possible tuning.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891815"></A><CODE CLASS="Code">
+(extended-time </CODE>
+<EM CLASS="Variable">
+forms</EM>
+<CODE CLASS="Code">
+)</CODE>
+ outputs the time spent in garbage collection, whether automatic or called explicitly. The time is shown according to the maximum generation number that was collected and to whether it was a standard garbage collection (automatic and calls to <A NAME="marker-891816"></A><A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A>) or a marking garbage collection (calls to <A NAME="marker-891817"></A><A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-891818"></A>In addition to <A HREF="lw-664.htm#94982" CLASS="XRef">room</A> and <A HREF="lw-789.htm#58380" CLASS="XRef">extended-time</A>, there are also the functions <A NAME="marker-891819"></A><A HREF="lw-1348.htm#88484" CLASS="XRef">count-gen-num-allocation</A>, <A NAME="marker-891820"></A><A HREF="lw-1369.htm#69789" CLASS="XRef">gen-num-segments-fragmentation-state</A>, and <A NAME="marker-891821"></A><A HREF="lw-1422.htm#14543" CLASS="XRef">set-automatic-gc-callback</A>. These function can be used to collect information about automatic garbage collection operations.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892345"></A>The profiler can also help determine whether the settings can be improved for your application. See <A HREF="lw-170.htm#34619" CLASS="XRef">The Profiler</A> for details of that.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-158.htm#pgfId-889403" CLASS="Hypertext">10.4.5.1  Interface for tuning the GC</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-158.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-156.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-152.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.4.3  Object-Oriented Data Manipulation Language (OODML)
+</TITLE>
+
+<LINK REL="next" HREF="lw-386.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-384.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-380.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-380.htm">19.4  Object oriented interface</A><BR><BR>
+</DIV><A HREF="lw-386.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-384.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-380.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886453"></A>19.4.3  <A NAME="marker-886452"></A>Object-Oriented Data Manipulation Language (OODML)</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886455"></A>The <A NAME="marker-886454"></A>OODML is designed to be powerful and expressive, while remaining familiar to users of the <A NAME="marker-886456"></A>FDML. To achieve this aim, some of the functions and macros in the SQL interface have been <I CLASS="Italic">
+overloaded</I>
+ -- particularly the <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> function and the iteration constructs.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903828"></A>The function <A NAME="marker-903827"></A><A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> is common across the both the functional and object-oriented SQL interfaces. If its first argument, <EM CLASS="Variable">
+selections,</EM>
+ refers to a View Class by supplying its symbolic name then the select operation becomes object-oriented and it returns a list of instances instead of a list of attributes. </P>
+<P CLASS="Body">
+<A NAME="pgfId-903896"></A>A subsequent equivalent <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> call will return the same (<CODE CLASS="Code">
+eql</CODE>
+) instances. The <CODE CLASS="Code">
+:refresh</CODE>
+ argument can be used to ensure that existing instances get updated with any changed data. If such an update requires action by your application, then add methods on the generic function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-903917"></A><A HREF="lw-1190.htm#60214" CLASS="XRef">instance-refreshed</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903891"></A>In a View Class <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> call, the symbol <CODE CLASS="Code">
+slot-value</CODE>
+ is a valid SQL operator for use within the <CODE CLASS="Code">
+:where</CODE>
+ argument. </P>
+<P CLASS="Body">
+<A NAME="pgfId-903831"></A>To find the View Classes for a particular database, use the function <A NAME="marker-903830"></A><A HREF="lw-1193.htm#12253" CLASS="XRef">list-classes</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903838"></A>To manipulate data via a View Class, that is to modify the records corresponding to instances of the View Class, using the generic functions <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-903839"></A><A HREF="lw-1284.htm#38636" CLASS="XRef">update-records-from-instance</A>, and <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-903840"></A><A HREF="lw-1285.htm#20154" CLASS="XRef">update-record-from-slot</A><EM CLASS="Variable">
+.</EM>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-903846"></A>To delete records corresponding to instances of the View Class, use the generic function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-903847"></A><A HREF="lw-1173.htm#42260" CLASS="XRef">delete-instance-records</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903852"></A>To update existing instances of a View Class when data is known to have changed, use the generic functions <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-903854"></A><A HREF="lw-1286.htm#66526" CLASS="XRef">update-slot-from-record</A> and  <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-903904"></A><A HREF="lw-1281.htm#94278" CLASS="XRef">update-instance-from-records</A>.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-386.htm#pgfId-886464" CLASS="Hypertext">19.4.3.1  Examples</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-387.htm#pgfId-886492" CLASS="Hypertext">19.4.3.2  Iteration</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-388.htm#pgfId-914893" CLASS="Hypertext">19.4.3.3  Garbage collection of view instances</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-386.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-384.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-380.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

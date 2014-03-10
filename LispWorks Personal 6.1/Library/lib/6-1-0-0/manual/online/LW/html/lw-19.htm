@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.2.1  Standard top-level loop commands
+</TITLE>
+
+<LINK REL="next" HREF="lw-20.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-18.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-18.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-16.htm">2 The Listener</A> &gt; <A HREF="lw-18.htm">2.2  Standard listener commands</A><BR><BR>
+</DIV><A HREF="lw-20.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-18.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-18.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-890548"></A>2.2.1  Standard top-level loop commands</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886116"></A><A NAME="marker-887159"></A>:redo</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886508"></A>Listener command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886578"></A>:redo &amp;optional <EM CLASS="Variable">
+command-identifier</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886117"></A>This option repeats a previous input. The <EM CLASS="Variable">
+command-identifier</EM>
+ is either a number in the listener's history list or a symbol or subform in the input to repeat. If <EM CLASS="Variable">
+command-identifier</EM>
+ is not supplied, the last input is repeated.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886118"></A><A NAME="marker-887160"></A>:get</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886510"></A>Listener command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886582"></A>:get <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+command-identifier</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886119"></A><CODE CLASS="Code">
+:get</CODE>
+ retrieves a previously-entered input from the listener's history  and places it in the variable <EM CLASS="Variable">
+name</EM>
+. The <EM CLASS="Variable">
+command-identifier</EM>
+ is the history list number of the input to be retrieved.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886120"></A><A NAME="marker-887161"></A>:use</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886512"></A>Listener command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886605"></A>:use <EM CLASS="Variable">
+new</EM>
+ <EM CLASS="Variable">
+old</EM>
+ &amp;optional <EM CLASS="Variable">
+command-identifier</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886121"></A><CODE CLASS="Code">
+:use</CODE>
+ does a variant of a previous input. <EM CLASS="Variable">
+old</EM>
+ matches a symbol or subform in the previous input, and is replaced with <EM CLASS="Variable">
+new</EM>
+ to construct the new input. If supplied, <EM CLASS="Variable">
+command-identifier</EM>
+ is the history list number of the input you want to modify.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886122"></A><A NAME="marker-887162"></A>:his</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886525"></A>Listener command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-888728"></A>:his &amp;optional <EM CLASS="Variable">
+n</EM>
+ <EM CLASS="Variable">
+m</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-888731"></A><CODE CLASS="Code">
+:his</CODE>
+ produces a list of the input history. If <EM CLASS="Variable">
+n</EM>
+ is supplied it should be a positive integer: the last <EM CLASS="Variable">
+n</EM>
+ inputs are shown. If <EM CLASS="Variable">
+m</EM>
+ is also supplied it should be a positive integer greater than <EM CLASS="Variable">
+n</EM>
+, when inputs numbered <EM CLASS="Variable">
+n</EM>
+ through <EM CLASS="Variable">
+m</EM>
+ in the history are shown.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-890872"></A><A NAME="marker-890871"></A>:bug-form</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-890873"></A>Listener command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-890874"></A>:bug-form <EM CLASS="Variable">
+subject</EM>
+ &amp;key <EM CLASS="Variable">
+filename</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-890875"></A><CODE CLASS="Code">
+:bug-form</CODE>
+ prints a template bug report suitable for sending to Lisp Support. Supply a string <EM CLASS="Variable">
+subject</EM>
+. If you also supply <EM CLASS="Variable">
+filename</EM>
+, the report is printed to the file.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-890904"></A><A NAME="marker-890923"></A>:help</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-890905"></A>Listener command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-890906"></A>:help</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-890907"></A><CODE CLASS="Code">
+:help</CODE>
+ prints a brief listing of the available listener commands.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-890930"></A><A NAME="marker-890929"></A>:?</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-890931"></A>Listener command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-890932"></A>:?</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-890933"></A><CODE CLASS="Code">
+:?</CODE>
+ is a synonym for <CODE CLASS="Code">
+:help</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-20.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-18.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-18.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

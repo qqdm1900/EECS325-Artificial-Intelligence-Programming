@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ defpackage
+</TITLE>
+
+<LINK REL="next" HREF="lw-641.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-639.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-641.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-639.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1039349"></A><A NAME="28819"></A>defpackage<A NAME="marker-1039348"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1039350"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039351"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039354"></A>Remains as defined in Common Lisp, but see <A HREF="lw-803.htm#69988" CLASS="XRef">*handle-existing-defpackage*</A> for an extension.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039356"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039357"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039358"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039359"></A>defpackage <EM CLASS="Variable">
+defined-package-name</EM>
+ [[<EM CLASS="Variable">
+option</EM>
+]] =&gt; <EM CLASS="Variable">
+package</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039360"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039361"></A><EM CLASS="Variable">
+defined-package-name</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1039362"></A>A string designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039363"></A><EM CLASS="Variable">
+option</EM>
+</P>
+<P CLASS="RDescription-C">Keyword options.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039364"></A><EM CLASS="Variable">
+add-use-defaults</EM>
+</P>
+<P CLASS="RDescription-C">A keyword</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039365"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039366"></A><EM CLASS="Variable">
+package</EM>
+</P>
+<P CLASS="RDescription-C">A package.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039367"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039368"></A>The macro <CODE CLASS="Code">
+defpackage</CODE>
+ is as defined in the ANSI standard, with the inclusion of the <CODE CLASS="Code">
+:add-use-defaults</CODE>
+ keyword. However, the standard explicitly declines to define what <CODE CLASS="Code">
+defpackage</CODE>
+ does if a package named <EM CLASS="Variable">
+defined-package-name</EM>
+ already exists and is in a state that differs from that described by the <CODE CLASS="Code">
+defpackage</CODE>
+ form.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039369"></A>Therefore an extension has been written that allows you to select between alternative behaviors. See <CODE CLASS="Code">
+*handle-existing-defpackage*</CODE>
+ for full details.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039370"></A>One non-standard <EM CLASS="Variable">
+option</EM>
+ is supported. <CODE CLASS="Code">
+:add-use-defaults</CODE>
+, with a true argument, causes the package <EM CLASS="Variable">
+defined-package-name</EM>
+ to inherit from the following packages (as well as any explictly specified by the <CODE CLASS="Code">
+:use</CODE>
+ option):</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1039371"></A><CODE CLASS="Code">
+common-lisp</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1039372"></A><CODE CLASS="Code">
+lispworks</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1039373"></A><CODE CLASS="Code">
+harlequin-common-lisp</CODE>
+</LI>
+</UL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039374"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039375"></A>(defpackage &quot;MY-PACKAGE&quot; (:use &quot;CAPI&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039376"></A>                         (:add-use-defaults t))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039377"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039378"></A>(package-use-list &quot;MY-PACKAGE&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039379"></A>=&gt;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039380"></A>(#&lt;PACKAGE COMMON-LISP&gt; #&lt;PACKAGE LISPWORKS&gt; #&lt;PACKAGE HARLEQUIN-COMMON-LISP&gt; #&lt;PACKAGE CAPI&gt;)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039381"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039385"></A><A HREF="lw-803.htm#69988" CLASS="XRef">*handle-existing-defpackage*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-641.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-639.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

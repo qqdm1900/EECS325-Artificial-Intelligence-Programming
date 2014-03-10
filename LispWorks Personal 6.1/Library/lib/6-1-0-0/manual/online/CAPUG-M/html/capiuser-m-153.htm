@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11.2.7  Prompting for Lisp objects
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-154.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-152.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-146.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-144.htm">11 Prompting for Input</A> &gt <A HREF="capiuser-m-146.htm">11.2  Prompting for values</A><BR><BR>
+</DIV><A HREF="capiuser-m-154.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-152.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-146.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884327"></A>11.2.7  <A NAME="marker-884326"></A><A NAME="82800"></A>Prompting for Lisp objects</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884329"></A><A NAME="marker-884328"></A>The CAPI provides a number of dialogs specifically designed for creating Lisp aware applications. The simplest is the function <A NAME="marker-884330"></A><CODE CLASS="Code">
+prompt-for-form</CODE>
+ which accepts an arbitrary Lisp form and optionally evaluates it.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884332"></A>(prompt-for-form</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884333"></A> &quot;Enter a form to evaluate:&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884335"></A> :<A NAME="marker-884334"></A>evaluate t)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884339"></A>(prompt-for-form</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884340"></A> &quot;Enter a form (not evaluated):&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884341"></A> :evaluate nil)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884346"></A><A NAME="marker-884344"></A>Another useful function is <A NAME="marker-884345"></A><CODE CLASS="Code">
+prompt-for-symbol</CODE>
+ which prompts the user for an existing symbol. The simplest usage accepts any symbol, as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884348"></A>(prompt-for-symbol</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884349"></A> &quot;Enter a symbol:&quot;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884841"></A>If you have a list of symbols from which to choose, then you can pass <CODE CLASS="Code">
+prompt-for-symbol</CODE>
+ this list with the keyword argument <CODE CLASS="Code">
+:symbols</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884842"></A>Finally, using  <CODE CLASS="Code">
+:ok-check</CODE>
+ you can accept only certain symbols. For example, to only accept a symbol which names a class, use:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884362"></A>(prompt-for-symbol</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884363"></A> &quot;Enter a class-name symbol:&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884365"></A> :<A NAME="marker-884364"></A>ok-check #'(lambda (symbol)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884366"></A>               (find-class symbol <A NAME="marker-885001"></A>nil)))<A NAME="marker-884368"></A></PRE>
+<P CLASS="Body">
+<A NAME="pgfId-902784"></A>Cocoa programmers will notice that the dialog sheet displayed by this form, like all those in this chapter so far, prevents input to other LispWorks windows while it is displayed. For information about creating dialog sheets which are not application-modal, see <A HREF="capiuser-m-154.htm#14635" CLASS="XRef">Window-modal Cocoa dialogs</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-154.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-152.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-146.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

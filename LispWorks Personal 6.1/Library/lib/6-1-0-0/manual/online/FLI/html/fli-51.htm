@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.2.6  Foreign string encodings
+</TITLE>
+
+<LINK REL="next" HREF="fli-52.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-50.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-45.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A> &gt; <A HREF="fli-45.htm">4.2  Modifying, passing and returning strings</A><BR><BR>
+</DIV><A HREF="fli-52.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-50.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-899872"></A>4.2.6  Foreign string encodings</H3>
+<P CLASS="Body">
+<A NAME="pgfId-899851"></A>The <A HREF="fli-163.htm#35450" CLASS="XRef">:ef-mb-string</A> type is capable of converting between the internal encoding of LispWorks strings (Unicode) and various encodings that may be expected by the foreign code. The encoding on the foreign side is specified by the <CODE CLASS="Code">
+:external-format</CODE>
+ argument, which takes an External Format specification.. See the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ for a more detailed description of external formats.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888428"></A>Conside a variant of the last example where the returned string contains characters beyond the ASCII range.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888432"></A>Windows version:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888439"></A>#include &lt;string.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888440"></A>#include &lt;stdlib.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888441"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888442"></A>__declspec(dllexport) void __cdecl random_string2(int length, char *string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888443"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888444"></A>  int ii;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888445"></A>  for (ii = 0; ii &lt; length ; ii++)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888446"></A>      string[ii] = 225 + rand() % 26;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888447"></A>  string[length] = 0;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888437"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888451"></A>Linux/Unix/Macintosh version:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888454"></A>#include &lt;string.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888455"></A>#include &lt;stdlib.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888456"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888457"></A>void random_string2(int length, char *string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888458"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888459"></A>  int ii;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888460"></A>  for (ii = 0; ii &lt; length ; ii++)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888461"></A>      string[ii] = 225 + rand() % 26;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888462"></A>  string[length] = 0;</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-888452"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888433"></A>A foreign function defined like random-string above is inadequate by itself here because the default external format is that for the default C locale, ASCII. This will signal error when it encounters a non-ASCII character code. There are two approaches to handling non-ASCII characters.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888501"></A>1. Pass an appropriate external format, in this case it is Latin-1:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888504"></A>(fli:define-foreign-function (random-string2 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888505"></A>                              &quot;random_string2&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888506"></A>                              :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888507"></A>   ((length :int)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888508"></A>    (return-string (:reference-return </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888509"></A>                    (:ef-mb-string </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888510"></A>                     :limit 256</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888511"></A>                     :external-format :latin-1))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888512"></A> :result-type nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888513"></A> :lambda-list (length &amp;aux return-string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888514"></A> :calling-convention :cdecl)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888515"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888516"></A>(random-string2 3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888517"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888518"></A>&quot;&ograve;&atilde;&ouml;&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888519"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888520"></A>(random-string2 6)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888521"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888502"></A>&quot;&oacute;&atilde;&oslash;&ccedil;&ccedil;&acirc;&quot;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888550"></A>2. Set the locale, using <A HREF="fli-143.htm#33536" CLASS="XRef">set-locale</A>. This sets the C locale and switches the FLI to use an appropriate default wherever an external-format argument is accepted. </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888608"></A>(fli:define-foreign-function (random-string </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888609"></A>                              &quot;random_string2&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888610"></A>                              :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888611"></A>   ((length :int)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888612"></A>    (return-string (:reference-return </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888613"></A>                    (:ef-mb-string </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888614"></A>                     :limit 256))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888615"></A> :result-type nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888616"></A> :lambda-list (length &amp;aux return-string)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888617"></A> :calling-convention :cdecl)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888633"></A>On a Windows system with current Code Page for Western European languages:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888618"></A>(fli:set-locale)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888619"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888620"></A>(win32:code-page :id 1252)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888749"></A>On a Unix/Linux system with a Latin-1/ISO8859-1 default locale: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888765"></A>(fli:set-locale)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888766"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888621"></A>:latin-1</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888741"></A>After the default external-format has been switched:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888622"></A>(random-string 6)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888623"></A>=&gt; </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888624"></A>&quot;&#8804;&egrave;&ntilde;&ccedil;&egrave;&otilde;&quot;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888554"></A>If you do not actually wish to set the C locale, you can call <CODE CLASS="Code">
+</CODE>
+<A HREF="fli-144.htm#75458" CLASS="XRef">set-locale-encodings</A> which merely switches the FLI to use the specified external formats where an external-format argument is accepted. </P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-52.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-50.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.3.9  Controlling Fragmentation
+</TITLE>
+
+<LINK REL="next" HREF="lw-147.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-145.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-135.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-128.htm">10 Storage Management</A> &gt; <A HREF="lw-135.htm">10.3  Memory Management in 32-bit LispWorks</A><BR><BR>
+</DIV><A HREF="lw-147.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-145.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-135.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886705"></A>10.3.9  <A NAME="89167"></A>Controlling Fragmentation</H3>
+<P CLASS="Body">
+<A NAME="pgfId-892575"></A>Some applications periodically free (that is, stop using) a substantial amount of data that lived for long enough to reach generation 2 (use <A HREF="lw-664.htm#94982" CLASS="XRef">room</A> or <A HREF="lw-1419.htm#46961" CLASS="XRef">room-values</A> and <A NAME="marker-892612"></A><A HREF="lw-1370.htm#72063" CLASS="XRef">generation-number</A> to follow the behavior of objects). In this case, <A HREF="lw-808.htm#11103" CLASS="XRef">mark-and-sweep</A> should be called on generation 2, to collect these data and re-use the memory. Repeated cycles like this may cause fragmentation, which will slow down promotion into generation 2. This manifests itself in significant pauses, typically of a few seconds. <A NAME="marker-892586"></A><A HREF="lw-860.htm#try-move-in-generation" CLASS="XRef">try-move-in-generation</A><CODE CLASS="Code">
+ </CODE>
+or<CODE CLASS="Code">
+ </CODE>
+<A NAME="marker-892590"></A><A HREF="lw-859.htm#try-compact-in-generation" CLASS="XRef">try-compact-in-generation</A><CODE CLASS="Code">
+ </CODE>
+can be used to reduce the fragmentation, and hence to reduce the pauses. Because these functions themselves take some time, they should be called when such a pause is acceptable. </P>
+<P CLASS="Body">
+<A NAME="pgfId-891458"></A>'Moving' a segment means moving objects out of the segment to another segment, leaving the segment empty. This reduces the fragmentation in the generation, and it is normally much faster than compact. Therefore in almost all cases, <A HREF="lw-860.htm#try-move-in-generation" CLASS="XRef">try-move-in-generation</A> is better than <A HREF="lw-859.htm#try-compact-in-generation" CLASS="XRef">try-compact-in-generation</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891462"></A>The actual decision to use these functions will be typically based on the results of <A NAME="marker-891463"></A><A HREF="lw-760.htm#check-fragmentation" CLASS="XRef">check-fragmentation</A>. For example, the following function checks if there is more than 10Mb free area in generation 2 in blocks of 4096 bytes or larger (tlb, third return value of <A HREF="lw-760.htm#check-fragmentation" CLASS="XRef">check-fragmentation</A>). If there is not, and the free area in generation 2 (tf) is more than four times the free area in large blocks, it calls <A HREF="lw-860.htm#try-move-in-generation" CLASS="XRef">try-move-in-generation</A>.  Because <A HREF="lw-860.htm#try-move-in-generation" CLASS="XRef">try-move-in-generation</A> gets a <EM CLASS="Variable">
+time-threshold</EM>
+ of 0, it returns after moving at most one segment. (It will not move any segments if none of them looks fragmented.)</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887696"></A>(defun call-memory-functions()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887697"></A>  (gc-generation t)          ; first collect all dead objects</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887542"></A>  (multiple-value-bind (tf tsb tlb)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887543"></A>      (check-fragmentation 2) ; check the fragmentation</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887544"></A>    (when  (and (&gt; 10000000 tlb)         </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887545"></A>                (&gt; (ash tf -2) tlb))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887546"></A>       (try-move-in-generation 2 0))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887724"></A>A function such as this can be called at times when a pause of a few seconds is acceptable, and it will keep the memory of generation 2 unfragmented.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891526"></A>It is not possible to give definitive guidance here on how to use <A HREF="lw-860.htm#try-move-in-generation" CLASS="XRef">try-move-in-generation</A> or <A HREF="lw-859.htm#try-compact-in-generation" CLASS="XRef">try-compact-in-generation</A>, because it depends on the way the application uses memory. In general, these functions will always improve the behavior of the application. Therefore the main problem is to identify points in the execution of the application where they can be called without causing unacceptably long pauses. </P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-147.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-145.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-135.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

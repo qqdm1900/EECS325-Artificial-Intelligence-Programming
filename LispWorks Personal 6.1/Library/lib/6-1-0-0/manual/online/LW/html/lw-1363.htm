@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *file-encoding-detection-algorithm* 
+</TITLE>
+
+<LINK REL="next" HREF="lw-1364.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1362.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1364.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1362.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-894338"></A><A NAME="53291"></A>*file<A NAME="marker-1026528"></A>-encoding-detection-algorithm* </H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-894339"></A>Variable </H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894340"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-894341"></A>List of functions to call to work out an encoding.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894342"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-894343"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894344"></A>Initial value</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-894345"></A>(find-filename-pattern-encoding-match </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894346"></A> find-encoding-option</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894347"></A> detect-unicode-bom</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-894348"></A> locale-file-encoding)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894349"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-894350"></A>Functions on this list take four arguments--the pathname of the file; an external format spec; a vector of element-type <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+ which contains the first bytes of the file; and a non-negative integer which is the maximum extent of buffer to be searched. This length argument is 0 in the case that the file does not exist, or the direction is <CODE CLASS="Code">
+:output</CODE>
+. They return an external format spec, which normally is either <EM CLASS="Variable">
+ef-spec</EM>
+ unmodified, or the result of merging <EM CLASS="Variable">
+ef-spec</EM>
+ with another external format spec via <CODE CLASS="Code">
+merge-ef-specs</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894351"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-941808"></A>If you want <A HREF="lw-659.htm#39723" CLASS="XRef">open</A> and so on, when opening a file for input, to inspect the attribute line and then fall back to a default if no attribute line is found, then set the variable to this value:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-941809"></A>(find-encoding-option locale-file-encoding)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1403731"></A>There are further examples in <A HREF="lw-502.htm#24631" CLASS="XRef">Guessing the external format</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-941810"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-894355"></A><A HREF="lw-1368.htm#14815" CLASS="XRef">find-filename-pattern-encoding-match</A><BR>
+<A HREF="lw-1367.htm#57704" CLASS="XRef">find-encoding-option</A><BR>
+<A HREF="lw-1356.htm#detect-unicode-bom" CLASS="XRef">detect-unicode-bom</A><BR>
+<A HREF="lw-1355.htm#97208" CLASS="XRef">detect-japanese-encoding-in-file</A><BR>
+<A HREF="lw-1384.htm#57205" CLASS="XRef">guess-external-format</A><BR>
+<A HREF="lw-1400.htm#locale-file-encoding" CLASS="XRef">locale-file-encoding</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1364.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1362.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

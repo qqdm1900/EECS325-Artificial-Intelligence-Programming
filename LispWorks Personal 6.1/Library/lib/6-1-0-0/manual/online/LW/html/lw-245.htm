@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.1  Introduction to processes
+</TITLE>
+
+<LINK REL="next" HREF="lw-246.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-244.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-244.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A><BR><BR>
+</DIV><A HREF="lw-246.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-885988"></A>15.1  <A NAME="marker-885987"></A>Introduction to processes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-897474"></A>A process (sometimes called a thread) is a separate execution context. It has its own call stack and its own dynamic environment.</P>
+<P CLASS="Body">
+<A NAME="pgfId-897480"></A>A process can be in one of three different states: <I CLASS="Italic">
+running</I>
+, <I CLASS="Italic">
+waiting</I>
+, and <I CLASS="Italic">
+inactive</I>
+. When a process is <I CLASS="Italic">
+waiting</I>
+, it is still active, but is waiting for the system to wake it up and allow its computation to restart. A process that is <I CLASS="Italic">
+inactive</I>
+ has stopped, because it has an arrest &quot;reason&quot;. </P>
+<P CLASS="Body">
+<A NAME="pgfId-885990"></A>For a process to be active (that is, running or waiting), it must have at least one run reason and no arrest reasons. If, for example, it was necessary to temporarily stop a process, it could temporarily be given an arrest reason. However the arrest reason mechanism is not commonly used in this manner. </P>
+<P CLASS="Body">
+<A NAME="pgfId-896775"></A>The <A NAME="marker-891306"></A>process that is currently executing is termed &quot;the <A NAME="marker-891307"></A>current process&quot;. The function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-896822"></A><A HREF="lw-1030.htm#30865" CLASS="XRef">get-current-process</A> gets the current process, and is the preferred way of doing so. The variable <A NAME="marker-896806"></A><A HREF="lw-1020.htm#55304" CLASS="XRef">*current-process*</A> is normally bound to the same process, except inside a wait function when it is called by the scheduler.</P>
+<P CLASS="Body">
+<A NAME="pgfId-897491"></A>The current process continues to be executed until either it becomes a waiting process by calling a Process Wait function as described in <A HREF="lw-281.htm#32333" CLASS="XRef">Process Waiting</A>, or it allows itself to be interrupted by calling <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-891321"></A><A HREF="lw-1069.htm#32835" CLASS="XRef">process-allow-scheduling</A> (or its current timeslice expires and it involuntarily relinquishes control). </P>
+<P CLASS="Body">
+<A NAME="pgfId-896828"></A>In SMP LispWorks all processes that are not waiting are running as far as LispWorks is concerned, and are scheduled by the operating system to the available CPUs.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885998"></A>In non-SMP LispWorks, the system runs the waiting process with the highest priority. If processes have the same priority then the system treats them equally and fairly. This is called round robin scheduling.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886001"></A>The simplest way to create a <A NAME="marker-885999"></A>process is to use <A HREF="lw-1091.htm#96518" CLASS="XRef">process-run-function</A>. This creates a process with the specified name which commences by applying the specified function to arguments. <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-891360"></A><A HREF="lw-1091.htm#96518" CLASS="XRef">process-run-function</A> returns immediately and the newly created process runs concurrently.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-246.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

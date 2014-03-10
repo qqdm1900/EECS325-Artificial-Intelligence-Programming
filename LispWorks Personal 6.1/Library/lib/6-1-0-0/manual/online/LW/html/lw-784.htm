@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ dump-forms-to-file
+</TITLE>
+
+<LINK REL="next" HREF="lw-785.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-783.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-785.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-783.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-888002"></A><A NAME="28477"></A>dump<A NAME="marker-1039938"></A>-forms-to-file</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888003"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888004"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888005"></A>Dumps specified forms to a fasl file.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888006"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888007"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888008"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888009"></A>dump-forms-to-file <EM CLASS="Variable">
+pathname</EM>
+ <EM CLASS="Variable">
+forms</EM>
+ =&gt; nil </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888010"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888011"></A><EM CLASS="Variable">
+pathname</EM>
+</P>
+<P CLASS="RDescription-C">Name of the fasl file to be created.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888012"></A><EM CLASS="Variable">
+forms</EM>
+</P>
+<P CLASS="RDescription-C">Forms to be dumped.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888013"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888014"></A>Returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888015"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888016"></A><CODE CLASS="Code">
+dump-forms-to-file</CODE>
+ dumps specified forms to a fasl file. Use the Common Lisp functions <CODE CLASS="Code">
+make-load-form</CODE>
+ and <CODE CLASS="Code">
+make-load-form-saving-slots</CODE>
+ to control the dumping of forms.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1680464"></A>To be able to load the output file, it must have a file type that LispWorks recognizes as a binary file. You can do it by:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1680467"></A>using the default binary file type, either by using the value of <A HREF="lw-1339.htm#75927" CLASS="XRef">*binary-file-type*</A> or <CODE CLASS="Code">
+compile-file-pathname</CODE>
+  as in the example below.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1680469"></A>using another file type, which you add to <A HREF="lw-1340.htm#22217" CLASS="XRef">*binary-file-types*</A>.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-1342391"></A>If the file <EM CLASS="Variable">
+pathname</EM>
+ already exists, it is superseded.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1044270"></A>A fasl file created using <CODE CLASS="Code">
+dump-forms-to-file</CODE>
+ must be loaded only by <A HREF="lw-1399.htm#80440" CLASS="XRef">load-data-file</A>, and not by <CODE CLASS="Code">
+load</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-985293"></A>Example</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-981551"></A>(defclass my-class () ((a :initarg :a :accessor my-a)))</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-982068"></A>(defmethod make-load-form ((self my-class) &amp;optional environment)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-982069"></A>  (declare (ignore environment))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-982070"></A>  `(make-instance ',(class-name (class-of self))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-981621"></A>                  :a ',(my-a self)))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-982329"></A>(setq *my-instance* (make-instance 'my-class :a 42))</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-982532"></A>(dump-forms-to-file </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-982533"></A>  (compile-file-pathname &quot;my-instance&quot;)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-982534"></A> (list `(setq *my-instance* ,*my-instance*)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-982943"></A>In another session, with the same definition of <CODE CLASS="Code">
+my-class</CODE>
+, loading the file <CODE CLASS="Code">
+&quot;my-instance&quot;</CODE>
+ using <A HREF="lw-1399.htm#80440" CLASS="XRef">load-data-file</A> will create an equivalent instance of <CODE CLASS="Code">
+my-class</CODE>
+:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1043993"></A>(sys:load-data-file</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1044131"></A>  (compile-file-pathname &quot;my-instance&quot;))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-981484"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888045"></A><A HREF="lw-1339.htm#75927" CLASS="XRef">*binary-file-type*</A><BR>
+<A HREF="lw-1340.htm#22217" CLASS="XRef">*binary-file-types*</A><BR>
+<A HREF="lw-870.htm#85892" CLASS="XRef">with-output-to-fasl-file</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-785.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-783.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

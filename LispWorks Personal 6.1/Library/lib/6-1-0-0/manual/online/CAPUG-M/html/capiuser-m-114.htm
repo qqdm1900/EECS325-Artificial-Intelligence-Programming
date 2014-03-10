@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 8.4  Swapping panes and layouts
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-115.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-113.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-108.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-108.htm">8 Modifying CAPI Windows</A><BR><BR>
+</DIV><A HREF="capiuser-m-115.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-113.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-108.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-888111"></A>8.4  Swapping panes and layouts</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888113"></A>The class <CODE CLASS="Code">
+switchable-layout</CODE>
+ is useful when your interface has several panes of which exactly one should be visible at any time. The class <CODE CLASS="Code">
+tab-layout</CODE>
+ provides similar functionality in a Window-system specific way. See <A HREF="capiuser-m-103.htm#19679" CLASS="XRef">Advanced pane layouts</A> </P>
+<P CLASS="Body">
+<A NAME="pgfId-888115"></A>To change to another layout, use <A NAME="marker-888451"></A><CODE CLASS="Code">
+(setf pane-layout)</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888631"></A>(setf layout </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888632"></A>      (capi:contain </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888633"></A>       (make-instance 'row-layout </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888634"></A>                      :description </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888635"></A>                      (list (make-instance 'title-pane :text &quot;One&quot;) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888636"></A>                            (make-instance 'title-pane :text &quot;Two&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888637"></A>                      :visible-min-height 100)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888638"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888953"></A>(apply-in-pane-process</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888954"></A> layout #'(setf pane-layout)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888955"></A> (make-instance 'column-layout </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888956"></A>                :description </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888957"></A>                (list (make-instance 'title-pane :text &quot;Three&quot;) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888958"></A>                      (make-instance 'title-pane :text &quot;Four&quot;))) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888970"></A> (element-interface layout))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888971"></A>To change the panes within a layout, use <A NAME="marker-888972"></A><CODE CLASS="Code">
+(setf layout-description)</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888656"></A>(setf layout </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888657"></A>      (capi:contain </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888658"></A>       (make-instance 'row-layout </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888659"></A>                      :description </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888660"></A>                      (list (make-instance 'title-pane :text &quot;One&quot;) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888661"></A>                            (make-instance 'title-pane :text &quot;Two&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888662"></A>                      :visible-min-height 100)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888663"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888984"></A>(apply-in-pane-process</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888985"></A> layout #'(setf layout-description)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888986"></A> (list (make-instance 'title-pane :text &quot;Three&quot;) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888987"></A>       (make-instance 'title-pane :text &quot;Four&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888988"></A>       (make-instance 'title-pane :text &quot;Five&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888142"></A> layout)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888977"></A>Note: you must not reuse already-displayed panes in a CAPI layout. </P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-115.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-113.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-108.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

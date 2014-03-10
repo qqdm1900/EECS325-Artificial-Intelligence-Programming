@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ def
+</TITLE>
+
+<LINK REL="next" HREF="lw-703.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-701.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-698.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-698.htm">30 The DSPEC Package</A><BR><BR>
+</DIV><A HREF="lw-703.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-701.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-901904"></A><A NAME="80510"></A>def<A NAME="marker-914227"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-896395"></A>Macro	</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896396"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896397"></A>Informs the system of a name for a definition.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896398"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-896399"></A>dspec</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896400"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-896401"></A>def <EM CLASS="Variable">
+dspec</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896402"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897073"></A><EM CLASS="Variable">
+dspec</EM>
+</P>
+<P CLASS="RDescription-C">A dspec.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897074"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Lisp forms, evaluated as an implicit <CODE CLASS="Code">
+progn</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897075"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-896405"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The result of <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896406"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-953595"></A>The macro <CODE CLASS="Code">
+def</CODE>
+ informs the system that any definitions within <EM CLASS="Variable">
+body</EM>
+ should be recorded as being within the dspec <EM CLASS="Variable">
+dspec</EM>
+. This means that when something attempts to locate such a definition, it should look for a definition named <EM CLASS="Variable">
+dspec</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-940011"></A>Use <CODE CLASS="Code">
+def</CODE>
+ to wrap a group of definitions so that source location for one of the group causes the LispWorks Editor to look for the dspec in the <CODE CLASS="Code">
+def</CODE>
+ instead. Typically you will also need a <A HREF="lw-705.htm#21533" CLASS="XRef">define-form-parser</A> definition for the macro that expands into the <CODE CLASS="Code">
+def</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-899373"></A><EM CLASS="Variable">
+dspec</EM>
+ can be non-canonical.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-963578"></A>You can also use <CODE CLASS="Code">
+def</CODE>
+ to provide a dspec for a definition that has its own class that has been defined with <A HREF="lw-704.htm#64832" CLASS="XRef">define-dspec-class</A>. In this case, you arrange to call <A HREF="lw-726.htm#45470" CLASS="XRef">record-definition</A> with the same dspec as in the example below.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-963586"></A>It is also possible to mix these cases, recording a dspec and also grouping inner definitions. For example <CODE CLASS="Code">
+defstruct</CODE>
+ does this, recording itself and also grouping definitions such as the constructor function.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-963587"></A>In all cases, to make source location work in the LispWorks editor you typically also need a <A HREF="lw-705.htm#21533" CLASS="XRef">define-form-parser</A> definition for the macro that expands into the <CODE CLASS="Code">
+def</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963592"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-969282"></A>(defmacro define-wibble (x y)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-969283"></A>  `(dspec:def (define-wibble ,x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-969284"></A>     (set-wibble-definition ',x ',y (dspec:location))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-969285"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-969286"></A>(defun set-wibble-definition (x y loc)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-969287"></A>  (when (record-definition `(define-wibble ,x) loc)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-969288"></A>    ;; defining code here</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-969274"></A>    ))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896429"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896430"></A><A HREF="lw-721.htm#15437" CLASS="XRef">location</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-703.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-701.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

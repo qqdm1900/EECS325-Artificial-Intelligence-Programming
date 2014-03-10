@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11.3.2  Programmatic control of profiling
+</TITLE>
+
+<LINK REL="next" HREF="lw-176.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-174.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-173.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-170.htm">11 The Profiler</A> &gt; <A HREF="lw-173.htm">11.3  Running the profiler</A><BR><BR>
+</DIV><A HREF="lw-176.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-174.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-173.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-887628"></A>11.3.2  <A NAME="38972"></A>Programmatic control of profiling</H3>
+<P CLASS="Body">
+<A NAME="pgfId-887463"></A>Your program can control profiling. This is useful when you want to profile only a part of the program. </P>
+<P CLASS="Body">
+<A NAME="pgfId-888330"></A>In your program, call <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-888329"></A><A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A> start collecting profiling information. Call <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-888331"></A><A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A> with <EM CLASS="Variable">
+print</EM>
+ <CODE CLASS="Code">
+nil</CODE>
+ to temporarily stop collecting, or call <A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A> with <EM CLASS="Variable">
+print</EM>
+ <CODE CLASS="Code">
+t</CODE>
+ to stop collecting and print the results. At any point you can call <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-888332"></A><A HREF="lw-836.htm#26339" CLASS="XRef">set-process-profiling</A> to modify the set of processes for which profiling information is being (or will be) collected.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887736"></A>For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887468"></A>;; start profiling, current process only</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887469"></A>(start-profiling :processes :current)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887470"></A>(do-interesting-work)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887471"></A>;; temporarily suspend profiling</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887472"></A>(stop-profiling :print nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887473"></A>(do-uninteresting-work)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887474"></A>;; resume profiling</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887475"></A>(start-profiling :initialize nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887476"></A>(do-more-interesting-work)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887477"></A>;; now, all processes are interesting</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887478"></A>(set-process-profiling :set :all)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887479"></A>(do-some-more-interesting-work)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887480"></A>;; stop profiling and print the results</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887481"></A>(stop-profiling)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887662"></A><B CLASS="Bold">
+Note:</B>
+ you cannot call <A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A> inside the scope of the macro <A HREF="lw-816.htm#18999" CLASS="XRef">profile</A> or while the graphical Profiler is profiling, because the two profiling modes are incompatible.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-176.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-174.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-173.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.3.2  Mutable objects supporting atomic access
+</TITLE>
+
+<LINK REL="next" HREF="lw-273.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-271.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-270.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-270.htm">15.3  Atomicity and thread safety of the LispWorks implementation</A><BR><BR>
+</DIV><A HREF="lw-273.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-271.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-270.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-892058"></A>15.3.2  Mutable objects supporting atomic access</H3>
+<P CLASS="Body">
+<A NAME="pgfId-892224"></A>This section outlines for which types of mutable Common Lisp object access is atomic. That is, each value read from the object will correspond to the state at some point in time. Note however, that if several values are read, there is no guarantee about how these values will relate to each other if they are being modified by another thread (see <A HREF="lw-274.htm#35606" CLASS="XRef">Issues with order of memory accesses</A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-892063"></A>When one of these mutable atomic objects is modified, readers see either the old or new value (not something else), and it is guaranteed that the Lisp image is not corrupted by the modification even if multiple threads read or write the object simultaneously.</P>
+<P CLASS="Body">
+<A NAME="pgfId-898014"></A>Access to conses, simple arrays except arrays with element type of integer with less than 8 bits, symbols, packages and structures is atomic. Note that this does not apply to non-simple arrays.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892319"></A>Slot access in objects of type <A NAME="marker-892318"></A><CODE CLASS="Code">
+standard-object</CODE>
+ is atomic with respect to modification of the slots and and with respect to class redefinition.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892320"></A><A NAME="marker-892324"></A><CODE CLASS="Code">
+vector-pop</CODE>
+, <A NAME="marker-892332"></A><CODE CLASS="Code">
+vector-push</CODE>
+, <A NAME="marker-892337"></A><CODE CLASS="Code">
+vector-push-extend</CODE>
+, <A NAME="marker-892342"></A><CODE CLASS="Code">
+(setf fill-pointer)</CODE>
+ and <A NAME="marker-892347"></A><CODE CLASS="Code">
+adjust-array</CODE>
+ are all atomic with respect to each other, and with respect to other access to the array elements.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892396"></A>The Common Lisp functions that access hash tables are atomic with respect to each other. See also <A NAME="marker-892406"></A><A HREF="lw-810.htm#77199" CLASS="XRef">modify-hash</A> for atomic reading and writing an entry and <A NAME="marker-892411"></A><A HREF="lw-868.htm#20054" CLASS="XRef">with-hash-table-locked</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892261"></A>Access to packages is atomic.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892262"></A>Note that pathnames cannot be modified, and therefore access to them is always atomic.</P>
+<P CLASS="Body">
+<A NAME="pgfId-898073"></A>Access to synchronization objects (mailboxes, barriers, semaphores and condition variables) is atomic. More information about these objects is in <A HREF="lw-286.htm#44877" CLASS="XRef">Synchronization between threads</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892263"></A><A NAME="marker-892446"></A>Operations on editor buffers (including points) are atomic and thread-safe as long as their arguments are valid. This includes modification to the text. However, buffers and points may become invalid because of execution on another thread. The macros <CODE CLASS="Code">
+editor:with-buffer-locked</CODE>
+ and <CODE CLASS="Code">
+editor:with-point-locked</CODE>
+ should be used around editor operations on buffers and points that may be affected by other processes. Note that this is applicable also to operations that do not actually modify the text, because they can behave inconsistently if the buffer they are looking at changes during the operation. See the <I CLASS="Italic">
+LispWorks Editor User Guide</I>
+ for details of these macros.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-273.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-271.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-270.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

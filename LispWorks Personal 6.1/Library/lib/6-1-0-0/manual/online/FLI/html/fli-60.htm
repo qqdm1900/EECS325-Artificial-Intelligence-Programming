@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.6.1  Using C DLLs
+</TITLE>
+
+<LINK REL="next" HREF="fli-61.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-59.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-59.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A> &gt; <A HREF="fli-59.htm">4.6  Using DLLs within the LispWorks FLI</A><BR><BR>
+</DIV><A HREF="fli-61.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-59.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-59.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-890972"></A>4.6.1  <A NAME="37924"></A>Using <A NAME="DLLs"></A>C DLLs</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890973"></A>You can export C functions in three ways:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-886980"></A>Use a <CODE CLASS="Code">
+__declspec(dllexport)</CODE>
+ declaration in the C file.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-886983"></A>In this case you should also make the functions use the <CODE CLASS="Code">
+cdecl</CODE>
+ calling convention, which removes another level of name mangling.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-886984"></A>Use an <CODE CLASS="Code">
+/export</CODE>
+ directive in the link command.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-886985"></A>Use a <CODE CLASS="Code">
+.def</CODE>
+ file.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-886986"></A>An example of method 3 follows. Let us assume you have the following C code in a file called <CODE CLASS="Code">
+example.c</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886987"></A>int _stdcall MultiplyMain(void *hinstDll,unsigned long </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887010"></A>                          dwReason,void *reserved)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886995"></A> {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886996"></A>  return(1);</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886997"></A> }</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-886999"></A>int multiply (int i1, int i2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887000"></A> { int result;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887009"></A>  result = i1 * i2 * 500;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887002"></A>  return result;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887006"></A> }</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887013"></A>Then you can create a DLL by, for example, using a 32 bit C compiler such as lcc.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887014"></A>lcc -O -g2 example.c</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887016"></A>lcclnk.exe -dll -entry MultiplyMain example.obj </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887018"></A>example.def -subsystem</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887017"></A>windows</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887019"></A>You now need to create a <CODE CLASS="Code">
+multiply.def</CODE>
+ file that contains the following line</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887020"></A>exports multiply=multiply</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887021"></A>to export the function <CODE CLASS="Code">
+multiply</CODE>
+ as the symbol <CODE CLASS="Code">
+multiply</CODE>
+. If you only include the line &quot;<CODE CLASS="Code">
+exports multiply</CODE>
+&quot; then the name of the external symbol is likely to be &quot;<CODE CLASS="Code">
+_multiply</CODE>
+&quot; or &quot;<CODE CLASS="Code">
+_multiply@8</CODE>
+&quot; depending on whether the function is compiled as <CODE CLASS="Code">
+__cdecl</CODE>
+ or <CODE CLASS="Code">
+__stdcall</CODE>
+. The addition of the &quot;<CODE CLASS="Code">
+= multiply</CODE>
+&quot; overrides the internal function name with the new name.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887022"></A>If you run Windows then you can view the list of exported symbols from a given DLL by selecting the DLL from an explorer, then right clicking on it and selecting QuickView. This brings up some text about the DLL.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887023"></A>Finally, you should use the LispWorks FLI to define your C function in your Lisp code. This definition should look something like:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887024"></A>(fli:define-foreign-function (multiply &quot;multiply&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887026"></A>     ((x :int)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887027"></A>      (y :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887028"></A>   :result-type int</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887029"></A>   :module :my-dll</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887030"></A>   :calling-convention :cdecl)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891064"></A>Note that the <CODE CLASS="Code">
+define-foreign-function</CODE>
+ also includes a <CODE CLASS="Code">
+:calling-convention</CODE>
+ keyword to specify that the function we are interfacing to is defined as using the <CODE CLASS="Code">
+__cdecl</CODE>
+ calling convention.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="fli-61.htm#pgfId-899092" CLASS="Hypertext">4.6.1.1  Testing whether a function is defined</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-61.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-59.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-59.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

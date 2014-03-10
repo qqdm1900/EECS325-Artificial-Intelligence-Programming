@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.4.3  Obtaining the initial POA object and registering the first object reference
+</TITLE>
+
+<LINK REL="next" HREF="corba-56.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-54.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-52.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-48.htm">6 The Bank Server</A> &gt <A HREF="corba-52.htm">6.4  Implementing the bank server</A><BR><BR>
+</DIV><A HREF="corba-56.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-54.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-52.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-853398"></A>6.4.3  <A NAME="marker-853967"></A><A NAME="marker-853965"></A><A NAME="marker-853961"></A>Obtaining the initial POA object and registering the first object reference</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853399"></A>To complete the implementation of the server we need to write the code that enters it into the CORBA environment. In detail, we need to: </P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853400"></A>Initialize the server's ORB</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853401"></A>Get a reference to the ORB pseudo-object for use in future ORB operations</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853402"></A>Get a reference to the root POA pseudo-object for use in future POA operations</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853403"></A>Make a bank servant and register it with the POA</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853404"></A>Make the object reference of the bank servant available to the client</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853405"></A>Activate the POA to start processing incoming requests</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-853406"></A>To do this, we need to make use of some additional operations specified in the CORBA module: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853407"></A>module CORBA {    </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853408"></A>  ...    </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853409"></A>  interface ORB {     </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853410"></A>    ...      </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853411"></A>    typedef string ObjectId;      </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853412"></A>    exception InvalidName {};      </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853413"></A>    Object resolve_initial_references (in ObjectId identifier)          </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853414"></A>        raises (InvalidName);      </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853415"></A>    void shutdown( in boolean wait_for_completion );    </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853416"></A>  }  </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853417"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853418"></A>The CORBA standard specifies the ORB operation <CODE CLASS="Code">
+resolve_initial_references</CODE>
+. This operation provides a portable method for applications to obtain initial references to a small set of standard objects (objects other than the initial ORB). These objects are identified by a mnemonic name, using a string known as an <CODE CLASS="Code">
+ObjectId</CODE>
+. For instance, the <CODE CLASS="Code">
+ObjectID</CODE>
+ for an initial POA object is <CODE CLASS="Code">
+RootPOA</CODE>
+. (References to a select few other objects, such as the <CODE CLASS="Code">
+InterfaceRepository</CODE>
+ and <CODE CLASS="Code">
+NamingService</CODE>
+, can also be obtained in this manner.)</P>
+<P CLASS="Body">
+<A NAME="pgfId-853419"></A>The ORB operation <CODE CLASS="Code">
+resolve_initial_references</CODE>
+ returns the object associated with an <CODE CLASS="Code">
+ObjectId</CODE>
+, raising the exception <CODE CLASS="Code">
+InvalidName</CODE>
+ for an unrecognized <CODE CLASS="Code">
+ObjectID</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853420"></A>Meanwhile, the <CODE CLASS="Code">
+shutdown</CODE>
+ operation instructs the ORB, and its object adapters, to shut down. If the <CODE CLASS="Code">
+wait_for_completion</CODE>
+ parameter is <CODE CLASS="Code">
+TRUE</CODE>
+, the operation blocks until all pending ORB processing has completed, otherwise it simply shuts down the ORB immediately. </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853421"></A>(defun bank-server ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853422"></A>  (let* ((orb (op:orb_init nil &quot;LispWorks ORB&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853423"></A>         (rootPOA (op:resolve_initial_references orb &quot;RootPOA&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853424"></A>    (let ((bank-impl (make-instance 'bank-implementation </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853425"></A>                                   :connection (connect-to-database)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853426"></A>                                   :poa rootPOA)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853427"></A>      (let ((bank-ref (op:servant_to_reference rootPOA </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853428"></A>               bank-impl)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853429"></A>        (object-to-file orb bank-ref)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853430"></A>        (capi:display (make-instance 'server-controller</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853431"></A>                                     :bank-poa rootPOA</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853432"></A>                                     :bank-ref bank-ref)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-854033"></A>      (op:activate (op:the_poamanager rootPOA)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-854034"></A>The top-level function first initializes the LispWorks ORB by calling the Common Lisp generic function <CODE CLASS="Code">
+op:ORB_init</CODE>
+, just as we initialized the ORB in the client. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853744"></A>The call returns an ORB pseudo-object. Invoking <CODE CLASS="Code">
+op:resolve_initial_references</CODE>
+ on this ORB, passing the <BR>
+<CODE CLASS="Code">
+ObjectID</CODE>
+ <CODE CLASS="Code">
+RootPOA</CODE>
+, returns a POA object of class <CODE CLASS="Code">
+PortableServer:POA</CODE>
+. This is the CORBA standard method for obtaining the initial POA object. Note that root <CODE CLASS="Code">
+POA</CODE>
+ is initially in the holding state. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853435"></A>Next, we connect to the database and use the connection to make a bank servant. We register the servant with the <CODE CLASS="Code">
+POA</CODE>
+, <CODE CLASS="Code">
+RootPOA</CODE>
+, and publish the resulting object reference, encoded as a string, in the shared file. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853436"></A>We then obtain the POA Manager for the POA using the POA operation <CODE CLASS="Code">
+op:the_POAManager</CODE>
+. The call to <CODE CLASS="Code">
+op:activate</CODE>
+ moves the POA out of the holding state, into the active state, ready to receive and process incoming requests. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853437"></A>This completes the description of our implementation of the server.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853438"></A>&nbsp;</P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-56.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-54.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-52.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ find-object-size
+</TITLE>
+
+<LINK REL="next" HREF="lw-793.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-791.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-793.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-791.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-972907"></A><A NAME="86799"></A>find<A NAME="marker-1040331"></A>-object-size</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888803"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888804"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888805"></A>Returns the size in bytes of the representation of any Lisp object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888806"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888807"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888808"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888809"></A>find-object-size <EM CLASS="Variable">
+object</EM>
+ =&gt; <EM CLASS="Variable">
+size</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888810"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888811"></A><EM CLASS="Variable">
+object</EM>
+</P>
+<P CLASS="RDescription-C">Any Common Lisp form. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888812"></A>Values </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888813"></A>The result is an integer which is the number of bytes of heap storage currently used to represent the object. If the object takes up no heap storage (fixnum or character), then 0 is returned. Such objects are represented by an immediate value held in a single machine &quot;word&quot;. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-888814"></A>The size of a heap object includes hidden space required to hold type and other information; for instance, a base-string of 10 1-byte characters occupies more than 10 bytes of storage.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888815"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888816"></A>Certain Common Lisp objects are not represented by a single heap object; for instance, using <CODE CLASS="Code">
+find-object-size</CODE>
+ on a hash-table is misleading as the function returns the size of the hash-table descriptor, rather than the total of the descriptor and the hash-table-array. General vectors and arrays also have this property. All symbols are of the same size, since the print name is not part of a symbol object. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-964503"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1536529"></A>(hcl:find-object-size</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1536530"></A> (make-string 1000 :initial-element #&#92;A</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1536531"></A>              :element-type 'base-char))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-965002"></A>=&gt;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1536603"></A>1012</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-964972"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-912472"></A><A HREF="lw-664.htm#94982" CLASS="XRef">room</A><BR>
+<A HREF="lw-849.htm#89830" CLASS="XRef">total-allocation</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-793.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-791.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

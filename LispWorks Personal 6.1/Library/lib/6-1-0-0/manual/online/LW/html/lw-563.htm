@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ compute-class-potential-initargs
+</TITLE>
+
+<LINK REL="next" HREF="lw-564.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-562.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-559.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-559.htm">25 The CLOS Package</A><BR><BR>
+</DIV><A HREF="lw-564.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-562.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-559.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-893139"></A><A NAME="78568"></A>compute<A NAME="marker-911557"></A>-class-potential-initargs</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-893140"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-893141"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-893142"></A>Computes the valid initargs of a class.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-893143"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-893144"></A>clos</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-893145"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-893146"></A>compute-class-potential-initargs <EM CLASS="Variable">
+class</EM>
+ =&gt; <EM CLASS="Variable">
+initargs</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-893147"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-893148"></A><EM CLASS="Variable">
+class</EM>
+</P>
+<P CLASS="RDescription-C">A class.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-893304"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-893336"></A><EM CLASS="Variable">
+initargs</EM>
+</P>
+<P CLASS="RDescription-C">A list of symbols, or <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-893149"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-893150"></A>The generic function compute-class-potential-initargs is called to compute the initialization arguments of a class. This set of valid initargs is used by <A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A> when its arguments are checked.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-893349"></A><EM CLASS="Variable">
+class</EM>
+ is the class passed to <A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A>. That is, compute-class-potential-initargs specializes on the metaclass.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-893418"></A><EM CLASS="Variable">
+initargs</EM>
+ is either a list of valid initargs, or <CODE CLASS="Code">
+t</CODE>
+ meaning that any initialization argument is allowed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-893348"></A>There is a supplied method on <CODE CLASS="Code">
+t</CODE>
+, which returns <CODE CLASS="Code">
+nil</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-910755"></A>The other supplied method is on <CODE CLASS="Code">
+standard-class</CODE>
+. This consults the Relevant Methods, which are the applicable methods of <A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A>, <CODE CLASS="Code">
+allocate-instance</CODE>
+, <CODE CLASS="Code">
+initialize-instance</CODE>
+ and <CODE CLASS="Code">
+shared-initialize</CODE>
+. If any of the Relevant Methods have a lambda list containing <CODE CLASS="Code">
+&amp;allow-other-keys</CODE>
+ then <EM CLASS="Variable">
+initargs</EM>
+ is t. Otherwise <EM CLASS="Variable">
+initargs</EM>
+ is a list containing:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-911027"></A>all the <CODE CLASS="Code">
+&amp;key</CODE>
+ arguments from Relevant Method lambda lists, and</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-911142"></A>the initargs of the slots of <EM CLASS="Variable">
+class</EM>
+ and its superclasses, and</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-911143"></A>any extra initargs specified via the class option <CODE CLASS="Code">
+:extra-initargs</CODE>
+<A NAME="marker-926652"></A> (see <A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A> for details of this), and</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-911147"></A>any extra initargs returned by <A HREF="lw-562.htm#74710" CLASS="XRef">class-extra-initargs</A>.  </LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-893782"></A>The list <EM CLASS="Variable">
+initargs</EM>
+ contains no duplicates, and the result of compute-class-potential-initargs is cached so that it is not recomputed unless one of the Relevant Methods, the class or its class precedence list is altered.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-893153"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-893157"></A><A HREF="lw-562.htm#74710" CLASS="XRef">class-extra-initargs</A><BR>
+<A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A><BR>
+<A HREF="lw-568.htm#61724" CLASS="XRef">set-clos-initarg-checking</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-564.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-562.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-559.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

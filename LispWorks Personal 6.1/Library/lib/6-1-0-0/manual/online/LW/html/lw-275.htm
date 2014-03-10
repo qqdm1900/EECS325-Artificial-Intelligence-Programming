@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.3.5  Single-thread context arrays and hash-tables
+</TITLE>
+
+<LINK REL="next" HREF="lw-276.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-274.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-270.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-270.htm">15.3  Atomicity and thread safety of the LispWorks implementation</A><BR><BR>
+</DIV><A HREF="lw-276.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-274.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-270.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-894206"></A>15.3.5  <A NAME="marker-894590"></A>Single-thread context arrays and hash-tables</H3>
+<P CLASS="Body">
+<A NAME="pgfId-894522"></A>Access to hash tables and non-simple arrays can be improved where they are known to be accessed in a single thread context. That is, only one thread at the same time accesses them.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894530"></A>The <A NAME="marker-894232"></A><CODE CLASS="Code">
+make-hash-table</CODE>
+ argument <EM CLASS="Variable">
+single-thread</EM>
+ tells <CODE CLASS="Code">
+make-hash-table</CODE>
+ that the table is going to be used only in single thread context, and therefore does not need to be thread-safe. Such a table allows faster access.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894208"></A>Similarly the <A NAME="marker-894251"></A><CODE CLASS="Code">
+make-array</CODE>
+ argument <EM CLASS="Variable">
+single-thread</EM>
+ creates an array that is single threaded. Currently, the main effect of <EM CLASS="Variable">
+single-thread</EM>
+ is on the speed of <A NAME="marker-894567"></A><CODE CLASS="Code">
+vector-pop</CODE>
+, <A NAME="marker-894568"></A><CODE CLASS="Code">
+vector-push</CODE>
+. and <A NAME="marker-894569"></A><CODE CLASS="Code">
+vector-push-extend</CODE>
+ on non-simple vectors. These operations are much faster on &quot;single threaded&quot; vectors, typically more than twice as fast as &quot;multi-threaded&quot; vectors.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894586"></A>You can also make an array be &quot;single-threaded&quot; with <A HREF="lw-830.htm#23970" CLASS="XRef">set-array-single-thread-p</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894579"></A>The result of parallel access to a &quot;single-threaded&quot; vector is unpredictable. </P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-276.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-274.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-270.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

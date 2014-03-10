@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ E.1  OPS5
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-230.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-228.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-228.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-228.htm">E Converting Other Systems</A><BR><BR>
+</DIV><A HREF="kwprolog-m-230.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-228.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-228.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading-App">
+<A NAME="pgfId-866007"></A>E.1  <A NAME="marker-866006"></A>OPS5</H3>
+<P CLASS="Body">
+<A NAME="pgfId-866008"></A>OPS5 rulebases may be readily converted into KnowledgeWorks rulebases. The main OPS5 forms needing conversion are:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866009"></A><CODE CLASS="Code">
+literalize</CODE>
+ into <CODE CLASS="Code">
+def-kb-struct</CODE>
+ or <CODE CLASS="Code">
+def-kb-class</CODE>
+. For example</LI>
+</UL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866010"></A>(literalize employee name father-name mother-name)</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-866011"></A>could become</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866012"></A>(def-kb-struct employee name father-name mother-name)</CODE>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866013"></A><CODE CLASS="Code">
+strategy</CODE>
+ into a defcontext form with the right conflict resolution strategy. For example</LI>
+</UL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866014"></A>(strategy lex)</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-866015"></A>could become</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866016"></A>(defcontext ops5 :strategy (lex specificity))</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-866017"></A>and</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866018"></A>(strategy mea)</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-866019"></A>could become</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866020"></A>(defcontext ops5 :strategy (mea lex specificity))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866021"></A>In OPS5 you cannot have different conflict resolution strategies for different sets of rules. The KnowledgeWorks context mechanism for passing control is much clearer and more powerful than, for instance, the use of the MEA strategy as sole control mechanism in OPS5.</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-866022"></A><CODE CLASS="Code">
+p</CODE>
+ into <CODE CLASS="Code">
+defrule</CODE>
+. For example, the OPS5 rule</LI>
+</UL>
+<PRE CLASS="Code-first"><A NAME="pgfId-866023"></A>(p recognize-pair</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866024"></A>  (employee ^name &lt;parent&gt;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866025"></A>  (employee ^name &lt;child&gt; ^mother-name &lt;parent&gt;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866026"></A>  --&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866027"></A>  (make pair))</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-866028"></A>will become</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866029"></A>(defrule recognize-pair :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866030"></A>  (employee ? name ?parent)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866031"></A>  (employee ? name ?child mother-name ?parent)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866032"></A>  --&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866033"></A>  (assert (pair ?)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866034"></A>As an extended example below are given some OPS5 rules from the Monkey and Banana problem (see <A HREF="kwprolog-m-206.htm#13941" CLASS="XRef">Examples</A>):</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866038"></A>(strategy mea)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866039"></A>(literalize monkey</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866040"></A>  name at on holds)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866041"></A>(literalize object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866042"></A>  name at weight on)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866043"></A>(literalize goal</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866044"></A>  status type object to)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866045"></A>(literalize start)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866046"></A>(p mb1</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866047"></A>  (goal ^status active ^type holds ^object &lt;w&gt;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866048"></A>  (object ^name &lt;w&gt; ^at &lt;p&gt; ^on ceiling)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866049"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866050"></A>  (make goal ^status active ^type move ^object ladder</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866051"></A>        ^to &lt;p&gt;))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866052"></A>(p mb4</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866053"></A>  {(goal ^status active ^type holds ^object &lt;w&gt;) &lt;goal&gt;}</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866054"></A>  (object ^name &lt;w&gt; ^at &lt;p&gt; ^on ceiling)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866055"></A>  (object ^name ladder ^at &lt;p&gt;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866056"></A>  {(monkey ^on ladder ^holds nil) &lt;monkey&gt;}</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866057"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866058"></A>  (write (crlf) Grab &lt;w&gt;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866059"></A>  (modify &lt;goal&gt; ^status satisfied)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866060"></A>  (modify &lt;monkey&gt; ^holds &lt;w&gt;))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866061"></A>(p mb8</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866062"></A>  (goal ^status active ^type move ^object &lt;o&gt; ^to &lt;p&gt;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866063"></A>  (object ^name &lt;o&gt; ^weight light ^at &lt;&gt; &lt;p&gt;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866064"></A>  --&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866065"></A>  (make goal ^status active ^type holds ^object &lt;o&gt;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866066"></A>In KnowledgeWorks this could be:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866067"></A>(defcontext ops5 :strategy (mea lex specificity))</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866068"></A>(def-named-kb-class monkey ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866069"></A>  ((at :initform nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866070"></A>   (on :initform nil)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866071"></A>   (holds :initform nil)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866072"></A>(def-named-kb-class object ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866073"></A>  ((at :initform nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866074"></A>   (weight :initform nil)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866075"></A>   (on :initform nil)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866076"></A>(def-kb-struct goal status type object to)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866077"></A>(def-kb-struct start)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866078"></A>(defrule mb1 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866079"></A>  :context ops5</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866080"></A>  (goal ? status active type holds object ?w)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866081"></A>  (object ? name ?w at ?p on ceiling)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866082"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866083"></A>  (assert (goal ? status active type move object ladder</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866084"></A>                  to ?p)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866085"></A>(defrule mb4 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866086"></A>  :context ops5</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866087"></A>  (goal ?g status active type holds object ?w)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866088"></A>  (object ? name ?w at ?p on ceiling)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866089"></A>  (object ? name ladder at ?p)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866090"></A>  (monkey ?m on ladder holds nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866091"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866092"></A>  ((format t &quot;&#126;%Grab &#126;S&quot; ?w))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866093"></A>  (assert (goal ?g status satisfied))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866094"></A>  (assert (monkey ?m holds ?w)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866095"></A>(defrule mb8 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866096"></A>  :context ops5</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866097"></A>  (goal ? status active type move object ?o to ?p)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866098"></A>  (object ? name ?o weight light at ?q)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866099"></A>  (test (not (eq ?q ?p)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866100"></A>  --&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866101"></A>  (assert (goal ? status active type holds object ?o)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-230.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-228.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-228.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

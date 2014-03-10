@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.5  Using the Object Clipboard with a Listener
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-191.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-189.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-171.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-171.htm">9 The Object Clipboard</A><BR><BR>
+</DIV><A HREF="ide-m-191.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-189.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-171.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-869795"></A>9.5  Using the Object Clipboard with a Listener</H3>
+<P CLASS="Body">
+<A NAME="pgfId-869799"></A>Here we place several objects on the Object Clipboard. Then we link the Object Clipboard with a Listener tool, giving a convenient way to manipulate these objects in turn.</P>
+<P CLASS="Body">
+<A NAME="pgfId-869803"></A>In the Listener:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-869823"></A>Enter</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-869806"></A>(capi:contain </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869807"></A> (make-instance 'capi:display-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869808"></A>                :text &quot;Display Pane&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869809"></A>                :background :green))</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-869827"></A>A green display pane is displayed.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-869831"></A>Ensure that the Listener window is active, so that the <B CLASS="Button">
+Values</B>
+ menu is enabled. Choose <B CLASS="Button">
+Values &gt; Clip</B>
+ to place the display pane on the Object Clipboard.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-869838"></A>Enter</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-869848"></A>(capi:contain </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869849"></A> (make-instance 'capi:editor-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869850"></A>                :text &quot;Editor Pane&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869851"></A>                :background :yellow))</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-869877"></A>A yellow editor pane is displayed.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-869866"></A>Return to the Listener and choose <B CLASS="Button">
+Values &gt; Clip </B>
+to place the editor pane on the Object Clipboard.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-869887"></A>Enter</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-869890"></A>(capi:contain </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869891"></A> (make-instance 'capi:graph-pane))</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-869914"></A>A graph pane is displayed.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-869917"></A>Return to the Listener and choose <B CLASS="Button">
+Values &gt; Clip </B>
+to place the graph pane on the Object Clipboard.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-869905"></A>Now choose <B CLASS="Button">
+Window &gt; Tools &gt; Object Clipboard </B>
+<A NAME="marker-903590"></A>or click <IMG SRC="ide-m-101.gif" ALIGN="ABSBOTTOM">
+ in the LispWorks toolbar. Notice that this creates an Object Clipboard tool if you do not already have one. The Object Clipboard shows the objects you just clipped, and the most recently clipped object appears at the top. It should look like <A HREF="ide-m-190.htm#51767" CLASS="XRef">CAPI panes in the Object Clipboard</A>.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-869998"></A>Figure 9.4  <A NAME="51767"></A>CAPI panes in the Object Clipboard<DIV>
+<IMG SRC="ide-m-98.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="ide-m-102.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-870011"></A>In the Listener choose <B CLASS="Button">
+Edit &gt; Link from</B>
+ and select the Object Clipboard in the submenu. Now, whenever you select an object in the Object Clipboard, it is also pasted into the Listener - that is, it becomes the value of <CODE CLASS="Code">
+*</CODE>
+. We use this link to manipulate the CAPI pane objects in the Listener.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-870005"></A>In the Object Clipboard select DISPLAY-PANE-1. This raises the linked Listener window and pastes the display pane object. </LI>
+<LI CLASS="Step">
+<A NAME="pgfId-870033"></A>Enter in the Listener:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-869864"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-874117"></A> * #'(setf capi:simple-pane-background) :red *)</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-870026"></A>The display pane background becomes red.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-870049"></A>In the Object Clipboard select EDITOR-PANE-1. This raises the linked Listener window and pastes the editor pane object.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-870059"></A>In the Listener choose <B CLASS="Button">
+History &gt; Previous</B>
+ or use <CODE CLASS="Code">
+Esc P</CODE>
+, and press <CODE CLASS="Code">
+Return</CODE>
+, to enter the same command again</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-874131"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-874132"></A> * #'(setf capi:simple-pane-background) :red *)</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-870070"></A>The editor pane background also becomes red.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-870091"></A>In the Object Clipboard select GRAPH-PANE-1. This raises the linked Listener window and pastes the graph pane object.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-870140"></A>Enter in the Listener:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-870125"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-874141"></A> * #'(setf capi:graph-pane-roots) '( 2 3) *)</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-874148"></A>The graph pane is altered.</P>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-870117"></A>Notice how linking the Listener with the Object Clipboard allows you to manipulate the clipped objects in turn via the value of <CODE CLASS="Code">
+*</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-869822"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-191.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-189.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-171.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

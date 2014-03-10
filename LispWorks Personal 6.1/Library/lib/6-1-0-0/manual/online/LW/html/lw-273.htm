@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.3.3  Mutable objects not supporting atomic access
+</TITLE>
+
+<LINK REL="next" HREF="lw-274.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-272.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-270.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-270.htm">15.3  Atomicity and thread safety of the LispWorks implementation</A><BR><BR>
+</DIV><A HREF="lw-274.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-272.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-270.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-892065"></A>15.3.3  Mutable objects not supporting atomic access</H3>
+<P CLASS="Body">
+<A NAME="pgfId-892247"></A>This section outlines for which types of mutable Common Lisp object access is not atomic.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892067"></A>Access to arrays with element type of integer of less than 8 bits is not guaranteed to be atomic.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892068"></A>Access to non-simple arrays is not guaranteed to be atomic.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892069"></A>Access to lists (including alists and plists) is not atomic. Lists are made of multiple cons objects, so although access to the individual conses is atomic, the same does not hold for the list as a whole.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892070"></A>Sequence operations which modify multiple elements are not atomic. </P>
+<P CLASS="Body">
+<A NAME="pgfId-892071"></A>Macros that expand to multiple accesses are in general not atomic. In particular, modifying macros like <A NAME="marker-892379"></A><CODE CLASS="Code">
+push</CODE>
+ and <A NAME="marker-892387"></A><CODE CLASS="Code">
+incf</CODE>
+ are not atomic (but see the atomic versions of some of them in <A HREF="lw-298.htm#72244" CLASS="XRef">Low level atomic operations</A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-892420"></A>Making several calls to Common Lisp functions that access hash tables will not be atomic overall. See also <A NAME="marker-892416"></A><A HREF="lw-810.htm#77199" CLASS="XRef">modify-hash</A> for atomic reading and writing an entry and <A NAME="marker-892421"></A><A HREF="lw-868.htm#20054" CLASS="XRef">with-hash-table-locked</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892073"></A>Stream operations are in general not atomic. There is an undocumented interface for locking of streams when this is required - contact Lisp Support if you need this.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892436"></A><A NAME="marker-892454"></A>Operations on CAPI objects are not atomic in general. The same is true for anything in the IDE. These operations need to be invoked from the thread that owns the object, for example by <A NAME="marker-892459"></A><CODE CLASS="Code">
+capi:execute-with-interface</CODE>
+ or <A NAME="marker-892464"></A><CODE CLASS="Code">
+capi:apply-in-pane-process</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-274.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-272.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-270.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

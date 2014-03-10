@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ password-pane
+</TITLE>
+
+<LINK REL="next" HREF="capiref-292.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-290.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-292.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-290.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-902329"></A><A NAME="35000"></A>password<A NAME="marker-4186153"></A>-pane</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-902390"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902333"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902489"></A>The password pane is a pane designed for entering passwords, such that when the password is entered it is not visible on the screen.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4186090"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4186091"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902338"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-902340"></A><A HREF="capiref-430.htm#26824" CLASS="XRef">text-input-pane</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3045282"></A>Initargs</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-3045302"></A><CODE CLASS="Code">
+:overwrite-character</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-3045353"></A>A <CODE CLASS="Code">
+base-char</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3045324"></A>Readers</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3045336"></A><A NAME="marker-3801409"></A><CODE CLASS="Code">
+password-pane-overwrite-character</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902342"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902438"></A>The password pane inherits most of its functionality from <A HREF="capiref-430.htm#26824" CLASS="XRef">text-input-pane</A>. It starts with the initial text and caret position specified by the arguments <EM CLASS="Variable">
+text</EM>
+ and <EM CLASS="Variable">
+caret-position</EM>
+ respectively, and limits the number of characters entered with the <EM CLASS="Variable">
+max-characters</EM>
+ argument (which defaults to <CODE CLASS="Code">
+nil</CODE>
+, meaning there is no maximum).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2184283"></A>The password pane can be enabled and disabled with the <A HREF="capiref-430.htm#26824" CLASS="XRef">text-input-pane</A> accessor <CODE CLASS="Code">
+text-input-pane-enabled</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3045430"></A><EM CLASS="Variable">
+overwrite-character</EM>
+ is a <CODE CLASS="Code">
+base-char</CODE>
+ which is the character to display instead of the real characters. The default value of <EM CLASS="Variable">
+overwrite-character</EM>
+ is #&#92;*.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902349"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-902351"></A>(setq password-pane (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-902353"></A>                     (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-902354"></A>                      'capi:password-pane</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-902355"></A>                      :callback </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-902409"></A>                      #'(lambda (password interface)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-902356"></A>                                (capi:display-message</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-902357"></A>                                &quot;Password: &#126;A&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-902358"></A>                                password)))))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-902363"></A>(capi:text-input-pane-text password-pane)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-3045515"></A>(setq password-pane</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3045516"></A>      (capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3045517"></A>       (make-instance 'capi:password-pane</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3045518"></A>                      :max-characters 5</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3045519"></A>                      :text &quot;abc&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-3045457"></A>                      :overwrite-character #&#92;$)))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-902369"></A>(capi:password-pane-overwrite-character password-pane2)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902373"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902375"></A><A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A><BR>
+<A HREF="capiref-430.htm#26824" CLASS="XRef">text-input-pane</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-292.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-290.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

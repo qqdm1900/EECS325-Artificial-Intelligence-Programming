@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.2.6.5  Atomic update of a data structure
+</TITLE>
+
+<LINK REL="next" HREF="lw-260.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-258.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-254.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-246.htm">15.2  The process programming interface </A> &gt; <A HREF="lw-254.htm">15.2.6  Old interrupt blocking APIs removed</A><BR><BR>
+</DIV><A HREF="lw-260.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-258.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-254.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-893403"></A>15.2.6.5  Atomic update of a data structure</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893717"></A>The example below is a resource object, which maintains a count of free items and also list of them. These two slots must stay synchronized.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893404"></A>Old:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893405"></A>(without-interrupts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893406"></A> (when (plusp (resource-free-item-count resource))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893407"></A>   (decf (resource-free-item-count resource))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893408"></A>   (pop (resource-free-items resource))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-893409"></A>New: use a lock, because more than one slot has to be updated, so cannot be updated with low level atomic operations.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893410"></A>(mp:with-lock ((resource-lock resource))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893411"></A>	      (when (plusp (resource-free-item-count resource))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893412"></A>		(decf (resource-free-item-count resource))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893413"></A>		(pop (resource-free-items resource))))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-260.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-258.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-254.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

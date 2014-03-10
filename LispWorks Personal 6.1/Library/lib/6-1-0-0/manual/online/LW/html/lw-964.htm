@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ round-to-single-precision
+</TITLE>
+
+<LINK REL="next" HREF="lw-965.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-963.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-965.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-963.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1180589"></A><A NAME="round-to-single-precision"></A>round<A NAME="marker-1419280"></A>-to-single-precision</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1180590"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180591"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1180887"></A>Rounds the given float to single-precision format (32 bits) and returns it as a <CODE CLASS="Code">
+double-float</CODE>
+ (64 bits).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180593"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1180594"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180595"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1180596"></A>round-to-single-precision <EM CLASS="Variable">
+float</EM>
+ =&gt; <EM CLASS="Variable">
+double-float</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180597"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180598"></A><EM CLASS="Variable">
+float</EM>
+</P>
+<P CLASS="RDescription-C">A float</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180599"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180600"></A><EM CLASS="Variable">
+double-float</EM>
+</P>
+<P CLASS="RDescription-C">A <CODE CLASS="Code">
+double-float</CODE>
+ with <CODE CLASS="Code">
+single-float</CODE>
+ precision.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180601"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1181126"></A>The argument is rounded to single-precision format (32 bits) and returned as a <CODE CLASS="Code">
+double-float</CODE>
+ (64 bits).  This function allows you to model the rounding behavior of a machine or implementation that performs 32-bit floating point arithmetic.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1181130"></A>The default size on Windows and Linux is 64 bits as specified by the IEEE standard.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1183352"></A>LispWorks supports 3 floating point formats, <CODE CLASS="Code">
+short-float</CODE>
+, <CODE CLASS="Code">
+single-float</CODE>
+ and <CODE CLASS="Code">
+double-float</CODE>
+.  If this function is called with a <CODE CLASS="Code">
+single-float</CODE>
+ or a <CODE CLASS="Code">
+short-float</CODE>
+, it returns the equivalent <CODE CLASS="Code">
+double-float</CODE>
+, that is, it is the same as doing</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1629734"></A>(coerce <EM CLASS="Variable">
+float</EM>
+ 'double-float)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1472426"></A>Compatibility note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1472496"></A>LispWorks 4.4 and previous on Windows and Linux platforms supports just one floating point format. In LispWorks 5.0 and later, three floating point formats are supported on all platforms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1183383"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1183434"></A>CL-USER 197 &gt; pi</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1183435"></A>3.141592653589793D0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1183436"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1183437"></A>CL-USER 198 &gt; round-to-single-precision pi</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1183408"></A>3.1415927410125732D0</PRE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-965.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-963.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

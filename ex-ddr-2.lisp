@@ -1,0 +1,67 @@
+(defparameter *all-different-kb*
+  '((-> (all-different (cons ?l3 (cons ?l1 ?l2))) (all-different (cons ?l1 ?l2)) (all-different (cons ?l3 ?l1)) (all-different (cons ?l3 ?l2)))
+    (-> (all-different (cons ?l1 ?l2)) (different ?l1 ?l2) (different ?l2 ?l1))))
+
+(in-package #:ddr-tests)
+;;;lei wang
+(defparameter *all-different-kb*
+  '(
+    (-> (all-different (cons ?l3 (cons ?l1 ?l2)))
+        (all-different (cons ?l1 ?l2))
+        (all-different (cons ?l3 ?l1))
+        (all-different (cons ?l3 ?l2)))
+    (-> (all-different (cons ?l1 ?l2)) (different ?l1 ?l2))
+    (-> (different ?x ?y) (different ?y ?x))
+    ))
+
+(defparameter *member-kb*
+  '((member ?x (cons ?x ?l1))
+    (<- (member ?x (cons ?l3 (cons ?l1 ?l2))) (member ?x (cons ?l1 ?l2)))))
+
+(defparameter *all-different-kb*
+  '(
+    (-> (all-different (cons ?l3 (cons ?l1 (cons ?l2 nil))))
+        (all-different (cons ?l1 (cons ?l2 nil)))
+        (all-different (cons ?l3 (cons ?l2 nil)))
+        (all-different (cons ?l3 (cons ?l2 nil))))
+    (-> (all-different (cons ?l1 (cons ?l2 nil)) (different ?l1 ?l2)))
+    (-> (different ?x ?y) (different ?y ?x))
+    ))
+
+(defparameter *all-different-kb*
+  '(
+    (-> (all-different (cons ?l3 (cons ?l2 ?l1)))
+        (all-different (cons ?l1 ?l2))
+        (all-different (cons ?l3 ?l1))
+        (all-different (cons ?l3 ?l2)))
+    (-> (all-different (cons ?l3 (cons ?l2 (cons ?l1 nil))))
+                       (different ?l1 ?l2)
+                       (different ?l3 ?l1)
+                       (different ?l3 ?l2))
+    (-> (different ?x ?y) (different ?y ?x))
+    ))
+
+;;;final
+(defparameter *all-different-kb*
+  '(
+    (-> (all-different (cons ?l3 (cons ?l2 ?l1)))
+        (all-different (cons ?l2 ?l1))
+        (all-different (cons ?l3 ?l1))
+        (all-different (cons ?l3 (cons ?l2 nil))))
+    (-> (all-different (cons ?l3 (cons ?l2 (cons ?l1 nil))))
+                       (different ?l1 ?l2)
+                       (different ?l3 ?l1)
+                       (different ?l3 ?l2))
+    (-> (different ?x ?y) (different ?y ?x))
+    ))
+
+
+;;;;
+(defparameter *all-different-kb*
+  '(
+    (-> (all-different (cons ?l3 (cons ?l2 ?l1)))
+        (all-different (cons ?l2 ?l1))
+        (all-different (cons ?l3 ?l1))
+        (different (?l3 ?l2)))
+    (-> (different ?x ?y) (different ?y ?x))
+    ))

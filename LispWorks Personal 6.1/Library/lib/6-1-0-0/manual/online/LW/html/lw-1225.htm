@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ora-lob-free
+</TITLE>
+
+<LINK REL="next" HREF="lw-1226.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1224.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1226.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1224.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1087754"></A><A NAME="10227"></A>ora<A NAME="marker-1087753"></A>-lob-free</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1087755"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1087756"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1087757"></A>Frees a LOB locator.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1087758"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1087759"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1087760"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1087761"></A>ora-lob-free <EM CLASS="Variable">
+lob-locator</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1087762"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1087763"></A><EM CLASS="Variable">
+lob-locator</EM>
+</P>
+<P CLASS="RDescription-C">A LOB locator.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1087767"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1087768"></A>The function <CODE CLASS="Code">
+ora-lob-free</CODE>
+ frees the LOB locator <EM CLASS="Variable">
+lob-locator</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1088342"></A>If <EM CLASS="Variable">
+lob-locator</EM>
+ was retrieved inside an iteration macro or function (that is, one of <A HREF="lw-1200.htm#17430" CLASS="XRef">map-query</A>, <A HREF="lw-1179.htm#26371" CLASS="XRef">do-query</A>, <A HREF="lw-1259.htm#54409" CLASS="XRef">simple-do-query</A> and<A HREF="lw-1199.htm#16896" CLASS="XRef">loop</A>), it is freed before the next record is fetched, or when terminating the iteration for the last record.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1088344"></A>LOB locators which were retrieved by <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> or <A HREF="lw-1253.htm#39816" CLASS="XRef">query</A>, or were created by the user by <A HREF="lw-1205.htm#86509" CLASS="XRef">ora-lob-assign</A> or <A HREF="lw-1210.htm#62317" CLASS="XRef">ora-lob-create-empty</A> are freed automatically when the database connection is closed by a call to <A HREF="lw-1178.htm#41029" CLASS="XRef">disconnect</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1088346"></A>If you create many LOB locators without closing the connection, it is useful to free them by calling <CODE CLASS="Code">
+ora-lob-free</CODE>
+, to free the resources that are associated with them.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1088322"></A>Freeing a LOB locator does not affect the underlying LOB. In particular, after modifications to the LOB there is no <A HREF="lw-1256.htm#15063" CLASS="XRef">rollback</A> even if there was not yet a <A HREF="lw-1160.htm#25697" CLASS="XRef">commit</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1087770"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1567765"></A><CODE CLASS="Code">
+ora-lob-free</CODE>
+ is available only when the &quot;oracle&quot; module is loaded. See the section <A HREF="lw-424.htm#Oracle LOB interface;Oracle locator objects;Oracle large objects " CLASS="XRef">Oracle LOB interface</A> for more information.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1226.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1224.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

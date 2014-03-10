@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ string-append
+</TITLE>
+
+<LINK REL="next" HREF="lw-979.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-977.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-979.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-977.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1092398"></A>string<A NAME="marker-1419711"></A>-append</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1092473"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1092709"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1092733"></A>Constructs a single string from a number of strings.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1092749"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1092801"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1092811"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1092825"></A>string-append &amp;rest <EM CLASS="Variable">
+strings</EM>
+ =&gt; <EM CLASS="Variable">
+string</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1092835"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1092878"></A><EM CLASS="Variable">
+strings</P>
+<P CLASS="RDescription-C"></EM>
+Any number of strings or string designators.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1092888"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1092915"></A><EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1092966"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1092976"></A>The <CODE CLASS="Code">
+string-append</CODE>
+ function takes any number of string designators and constructs a single string from them. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1285149"></A>A string designator is a string, a symbol or a character object.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1285166"></A>Each of the elements of the <EM CLASS="Variable">
+strings</EM>
+ argument are first coerced into a string using the <CODE CLASS="Code">
+string</CODE>
+ function if they are not already a string.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1285175"></A><EM CLASS="Variable">
+string</EM>
+ is a string of the &quot;widest&quot; type amongst <EM CLASS="Variable">
+strings</EM>
+. That is, the constructed string is of the same type as the argument with the largest element type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1285299"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1285327"></A>(readtable-case *readtable*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285328"></A>=&gt; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285329"></A>:UPCASE</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285330"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285331"></A>(string-append &quot;foo&quot; 'bar)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285332"></A>=&gt; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285333"></A>&quot;fooBAR&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285335"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285336"></A>(type-of </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285337"></A> (string-append </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285338"></A>  (coerce &quot;A&quot; 'simple-base-string)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285339"></A>  (coerce &quot;A&quot; 'simple-text-string)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285340"></A>  ))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1285341"></A>=&gt; </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1285320"></A>SIMPLE-TEXT-STRING</PRE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-979.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-977.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

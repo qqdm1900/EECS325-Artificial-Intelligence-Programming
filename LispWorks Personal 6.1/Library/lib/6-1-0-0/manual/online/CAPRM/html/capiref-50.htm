@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ collector-pane
+</TITLE>
+
+<LINK REL="next" HREF="capiref-51.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-49.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-51.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-49.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-888391"></A><A NAME="28877"></A>collector<A NAME="marker-3968653"></A>-pane</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888630"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888395"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3968685"></A>A <CODE CLASS="Code">
+collector-pane</CODE>
+ is an <A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A> which displays the output sent to a particular type of character stream called an editor stream, the contents of which are stored in an editor buffer. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3968686"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3968687"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3968688"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888402"></A><A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888404"></A>Initargs</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888406"></A><CODE CLASS="Code">
+:buffer-name</CODE>
+<A NAME="marker-952817"></A></P>
+<P CLASS="RDescription-C">The name of a buffer onto an editor stream.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888407"></A><CODE CLASS="Code">
+:stream</CODE>
+<A NAME="marker-952818"></A></P>
+<P CLASS="RDescription-C">The editor stream to be collected.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888409"></A>Readers</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888411"></A><A NAME="marker-3760169"></A>collector-pane-stream</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888413"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888415"></A><A NAME="marker-952819"></A>A new <CODE CLASS="Code">
+collector-pane</CODE>
+ can be created to view an existing editor stream by passing the stream itself or by passing the buffer name of that stream.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-888418"></A>To create a new stream, either specify <EM CLASS="Variable">
+buffer-name</EM>
+ which does not match any existing buffer, or do not pass <EM CLASS="Variable">
+buffer-name</EM>
+ in which case the CAPI will create a unique buffer name for you.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2153300"></A>To access the stream, use the reader <CODE CLASS="Code">
+collector-pane-stream</CODE>
+ on the <CODE CLASS="Code">
+collector-pane</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-888422"></A>Note that the editor buffer <CODE CLASS="Code">
+&quot;Background Output&quot;</CODE>
+ is a buffer onto the output stream <CODE CLASS="Code">
+*standard-output*</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888424"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888426"></A>Here is an example that creates two collector panes onto a new stream (that is created by the first collector pane). </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888429"></A>(setq collector (capi:contain</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-888431"></A>                 (make-instance 'capi:collector-pane)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888436"></A>(setq *test-stream* </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-998473"></A>  (capi:collector-pane-stream collector))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888439"></A>(capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888443"></A>  (make-instance 'capi:collector-pane</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-888444"></A>                 :stream *test-stream*))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-888448"></A>(format *test-stream* &quot;Hello World&#126;%&quot;)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-888452"></A>Finally, this example shows how to create a collector pane onto the &quot;<CODE CLASS="Code">
+Background Output</CODE>
+&quot; stream. </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888454"></A>(capi:contain (make-instance 'capi:collector-pane</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-888456"></A>               :buffer-name &quot;Background Output&quot;))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888460"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888462"></A><A HREF="capiref-491.htm#14482" CLASS="XRef">with-random-typeout</A><BR>
+<A HREF="capiref-243.htm#33926" CLASS="XRef">map-typeout</A><BR>
+<A HREF="capiref-472.htm#18669" CLASS="XRef">unmap-typeout</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-51.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-49.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

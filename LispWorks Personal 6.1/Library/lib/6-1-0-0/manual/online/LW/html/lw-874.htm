@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ get-foreign-symbol
+</TITLE>
+
+<LINK REL="next" HREF="lw-875.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-873.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-871.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-871.htm">33 The LINK-LOAD Package</A><BR><BR>
+</DIV><A HREF="lw-875.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-873.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-871.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-890901"></A><A NAME="marker-890142"></A><A NAME="38792"></A>get-foreign-symbol</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-890145"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890147"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-890148"></A>link-load</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890149"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-890150"></A>get-foreign-symbol <EM CLASS="Variable">
+name</EM>
+ &amp;optional <EM CLASS="Variable">
+force</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890151"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890152"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890154"></A><EM CLASS="Variable">
+force</EM>
+</P>
+<P CLASS="RDescription-C">A keyword.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891112"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-891113"></A><EM CLASS="Variable">
+result</P>
+<P CLASS="RDescription-C"></EM>
+A foreign symbol.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890156"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890158"></A>This function gets a foreign symbol or it may be used to explicitly register an undefined symbol.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-893103"></A><EM CLASS="Variable">
+name</EM>
+ is a symbol or string to look up or to create as a foreign symbol. If it is a symbol, the symbol looked for is that which the function <A HREF="lw-875.htm#27978" CLASS="XRef">lisp-name-to-foreign-name</A> would produce. If <EM CLASS="Variable">
+name</EM>
+ is a string, it is taken literally</P>
+<P CLASS="RBody">
+<A NAME="pgfId-893235"></A>If supplied and the symbol is not already defined as a foreign symbol, <EM CLASS="Variable">
+force</EM>
+ forces it to be an undefined foreign symbol. This provides a reference to the symbol so that a subsequent call to <A HREF="lw-876.htm#18212" CLASS="XRef">read-foreign-modules</A> will attempt to resolve it</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890161"></A>Example</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-890162"></A>(get-foreign-symbol 'my-func-not-yet-loaded t)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890163"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890164"></A>It is not usually necessary to use this function.In order to examine whether a foreign symbol is defined, use <A HREF="lw-873.htm#32900" CLASS="XRef">foreign-symbol-address</A>. The act of defining a foreign function using <CODE CLASS="Code">
+fli:define-foreign-function</CODE>
+ makes the symbol undefined, so the use of force is not usually needed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890167"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890173"></A><A HREF="lw-873.htm#32900" CLASS="XRef">foreign-symbol-address</A><BR>
+<A HREF="lw-875.htm#27978" CLASS="XRef">lisp-name-to-foreign-name</A><BR>
+<A HREF="lw-876.htm#18212" CLASS="XRef">read-foreign-modules</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-875.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-873.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-871.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

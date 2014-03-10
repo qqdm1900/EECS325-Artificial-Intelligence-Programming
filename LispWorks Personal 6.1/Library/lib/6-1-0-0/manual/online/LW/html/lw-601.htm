@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ read-dhparams
+</TITLE>
+
+<LINK REL="next" HREF="lw-602.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-600.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-579.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-579.htm">26 The COMM Package</A><BR><BR>
+</DIV><A HREF="lw-602.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-600.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-922103"></A><A NAME="57318"></A>read<A NAME="marker-922808"></A>-dhparams</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-922105"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-922106"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-922107"></A>Reads or uses cached SSL DH parameters.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-922108"></A>Package</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-922109"></A><CODE CLASS="Code">
+comm</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-922110"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-922849"></A>read-dhparams <EM CLASS="Variable">
+filename</EM>
+ &amp;key <EM CLASS="Variable">
+pass-phrase</EM>
+ <EM CLASS="Variable">
+callback</EM>
+ <EM CLASS="Variable">
+errorp</EM>
+ <EM CLASS="Variable">
+force</EM>
+ =&gt; <EM CLASS="Variable">
+dh-ptr</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-922112"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-922114"></A><EM CLASS="Variable">
+filename</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-922115"></A><EM CLASS="Variable">
+pass-phrase</EM>
+</P>
+<P CLASS="RDescription-C">A string, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-922116"></A><EM CLASS="Variable">
+callback</EM>
+</P>
+<P CLASS="RDescription-C">A function designator, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-922117"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-922937"></A><EM CLASS="Variable">
+force</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-922118"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-922119"></A><EM CLASS="Variable">
+dh-ptr</EM>
+</P>
+<P CLASS="RDescription-C">A foreign pointer or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-922120"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-922955"></A>The function <CODE CLASS="Code">
+read-dhparams</CODE>
+ reads or uses cached DH parameters.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-922956"></A><EM CLASS="Variable">
+filename</EM>
+ specifies the file to check.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-922957"></A>Unless <EM CLASS="Variable">
+force</EM>
+ is true, <CODE CLASS="Code">
+read-dhparams</CODE>
+ checks if the file <EM CLASS="Variable">
+filename</EM>
+ has already been loaded, and if it has been loaded, uses the cached value. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-923202"></A>If <EM CLASS="Variable">
+force</EM>
+ is true, or if there is no cached value for <EM CLASS="Variable">
+filename</EM>
+,  <CODE CLASS="Code">
+read-dhparams</CODE>
+ loads the file by calling <A HREF="lw-600.htm#60294" CLASS="XRef">pem-read</A> with <EM CLASS="Variable">
+thing-to-read</EM>
+ argument &quot;DHparams&quot;, <EM CLASS="Variable">
+pass-phrase</EM>
+, <EM CLASS="Variable">
+callback</EM>
+ and <EM CLASS="Variable">
+errorp</EM>
+. <CODE CLASS="Code">
+read-dhparams</CODE>
+ caches and returns a foreign pointer to the resulting DH structure (that is, a pointer corresponding to the C type <CODE CLASS="Code">
+DH*</CODE>
+).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-922123"></A>If <CODE CLASS="Code">
+read-dhparams</CODE>
+ fails to load the file <EM CLASS="Variable">
+filename</EM>
+, if <EM CLASS="Variable">
+errorp</EM>
+ is true it signals an error, otherwise it returns <CODE CLASS="Code">
+nil</CODE>
+. The default value of <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-923078"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-923100"></A><A HREF="lw-600.htm#60294" CLASS="XRef">pem-read</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-602.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-600.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *print-binding-frames*
+</TITLE>
+
+<LINK REL="next" HREF="lw-692.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-690.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-683.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-683.htm">29 The DBG Package</A><BR><BR>
+</DIV><A HREF="lw-692.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-690.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886308"></A><A NAME="marker-887079"></A>*print-binding-frames*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886310"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889530"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889541"></A>Controls whether binding frames are printed in debugger output.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886312"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886313"></A>dbg</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886314"></A>Initial Value </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886315"></A>nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886316"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886317"></A>This variable is used by the debugger when it displays the stack frames. Binding frames are formed when special variables are bound, but are normally not shown by the debugger. However if the value of <CODE CLASS="Code">
+dbg:*print-binding-frames*</CODE>
+ is true then the binding frames are shown. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886318"></A>Example </H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886342"></A>CL-USER 16 &gt; (defun print-to-length (object length)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895442"></A>              (let ((*print-length* length))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895443"></A>                (prinnt object)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895444"></A>PRINT-TO-LENGTH</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895445"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895446"></A>CL-USER 17 &gt; (setf dbg:*print-binding-frames* t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895447"></A>T</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895448"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895449"></A>CL-USER 18 &gt; (print-to-length '(x y z) 2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895450"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895451"></A>Error: Undefined operator PRINNT in form (PRINNT OBJECT).</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895452"></A>  1 (continue) Try invoking PRINNT again.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895453"></A>  2 Return some values from the form (PRINNT OBJECT).</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895454"></A>  3 Try invoking something other than PRINNT with the same arguments.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895455"></A>  4 Set the symbol-function of PRINNT to another function.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895456"></A>  5 Set the macro-function of PRINNT to another function.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895457"></A>  6 (abort) Return to level 0.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895458"></A>  7 Return to top loop level 0.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895459"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895460"></A>Type :b for backtrace, :c &lt;option number&gt; to proceed,  or :? for other options</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895461"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895462"></A>CL-USER 19 : 1 &gt; :n print-to-length</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895463"></A>Interpreted call to PRINT-TO-LENGTH</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895464"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895465"></A>CL-USER 20 : 1 &gt; :b :verbose 5</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895466"></A>Interpreted call to PRINT-TO-LENGTH:</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895467"></A>  OBJECT         : (X Y Z)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895468"></A>  LENGTH         : 2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895469"></A>  *PRINT-LENGTH* : 2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895470"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895471"></A>Block environment contour:</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895472"></A>Tag environment contour:</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895473"></A>Function environment contour</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895474"></A>Variable environment contour: ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895475"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895476"></A>Tag environment contour:</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895477"></A>Block environment contour:</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895478"></A>Function environment contour</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895479"></A>Variable environment contour: ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895480"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895481"></A>Call to EVAL (offset 184)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895482"></A>  EXP : (PRINT-TO-LENGTH (QUOTE (X Y Z)) 2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895483"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895484"></A>Binding frame:</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895485"></A>  SYSTEM::*TOP-LOOP-ACTIVE*             : -1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895486"></A>  COMPILER::*IN-COMPILER-HANDLER*       : #&lt;Unbound Marker&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895487"></A>  *                                     : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895488"></A>  **                                    : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895489"></A>  ***                                   : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895490"></A>  -                                     : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895491"></A>  +                                     : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895492"></A>  ++                                    : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895493"></A>  +++                                   : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895494"></A>  ///                                   : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895495"></A>  //                                    : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895496"></A>  /                                     : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895497"></A>  SYSTEM::*TOP-LOOP-HOOK*               : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895498"></A>  SYSTEM::*USER-COMMANDS*               : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895499"></A>  SYSTEM::*IN-TOP-LEVEL-READ-A-COMMAND* : NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895500"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895501"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895502"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-895503"></A>CL-USER 21 : 1 &gt; </PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886343"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886344"></A><CODE CLASS="Code">
+*print-binding-frames*</CODE>
+ is an extension to Common Lisp.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-692.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-690.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

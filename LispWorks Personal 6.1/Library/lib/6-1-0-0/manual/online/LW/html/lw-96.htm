@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.9.5  Example: defcondition
+</TITLE>
+
+<LINK REL="next" HREF="lw-97.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-95.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-91.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-68.htm">7 Dspecs: Tools for Handling Definitions</A> &gt; <A HREF="lw-91.htm">7.9  Users of location information</A><BR><BR>
+</DIV><A HREF="lw-97.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-95.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-91.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-903511"></A>7.9.5  Example: defcondition</H3>
+<P CLASS="Body">
+<A NAME="pgfId-903544"></A>Suppose you have a macro based on <CODE CLASS="Code">
+define-condition</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-903512"></A>(defmacro defcondition (&amp;rest args)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-903513"></A>  `(define-condition ,@args))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-903514"></A>When the following form is evaluated, the system records the dspec (define-condition foo):</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-903515"></A>(defcondition foo () ())</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-903516"></A>Two setups are needed to allow the editor to locate such a defining form.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903517"></A>Firstly, this tells the system how to parse (defcondition ...) toplevel forms:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-903518"></A>(dspec:define-form-parser</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903519"></A>    (defcondition</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-903520"></A>     (:alias define-condition)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-903521"></A>So now:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-903522"></A>(dspec:parse-form-dspec '(defcondition foo () ()))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903523"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-903524"></A>(defcondition foo)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-903525"></A>Secondly, this tells the system that (defcondition foo) is an alias for (define-condition foo).</P>
+<P CLASS="Body">
+<A NAME="pgfId-903526"></A>With this, the editor would report &quot;Cannot find (DEFINE-CONDITION FOO) in ...&quot;.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-903527"></A>(dspec:define-dspec-alias defcondition (name)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-903528"></A>  `(define-condition ,name))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-903529"></A>So now this definition can be located:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-903530"></A>(defcondition foo () ())</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-903531"></A>just as if it were:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-903532"></A>(define-condition foo () ())</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-97.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-95.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-91.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

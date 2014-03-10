@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ connect-to-tcp-server
+</TITLE>
+
+<LINK REL="next" HREF="lw-582.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-580.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-579.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-579.htm">26 The COMM Package</A><BR><BR>
+</DIV><A HREF="lw-582.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-580.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1001129"></A><A NAME="46900"></A>connect<A NAME="marker-1003167"></A>-to-tcp<A NAME="marker-1003175"></A>-server</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1001130"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001131"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1001132"></A>Attempts to connect to a socket on a server.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001133"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1001134"></A>comm</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001135"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1001136"></A>connect-to-tcp-server <EM CLASS="Variable">
+host</EM>
+ <EM CLASS="Variable">
+service</EM>
+ &amp;key <EM CLASS="Variable">
+errorp</EM>
+ <EM CLASS="Variable">
+timeout</EM>
+ <EM CLASS="Variable">
+local-address</EM>
+ <EM CLASS="Variable">
+local-port</EM>
+ <EM CLASS="Variable">
+keepalive</EM>
+ <EM CLASS="Variable">
+nodelay</EM>
+ =&gt; <EM CLASS="Variable">
+handle</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001137"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001138"></A><EM CLASS="Variable">
+host</EM>
+</P>
+<P CLASS="RDescription-C">An integer or string or an <A HREF="lw-592.htm#44856" CLASS="XRef">ipv6-address</A> object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001139"></A><EM CLASS="Variable">
+service</EM>
+</P>
+<P CLASS="RDescription-C">A string or a fixnum.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001140"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001141"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A positive number, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001142"></A><EM CLASS="Variable">
+local-address</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+, an integer, a string or an <A HREF="lw-592.htm#44856" CLASS="XRef">ipv6-address</A> object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001143"></A><EM CLASS="Variable">
+local-port</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+, a string or a fixnum.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001144"></A><EM CLASS="Variable">
+nodelay</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001145"></A><EM CLASS="Variable">
+keepalive</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001146"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1001147"></A><EM CLASS="Variable">
+handle</EM>
+</P>
+<P CLASS="RDescription-C">A handle suitable for a <A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A> or a subclass.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001148"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1001149"></A>The function <CODE CLASS="Code">
+connect-to-tcp-server</CODE>
+ attempts to connect to a socket on a server and returns a handle for the connection if successful. This handle can then be used as the socket when making a <A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001150"></A>The server machine to connect to is given by <EM CLASS="Variable">
+hostname</EM>
+, which can be one of the following:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1001152"></A>A string naming the host, for example <CODE CLASS="Code">
+&quot;www.nowhere.com&quot;</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1001153"></A>A string providing the IP address, for example <CODE CLASS="Code">
+&quot;204.71.177.75&quot;</CODE>
+ or <CODE CLASS="Code">
+&quot;2001:500:2f::f&quot;</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1001154"></A>An integer IP address in network order, for example <CODE CLASS="Code">
+#xCC47B14B</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1001155"></A>An <A HREF="lw-592.htm#44856" CLASS="XRef">ipv6-address</A> object.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-1001156"></A>The name of the service to provide is given by <EM CLASS="Variable">
+service</EM>
+. If <EM CLASS="Variable">
+service</EM>
+ is a string, the location of the file specifying the names of the services available varies, but typically on Windows 98 it is called <CODE CLASS="Code">
+SERVICES</CODE>
+ and is stored in the Windows directory., and on Windows NT-based systems it is the file</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1001157"></A>%SystemRoot%&#92;system32&#92;drivers&#92;etc&#92;SERVICES</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1001158"></A>The service can also be a fixnum representing the port number of the desired connection.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001159"></A>If <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, failure to connect (possibly after <EM CLASS="Variable">
+timeout</EM>
+ seconds) returns <CODE CLASS="Code">
+nil</CODE>
+, otherwise an error is signaled.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001160"></A><EM CLASS="Variable">
+timeout</EM>
+ specifies a connection timeout. <CODE CLASS="Code">
+connect-to-tcp-server</CODE>
+ waits for at most <EM CLASS="Variable">
+timeout</EM>
+ seconds for the TCP connection to be made. If <EM CLASS="Variable">
+timeout</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ it waits until the connection attempt succeeds or fails. On failure, <CODE CLASS="Code">
+connect-to-tcp-server</CODE>
+ signals an error or returns <CODE CLASS="Code">
+nil</CODE>
+ according to the value of <EM CLASS="Variable">
+errorp</EM>
+. To provide a timeout for reads after the connection is made, see <EM CLASS="Variable">
+read-timeout</EM>
+ in <A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A>. The default value of <EM CLASS="Variable">
+timeout</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001161"></A>If <EM CLASS="Variable">
+local-address</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then the operating system chooses the local address of the socket. Otherwise the value is interpreted as for <EM CLASS="Variable">
+hostname</EM>
+ and specifies the local address of the socket. The default value of <EM CLASS="Variable">
+local-address</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001162"></A>If <EM CLASS="Variable">
+local-port</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then the operating system chooses the local port of the socket. Otherwise the string or fixnum value is interpreted as for <EM CLASS="Variable">
+service</EM>
+ and specifies the local port of the socket. The default value of <EM CLASS="Variable">
+local-port</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001163"></A>If <EM CLASS="Variable">
+keepalive</EM>
+ is true, <CODE CLASS="Code">
+SO_KEEPALIVE</CODE>
+ is set on the socket. The default value of <EM CLASS="Variable">
+keepalive</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001164"></A>If <EM CLASS="Variable">
+nodelay</EM>
+ is true, <CODE CLASS="Code">
+TCP_NODELAY</CODE>
+ is set on the socket. The default value of <EM CLASS="Variable">
+nodelay</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001165"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1001166"></A>On Unix the name of the service can normally be found in /<CODE CLASS="Code">
+etc/services</CODE>
+. If it is not there, the manual entry for services can be used to find it.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1001167"></A>In most situations, <A HREF="lw-597.htm#15026" CLASS="XRef">open-tcp-stream</A>, which returns a stream rather than a handle, is the more convenient interface. <CODE CLASS="Code">
+connect-to-tcp-server</CODE>
+ is useful when want to associate further information with the stream. You can define a subclass of <A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A>, connect using <CODE CLASS="Code">
+connect-to-tcp-server</CODE>
+, and call <A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A> with your subclass, passing the <EM CLASS="Variable">
+handle</EM>
+ as the socket.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001168"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1001169"></A><A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A><BR>
+<A HREF="lw-597.htm#15026" CLASS="XRef">open-tcp-stream</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-582.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-580.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

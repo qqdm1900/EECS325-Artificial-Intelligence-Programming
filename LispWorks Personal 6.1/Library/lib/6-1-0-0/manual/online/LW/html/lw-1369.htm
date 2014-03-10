@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ gen-num-segments-fragmentation-state
+</TITLE>
+
+<LINK REL="next" HREF="lw-1370.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1368.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1370.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1368.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1173752"></A><A NAME="69789"></A>gen<A NAME="marker-1176198"></A>-num-segments-fragmentation-state</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1173753"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1173754"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1173755"></A>Shows the fragmentation state in a generation in 64-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1173756"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1173757"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1173758"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1189105"></A>gen-num-segments-fragmentation-state <EM CLASS="Variable">
+gen-num</EM>
+ &amp;optional <EM CLASS="Variable">
+statics-too</EM>
+ =&gt; <EM CLASS="Variable">
+fragmentation-state</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1173760"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1190162"></A><EM CLASS="Variable">
+gen-num</EM>
+</P>
+<P CLASS="RDescription-C">A number.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1190163"></A><EM CLASS="Variable">
+statics-too</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean?</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1173762"></A>Values</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-1173763"></A><EM CLASS="Variable">
+fragmentation-state</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1192104"></A>A list in which each element is a list of length 3.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1173764"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1190286"></A>The function <CODE CLASS="Code">
+gen-num-segments-fragmentation-state</CODE>
+ shows the fragmentation state in a generation in 64-bit LispWorks.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1190252"></A>gen-num-segments-fragmentation-state returns a list, where each element is a sub-list showing the fragmentation state in a segment. The sub-list is of the form</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1190476"></A>(<EM CLASS="Variable">
+allocation-type</EM>
+ <EM CLASS="Variable">
+allocated</EM>
+ <EM CLASS="Variable">
+free</EM>
+)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1191623"></A>where <EM CLASS="Variable">
+allocation-type</EM>
+ is the allocation type of the segment, <EM CLASS="Variable">
+allocated</EM>
+ is the amount of allocated data in the segment, and <EM CLASS="Variable">
+free</EM>
+ is the total size of free areas in the segment that cannot be easily used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1191624"></A>The ratio <EM CLASS="Variable">
+free</EM>
+<CODE CLASS="Code">
+/</CODE>
+<EM CLASS="Variable">
+allocated</EM>
+ is the ratio that is compared to the fragmentation threshold to decide whether to copy a segment when doing a marking GC with copying (see <A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A> and <A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A>).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1191874"></A>Allocation types <CODE CLASS="Code">
+:cons-static</CODE>
+, <CODE CLASS="Code">
+:non-pointer-static</CODE>
+, <CODE CLASS="Code">
+:mixed-static</CODE>
+, <CODE CLASS="Code">
+:other-big</CODE>
+ and <CODE CLASS="Code">
+:non-pointer-big</CODE>
+ are included in the result only if <EM CLASS="Variable">
+statics-too</EM>
+ is non-nil. The default value of <EM CLASS="Variable">
+statics-too</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1211300"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1656244"></A>The implementation of <A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A> is intended to solve any fragmentation issues automatically.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1187236"></A>gen-num-segments-fragmentation-state is implemented only in 64-bit LispWorks. It is not relevant to the Memory Management API in 32-bit implementations, where <A HREF="lw-760.htm#check-fragmentation" CLASS="XRef">check-fragmentation</A> is available instead.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1173766"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1173767"></A><A HREF="lw-760.htm#check-fragmentation" CLASS="XRef">check-fragmentation</A><BR>
+<A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A><BR>
+<A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1370.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1368.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-dialog-results
+</TITLE>
+
+<LINK REL="next" HREF="capiref-483.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-481.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-483.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-481.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-6658596"></A><A NAME="92889"></A>with<A NAME="marker-6658595"></A>-dialog-results</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-6658597"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6658598"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6658599"></A>Displays a dialog and executes a body when the dialog is dismissed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6658600"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-6658601"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6658602"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-6659518"></A>with-dialog-results (&amp;rest <EM CLASS="Variable">
+results</EM>
+) <EM CLASS="Variable">
+dialog-form</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; :continuation, nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6659532"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6659519"></A><EM CLASS="Variable">
+results</EM>
+</P>
+<P CLASS="RDescription-C">Variables.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6659547"></A><EM CLASS="Variable">
+dialog-form</EM>
+</P>
+<P CLASS="RDescription-C">A function call form.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6659556"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Forms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6659520"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6659759"></A>The macro <CODE CLASS="Code">
+with-dialog-results</CODE>
+ is designed to evaluate the <EM CLASS="Variable">
+dialog-form</EM>
+ in a special way to allow dialogs on Cocoa to use <A NAME="marker-6694700"></A>window-modal sheets. It is not needed unless you want to make code that is portable to Cocoa. The <EM CLASS="Variable">
+dialog-form</EM>
+ should be a function call form that displays a dialog.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6659764"></A>The overall effect is that the <EM CLASS="Variable">
+body</EM>
+ forms are evaluated with the <EM CLASS="Variable">
+results</EM>
+ variables bound to the values returned by the <EM CLASS="Variable">
+dialog-form</EM>
+ when the dialog is dismissed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6659771"></A>The dynamic environment in which the body is evaluated varies between platforms:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-6659568"></A>On Microsoft Windows, GTK+ and Motif, the <CODE CLASS="Code">
+with-dialog-results</CODE>
+ macro waits until the dialog has been dismissed and then evaluates the <EM CLASS="Variable">
+body</EM>
+ forms.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-6659570"></A>On Cocoa, the <EM CLASS="Variable">
+dialog-form</EM>
+ creates a sheet attached to the active window and the <CODE CLASS="Code">
+with-dialog-results</CODE>
+ macro returns immediately. The <EM CLASS="Variable">
+body</EM>
+ forms are evaluated when the user dismisses the sheet.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-6659574"></A>The <EM CLASS="Variable">
+dialog-form</EM>
+ must be a cons with one of the following two formats:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-6659576"></A><CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+function-name</EM>
+<CODE CLASS="Code">
+ . </CODE>
+<EM CLASS="Variable">
+arguments</EM>
+<CODE CLASS="Code">
+)</CODE>
+ </LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-6659577"></A><CODE CLASS="Code">
+(apply </CODE>
+<EM CLASS="Variable">
+function-name</EM>
+<CODE CLASS="Code">
+ . </CODE>
+<EM CLASS="Variable">
+arguments</EM>
+<CODE CLASS="Code">
+)</CODE>
+ </LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-6659579"></A>The <EM CLASS="Variable">
+function-name</EM>
+ is called with all the given <EM CLASS="Variable">
+arguments</EM>
+, plus an additional pair of arguments, <CODE CLASS="Code">
+:continuation</CODE>
+ and a <A NAME="marker-6691049"></A>continuation function created from <EM CLASS="Variable">
+body</EM>
+. In the first format, the additional arguments are placed after all the given <EM CLASS="Variable">
+arguments</EM>
+. In the second format, the additional arguments are placed just before the last of the given <EM CLASS="Variable">
+arguments</EM>
+ (i.e. before the list of remaining argument to <CODE CLASS="Code">
+apply</CODE>
+).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6659581"></A>The continuation function binds the <EM CLASS="Variable">
+results</EM>
+ variables to its arguments and evaluates the <EM CLASS="Variable">
+body</EM>
+ forms. If there are more arguments than <EM CLASS="Variable">
+results</EM>
+ variables, the extra arguments are discarded.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6659583"></A>This macro is designed for use with <EM CLASS="Variable">
+function-name</EM>
+s such as <A HREF="capiref-300.htm#12695" CLASS="XRef">popup-confirmer</A> or <A HREF="capiref-328.htm#27550" CLASS="XRef">prompt-for-string</A>, which take a <CODE CLASS="Code">
+:continuation</CODE>
+ keyword. You can define your own such functions provided that they call one of the CAPI functions, passing the received <EM CLASS="Variable">
+continuation</EM>
+ argument.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6660172"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6659587"></A>On Microsoft Windows, GTK+ and Motif, this displays a dialog, calls <CODE CLASS="Code">
+record-label-in-database</CODE>
+ when the user clicks OK and then returns. On Cocoa, this creates a sheet and returns; <CODE CLASS="Code">
+record-label-in-database</CODE>
+ will be called when the user clicks OK.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-6659589"></A>(with-dialog-results (new-label okp)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6659590"></A>    (prompt-for-string &quot;Enter a label&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6659591"></A>  (when okp  ; the user clicked in the OK button</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-6658606"></A>    (record-label-in-database new-label)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-8923992"></A>Here is an example with skeleton code for using <CODE CLASS="Code">
+with-dialog-results</CODE>
+. Note that the dialog function (<CODE CLASS="Code">
+choose-file</CODE>
+ below)  that is called by <CODE CLASS="Code">
+with-dialog-results</CODE>
+ must take a <EM CLASS="Variable">
+continuation</EM>
+ keyword argument and pass it to a CAPI prompting function. Also note that the call to the CAPI prompting function must be the last form in the dialog function. Forms after the CAPI prompting function will be executed at an indeterminate time, and their values will not be used in the body of <CODE CLASS="Code">
+with-dialog-results</CODE>
+</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-8924655"></A>(defun choose-file (&amp;key continuation)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924006"></A>  (print 'in-choose-file)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924007"></A>  (capi:prompt-for-file &quot;Choose File&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924008"></A>                        :pathname &quot;&#126;/Desktop/&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924009"></A>                        :continuation continuation))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924010"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924011"></A>(defun open-file (rep)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924012"></A>  (format t &quot;&#126;%Opening &#126;a&#126;%&quot; rep))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924013"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924014"></A>(defun my-callback ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924015"></A>  (print 'doing-something-before)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924016"></A>  (capi:with-dialog-results (res ok-p)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924017"></A>      (choose-file)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924018"></A>    (print 'after-choose-file)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924019"></A>    (if ok-p</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924020"></A>        (open-file res)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924021"></A>      (print 'cancelled))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924022"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924023"></A>(defun prompt-for-file-working ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924024"></A>  (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924025"></A>   (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924026"></A>    'capi:push-button</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924027"></A>    :text &quot;Click Here&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924028"></A>    :callback-type :none</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924029"></A>    :callback 'my-callback)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8924030"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-8923986"></A>(prompt-for-file-working)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6658607"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6658611"></A><A HREF="capiref-77.htm#34181" CLASS="XRef">display-dialog</A><BR>
+<A HREF="capiref-300.htm#12695" CLASS="XRef">popup-confirmer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-483.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-481.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

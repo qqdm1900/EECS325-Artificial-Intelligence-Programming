@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11.6  Profiling pitfalls
+</TITLE>
+
+<LINK REL="next" HREF="lw-179.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-177.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-170.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-170.htm">11 The Profiler</A><BR><BR>
+</DIV><A HREF="lw-179.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-177.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-170.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886038"></A>11.6  <A NAME="marker-886037"></A>Profiling pitfalls</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886039"></A>Profiling should only be attempted on compiled code. If it is done on interpreted code, the interpreter itself is profiled, and this distorts the results for the actual Lisp program.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886040"></A>Macros cannot be profiled as they are expanded during the compilation process. Similarly some Common Lisp functions may be present in the source code but not in the compiled code as they are transformed by the compiler. For example: </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886041"></A>(member 'x '(x y z) :test #'eq)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886042"></A>is transformed to: </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886043"></A>(memq 'x '(x y z))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886044"></A>by the compiler and therefore the function <CODE CLASS="Code">
+member</CODE>
+ is never called.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886045"></A>Recursive functions need special attention. A recursive function may well be found on the stack in more than one place during one interrupt. The profiler counts each occurrence of the function. Hence the total number of times a function is found on the stack may be much greater than the number of times the stack is examined.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886046"></A>Care must be taken when profiling structure accessors. Structure accessors compile down into a call to a closure of which there is one for all structure setters and one for all structure getters. Therefore it is not possible to profile individual structure setters or getters by name. </P>
+<P CLASS="Body">
+<A NAME="pgfId-886047"></A>It must be remembered that even though a function is found on the stack this does not mean that it is active or that it is contributing significantly to the execution time. However the function found on the top of the stack is by definition active, and thus this is the more important value.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886048"></A>It is quite possible that the amount of time the top symbol is monitored is significantly less than 100% despite the profiler being set to profile all the known functions of the application. This is because at the time of the interrupt an internal system function may well be on the top of the stack. </P>
+<P CLASS="Body">
+<A NAME="pgfId-886049"></A>It is possible to profile all the symbols in the system by setting up the profiler as follows:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886050"></A>(set-up-profiler :package (list-all-packages))</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-179.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-177.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-170.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

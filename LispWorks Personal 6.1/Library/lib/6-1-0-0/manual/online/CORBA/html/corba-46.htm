@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.4.2  Defining the callbacks
+</TITLE>
+
+<LINK REL="next" HREF="corba-47.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-45.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-44.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-40.htm">5 The Bank Client</A> &gt <A HREF="corba-44.htm">5.4  Defining the interfaces</A><BR><BR>
+</DIV><A HREF="corba-47.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-45.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-44.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-853631"></A>5.4.2  <A NAME="marker-853903"></A><A NAME="marker-853907"></A>Defining the callbacks</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853318"></A>Defining the callbacks attached to each button is straightforward. Recall that in CAPI, because we stated that the button callback type was <CODE CLASS="Code">
+:interface</CODE>
+, the argument passed to a callback is the interface whose activation triggered that callback.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853319"></A>The <CODE CLASS="Code">
+credit-callback</CODE>
+ is activated by the <B CLASS="Button">
+Credit</B>
+ button of some <CODE CLASS="Code">
+account</CODE>
+ interface:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853320"></A>(defun credit (self)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853321"></A>  (with-slots (balance-field account-ref) self</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853322"></A>    (let ((amount (capi:prompt-for-integer &quot;Amount?&quot; :min 0)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853323"></A>       (when amount</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853324"></A>        (op:credit account-ref amount)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853325"></A>        (setf (capi:display-pane-text balance-field)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853326"></A>              (format nil &quot;&#126;A&quot; (op:balance account-ref)))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853327"></A>The callback is passed the <CODE CLASS="Code">
+account</CODE>
+ interface. It then extracts the CORBA object reference stored in the frame's <CODE CLASS="Code">
+account-ref</CODE>
+ slot and prompts the user for an amount. The function <CODE CLASS="Code">
+capi:prompt-for-integer</CODE>
+ queries the user for an integer and returns nil if the user cancels the dialog. If the amount is valid, the callback invokes the stub method <CODE CLASS="Code">
+op:credit</CODE>
+ on the CORBA object reference with the specified absolute value of the amount (recall that the <CODE CLASS="Code">
+credit</CODE>
+ operation expects an unsigned <CODE CLASS="Code">
+long</CODE>
+ as its argument). Finally, it updates the <CODE CLASS="Code">
+balance</CODE>
+ field of the frame with the current value of the object's <CODE CLASS="Code">
+balance</CODE>
+ attribute, obtained by invoking the stub method <CODE CLASS="Code">
+op:balance</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853328"></A>The definition of <CODE CLASS="Code">
+debit-callback</CODE>
+ is very similar to the definition of <BR>
+<CODE CLASS="Code">
+credit-callback:</CODE>
+</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853329"></A>(defun debit (self)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853330"></A>  (with-slots (balance-field account-ref) self</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853331"></A>    (let ((amount (capi:prompt-for-integer &quot;Amount?&quot; :min 0)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853332"></A>      (when amount</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853333"></A>        (handler-case</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853334"></A>            (progn</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853335"></A>              (op:debit account-ref amount)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853336"></A>              (setf (capi:display-pane-text balance-field)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853337"></A>                    (format nil &quot;&#126;A&quot; (op:balance account-ref))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853338"></A>          (BankingDemo:account/refusal </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853339"></A>           (xx)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853340"></A>           (capi:display-message &quot;Debit returned refusal with </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853341"></A>                                 string: &lt;&#126;A&gt;&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853342"></A>                                 (op:reason xx))))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853343"></A>The only difference is that <CODE CLASS="Code">
+debit-callback</CODE>
+ must deal with the additional possibility that the <CODE CLASS="Code">
+debit</CODE>
+ operation, when invoked on the target object, may fail, raising the IDL exception refusal. If the object raises this exception, the <CODE CLASS="Code">
+op:debit</CODE>
+ stub method signals it as a Common Lisp condition of class <BR>
+<CODE CLASS="Code">
+BankingDemo:account/refusal</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853629"></A>The exception can then be caught and handled in any of the standard Common Lisp ways. Here, we simply place the invocation in the body of a <CODE CLASS="Code">
+handler-case</CODE>
+ statement with an appropriate exception clause to handle the condition.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853344"></A>The <CODE CLASS="Code">
+open-account-callback</CODE>
+ is activated by the <CODE CLASS="Code">
+openAccount-button</CODE>
+ of some bank frame:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853345"></A>(defun open-account-callback (self)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853346"></A>  (with-slots (bank-ref) self</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853347"></A>    (let ((name (capi:prompt-for-string &quot;Name?&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853348"></A>      (when name</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853349"></A>        (handler-case</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853350"></A>            (let ((account-ref</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853351"></A>                   (op:openaccount bank-ref name)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853352"></A>              (make-account-frame account-ref </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853353"></A>               :bank-interface self :title name))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853354"></A>          (Bankingdemo:Bank/DuplicateAccount </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853355"></A>           ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853356"></A>           (capi:display-message &quot;Cannot create account for </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853357"></A>                                &#126;A&quot; name)))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853358"></A>The callback extracts the CORBA object reference stored in the interface's <CODE CLASS="Code">
+bank-ref</CODE>
+ slot. The function <CODE CLASS="Code">
+capi:prompt-for-string </CODE>
+queries the user for the new customer's name returning a string (or nil if the user cancels the dialog). If the dialog has not been cancelled, the callback invokes the stub method <CODE CLASS="Code">
+op:openAccount</CODE>
+ on the target object reference bank, passing the argument name. If successful, the invocation returns an object reference, of class <CODE CLASS="Code">
+BankingDemo:account</CODE>
+, to an IDL account object, which is then used to make and start a new <CODE CLASS="Code">
+account-interface</CODE>
+, via a call to <CODE CLASS="Code">
+make-account-frame</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853359"></A>Recall that the IDL operation <CODE CLASS="Code">
+openAccount</CODE>
+ may fail, raising the IDL user exception <CODE CLASS="Code">
+duplicateAccount</CODE>
+. As in the definition of <CODE CLASS="Code">
+debit-callback</CODE>
+, we cater for this eventuality by placing the invocation in the body of a <BR>
+<CODE CLASS="Code">
+handler-case</CODE>
+ statement and install a handler on the corresponding Common Lisp condition of class <CODE CLASS="Code">
+BankingDemo:bank/duplicateAccount</CODE>
+. This handler simply informs the user of the exception using the CAPI function <BR>
+<CODE CLASS="Code">
+display-message</CODE>
+ to create and display a simple alert dialog box. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853360"></A>The definition of <CODE CLASS="Code">
+open-checking-account-callback</CODE>
+ is similar to the definition of <CODE CLASS="Code">
+openAccount-callback</CODE>
+ but prompts the user for an additional integer to pass as the overdraft limit of the new checking account: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853361"></A>(defun open-checking-account-callback (self)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853362"></A>  (with-slots (bank-ref) self</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853363"></A>    (let ((name (capi:prompt-for-string &quot;Name?&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853364"></A>      (when name</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853365"></A>        (let ((limit (capi:prompt-for-integer &quot;Limit?&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853366"></A>          (when limit</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853367"></A>            (handler-case</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853368"></A>                (let ((account-ref</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853369"></A>                       (op:opencheckingaccount bank-ref </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853370"></A>                                              name limit)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853371"></A>                  (make-account-frame account-ref </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853372"></A>                   :bank-interface self :title name))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853373"></A>              (Bankingdemo:Bank/DuplicateAccount </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853374"></A>               ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853375"></A>               (capi:display-message &quot;Cannot create another</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853376"></A>                                    account for &#126;A&quot; name)))))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853377"></A>While <CODE CLASS="Code">
+openAccount</CODE>
+ and <CODE CLASS="Code">
+openCheckingAccount</CODE>
+ create accounts for new customers, the <CODE CLASS="Code">
+retrieveAccount</CODE>
+ operation is simply meant to look up the account of an existing customer: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853378"></A>(defun retrieve-account-callback (self)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853379"></A>  (with-slots (bank-ref) self</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853380"></A>    (let ((name (capi:prompt-for-string &quot;Name?&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853381"></A>      (when name</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853382"></A>        (if (find-named-frame self name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853383"></A>            (capi:display-message &quot;Already viewing it...&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853384"></A>          (handler-case</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853385"></A>              (let ((account-ref</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853386"></A>                     (op:retrieveaccount bank-ref name)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853387"></A>                (when (op:Is_a account-ref (op:id </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853388"></A>                   Bankingdemo:_Tc_Checkingaccount))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853389"></A>                  (setf account-ref </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853390"></A>                        (op:narrow 'Bankingdemo:Checkingaccount</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853391"></A>                                    account-ref)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853392"></A>                (make-account-frame account-ref </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853393"></A>                  :bank-interface self :title name))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853394"></A>            (Bankingdemo:Bank/NonExistentAccount </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853395"></A>             ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853396"></A>             (capi:display-message &quot;No account exists for </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853397"></A>                                   name &#126;A&quot; name))))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853398"></A>This callback incorporates a test that prevents the user from being presented with more than one interface to the same account. It invokes the stub method <CODE CLASS="Code">
+op:retrieveAccount</CODE>
+ only if the account under that name is not already on display. Because of IDL inheritance, the server implementing the IDL <CODE CLASS="Code">
+retrieveAccount</CODE>
+ operation may return any object reference whose interface inherits from the IDL account interface. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853630"></A>In particular, the server may return an IDL <CODE CLASS="Code">
+checkingAccount</CODE>
+ as a special instance of an IDL account. In Common Lisp terms, this means that the stub method <CODE CLASS="Code">
+Op:retrieveAccount</CODE>
+ may return an object reference of class <BR>
+<CODE CLASS="Code">
+BankingDemo:checkingAccount</CODE>
+ as a special instance of <BR>
+<CODE CLASS="Code">
+BankingDemo:account</CODE>
+. The call to <CODE CLASS="Code">
+make-account-frame</CODE>
+ dispatches on the actual, or most derived, class of the resulting object reference, making an <CODE CLASS="Code">
+account-interface</CODE>
+ or <CODE CLASS="Code">
+checking-account-interface</CODE>
+ as appropriate. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853399"></A>The definition of the <CODE CLASS="Code">
+close-account-callback</CODE>
+ is straightforward: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853400"></A>(defun close-account-callback (self)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853401"></A>  (with-slots (bank-ref) self</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853402"></A>    (let ((name (capi:prompt-with-list (all-frame-names self)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853403"></A>                                       &quot;Choose account&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853404"></A>      (when name</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853405"></A>        (op:closeaccount bank-ref </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853406"></A>                         (with-slots (account-ref)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853407"></A>                             (find-named-frame self name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853408"></A>                           account-ref))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853409"></A>        (remove-account-frame self name)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853410"></A>The function <CODE CLASS="Code">
+prompt-with-list</CODE>
+ presents a dialog asking the user to select a name from the list of available account frames (indexed by their <BR>
+<CODE CLASS="Code">
+account-name</CODE>
+), returning nil if the user decides to cancel the dialog. Given a valid selection, the callback invokes the stub method <CODE CLASS="Code">
+op:closeAccount</CODE>
+ on the target object reference, <CODE CLASS="Code">
+bank-ref</CODE>
+, passing the name of the selected account. Finally, the account interface is removed from the bank interface. </P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-47.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-45.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-44.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

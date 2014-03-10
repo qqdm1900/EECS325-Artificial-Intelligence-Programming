@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ A.6.2.3  with-prolog
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-187.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-185.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-183.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-168.htm">A Common Prolog</A> &gt; <A HREF="kwprolog-m-181.htm">A.6  Calling Prolog From Lisp</A> &gt; <A HREF="kwprolog-m-183.htm">A.6.2  Interface Functions</A><BR><BR>
+</DIV><A HREF="kwprolog-m-187.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-185.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-183.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading-App">
+<A NAME="pgfId-866285"></A>A.6.2.3  with-prolog</H3>
+<P CLASS="Body">
+<A NAME="pgfId-869743"></A>A final interface mechanism is <A NAME="marker-869742"></A><CODE CLASS="Code">
+with-prolog. with-prolog</CODE>
+ allows one to embed prolog into an arbitrary lisp function. Lisp variables are referenced in Prolog using &quot;<CODE CLASS="Code">
+?</CODE>
+.<EM CLASS="Variable">
+&lt;name&gt;</EM>
+&quot;.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866286"></A>(defun palindromep (x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866287"></A>  (with-prolog</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866288"></A>    (append ?a (?b . ?c) ?.x) ; note &quot;?.x&quot; reference</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866289"></A>    (or (reverse ?a ?c)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866290"></A>        (reverse ?a (?b . ?c)))))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866291"></A>(palindromep '(yes no maybe)) </CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866292"></A>returns:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866293"></A>NIL</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866294"></A>(palindromep '(yes no maybe no yes))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866295"></A>returns:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866296"></A>T</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866297"></A>The body of a <CODE CLASS="Code">
+with-prolog</CODE>
+ returns <CODE CLASS="Code">
+t</CODE>
+ if it succeeds and a non-local exit is not executed. It returns <CODE CLASS="Code">
+nil</CODE>
+ on failure.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-187.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-185.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-183.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

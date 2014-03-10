@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ mailbox-wait-for-event
+</TITLE>
+
+<LINK REL="next" HREF="lw-1054.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1052.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1054.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1052.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1160425"></A><A NAME="22144"></A>mailbox<A NAME="marker-1160424"></A>-wait-for-event</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1160426"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1160427"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1160428"></A>Waits for an event in a &quot;windowing friendly&quot; way.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1160429"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1160430"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1160431"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1160432"></A>mailbox-wait-for-event <EM CLASS="Variable">
+mailbox</EM>
+ &amp;key <EM CLASS="Variable">
+wait-reason</EM>
+ <EM CLASS="Variable">
+wait-function</EM>
+ <EM CLASS="Variable">
+process-other-messages-p</EM>
+ <EM CLASS="Variable">
+no-hang-p</EM>
+ <EM CLASS="Variable">
+stop-at-user-operation-p</EM>
+ =&gt; <EM CLASS="Variable">
+event</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1160433"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1160434"></A><EM CLASS="Variable">
+mailbox</EM>
+</P>
+<P CLASS="RDescription-C">A mailbox.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1163565"></A><EM CLASS="Variable">
+wait-reason</EM>
+</P>
+<P CLASS="RDescription-C">A string or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1163785"></A><EM CLASS="Variable">
+wait-function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1163567"></A><EM CLASS="Variable">
+process-other-messages-p</EM>
+</P>
+<P CLASS="RDescription-C"></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1168658"></A>A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1168679"></A><EM CLASS="Variable">
+no-hang-p</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1163478"></A><EM CLASS="Variable">
+stop-at-user-operation-p</EM>
+</P>
+<P CLASS="RDescription-C"></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1169013"></A>A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1160437"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1166153"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">An event or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1166154"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1166155"></A>The function <CODE CLASS="Code">
+mailbox-wait-for-event</CODE>
+ waits for an event in a mailbox in a &quot;windowing friendly&quot; way. It reads an event from the mailbox <EM CLASS="Variable">
+mailbox</EM>
+. If there is no event in the mailbox, it waits for an event (unless <EM CLASS="Variable">
+no-hang-p</EM>
+ is true).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1171063"></A>The value <EM CLASS="Variable">
+event</EM>
+ is any object that was put in the mailbox, or <CODE CLASS="Code">
+nil</CODE>
+ if the mailbox is empty, possibly after waiting.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1163805"></A><CODE CLASS="Code">
+mailbox-wait-for-event</CODE>
+ is the appropriate way to wait for an event in a mailbox in an application with a graphical user interface, because it interacts correctly with the windowing system. Most importantly, on Microsoft Windows, when <EM CLASS="Variable">
+process-other-messages-p</EM>
+ is true it processes Windows messages while it is waiting. The default value of <EM CLASS="Variable">
+process-other-messages-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1171102"></A><EM CLASS="Variable">
+wait-function</EM>
+ is the wait function to be used, which is called with the mailbox <EM CLASS="Variable">
+mailbox</EM>
+ as its argument. If <EM CLASS="Variable">
+wait-function</EM>
+ is not supplied, a function that returns <CODE CLASS="Code">
+t</CODE>
+ when the mailbox is not empty is used is used internally.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1163807"></A><EM CLASS="Variable">
+wait-reason</EM>
+ is used as the wait reason if it needs to wait. The default value of <EM CLASS="Variable">
+wait-reason</EM>
+ is &quot;Waiting for an event&quot;.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1163808"></A><EM CLASS="Variable">
+process-other-messages-p</EM>
+ controls processing of other messages. On Microsoft Windows this means Windows messages. On other platforms it has no effect.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1163809"></A><EM CLASS="Variable">
+no-hang-p</EM>
+ controls whether <CODE CLASS="Code">
+mailbox-wait-for-event</CODE>
+ should really wait. If <EM CLASS="Variable">
+no-hang-p</EM>
+ is true and there is no event, it returns immediately except on Microsoft Windows, where it may first process all Windows messages (depending on the value of <EM CLASS="Variable">
+process-other-messages-p</EM>
+). The default value of <EM CLASS="Variable">
+no-hang-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1163810"></A><EM CLASS="Variable">
+stop-at-user-operation-p</EM>
+ on Microsoft Windows causes <CODE CLASS="Code">
+mailbox-wait-for-event</CODE>
+ to return if it received a user operation message (meaning keyboard or mouse input). It has no effect on other platforms. The default value of <EM CLASS="Variable">
+stop-at-user-operation-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1160440"></A>If <CODE CLASS="Code">
+mailbox-wait-for-event</CODE>
+ is called when not Lisp is not multiprocessing, it returns immediately. The return value is an event or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1160447"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1160451"></A><A HREF="lw-1050.htm#21302" CLASS="XRef">mailbox-read</A><BR>
+<A HREF="lw-1052.htm#37933" CLASS="XRef">mailbox-send</A><BR>
+<A HREF="lw-1058.htm#37778" CLASS="XRef">make-mailbox</A><BR>
+<A HREF="lw-1102.htm#24216" CLASS="XRef">process-wait-for-event</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1054.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1052.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

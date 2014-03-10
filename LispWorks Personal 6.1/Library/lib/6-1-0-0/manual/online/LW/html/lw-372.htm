@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.3.1.4  Transaction handling
+</TITLE>
+
+<LINK REL="next" HREF="lw-373.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-371.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-368.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-367.htm">19.3  Functional interface</A> &gt; <A HREF="lw-368.htm">19.3.1  Functional Data Manipulation Language (FDML)</A><BR><BR>
+</DIV><A HREF="lw-373.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-371.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-368.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-886252"></A>19.3.1.4  <A NAME="marker-886251"></A>Transaction handling</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886253"></A>A transaction in SQL is defined as <I CLASS="Italic">
+starting from</I>
+ the <A HREF="lw-1161.htm#38900" CLASS="XRef">connect</A>, or from a <A HREF="lw-1160.htm#25697" CLASS="XRef">commit</A>,<CODE CLASS="Code">
+ </CODE>
+<A HREF="lw-1256.htm#15063" CLASS="XRef">rollback</A> or data-dictionary update and <I CLASS="Italic">
+lasting until</I>
+ a <A HREF="lw-1160.htm#25697" CLASS="XRef">commit</A>, <A HREF="lw-1256.htm#15063" CLASS="XRef">rollback</A>, data-dictionary update or a <A HREF="lw-1178.htm#41029" CLASS="XRef">disconnect</A> command.</P>
+<P CLASS="Body">
+<A NAME="pgfId-900668"></A>The macro <A NAME="marker-902248"></A><A HREF="lw-1287.htm#32033" CLASS="XRef">with-transaction</A> executes a body of code and then does a commit, unless the body failed in which case it does a rollback. Using this macro allows your code to cope with the fact that transactions may be handled differently in the different vendor implementations. Any differences are transparent if the update is done within a <A HREF="lw-1287.htm#32033" CLASS="XRef">with-transaction</A> form.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902270"></A><B CLASS="Bold">
+Note:</B>
+ Common SQL opens an ODBC database in manual commit mode, so that <A HREF="lw-1287.htm#32033" CLASS="XRef">with-transaction</A> and <A HREF="lw-1256.htm#15063" CLASS="XRef">rollback</A> take effect.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902240"></A>Applications should perform all database update operations in a <A HREF="lw-1287.htm#32033" CLASS="XRef">with-transaction</A> form (or follow them with <A HREF="lw-1160.htm#25697" CLASS="XRef">commit</A> or <A HREF="lw-1256.htm#15063" CLASS="XRef">rollback</A>) in order to safely commit or discard their changes. This applies to operations that modify either the data or the schema.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886256"></A>The following example shows a series of updates to an employee table within a transaction. This example would commit the changes to the database on exit from <A HREF="lw-1287.htm#32033" CLASS="XRef">with-transaction</A>. This example inserts a new record into the <CODE CLASS="Code">
+emp</CODE>
+ table, then changes those employees whose department number is 40 to 50 and finally removes those employees whose salary is more than 300,000.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886258"></A>(connect &quot;personnel&quot;)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-886260"></A>(with-transaction</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886262"></A> (insert-records :into [emp]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886263"></A>                 :attributes '(empno ename job deptno)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886264"></A>                 :values '(7100 &quot;ANDERSON&quot; &quot;SALESMAN&quot; 30))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886267"></A> (update-records [emp]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886268"></A>                :attributes [deptno]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886269"></A>                :values 50</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886270"></A>                :where [= [deptno] 40])</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886272"></A> (delete-records :from [emp]</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886273"></A>                 :where [&gt; [sal] 300000]))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-902311"></A>To commit or roll back all changes made since the last commit, use the functions  <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-910577"></A><A HREF="lw-1160.htm#25697" CLASS="XRef">commit</A> or  <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-902313"></A><A HREF="lw-1256.htm#15063" CLASS="XRef">rollback</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-373.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-371.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-368.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

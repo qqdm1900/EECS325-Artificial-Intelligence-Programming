@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.4.5.1  Interface for tuning the GC
+</TITLE>
+
+<LINK REL="next" HREF="lw-159.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-157.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-157.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-128.htm">10 Storage Management</A> &gt; <A HREF="lw-152.htm">10.4  Memory Management in 64-bit LispWorks</A> &gt; <A HREF="lw-157.htm">10.4.5  Tuning the garbage collector</A><BR><BR>
+</DIV><A HREF="lw-159.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-157.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-157.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-889403"></A>10.4.5.1  Interface for tuning the GC</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889404"></A>The main interfaces are those which control the blocking generation.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889405"></A>For generations lower than the blocking generation, objects that survive are promoted, and the system does not automatically promote objects to higher generations. Thus if the application generates long-lived objects, they will accumulate in the blocking generation.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889406"></A>The behavior when the blocking generation grows is controlled by <A NAME="marker-889868"></A><A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A> and <A NAME="marker-889873"></A><A HREF="lw-1427.htm#95845" CLASS="XRef">set-gen-num-gc-threshold</A>. It may also be useful to set the maximum segment size with <A NAME="marker-889881"></A><A HREF="lw-1429.htm#98595" CLASS="XRef">set-maximum-segment-size</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889407"></A>Explicit garbage collection can be done by calling <A NAME="marker-889902"></A><A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> and <A NAME="marker-889907"></A><A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A>. Since repeated use of <A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A> will cause a lot of fragmentation, the arguments <EM CLASS="Variable">
+what-to-copy</EM>
+ and <EM CLASS="Variable">
+max-size-to-copy</EM>
+ can be used to specify that part of the data should be collected by copying.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889408"></A><A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> can also be used to promote objects to a higher generation than the blocking generation.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889409"></A>It is normally less important to tune the ephemeral segments, that is the segments below the blocking generation. Functions that may be useful include <A NAME="marker-890100"></A><A HREF="lw-1424.htm#88236" CLASS="XRef">set-default-segment-size</A>, <A NAME="marker-890105"></A><A HREF="lw-1433.htm#28295" CLASS="XRef">set-spare-keeping-policy</A> and <A NAME="marker-890110"></A><A HREF="lw-1425.htm#65173" CLASS="XRef">set-delay-promotion</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-159.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-157.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-157.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

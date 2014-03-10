@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.1.4  Implementing the client
+</TITLE>
+
+<LINK REL="next" HREF="corba-15.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-13.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-10.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-9.htm">2 Quick Start Tutorial</A> &gt <A HREF="corba-10.htm">2.1  A CORBA-based Hello World </A><BR><BR>
+</DIV><A HREF="corba-15.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-13.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-853244"></A>2.1.4  <A NAME="marker-854905"></A>Implementing the client</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853245"></A>Now we will implement the client side of the Hello World application. We create a file <CODE CLASS="Code">
+hello-world-client.lisp</CODE>
+ and add it to the defsystem. (You can implement this as you wish, but here is one possible implementation.) </P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-854034"></A>Create a file called <CODE CLASS="Code">
+hello-world-client.lisp</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-854036"></A>Enter the following Common Lisp code into the <BR>
+<CODE CLASS="Code">
+hello-world-client.lisp</CODE>
+ file:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-853248"></A>(in-package &quot;CL-USER&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855219"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855209"></A>(defun run-client ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855210"></A>  (let ((orb (op:orb_init nil &quot;LispWorks ORB&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855211"></A>    (let ((world (op:narrow 'HelloWorld:world (file-to-object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855212"></A>                                               orb))))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-854727"></A>      (format t &quot;&#126;S&#126;%&quot; (op:hello world)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853249"></A>This code does the following:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853328"></A>gets a world object from somewhere</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853488"></A>invokes <CODE CLASS="Code">
+op:hello</CODE>
+ on the object to get a string</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853489"></A>writes out the string and a new line to the standard output stream </LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-853490"></A>The elided details are not important at this stage, they involve getting an object reference from somewhere. In the full source at the end of this chapter (<A HREF="corba-17.htm#59791" CLASS="XRef">Complete source code for the Hello World example</A>) you can see that a shared file is used to pass a stringified object reference.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-854093"></A>Save and close the <CODE CLASS="Code">
+hello-world-client.lisp</CODE>
+ file. </LI>
+<LI CLASS="Step">
+<A NAME="pgfId-854094"></A>Add <CODE CLASS="Code">
+hello-world-client</CODE>
+ to the defsystem by adding one line of code to the <CODE CLASS="Code">
+defsys.lisp</CODE>
+ file, which should then look like this:</LI>
+</OL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-854059"></A>(in-package &quot;CL-USER&quot;)</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-854060"></A>(require &quot;corba-orb&quot;)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-854061"></A>(defsystem hello-world-corba-object ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854062"></A>  :members (</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854063"></A>            (&quot;hello-world&quot; :type :idl-file)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854662"></A>            &quot;shared&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854066"></A>            &quot;hello-world-client&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-854067"></A>            ))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-854068"></A>:rules ((:in-order-to :compile :all</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854069"></A>         (:requires (:load :previous)))))</PRE>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-15.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-13.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

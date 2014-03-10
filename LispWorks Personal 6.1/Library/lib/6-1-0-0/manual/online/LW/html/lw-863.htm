@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ variable-information
+</TITLE>
+
+<LINK REL="next" HREF="lw-864.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-862.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-864.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-862.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1604484"></A><A NAME="68076"></A>variable<A NAME="marker-1604482"></A>-information<A NAME="marker-1604483"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1604485"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1604486"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1604487"></A>Returns information about the variable bindings of a symbol in an environment.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1604645"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1604646"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1604488"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1604489"></A>variable-information <EM CLASS="Variable">
+variable</EM>
+ &amp;optional <EM CLASS="Variable">
+env</EM>
+ =&gt; <EM CLASS="Variable">
+kind</EM>
+, <EM CLASS="Variable">
+localp</EM>
+, <EM CLASS="Variable">
+decls</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1604490"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604491"></A><EM CLASS="Variable">
+variable</EM>
+</P>
+<P CLASS="RDescription-C">A symbol</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604492"></A><EM CLASS="Variable">
+env</EM>
+</P>
+<P CLASS="RDescription-C">An environment or <CODE CLASS="Code">
+nil</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1604493"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604494"></A><EM CLASS="Variable">
+kind</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+ or one of the keywords <CODE CLASS="Code">
+:special</CODE>
+, <CODE CLASS="Code">
+:lexical</CODE>
+, <CODE CLASS="Code">
+:symbol-macro</CODE>
+ and <CODE CLASS="Code">
+:constant</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604495"></A><EM CLASS="Variable">
+localp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604496"></A><EM CLASS="Variable">
+decls</EM>
+</P>
+<P CLASS="RDescription-C">An a-list</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1604497"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1604498"></A>The function <CODE CLASS="Code">
+variable-information</CODE>
+ returns information about how the variable <EM CLASS="Variable">
+symbol</EM>
+ is bound in the environment <EM CLASS="Variable">
+env</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1604499"></A>The value of <EM CLASS="Variable">
+kind</EM>
+ will be as follows:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604500"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+<P CLASS="RDescription-C">There is no information about <EM CLASS="Variable">
+variable</EM>
+ in <EM CLASS="Variable">
+env</EM>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604501"></A><CODE CLASS="Code">
+:special</CODE>
+</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+variable</EM>
+ has a special binding in <EM CLASS="Variable">
+env</EM>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604502"></A><CODE CLASS="Code">
+:lexical</CODE>
+</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+variable</EM>
+ has a lexical binding in <EM CLASS="Variable">
+env</EM>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604503"></A><CODE CLASS="Code">
+:symbol-macro</CODE>
+</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+variable</EM>
+ has a symbol-macro binding in <EM CLASS="Variable">
+env</EM>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604504"></A><CODE CLASS="Code">
+:constant</CODE>
+</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+variable</EM>
+ has a constant binding in <EM CLASS="Variable">
+env</EM>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1604505"></A><EM CLASS="Variable">
+localp</EM>
+ will be true if <EM CLASS="Variable">
+variable</EM>
+ is bound by a form that has lexical scope (for example <CODE CLASS="Code">
+let</CODE>
+, <CODE CLASS="Code">
+lambda</CODE>
+) or false if <EM CLASS="Variable">
+variable</EM>
+ has global scope (for example <CODE CLASS="Code">
+defvar</CODE>
+).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1604506"></A><EM CLASS="Variable">
+decls</EM>
+ is an a-list of declarations that refer to <EM CLASS="Variable">
+variable</EM>
+. The <CODE CLASS="Code">
+cdr</CODE>
+ of each pair is specified according to the <CODE CLASS="Code">
+car</CODE>
+ of the pair as follows:</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1604507"></A><CODE CLASS="Code">
+dynamic-extent</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1604508"></A>The <CODE CLASS="Code">
+cdr</CODE>
+ is non-nil if <EM CLASS="Variable">
+variable</EM>
+ is declared <CODE CLASS="Code">
+dynamic-extent</CODE>
+ in <EM CLASS="Variable">
+env</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604509"></A><CODE CLASS="Code">
+ignore</CODE>
+</P>
+<P CLASS="RDescription-C">The <CODE CLASS="Code">
+cdr</CODE>
+ is non-nil if <EM CLASS="Variable">
+variable</EM>
+ is declared <CODE CLASS="Code">
+ignore</CODE>
+ in <EM CLASS="Variable">
+env</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604510"></A><CODE CLASS="Code">
+type</CODE>
+</P>
+<P CLASS="RDescription-C">The <CODE CLASS="Code">
+cdr</CODE>
+ is the type specifier that is declared for <EM CLASS="Variable">
+variable</EM>
+ in <EM CLASS="Variable">
+env</EM>
+ if any.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1604511"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1604512"></A><CODE CLASS="Code">
+variable-information</CODE>
+ is part of the <A NAME="marker-1699951"></A>environment access API which is based on that specified in <I CLASS="Italic">
+Common Lisp: the Language </I>
+(2nd Edition).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1604516"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1604520"></A><A HREF="lw-752.htm#60941" CLASS="XRef">augment-environment</A><BR>
+<A HREF="lw-772.htm#78739" CLASS="XRef">declaration-information</A><BR>
+<A HREF="lw-796.htm#47185" CLASS="XRef">function-information</A><BR>
+<A HREF="lw-1406.htm#14328" CLASS="XRef">map-environment</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-864.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-862.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

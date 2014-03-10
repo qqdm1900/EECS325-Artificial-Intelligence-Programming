@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ dde-request
+</TITLE>
+
+<LINK REL="next" HREF="lw-1504.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1502.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1485.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1485.htm">43 The  DDE client interface</A><BR><BR>
+</DIV><A HREF="lw-1504.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1502.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1485.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-897025"></A><A NAME="15159"></A>dde<A NAME="marker-937247"></A>-request</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-892567"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892568"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892569"></A>Issues a request transaction on a conversation for a specified item. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892570"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-892571"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892572"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-892573"></A>dde-request <EM CLASS="Variable">
+conversation</EM>
+ <EM CLASS="Variable">
+item</EM>
+ &amp;key <EM CLASS="Variable">
+format</EM>
+ <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+errorp</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+ <EM CLASS="Variable">
+successp</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892574"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892575"></A><EM CLASS="Variable">
+conversation</EM>
+</P>
+<P CLASS="RDescription-C">A conversation object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892576"></A><EM CLASS="Variable">
+item</EM>
+</P>
+<P CLASS="RDescription-C">A string or symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892577"></A><EM CLASS="Variable">
+format</EM>
+</P>
+<P CLASS="RDescription-C">A clipboard format specifier.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892578"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">A keyword.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892579"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892580"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892581"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The return value of the transaction.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892582"></A><EM CLASS="Variable">
+successp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892583"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892584"></A>The function <CODE CLASS="Code">
+dde-request</CODE>
+ issues a request transaction on <EM CLASS="Variable">
+conversation</EM>
+ for the specified <EM CLASS="Variable">
+item</EM>
+. The argument <EM CLASS="Variable">
+item</EM>
+ should be a string, or a symbol. If it is a symbol its print name is used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-892585"></A>The argument <EM CLASS="Variable">
+format</EM>
+ should be one of the following:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-892586"></A>A DDE format specifier, consisting of either a standard clipboard format or a registered clipboard format.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-892587"></A>A string containing either the name of a standard clipboard format (without the <CODE CLASS="Code">
+CF_</CODE>
+ prefix), or the name of a registered clipboard format.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-892588"></A>A symbol, in which case its print name is taken to specify the clipboard format.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-892589"></A>The keyword <CODE CLASS="Code">
+:text</CODE>
+. This is the default value.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-892590"></A>The keyword <CODE CLASS="Code">
+:text</CODE>
+ is treated specially. If supported by the server it uses the <CODE CLASS="Code">
+CF_UNICODETEXT</CODE>
+ clipboard format, otherwise it used the <CODE CLASS="Code">
+CF_TEXT</CODE>
+ format.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-892591"></A>The default conversation class only supports text formats, unless <EM CLASS="Variable">
+type</EM>
+ is specified as <CODE CLASS="Code">
+:foreign</CODE>
+. The argument <EM CLASS="Variable">
+type</EM>
+ specifies how the response data should be converted to a Lisp object. For text formats, the default value indicates that a Lisp string should be created. The value <CODE CLASS="Code">
+:string-list</CODE>
+ may be specified for <EM CLASS="Variable">
+type</EM>
+ to indicate that the return value should be taken as a tab-separated list of strings; in this case the Lisp return value is a list of strings. The value <CODE CLASS="Code">
+:foreign</CODE>
+ can be used with any clipboard format. It returns a <CODE CLASS="Code">
+clipboard-item</CODE>
+ structure, containing a foreign pointer to the data, the data length, and the format identifier.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-892593"></A>This function returns two values, <EM CLASS="Variable">
+result</EM>
+ and <EM CLASS="Variable">
+successp</EM>
+. If successful, <EM CLASS="Variable">
+result</EM>
+ is the return value of the transaction (which may be <CODE CLASS="Code">
+nil</CODE>
+ in the case of <CODE CLASS="Code">
+:string</CODE>
+-<CODE CLASS="Code">
+list</CODE>
+), and <EM CLASS="Variable">
+successp</EM>
+ is true to indicate success.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-892594"></A>On failure, the result of the function depends on the <EM CLASS="Variable">
+errorp</EM>
+ argument. If <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ (the default), the function signals an error. If <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, the function returns <CODE CLASS="Code">
+(values</CODE>
+ <CODE CLASS="Code">
+nil</CODE>
+ <CODE CLASS="Code">
+nil)</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895657"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-895662"></A><A HREF="lw-1499.htm#22551" CLASS="XRef">dde-item</A><BR>
+<A HREF="lw-1501.htm#39143" CLASS="XRef">dde-poke</A><BR>
+<A HREF="lw-1504.htm#31701" CLASS="XRef">dde-request*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1504.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1502.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1485.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

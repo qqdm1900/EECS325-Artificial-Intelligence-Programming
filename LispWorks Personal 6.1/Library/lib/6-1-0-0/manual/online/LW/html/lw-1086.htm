@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-poke
+</TITLE>
+
+<LINK REL="next" HREF="lw-1087.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1085.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1087.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1085.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1447827"></A><A NAME="16739"></A>process<A NAME="marker-1447825"></A>-poke</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1447828"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1447190"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1447191"></A>Makes a waiting process call its wait function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1447192"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1447193"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1447194"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1447195"></A>process-poke <EM CLASS="Variable">
+process</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1447196"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1447197"></A><EM CLASS="Variable">
+process</EM>
+</P>
+<P CLASS="RDescription-C">A process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1447198"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1447199"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1447200"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1454871"></A>If the process <EM CLASS="Variable">
+process</EM>
+ is waiting, <CODE CLASS="Code">
+process-poke</CODE>
+ causes it to run its <EM CLASS="Variable">
+wait-function</EM>
+ as soon as possible, and if the wait function returns true, the process returns from <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1447941"></A>This has an effect only in SMP LispWorks, where the running of the <EM CLASS="Variable">
+wait-function</EM>
+ can happen asynchronously.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1447942"></A><CODE CLASS="Code">
+process-poke</CODE>
+ can be used to avoid delays that happen because the next execution of the <EM CLASS="Variable">
+wait-function</EM>
+ does not happen immediately. Without the call to <CODE CLASS="Code">
+process-poke</CODE>
+, the process may wake up after some delay.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1447943"></A><CODE CLASS="Code">
+process-poke</CODE>
+ returns <CODE CLASS="Code">
+t</CODE>
+ if it actually poked the process or <CODE CLASS="Code">
+nil</CODE>
+ otherwise (when the process is not waiting or is stopped).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1447204"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1451116"></A>(my-queue-an-event-for-the-workers)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1451733"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1451117"></A>(dolist (process *my-worker-processes*)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1451118"></A>  (when (mp:process-poke process) (return))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1447206"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1447164"></A>&nbsp;</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1087.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1085.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

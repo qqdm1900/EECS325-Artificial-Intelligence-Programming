@@ -1,0 +1,233 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ convert-to-screen
+</TITLE>
+
+<LINK REL="next" HREF="capiref-60.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-58.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-60.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-58.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-5631757"></A><A NAME="18970"></A>convert<A NAME="marker-5631756"></A>-to<A NAME="marker-7091993"></A>-<A NAME="marker-7373158"></A>screen</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-889594"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889479"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1011379"></A>The <CODE CLASS="Code">
+convert-to-screen</CODE>
+ function finds the appropriate screen or container for a CAPI object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4011919"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4011920"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011369"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889561"></A>convert-to-screen &amp;optional <EM CLASS="Variable">
+object</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2371705"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2371751"></A><EM CLASS="Variable">
+object</EM>
+</P>
+<P CLASS="RDescription-C">A CAPI object, a plist, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2371803"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2371847"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A screen or a container.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889483"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4715038"></A>This finds the appropriate screen or container for the CAPI object <EM CLASS="Variable">
+object</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4715039"></A>If <EM CLASS="Variable">
+object</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, <EM CLASS="Variable">
+result</EM>
+ is the default screen. <EM CLASS="Variable">
+object</EM>
+ defaults to <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4715077"></A>If <EM CLASS="Variable">
+object</EM>
+ is a pane inside a MDI interface, then <EM CLASS="Variable">
+result</EM>
+ is the <CODE CLASS="Code">
+capi:container</CODE>
+ of the interface, rather than the real screen, because this is more useful in most cases. To obtain the real screen, call <CODE CLASS="Code">
+convert-to-screen</CODE>
+ on the top level interface. See <A HREF="capiref-92.htm#20935" CLASS="XRef">document-frame</A> for a description of MDI interfaces.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8062987"></A><EM CLASS="Variable">
+object</EM>
+ can be a keyword representing the CAPI library.  This is equivalent to using the <CODE CLASS="Code">
+:library</CODE>
+ key in the plist case below.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7367353"></A><EM CLASS="Variable">
+object</EM>
+ can be a plist. The keys below are supported on GTK+ and Motif. Other libraries ignore them.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-7367354"></A><CODE CLASS="Code">
+:display</CODE>
+</P>
+<P CLASS="RDescription-C">The value is an X Window System display string describing the X display and screen to use. The default value is derived from the <CODE CLASS="Code">
+DISPLAY</CODE>
+ environment variable or (on Motif) the <CODE CLASS="Code">
+-display</CODE>
+ command-line option, or (on GTK+) the <CODE CLASS="Code">
+--display</CODE>
+ command-line option. If neither is supplied, the default is to use the default screen on the local host.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-7367355"></A><CODE CLASS="Code">
+:host</CODE>
+</P>
+<P CLASS="RDescription-C">The name of the host to use for the X Window System display. This key is valid only if no <CODE CLASS="Code">
+:display</CODE>
+ key/value is supplied. The default value is the local host.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-7367356"></A><CODE CLASS="Code">
+:server-number</CODE>
+</P>
+<P CLASS="RDescription-C">The number of the display server to use for the X Window System display. This key is valid only if no <CODE CLASS="Code">
+:display</CODE>
+ key/value is supplied. The default value is 0.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-7367357"></A><CODE CLASS="Code">
+:screen-number</CODE>
+</P>
+<P CLASS="RDescription-C">The number of the screen to use for the X Window System display. This key is valid only if no <CODE CLASS="Code">
+:display</CODE>
+ key/value is supplied. The default value is the default screen of the display.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-7367358"></A><CODE CLASS="Code">
+:application-class</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-7373061"></A>The value is a string naming the application class used for X Window System resources. The default value is &quot;Lispworks&quot;. When running a delivered LispWorks image, you should specify the <CODE CLASS="Code">
+:application-class</CODE>
+ key if you want to provide application-specific resources.  </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8504037"></A><A NAME="marker-10621023"></A>On GTK+ the value is used for constructing the default <EM CLASS="Variable">
+widget-name</EM>
+ for top-level interfaces. The application-class is prepended to the interface name followed by a &quot;.&quot;, so if  <EM CLASS="Variable">
+application-class</EM>
+ is <CODE CLASS="Code">
+&quot;my-application&quot;</CODE>
+, a top-level-interface of class <CODE CLASS="Code">
+my-interface</CODE>
+ will have a default <EM CLASS="Variable">
+widget-name</EM>
+ <CODE CLASS="Code">
+&quot;my-application.my-interface&quot;</CODE>
+.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8504042"></A>See <A HREF="capiref-126.htm#29333" CLASS="XRef">element</A> for the description of <EM CLASS="Variable">
+widget-name</EM>
+.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8504035"></A>Example GTK+ resource files are in <CODE CLASS="Code">
+lib/6-1-0-0/examples/gtk/</CODE>
+</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-7373080"></A><CODE CLASS="Code">
+:fallback-resources</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8510950"></A><A NAME="marker-10621032"></A>On GTK+ the fallback resources are global, so they cannot be used to define different resources for different screens. Each call to <A HREF="capiref-59.htm#18970" CLASS="XRef">convert-to-screen</A> where <EM CLASS="Variable">
+fallback-resources</EM>
+ is passed overrides the previous call. The value of <EM CLASS="Variable">
+fallback-resources</EM>
+ is either a single string or a list of strings.  In either case each string must be a complete specification according to the standard resource specification of GTK+ resource files (gtk_rc_parse_string should be able to parse it).</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8511241"></A>On Motif the value is a list of strings representing the set of application context fallback resources to use (see <CODE CLASS="Code">
+XtAppSetFallbackResources</CODE>
+). Each string corresponds to a single line of an X resource file.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8062861"></A><CODE CLASS="Code">
+:library</CODE>
+</P>
+<P CLASS="RDescription-C">The value specifies the CAPI library.  This is useful on Linux, FreeBSD and x86/x64 Solaris platforms, and in the Mac OS X/GTK+ image, to choose between <CODE CLASS="Code">
+:gtk</CODE>
+ and <CODE CLASS="Code">
+:motif</CODE>
+ if the deprecated &quot;capi-motif&quot; module is loaded.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8503633"></A>This keys is supported on Motif only. Other libraries ignore it.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-8503596"></A><CODE CLASS="Code">
+:command-line-args</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8503597"></A>The value is a list of strings representing the set of command-line arguments to pass to <CODE CLASS="Code">
+XtOpenDisplay</CODE>
+. Each string corresponds to a single argument. The default value is derived from the command line used to start Lisp.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7367361"></A>The resources are used only when no other system resource files can be found. When running a non-delivered LispWorks image, the default value of the <CODE CLASS="Code">
+:fallback-resources</CODE>
+ key is read from the file whose name is the value of the <CODE CLASS="Code">
+:application-class</CODE>
+ key in the <CODE CLASS="Code">
+app-defaults</CODE>
+ directory of the current LispWorks library.  When running a delivered LispWorks image, you should specify the <CODE CLASS="Code">
+:fallback-resources</CODE>
+ key if your application needs fallback resources.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889488"></A>Example</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-889490"></A>(capi:convert-to-screen)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889500"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889502"></A><A HREF="capiref-92.htm#20935" CLASS="XRef">document-frame</A><BR>
+<A HREF="capiref-363.htm#41931" CLASS="XRef">screen</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-60.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-58.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 17.5.4.1  Example
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-367.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-365.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-365.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-352.htm">17 The Inspector</A> &gt; <A HREF="ide-m-359.htm">17.5  Operating upon objects and items</A> &gt; <A HREF="ide-m-365.htm">17.5.4  Manipulation operations</A><BR><BR>
+</DIV><A HREF="ide-m-367.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-365.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-365.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-853404"></A>17.5.4.1  Example</H3>
+<P CLASS="Body-Next">
+<A NAME="pgfId-854384"></A><A NAME="marker-854030"></A>This example takes you through the process of creating an object, examining its contents, and then modifying the object.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-853411"></A>Create a button as follows:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855095"></A>(setq button1 (make-instance 'capi:button))</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-855096"></A>Choose <B CLASS="Button">
+Values &gt; Inspect</B>
+<A NAME="marker-855098"></A><A NAME="marker-855097"></A> in the Listener to inspect the button in the Inspector.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-853420"></A>In the Listener, use the CAPI accessor <CODE CLASS="Code">
+button-enabled</CODE>
+ to find out whether <CODE CLASS="Code">
+button1</CODE>
+ is enabled.</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853421"></A>(capi:button-enabled button1)</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-853424"></A>This returns <CODE CLASS="Code">
+t</CODE>
+. So we see buttons are enabled by default. The next step is to destructively modify <CODE CLASS="Code">
+button1</CODE>
+ so that it is not enabled, but first we will make the Inspector display a little simpler.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-854581"></A>Choose <B CLASS="Button">
+LispWorks &gt; Preferences...</B>
+<A NAME="marker-913670"></A><A NAME="marker-913671"></A> and select <B CLASS="Button">
+Inspector</B>
+ in the list on the left side of the Preferences dialog. You can now change the current package of Inspector tools.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-854588"></A>In the <B CLASS="Button">
+Package</B>
+ box, replace the default package name with <CODE CLASS="Code">
+CAPI</CODE>
+ and click <B CLASS="Button">
+OK</B>
+.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-854589"></A>This changes the process package of the Inspector to the <CODE CLASS="Code">
+CAPI</CODE>
+ package, and the package name disappears from all the slots listed. This makes the display a lot easier to read.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-852704"></A>In the Inspector, type <CODE CLASS="Code">
+enabled</CODE>
+ into the Filter box.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-854554"></A>Button objects have a large number of slots, and so it is easier to filter out the slots that you do not want to see than to search through the whole list. After applying the filter, only one slot is listed.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-854553"></A>Select the slot <CODE CLASS="Code">
+enabled</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-852705"></A>Choose <B CLASS="Button">
+Slots &gt; Set...</B>
+<A NAME="marker-855038"></A><A NAME="marker-854027"></A></LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-852714"></A>A dialog appears into which you can type a new value for the slot <CODE CLASS="Code">
+enabled</CODE>
+.</P>
+
+<P CLASS="Figure">
+<A NAME="pgfId-852988"></A>Figure 17.5  Entering a new slot value<DIV>
+<IMG SRC="ide-m-247.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="ide-m-254.gif">
+</DIV>
+
+<LI CLASS="Step">
+<A NAME="pgfId-852989"></A>Note that previously entered forms are available via a dropdown in this dialog. Enter <CODE CLASS="Code">
+nil</CODE>
+ (or select it from the history) and click on <B CLASS="Button">
+OK</B>
+.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-852990"></A>The attributes and values area shows the new value of the <CODE CLASS="Code">
+enabled</CODE>
+ slot. </P>
+<LI CLASS="Step">
+<A NAME="pgfId-854597"></A>Click on the 
+<IMG SRC="ide-m-255.gif" ALIGN="ABSBOTTOM">
+ button. This removes the filter and displays all the slots once again.</LI>
+
+<LI CLASS="Step">
+<A NAME="pgfId-853427"></A>To confirm that the change happened, type the following in the Listener. You should be able to recall the last command using <CODE CLASS="Code">
+Alt+P</CODE>
+ or <B CLASS="Button">
+History &gt; Previous</B>
+.</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853429"></A>(capi:button-enabled button1)</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-853727"></A>This now returns <CODE CLASS="Code">
+nil</CODE>
+, as expected.</P>
+
+<P CLASS="Body-Next">
+<A NAME="pgfId-852735"></A>The next part of this example shows you how you can modify the slots of an object by pasting in the contents of the clipboard. This example shows you how to modify the <CODE CLASS="Code">
+text</CODE>
+ and <CODE CLASS="Code">
+font</CODE>
+ of <CODE CLASS="Code">
+button1</CODE>
+.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-852746"></A>Type the following into the Listener and then press <CODE CLASS="Code">
+Return</CODE>
+:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-852747"></A>&quot;Hello World!&quot;</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-853442"></A>Choose <B CLASS="Button">
+Values &gt; Copy</B>
+<A NAME="marker-855110"></A><A NAME="marker-854028"></A> to copy the string to the clipboard.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-852751"></A>Select the <CODE CLASS="Code">
+TEXT</CODE>
+ slot of <CODE CLASS="Code">
+button1</CODE>
+ in the Inspector.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-852754"></A>Choose <B CLASS="Button">
+Slots &gt; Paste</B>
+<A NAME="marker-855041"></A><A NAME="marker-854029"></A> to paste the <CODE CLASS="Code">
+&quot;Hello World!&quot;</CODE>
+ string into the <CODE CLASS="Code">
+text</CODE>
+ slot of <CODE CLASS="Code">
+button1</CODE>
+.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-852763"></A>This sets the <CODE CLASS="Code">
+text</CODE>
+ slot of <CODE CLASS="Code">
+button1</CODE>
+ to the string.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-864670"></A>Enter the following into the Listener and press <CODE CLASS="Code">
+Return</CODE>
+:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-864703"></A>(let ((font (capi:simple-pane-font button1)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864704"></A>  (if font </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864705"></A>      (gp:find-best-font </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864706"></A>       button1 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864707"></A>       (apply 'gp:make-font-description </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864708"></A>              (append (list :size 30) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864709"></A>                      (gp:font-description-attributes </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864710"></A>                       (gp:font-description </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864711"></A>                        (capi:simple-pane-font button1))))))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-864677"></A>    (gp:make-font-description :size 30)))</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-854612"></A>This form simply calculates a large font object suitable for the button object.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-864729"></A>Choose <B CLASS="Button">
+Values &gt; Copy</B>
+<A NAME="marker-864727"></A><A NAME="marker-864728"></A> to copy the font to the clipboard.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-864722"></A>Select the <CODE CLASS="Code">
+FONT</CODE>
+ slot of <CODE CLASS="Code">
+button1</CODE>
+ in the Inspector.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-864744"></A>Choose <B CLASS="Button">
+Slots &gt; Paste</B>
+<A NAME="marker-864742"></A><A NAME="marker-864743"></A> to paste the font into the <CODE CLASS="Code">
+font</CODE>
+ slot of <CODE CLASS="Code">
+button1</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-854613"></A>Confirm the effect of these changes by displaying the button object. To do this, choose <B CLASS="Button">
+Object &gt; Listen</B>
+<A NAME="marker-855045"></A><A NAME="marker-854625"></A>.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-854616"></A>This transfers the button object back into the Listener. As feedback, the string representation of the object is printed in the Listener above the current prompt. The object is automatically transferred to the <CODE CLASS="Code">
+*</CODE>
+<A NAME="marker-854621"></A><A NAME="marker-854696"></A> variable so that it can be operated on.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-854628"></A>In the Listener, type the following:</LI>
+</OL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-854629"></A>(capi:<A NAME="marker-854631"></A><A NAME="marker-854693"></A>contain *)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-854630"></A>This displays a window containing the button object. Note that the text now reads &quot;Hello World!&quot;, as you would expect, and that the font size is larger than the default size size for buttons. Note further that you cannot click on the button; it is not enabled. This is because you modified the setting of the <CODE CLASS="Code">
+enabled</CODE>
+ slot in the earlier part of this example.<A NAME="marker-883647"></A><A NAME="marker-883662"></A></P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-367.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-365.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-365.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

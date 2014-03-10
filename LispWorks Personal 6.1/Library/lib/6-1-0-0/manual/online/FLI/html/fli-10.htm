@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.2.1  Defining FLI types
+</TITLE>
+
+<LINK REL="next" HREF="fli-11.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-9.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-9.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-4.htm">1 Introduction to the FLI</A> &gt; <A HREF="fli-9.htm">1.2  Using the FLI to get the cursor position</A><BR><BR>
+</DIV><A HREF="fli-11.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-9.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-9.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886864"></A>1.2.1  <A NAME="15152"></A>Defining FLI types</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886866"></A>The example uses the FLI to find<A NAME="marker-886865"></A> the position of the cursor using the Windows function <CODE CLASS="Code">
+GetCursorPos</CODE>
+, which has the following C prototype:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886867"></A>BOOL GetCursorPos( LPPOINT )</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886868"></A>The <CODE CLASS="Code">
+LPPOINT</CODE>
+ argument is a pointer to the <CODE CLASS="Code">
+POINT</CODE>
+ structure, which has the following C definition:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886869"></A>typedef struct tagPOINT {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886870"></A>    LONG x; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886871"></A>    LONG y; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886872"></A>} POINT; </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886873"></A>First we use the <A HREF="fli-86.htm#41629" CLASS="XRef">define-c-typedef</A> macro to define a number of basic types which are needed to pass data to and from the Windows function.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886874"></A>(fli:define-c-typedef bool (:boolean :int))</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886875"></A>(fli:define-c-typedef long :long)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886876"></A>This defines two types, <CODE CLASS="Code">
+BOOL</CODE>
+ and <CODE CLASS="Code">
+LONG</CODE>
+, which are used to associate a Lisp boolean value (<CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+) with a C boolean of type <CODE CLASS="Code">
+int</CODE>
+, and a Lisp <CODE CLASS="Code">
+bignum</CODE>
+ with a C <CODE CLASS="Code">
+long</CODE>
+. These are required because the Windows function <CODE CLASS="Code">
+GetCursorPos</CODE>
+ returns a boolean to indicate if it has executed successfully, and the cursor's <EM CLASS="Variable">
+x</EM>
+ and <EM CLASS="Variable">
+y</EM>
+ positions are specified in a <CODE CLASS="Code">
+long</CODE>
+ format in the <CODE CLASS="Code">
+POINT</CODE>
+ structure.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886877"></A>Next, we need to define a structure for the FLI which is used to get the coordinates of the cursor. These coordinates will consist of an <EM CLASS="Variable">
+x</EM>
+ and a <EM CLASS="Variable">
+y</EM>
+ position. We use the <A HREF="fli-86.htm#41629" CLASS="XRef">define-c-typedef</A> macro for this, and the resulting Lisp FLI code has obvious parallels with the C <CODE CLASS="Code">
+tagPOINT</CODE>
+ structure.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886878"></A>(fli:define-c-struct tagpoint</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886879"></A>  (x long)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886880"></A>  (y long))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886881"></A>The <CODE CLASS="Code">
+tagPOINT</CODE>
+ structure for the FLI, corresponding to the C structure of the same name, has been defined. This now needs to be further defined as a type for the FLI, using <A HREF="fli-86.htm#41629" CLASS="XRef">define-c-typedef</A>. </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886882"></A>(fli:define-c-typedef point (:struct tagpoint))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886883"></A>Finally, a pointer type to point to the structure is required. It is this FLI pointer which will be passed to the Windows function <CODE CLASS="Code">
+GetCursorPos</CODE>
+, so that <CODE CLASS="Code">
+GetCursorPos</CODE>
+ can change the <CODE CLASS="Code">
+x</CODE>
+ and <CODE CLASS="Code">
+y</CODE>
+ values of the structure pointed to. </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886884"></A>(fli:define-c-typedef lppoint (:pointer point))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886885"></A>All the required FLI types have now been defined. Although it may seem that there is a level of duplicity in the definitions of the structures, pointers and types in this section, this was necessary to match the data structures of the C functions to which the FLI will interface. We can now move on to the definition of FLI functions to perform the interfacing.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-11.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-9.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-9.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

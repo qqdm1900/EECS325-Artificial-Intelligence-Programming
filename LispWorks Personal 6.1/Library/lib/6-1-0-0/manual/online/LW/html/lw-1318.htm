@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ stream-read-sequence
+</TITLE>
+
+<LINK REL="next" HREF="lw-1319.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1317.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1288.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1288.htm">39 The STREAM Package</A><BR><BR>
+</DIV><A HREF="lw-1319.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1317.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-888903"></A><A NAME="37340"></A>stream<A NAME="marker-954301"></A>-read-sequence</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888904"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888905"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888906"></A>Reads a number of items from a stream into a sequence.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888907"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888908"></A>stream</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888909"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888910"></A>stream-read-sequence <EM CLASS="Variable">
+stream</EM>
+ <EM CLASS="Variable">
+sequence</EM>
+ <EM CLASS="Variable">
+start</EM>
+ <EM CLASS="Variable">
+end</EM>
+ =&gt; <EM CLASS="Variable">
+index</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888911"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888912"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">A stream.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888945"></A><EM CLASS="Variable">
+sequence</EM>
+</P>
+<P CLASS="RDescription-C">A sequence.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888950"></A><EM CLASS="Variable">
+start</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888954"></A><EM CLASS="Variable">
+end</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888913"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-934205"></A><EM CLASS="Variable">
+index</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888915"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-934038"></A>The generic function <CODE CLASS="Code">
+stream-read-sequence</CODE>
+ reads from <EM CLASS="Variable">
+stream</EM>
+ into <EM CLASS="Variable">
+sequence</EM>
+. Elements from the <EM CLASS="Variable">
+start</EM>
+ of <EM CLASS="Variable">
+sequence</EM>
+ are replaced by elements from <EM CLASS="Variable">
+stream</EM>
+ until <EM CLASS="Variable">
+end</EM>
+ in <EM CLASS="Variable">
+sequence</EM>
+ or the end-of-file in <EM CLASS="Variable">
+stream</EM>
+ is reached. The index of the first element in <EM CLASS="Variable">
+sequence</EM>
+ that is not replaced is returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-934330"></A>A default method is provided by <CODE CLASS="Code">
+fundamental-character-input-stream</CODE>
+ which makes repeated calls to <CODE CLASS="Code">
+stream-read-char</CODE>
+ and uses <CODE CLASS="Code">
+(setf elt)</CODE>
+ to insert characters into <EM CLASS="Variable">
+sequence</EM>
+. A default method is provided by <CODE CLASS="Code">
+fundamental-binary-input-stream</CODE>
+ that makes repeated calls to <CODE CLASS="Code">
+stream-read-byte</CODE>
+ and also uses <CODE CLASS="Code">
+(setf elt)</CODE>
+ to insert bytes into <EM CLASS="Variable">
+sequence</EM>
+. Note that this may lead to error if the sequence is of inappropriate type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888919"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888920"></A><A HREF="lw-1290.htm#17758" CLASS="XRef">fundamental-binary-input-stream</A><BR>
+<A HREF="lw-1293.htm#36260" CLASS="XRef">fundamental-character-input-stream</A><BR>
+<A HREF="lw-1314.htm#12717" CLASS="XRef">stream-read-byte</A><BR>
+<A HREF="lw-1315.htm#19679" CLASS="XRef">stream-read-char</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1319.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1317.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

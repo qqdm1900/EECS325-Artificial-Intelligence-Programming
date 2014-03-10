@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :keep-clos-object-printing
+</TITLE>
+
+<LINK REL="next" HREF="delivery-109.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-107.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-55.htm">5 Keywords to the Delivery Function</A> &gt; <A HREF="delivery-70.htm">5.2  Alphabetical list of deliver keywords </A><BR><BR>
+</DIV><A HREF="delivery-109.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-107.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="Interface">
+<A NAME="pgfId-92029"></A><A NAME="marker-202996"></A><A NAME="55614"></A>:keep-clos-object-printing</H3>
+<P CLASS="Interface-type">
+<A NAME="pgfId-92030"></A><I CLASS="Italic">
+Keyword</I>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-92031"></A>Default value: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-116322"></A>(or (delivery-value :keep-debug-mode)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-116320"></A>    (&lt;= *delivery-level* 2)) </PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-116443"></A>If <CODE CLASS="Code">
+nil</CODE>
+, the <A NAME="marker-116442"></A>generic function <CODE CLASS="Code">
+print-object</CODE>
+ is redefined to be the ordinary function <CODE CLASS="Code">
+x-print-object</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-116449"></A>(defun x-print-object (object stream)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-116568"></A>  (t-print-object object stream))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-116574"></A>(defun t-print-object (object stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116575"></A>  (print-unreadable-object (object stream :identity t)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116576"></A>    (if (and (fboundp 'find-class)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116577"></A>             (find-class 'undefined-function nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116578"></A>             (ignore-errors</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116579"></A>               (typep object 'undefined-function)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116580"></A>        (progn</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116581"></A>          (write-string &quot;Undefined function &quot; stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116582"></A>          (prin1 (cell-error-name object) stream))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116583"></A>      (progn</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116584"></A>        (princ (or (ignore-errors (type-of object))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116585"></A>                   &quot;&lt;Unknown type&gt;&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116586"></A>               stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116587"></A>        (ignore-errors</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116588"></A>          (when-let (namer (find-symbol &quot;NAME&quot; &quot;CLOS&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116589"></A>            (when-let (name (and (slot-exists-p object namer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116590"></A>                                 (slot-boundp object namer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-116591"></A>                                 (slot-value object namer)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-116569"></A>              (format stream &quot; &#126;a&quot; name))))))))</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-116570"></A>You may redefine <CODE CLASS="Code">
+x-print-object</CODE>
+. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-116552"></A>Affected by: <A HREF="delivery-111.htm#10760" CLASS="XRef">:keep-debug-mode</A><A NAME="marker-161731"></A></P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-109.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-107.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

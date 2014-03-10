@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 22.6.3  Guessing the external format
+</TITLE>
+
+<LINK REL="next" HREF="lw-503.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-501.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-499.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-484.htm">22 Internationalization</A> &gt; <A HREF="lw-499.htm">22.6  External Formats and File Streams</A><BR><BR>
+</DIV><A HREF="lw-503.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-501.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-499.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889999"></A>22.6.3  <A NAME="24631"></A>Guessing the external format</H3>
+<P CLASS="Body">
+<A NAME="pgfId-894390"></A>If <A HREF="lw-659.htm#39723" CLASS="XRef">open</A> or <CODE CLASS="Code">
+with-open-file</CODE>
+ gets a non-complete <CODE CLASS="Code">
+:external-format</CODE>
+ argument <EM CLASS="Variable">
+ef-spec</EM>
+ then the system decides which external format to use by calling the function <A NAME="marker-894401"></A><A HREF="lw-1384.htm#57205" CLASS="XRef">guess-external-format</A>. </P>
+<P CLASS="Body">
+<A NAME="pgfId-894397"></A>The default behavior of <A HREF="lw-1384.htm#57205" CLASS="XRef">guess-external-format</A> is as follows:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-890135"></A>When <EM CLASS="Variable">
+ef-spec'</EM>
+s name is <CODE CLASS="Code">
+:default</CODE>
+, this finds a match based on the filename; or (if that fails), looks in the Emacs-style (-*-) attribute line for an option called ENCODING or EXTERNAL-FORMAT; or (if that fails), chooses from amongst likely encodings by analysing the bytes near the start of the file, or (if that fails) uses a default encoding. Otherwise <EM CLASS="Variable">
+ef-spec</EM>
+'s name is assumed to name an encoding and this encoding is used.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-890144"></A>When <EM CLASS="Variable">
+ef-spec</EM>
+ does not include the <CODE CLASS="Code">
+:eol-style</CODE>
+ parameter, it then also analyses the start of the file for byte patterns indicating the end-of-line style, and uses a default end-of-line style if no such pattern is found. </LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-890255"></A>The file in this example was written by a Windows program which writes the <A NAME="marker-890559"></A>Byte Order Mark at the start of the file, indicating that it is Unicode (UCS-2) encoded. The routine in step 1 above detects this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-890264"></A>(set-default-character-element-type 'simple-char)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890265"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890266"></A>SIMPLE-CHAR</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890267"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890268"></A>(with-open-file (ss &quot;C:/temp/unicode-notepad.txt&quot;) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890269"></A>  (stream-external-format ss))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890270"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-894412"></A>(:UNICODE :LITTLE-ENDIAN T :EOL-STYLE :CRLF)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-894448"></A>The behavior of <A HREF="lw-1384.htm#57205" CLASS="XRef">guess-external-format</A> is configurable via the variables <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-894458"></A><A HREF="lw-1363.htm#53291" CLASS="XRef">*file-encoding-detection-algorithm*</A> and <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-894463"></A><A HREF="lw-1365.htm#82936" CLASS="XRef">*file-eol-style-detection-algorithm*</A>. See the manual pages for details.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-503.htm#pgfId-895343" CLASS="Hypertext">22.6.3.1  Example of using UTF-8 by default</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-503.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-501.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-499.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

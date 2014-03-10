@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ defsystem
+</TITLE>
+
+<LINK REL="next" HREF="lw-901.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-899.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-901.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-899.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1120217"></A><A NAME="marker-1120215"></A><A NAME="65987"></A>defsystem</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1093967"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1093968"></A>Summary </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1093969"></A><CODE CLASS="Code">
+defsystem</CODE>
+ is used to define systems for use with the LispWorks system tools. A system is a collection of files and other systems that, together with rules expressing the interdependencies of those files and subsystems, make a complete program. The LispWorks system tools support the development and maintenance of large programs. Find a full description at <A HREF="lw-303.htm#85630" CLASS="XRef">Common Defsystem and ASDF</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1093971"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1093972"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1093973"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1093974"></A>defsystem <EM CLASS="Variable">
+system-name</EM>
+ <EM CLASS="Variable">
+options</EM>
+ &amp;key <EM CLASS="Variable">
+members</EM>
+ <EM CLASS="Variable">
+rules</EM>
+ =&gt; <EM CLASS="Variable">
+system</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1093975"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1093976"></A><EM CLASS="Variable">
+system-name</EM>
+</P>
+<P CLASS="RDescription-C">The name of the system to be made.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1093977"></A><EM CLASS="Variable">
+options</EM>
+ are expressed as a list of keyword argument pairs. The following keywords are recognized: </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1093978"></A><CODE CLASS="Code">
+:package</CODE>
+</P>
+<P CLASS="RDescription-C">The default package that files are compiled and loaded in. If not specified, this defaults to the value of <CODE CLASS="Code">
+*package*</CODE>
+ at macroexpansion time.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1093979"></A><CODE CLASS="Code">
+:default-pathname</CODE>
+ </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1093980"></A>Used to compute a default pathname in which to find files. <CODE CLASS="Code">
+defsystem</CODE>
+ uses <A HREF="lw-894.htm#current-pathname" CLASS="XRef">current-pathname</A> to compute the pathname. <CODE CLASS="Code">
+defsystem</CODE>
+ checks that all the files given as members actually exist.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1093981"></A><CODE CLASS="Code">
+:default-host</CODE>
+</P>
+<P CLASS="RDescription-C">The root pathname of a system is defined to be the <CODE CLASS="Code">
+:default-host</CODE>
+ if it is given. Otherwise, it is taken to be the directory containing the defsystem file.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1093982"></A>Absolute pathnames are interpreted literally, and relative pathnames are taken relative to the root pathname.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1286686"></A><CODE CLASS="Code">
+:default-type</CODE>
+</P>
+<P CLASS="RDescription-C">This is the default type of the members of the system. This may be <CODE CLASS="Code">
+:lisp-file</CODE>
+, <CODE CLASS="Code">
+:lsp-file</CODE>
+, <CODE CLASS="Code">
+:c-file</CODE>
+, or <CODE CLASS="Code">
+:system</CODE>
+. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1286689"></A>The corba module adds <CODE CLASS="Code">
+:idl-file</CODE>
+, <CODE CLASS="Code">
+:idl-client-definition</CODE>
+, <CODE CLASS="Code">
+:idl-client-definition-only</CODE>
+, <CODE CLASS="Code">
+:idl-server-definition</CODE>
+ and <CODE CLASS="Code">
+:idl-server-definition-only</CODE>
+. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1286693"></A>The com module adds the type <CODE CLASS="Code">
+:midl-file</CODE>
+ and the automation module adds <CODE CLASS="Code">
+:midl-type-library-file</CODE>
+. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1286694"></A>The default is<CODE CLASS="Code">
+ :lisp-file</CODE>
+, which means files with file type (extension) &quot;lisp&quot;.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1093985"></A><CODE CLASS="Code">
+:documentation</CODE>
+</P>
+<P CLASS="RDescription-C">This is a string.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1378472"></A><CODE CLASS="Code">
+:object-pathname</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1478463"></A>A string or pathname specifying a directory where object files are written.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1478480"></A><B CLASS="Bold">
+Note:</B>
+ This option will not work if the names in <EM CLASS="Variable">
+members</EM>
+ represent absolute pathnames.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1631277"></A><CODE CLASS="Code">
+:optimize</CODE>
+</P>
+<P CLASS="RDescription-C">A declaration specifying default compilation qualities within the scope of <A HREF="lw-891.htm#11892" CLASS="XRef">compile-system</A>. These settings override the current global setting. They can be overridden per member by the <CODE CLASS="Code">
+:optimize</CODE>
+ option (for subsystems) or <A HREF="lw-662.htm#19061" CLASS="XRef">proclaim</A> (in files). The <CODE CLASS="Code">
+:optimize</CODE>
+ <CODE CLASS="Code">
+defsystem</CODE>
+ option accepts the same optimize qualities as <A HREF="lw-662.htm#19061" CLASS="XRef">proclaim</A> and which are fully described in <A HREF="lw-110.htm#62271" CLASS="XRef">Compiler control</A>. See below for examples.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1747045"></A><EM CLASS="Variable">
+members</EM>
+ is a list defining the members of the system. Elements of the list may be a string <EM CLASS="Variable">
+name</EM>
+ representing the name of the physical file or system referred to. Elements of the the list may also be a symbol, which is interpreted as its symbol name.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1747043"></A>Elements of the <EM CLASS="Variable">
+members</EM>
+ list can also be a list of the form <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+name</EM>
+<CODE CLASS="Code">
+ {</CODE>
+<EM CLASS="Variable">
+keyword</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+value</EM>
+<CODE CLASS="Code">
+}*)</CODE>
+ where<EM CLASS="Variable">
+ name</EM>
+ is once again a string or a symbol naming a file or system.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1747079"></A>The members of <EM CLASS="Variable">
+system-name</EM>
+ must have unique names, as compared by <CODE CLASS="Code">
+equalp</CODE>
+. For example, if <EM CLASS="Variable">
+members</EM>
+ contains <CODE CLASS="Code">
+&quot;foo&quot;</CODE>
+ then there cannot be another member (either a file or a system) named <CODE CLASS="Code">
+&quot;foo&quot;</CODE>
+, <CODE CLASS="Code">
+&quot;FOO&quot;</CODE>
+ or <CODE CLASS="Code">
+foo</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1747084"></A>The possible keywords and their values are: </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1093987"></A><CODE CLASS="Code">
+:type</CODE>
+</P>
+<P CLASS="RDescription-C">The type of this member. Allowed values are as for <CODE CLASS="Code">
+:default-type</CODE>
+. If not specified it defaults to the value of <CODE CLASS="Code">
+:default-type</CODE>
+ given as an <EM CLASS="Variable">
+option</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1093988"></A><CODE CLASS="Code">
+:root-module</CODE>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+nil</CODE>
+ then this member is not loaded unless its loading is specifically requested as a result of a dependency on another module </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1093989"></A><CODE CLASS="Code">
+:source-only</CODE>
+</P>
+<P CLASS="RDescription-C">Only the source file for this member is ever loaded </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1093990"></A><CODE CLASS="Code">
+:load-only</CODE>
+</P>
+<P CLASS="RDescription-C">The member is never compiled by <CODE CLASS="Code">
+defsystem</CODE>
+, objects are loaded in preference to source files </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1093991"></A><CODE CLASS="Code">
+:load-for-compile-only</CODE>
+ </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1093992"></A>The member is only loaded as necessary during compilation and is never loaded independently </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1093993"></A><CODE CLASS="Code">
+:features</CODE>
+</P>
+<P CLASS="RDescription-C">The member is only considered during planning if the feature expression is true.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1326401"></A><CODE CLASS="Code">
+:package</CODE>
+</P>
+<P CLASS="RDescription-C">A default package for the member.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1326388"></A>On Windows, the automation module adds the keyword <CODE CLASS="Code">
+:com</CODE>
+ for a member with type <CODE CLASS="Code">
+:midl-type-library-file</CODE>
+. Then a member of the form </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1326423"></A>(&quot;mso97.tlb&quot; :type :midl-type-library-file :com nil)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1326429"></A>can be specified when you use only Automation client code, reducing the memory used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1093994"></A><EM CLASS="Variable">
+rules</EM>
+ is a list of rules of the following format : </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1093995"></A>({:in-order-to}<EM CLASS="Variable"> action</EM>
+ {:all | ({ <EM CLASS="Variable">member-name</EM>
+ }* )}</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1093996"></A>  (:caused-by {(<EM CLASS="Variable">action</EM>
+ {:previous |{<EM CLASS="Variable">member-name</EM>
+ }* }) }*)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1093997"></A>  (:requires {(<EM CLASS="Variable">action</EM>
+ {:previous |{ <EM CLASS="Variable">member-name</EM>
+ }*}) }*)) </PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1093998"></A>The keyword <CODE CLASS="Code">
+:all</CODE>
+ refers to all the members of the system. It provides a shorthand for specifying that a rule should apply to all the system's members. The keyword <CODE CLASS="Code">
+:previous</CODE>
+ refers to all the members of the system that are before the member in the list of members. This makes it easy, for example, to specify that in order to compile a file in a system, all the members that come before it must be loaded. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1706294"></A>There are more details about the rules in <A HREF="lw-309.htm#38133" CLASS="XRef">DEFSYSTEM rules</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1093999"></A>Values </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1094000"></A>The name of the system is returned. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1094001"></A>Examples </H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1094002"></A>(defsystem defsys-macros</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094003"></A>   (:default-pathname &quot;/usr/users/james/scm/defsys/&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094004"></A>    :default-type :lisp-file</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094005"></A>    :package defsystem)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094006"></A>   :members (&quot;new-macros&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1094007"></A>             &quot;scm-timemacros&quot;))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1094008"></A>(defsystem clos-sys</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094009"></A>   (:default-pathname &quot;/usr/users/clc/defsys/&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094010"></A>    :default-type :lsp-file</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094011"></A>    :package defsystem)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094012"></A>   :members</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094013"></A>     ((&quot;defsys-macros&quot; :type :system :root-module nil)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094014"></A>       &quot;class&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094015"></A>       &quot;time-methods&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094016"></A>      (&quot;scm-pathname&quot; :source-only t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094017"></A>       &quot;execute-plan&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094018"></A>       &quot;file-types&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094019"></A>       &quot;make-system&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094020"></A>       &quot;conv-defsys&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094021"></A>   :rules</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094022"></A>     ((:in-order-to :compile (&quot;class&quot; &quot;time-methods&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094023"></A>           (:caused-by (:compile &quot;defsys-macros&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094024"></A>                       (:requires </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094025"></A>                         (:load &quot;defsys-macros&quot;)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094026"></A>      (:in-order-to :compile </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094027"></A>                       (&quot;time-methods&quot; &quot;execute-plan&quot;)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1094028"></A>                       (:requires (:load &quot;class&quot;)))))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1203109"></A>(defsystem dataworks-demo </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1203110"></A>   (:default-type :system)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094033"></A>   :members (</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094034"></A>     &quot;db-class&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094035"></A>     &quot;planar&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094036"></A>     &quot;dataworks-dep&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094037"></A>     &quot;dataworks-interface-tk&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094038"></A>     &quot;dataworks-interface-tools&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094039"></A>     &quot;drugs-demo&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094040"></A>     (&quot;gen-demo&quot; :type :lisp-file)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094041"></A>     (&quot;load-icon&quot; :type :lisp-file :source-only t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094042"></A>     )</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1094043"></A>   :rules ((:in-order-to :compile :all</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1094044"></A> (:requires (:load :previous)))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1398527"></A>This last example illustrates the use of <CODE CLASS="Code">
+:optimize</CODE>
+.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1399444"></A>(defsystem foo (:optimize ((speed 3) (space 3) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1399445"></A>                           (safety 0)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1399446"></A>  :members (&quot;bar&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1399447"></A>            &quot;baz&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1399448"></A>  :rules ((:compile :all </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1398548"></A>           (:requires (:load :previous)))))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1094045"></A> Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1094046"></A>Systems that are members of another system must be declared in the system declaration file before the system of which they are a part.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1094047"></A>The ordering of members is important and reflects the order in which operations are carried out on the members of the system. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1094048"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1094052"></A><A HREF="lw-944.htm#71519" CLASS="XRef">load-system</A><BR>
+<A HREF="lw-891.htm#11892" CLASS="XRef">compile-system</A><BR>
+<A HREF="lw-892.htm#96138" CLASS="XRef">concatenate-system</A><BR>
+<A HREF="lw-894.htm#current-pathname" CLASS="XRef">current-pathname</A><BR>
+<A HREF="lw-901.htm#25462" CLASS="XRef">*defsystem-verbose*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-901.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-899.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

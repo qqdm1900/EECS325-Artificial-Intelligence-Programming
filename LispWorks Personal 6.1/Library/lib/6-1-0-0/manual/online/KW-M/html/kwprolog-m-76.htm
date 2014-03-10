@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.1.1  Meta Rule Protocol
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-77.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-75.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-75.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A> &gt; <A HREF="kwprolog-m-75.htm">6.1  Control Flow</A><BR><BR>
+</DIV><A HREF="kwprolog-m-77.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-75.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-75.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-891609"></A>6.1.1  <A NAME="39771"></A><A NAME="marker-891608"></A>Meta Rule Protocol</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891610"></A>The meta rule protocol (MRP) reifies the internal actions of the forward chainer in terms of backward chaining goals. This allows the user to debug, modify, or even replace the default behavior of the forward chainer. The basic hooks into the <A NAME="marker-891611"></A>Forward Chaining Cycle provided by the MRP include conflict resolution and rule firing. Each context may have a meta-rule defined for it which behaves as a <A NAME="marker-891612"></A>meta-interpreter for that context. For example, if no meta-rule is defined for a <A NAME="marker-891613"></A>context it behaves as if it were using the following <A NAME="marker-891614"></A>meta-rule:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891616"></A>(<A NAME="marker-891615"></A>defrule ordinary-context :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891617"></A>           ((ordinary-context)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891618"></A>            &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891619"></A>            (start-cycle)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891620"></A>            (instantiation ?instantiation)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891621"></A>            (fire-rule ?instantiation)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891622"></A>            (cut)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891623"></A>            (ordinary-context)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891625"></A>This rule describes the actions of the <A NAME="marker-891624"></A>forward chaining cycle for this context. Firstly <CODE CLASS="Code">
+start-cycle</CODE>
+<A NAME="marker-891626"></A> performs some internal initializations and updates the conflict set. It is essential that this is called at the start of every cycle. Next the preferred <CODE CLASS="Code">
+instantiation</CODE>
+ is selected from the conflict set by the call to <A NAME="marker-891627"></A><CODE CLASS="Code">
+instantiation</CODE>
+ and is stored in the variable <CODE CLASS="Code">
+?instantiation</CODE>
+. The rule corresponding to this is fired (by <CODE CLASS="Code">
+fire-rule</CODE>
+<A NAME="marker-891628"></A>) and the recursive call to <CODE CLASS="Code">
+ordinary-context</CODE>
+ means that the cycle is repeated. The <CODE CLASS="Code">
+cut</CODE>
+ is also essential as it prevents back-tracking upon failure. Failure occurs when there are no more instantiations to fire (the <CODE CLASS="Code">
+instantiation</CODE>
+ predicate fails) and this causes control to be passed on as normal.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891629"></A>A meta-rule may be assigned to a context with the <CODE CLASS="Code">
+:meta</CODE>
+ keyword of the <CODE CLASS="Code">
+defcontext</CODE>
+<A NAME="marker-891630"></A> form. The argument of the <A NAME="marker-891631"></A><CODE CLASS="Code">
+:meta</CODE>
+ keyword is the list of actions to be performed by the context. For example, a context using the above ordinary meta-interpreter can be defined by</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891632"></A>(defcontext my-context :meta ((ordinary-context)))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891633"></A>This implicitly defines the rule</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891635"></A>(<A NAME="marker-891634"></A>defrule my-context :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891636"></A>         ((my-context)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891637"></A>          &lt;--</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891638"></A>          (ordinary-context)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891639"></A>and whenever this context is invoked, the rule of the same name is called. The context could equally well have been defined as</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891641"></A>(<A NAME="marker-891640"></A>defcontext my-context :meta</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891642"></A>            ((start-cycle)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891643"></A>             (instantiation ?instantiation)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891644"></A>             (fire-rule ?instantiation)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891645"></A>             (cut)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891646"></A>             (my-context)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891647"></A>Sometimes it is useful to manipulate the entire conflict set. For this purpose the action <CODE CLASS="Code">
+(conflict-set ?conflict-set)</CODE>
+ will return the entire conflict set in the given variable, in the order specified by the context's conflict resolution strategy. The actions</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891648"></A>(conflict-set ?conflict-set)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891649"></A>(member ?instantiation ?conflict-set)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891650"></A>are equivalent to</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891652"></A>(<A NAME="marker-891651"></A>instantiation ?instantiation)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891653"></A>although the latter is more efficient.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891654"></A>Now that the user has access to the instantiations of rules, functions are provided to examine them.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="kwprolog-m-77.htm#pgfId-891656" CLASS="Hypertext">6.1.1.1  Functions defined on Instantiations</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="kwprolog-m-78.htm#pgfId-891667" CLASS="Hypertext">6.1.1.2  A Simple Example</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="kwprolog-m-79.htm#pgfId-891696" CLASS="Hypertext">6.1.1.3  A Simple Explanation Facility</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="kwprolog-m-80.htm#pgfId-891751" CLASS="Hypertext">6.1.1.4  Reasoning with Certainty Factors</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-77.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-75.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-75.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

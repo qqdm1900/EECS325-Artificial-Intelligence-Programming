@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 16.2.1.1  Example: dragging from a tree
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-242.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-240.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-240.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-236.htm">16 Drag and Drop</A> &gt <A HREF="capiuser-m-239.htm">16.2  Dragging</A> &gt <A HREF="capiuser-m-240.htm">16.2.1  Dragging values from a choice</A><BR><BR>
+</DIV><A HREF="capiuser-m-242.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-240.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-240.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-912342"></A>16.2.1.1  <A NAME="65068"></A>Example: dragging from a tree</H3>
+<P CLASS="Body">
+<A NAME="pgfId-912343"></A>This example returns string data for a <CODE CLASS="Code">
+tree-view</CODE>
+ defined below:  </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-912344"></A>(defun tree-drag-callback (pane indices)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911808"></A>  (list :string </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911809"></A>        (string (elt (capi:collection-items pane)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911805"></A>                     (first indices)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911879"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911853"></A>(defun fruits (x) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911854"></A>  (case x </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911855"></A>    (:fruits (list :apple :orange))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911856"></A>    (:apple (list :cox :bramley))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911857"></A>    (:orange (list :blood-orange :seville))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911858"></A>    (t nil)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911859"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911860"></A>(capi:contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911861"></A> (make-instance 'capi:tree-view</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911862"></A>                :title &quot;Fruit tree&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911863"></A>                :roots '(:fruits)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911864"></A>                :children-function 'fruits</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-911851"></A>                :drag-callback 'tree-drag-callback))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-911765"></A>There is a further example showing dragging from <CODE CLASS="Code">
+list-panel</CODE>
+s in</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-911766"></A>examples/capi/choice/drag-and-drop.lisp</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-242.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-240.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-240.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

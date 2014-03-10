@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9 The Compiler
+</TITLE>
+
+<LINK REL="next" HREF="lw-106.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-104.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A><BR><BR>
+</DIV><A HREF="lw-106.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-104.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="Chapter">
+<A NAME="pgfId-885977"></A><DIV>
+<IMG SRC="lw-13.gif">
+</DIV>
+9 <A NAME="13642"></A>The Compiler<A NAME="marker-885976"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-885978"></A>The compiler translates Lisp forms and source files into binary code for the host machine. A compiled Lisp function, for instance, is a sequence of machine instructions that directly execute the actions the evaluator would perform in interpreting an application of the original source lambda expression. Where possible the behaviors of compiled and interpreted versions of the same Lisp function are identical. Unfortunately the definition of the Common Lisp language results in certain unavoidable exceptions to this rule. The <A NAME="marker-885979"></A>compiler, for instance, must macroexpand the source before translating it; any side effects of macro-expansion happen only once, at compile time. </P>
+<P CLASS="Body">
+<A NAME="pgfId-885981"></A>By using declarations, you can advise the compiler of the types of variables local to a function or shared across an application. For example, numeric operations on a variable declared as a <A HREF="lw-668.htm#48112" CLASS="XRef">single-float</A> can be compiled as direct floating-point operations, without the need to check the type at execution time. You can also control the relative emphasis the compiler places on efficiency (speed and space), safety (type checking) and support for debugging. By default the compiler produces code that performs all the necessary type checking and includes code to recover from errors. It is especially important that the type declarations be correct when compiling with a safety level less than 3 (see later in this chapter for more details). </P>
+<P CLASS="Body">
+<A NAME="pgfId-885982"></A><A NAME="marker-892171"></A>When compiling a Lisp source file, the compiler produces its output in a format that is much faster to load than textual Lisp source -- the <A NAME="marker-885983"></A>&quot;fasl&quot; or &quot;fast-load&quot; form. Fasl files contain arbitrary Common Lisp objects in a pre-digested form. They are loaded without needing to use the expensive <CODE CLASS="Code">
+read</CODE>
+ function. A series of &quot;fasl-loader&quot; routines built into LispWorks interpret the contents of fasl files, building the appropriate objects and structures in such a way that objects that were <CODE CLASS="Code">
+eq</CODE>
+ before fasl-dumping are created <CODE CLASS="Code">
+eq</CODE>
+ when fasl-loaded. </P>
+<P CLASS="Body">
+<A NAME="pgfId-885984"></A>Fasl files are given pathname extensions that reflect the target processor they were compiled for; as the fasl files contain processor specific instruction sequences it is essential that the loader be able to distinguish between files compiled for different targets. These pathname extensions always end in &quot;fasl&quot;. See <A HREF="lw-635.htm#53982" CLASS="XRef">compile-file</A> for details of all the possible fasl file extensions.</P>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-106.htm#pgfId-885988" CLASS="Hypertext">9.1  Compiling a function</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-107.htm#pgfId-886007" CLASS="Hypertext">9.2  Compiling a source file</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-108.htm#pgfId-892647" CLASS="Hypertext">9.3  Compiling a form</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-109.htm#pgfId-886010" CLASS="Hypertext">9.4  How the compiler works</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-110.htm#pgfId-890345" CLASS="Hypertext">9.5  Compiler control</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-112.htm#pgfId-886109" CLASS="Hypertext">9.6  Declare, proclaim, and declaim</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-114.htm#pgfId-887598" CLASS="Hypertext">9.7  Optimizing your code</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="lw-127.htm#pgfId-886138" CLASS="Hypertext">9.8  Compiler parameters affecting LispWorks</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-106.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-104.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

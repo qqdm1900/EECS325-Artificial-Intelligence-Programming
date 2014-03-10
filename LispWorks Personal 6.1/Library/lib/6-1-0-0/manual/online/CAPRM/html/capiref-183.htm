@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ interactive-pane-execute-command
+</TITLE>
+
+<LINK REL="next" HREF="capiref-184.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-182.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-184.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-182.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-2767260"></A><A NAME="49519"></A>interactive<A NAME="marker-4141015"></A>-pane-execute-command</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-2767261"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2767262"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2767263"></A>Simulates user entry of commands in an <CODE CLASS="Code">
+interactive-pane</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4140988"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4140989"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2767265"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3661570"></A>interactive-pane-execute-command <EM CLASS="Variable">
+interactive-pane</EM>
+ <EM CLASS="Variable">
+command</EM>
+ &amp;key <EM CLASS="Variable">
+command-modification-function</EM>
+ <EM CLASS="Variable">
+editp</EM>
+ &amp;allow-other-keys</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3661571"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2767567"></A><EM CLASS="Variable">
+interactive-pane</EM>
+</P>
+<P CLASS="RDescription-C">An <A HREF="capiref-182.htm#15385" CLASS="XRef">interactive-pane</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2767584"></A><EM CLASS="Variable">
+command</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp form.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-2767598"></A><EM CLASS="Variable">
+command-modification-function</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-2767607"></A>A function or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6083519"></A><EM CLASS="Variable">
+editp</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2767267"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6694898"></A>The generic function <CODE CLASS="Code">
+interactive-pane-execute-command</CODE>
+ has the same effect as the user typing the Lisp form <EM CLASS="Variable">
+command</EM>
+ into the <A HREF="capiref-182.htm#15385" CLASS="XRef">interactive-pane</A> <EM CLASS="Variable">
+interactive-pane</EM>
+, and pressing <B CLASS="Button">
+Return</B>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6694902"></A><CODE CLASS="Code">
+interactive-pane-execute-command</CODE>
+ may be called from any process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6101693"></A>If <EM CLASS="Variable">
+command-modification-function</EM>
+ is non-nil, it is a function of one argument. It is called with argument <EM CLASS="Variable">
+command</EM>
+ in the process in which <EM CLASS="Variable">
+interactive-pane</EM>
+ runs. The result of this call is used as the command to enter. The default value of <EM CLASS="Variable">
+command-modification-function</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6101694"></A>If <EM CLASS="Variable">
+editp</EM>
+ is true then the command is left at the end of the pane for the user to edit before pressing <CODE CLASS="Code">
+Return</CODE>
+.  If <EM CLASS="Variable">
+editp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then <CODE CLASS="Code">
+interactive-pane-execute-command</CODE>
+ simulates the user pressing <B CLASS="Button">
+Return</B>
+. The default value of <EM CLASS="Variable">
+editp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9902858"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9902862"></A><A HREF="capiref-182.htm#15385" CLASS="XRef">interactive-pane</A><BR>
+<A HREF="capiref-222.htm#67202" CLASS="XRef">listener-pane-insert-value</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-184.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-182.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

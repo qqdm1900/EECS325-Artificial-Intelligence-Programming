@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-color-alias
+</TITLE>
+
+<LINK REL="next" HREF="capiref-681.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-679.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-668.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-668.htm">3 COLOR Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-681.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-679.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-668.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886538"></A><A NAME="marker-887903"></A><A NAME="27507"></A>define-color-alias</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886539"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898512"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-898522"></A>Lets you define an alias for a color specification or alias.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886540"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886541"></A>color</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886542"></A>Signature</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886544"></A>define-color-alias <EM CLASS="Variable">name</EM>
+ <EM CLASS="Variable">color</EM>
+ &amp;optional <EM CLASS="Variable">if-exists</EM>
+ =&gt; <EM CLASS="Variable">alias</EM>
+</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900505"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900509"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">The name of the new alias.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-902578"></A><EM CLASS="Variable">
+color</EM>
+</P>
+<P CLASS="RDescription-C">A color specification for the new alias.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-902863"></A><EM CLASS="Variable">
+if-exists</EM>
+</P>
+<P CLASS="RDescription-C">This can be one of the following:</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-902864"></A><CODE CLASS="Code">
+:replace</CODE>
+ -- Replace any existing alias.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-902865"></A><CODE CLASS="Code">
+:error</CODE>
+ -- Raise an error if alias is already defined.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-902866"></A><CODE CLASS="Code">
+:ignore</CODE>
+ -- Ignore redefinition of an alias.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-902980"></A>By default, it is <CODE CLASS="Code">
+:replace</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-901411"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-901412"></A><EM CLASS="Variable">
+alias</EM>
+</P>
+<P CLASS="RDescription-C">The color alias.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886546"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886547"></A>Define <EM CLASS="Variable">
+name</EM>
+ to be a color alias for <EM CLASS="Variable">
+color</EM>
+, which may be another color alias or a color-spec.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903108"></A>Example 1</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886552"></A>COLOR 16 &gt; (define-color-alias :mygray :darkslategray)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886553"></A>(#S(COLOR-ALIAS COLOR :DARKSLATEGRAY))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886555"></A>COLOR 17 &gt; (define-color-alias :mygray :darkslategray</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886556"></A>                               :error)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886558"></A>Error: :MYGRAY names an existing alias for #(:RGB 0.1843133S0 0.309803S0 0.309803S0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886559"></A>  1 (continue) Replace :MYGRAY with the alias :DARKSLATEGRAY</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886560"></A>  2 Continue, without redefining alias :MYGRAY</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886561"></A>  3 Try a new name for the alias, instead of :MYGRAY</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886562"></A>  4 (abort) Return to level 0.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886563"></A>  5 Return to top loop level 0.</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886564"></A>  6 Destroy process.</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886566"></A>Type :c followed by a number to proceed or type :? for other options</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886568"></A>COLOR 18 : 1 &gt; </CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886569"></A>Example 2</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886570"></A>COLOR 19 &gt; (define-color-alias :lispworks-blue </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886571"></A>                (make-rgb 0.70s0 0.90s0 0.99s0))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886572"></A>(#S(COLOR-ALIAS COLOR #(:RGB 0.699999S0 0.9S0 0.99S0)))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886574"></A>COLOR 20 &gt; </CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886575"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886577"></A><A HREF="capiref-685.htm#24910" CLASS="XRef">get-color-alias-translation</A><BR>
+<A HREF="capiref-686.htm#79217" CLASS="XRef">get-color-spec</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-681.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-679.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-668.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

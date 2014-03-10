@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.2  Evaluating simple forms
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-387.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-385.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-384.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-384.htm">19 The Listener</A><BR><BR>
+</DIV><A HREF="ide-m-387.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-385.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-384.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853804"></A>19.2  <A NAME="marker-853802"></A><A NAME="marker-853803"></A>Evaluating simple forms</H3>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-853805"></A>Type the number <CODE CLASS="Code">
+12</CODE>
+ at the prompt, and press <CODE CLASS="Code">
+Return</CODE>
+.</LI>
+
+<P CLASS="Body">
+<A NAME="pgfId-852935"></A>In general, assume that you should press <CODE CLASS="Code">
+Return</CODE>
+ after typing something at the prompt, and that you should type at the <I CLASS="Italic">
+current prompt</I>
+<A NAME="marker-853491"></A> (that is, the one at the bottom of the screen). In fact, the latter is not always necessary; <A HREF="ide-m-394.htm#26378" CLASS="XRef">Execute mode</A> describes how to move the cursor to different places, and thus you may not always be on the current prompt.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853311"></A>Any Common Lisp form entered at the prompt is evaluated and its results are printed immediately below in the Listener.</P>
+<P CLASS="Body">
+<A NAME="pgfId-852702"></A>When Common Lisp evaluates a number, the result is the number itself, and so <CODE CLASS="Code">
+12</CODE>
+ is printed out:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-852703"></A><I CLASS="Italic">PROMPT &gt;</I>
+ 12</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852704"></A>12</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852705"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-852706"></A><I CLASS="Italic">PROMPT &gt;</I>
+ </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-852707"></A>When results are printed in the Listener, they start on the line following the last line of input. The <CODE CLASS="Code">
+12</CODE>
+ has been printed immediately below the first prompt, and below that, another prompt has been printed. </P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-852725"></A>Type <CODE CLASS="Code">
+*</CODE>
+ at the current prompt.</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-852726"></A><I CLASS="Italic">PROMPT &gt;</I>
+ *</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852727"></A>12</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852728"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-852729"></A><I CLASS="Italic">PROMPT &gt;</I>
+</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-852730"></A><A NAME="marker-853500"></A>The variable <CODE CLASS="Code">
+*</CODE>
+<A NAME="marker-853897"></A> always has as its value the result of the previous expression; in this case, <CODE CLASS="Code">
+12</CODE>
+<A HREF="http://www.lispworks.com/reference/Hyperspec/" CLASS="URL">, which was the result of the expression typed at the first prompt. For a full description, see the Common Lisp Hyperspec. This is an HTML version of the ANSI Common Lisp standard which is supplied with LispWorks.</A></P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-852731"></A>Type <CODE CLASS="Code">
+(setq val 12)</CODE>
+ at the current prompt.</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-852732"></A><I CLASS="Italic">PROMPT &gt;</I>
+ (setq val 12)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852733"></A>12</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852734"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-852735"></A><I CLASS="Italic">PROMPT &gt;</I>
+</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-852736"></A>The expression sets the variable <CODE CLASS="Code">
+val</CODE>
+ to <CODE CLASS="Code">
+12</CODE>
+. The result of evaluating the form is the value to which <CODE CLASS="Code">
+val</CODE>
+ has been set, and thus the Listener prints <CODE CLASS="Code">
+12</CODE>
+ below the form typed at the prompt. </P>
+<P CLASS="Step-C">
+<A NAME="pgfId-852742"></A>This is exactly the same behavior as before, when you typed a number it was evaluated and the result printed in the Listener. What is different this time, of course, is that Lisp has been told to &quot;remember&quot; that <CODE CLASS="Code">
+12</CODE>
+ is associated with <CODE CLASS="Code">
+val</CODE>
+.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-852743"></A>Type <CODE CLASS="Code">
+val</CODE>
+.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-852748"></A>The form is evaluated and <CODE CLASS="Code">
+12</CODE>
+ is printed below it.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-852749"></A>Type <CODE CLASS="Code">
+(+ val val val)</CODE>
+.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-852754"></A>The form, which computes the sum of three <CODE CLASS="Code">
+val</CODE>
+s, is evaluated, and <CODE CLASS="Code">
+36</CODE>
+ is printed below it.<A NAME="marker-853494"></A></P>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-387.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-385.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-384.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

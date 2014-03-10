@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 23.4.1  Command Line Arguments
+</TITLE>
+
+<LINK REL="next" HREF="lw-518.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-516.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-516.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-512.htm">23 LispWorks' Operating Environment</A> &gt; <A HREF="lw-516.htm">23.4  The Command Line</A><BR><BR>
+</DIV><A HREF="lw-518.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-516.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-516.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-891723"></A>23.4.1  <A NAME="marker-891721"></A><A NAME="marker-891722"></A>Command Line Arguments</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891719"></A>The following command line options are supported by the system.</P>
+<P CLASS="Description">
+<A NAME="pgfId-894652"></A><CODE CLASS="Code">
+-build </CODE>
+<A NAME="marker-894651"></A><EM CLASS="Variable">
+build-script</EM>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-894661"></A>Typically this is used for the purpose of building another image.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-900516"></A><EM CLASS="Variable">
+build-script</EM>
+ can name a file to be loaded on startup. This file will be the build script which loads your code and calls <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> or <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A>. LispWorks quits after loading the file. If an error is signalled while loading the file, a backtrace is displayed and LispWorks quits.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-900453"></A><EM CLASS="Variable">
+build-script</EM>
+<A NAME="marker-900561"></A> can also be <CODE CLASS="Code">
+-</CODE>
+, a single minus sign. Passing <CODE CLASS="Code">
+-build -</CODE>
+  causes LispWorks to read and execute a build script from stdin. This is useful if you want to embed a build script within a shell script that runs LispWorks, for example:</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-900458"></A><CODE CLASS="Code">
+lispworks-6-1-0-x86-linux -build - &lt;&lt;END</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-900459"></A><CODE CLASS="Code">
+(write-line &quot;This is the build script.&quot;)</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-900460"></A><CODE CLASS="Code">
+END</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-900451"></A>Note that this technique using <CODE CLASS="Code">
+&lt;&lt;END</CODE>
+ does not work on Microsoft Windows.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-899080"></A>An image run with <CODE CLASS="Code">
+-build</CODE>
+ runs itself, and not the default saved session if you created one. See <A HREF="lw-194.htm#51156" CLASS="XRef">Saved sessions</A> for information on saved sessions.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-894674"></A><A NAME="marker-900604"></A><CODE CLASS="Code">
+-build</CODE>
+ calls <A HREF="lw-943.htm#57637" CLASS="XRef">load-all-patches</A> automatically. There is no harm if your build script also calls <A HREF="lw-943.htm#57637" CLASS="XRef">load-all-patches</A>.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-894657"></A><CODE CLASS="Code">
+-environment</CODE>
+<A NAME="marker-894653"></A></P>
+<P CLASS="Description-C">Start the LispWorks IDE development environment automatically, even in an image saved with <CODE CLASS="Code">
+(save-image ... :environment nil)</CODE>
+</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-898434"></A><CODE CLASS="Code">
+-eval </CODE>
+<A NAME="marker-898433"></A><EM CLASS="Variable">
+form</EM>
+</P>
+<P CLASS="Description-C">Evaluates the Lisp form <EM CLASS="Variable">
+form</EM>
+ before loading initialization files.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-894564"></A><CODE CLASS="Code">
+-env</CODE>
+<A NAME="marker-894563"></A></P>
+<P CLASS="Description-C">A synonym for <CODE CLASS="Code">
+-environment</CODE>
+.</P>
+<P CLASS="Description">
+<A NAME="pgfId-892545"></A><CODE CLASS="Code">
+-display </CODE>
+<A NAME="marker-892549"></A><EM CLASS="Variable">
+display</EM>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-892546"></A>Sets the X display to use when starting a LispWorks GUI on X Windows.</P>
+<P CLASS="Description">
+<A NAME="pgfId-894092"></A><CODE CLASS="Code">
+-IIOPhost </CODE>
+<A NAME="marker-894134"></A><EM CLASS="Variable">
+host</EM>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-894093"></A>Controls the host name in placed in IORs. See <I CLASS="Italic">
+Developing Component Software with CORBA</I>
+ for details.</P>
+<P CLASS="Description">
+<A NAME="pgfId-894095"></A><CODE CLASS="Code">
+-IIOPnumeric</CODE>
+<A NAME="marker-894139"></A></P>
+<P CLASS="Description-C">
+<A NAME="pgfId-898192"></A>IORs contain a host name which is the numeric IP address obtained by reverse lookup of the machine name. See <I CLASS="Italic">
+Developing Component Software with CORBA</I>
+ for details.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-898470"></A><CODE CLASS="Code">
+-init</CODE>
+<A NAME="marker-898469"></A> <EM CLASS="Variable">
+init-file</EM>
+</P>
+<P CLASS="Description-C"><EM CLASS="Variable">
+init-file</EM>
+ names a file to be loaded on startup after <EM CLASS="Variable">
+siteinit-file</EM>
+. The file is user's own LispWorks initialization file, containing code that by default is loaded when LispWorks is started. It is useful for loading initializations that should not be done for all users. </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-898471"></A>Initially the default is to load the file <CODE CLASS="Code">
+&quot;&#126;/.lispworks&quot;</CODE>
+ where &#126; expands to the user's home directory as described in <A HREF="lw-185.htm#67048" CLASS="XRef">Configuration and initialization files</A>.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-898477"></A>Your default initialization file can be set in the LispWorks IDE. See &quot;Setting Preferences&quot; in the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+ for details.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-898482"></A>If <EM CLASS="Variable">
+init-file</EM>
+ is not found, an error is signalled. To suppress loading of a user initialization file, pass <CODE CLASS="Code">
+-init -</CODE>
+.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-899134"></A><CODE CLASS="Code">
+-load </CODE>
+<A NAME="marker-899133"></A><EM CLASS="Variable">
+file</EM>
+</P>
+<P CLASS="Description-C">Loads the file <EM CLASS="Variable">
+file</EM>
+ before loading initialization files.</P>
+<P CLASS="Description">
+<A NAME="pgfId-899135"></A><CODE CLASS="Code">
+-lw-no-redirection</CODE>
+<A NAME="marker-899140"></A></P>
+<P CLASS="Description-C">
+<A NAME="pgfId-899136"></A>Makes the supplied image run itself, and not the default saved session if you created one. See <A HREF="lw-194.htm#51156" CLASS="XRef">Saved sessions</A> for information on saved sessions.</P>
+<P CLASS="Description">
+<A NAME="pgfId-898141"></A><CODE CLASS="Code">
+-multiprocessing</CODE>
+<A NAME="marker-898140"></A></P>
+<P CLASS="Description-C">
+<A NAME="pgfId-898144"></A>Initializes multiprocessing on startup. See <A HREF="lw-244.htm#69534" CLASS="XRef">Multiprocessing</A>.</P>
+<P CLASS="Description">
+<A NAME="pgfId-898147"></A><CODE CLASS="Code">
+-no-restart-function</CODE>
+<A NAME="marker-898146"></A></P>
+<P CLASS="Description-C">
+<A NAME="pgfId-898148"></A>Suppresses the execution of a restart function on startup. Restart functions can be supplied when saving an image to automatically invoke application code. This argument suppresses that behavior. See <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A>.</P>
+<P CLASS="Description">
+<A NAME="pgfId-898128"></A><CODE CLASS="Code">
+-ORBport </CODE>
+<A NAME="marker-898127"></A><EM CLASS="Variable">
+orbport</EM>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-898129"></A><EM CLASS="Variable">
+orbport</EM>
+ specifies a port number for the LispWorks ORB. The special value 0 allows the system to pick a port.</P>
+<P CLASS="Description">
+<A NAME="pgfId-892419"></A><CODE CLASS="Code">
+--relocate-image </CODE>
+<A NAME="40283"></A><A NAME="marker-892553"></A><A NAME="marker-892530"></A><EM CLASS="Variable">
+BaseAddress</EM>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-892433"></A>Causes the image to relocate at <EM CLASS="Variable">
+BaseAddress</EM>
+ on supported platforms, as described in <A HREF="lw-522.htm#37447" CLASS="XRef">Startup relocation</A>. This can be useful on a system where libraries are mapped in address space that LispWorks would otherwise use as it grows. If the image is saved, then on restart without  <CODE CLASS="Code">
+--relocate-image</CODE>
+, it will locate itself automatically at <EM CLASS="Variable">
+BaseAddress</EM>
+.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-892493"></A><B CLASS="Bold">
+Compatibility Note:</B>
+ In LispWorks 5.0 and earlier versions, to be effective, <CODE CLASS="Code">
+--relocate-image</CODE>
+ must be the first argument on the LispWorks command line. This restriction does not apply in LispWorks 6.1.</P>
+<P CLASS="Description">
+<A NAME="pgfId-896033"></A><CODE CLASS="Code">
+--reserve-size </CODE>
+<A NAME="marker-896095"></A><EM CLASS="Variable">
+ReserveSize</EM>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-896034"></A>Specifies the reserve size on supported platforms, as described in <A HREF="lw-522.htm#37447" CLASS="XRef">Startup relocation</A>. New in LispWorks 5.1.</P>
+<P CLASS="Description">
+<A NAME="pgfId-898492"></A><CODE CLASS="Code">
+-siteinit </CODE>
+<A NAME="marker-898491"></A><EM CLASS="Variable">
+siteinit-file</EM>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-898493"></A><EM CLASS="Variable">
+siteinit-file</EM>
+ names a file to be loaded on startup. The file is the LispWorks site initialization file, containing code that by default is loaded when LispWorks is started by any user in that installation. The default is to load the file that is the result of evaluating <CODE CLASS="Code">
+(sys:lispworks-file &quot;config/siteinit.lisp&quot;)</CODE>
+.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-898494"></A>If <EM CLASS="Variable">
+siteinit-file</EM>
+ is not found, an error is signalled. To suppress loading of a site initialization file, pass <CODE CLASS="Code">
+-siteinit -</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-518.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-516.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-516.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

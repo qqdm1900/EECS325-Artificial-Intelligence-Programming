@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ output-backtrace
+</TITLE>
+
+<LINK REL="next" HREF="lw-691.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-689.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-683.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-683.htm">29 The DBG Package</A><BR><BR>
+</DIV><A HREF="lw-691.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-689.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-902595"></A><A NAME="marker-903330"></A>output<A NAME="marker-902593"></A>-backtrace</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-902596"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902597"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-903065"></A>Prints a backtrace of the current stack. For use in exception handling routines.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902599"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-902600"></A>dbg</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902601"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-902969"></A>output-backtrace <EM CLASS="Variable">
+keyword</EM>
+ &amp;key <EM CLASS="Variable">
+stream</EM>
+ <EM CLASS="Variable">
+printer-bindings</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902603"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-902850"></A><EM CLASS="Variable">
+keyword</EM>
+</P>
+<P CLASS="RDescription-C">Defines how verbose the output should be. It can be one of <CODE CLASS="Code">
+:quick</CODE>
+, <CODE CLASS="Code">
+:brief</CODE>
+, <CODE CLASS="Code">
+:verbose</CODE>
+ or <CODE CLASS="Code">
+:bug-form</CODE>
+, in increasing order of verbosity.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-902851"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">An output stream designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-902852"></A><EM CLASS="Variable">
+printer-bindings</EM>
+</P>
+<P CLASS="RDescription-C">A list of conses.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902607"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902689"></A>The function <CODE CLASS="Code">
+output-backtrace</CODE>
+ prints a backtrace of the current stack.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-902690"></A>The output goes to the stream designated by <EM CLASS="Variable">
+stream</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-902691"></A><EM CLASS="Variable">
+printer-bindings</EM>
+, if supplied, must be a list of conses, where the car of each cons is a symbol. <EM CLASS="Variable">
+printer-bindings</EM>
+ is ignored if <EM CLASS="Variable">
+keyword</EM>
+ is <CODE CLASS="Code">
+:quick</CODE>
+. Otherwise, around the actual printing it binds each symbol to the value in the cdr of the cons. This is intended to override the bindings that are used in the functions that <CODE CLASS="Code">
+output-backtrace</CODE>
+ uses.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-902692"></A><EM CLASS="Variable">
+output-backtrace</EM>
+ should be used by applications in their exception handling routines to log a backtrace whenever an unexpected situation arises. In general, any application that is not intended to be used by Lisp programmers should have error handlers to deal with unexpected situations, and all these handlers should use <CODE CLASS="Code">
+output-backtrace</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903183"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-903287"></A>The symbols that can be bound are not limited to &quot;printer&quot; symbols, so the name <EM CLASS="Variable">
+printer-bindings</EM>
+ is slightly misleading. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902613"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902614"></A><A HREF="lw-688.htm#21162" CLASS="XRef">log-bug-form</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-691.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-689.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

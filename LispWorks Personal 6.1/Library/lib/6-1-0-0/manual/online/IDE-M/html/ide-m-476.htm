@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 25.2.1  Examples
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-477.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-475.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-475.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-473.htm">25 The System Browser</A> &gt; <A HREF="ide-m-475.htm">25.2  A brief introduction to systems</A><BR><BR>
+</DIV><A HREF="ide-m-477.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-475.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-475.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-852647"></A>25.2.1  <A NAME="13777"></A>Examples</H3>
+<P CLASS="Body-Next">
+<A NAME="pgfId-853285"></A><A NAME="marker-854078"></A>Consider an example system, <CODE CLASS="Code">
+demo</CODE>
+, defined as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853286"></A>(defsystem demo (:package &quot;USER&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853287"></A>  :members (&quot;macros&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853288"></A>            &quot;demo-utils&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852655"></A>            &quot;demo-functions&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853302"></A>  :rules ((:in-order-to :compile (&quot;demo-utils&quot; &quot;demo-functions&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853303"></A>           (:caused-by (:compile &quot;macros&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853304"></A>           (:requires (:load &quot;macros&quot;)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-852660"></A>This system compiles and loads members in the <CODE CLASS="Code">
+USER</CODE>
+ package if the members themselves do not specify packages. The system contains three members--<CODE CLASS="Code">
+macros</CODE>
+, <CODE CLASS="Code">
+demo-utils</CODE>
+, and <CODE CLASS="Code">
+demo-functions</CODE>
+--which may themselves be either files or other systems. There is only one explicit rule in the example. If <CODE CLASS="Code">
+macros</CODE>
+ needs to be compiled (for instance, if it has been changed), then this causes <CODE CLASS="Code">
+demo-utils</CODE>
+ and <CODE CLASS="Code">
+demo-functions</CODE>
+ to be compiled as well, irrespective of whether they have themselves changed. In order for them to be compiled, macros must first be loaded. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853364"></A>Implicitly, it is always the case that if any member changes, it needs to be compiled when you compile the system. The explicit rule above means that if the changed member happens to be <CODE CLASS="Code">
+macros</CODE>
+, then <I CLASS="Italic">
+every</I>
+ member gets compiled. If the changed member is not <CODE CLASS="Code">
+macros</CODE>
+, then <CODE CLASS="Code">
+macros</CODE>
+ must at least be loaded before compiling takes place.</P>
+<P CLASS="Body-Next">
+<A NAME="pgfId-853365"></A>The next example shows a system consisting of three files:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853366"></A>(defsystem my-system  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852663"></A>  (:default-pathname &quot;&#126;/junk/&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852664"></A>   :members (&quot;a&quot; &quot;b&quot; &quot;c&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852665"></A>   :rules ((:in-order-to :compile  (&quot;c&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852667"></A>            (:requires (:load &quot;a&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-852668"></A>            (:caused-by (:compile &quot;b&quot;)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-852669"></A>What plan is produced when all three files have already been compiled, but the file <CODE CLASS="Code">
+b.lisp</CODE>
+ has since been changed? </P>
+<P CLASS="Body">
+<A NAME="pgfId-852670"></A>First, file <CODE CLASS="Code">
+a.lisp</CODE>
+ is considered. This file has already been compiled, so no instructions are added to the plan.</P>
+<P CLASS="Body">
+<A NAME="pgfId-852671"></A>Second, file <CODE CLASS="Code">
+b.lisp</CODE>
+ is considered. Since this file has changed, the instruction <EM CLASS="Variable">
+compile b</EM>
+ is added to the plan.</P>
+<P CLASS="Body">
+<A NAME="pgfId-852672"></A>Finally file <CODE CLASS="Code">
+c.lisp</CODE>
+ is considered. Although this has already been compiled, the clause </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853368"></A>(:caused-by (:compile &quot;b&quot;)) </CODE>
+<P CLASS="Body">
+<A NAME="pgfId-853367"></A>causes the instruction <EM CLASS="Variable">
+compile c</EM>
+ to be added to the plan. The compilation of <CODE CLASS="Code">
+c.lisp</CODE>
+ also requires that <CODE CLASS="Code">
+a.lisp</CODE>
+ is loaded, so the instruction <EM CLASS="Variable">
+load a</EM>
+ is added to the plan first. This gives us the following plan:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-853369"></A>Compile <CODE CLASS="Code">
+b.lisp</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-853373"></A>Load <CODE CLASS="Code">
+a.lisp</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-853374"></A>Compile <CODE CLASS="Code">
+c.lisp</CODE>
+.<A NAME="marker-854080"></A></LI>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-477.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-475.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-475.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

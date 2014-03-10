@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ A.13.1  The defdetpred form
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-204.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-202.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-202.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-168.htm">A Common Prolog</A> &gt; <A HREF="kwprolog-m-202.htm">A.13  Adding Built-in Predicates</A><BR><BR>
+</DIV><A HREF="kwprolog-m-204.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-202.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-202.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading-App">
+<A NAME="pgfId-869020"></A>A.13.1  The defdetpred form</H3>
+<P CLASS="Body">
+<A NAME="pgfId-869025"></A>The syntax of this form is</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866860"></A>(<A NAME="marker-866859"></A>defdetpred &lt;<EM CLASS="Variable">
+name</EM>
+&gt; &lt;<EM CLASS="Variable">
+num args</EM>
+&gt; &lt;<EM CLASS="Variable">
+body</EM>
+&gt;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-869037"></A>which defines a simple predicate that just runs lisp code and doesn't have to unify any variables. Arguments are referenced with: <CODE CLASS="Code">
+(special-arg </CODE>
+<EM CLASS="Variable">
+&lt;argnum&gt;</EM>
+<CODE CLASS="Code">
+)</CODE>
+. The body succeeds by default, but if a failure case arises, use:<CODE CLASS="Code">
+ (detpred-fail </CODE>
+<EM CLASS="Variable">
+&lt;name&gt;</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+&lt;num args&gt;</EM>
+<CODE CLASS="Code">
+)</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-869044"></A>For example</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866862"></A>(defdetpred my-integer 1</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869009"></A>  (unless (integerp (special-arg 0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866863"></A>  (detpred-fail my-integer 1)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-204.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-202.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-202.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

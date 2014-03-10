@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ proclaim
+</TITLE>
+
+<LINK REL="next" HREF="lw-663.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-661.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-663.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-661.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1040060"></A><A NAME="marker-1040058"></A><A NAME="19061"></A>proclaim</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1040061"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040062"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040063"></A>Established a specified declaration in the global environment.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040064"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040065"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040066"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040067"></A>proclaim <EM CLASS="Variable">
+declaration-list</EM>
+ =&gt; nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040068"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040069"></A><EM CLASS="Variable">
+declaration-list</EM>
+</P>
+<P CLASS="RDescription-C">A list of declaration forms to be put into immediate and pervasive effect.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040070"></A>Values </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040071"></A>Returns <CODE CLASS="Code">
+nil</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040072"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040076"></A>Unlike <A HREF="lw-638.htm#20275" CLASS="XRef">declare</A>, <CODE CLASS="Code">
+proclaim</CODE>
+ is a function that parses the declarations in the list (usually a quoted list), and puts their semantics and advice into global effect. This can be useful when compiling a file for speedy execution, since a proclamation such as:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1040077"></A>(proclaim '(optimize (speed 3) (space 0) (debug 0)))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1040078"></A>means the rest of the file is compiled with these optimization levels in effect. Other ways of doing this are:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1040082"></A>use the <CODE CLASS="Code">
+:optimize</CODE>
+ option in <A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A> to establish default optimization qualities for every member of the system, when compiled via <A HREF="lw-891.htm#11892" CLASS="XRef">compile-system</A>.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1040089"></A>add appropriate <A HREF="lw-638.htm#20275" CLASS="XRef">declare</A> declarations in every function in the file.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-1201904"></A>As <A HREF="lw-662.htm#19061" CLASS="XRef">proclaim</A> involves parsing a list of lists of symbols and is intended to be used a few times per file at most, its implementation is not optimized for speed - it makes little sense to use it other than at top level.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1044470"></A><B CLASS="Bold">
+Note:</B>
+ For a top-level call to <CODE CLASS="Code">
+proclaim</CODE>
+ or <CODE CLASS="Code">
+declaim</CODE>
+, optimize declarations are omitted from the compiled binary file. This deviates from the ANSI Common Lisp Standard but is useful because you are unlikely to want to change settings outside of that file. To make the global settings, you can call a function which calls <CODE CLASS="Code">
+proclaim</CODE>
+ (so it is not a top-level call).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040093"></A>See <A HREF="lw-110.htm#62271" CLASS="XRef">Compiler control</A> for a more extended description of the compiler optimize qualities.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040094"></A>Examples </H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040095"></A>(proclaim '(special *fred*))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040096"></A>(proclaim '(type single-float x y z))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040097"></A>(proclaim '(optimize (safety 0) (speed 3)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040098"></A>Notes </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040099"></A>As <CODE CLASS="Code">
+proclaim</CODE>
+ involves parsing a list of lists of symbols and is intended to be used a few times per file, its implementation is not optimized for speed -- it makes little sense to use it other than at top level.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040100"></A>Remember to quote the argument list if it is a constant list. <CODE CLASS="Code">
+(proclaim (special x))</CODE>
+ attempts to call function <CODE CLASS="Code">
+special</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040101"></A>Exercise caution if you declare or proclaim variables to be special without regard to the naming convention that surrounds their names with asterisks. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040102"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040106"></A><A HREF="lw-634.htm#28197" CLASS="XRef">compile</A><BR>
+<A HREF="lw-635.htm#53982" CLASS="XRef">compile-file</A><BR>
+<A HREF="lw-637.htm#27351" CLASS="XRef">declaim</A><BR>
+<A HREF="lw-638.htm#20275" CLASS="XRef">declare</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-663.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-661.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

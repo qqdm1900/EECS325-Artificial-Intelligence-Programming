@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.5.2.1  Examples
+</TITLE>
+
+<LINK REL="next" HREF="lw-397.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-395.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-395.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-389.htm">19.5  Symbolic SQL syntax</A> &gt; <A HREF="lw-395.htm">19.5.2  Programmatic interface</A><BR><BR>
+</DIV><A HREF="lw-397.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-395.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-395.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-886613"></A>19.5.2.1  Examples</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886614"></A>The following example function, taken from the object-oriented SQL interface layer, makes a SQL query fragment that finds the records corresponding a CLOS object (using the slots as attributes), when built into the <I CLASS="Italic">
+where</I>
+-clause of an updating form.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886615"></A>(let* ((class (class-of object))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886616"></A>          (key-slots (db-class-keyfields class)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886617"></A>   (loop</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886618"></A>     for key in key-slots</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886619"></A>     for slot-name = (slot-definition-name key)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886620"></A>     for slot-type = (db-slot-definition-type key)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886621"></A>     collect</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886622"></A>     [= (make-field-name class key)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886623"></A>        (lisp-to-sql-format</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886624"></A>           (slot-value object slot-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886625"></A>           (if (listp slot-type)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886626"></A>               (car slot-type)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886627"></A>               slot-type))]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886628"></A>     into cols</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886629"></A>     finally (apply (sql-operator 'and) cols)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886630"></A>-&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886631"></A>#&lt;SQL-RELATIONAL-EXP &quot;(EMP.EMPNO = 7369&quot;&gt;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886632"></A>Here is another example that produces a SQL <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> statement:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886633"></A>(sql-operation 'select</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886634"></A>    (sql-expression :table 'foo </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886635"></A>                    :attribute 'bar)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886636"></A>    (sql-expression :attribute 'baz)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886637"></A>  :from (list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886638"></A>          (sql-expression :table 'foo)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886639"></A>          (sql-expression :table 'quux))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886640"></A>  :where (sql-operation 'or</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886641"></A>            (sql-operation '&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886642"></A>               (sql-expression :attribute 'baz)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886643"></A>             3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886644"></A>            (sql-operation 'like</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886645"></A>               (sql-expression :table 'foo </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886646"></A>                              :attribute 'bar)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886647"></A>             &quot;SU%&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886648"></A>-&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886649"></A>#&lt;SQL-QUERY &quot;SELECT FOO.BAR,BAZ FROM FOO,QUUX</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886650"></A>  WHERE ((BAZ &gt; 3) OR (FOO.BAR LIKE 'SU%'))&quot;&gt;</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-397.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-395.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-395.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

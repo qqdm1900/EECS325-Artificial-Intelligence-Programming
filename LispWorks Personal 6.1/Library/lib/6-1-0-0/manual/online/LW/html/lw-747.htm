@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ allocation-in-gen-num
+</TITLE>
+
+<LINK REL="next" HREF="lw-748.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-746.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-748.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-746.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886875"></A><A NAME="24777"></A>allocation<A NAME="marker-1039150"></A>-in-gen-num</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886876"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886877"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886878"></A>Allocates objects from a specified generation within the scope of evaluating a number of forms in 32-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886879"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886880"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886881"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886882"></A>allocation-in-gen-num <EM CLASS="Variable">
+gen-num</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; result</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886883"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886884"></A><EM CLASS="Variable">
+gen-num</EM>
+</P>
+<P CLASS="RDescription-C">An integer, which if out of range for a valid generation number is rounded either to the youngest or oldest generation. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-886885"></A>If <EM CLASS="Variable">
+gen-num</EM>
+ is negative, the specified generation is: the highest generation number + 1 - <EM CLASS="Variable">
+gen-num</EM>
+, so that an argument of -1 specifies the highest generation number.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886886"></A><EM CLASS="Variable">
+body</P>
+<P CLASS="RDescription-C"></EM>
+The forms to be evaluated while the allocation generation has been temporarily set to <EM CLASS="Variable">
+gen-num</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886887"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886888"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The result of evaluating body.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886889"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886890"></A>Allocates objects from a specified generation during the extent of the evaluation of the body forms.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1086138"></A>Normally objects are allocated from the first (youngest) generation, which assumes that they are short-lived. The storage allocator and garbage collector perform better if allocation of large numbers of non-ephemeral objects is done explicitly into a generation other than the youngest.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1086524"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1661384"></A><CODE CLASS="Code">
+allocation-in-gen-num</CODE>
+ is implemented only in 32-bit LispWorks. In 64-bit implementations, use <A HREF="lw-1331.htm#68519" CLASS="XRef">apply-with-allocation-in-gen-num</A> or the <CODE CLASS="Code">
+:allocation</CODE>
+ argument to <A HREF="lw-653.htm#34584" CLASS="XRef">make-array</A> instead.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886891"></A>Examples</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886892"></A>(allocation-in-gen-num</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886893"></A>     1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886894"></A>   (setq tab (make-hash-table :size 1200</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886895"></A>                              :test 'eq)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886896"></A>         arr (make-array 20)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886899"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886903"></A><A HREF="lw-1331.htm#68519" CLASS="XRef">apply-with-allocation-in-gen-num</A><BR>
+<A HREF="lw-653.htm#34584" CLASS="XRef">make-array</A><BR>
+<A HREF="lw-832.htm#78764" CLASS="XRef">set-default-generation</A><BR>
+<A HREF="lw-799.htm#32111" CLASS="XRef">get-default-generation</A><BR>
+<A HREF="lw-847.htm#54108" CLASS="XRef">*symbol-alloc-gen-num*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-748.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-746.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

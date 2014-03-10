@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-default-segment-size
+</TITLE>
+
+<LINK REL="next" HREF="lw-1425.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1423.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1425.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1423.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1171536"></A><A NAME="88236"></A>set<A NAME="marker-1171678"></A>-default-segment-size</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1171537"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171538"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1171539"></A>Sets the default initial size of a segment in 64-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171540"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1171541"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171542"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1182004"></A>set-default-segment-size <EM CLASS="Variable">
+gen-num</EM>
+ <EM CLASS="Variable">
+allocation-type</EM>
+ <EM CLASS="Variable">
+size-in-mb</EM>
+ =&gt; <EM CLASS="Variable">
+segment-size</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171544"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1182172"></A><EM CLASS="Variable">
+gen-num</EM>
+</P>
+<P CLASS="RDescription-C">An integer between 0 and 3, inclusive.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1182102"></A><EM CLASS="Variable">
+allocation-type</EM>
+</P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+:cons</CODE>
+, <CODE CLASS="Code">
+:symbol</CODE>
+, <CODE CLASS="Code">
+:function</CODE>
+, <CODE CLASS="Code">
+:non-pointer</CODE>
+, <CODE CLASS="Code">
+:other</CODE>
+, <CODE CLASS="Code">
+:mixed</CODE>
+, <CODE CLASS="Code">
+:cons-static</CODE>
+, <CODE CLASS="Code">
+:non-pointer-static</CODE>
+, <CODE CLASS="Code">
+:mixed-static</CODE>
+, <CODE CLASS="Code">
+:weak</CODE>
+, <CODE CLASS="Code">
+:other-big</CODE>
+, and <CODE CLASS="Code">
+:non-pointer-big</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1182049"></A><EM CLASS="Variable">
+size-in-mb</P>
+<P CLASS="RDescription-C"></EM>
+A number, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171546"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1171547"></A><EM CLASS="Variable">
+segment-size</P>
+<P CLASS="RDescription-C"></EM>
+A number.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171548"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1181642"></A>The function <CODE CLASS="Code">
+set-default-segment-size</CODE>
+ sets the default initial size of a segment for a specific generation and allocation type.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1182078"></A>The default initial size is also used as the default size for enlargement of the segment.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1181643"></A><EM CLASS="Variable">
+allocation-type</EM>
+ can be any of the allocation types. However, if <EM CLASS="Variable">
+allocation-type</EM>
+ is <CODE CLASS="Code">
+:other-big</CODE>
+ or <CODE CLASS="Code">
+:non-pointer-big</CODE>
+, this function has no effect.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1182423"></A>If <EM CLASS="Variable">
+size-in-mb</EM>
+ is a number, it specifies the size in megabytes. If <EM CLASS="Variable">
+size-in-mb</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then <CODE CLASS="Code">
+set-default-segment-size</CODE>
+ returns the default initial segment size without altering it.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1182798"></A>The returned value, <EM CLASS="Variable">
+segment-size</EM>
+, is the previous default initial segment size.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1182799"></A>During automatic garbage collections (GCs) the system collects an ephemeral generation when any of its segments for the main allocation types is full. Thus the size of the segments defines the frequency of GCs in these generations.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1181824"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1656644"></A><CODE CLASS="Code">
+set-default-segment-size</CODE>
+ is implemented only in 64-bit LispWorks. It is not relevant to the Memory Management API in 32-bit implementations, where <A HREF="lw-785.htm#45760" CLASS="XRef">enlarge-generation</A> is available.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171550"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1171551"></A><A HREF="lw-753.htm#76923" CLASS="XRef">avoid-gc</A><BR>
+<A HREF="lw-785.htm#45760" CLASS="XRef">enlarge-generation</A><BR>
+<A HREF="lw-1429.htm#98595" CLASS="XRef">set-maximum-segment-size</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1425.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1423.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

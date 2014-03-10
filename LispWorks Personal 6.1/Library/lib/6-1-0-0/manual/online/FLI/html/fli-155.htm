@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-local-foreign-block
+</TITLE>
+
+<LINK REL="next" HREF="fli-156.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-154.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-154.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1539625"></A><A NAME="87179"></A>with<A NAME="marker-1539623"></A>-local-foreign-<A NAME="marker-1539624"></A>block</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1539626"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1539627"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1539628"></A>Allocates a foreign block, executes code and frees the block, in LispWorks for Macintosh.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1555076"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1555077"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1539629"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1539630"></A>with-local-foreign-block (<EM CLASS="Variable">
+foreign-block-var</EM>
+ <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+function</EM>
+ &amp;rest <EM CLASS="Variable">
+extra-args</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+results</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1539631"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1539632"></A><EM CLASS="Variable">
+foreign-block-var</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1539633"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming a foreign block type defined using <A HREF="fli-88.htm#46744" CLASS="XRef">define-foreign-block-callable-type</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1539637"></A><EM CLASS="Variable">
+extra-args</EM>
+</P>
+<P CLASS="RDescription-C">Arguments.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1539638"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1539639"></A><EM CLASS="Variable">
+results</EM>
+</P>
+<P CLASS="RDescription-C">The results of <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1539640"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1539641"></A>The macro <CODE CLASS="Code">
+with-local-foreign-block</CODE>
+ allocates a foreign block using <EM CLASS="Variable">
+type</EM>
+, <EM CLASS="Variable">
+function</EM>
+ and <EM CLASS="Variable">
+extra-args</EM>
+ in the same way as <A HREF="fli-74.htm#62201" CLASS="XRef">allocate-foreign-block</A>, but with dynamic extent. It then binds <EM CLASS="Variable">
+foreign-block-var</EM>
+ to the foreign block and executes the code of <EM CLASS="Variable">
+body</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1539645"></A><CODE CLASS="Code">
+with-local-foreign-block</CODE>
+ can be used only if the code in <EM CLASS="Variable">
+body</EM>
+ can be guaranteed not to invoke the block or a copy of it either outside the scope of <CODE CLASS="Code">
+with-local-foreign-block</CODE>
+ or in another thread. Unless you can be sure of that, you need to use <A HREF="fli-151.htm#87714" CLASS="XRef">with-foreign-block</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1539649"></A><CODE CLASS="Code">
+with-local-foreign-block</CODE>
+ returns the results of <EM CLASS="Variable">
+body</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1539652"></A><CODE CLASS="Code">
+with-local-foreign-block</CODE>
+ can be a little faster than <A HREF="fli-151.htm#87714" CLASS="XRef">with-foreign-block</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1539654"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1539655"></A><CODE CLASS="Code">
+with-local-foreign-block</CODE>
+ is implemented in LispWorks for Macintosh only.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1539656"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1539660"></A><A HREF="fli-74.htm#62201" CLASS="XRef">allocate-foreign-block</A><BR>
+<A HREF="fli-118.htm#45957" CLASS="XRef">free-foreign-block</A><BR>
+<A HREF="fli-151.htm#87714" CLASS="XRef">with-foreign-block</A><BR>
+<A HREF="fli-64.htm#29000" CLASS="XRef">Block objects in C (foreign blocks)</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-154.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

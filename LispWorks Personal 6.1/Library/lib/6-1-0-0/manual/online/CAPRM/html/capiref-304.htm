@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ print-collection-item
+</TITLE>
+
+<LINK REL="next" HREF="capiref-305.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-303.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-305.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-303.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-904811"></A><A NAME="48783"></A>print<A NAME="marker-4196718"></A>-collection-item</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-904910"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904815"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1145658"></A>Prints an item as a string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4196377"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4196378"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1145629"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-904817"></A>print-collection-item <EM CLASS="Variable">
+item</EM>
+ <EM CLASS="Variable">
+collection</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5538633"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5538677"></A><EM CLASS="Variable">
+item</EM>
+</P>
+<P CLASS="RDescription-C">An <A HREF="capiref-205.htm#18686" CLASS="XRef">item</A> or an Lisp object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5538746"></A><EM CLASS="Variable">
+collection</EM>
+</P>
+<P CLASS="RDescription-C">A <A HREF="capiref-45.htm#36673" CLASS="XRef">collection</A> or any Lisp object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904819"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-904821"></A>The generic function <CODE CLASS="Code">
+print-collection-item</CODE>
+ prints <EM CLASS="Variable">
+item</EM>
+ as a string. It is used when <EM CLASS="Variable">
+item</EM>
+ is known to be an item in <EM CLASS="Variable">
+collection</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5541040"></A>An <A HREF="capiref-205.htm#18686" CLASS="XRef">item</A> in a collection prints using the first of these which returns non-nil: the item's <EM CLASS="Variable">
+text</EM>
+, the item's <EM CLASS="Variable">
+print-function</EM>
+, the collection's <EM CLASS="Variable">
+print-function </EM>
+or the item's <EM CLASS="Variable">
+data</EM>
+. An <A HREF="capiref-205.htm#18686" CLASS="XRef">item</A> not known to be in the collection is printed simply using <CODE CLASS="Code">
+print-object</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5541248"></A>The method on <CODE CLASS="Code">
+(t collection)</CODE>
+ uses the collection's <EM CLASS="Variable">
+print-function</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904823"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-904825"></A>(setq collection (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904827"></A>                  'capi:collection</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904828"></A>                  :items '(1 2 3 4 5)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904829"></A>                  :print-function #'(lambda (x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904830"></A>                                      (format nil</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904831"></A>                                       &quot;&lt;&#126;A:&gt;&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-904832"></A>                                       x))))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-904836"></A>(capi:print-collection-item 2 collection)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-5541696"></A>In this example we provide our own <CODE CLASS="Code">
+print-collection-item</CODE>
+ method:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-5541698"></A>(defclass my-tree-view (capi:tree-view) ())</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5541699"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5541700"></A>(defmethod capi:print-collection-item ((item capi:item)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5541701"></A>                                       (tree my-tree-view))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5541702"></A>  (string-capitalize (svref (capi:item-data item) 0)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5541703"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5544441"></A>(capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5544442"></A> (make-instance 'my-tree-view</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5544443"></A>                :roots </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5544444"></A>                (list (make-instance 'capi:item</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5544445"></A>                                     :data </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-5541609"></A>                                     (vector &quot;foo&quot;)))))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904840"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-904842"></A><A HREF="capiref-151.htm#35080" CLASS="XRef">get-collection-item</A><BR>
+<A HREF="capiref-45.htm#36673" CLASS="XRef">collection</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-305.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-303.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

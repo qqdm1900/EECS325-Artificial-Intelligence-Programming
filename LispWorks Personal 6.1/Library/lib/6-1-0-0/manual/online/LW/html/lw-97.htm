@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.9.6  Example: my-defmethod
+</TITLE>
+
+<LINK REL="next" HREF="lw-98.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-96.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-91.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-68.htm">7 Dspecs: Tools for Handling Definitions</A> &gt; <A HREF="lw-91.htm">7.9  Users of location information</A><BR><BR>
+</DIV><A HREF="lw-98.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-96.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-91.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-906886"></A>7.9.6  Example: my-defmethod</H3>
+<P CLASS="Body">
+<A NAME="pgfId-906950"></A>Suppose you have a method definer <CODE CLASS="Code">
+my-defmethod</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-906892"></A>(defmacro my-defmethod ((name &amp;key doc)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-906893"></A>                         lambda-list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-906894"></A>                         &amp;body body)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-906895"></A>  `(defmethod ,name ,lambda-list ,@body))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-906897"></A>Unlike function dspecs, method dspecs need to include the specialized argument types as well as the function name, so the alias and the parser both need to be more complex. </P>
+<P CLASS="Body">
+<A NAME="pgfId-906964"></A>This causes the dspec to include the argument types:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-906967"></A>(dspec:define-dspec-alias my-defmethod (name &amp;rest options)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-906968"></A>  `(defmethod ,name ,@options))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-906965"></A>The dspec parser for method lambda lists is complicated, but you can invoke the <CODE CLASS="Code">
+defmethod</CODE>
+ parser in your <CODE CLASS="Code">
+my-defmethod</CODE>
+ parser, like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-906981"></A>(dspec:define-form-parser my-defmethod (name-stuff lambda-list)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-906982"></A>  `(,my-defmethod ,@(cdr (dspec:parse-form-dspec</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-906983"></A>                          `(defmethod ,(car name-stuff)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-906890"></A>                                      ,lambda-list)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-906997"></A>Now this definition can be located:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-907014"></A>(my-defmethod (bar :doc &quot;bar documentation&quot;) (x y)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-906998"></A>  (foo x y))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-907026"></A>just as if it were:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-907030"></A>(defmethod bar (x y)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-907024"></A>  (foo x y))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-98.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-96.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-91.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

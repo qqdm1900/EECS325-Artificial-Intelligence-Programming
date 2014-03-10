@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.4.1  LispWorks as a Cocoa application
+</TITLE>
+
+<LINK REL="next" HREF="objc-79.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-77.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-77.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-73.htm">3 The Cocoa Interface</A> &gt; <A HREF="objc-77.htm">3.4  How to run Cocoa on its own</A><BR><BR>
+</DIV><A HREF="objc-79.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-77.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-77.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-893847"></A>3.4.1  LispWorks as a Cocoa application</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893557"></A>The following startup function can be used to make LispWorks run as a Cocoa application.  Typically, before calling <CODE CLASS="Code">
+&quot;run&quot;</CODE>
+ you would create an application delegate with a method on <CODE CLASS="Code">
+applicationDidFinishLaunching:</CODE>
+ to initialize the application's windows.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893667"></A>(defun init-function ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893668"></A>  (mp:initialize-multiprocessing</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893669"></A>   &quot;main thread&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893670"></A>   '()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893671"></A>   #'(lambda ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893672"></A>       (objc:ensure-objc-initialized</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893673"></A>        :modules</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893674"></A>        '(&quot;/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893675"></A>          &quot;/System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893676"></A>       (objc:with-autorelease-pool ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893677"></A>         (let ((app (objc:invoke &quot;NSApplication&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893678"></A>                                 &quot;sharedApplication&quot;)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893573"></A>           (objc:invoke app &quot;run&quot;))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-893575"></A>To use this, a bundle must be created, calling <CODE CLASS="Code">
+init-function</CODE>
+ on startup.  For example, the following build script will create lw-cocoa-app.app</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893689"></A>(in-package &quot;CL-USER&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893690"></A>(load-all-patches)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893691"></A>(example-compile-file</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893692"></A> &quot;configuration/macos-application-bundle.lisp&quot; :load t)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893693"></A>(save-image (when (save-argument-real-p)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893694"></A>              (write-macos-application-bundle &quot;lw-cocoa-app&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893553"></A>            :restart-function 'init-function)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-893711"></A>See &quot;Saving a LispWorks image&quot; in the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ for information on using a build script to create a new LispWorks image.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-79.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-77.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-77.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11.3.2  A dialog which is window-modal on Cocoa
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-157.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-155.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-154.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-144.htm">11 Prompting for Input</A> &gt <A HREF="capiuser-m-154.htm">11.3  Window-modal Cocoa dialogs</A><BR><BR>
+</DIV><A HREF="capiuser-m-157.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-155.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-154.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-902727"></A>11.3.2  A dialog which is window-modal on Cocoa</H3>
+<P CLASS="Body">
+<A NAME="pgfId-902838"></A>To create a dialog which is window-modal on Cocoa, call the dialog function inside the macro <A NAME="marker-902844"></A><CODE CLASS="Code">
+with-dialog-results</CODE>
+ as in this example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-902839"></A><CODE CLASS="Code">(with-dialog-results (symbol okp)</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-902794"></A><CODE CLASS="Code">    (prompt-for-symbol</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-902795"></A><CODE CLASS="Code">     &quot;Enter a class-name symbol:&quot;</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-902796"></A><CODE CLASS="Code">     :ok-check #'(lambda (symbol)</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-902797"></A><CODE CLASS="Code">                   (find-class symbol nil)))</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-902798"></A><CODE CLASS="Code">  (when okp</CODE>
+</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-902799"></A><CODE CLASS="Code">    (display-message &quot;symbol is &#126;S&quot; symbol))</CODE>
+)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-902729"></A>On Microsoft Windows, GTK+ and Motif this displays the dialog, calls <CODE CLASS="Code">
+display-message</CODE>
+ when the user clicks <B CLASS="Button">
+OK</B>
+, and then returns. The effect is no different to what you saw in <A HREF="capiuser-m-153.htm#82800" CLASS="XRef">Prompting for Lisp objects</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902805"></A>On Cocoa, this creates a sheet and returns. <CODE CLASS="Code">
+display-message</CODE>
+ is called when the user clicks <B CLASS="Button">
+OK</B>
+. The sheet is window-modal, unlike the sheet you saw in <A HREF="capiuser-m-153.htm#82800" CLASS="XRef">Prompting for Lisp objects</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902742"></A>For more details, see the page for <CODE CLASS="Code">
+with-dialog-results</CODE>
+ in the <I CLASS="Italic">
+LispWorks CAPI Reference Manual</I>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-157.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-155.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-154.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

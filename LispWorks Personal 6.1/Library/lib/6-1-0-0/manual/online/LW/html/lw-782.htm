@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ do-profiling
+</TITLE>
+
+<LINK REL="next" HREF="lw-783.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-781.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-783.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-781.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1492500"></A><A NAME="75088"></A>do<A NAME="marker-1492498"></A>-profiling</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1492501"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1492502"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1492503"></A>A convenience function for profiling multiple threads, combining <A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A> and <A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1492504"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1492505"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1492506"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1492507"></A>do-profiling &amp;key <EM CLASS="Variable">
+initialize</EM>
+ <EM CLASS="Variable">
+processes</EM>
+ <EM CLASS="Variable">
+profile-waiting</EM>
+ <EM CLASS="Variable">
+ignore-in-foreign</EM>
+ <EM CLASS="Variable">
+sleep</EM>
+ <EM CLASS="Variable">
+function</EM>
+ <EM CLASS="Variable">
+arguments</EM>
+ <EM CLASS="Variable">
+func-and-args</EM>
+ <EM CLASS="Variable">
+print</EM>
+ <EM CLASS="Variable">
+stream</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1492508"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1493162"></A><EM CLASS="Variable">
+initialize</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1493163"></A><EM CLASS="Variable">
+processes</EM>
+</P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+:current</CODE>
+, <CODE CLASS="Code">
+:all</CODE>
+, a <CODE CLASS="Code">
+mp:process</CODE>
+ or a list of <CODE CLASS="Code">
+mp:process</CODE>
+ objects.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1493736"></A><EM CLASS="Variable">
+profile-waiting</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1493769"></A><EM CLASS="Variable">
+ignore-in-foreign</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1499420"></A><EM CLASS="Variable">
+sleep</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative number, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1499421"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1499422"></A><EM CLASS="Variable">
+arguments</EM>
+</P>
+<P CLASS="RDescription-C">Arguments passed to <EM CLASS="Variable">
+function</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1513491"></A><EM CLASS="Variable">
+func-and-args</EM>
+</P>
+<P CLASS="RDescription-C">A function designator or a list <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+function-designator</EM>
+<CODE CLASS="Code">
+ . </CODE>
+<EM CLASS="Variable">
+args</EM>
+<CODE CLASS="Code">
+)</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1513520"></A><EM CLASS="Variable">
+print</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1513521"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">An output stream.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1492512"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1500549"></A>The function <CODE CLASS="Code">
+do-profiling</CODE>
+ is a convenience function for profiling multiple threads, combining <A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A> and <A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1500550"></A>The behavior of <CODE CLASS="Code">
+do-profiling</CODE>
+ with no arguments is the same as:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1500551"></A>(progn</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1500552"></A>  (start-profiling :processes :all)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1500553"></A>  (sleep 6)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1500554"></A>  (stop-profiling))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1500555"></A>The arguments <EM CLASS="Variable">
+initialize</EM>
+, <EM CLASS="Variable">
+processes</EM>
+, <EM CLASS="Variable">
+profile-waiting</EM>
+ and <EM CLASS="Variable">
+ignore-in-foreign</EM>
+ are passed to <A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A>. They have the same default values as for <A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A>, except <EM CLASS="Variable">
+processes</EM>
+ which defaults to <CODE CLASS="Code">
+:all</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1500556"></A>The arguments <EM CLASS="Variable">
+print</EM>
+ and <EM CLASS="Variable">
+stream</EM>
+ are passed to <A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A>. They have the same default values as in <A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1500557"></A><EM CLASS="Variable">
+sleep</EM>
+ is the time to sleep in seconds. If <EM CLASS="Variable">
+sleep</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ or 0 <CODE CLASS="Code">
+do-profiling</CODE>
+ does not sleep. Also, if <EM CLASS="Variable">
+sleep</EM>
+ is supplied and either <EM CLASS="Variable">
+function</EM>
+ or <EM CLASS="Variable">
+func-and-args</EM>
+ are passed, it does not sleep.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1500558"></A><EM CLASS="Variable">
+func-and-args</EM>
+, and <EM CLASS="Variable">
+function</EM>
+ together with <EM CLASS="Variable">
+arguments</EM>
+, can both be used for calling a function you supply. <EM CLASS="Variable">
+func-and-args</EM>
+ is either a list of the form <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+function-designator</EM>
+<CODE CLASS="Code">
+ . </CODE>
+<EM CLASS="Variable">
+args</EM>
+<CODE CLASS="Code">
+)</CODE>
+, in which case  <EM CLASS="Variable">
+function-designator</EM>
+ is applied to the <EM CLASS="Variable">
+args</EM>
+, or it is a function designator which is called without arguments. <EM CLASS="Variable">
+function</EM>
+ is applied to <EM CLASS="Variable">
+arguments</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1500559"></A>The order of execution is first <EM CLASS="Variable">
+func-and-args</EM>
+ (if this is non-nil), then <EM CLASS="Variable">
+function</EM>
+ togeth with <EM CLASS="Variable">
+arguments</EM>
+ if <EM CLASS="Variable">
+function</EM>
+ is non-nil, and then sleep if <EM CLASS="Variable">
+sleep</EM>
+ was passed explicitly or both <EM CLASS="Variable">
+function</EM>
+ and <EM CLASS="Variable">
+func-and-args</EM>
+ are <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1492516"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1507288"></A>To profile whatever happens in the next 6 seconds:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1507289"></A>(hcl:do-profiling)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1507290"></A>To profile whatever happens in the next 10 minutes:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1507291"></A>(hcl:do-profiling :sleep 600)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1507292"></A>To run 4 processes in parallel with the same function and profile until they all die:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1507293"></A>(defun check-all-processes-died (processes)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507294"></A>  (dolist (p processes t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507295"></A>    (when (mp:process-alive-p p)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507296"></A>      (return nil))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507297"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507298"></A>(let ((processes </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507299"></A>	(loop for x below 4</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507300"></A>              collect</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507301"></A>              (mp:process-run-function</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507302"></A>               (format nil &quot;my process &#126;a&quot; x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507303"></A>               () 'my-function))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507304"></A>   (hcl:do-profiling</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507305"></A>    :func-and-args</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507306"></A>	(list 'mp:process-wait</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507307"></A>              &quot;Waiting for processes to finish&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1507308"></A>              'check-all-process-died</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1507309"></A>              processes)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1492518"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1492519"></A><A HREF="lw-843.htm#80652" CLASS="XRef">start-profiling</A><BR>
+<A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-783.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-781.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

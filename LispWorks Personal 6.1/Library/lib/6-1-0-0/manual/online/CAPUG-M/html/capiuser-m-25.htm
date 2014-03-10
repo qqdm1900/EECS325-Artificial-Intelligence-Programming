@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.2.2.2  Titles for elements
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-26.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-24.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-23.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-13.htm">3 Creating Common Windows</A> &gt <A HREF="capiuser-m-21.htm">3.2  Specifying titles</A> &gt <A HREF="capiuser-m-23.htm">3.2.2  Specifying titles directly</A><BR><BR>
+</DIV><A HREF="capiuser-m-26.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-24.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-23.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-903162"></A>3.2.2.2  <A NAME="marker-903291"></A>Titles for elements</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884211"></A>The position of any title can be specified by using the <CODE CLASS="Code">
+:title-position</CODE>
+ keyword. Most panes<A NAME="marker-885465"></A> default their <EM CLASS="Variable">
+title-position</EM>
+ to <CODE CLASS="Code">
+:top</CODE>
+, although some use <CODE CLASS="Code">
+:left</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-904430"></A><A NAME="marker-904442"></A>You can place the title in a frame (like a groupbox) around its element by specifying <CODE CLASS="Code">
+:title-position :frame</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887458"></A>You may specify the font used in the title via the keyword <A NAME="marker-887461"></A><CODE CLASS="Code">
+:title-font.</CODE>
+</P>
+<P CLASS="Body-Next">
+<A NAME="pgfId-884215"></A>The title of a <CODE CLASS="Code">
+titled-object</CODE>
+, and its font, may be <A NAME="marker-884212"></A><A NAME="marker-884213"></A>changed interactively with the use of <CODE CLASS="Code">
+setf</CODE>
+<A NAME="marker-884214"></A>, if you wish.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-884216"></A>Create a push button by evaluating the code below:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-884218"></A>(setq button (make-instance 'push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884219"></A>                           :text &quot;Hello&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884220"></A>                           :title &quot;Press: &quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884222"></A>                           :<A NAME="marker-884221"></A>title-position :left</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884223"></A>                           :callback 'hello))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884225"></A>(contain button)</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-884226"></A>Now evaluate the following:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-890328"></A>(apply-in-pane-process</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884228"></A> button #'(setf titled-object-title) &quot;Press here: &quot; button)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887438"></A>As soon as the form is evaluated, the title of the pane you just created changes. </P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-887439"></A>Lastly evaluate the following:</LI>
+</OL>
+<PRE CLASS="Code-first"><A NAME="pgfId-890348"></A>(apply-in-pane-process</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890349"></A> button #'(setf titled-object-title-font)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890350"></A> (gp:merge-font-descriptions </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890351"></A>  (gp:make-font-description :size 42) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890352"></A>  (gp:convert-to-font-description </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890353"></A>   button </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887449"></A>   (titled-object-title-font button))) button)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887502"></A>Notice how the window automatically resizes in steps 2 and 3, to make allowance for the new size of the title.<A NAME="marker-903245"></A></P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-26.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-24.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-23.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

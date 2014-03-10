@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.2  The client's perspective
+</TITLE>
+
+<LINK REL="next" HREF="corba-43.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-41.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-40.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-40.htm">5 The Bank Client</A><BR><BR>
+</DIV><A HREF="corba-43.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-41.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853212"></A>5.2  The client's perspective</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853213"></A>From the client's perspective, the IDL definition of a bank's interface fully determines its functionality. This means that we need only rely on the information in the IDL to interact with a <CODE CLASS="Code">
+bank</CODE>
+ object. In particular, knowing the IDL description, we can implement the client before an implementation of a <CODE CLASS="Code">
+bank</CODE>
+ object is available. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853214"></A>The bank fasl file, produced by the IDL compiler</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853511"></A>Specifies the protocol for interacting with CORBA objects that satisfy the interfaces in the IDL file, <CODE CLASS="Code">
+bank.idl</CODE>
+, and </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853512"></A>Provides the client-side implementation of this protocol</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-853513"></A>This fasl should be used by any application that wants to act as a client with respect to some CORBA object matching an interface in the <CODE CLASS="Code">
+bank.idl</CODE>
+ file. The bank fasl file defines classes <CODE CLASS="Code">
+BankingDemo:account</CODE>
+, <CODE CLASS="Code">
+BankingDemo:checkingAccount</CODE>
+, and <CODE CLASS="Code">
+BankingDemo:bank</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853519"></A>The class <CODE CLASS="Code">
+BankingDemo:checkingAccount</CODE>
+ is defined to inherit from <CODE CLASS="Code">
+BankingDemo:account</CODE>
+, matching the inheritance relationship in the IDL. Instances of these classes act as proxies for CORBA objects on the server. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853217"></A>The bank fasl also defines a <I CLASS="Italic">
+stub</I>
+ method, specialized on the appropriate proxy class, for each protocol function stemming from an IDL attribute or operation. When the client applies the generic function to a particular target proxy, the stub method communicates with the ORB to invoke the corresponding operation on the actual target object in the server. If the request succeeds, the stub method returns the result to the client. If the request fails, raising a CORBA user or system exception, the stub method raises the corresponding Common Lisp condition of the appropriate class. This condition can then be handled by the client code using standard Common Lisp constructs. </P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-43.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-41.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 22.1  Introduction
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-413.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-411.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-411.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-411.htm">22 The Profiler</A><BR><BR>
+</DIV><A HREF="ide-m-413.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-411.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-411.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853903"></A>22.1  Introduction</H3>
+<P CLASS="Body">
+<A NAME="pgfId-852604"></A><A NAME="marker-853840"></A>The <A NAME="marker-853717"></A>Profiler provides a way of monitoring Lisp functions during the execution of your code. It is likely that you can make your code more efficient using the data that the Profiler displays.</P>
+<P CLASS="Body">
+<A NAME="pgfId-859698"></A>The Profiler helps you to identify functions which are called frequently or are particularly slow. You should concentrate your optimization efforts on these routines.</P>
+<P CLASS="Body">
+<A NAME="pgfId-867399"></A>The Profiler gives you an easy way of choosing which functions you wish to profile, which code you want to run while profiling, and provides you with a straightforward display of the results of each profile.</P>
+<P CLASS="Body">
+<A NAME="pgfId-852891"></A>To create a Profiler, choose <B CLASS="Button">
+Window &gt; Tools &gt; Profiler</B>
+<A NAME="marker-893720"></A> or click <IMG SRC="ide-m-289.gif" ALIGN="ABSBOTTOM">
+ in the LispWorks toolbar.</P>
+<P CLASS="Body">
+<A NAME="pgfId-867010"></A>In the next two sections we assume you are profiling a call to the function <CODE CLASS="Code">
+foo</CODE>
+ defined as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-867011"></A><CODE CLASS="Code">(in-package &quot;CL-USER&quot;)</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867016"></A><CODE CLASS="Code"></CODE>
+&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867017"></A><CODE CLASS="Code">(defun baz (l)</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867018"></A><CODE CLASS="Code">  (dotimes (i l)))</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867019"></A><CODE CLASS="Code"></CODE>
+&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867020"></A><CODE CLASS="Code">(defun quux (l)</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867021"></A><CODE CLASS="Code">  (dotimes (i l)))</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867022"></A><CODE CLASS="Code"></CODE>
+&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867023"></A><CODE CLASS="Code">(defun bar (n l)</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867024"></A><CODE CLASS="Code">  (dotimes (i n)</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867025"></A><CODE CLASS="Code">    (baz l))</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867026"></A><CODE CLASS="Code">  (dotimes (i n)</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867027"></A><CODE CLASS="Code">    (quux (floor l 2))))</CODE>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867028"></A><CODE CLASS="Code"></CODE>
+&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-867029"></A><CODE CLASS="Code">(defun foo (n l)</CODE>
+</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-867030"></A><CODE CLASS="Code">  (bar n l))</CODE>
+</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-867633"></A>Figure 22.1  <A NAME="45468"></A>The Profiler<DIV>
+<IMG SRC="ide-m-291.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="ide-m-290.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-867645"></A><A NAME="marker-867644"></A>The Profiler has five areas:</P>
+<P CLASS="Body">
+<A NAME="pgfId-868947"></A>The <B CLASS="Button">
+Code To Profile</B>
+ panel lets you set up and profile any amount of Lisp source code.</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-859757"></A>Use the large text box to enter the Lisp source code that you wish to profile. This text area is actually an editor window, similar to those described in <A HREF="ide-m-253.htm#66186" CLASS="XRef">Basic Editor commands</A>.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-859761"></A>The <B CLASS="Button">
+Symbols...</B>
+ and <B CLASS="Button">
+Packages...</B>
+ buttons let you choose which symbols and packages you want to profile.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-859762"></A>The <B CLASS="Button">
+Profile</B>
+ button runs and profiles the source code you entered.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-859763"></A>The <B CLASS="Button">
+Results</B>
+ area is used to display the results of a profile, described in detail in <A HREF="ide-m-413.htm#71747" CLASS="XRef">Display of Profiler Data</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-867260"></A>The Description area optionally shows a description of a function in the profile data. You can show the description by clicking on the <B CLASS="Button">
+Description &gt;&gt;</B>
+ button. The name, function object, lambda list, documentation string and source files of the selected function are displayed. The context menu in the description area allows further operations. Hide the description area if you wish by clicking on the <B CLASS="Button">
+Description &lt;&lt; </B>
+button.</P>
+<P CLASS="Body">
+<A NAME="pgfId-868948"></A>The Echo area allows interaction with editor commands, as in other tools.</P>
+<P CLASS="Body">
+<A NAME="pgfId-867248"></A>The bottom pane of the Profiler displays a summary of the last profile performed.<A NAME="marker-875982"></A></P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-413.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-411.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-411.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

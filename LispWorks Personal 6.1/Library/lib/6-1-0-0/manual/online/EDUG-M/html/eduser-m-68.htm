@@ -1,0 +1,541 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.21.1  Searching
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-69.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-67.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-67.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A> &gt <A HREF="eduser-m-67.htm">3.21  Searching and replacing</A><BR><BR>
+</DIV><A HREF="eduser-m-69.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-67.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-67.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-885181"></A>3.21.1  <A NAME="marker-885179"></A>Searching</H3>
+<P CLASS="Body">
+<A NAME="pgfId-1046086"></A>Most of the search commands perform straightforward searches, but there are two useful commands (<A HREF="eduser-m-68.htm#68184" CLASS="XRef">Incremental Search</A> and <A HREF="eduser-m-68.htm#88734" CLASS="XRef">Reverse Incremental Search</A>) which perform incremental searches. This means that the search is started as soon as the first character is typed.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885187"></A><A NAME="marker-885185"></A><A NAME="68184"></A>Incremental Search </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885188"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885189"></A>Arguments: <EM CLASS="Variable">
+p string<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+S </CODE>
+<EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885190"></A>Searches forward, starting from the current point, for the search string that is input, beginning the search as soon as each character is typed in. When a match is found for the search string, the current point is moved to the end of the matched string. If the search string is not found between the current point and the end of the buffer, an error is signalled.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1046522"></A>The search result is highlighted. You can change the style of the highlighting in the LispWorks IDE by <B CLASS="Button">
+Preferences... &gt; Environment &gt; Styles &gt; Colors and Attributes &gt; Search Match</B>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1046245"></A><A NAME="marker-1046314"></A>With a prefix argument <EM CLASS="Variable">
+p</EM>
+ the matches are displayed at a fixed line position, <EM CLASS="Variable">
+p</EM>
+ lines below the top of the window. Otherwise, the position of the matched string within the window is influenced by the editor variable <A HREF="eduser-m-68.htm#66177" CLASS="XRef">incremental-search-minimum-visible-lines</A>.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1046338"></A>For example, to display successive definitions one line from the top of the text view of the Editor window, enter:</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1046329"></A><CODE CLASS="Code">
+Ctrl+U 2 Ctrl+S ( d e f Ctrl+S Ctrl+S</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885191"></A>All incremental searches can be controlled by entering one of the following key sequences at any time during the search.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885192"></A><CODE CLASS="Code">
+Ctrl+S</P>
+<P CLASS="RDescription-C"></CODE>
+If the search string is empty, repeats the last incremental search, otherwise repeats a forward search for the current search string.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-885193"></A>If the search string cannot be found, starts the search from the beginning of the buffer (wrap-around search).</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885194"></A><CODE CLASS="Code">
+Ctrl+R</CODE>
+</P>
+<P CLASS="RDescription-C">Changes to a backward (reverse) search.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885195"></A><CODE CLASS="Code">
+Delete</CODE>
+</P>
+<P CLASS="RDescription-C">Cancels the last character typed.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885199"></A><CODE CLASS="Code">
+Ctrl+Q</CODE>
+</P>
+<P CLASS="RDescription-C">Quotes the next character typed.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-959016"></A><CODE CLASS="Code">
+Ctrl+W</CODE>
+</P>
+<P CLASS="RDescription-C">Adds the next word under the cursor to the search string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-959017"></A><CODE CLASS="Code">
+Meta+Ctrl+Y</CODE>
+</P>
+<P CLASS="RDescription-C">Adds the next form under the cursor to the search string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-959018"></A><CODE CLASS="Code">
+Ctrl+Y</CODE>
+</P>
+<P CLASS="RDescription-C">Adds the remainder of the line under the cursor to the search string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-959014"></A><CODE CLASS="Code">
+Meta+Y</CODE>
+</P>
+<P CLASS="RDescription-C">Adds the current kill string to the search string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1023066"></A><CODE CLASS="Code">
+Ctrl+C</CODE>
+</P>
+<P CLASS="RDescription-C">Add the editor window's selected text to the search string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-959118"></A><CODE CLASS="Code">
+Esc</CODE>
+</P>
+<P CLASS="RDescription-C">If the search string is empty, invokes a non-incremental search, otherwise exits the search, leaving the current point at the last find.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-959119"></A><CODE CLASS="Code">
+Ctrl+G</P>
+<P CLASS="RDescription-C"></CODE>
+Aborts the search, returning the current point to its original location.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-959120"></A>If the search string cannot be found, cancels the last character typed (equivalent to <CODE CLASS="Code">
+Delete</CODE>
+).</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-958980"></A><CODE CLASS="Code">
+Return</CODE>
+</P>
+<P CLASS="RDescription-C">Exits the search, leaving the current point at the last find.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1045736"></A><A NAME="marker-1045734"></A><A NAME="66177"></A>incremental-search-minimum-visible-<A NAME="marker-1046241"></A>lines</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1045737"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1045738"></A>Default value: 3</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1045888"></A>Determines the minimum of visible lines between an incremental search match and the closest window border (top or bottom). If the point is closer to the border than the value, the point is scrolled to the center of the window. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1046060"></A>Lines are counted from the start of the match, and the line where the match starts is included in the count.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1046061"></A>Note that this has no effect when doing &quot;fixed position&quot; search (with numeric prefix, for example <CODE CLASS="Code">
+Ctrl+U </CODE>
+<EM CLASS="Variable">
+digit</EM>
+<CODE CLASS="Code">
+ Ctrl+S</CODE>
+, or if the window is too short.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1046076"></A>Setting the value to 0 makes incremental searching behave as in LispWorks 6.0 and earlier versions, that is the match can be shown on the top or bottom line currently displayed in the window.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885202"></A><A NAME="marker-885200"></A><A NAME="88734"></A>Reverse Incremental Search </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885203"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885204"></A>Arguments: <EM CLASS="Variable">
+string<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+R </CODE>
+<EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885205"></A>Searches backward, starting from the current point, for the search string that is input, beginning the search as soon as each character is provided. When a match is found for the search string, the current point is moved to the start of the matched string. If the search string is not found between the current point and the beginning of the buffer, an error is signalled.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1046543"></A>You can use a fixed line position for the matches and/or modify the style used to display them, as described for <A HREF="eduser-m-68.htm#68184" CLASS="XRef">Incremental Search</A>.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1046537"></A><A NAME="marker-1046544"></A>With a prefix argument <EM CLASS="Variable">
+p</EM>
+ the matches are displayed at a fixed line position, <EM CLASS="Variable">
+p</EM>
+ lines below the top of the window. Otherwise, the position of the matched string within the window is influenced by the editor variable <A HREF="eduser-m-68.htm#66177" CLASS="XRef">incremental-search-minimum-visible-lines</A>.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885206"></A>The search can be controlled by entering one of the following key sequences at any time during the search.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885207"></A><CODE CLASS="Code">
+Ctrl+R</CODE>
+</P>
+<P CLASS="RDescription-C">If the search string is empty, repeats the last incremental search, otherwise repeats a backward search for the current search string.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-885208"></A>If the search string cannot be found, starts the search from the end of the buffer (wrap-around search).</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885209"></A><CODE CLASS="Code">
+Ctrl+S</CODE>
+</P>
+<P CLASS="RDescription-C">Changes to a forward search.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885210"></A><CODE CLASS="Code">
+Delete</CODE>
+</P>
+<P CLASS="RDescription-C">Cancels the last character typed.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885211"></A><CODE CLASS="Code">
+Esc</CODE>
+</P>
+<P CLASS="RDescription-C">If the search string is empty, invokes a non-incremental search, otherwise exits the search, leaving the current point at the last find.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885212"></A><CODE CLASS="Code">
+Ctrl+G</CODE>
+</P>
+<P CLASS="RDescription-C">Aborts the search, returning the current point to its original location.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-885213"></A>If the search string cannot be found, cancels the last character typed (equivalent to <CODE CLASS="Code">
+Delete</CODE>
+).</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885214"></A><CODE CLASS="Code">
+Ctrl+Q</CODE>
+</P>
+<P CLASS="RDescription-C">Quotes the next character typed.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885216"></A><A NAME="marker-885215"></A>Forward Search </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885217"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885218"></A>Arguments: <EM CLASS="Variable">
+string<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+S Esc </CODE>
+<EM CLASS="Variable">
+string</EM>
+</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885219"></A>editor:forward-search-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+string the-point</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885220"></A>The default for <EM CLASS="Variable">
+the-point</EM>
+ is the current point.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907696"></A>Searches forwards from <EM CLASS="Variable">
+the-point</EM>
+ for <EM CLASS="Variable">
+string</EM>
+. When a match is found, <EM CLASS="Variable">
+the-point</EM>
+ is moved to the end of the matched string. In contrast with<CODE CLASS="Code">
+ </CODE>
+<A HREF="eduser-m-68.htm#68184" CLASS="XRef">Incremental Search</A>, the search string must be terminated with a carriage return before any searching is done. If an empty string is provided, the last search is repeated.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885224"></A><A NAME="marker-885223"></A>Backward Search</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885225"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885226"></A>Arguments: <EM CLASS="Variable">
+string<BR>
+</EM>
+Key sequence: None</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885227"></A>editor:reverse-search-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+string</EM>
+ <EM CLASS="Variable">
+the-point</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907738"></A>The default for <EM CLASS="Variable">
+the-point</EM>
+ is the current point.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907741"></A>Searches backwards from <EM CLASS="Variable">
+the-point</EM>
+ for <EM CLASS="Variable">
+string</EM>
+. When a match is found, <EM CLASS="Variable">
+the-point</EM>
+ is moved to the start of the matched string. In contrast with <A HREF="eduser-m-68.htm#88734" CLASS="XRef">Reverse Incremental Search</A>, the search string must be terminated with a carriage return before any searching is done. If an empty string is provided, the last search is repeated.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-937803"></A><CODE CLASS="Code">
+Reverse Search</CODE>
+<A NAME="marker-937813"></A> is a synonym for <CODE CLASS="Code">
+Backward Search</CODE>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885232"></A><A NAME="marker-885231"></A>List Matching Lines</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885233"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885234"></A>Arguments: <EM CLASS="Variable">
+string<BR>
+</EM>
+Key sequence: None</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885235"></A>editor:list-matching-lines-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+string</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885236"></A>Lists all lines after the current point that contain <EM CLASS="Variable">
+string</EM>
+, in a Matches window.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885237"></A>A prefix argument causes the appropriate number of lines before and after each matching line to be listed also.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885239"></A><A NAME="marker-885238"></A>Delete Matching Lines</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885240"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885241"></A>Arguments: <EM CLASS="Variable">
+string<BR>
+</EM>
+Key sequence: None</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885242"></A>editor:delete-matching-lines-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+string</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885243"></A>Deletes all lines after the current point that match <EM CLASS="Variable">
+string</EM>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885245"></A><A NAME="marker-885244"></A>Delete Non-Matching Lines</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885246"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885247"></A>Arguments: <EM CLASS="Variable">
+string<BR>
+</EM>
+Key sequence: None</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885248"></A>editor:delete-non-matching-lines-command<EM CLASS="Variable">
+ p </EM>
+&amp;optional<EM CLASS="Variable">
+ string</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885249"></A>Deletes all lines after the current point that do not match <EM CLASS="Variable">
+string</EM>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885251"></A><A NAME="marker-885250"></A>Search All Buffers </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885252"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885253"></A>Arguments: <EM CLASS="Variable">
+string<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885254"></A>Searches all the buffers for <EM CLASS="Variable">
+string</EM>
+. If only one buffer contains <EM CLASS="Variable">
+string, </EM>
+it becomes the current one, with the cursor positioned at the start of the string. If more than one buffer contains the string, a popup window displays a list of those buffers. A buffer may then be selected from this list.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885256"></A><A NAME="marker-885255"></A>Directory Search </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885257"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885258"></A>Arguments: <EM CLASS="Variable">
+directory string<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885259"></A>Searches files in <EM CLASS="Variable">
+directory</EM>
+ for <EM CLASS="Variable">
+string</EM>
+. The current working directory is offered as a default for <EM CLASS="Variable">
+directory</EM>
+<I CLASS="Italic">
+.</I>
+ </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-936716"></A>By default only files with suffix <CODE CLASS="Code">
+.lisp</CODE>
+, <CODE CLASS="Code">
+.lsp</CODE>
+, <CODE CLASS="Code">
+.c</CODE>
+ or <CODE CLASS="Code">
+.h</CODE>
+ are searched. A non-nil prefix argument causes all files to be searched, except for those ending with one of the strings in the list <CODE CLASS="Code">
+system:*ignorable-file-suffices*</CODE>
+. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-936717"></A>Use the key sequence <CODE CLASS="Code">
+Meta+,</CODE>
+ to find subsequent definitions of the search string.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-979829"></A>S<A NAME="marker-979971"></A>earch <A NAME="marker-1030170"></A>Files</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-979830"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-979831"></A>Arguments: <EM CLASS="Variable">
+search-string directory<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X *</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-980015"></A>Searches for a string in a directory using a Search Files tool.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-979832"></A>The command prompts for <EM CLASS="Variable">
+search-string</EM>
+ and <EM CLASS="Variable">
+directory</EM>
+ and then raises a Search Files tool. The configuration of the Search Files tool controls which files in the directory are searched. If the search string is not empty, it starts searching automatically, unless a prefix argument is given.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-979836"></A>See the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+ for a description of the Search Files tool.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-980058"></A>S<A NAME="marker-980057"></A>earch <A NAME="marker-1030180"></A>Files Matching Patterns</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-980059"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-980060"></A>Arguments: <EM CLASS="Variable">
+search-string directory patterns<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X &amp;</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-980061"></A>Searches for a string in files under a directory with names matching given patterns, using a Search Files tool.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-980566"></A>The command prompts for <EM CLASS="Variable">
+search-string</EM>
+, <EM CLASS="Variable">
+directory</EM>
+ and <EM CLASS="Variable">
+patterns,</EM>
+ and raises a Search Files tool in Roots and Patterns mode. If the search string is not empty, it starts searching automatically, unless a prefix argument is given.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-980457"></A><EM CLASS="Variable">
+patterns</EM>
+ should be a comma-separated set of filename patterns delimited by braces. A pattern where the last component does not contain <CODE CLASS="Code">
+*</CODE>
+ is assumed to be a directory onto which the Search Files tool adds its own filename pattern. <EM CLASS="Variable">
+patterns</EM>
+ defaults to <CODE CLASS="Code">
+{*.lisp,*.lsp,*.c,*.h}</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-980066"></A>See the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+ for a description of the Search Files tool.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885261"></A><A NAME="marker-885260"></A>System Search</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885262"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885263"></A>Arguments: <EM CLASS="Variable">
+system string<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885264"></A>Searches the files of <EM CLASS="Variable">
+system</EM>
+ for <EM CLASS="Variable">
+string</EM>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-936738"></A>Matches are shown in editor buffers consecutively. Use the key sequence <CODE CLASS="Code">
+Meta+,</CODE>
+ to find subsequent definitions of the search string. </P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-979638"></A><A NAME="marker-979637"></A>Search <A NAME="marker-1030190"></A>System</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-979639"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-979640"></A>Arguments: <EM CLASS="Variable">
+search-string system<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-979641"></A>Prompts for <EM CLASS="Variable">
+search-string</EM>
+ and <EM CLASS="Variable">
+system</EM>
+ and then raises a Search Files tool in System Search mode, which displays the search results and allows you to visit the files.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-979814"></A>See the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+ for a description of the Search Files tool.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885266"></A><A NAME="marker-885265"></A>default-search-kind</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-888042"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-888043"></A>Default value: <CODE CLASS="Code">
+:string-insensitive</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-888044"></A>Defines the default method of searching. By default, all searching (including regexp searching, and replacing commands) ignores case. If you want searching to be case-sensitive, the value of this variable should be set to <CODE CLASS="Code">
+:string-sensitive</CODE>
+ using <A HREF="eduser-m-85.htm#65371" CLASS="XRef">Set Variable</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-937630"></A>It is also possible to search a set of files programatically using the <CODE CLASS="Code">
+search-files</CODE>
+ function:</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-937632"></A><A NAME="marker-1047535"></A>editor:search-files</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-924140"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-1047691"></A>editor:search-files &amp;key <EM CLASS="Variable">
+string</EM>
+ <EM CLASS="Variable">
+files</EM>
+ <EM CLASS="Variable">
+generator</EM>
+ =&gt; nil</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1048008"></A><CODE CLASS="Code">
+search-files</CODE>
+ searches all the files in a list for a given string.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1048011"></A><EM CLASS="Variable">
+string</EM>
+ is a string to search for (prompted if not given).</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1047976"></A><EM CLASS="Variable">
+files</EM>
+ is a list of pathnames of files to search, and <EM CLASS="Variable">
+generator</EM>
+ is a function to generate the files if none are supplied.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1047984"></A>If a match is found the file is displayed in a buffer with the cursor on the occurrence.<EM CLASS="tablehead">
+ </EM>
+<CODE CLASS="Code">
+Meta+-,</CODE>
+ makes the search continue until the next occurrence.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-893401"></A><CODE CLASS="Code">
+search-files</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1047899"></A>For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-1047913"></A>(editor:search-files </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-1047914"></A> :files '(&quot;.login&quot; &quot;.cshrc&quot;) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893407"></A> :string &quot;alias&quot;)</PRE>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-69.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-67.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-67.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

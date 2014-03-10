@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ non-focus-maybe-capture-gesture
+</TITLE>
+
+<LINK REL="next" HREF="capiref-260.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-258.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-260.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-258.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-8718263"></A><A NAME="37583"></A>non<A NAME="marker-8762286"></A>-focus-maybe-capture-gesture</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-8718264"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8718265"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8718266"></A>Maybe capture a gesture by the non-focus-interface.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8718267"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-8718268"></A>non-focus-maybe-capture-gesture <EM CLASS="Variable">
+non-focus-interface</EM>
+ <EM CLASS="Variable">
+gesture</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8718269"></A>Arguments</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-9069861"></A><EM CLASS="Variable">
+non-focus-interface</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-9069865"></A>A <A HREF="capiref-256.htm#22239" CLASS="XRef">non-focus-list-interface</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8718271"></A><EM CLASS="Variable">
+gesture</EM>
+</P>
+<P CLASS="RDescription-C">A gesture specifier.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8718272"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8718273"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8718274"></A>Method Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-8718275"></A>non-focus-maybe-capture-gesture (<EM CLASS="Variable">
+non-focus-interface</EM>
+ non-focus-list-interface) <EM CLASS="Variable">
+gesture</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8718276"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8718277"></A>The generic function <CODE CLASS="Code">
+non-focus-maybe-capture-gesture</CODE>
+ needs to return non-nil if the gesture <EM CLASS="Variable">
+gesture</EM>
+ was captured, which means it should not be processed any more, or <CODE CLASS="Code">
+nil</CODE>
+ if <EM CLASS="Variable">
+gesture</EM>
+ was not captured.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8762117"></A><EM CLASS="Variable">
+gesture</EM>
+ should be a gesture specifier, which is an object that can be coerced to a Gesture Spec by <CODE CLASS="Code">
+sys:coerce-to-gesture-spec</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8718278"></A>The method on <A HREF="capiref-256.htm#22239" CLASS="XRef">non-focus-list-interface</A> does the following:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-8718279"></A>If the gesture is <CODE CLASS="Code">
+Escape</CODE>
+ it calls <A HREF="capiref-260.htm#51801" CLASS="XRef">non-focus-terminate</A> on the non-focus window.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-8718280"></A>It checks whether the gesture matches any of the gestures in the <EM CLASS="Variable">
+gesture-callbacks</EM>
+ of the window. The gesture callbacks are either explicitly defined using the initargs <CODE CLASS="Code">
+:gesture-callbacks</CODE>
+ or <CODE CLASS="Code">
+:add-gesture-callbacks</CODE>
+, or implicitly. By default, all the gestures that are used in in-place completion (see  &quot;In-place completion&quot; in the <I CLASS="Italic">
+CAPI User Guide</I>
+) are defined implicitly. These include <CODE CLASS="Code">
+Up</CODE>
+, <CODE CLASS="Code">
+Down</CODE>
+, <CODE CLASS="Code">
+PageUp</CODE>
+, <CODE CLASS="Code">
+PageDown</CODE>
+ (selection in the list panel), <CODE CLASS="Code">
+Return</CODE>
+ (action), <CODE CLASS="Code">
+Control+Return</CODE>
+ and <CODE CLASS="Code">
+Control+Shift+Return</CODE>
+ (control of the filter). The implicitly defined gestures are affected by <EM CLASS="Variable">
+gesture-callbacks</EM>
+, <EM CLASS="Variable">
+filtering-gesture</EM>
+ and <EM CLASS="Variable">
+filtering-toggle</EM>
+. </LI>
+
+<P CLASS="RBody">
+<A NAME="pgfId-8718281"></A>If a match is found, it is invoked as described for <EM CLASS="Variable">
+gesture-callbacks</EM>
+ in <A HREF="capiref-332.htm#92347" CLASS="XRef">prompt-with-list-non-focus</A>.</P>
+
+<LI CLASS="RStep">
+<A NAME="pgfId-8718282"></A>If filtering is enabled, it checks if the gesture is captured by the filter. A gesture is captured by the filter if it is:</LI>
+</OL>
+<P CLASS="RDescription">
+<A NAME="pgfId-8718284"></A>A plain graphic character.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8718285"></A>It is inserted to the filter</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-8718287"></A><CODE CLASS="Code">
+Backspace</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8718288"></A>The last character in the filter is deleted</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8718290"></A>One of the gestures which update the state of the filter (by default <CODE CLASS="Code">
+Control+Shift+R</CODE>
+, <CODE CLASS="Code">
+Control+Shift+E</CODE>
+, <CODE CLASS="Code">
+Control+Shift+C</CODE>
+)</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8718291"></A>The state of the filter is updated.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8718292"></A>In any case, where a gesture is captured by the filter the list panel is updated.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8718293"></A>If the gesture is captured by one of the possibilities above, the method returns <CODE CLASS="Code">
+t</CODE>
+, otherwise it returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8718294"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8718295"></A><A HREF="capiref-260.htm#51801" CLASS="XRef">non-focus-terminate</A><BR>
+<A HREF="capiref-332.htm#92347" CLASS="XRef">prompt-with-list-non-focus</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-260.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-258.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.1  Introduction
+</TITLE>
+
+<LINK REL="next" HREF="lw-218.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-216.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-216.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-216.htm">13 LispWorks as a dynamic library</A><BR><BR>
+</DIV><A HREF="lw-218.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-216.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-891499"></A>13.1  Introduction</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891500"></A>You can use 32-bit LispWorks to build a dynamic library on Microsoft Windows, Intel Macintosh, Linux, x86/x64 Solaris and FreeBSD, and 64-bit LispWorks on Windows, Intel Macintosh, Linux and x86/x64 Solaris.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891466"></A>To do this, use <A NAME="marker-891702"></A><A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> or <A NAME="marker-891710"></A><A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> and supply a list value for <EM CLASS="Variable">
+dll-exports</EM>
+. On platforms other than Windows passing <EM CLASS="Variable">
+dll-added-files</EM>
+ also creates a dynamic library.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891530"></A>The result is a library that cannot be executed on its own, but can be dynamically loaded by another process. On Windows this is done with the Windows APIs <A NAME="marker-891715"></A><CODE CLASS="Code">
+LoadLibrary</CODE>
+ and then <A NAME="marker-891720"></A><CODE CLASS="Code">
+GetProcAddress</CODE>
+. On other platforms the dynamic library can be loaded by <A NAME="marker-891725"></A><CODE CLASS="Code">
+dlopen</CODE>
+ and then <A NAME="marker-891730"></A><CODE CLASS="Code">
+dlsym</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891288"></A>The dynamic library is usually of file type <CODE CLASS="Code">
+dll</CODE>
+ on Windows, <CODE CLASS="Code">
+dylib</CODE>
+ on Macintosh and and <CODE CLASS="Code">
+so</CODE>
+ on Linux, x86/x64 Solaris or FreeBSD. The first implementation of this functionality in LispWorks was on Microsoft Windows only, therefore the terminology that is used is sometimes Windows-like. In particular &quot;DLL&quot; refers to any dynamic library.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893336"></A>A program that loads a LispWorks dynamic library must be compiled and linked as follows:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-893514"></A>Linux</P>
+<P CLASS="Description-C">Link with <CODE CLASS="Code">
+libpthread.so</CODE>
+</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-893608"></A>FreeBSD</P>
+<P CLASS="Description-C">Link with <CODE CLASS="Code">
+libpthread.so</CODE>
+</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-893516"></A>Mac OS X</P>
+<P CLASS="Description-C">No special requirements</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-893518"></A>Solaris</P>
+<P CLASS="Description-C">Compile and link multi-threaded (for example, using the <CODE CLASS="Code">
+-mt</CODE>
+ option to Oracle's <CODE CLASS="Code">
+cc</CODE>
+)</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-218.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-216.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

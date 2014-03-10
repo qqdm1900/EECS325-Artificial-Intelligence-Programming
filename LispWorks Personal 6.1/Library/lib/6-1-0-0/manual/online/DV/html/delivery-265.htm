@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.16  Reducing the size of the delivered application
+</TITLE>
+
+<LINK REL="next" HREF="delivery-266.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-264.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-249.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-249.htm">10 Troubleshooting</A><BR><BR>
+</DIV><A HREF="delivery-266.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-264.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-249.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-854853"></A>10.16  <A NAME="81629"></A>Reducing the size of the delivered application</H3>
+<P CLASS="Body">
+<A NAME="pgfId-854854"></A>If your application does not contain very large data structures, the greatest factor in its size when delivered is usually the number of symbols left in it. </P>
+<P CLASS="Body">
+<A NAME="pgfId-854855"></A>This is because function definitions (which are large) are usually associated with symbols. Only when these symbols are deleted can the associated function definitions be deleted. Until that happens, the garbage collector passes over them during delivery. </P>
+<P CLASS="Body">
+<A NAME="pgfId-854868"></A>You should look for symbols that are left in the image, which do not need to be there. You can do this by starting the delivered image in level 4 (or with <CODE CLASS="Code">
+:keep-debug-mode</CODE>
+) with the argument <CODE CLASS="Code">
+-listener</CODE>
+. The image starts by interacting with the user. You can then check which packages and symbols are left.</P>
+<P CLASS="Body">
+<A NAME="pgfId-857744"></A><CODE CLASS="Code">
+list-all-packages</CODE>
+ is one function you can use. Using the <CODE CLASS="Code">
+:call-count</CODE>
+ keyword is another possibility.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-266.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-264.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-249.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

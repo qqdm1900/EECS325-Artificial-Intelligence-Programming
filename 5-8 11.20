@@ -1,0 +1,17 @@
+;;dacong version
+(defun max-min (v &key (start 0) (end (length v)) (maxv nil) (minv nil))
+  (cond ((or (null v) (= start end)) (values maxv minv))
+        (t (let* ((current (svref v start))
+                  (maxv (if (null maxv)
+                           current
+                         (max current maxv)))
+                  (minv (if (null minv)
+                           current
+                         (min current minv))))
+                 ( max-min v :start (1+ start) :end end :maxv maxv :minv minv)))))
+;;;my version
+(defun max-min (v &key (maxv nil) (minv nil) (start 0) (end (length v)))
+  (if (or (null v) (= start end))
+      (values maxv minv)
+    (let ((x (svref v start)))
+      (max-min v :maxv (if (null maxv) x (max x maxv)) :minv (if (null minv) x (min x minv)) :start (1+ start) :end end))))

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 23.6.3  Startup relocation of 64-bit LispWorks
+</TITLE>
+
+<LINK REL="next" HREF="lw-530.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-528.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-522.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-512.htm">23 LispWorks' Operating Environment</A> &gt; <A HREF="lw-522.htm">23.6  Startup relocation</A><BR><BR>
+</DIV><A HREF="lw-530.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-528.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-522.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-895429"></A>23.6.3  <A NAME="25055"></A>Startup<A NAME="marker-900446"></A> relocation of 64-bit LispWorks</H3>
+<P CLASS="Body">
+<A NAME="pgfId-895430"></A>The size of address space that 64-bit LispWorks can use is limited by the size of internal tables to a &quot;span&quot; of 2^44 (16TB). The span always starts at 0.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895431"></A>Inside this span LispWorks can use any address. However, to avoid clashes with other software, it uses memory only in some defined range.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895432"></A>Startup relocation means changing this range. <EM CLASS="Variable">
+BaseAddress</EM>
+ (passed on command line with <CODE CLASS="Code">
+--relocate-image</CODE>
+ or as the second argument to <A HREF="lw-1520.htm#65792" CLASS="XRef">InitLispWorks</A>, rounded up to 2^28) is the start of the range. <EM CLASS="Variable">
+ReserveSize</EM>
+ (passed on command line with <CODE CLASS="Code">
+--reserve-size</CODE>
+ or as the third argument to <A HREF="lw-1520.htm#65792" CLASS="XRef">InitLispWorks</A>)  is the size of the range. The default of the size of the range is 2^40.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895433"></A>If the entire heap is within the new range, nothing else is done. If some part of the heap is outside the new range, the heap is relocated.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895434"></A>The range in each 64-bit LispWorks implementation starts at <CODE CLASS="Code">
+#x4000000000</CODE>
+ (256GB).</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-530.htm#pgfId-895436" CLASS="Hypertext">23.6.3.1  Linux</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-531.htm#pgfId-895439" CLASS="Hypertext">23.6.3.2  SPARC Solaris</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-532.htm#pgfId-895442" CLASS="Hypertext">23.6.3.3  Windows and Macintosh</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-530.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-528.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-522.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *trace-print-circle*
+</TITLE>
+
+<LINK REL="next" HREF="lw-855.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-853.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-855.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-853.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886354"></A><A NAME="29971"></A>*trace<A NAME="marker-1043648"></A>-print-circle*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886355"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886356"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886357"></A>Controls how circular structure are printed in trace output.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886358"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886359"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886360"></A>Initial Value</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886361"></A>nil </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886362"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886363"></A><CODE CLASS="Code">
+*trace-print-circle*</CODE>
+ controls how circular structures are printed during output from tracing. It allows the printing of circular structures by the tracer to be controlled independently of the usual printing mechanism, which is governed by <CODE CLASS="Code">
+*print-circle*</CODE>
+. <CODE CLASS="Code">
+*print-circle*</CODE>
+ is bound to the value of <CODE CLASS="Code">
+*trace-print-circle*</CODE>
+ while printing tracing information. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886364"></A>Example</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886365"></A>USER 19 &gt; (setq *trace-print-circle* t)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886366"></A>T </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886367"></A>USER 20 &gt; (defun circ (l)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886368"></A>           (rplacd (last l) l)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886369"></A>          l)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886370"></A>CIRC </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886371"></A>USER 21 &gt; (trace second)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886372"></A>SECOND </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886373"></A>USER 22 &gt; (second (circ '(1 2 3 4)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886374"></A>0 SECOND &gt; (#1=(1 2 3 4 . #1#)) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886375"></A>0 SECOND &lt; (2) 2   </PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886376"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886377"></A><CODE CLASS="Code">
+*trace-print-circle*</CODE>
+ is an extension to Common Lisp.   </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886378"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886382"></A><A HREF="lw-675.htm#58889" CLASS="XRef">trace</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-855.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-853.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

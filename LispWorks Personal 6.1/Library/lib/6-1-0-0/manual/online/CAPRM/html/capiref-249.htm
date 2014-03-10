@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ merge-menu-bars
+</TITLE>
+
+<LINK REL="next" HREF="capiref-250.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-248.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-250.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-248.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-5532768"></A><A NAME="67283"></A>merge<A NAME="marker-5532767"></A>-menu-bars</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-5532769"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5532770"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5532771"></A>Computes the menu bar for a <A HREF="capiref-92.htm#20935" CLASS="XRef">document-frame</A> on Windows.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5532772"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-5532773"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5532774"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-5532775"></A>merge-menu-bars <EM CLASS="Variable">
+frame</EM>
+ <EM CLASS="Variable">
+document</EM>
+ =&gt; <EM CLASS="Variable">
+menus</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5533214"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5533221"></A><EM CLASS="Variable">
+frame</EM>
+</P>
+<P CLASS="RDescription-C">A <A HREF="capiref-92.htm#20935" CLASS="XRef">document-frame</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5533395"></A><EM CLASS="Variable">
+document</EM>
+</P>
+<P CLASS="RDescription-C">An <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A> or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5533349"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5532785"></A><EM CLASS="Variable">
+menus</EM>
+</P>
+<P CLASS="RDescription-C">A list of <A HREF="capiref-245.htm#19220" CLASS="XRef">menu</A> objects.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5532786"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5532787"></A>The generic function <CODE CLASS="Code">
+merge-menu-bars</CODE>
+ is called by the system to compute the menu bar for a <A HREF="capiref-92.htm#20935" CLASS="XRef">document-frame</A> interface.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5533625"></A>The set of visible menus in such an interface is typically made up from those of the frame and those of the active document within it.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5533629"></A>There is a built-in unspecialized method that appends the menu bars of the two interfaces and is equivalent to this:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-5537420"></A>(defmethod capi:merge-menu-bars ((frame t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5537421"></A>                                 (document t))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5537422"></A>  (append </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5537423"></A>   (capi:interface-menu-bar-items frame)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5537424"></A>   (and document</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-5533636"></A>        (capi:interface-menu-bar-items document))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-10342709"></A>You can customize the menu bar by adding methods which specialize on particular frame and document interface classes.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-10342710"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-10342749"></A><CODE CLASS="Code">
+merge-menu-bars</CODE>
+ is implemented only in LispWorks for Windows.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-10342711"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5532796"></A><A HREF="capiref-92.htm#20935" CLASS="XRef">document-frame</A><BR>
+<A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A><BR>
+<A HREF="capiref-245.htm#19220" CLASS="XRef">menu</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-250.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-248.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

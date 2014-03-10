@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.1.1.4  Reasoning with Certainty Factors
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-81.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-79.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-76.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A> &gt; <A HREF="kwprolog-m-75.htm">6.1  Control Flow</A> &gt; <A HREF="kwprolog-m-76.htm">6.1.1  Meta Rule Protocol</A><BR><BR>
+</DIV><A HREF="kwprolog-m-81.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-79.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-76.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-891751"></A>6.1.1.4  <A NAME="64448"></A>Reasoning with <A NAME="marker-891750"></A>Certainty Factors</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891752"></A>Another application of meta-rules is in the manipulation of uncertainty. A full implementation of the uncertain reasoning facility described below is included among the examples distributed with KnowledgeWorks, and also in <A HREF="kwprolog-m-209.htm#57105" CLASS="XRef">Uncertain Reasoning Facility</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891757"></A>In this example, we wish to associate a <A NAME="marker-891756"></A><EM CLASS="Emphasis">
+certainty factor</EM>
+ with objects in a manner similar to the <A NAME="marker-891758"></A>MYCIN system (see <EM CLASS="Emphasis">
+Rule-Based Expert Systems</EM>
+, B. G. Buchanan and E. H. Shortliffe, Addison-Wesley 1984). When we assert an &quot;uncertain&quot; object we wish it to acquire the certainty factor of the instantiation which is firing. We define the certainty factor of an instantiation to be the certainty factor of all the objects making up the instantiation multiplied together. Additionally, we wish rules to have an <A NAME="marker-891759"></A><EM CLASS="Emphasis">
+implication strength </EM>
+associated with them which is a multiplicative modifier to the certainty factor obtained by newly asserted uncertain objects. The general approach is as follows:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891761"></A>Define global variables <A NAME="marker-891760"></A><CODE CLASS="Code">
+*c-factor*</CODE>
+ to hold the certainty factor of the current instantiation and <A NAME="marker-891762"></A><CODE CLASS="Code">
+*implic-strength*</CODE>
+ to hold the implication strength of the rule, and a class of <A NAME="marker-891763"></A>&quot;uncertain&quot; KnowledgeWorks objects:</LI>
+</UL>
+<PRE CLASS="Code-first"><A NAME="pgfId-891765"></A>(<A NAME="marker-891764"></A>def-kb-class uncertain-kb-object ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891766"></A> ((c-factor :initform (* *c-factor* *implic-strength*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891767"></A>            :accessor object-c-factor)))</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-891768"></A>The uncertain objects should contain this class as a mixin.</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891769"></A>Define a function to obtain the certainty factor of instantiations:</LI>
+</UL>
+<PRE CLASS="Code-first"><A NAME="pgfId-891770"></A>(defun inst-c-factor (inst)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891771"></A>  (reduce '* (inst-token inst) :key 'object-c-factor))</PRE>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891772"></A>Define a conflict resolution tactic to prefer either more or less certain instantiations (See <A HREF="kwprolog-m-81.htm#55302" CLASS="XRef">User-definable Conflict Resolution</A> for details).</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891776"></A>Define a meta-rule to set the global certainty factor to the certainty factor of the instantiation about to fire:</LI>
+</UL>
+<PRE CLASS="Code-first"><A NAME="pgfId-891778"></A>(<A NAME="marker-891777"></A>defrule uncertain-context :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891779"></A>   ((uncertain-context)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891780"></A>    &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891781"></A>    (start-cycle)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891782"></A>    (instantiation ?inst)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891783"></A>    ((setq *c-factor* (inst-c-factor ?inst)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891784"></A>     (fire-rule ?inst)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891785"></A>     (cut)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891786"></A>     (uncertain-context)))</PRE>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891787"></A>Define a function implication-strength which sets the variable <A NAME="marker-891788"></A><CODE CLASS="Code">
+*implic-strength*</CODE>
+ so that rules may set their implication strength by calling the action:</LI>
+</UL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891789"></A>       ((implication-strength &lt;number&gt;))</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-891790"></A>A rule could be defined similarly to:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891791"></A>(defrule my-rule :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891792"></A>   (my-class ?obj1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891793"></A>   (my-class ?obj2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891794"></A>   --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891795"></A>   ((implication-strength 0.6))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891796"></A>   (assert (my-class ?obj3)))</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-891797"></A>where the certainty factor of the new object <CODE CLASS="Code">
+?obj3</CODE>
+ will automatically become:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891798"></A>(* (object-c-factor ?obj1) (object-c-factor ?obj2) 0.6)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891799"></A>While this is an extremely simplistic version of uncertain reasoning, it suggests how a more elaborate treatment might be approached.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-81.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-79.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-76.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

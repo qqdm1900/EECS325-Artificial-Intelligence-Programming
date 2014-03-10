@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.3  Using the Foreign Parser
+</TITLE>
+
+<LINK REL="next" HREF="fli-206.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-204.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-201.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-201.htm">7 The Foreign Parser</A><BR><BR>
+</DIV><A HREF="fli-206.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-204.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-201.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-889430"></A>7.3  Using the Foreign Parser</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889597"></A>The interface is the function  foreign-parser:process-foreign-file.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894555"></A>Suppose we wish to generate the FLI definitions which interface to the C example from <A HREF="fli-47.htm#73135" CLASS="XRef">Modifying a string in a C function</A>. The header file <CODE CLASS="Code">
+test.h</CODE>
+ needs to be slightly different depending on  the platform.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889443"></A>Windows version:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-889445"></A>__declspec(dllexport) void __cdecl modify(char *string)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-889451"></A>Linux/Unix/Macintosh version:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-889453"></A>void modify(char *string)</CODE>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-889459"></A>Load the Foreign Parser:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-889460"></A>(require &quot;foreign-parser&quot;)</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-889461"></A>Now generate prototype FLI definitions:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-889462"></A>(foreign-parser:process-foreign-file </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889463"></A> &quot;test.h&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889464"></A> :case-sensitive nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889465"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889466"></A>;;;    Output dff file #P&quot;test-dff.lisp&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889467"></A>;;;    Parsing source file &quot;test.h&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889468"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889469"></A>;;; Process-foreign-file : Preprocessing file</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889470"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889471"></A>;;; Process-foreign-file : Level 1 parsing</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889472"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889473"></A>;;; Process-foreign-file : Selecting foreign forms</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889474"></A>NIL</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-889475"></A><A NAME="40333"></A>You should now have a Lisp file <CODE CLASS="Code">
+test-dff.lisp</CODE>
+ containing a form like this:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-889476"></A>(fli:define-foreign-function </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889477"></A>    (modify &quot;modify&quot; :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889478"></A>    ((string (:pointer :char)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889479"></A>  :result-type</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889480"></A>  :void</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889481"></A>  :language</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889482"></A>  :c</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889483"></A>  :calling-convention</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889484"></A>  :cdecl)</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-889485"></A><A NAME="74937"></A>This edited version passes a string using <CODE CLASS="Code">
+:ef-mb-string</CODE>
+:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-889486"></A>(fli:define-foreign-function</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889487"></A>    (modify &quot;modify&quot; :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889488"></A>    ((string (:reference (:ef-mb-string :limit 256))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889489"></A>  :result-type</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889490"></A>  :void</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889491"></A>  :language</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889492"></A>  :c</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889493"></A>  :calling-convention</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889494"></A>  :cdecl)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889495"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889496"></A>MODIFY</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-889497"></A>Create a DLL containing the C function.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-895121"></A>Load the foreign code by </LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-889498"></A>(fli:register-module &quot;test.dll&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-889499"></A>or </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-889500"></A>(fli:register-module &quot;/tmp/test.so&quot;)</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-889501"></A>Call the C function from LISP:</LI>
+</OL>
+<PRE CLASS="Code-first"><A NAME="pgfId-889502"></A>(modify &quot;Hello, I am in LISP&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889503"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889504"></A>NIL</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889505"></A>&quot;'Hello, I am in LISP' modified in a C function&quot;</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-206.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-204.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-201.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.7.6  Stack allocation of objects with dynamic extent
+</TITLE>
+
+<LINK REL="next" HREF="lw-126.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-124.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-114.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-105.htm">9 The Compiler</A> &gt; <A HREF="lw-114.htm">9.7  Optimizing your code</A><BR><BR>
+</DIV><A HREF="lw-126.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-124.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-114.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889717"></A>9.7.6  Stack allocation of objects with dynamic extent</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889768"></A><CODE CLASS="Code">
+(declare dynamic-extent)</CODE>
+ will optimize these calls so that they allocate in the stack, in all cases:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889770"></A> <CODE CLASS="Code">
+&amp;rest</CODE>
+ lists</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889771"></A> <CODE CLASS="Code">
+flet</CODE>
+ functions and <CODE CLASS="Code">
+labels</CODE>
+ functions</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889772"></A> <CODE CLASS="Code">
+(cons </CODE>
+<EM CLASS="Variable">
+x</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+y</EM>
+<CODE CLASS="Code">
+)</CODE>
+</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889773"></A> <CODE CLASS="Code">
+(list ...)</CODE>
+</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889774"></A> <CODE CLASS="Code">
+(list* ...)</CODE>
+</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889775"></A> <CODE CLASS="Code">
+(copy-list </CODE>
+<EM CLASS="Variable">
+x</EM>
+<CODE CLASS="Code">
+)</CODE>
+</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889776"></A> <CODE CLASS="Code">
+(make-list </CODE>
+<EM CLASS="Variable">
+x</EM>
+<CODE CLASS="Code">
+)</CODE>
+</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889777"></A> <CODE CLASS="Code">
+(vector ...)</CODE>
+</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-889779"></A><CODE CLASS="Code">
+(declare dynamic-extent)</CODE>
+ will also optimize these specific calls:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889781"></A> <CODE CLASS="Code">
+(make-array </CODE>
+<EM CLASS="Variable">
+n</EM>
+<CODE CLASS="Code">
+)</CODE>
+</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889782"></A> <CODE CLASS="Code">
+(make-array </CODE>
+<EM CLASS="Variable">
+n</EM>
+<CODE CLASS="Code">
+ :initial-element </CODE>
+<EM CLASS="Variable">
+x</EM>
+<CODE CLASS="Code">
+)</CODE>
+ without any other arguments</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889784"></A> <CODE CLASS="Code">
+(make-foo ...)</CODE>
+ where <CODE CLASS="Code">
+make-foo</CODE>
+ is an inline structure constructor. The default constructor is declared inline automatically when none of the <CODE CLASS="Code">
+defstruct</CODE>
+ slot initforms are calls to functions.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889715"></A> <CODE CLASS="Code">
+(make-string </CODE>
+<EM CLASS="Variable">
+n</EM>
+<CODE CLASS="Code">
+ :element-type 'base-char)</CODE>
+</LI>
+</UL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-126.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-124.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-114.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

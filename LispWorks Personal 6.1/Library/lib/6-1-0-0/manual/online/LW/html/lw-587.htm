@@ -1,0 +1,334 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ get-host-entry
+</TITLE>
+
+<LINK REL="next" HREF="lw-588.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-586.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-579.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-579.htm">26 The COMM Package</A><BR><BR>
+</DIV><A HREF="lw-588.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-586.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-897837"></A><A NAME="98418"></A>get<A NAME="marker-909935"></A>-host<A NAME="marker-969995"></A>-entry<A NAME="marker-982653"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-897839"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897841"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-897842"></A>Returns address (<A NAME="marker-980840"></A>IPv6 and <A NAME="marker-980842"></A>IPv4) or name information about a given host.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897844"></A>Package</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-897845"></A><CODE CLASS="Code">
+comm</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897847"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897848"></A>get-host-entry <EM CLASS="Variable">
+host</EM>
+ &amp;key <EM CLASS="Variable">
+fields</EM>
+ <EM CLASS="Variable">
+ipv6</EM>
+ <EM CLASS="Variable">
+v4mapped</EM>
+ <EM CLASS="Variable">
+addrconfig</EM>
+ <EM CLASS="Variable">
+numerichost</EM>
+ <EM CLASS="Variable">
+avoid-reverse-lookup</EM>
+ =&gt; <EM CLASS="Variable">
+field-values</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897850"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897851"></A><EM CLASS="Variable">
+host</P>
+<P CLASS="RDescription-C"></EM>
+A number or a string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897853"></A><EM CLASS="Variable">
+fields</EM>
+</P>
+<P CLASS="RDescription-C">A list of keywords.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-983439"></A><EM CLASS="Variable">
+ipv6</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+t</CODE>
+ or the keyword <CODE CLASS="Code">
+:any</CODE>
+.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-983443"></A><EM CLASS="Variable">
+avoid-reverse-lookup</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-989366"></A>A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-983445"></A><EM CLASS="Variable">
+v4mapped</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-983446"></A><EM CLASS="Variable">
+addrconfig</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-983447"></A><EM CLASS="Variable">
+numerichost</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897856"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897857"></A><EM CLASS="Variable">
+field-values</EM>
+</P>
+<P CLASS="RDescription-C">Values, one for each field.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897860"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-897861"></A>The function <CODE CLASS="Code">
+get-host-entry </CODE>
+returns address or name information about the given host.  By default, it tries to find addresses both of IPv6 and IPv4. It uses whatever host naming services are configured on the current machine. <CODE CLASS="Code">
+nil</CODE>
+ is returned if the host is unknown.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-897863"></A>The host argument can be one of the following:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-897865"></A>a name string, for example <CODE CLASS="Code">
+&quot;www.foobar.com&quot;</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-897866"></A>a dotted inet address string, for example <CODE CLASS="Code">
+&quot;209.130.14.246&quot;</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-897867"></A>a integer representing the inet address, for example <CODE CLASS="Code">
+#xD1820EF6</CODE>
+</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-897869"></A>The fields argument is a list of keywords describing what information to return for the host.  If <CODE CLASS="Code">
+get-host-entry</CODE>
+ succeeds, it returns multiple values, one value for each field specified.  The following fields are allowed:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-899779"></A><CODE CLASS="Code">
+:address</CODE>
+</P>
+<P CLASS="RDescription-C">The primary IP address.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-982143"></A><CODE CLASS="Code">
+:ipv6-address</CODE>
+</P>
+<P CLASS="RDescription-C">The primary IPv6 address.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-982195"></A><CODE CLASS="Code">
+:ipv4-address</CODE>
+</P>
+<P CLASS="RDescription-C">The primary IPv4 address.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-981371"></A><CODE CLASS="Code">
+:addresses</CODE>
+</P>
+<P CLASS="RDescription-C">A list of all the IP addresses.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-981979"></A><CODE CLASS="Code">
+:ipv6-addresses</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-982347"></A>A list of all the IPv6 addresses, only.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-981980"></A><CODE CLASS="Code">
+:ipv4-addresses</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-982449"></A>A list of all the IPv4 addresses, only.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-981981"></A><CODE CLASS="Code">
+:name</CODE>
+</P>
+<P CLASS="RDescription-C">The primary name as a string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-909907"></A><CODE CLASS="Code">
+:aliases</CODE>
+</P>
+<P CLASS="RDescription-C">The alias names as a list of strings.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-982990"></A>IPv4 addresses are returned as integers and IPv4 addresses are returned as objects of type <A HREF="lw-592.htm#44856" CLASS="XRef">ipv6-address</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-987799"></A>If <EM CLASS="Variable">
+ipv6</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ or <CODE CLASS="Code">
+t</CODE>
+ the search is restricted to one family only IPv4 or IPv6. The default value of <EM CLASS="Variable">
+ipv6</EM>
+ is <CODE CLASS="Code">
+:any</CODE>
+, meaning that addresses in both families are returned. If the argument <EM CLASS="Variable">
+host</EM>
+ is a string, that has a similar effect to using the family-specific keywords, but it may be faster. For example, these two calls returns the same addresses (possibly in a different order):</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-999211"></A>(get-host-entry &quot;hostname&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-999212"></A>                :fields '(:ipv6-addresses))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-999213"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-999214"></A>(get-host-entry &quot;hostname&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-987801"></A>                :fields '(:addresses) :ipv6 t)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-987802"></A>If <EM CLASS="Variable">
+host</EM>
+ is an address of the other type, that is integer with <EM CLASS="Variable">
+ipv6</EM>
+ <CODE CLASS="Code">
+t</CODE>
+ or <A HREF="lw-592.htm#44856" CLASS="XRef">ipv6-address</A> with <EM CLASS="Variable">
+ipv6</EM>
+ <CODE CLASS="Code">
+nil</CODE>
+, then <CODE CLASS="Code">
+get-host-entry</CODE>
+ first tries to do a reverse lookup to find the name of the host, and then looks for the values as if it was called with this name as the host. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-989696"></A>When <EM CLASS="Variable">
+avoid-reverse-lookup</EM>
+ is non-nil, <CODE CLASS="Code">
+get-host-entry</CODE>
+ avoids doing reverse lookup if <EM CLASS="Variable">
+host</EM>
+ is a string which specifies a valid address (either IPv6 or IPv4). The default value of <EM CLASS="Variable">
+avoid-reverse-lookup</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, so by default it does the lookup.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-991724"></A>The arguments <EM CLASS="Variable">
+v4mapped</EM>
+, <EM CLASS="Variable">
+addrconfig</EM>
+ and <EM CLASS="Variable">
+numerichost</EM>
+ have an effect only when <EM CLASS="Variable">
+host</EM>
+ is a string. They define the flags <CODE CLASS="Code">
+AI_V4MAPPED</CODE>
+, <CODE CLASS="Code">
+AI_ADDRCONFIG</CODE>
+ and <CODE CLASS="Code">
+AI_NUMERICHOST</CODE>
+ when doing the <CODE CLASS="Code">
+getaddrinfo</CODE>
+ call.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-991394"></A>When <EM CLASS="Variable">
+v4mapped</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, the IPv6 addresses contain an IPv4 address mapped to IPv6 (::ffff:&lt;IPv4&gt;). The default value of <EM CLASS="Variable">
+v4mapped</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-991927"></A>When <EM CLASS="Variable">
+addrconfig</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, addresses of a family are returned only if the local system is configured to handle them. The default value of <EM CLASS="Variable">
+addrconfig</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-992304"></A>When <EM CLASS="Variable">
+numerichost</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, <EM CLASS="Variable">
+host</EM>
+ is assumed to be a numeric address, either IPv4 if dotted notation or IPv6. If it is not, <CODE CLASS="Code">
+get-host-entry</CODE>
+ just returns <CODE CLASS="Code">
+nil</CODE>
+. Using <EM CLASS="Variable">
+numerichost</EM>
+ can speed up <CODE CLASS="Code">
+get-host-entry</CODE>
+, because it prevents any DNS lookup. This has an effect only if <EM CLASS="Variable">
+avoid-reverse-lookup</EM>
+ is non-nil. The default value of <EM CLASS="Variable">
+numerichost</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-909597"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-980799"></A>Although the results of <CODE CLASS="Code">
+get-host-entry</CODE>
+ are not cached by LispWorks, the Operating System might cache them.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-984326"></A>When <CODE CLASS="Code">
+get-host-entry</CODE>
+ is passed a string specifying an IPv6 address, the address can be followed by '%' character and a scope ID. If the scope ID is a decimal number or a valid interface name on the local system, the resulting address contains the scope ID as a number.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897880"></A> Examples</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-900864"></A>CL-USER 16 &gt; (comm:get-host-entry &quot;www.altavista.com&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900865"></A>                                  :fields '(:address))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900866"></A>3511264349</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900867"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900868"></A>CL-USER 17 &gt; (comm:get-host-entry 3511264349 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900869"></A>                                  :fields '(:name))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900870"></A>&quot;altavista.com&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900871"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900872"></A>CL-USER 18 &gt; (comm:get-host-entry &quot;altavista.com&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900873"></A>                                  :fields '(:name </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900874"></A>                                            :address </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900875"></A>                                            :aliases))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900876"></A>&quot;altavista.com&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900877"></A>3511264349</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-900878"></A>(&quot;www.altavista.com&quot; &quot;www.altavista.com&quot;)</PRE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-588.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-586.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

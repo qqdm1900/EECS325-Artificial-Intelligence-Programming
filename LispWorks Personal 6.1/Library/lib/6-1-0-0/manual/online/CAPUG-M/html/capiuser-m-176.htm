@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.2  Receiving input from the user
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-177.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-175.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-174.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-174.htm">12 Creating Your Own Panes</A><BR><BR>
+</DIV><A HREF="capiuser-m-177.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-175.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-174.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884556"></A>12.2  Receiving input from the user</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884232"></A><A NAME="marker-884231"></A><A NAME="marker-890843"></A>You now know enough to be able to create new classes of window which can display arbitrary graphics, but to be able to create interactive windows you need to be able to receive events. The CAPI supports this through the use of an input model, which is a mapping of events to the callbacks that should be run when they occur.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884233"></A>When the event callback is called, it gets passed the <CODE CLASS="Code">
+output-pane</CODE>
+ and the <EM CLASS="Variable">
+x</EM>
+ and <EM CLASS="Variable">
+y</EM>
+ integer coordinates of the mouse pointer at the time of the event. A few events also pass additional information as necessary; for example, keyboard events also pass the key that was pressed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884234"></A>For example, we can create a very simple drawing pane by adding a callback to draw a point whenever the left button is dragged across the pane. This is done as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884236"></A>(contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884237"></A> (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884238"></A>  'output-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884242"></A>  :<A NAME="marker-884239"></A>input-model '(((:motion :button-1)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884244"></A>                  gp:<A NAME="marker-884243"></A>draw-point))))</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884883"></A>Figure 12.3  An interactive output pane<DIV>
+<IMG SRC="capiuser-m-69.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-71.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884559"></A>The input model above seems quite complicated, but it is just a list of event to callback mappings, where each one of these mappings is a list containing an event specification and a callback. An event specification is also a list containing keywords specifying the type of event required.  </P>
+<P CLASS="Body">
+<A NAME="pgfId-909066"></A>There is an example input model in</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-909072"></A>examples/capi/graphics/pinboard.lisp</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-909071"></A>See the manual page for <CODE CLASS="Code">
+output-pane</CODE>
+ in the <I CLASS="Italic">
+LispWorks CAPI Reference Manual</I>
+ for the full <EM CLASS="Variable">
+input-model</EM>
+ syntax..<A NAME="marker-890848"></A><A NAME="marker-890853"></A><A NAME="marker-884253"></A></P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-177.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-175.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-174.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

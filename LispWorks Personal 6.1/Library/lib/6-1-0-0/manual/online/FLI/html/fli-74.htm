@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ allocate-foreign-block
+</TITLE>
+
+<LINK REL="next" HREF="fli-75.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-73.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-75.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-73.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1513151"></A><A NAME="62201"></A>allocate<A NAME="marker-1513156"></A>-foreign<A NAME="marker-1513418"></A>-block</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1513152"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1498230"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1498231"></A>Allocates a foreign block, in LispWorks for Macintosh.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1555087"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1555088"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1498232"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1498233"></A>allocate-foreign-block <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+function</EM>
+ &amp;rest <EM CLASS="Variable">
+extra-arguments</EM>
+ =&gt; <EM CLASS="Variable">
+foreign-block</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1498234"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1498235"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1498236"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp function.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1498237"></A><EM CLASS="Variable">
+extra-arguments</EM>
+</P>
+<P CLASS="RDescription-C">Arguments.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1498238"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1498239"></A><EM CLASS="Variable">
+foreign-block</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp-allocated <A HREF="fli-170.htm#70852" CLASS="XRef">foreign-block-pointer</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1498240"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1498241"></A>The function <CODE CLASS="Code">
+allocate-foreign-block</CODE>
+ allocates a foreign block of type <EM CLASS="Variable">
+type</EM>
+ such that when the foreign block is is invoked it calls the function <EM CLASS="Variable">
+function</EM>
+ with the arguments given to the block followed by <EM CLASS="Variable">
+extra-arguments</EM>
+ (if any).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1498242"></A><EM CLASS="Variable">
+type</EM>
+ is a symbol which must have been defined as a type using <A HREF="fli-88.htm#46744" CLASS="XRef">define-foreign-block-callable-type</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1498243"></A><EM CLASS="Variable">
+function</EM>
+ is any Lisp function, but see the <A HREF="fli-67.htm#74186" CLASS="XRef">Scope of invocation</A> for potential limitations.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1498244"></A>The resulting foreign block lives indefinitely, until it is freed by <A HREF="fli-118.htm#45957" CLASS="XRef">free-foreign-block</A>, and can be used repeatedly and concurrently. It cannot be garbage collected, so if your program repeatedly allocates foreign blocks, you need to free them by calls to <A HREF="fli-118.htm#45957" CLASS="XRef">free-foreign-block</A>. The macro <A HREF="fli-151.htm#87714" CLASS="XRef">with-foreign-block</A> does this for you.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1498245"></A><EM CLASS="Variable">
+extra-arguments</EM>
+ allows you to (roughly speaking) &quot;close over&quot; some values to the function, but they are read-only. If the function needs to set values, you can either pass some objects and set slots inside them, or make the function a real Lisp closure.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1498246"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1498247"></A>The result of <CODE CLASS="Code">
+allocate-foreign-block</CODE>
+ prints with <CODE CLASS="Code">
+&quot;lisp-foreign-block-pointer&quot;</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1515303"></A><CODE CLASS="Code">
+allocate-foreign-block</CODE>
+ is implemented in LispWorks for Macintosh only.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1500240"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1565582"></A><A HREF="fli-88.htm#46744" CLASS="XRef">define-foreign-block-callable-type</A><BR>
+<A HREF="fli-118.htm#45957" CLASS="XRef">free-foreign-block</A><BR>
+<A HREF="fli-151.htm#87714" CLASS="XRef">with-foreign-block</A><BR>
+<A HREF="fli-64.htm#29000" CLASS="XRef">Block objects in C (foreign blocks)</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-75.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-73.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

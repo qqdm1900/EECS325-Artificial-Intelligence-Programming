@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.6.1  Combining pixels with :compatible drawing
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-198.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-196.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-196.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-181.htm">13 Graphics Ports</A> &gt <A HREF="capiuser-m-196.htm">13.6  Combining source and target pixels</A><BR><BR>
+</DIV><A HREF="capiuser-m-198.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-196.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-196.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-910433"></A>13.6.1  <A NAME="75036"></A>Combining pixels with :compatible drawing</H3>
+<P CLASS="Body">
+<A NAME="pgfId-910424"></A>When the port's <EM CLASS="Variable">
+drawing-mode</EM>
+ is <CODE CLASS="Code">
+:compatible</CODE>
+ the graphics state parameter <EM CLASS="Variable">
+operation</EM>
+ determines how the colors are combined, and <EM CLASS="Variable">
+compositing-mode </EM>
+is ignored</P>
+<P CLASS="Body">
+<A NAME="pgfId-904109"></A>The allowed values of <EM CLASS="Variable">
+operation</EM>
+ are the values of the Common Lisp constants <CODE CLASS="Code">
+boole-1</CODE>
+, <CODE CLASS="Code">
+boole-and</CODE>
+ and so on. These are the allowed values of the first argument to the Common Lisp function <A NAME="marker-904513"></A><CODE CLASS="Code">
+boole.</CODE>
+See the specification of <CODE CLASS="Code">
+boole</CODE>
+ in the ANSI Common Lisp standard for the full list of operations.</P>
+<P CLASS="Body">
+<A NAME="pgfId-904201"></A>The color combination corresponds to the logical operation defined there, as if by calling </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-904177"></A>(boole <EM CLASS="Variable">
+operation</EM>
+ <EM CLASS="Variable">
+new-pixel</EM>
+ <EM CLASS="Variable">
+screen-pixel</EM>
+)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-904118"></A>For example, passing <CODE CLASS="Code">
+:operation</CODE>
+ <CODE CLASS="Code">
+boole-andc2</CODE>
+ provides a graphics state where graphics ports drawing functions draw with the bitwise AND of the foreground color and the complement of the existing color of each pixel.</P>
+<P CLASS="Body">
+<A NAME="pgfId-908246"></A>Note: Graphics State <EM CLASS="Variable">
+operation</EM>
+ is not supported by Cocoa/Core Graphics so this parameter is ignored on Cocoa.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-198.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-196.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-196.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

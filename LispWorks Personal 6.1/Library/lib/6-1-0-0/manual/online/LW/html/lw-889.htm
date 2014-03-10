@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ call-next-advice
+</TITLE>
+
+<LINK REL="next" HREF="lw-890.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-888.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-890.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-888.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1175436"></A><A NAME="marker-1175435"></A><A NAME="32640"></A>call-next-advice</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1175437"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-955982"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-955994"></A>Calls the next piece of advice associated with a function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886492"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886493"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886494"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886495"></A>call-next-advice <EM CLASS="Variable">
+args</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886496"></A>Arguments</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886497"></A><EM CLASS="Variable">
+args</EM>
+ are arguments to be given to the next piece of advice to be called. Any number of arguments may be given in this way, including keyword arguments, and there is no requirement for pieces of around advice to receive the same number of arguments as the original definition expected.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-970298"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-970299"></A><CODE CLASS="Code">
+call-next-advice</CODE>
+ returns the values produced by the call to the next piece of advice (or to the combination of before and after advice and the original definition).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886498"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886499"></A><CODE CLASS="Code">
+call-next-advice</CODE>
+ is the local function used to invoke the next item in the ordering of pieces of advice associated with a function. It can only be called from within the scope of the around advice. Advice may be attached to a function by <A HREF="lw-895.htm#defadvice" CLASS="XRef">defadvice</A> and this allows the behavior of a function to be modified. Extra code to be performed before or after the function may be simply added by creating before or after advice for it. Around advice is more powerful and replaces the original definition. All the advice for a function is ordered with the around advice coming first.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886501"></A>The first piece of around advice receives the arguments to the function and may return any values at all. It has access to the rest of the advice, and to the original definition, by means of <CODE CLASS="Code">
+call-next-advice</CODE>
+. A call to this from within the body of the around advice invokes the next piece of around advice with the arguments given to <CODE CLASS="Code">
+call-next-advice</CODE>
+. The last piece of around advice in the ordering invokes the sequence of before advice, the original definition, and after advice if it calls <CODE CLASS="Code">
+call-next-advice</CODE>
+. Around advice may contain any number of calls to <CODE CLASS="Code">
+call-next-advice</CODE>
+, including no calls.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886504"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886507"></A><CODE CLASS="Code">
+call-next-advice</CODE>
+ is an extension to Common Lisp. See <A HREF="lw-59.htm#41682" CLASS="XRef">The Advice Facility</A> for a broader discussion of <CODE CLASS="Code">
+advice</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1264382"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1264403"></A><A HREF="lw-895.htm#defadvice" CLASS="XRef">defadvice</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-890.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-888.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

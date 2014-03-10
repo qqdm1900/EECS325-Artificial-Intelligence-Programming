@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.4.2  An example
+</TITLE>
+
+<LINK REL="next" HREF="fli-31.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-29.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-28.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-16.htm">2 FLI Types</A> &gt; <A HREF="fli-28.htm">2.4  Encapsulated types</A><BR><BR>
+</DIV><A HREF="fli-31.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-29.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-28.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-887201"></A>2.4.2  An example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-887102"></A>For example, let us assume that we want to pass Lisp object handles through to C and then back to Lisp again. Passing C a pointer to the Lisp object is not sufficient, as the Lisp object might be moved at any time, for example due to garbage collection. Instead, we could assign each Lisp object to be passed to C a unique <CODE CLASS="Code">
+int</CODE>
+ handle. Callbacks into Lisp could then convert the handle back into the Lisp object. This example is implemented in two ways: using the <A HREF="fli-200.htm#39892" CLASS="XRef">:wrapper</A> type and using <A HREF="fli-91.htm#23684" CLASS="XRef">define-foreign-converter</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-887228"></A>:wrapper</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-887229"></A>Type</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-887232"></A>Allows the specification of automatic conversion functions between Lisp and an instance of a FLI type.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887236"></A>:wrapper <EM CLASS="Variable">
+fli-type</EM>
+ &amp;key <EM CLASS="Variable">
+lisp-to-foreign</EM>
+ <EM CLASS="Variable">
+foreign-to-lisp</EM>
+</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887200"></A>Using <A HREF="fli-200.htm#39892" CLASS="XRef">:wrapper</A> we can wrap Lisp to C and C to Lisp converters around the converters of an existing type:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887212"></A>(fli:define-foreign-type lisp-object-wrapper ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887213"></A>  &quot;A mechanism for passing a Lisp object handle to C.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887214"></A>   Underlying C type is Lint&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887215"></A> `(:wrapper :int</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887216"></A>   :lisp-to-foreign find-index-for-object</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887217"></A>   :foreign-to-lisp find-object-from-index))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887218"></A>If the <CODE CLASS="Code">
+:lisp-to-foreign</CODE>
+ and <CODE CLASS="Code">
+:foreign-to-lisp</CODE>
+ keyword arguments are not specified, no extra conversion is applied to the underlying foreign type, causing it to behave like a standard <A HREF="fli-172.htm#15595" CLASS="XRef">:int</A> type.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887251"></A>See the reference entry for <A HREF="fli-200.htm#39892" CLASS="XRef">:wrapper</A> for more examples.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887219"></A>A second method uses <A HREF="fli-91.htm#23684" CLASS="XRef">define-foreign-converter</A>, which is specifically designed for the creation of new converter types (that is, types which wrap extra levels of conversion around existing types). A simple use of <A HREF="fli-91.htm#23684" CLASS="XRef">define-foreign-converter</A> is to only wrap extra levels of conversion around existing Lisp to foreign and foreign to Lisp converters.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887255"></A>(fli:define-foreign-converter lisp-object-wrapper () object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887257"></A>  :foreign-type :int</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887258"></A>  :lisp-to-foreign `(find-index-for-object ,object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887280"></A>;; object will be the Lisp Object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887259"></A>  :foreign-to-lisp `(find-object-from-index ,object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887281"></A>;; object will be the :int object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887260"></A>  :documentation &quot;Foreign type for converting from lisp objects to</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887274"></A>integers handles to lisp objects which can then be manipulated in</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887277"></A>C. Underlying foreign type : 'C' int&quot;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887286"></A>The definition of <CODE CLASS="Code">
+lisp-object-wrapper</CODE>
+ using <A HREF="fli-91.htm#23684" CLASS="XRef">define-foreign-converter</A> is very similar to the definition using <A HREF="fli-200.htm#39892" CLASS="XRef">:wrapper</A>, and indeed the <A HREF="fli-200.htm#39892" CLASS="XRef">:wrapper</A> type could be defined using <A HREF="fli-91.htm#23684" CLASS="XRef">define-foreign-converter</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889264"></A>See the reference entry for <A HREF="fli-91.htm#23684" CLASS="XRef">define-foreign-converter</A> for more information.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-31.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-29.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-28.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ A.9.1.2  Example 2: Using extra arguments.
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-199.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-197.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-196.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-168.htm">A Common Prolog</A> &gt; <A HREF="kwprolog-m-195.htm">A.9  Defining Definite Clause Grammars</A> &gt; <A HREF="kwprolog-m-196.htm">A.9.1  Examples</A><BR><BR>
+</DIV><A HREF="kwprolog-m-199.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-197.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-196.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading-App">
+<A NAME="pgfId-869425"></A>A.9.1.2  Example 2: Using extra arguments.</H3>
+<PRE CLASS="Code-first"><A NAME="pgfId-869367"></A>(defgrammar one-of</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869368"></A>  ((one-of ?word) ?word))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869369"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869370"></A>(defgrammar two-of</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-869374"></A>   ((two-of ?word) (one-of ?word) (one-of ?word)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-869376"></A>Each of these defines a 3-ary relation, whose extra argument is the word to match. When the relations are called, the word will typically be bound to a symbol from the sentence to match.</P>
+<P CLASS="Body">
+<A NAME="pgfId-869378"></A>The following will succeed and bind <CODE CLASS="Code">
+?x</CODE>
+ to the list <CODE CLASS="Code">
+(foo bar)</CODE>
+:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-869380"></A>(clog:any '?x '(two-of (start start foo bar) ?x start))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-869382"></A>The following will both fail because the sentences do not begin with two <CODE CLASS="Code">
+start</CODE>
+ symbols:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-869384"></A>(clog:any '?x '(two-of (not-start start foo bar) ?x start))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-869385"></A>(clog:any '?x '(two-of (start not-start foo bar) ?x start))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-199.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-197.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-196.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

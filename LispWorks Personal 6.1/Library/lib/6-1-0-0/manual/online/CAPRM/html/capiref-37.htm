@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ choice-update-item
+</TITLE>
+
+<LINK REL="next" HREF="capiref-38.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-36.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-38.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-36.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1871066"></A><A NAME="22369"></A>choice<A NAME="marker-3948079"></A>-update-item</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1871180"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1871183"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1871185"></A>Updates an item in a choice.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3948068"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3948069"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1871187"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1872599"></A>choice-update-item <EM CLASS="Variable">
+choice</EM>
+ <EM CLASS="Variable">
+item</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1877077"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1878452"></A>The function <CODE CLASS="Code">
+choice-update-item</CODE>
+ updates the display of the item <EM CLASS="Variable">
+item</EM>
+ in the choice <EM CLASS="Variable">
+choice</EM>
+. It should be called if the display of <EM CLASS="Variable">
+item</EM>
+ (that is, the string returned by the <EM CLASS="Variable">
+print-function</EM>
+) changes.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1878468"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1878476"></A>Create a list panel that displays the status of something </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1878478"></A>(defun my-print-an-item (item)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1878479"></A>        (format nil &quot;&#126;a: &#126;a&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1878480"></A>                (substitute-if-not #&#92;space </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1878481"></A>                                   'alphanumericp </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1878482"></A>                                   (symbol-name item))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1878483"></A>                (symbol-value item)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1878485"></A>(defvar *status-one* :on)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1878487"></A>(defvar *status-two* :off)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1878489"></A>(setq list </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1878490"></A>      (capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1878491"></A>       (make-instance </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1878492"></A>        'capi:list-panel</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1878493"></A>        :items '(*status-one* *status-two*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1878494"></A>        :print-function 'my-print-an-item</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1878495"></A>        :visible-min-height :text-height</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1878496"></A>        :visible-min-width :text-width)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1878498"></A>Setting the status variables does not change the display:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1878499"></A>(setq *status-one* :error)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1878501"></A>Update the  item to change the display:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1878502"></A>(capi:choice-update-item list '*status-one*)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-10185020"></A>This example also demonstrates <CODE CLASS="Code">
+choice-update-item</CODE>
+:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-10185045"></A>examples/capi/choice/alternative-action-callback.lisp</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1885304"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1885325"></A><A HREF="capiref-33.htm#22482" CLASS="XRef">choice</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-38.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-36.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

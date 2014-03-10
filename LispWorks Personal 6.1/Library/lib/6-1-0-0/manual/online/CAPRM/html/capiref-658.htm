@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-graphics-transform-reset
+</TITLE>
+
+<LINK REL="next" HREF="capiref-659.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-657.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-495.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-495.htm">2 GP Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-659.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-657.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1518034"></A><A NAME="69729"></A><A NAME="marker-1518032"></A>with-graphics-transform-<A NAME="marker-1518033"></A>reset</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1518035"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1518036"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1518040"></A>Like <A HREF="capiref-657.htm#30591" CLASS="XRef">with-graphics-transform</A> except that it ignores existing transforms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1518041"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1518042"></A>with-graphics-transform-reset (<EM CLASS="Variable">
+port</EM>
+ &amp;optional <EM CLASS="Variable">
+transform</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1518043"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1518044"></A><EM CLASS="Variable">
+port</EM>
+</P>
+<P CLASS="RDescription-C">A graphics port.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1518045"></A><EM CLASS="Variable">
+transform</EM>
+</P>
+<P CLASS="RDescription-C">A transform.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1518046"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Lisp forms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1518047"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1518048"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The value returned by the last form of <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1518049"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1518050"></A>The macro <CODE CLASS="Code">
+with-graphics-transform-reset</CODE>
+ works the same as <A HREF="capiref-657.htm#30591" CLASS="XRef">with-graphics-transform</A> except that it ignores existing transforms.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1518054"></A>If the argument <EM CLASS="Variable">
+transform</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, the <EM CLASS="Variable">
+body</EM>
+ is applied without transform (that is, with the unit transform).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1518055"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1518056"></A>This form ignores the translation, and applies only the explicit transform (which is really just scale), so that the overall effect is to draw a 30x20 rectangle at (0,0).</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1518057"></A>(gp:with-graphics-translation (port 100 100)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1518058"></A>  (gp:with-graphics-transform-reset (port (gp:make-transform 3 0 0 2 0 0 ))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1518059"></A>    (gp:draw-rectangle port 0 0 10 10)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1518063"></A>Compare with using <A HREF="capiref-657.htm#30591" CLASS="XRef">with-graphics-transform</A>, which applies both the translation and the explict transform, so that the overall effect is to draw a rectangle 30x20 at (100,100).</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1518064"></A>(gp:with-graphics-translation (port 100 100)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1518065"></A>  (gp:with-graphics-transform (port (gp:make-transform 3 0 0 2 0 0 ))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1518066"></A>    (gp:draw-rectangle port 0 0 10 10)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1518067"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1518071"></A><A HREF="capiref-653.htm#71140" CLASS="XRef">with-graphics-post-translation</A><BR>
+<A HREF="capiref-657.htm#30591" CLASS="XRef">with-graphics-transform</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-659.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-657.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

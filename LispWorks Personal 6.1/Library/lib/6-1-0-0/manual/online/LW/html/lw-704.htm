@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-dspec-class
+</TITLE>
+
+<LINK REL="next" HREF="lw-705.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-703.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-698.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-698.htm">30 The DSPEC Package</A><BR><BR>
+</DIV><A HREF="lw-705.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-703.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-963603"></A><A NAME="64832"></A>define<A NAME="marker-964725"></A>-dspec-class</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-963604"></A>Macro	</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963605"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-963606"></A>Defines a dspec class.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963607"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-963608"></A>dspec</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963609"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-963610"></A>define-dspec-class <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+superspace</EM>
+ <EM CLASS="Variable">
+documentation</EM>
+ &amp;key <EM CLASS="Variable">
+pretty-name</EM>
+ <EM CLASS="Variable">
+undefiner</EM>
+ <EM CLASS="Variable">
+canonicalize</EM>
+ <EM CLASS="Variable">
+prettify</EM>
+ <EM CLASS="Variable">
+definedp</EM>
+ <EM CLASS="Variable">
+object-dspec</EM>
+ <EM CLASS="Variable">
+defined-parts</EM>
+ <EM CLASS="Variable">
+aggregate-class</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963611"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-966361"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the dspec class</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-966362"></A><EM CLASS="Variable">
+superspace</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the superspace</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-966363"></A><EM CLASS="Variable">
+documentation</EM>
+</P>
+<P CLASS="RDescription-C">A string describing the dspec class</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-966365"></A><EM CLASS="Variable">
+undefiner</EM>
+</P>
+<P CLASS="RDescription-C">A function that generates the undefining form for the class</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-966366"></A><EM CLASS="Variable">
+canonicalize</EM>
+</P>
+<P CLASS="RDescription-C">A function to canonicalize a dspec if it belongs to the class</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-966367"></A><EM CLASS="Variable">
+prettify</EM>
+</P>
+<P CLASS="RDescription-C">A function to return a prettier form of a dspec of the class</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-966368"></A><EM CLASS="Variable">
+definedp</EM>
+</P>
+<P CLASS="RDescription-C">A function to decide if a dspec of the class currently has a definition</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-966369"></A><EM CLASS="Variable">
+object-dspec</EM>
+</P>
+<P CLASS="RDescription-C">A function to return the dspec from an object if it was defined by the class</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-966370"></A><EM CLASS="Variable">
+defined-parts</EM>
+</P>
+<P CLASS="RDescription-C">A function to return all the currently defined parts in the class for a given a primary-name</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-966371"></A><EM CLASS="Variable">
+aggregate-class</EM>
+</P>
+<P CLASS="RDescription-C">The aggregate dspec class for a part dspec</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963615"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-966791"></A>The macro <CODE CLASS="Code">
+define-dspec-class</CODE>
+ defines a dspec class, providing handlers for definitions in that dspec class.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-968923"></A><CODE CLASS="Code">
+define-dspec-class</CODE>
+ defines <EM CLASS="Variable">
+name</EM>
+ as a dspec class, inheriting from the dspec class <EM CLASS="Variable">
+superspace</EM>
+. <EM CLASS="Variable">
+superspace</EM>
+ should be <CODE CLASS="Code">
+nil</CODE>
+ to define a new top-level dspec class.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-966792"></A><EM CLASS="Variable">
+documentation</EM>
+ should be a string documenting the dspec class. For example <CODE CLASS="Code">
+&quot;My Objects&quot;</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-966793"></A>After evaluating a <CODE CLASS="Code">
+define-dspec-class</CODE>
+ form, <EM CLASS="Variable">
+name</EM>
+ can be used by defining forms to record locations of definitions of that dspec class name by calling <A HREF="lw-726.htm#45470" CLASS="XRef">record-definition</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-968417"></A>All of the remaining arguments described below can be omitted if not needed. The most important arguments for the LispWorks IDE are <EM CLASS="Variable">
+definedp</EM>
+ and <EM CLASS="Variable">
+undefiner</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-968419"></A>If <EM CLASS="Variable">
+undefiner</EM>
+ is given, its value must be a function of one argument. When LispWorks wants to remove a definition, it will call the function with a canonical dspec of class <EM CLASS="Variable">
+name</EM>
+. The function should returns a form that removes the current definition of that dspec. For example, the undefining form for package dspecs might be <CODE CLASS="Code">
+delete-package</CODE>
+. If <EM CLASS="Variable">
+undefiner</EM>
+ is omitted, then definitions of this class cannot be undefined.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-966797"></A>If <EM CLASS="Variable">
+canonicalize</EM>
+ is given, its value must be a function of one argument. The function will be called by <A HREF="lw-701.htm#51769" CLASS="XRef">canonicalize-dspec</A> for a dspec of the given class. The value returned by the canonicalize function must be a fully canonical dspec of the given class. A typical use for the canonicalize function would be to remove extra options from the dspec which are not required to make the dspec unique. The canonicalize function should return <CODE CLASS="Code">
+nil</CODE>
+ for malformed dspecs and should take care not to signal an error. The default canonicalize function returns the dspec if it matches the form</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-968703"></A>(dspec-class <EM CLASS="Variable">
+symbol</EM>
+)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-966798"></A>If <EM CLASS="Variable">
+prettify</EM>
+ is given, its value must be a function of one argument. When LispWorks wants to print a dspec, for example in an error message, it will call the prettify function for the class of the dspec. The argument will be the canonical dspec and the function should return a dspec which is considered &quot;prettier&quot; for a user to see. The default prettify function returns the dspec unchanged.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-966799"></A>If <EM CLASS="Variable">
+definedp</EM>
+ is given, its value must be function of one argument. When LispWorks wants to discover if a given dspec is defined, it calls the function with the <A HREF="lw-713.htm#74148" CLASS="XRef">dspec-primary-name</A> of the dspec. The <EM CLASS="Variable">
+definedp </EM>
+function should return true if the primary name is defined in this dspec class and <CODE CLASS="Code">
+nil</CODE>
+ otherwise. The default <EM CLASS="Variable">
+definedp</EM>
+ function always returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-966800"></A>If <EM CLASS="Variable">
+object-dspec</EM>
+ is given, its value must be a function of one argument. When LispWorks wants to find the dspec that created a given object (for example a package object created by a <CODE CLASS="Code">
+defpackage</CODE>
+ form), it calls the <EM CLASS="Variable">
+object-dspec</EM>
+ functions in all dspec classes. The function should return a dspec for the object if that object was defined by the dspec class or <CODE CLASS="Code">
+nil</CODE>
+ otherwise.  For example, the <EM CLASS="Variable">
+object-dspec</EM>
+ function for package dspecs might be:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-968773"></A>#'(lambda (obj)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-968774"></A>    (and (packagep obj) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-968767"></A>         `(package ,(package-name obj))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-968782"></A>The <EM CLASS="Variable">
+object-dspec</EM>
+ function is used by the <B CLASS="Button">
+&quot;Find Source&quot;</B>
+ menu option in the Inspector in the LispWorks IDE to find where the current object was defined.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-966801"></A>If <EM CLASS="Variable">
+defined-parts</EM>
+ is given, its value must be a function of one argument. When LispWorks wants to find all the definitions that are parts of a given aggregate dspec class, it calls the <EM CLASS="Variable">
+defined-parts</EM>
+ functions with the <A HREF="lw-713.htm#74148" CLASS="XRef">dspec-primary-name</A> of the dspec in each class that aggregates with it. The function should return a list of dspecs which are defined parts of the primary name in the class <EM CLASS="Variable">
+name</EM>
+. If this keyword is given, <EM CLASS="Variable">
+aggregate-class</EM>
+ must also be given.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-966302"></A>If <EM CLASS="Variable">
+aggregate-class</EM>
+ is given, its value must be a symbol naming a dspec class that is the aggregate class of the parts defined by <EM CLASS="Variable">
+name</EM>
+ dspecs. For example, the aggregate class of <CODE CLASS="Code">
+method</CODE>
+ is <CODE CLASS="Code">
+defgeneric</CODE>
+ because methods are the defined parts of a particular generic function. If this keyword is given, the <EM CLASS="Variable">
+defined-parts</EM>
+ must also be given.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-971403"></A>To make <CODE CLASS="Code">
+cl:documentation</CODE>
+ work for your dspec class, add a suitable method as described for <A HREF="lw-644.htm#38950" CLASS="XRef">documentation</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-986139"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-986143"></A>See <A HREF="lw-73.htm#16428" CLASS="XRef">Dspec classes</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-986144"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-963619"></A><A HREF="lw-701.htm#51769" CLASS="XRef">canonicalize-dspec</A><BR>
+<A HREF="lw-702.htm#80510" CLASS="XRef">def</A><BR>
+<A HREF="lw-713.htm#74148" CLASS="XRef">dspec-primary-name</A><BR>
+<A HREF="lw-726.htm#45470" CLASS="XRef">record-definition</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-705.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-703.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

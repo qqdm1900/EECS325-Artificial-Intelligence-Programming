@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-foreign-callable
+</TITLE>
+
+<LINK REL="next" HREF="fli-91.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-89.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-91.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-89.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-885979"></A><A NAME="25590"></A>define-foreign-callable<A NAME="marker-998709"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886290"></A><A NAME="marker-1333871"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898229"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-915483"></A>Defines a Lisp function which can be called from a foreign language.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915474"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898230"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-885980"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886305"></A>define-foreign-callable (<EM CLASS="Variable">
+foreign-name</EM>
+ &amp;key <EM CLASS="Variable">
+encode</EM>
+ <EM CLASS="Variable">
+language result-type</EM>
+ <EM CLASS="Variable">
+result-pointer</EM>
+ <EM CLASS="Variable">
+no-check</EM>
+ <EM CLASS="Variable">
+calling-convention</EM>
+) (<EM CLASS="Variable">
+{args</EM>
+}*) &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+lisp-name</EM>
+</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1010806"></A><EM CLASS="Variable">
+args</EM>
+ ::= {<EM CLASS="Variable">
+arg-name</EM>
+} | (<EM CLASS="Variable">
+arg-name</EM>
+ <EM CLASS="Variable">
+arg-type</EM>
+)</CODE>
+<P CLASS="RSignature">
+<A NAME="pgfId-1221795"></A><EM CLASS="Variable">
+language</EM>
+ ::= :c | :ansi-c</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915472"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-915494"></A><EM CLASS="Variable">
+foreign-name</EM>
+</P>
+<P CLASS="RDescription-C">A string or symbol naming the Lisp callable function created.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978311"></A><EM CLASS="Variable">
+encode</EM>
+</P>
+<P CLASS="RDescription-C">By default, LispWorks performs automatic name encoding to translate <EM CLASS="Variable">
+foreign-name</EM>
+ </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-978830"></A>If you want to explicitly specify an encoding, the <EM CLASS="Variable">
+encode</EM>
+ option can be one of the following: </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-978312"></A><CODE CLASS="Code">
+:source</CODE>
+ tells LispWorks that <EM CLASS="Variable">
+foreign-name</EM>
+ is the function name to call from the foreign source code. This is the default value of <EM CLASS="Variable">
+encode</EM>
+ if <EM CLASS="Variable">
+foreign-name</EM>
+ is a string.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-978313"></A><CODE CLASS="Code">
+:object</CODE>
+ tells LispWorks that <EM CLASS="Variable">
+foreign-name</EM>
+ is the literal name to be called in the foreign object code.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-978314"></A><CODE CLASS="Code">
+:lisp</CODE>
+ tells LispWorks that if <EM CLASS="Variable">
+foreign-name</EM>
+ is a Lisp symbol, it must be translated and encoded. This is the default value of <EM CLASS="Variable">
+encode</EM>
+ if <EM CLASS="Variable">
+foreign-name</EM>
+ is a symbol.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1312545"></A><CODE CLASS="Code">
+:dbcs</CODE>
+ modifies the function name on Windows, as described for <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-992381"></A><EM CLASS="Variable">
+language</EM>
+</P>
+<P CLASS="RDescription-C">The language in which the foreign calling code is written. The default is <CODE CLASS="Code">
+:ansi-c</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-992397"></A><EM CLASS="Variable">
+result-type</EM>
+</P>
+<P CLASS="RDescription-C">The FLI type of the Lisp foreign callable function's return value which is passed back to the calling code.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1174795"></A><EM CLASS="Variable">
+result-pointer</EM>
+</P>
+<P CLASS="RDescription-C">A variable which will be bound to a foreign pointer into which the result should be written when the result-type is an aggregate type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-992291"></A><EM CLASS="Variable">
+no-check</EM>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+nil</CODE>
+, the result of the foreign callable function, produced by <EM CLASS="Variable">
+body</EM>
+, is checked to see if matches the <EM CLASS="Variable">
+result-type</EM>
+, and an error is raised if they do not match. Setting <EM CLASS="Variable">
+no-check</EM>
+ to <CODE CLASS="Code">
+t</CODE>
+ overrides this check.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1018558"></A><EM CLASS="Variable">
+calling-convention</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1343989"></A>Specifies the calling convention used on Windows.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-992412"></A><EM CLASS="Variable">
+args</EM>
+</P>
+<P CLASS="RDescription-C">The arguments of the Lisp foreign callable function. Each argument can consist either of an <EM CLASS="Variable">
+arg-name</EM>
+, in which case LispWorks assumes it is an <CODE CLASS="Code">
+:int</CODE>
+, or an <EM CLASS="Variable">
+arg-name</EM>
+ and an <EM CLASS="Variable">
+arg-type</EM>
+, which is a FLI type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-976348"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">A list of forms which make up the Lisp foreign callable function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915496"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1008090"></A><EM CLASS="Variable">
+lisp-name</EM>
+</P>
+<P CLASS="RDescription-C">A string or symbol naming the Lisp callable function created.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915584"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-998717"></A>The macro <CODE CLASS="Code">
+define-foreign-callable</CODE>
+ defines a Lisp function that can be called from a foreign language, for example from a C function. When the Lisp function is called, data passed to it is converted to the appropriate FLI representation, which is translated to an appropriate Lisp representation for the Lisp part of the function. Once the callable function exits, any return values are converted back into a FLI format to be passed back to the calling language.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1333069"></A>When you use <CODE CLASS="Code">
+:reference</CODE>
+ with <CODE CLASS="Code">
+:lisp-to-foreign-p t</CODE>
+ as an <EM CLASS="Variable">
+arg-type</EM>
+, you need to set <EM CLASS="Variable">
+arg-name</EM>
+ to the value that you want to return in that reference. That value is then converted and stored into the pointer supplied by the calling foreign function. This is done after the visible body of your <CODE CLASS="Code">
+define-foreign-callable</CODE>
+ form returns.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1342946"></A><EM CLASS="Variable">
+calling-convention</EM>
+ is ignored on non-Windows platforms, where there is no calling convention issue. On Windows, <CODE CLASS="Code">
+:stdcall</CODE>
+ is the calling convention used to call Win32 API functions and matches the C declarator <CODE CLASS="Code">
+&quot;__stdcall&quot;</CODE>
+. This is the default value. <CODE CLASS="Code">
+:cdecl</CODE>
+ is the default calling convention for C/C++ programs and matches the C declarator<CODE CLASS="Code">
+ &quot;__cdecl&quot;</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1177542"></A>When <EM CLASS="Variable">
+result-type</EM>
+ is an aggregate type, an additional variable is bound in the body to allow the value of the function to be returned (the value returned by the body is ignored).  This argument is named after the <EM CLASS="Variable">
+result-pointer</EM>
+ argument or is named <CODE CLASS="Code">
+result-pointer</CODE>
+ in the current package if unspecified.  While the body is executing, the variable will be bound to a foreign pointer that points to an object of the type <EM CLASS="Variable">
+result-type</EM>
+.  The body must set the slots in this foreign object in order for the value to be returned to the caller.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1162741"></A>To make a function pointer referencing a foreign callable named <CODE CLASS="Code">
+&quot;Foo&quot;</CODE>
+, use:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1221912"></A>(make-pointer :symbol-name &quot;Foo&quot;)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1237328"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1445870"></A>For a delivered application where the string name of your foreign callable is not passed in <EM CLASS="Variable">
+dll-exports</EM>
+, be aware that a call to <A HREF="fli-126.htm#29578" CLASS="XRef">make-pointer</A> like that above will not retain the foreign callable in a delivered application. Internally a Lisp symbol named <CODE CLASS="Code">
+|%FOREIGN-CALLABLE/Foo|</CODE>
+ is used so you could retain that explicitly (see the <I CLASS="Italic">
+LispWorks Delivery User Guide</I>
+ for details, and take care to specify the package). However it is simpler to name the foreign callable with your Lisp symbol, and pass that to <A HREF="fli-126.htm#29578" CLASS="XRef">make-pointer</A>. This call will keep your foreign callable in the delivered application:</LI>
+<P CLASS="RStep-C">
+<A NAME="pgfId-1237999"></A><CODE CLASS="Code">
+(make-pointer :symbol-name 'foo :functionp t)</CODE>
+</P>
+<LI CLASS="RStep">
+<A NAME="pgfId-1445900"></A>If you specify any of the FLI float types <A HREF="fli-168.htm#24602" CLASS="XRef">:float</A>, <A HREF="fli-162.htm#10694" CLASS="XRef">:double</A>, <A HREF="fli-176.htm#24205" CLASS="XRef">:lisp-float</A>, <A HREF="fli-178.htm#28489" CLASS="XRef">:lisp-single-float</A> and so on, then the value of <EM CLASS="Variable">
+language</EM>
+ should be <CODE CLASS="Code">
+:ansi-c</CODE>
+.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1221914"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-998222"></A>The following example demonstrates the use of foreign callable. A foreign callable function, <CODE CLASS="Code">
+square</CODE>
+, is defined, which takes an integer as its argument, and returns the square of the integer.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-998231"></A>(fli:define-foreign-callable </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-998240"></A>  (&quot;square&quot; :result-type :int)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-998245"></A>  ((arg-1 :int)) (* arg-1 arg-1))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-997658"></A>The foreign callable function, <CODE CLASS="Code">
+square</CODE>
+, can now be called from a foreign language. We can mimic a foreign call by using the <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A> macro to define a FLI function to call <CODE CLASS="Code">
+square</CODE>
+.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-998430"></A>(fli:define-foreign-function (call-two &quot;square&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-998389"></A>  ((in-arg :int)) :result-type :int)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-998390"></A>The <CODE CLASS="Code">
+call-two</CODE>
+ function can now be used to call <CODE CLASS="Code">
+square</CODE>
+. The next command is an example of this.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-998455"></A>(call-two 9)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1163348"></A>This last example shows how the address of a foreign callable can be passed via a pointer object, which is how you use foreign callables in practice. The foreign library in this example is libgsl:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1170431"></A>(fli:define-foreign-callable (&quot;gsl-error-handler&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1170432"></A>    ((reason (:reference-return :ef-mb-string))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1170433"></A>     (file (:reference-return :ef-mb-string))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1170434"></A>     (lineno :integer)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1170435"></A>     (gsl-errno :integer))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1170436"></A>  (error </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1170437"></A>   &quot;Error number &#126;a inside GSL [file: &#126;a, lineno &#126;a]: &#126;a&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1170438"></A>   gsl-errno file lineno reason))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1170440"></A>(fli:define-foreign-function gsl-set-error-handler </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1170441"></A>    ((func :pointer))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1163409"></A>  :result-type :pointer)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1163411"></A>To set the error handler, you would do:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1168390"></A>(gsl-set-error-handler </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1163381"></A> (fli:make-pointer :symbol-name &quot;gsl-error-handler&quot;))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915634"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-915684"></A><A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A><BR>
+<A HREF="fli-97.htm#17537" CLASS="XRef">define-foreign-variable</A><BR>
+<A HREF="fli-126.htm#29578" CLASS="XRef">make-pointer</A><BR>
+<A HREF="fli-57.htm#56244" CLASS="XRef">Foreign callables and foreign functions</A><BR>
+<A HREF="fli-66.htm#89911" CLASS="XRef">Operations on foreign blocks</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-91.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-89.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

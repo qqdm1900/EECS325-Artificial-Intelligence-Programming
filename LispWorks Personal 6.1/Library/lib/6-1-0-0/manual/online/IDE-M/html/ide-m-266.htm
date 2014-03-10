@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.11.3  Pasting text
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-267.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-265.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-263.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-230.htm">13 The Editor</A> &gt; <A HREF="ide-m-263.htm">13.11  Cutting, copying and pasting using the kill ring</A><BR><BR>
+</DIV><A HREF="ide-m-267.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-265.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-263.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-856679"></A>13.11.3  <B CLASS="Bold">
+</B>
+Pasting text</H3>
+<P CLASS="Body-Next">
+<A NAME="pgfId-856680"></A><A NAME="marker-857747"></A>Once you have an item in the kill ring, you can paste it back into a buffer as many times as you like. </P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-856693"></A>Press <CODE CLASS="Code">
+Ctrl+Y</CODE>
+ to paste the text in the kill ring back into the buffer.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-859218"></A>Note that you must use the keyboard command if you wish to paste the item that is in the kill ring (as opposed to the item in the LispWorks IDE clipboard).</P>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-856667"></A>With many editors you can only do this with one item at a time. The clipboard is only able to contain one item, and so it is the only one available for pasting back into the text. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853141"></A>However, the kill ring allows you to keep many items. Any of these items can be pasted back into your document at any time. Every time you cut or copy something, it is added to the kill ring, so you accumulate more items in the kill ring as your session progresses.</P>
+<P CLASS="Body">
+<A NAME="pgfId-856746"></A>Consider the following example. In <A HREF="ide-m-266.htm#44090" CLASS="XRef">Kill ring with three items</A>, the kill ring contains three items; the words <CODE CLASS="Code">
+factorial</CODE>
+, <CODE CLASS="Code">
+function</CODE>
+ and <CODE CLASS="Code">
+macro</CODE>
+ respectively.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-856735"></A>Figure 13.12  <A NAME="44090"></A>Kill ring with three items<DIV>
+<IMG SRC="ide-m-170.gif">
+</DIV>
+</P>
+<DIV>
+<MAP NAME="ide-m-189">
+</MAP>
+<IMG SRC="ide-m-189.gif" USEMAP="#ide-m-189">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-856736"></A>First, the word <CODE CLASS="Code">
+factorial</CODE>
+ was cut from the current buffer (this would remove it from the buffer). Next, the word <CODE CLASS="Code">
+function</CODE>
+ was copied (which would leave it in the buffer but add a copy of it to the kill ring), and lastly, the word <CODE CLASS="Code">
+macro</CODE>
+ was cut.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853216"></A>Note the concept of the kill ring rotating (this is why it is known as a ring). Every time a new item is added (at the top, in these figures), the others are all shunted around in a counter-clockwise direction.</P>
+<P CLASS="Body">
+<A NAME="pgfId-854278"></A>Whenever you perform a paste, the current item in the kill ring--the word <CODE CLASS="Code">
+macro</CODE>
+ in this case--is copied back into the buffer wherever the cursor currently is. <I CLASS="Italic">
+Note that the current item is not removed from the kill ring.</I>
+</P>
+<P CLASS="Figure">
+<A NAME="pgfId-859835"></A>Figure 13.13  <A NAME="34662"></A>Pasting from the kill ring<DIV>
+<IMG SRC="ide-m-170.gif">
+</DIV>
+</P>
+<DIV>
+<MAP NAME="ide-m-190">
+</MAP>
+<IMG SRC="ide-m-190.gif" USEMAP="#ide-m-190">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-853258"></A>What you have seen so far does exactly the same thing as the standard clipboard. True, all three items have been kept in the kill ring, but they are of no use if you cannot actually get at them.</P>
+<P CLASS="Body">
+<A NAME="pgfId-854359"></A><A NAME="marker-857751"></A>The Emacs key to do this is <CODE CLASS="Code">
+Alt+Y</CODE>
+ or <CODE CLASS="Code">
+Esc Y</CODE>
+. This rotates the kill ring in the opposite direction--thus making the previous item the current one--and pastes it into the buffer in place of the item just pasted. In <A HREF="ide-m-266.htm#34662" CLASS="XRef">Pasting from the kill ring</A>, the word <CODE CLASS="Code">
+macro</CODE>
+ would be replaced with the word <CODE CLASS="Code">
+function</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-854364"></A>You can use <CODE CLASS="Code">
+Alt+Y</CODE>
+ as many times as you like. For instance, if you actually wanted to paste the word <CODE CLASS="Code">
+factorial</CODE>
+ in the document, pressing <CODE CLASS="Code">
+Alt+Y</CODE>
+ would replace the word <CODE CLASS="Code">
+function</CODE>
+ with the word <CODE CLASS="Code">
+factorial</CODE>
+.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-854279"></A>Figure 13.14  Rotating the kill ring<DIV>
+<IMG SRC="ide-m-170.gif">
+</DIV>
+</P>
+<DIV>
+<MAP NAME="ide-m-191">
+</MAP>
+<IMG SRC="ide-m-191.gif" USEMAP="#ide-m-191">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-853340"></A>If you pressed <CODE CLASS="Code">
+Alt+Y</CODE>
+ a third time, the kill ring would have rotated completely, and <CODE CLASS="Code">
+macro</CODE>
+ would have been the current item once again.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853341"></A><B CLASS="Bold">
+Note:</B>
+ You can never use <CODE CLASS="Code">
+Alt+Y</CODE>
+ without having used <CODE CLASS="Code">
+Ctrl+Y</CODE>
+ immediately beforehand.</P>
+<P CLASS="Body-Next">
+<A NAME="pgfId-853342"></A><A NAME="marker-857752"></A>Here is a summary of the way <CODE CLASS="Code">
+Ctrl+Y</CODE>
+ and <CODE CLASS="Code">
+Alt+Y</CODE>
+ work:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853343"></A><CODE CLASS="Code">
+Ctrl+Y</CODE>
+ pastes the current item in the kill ring into the buffer.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853344"></A><CODE CLASS="Code">
+Alt+Y</CODE>
+ rotates the kill ring back one place, and then pastes the current item into the buffer, replacing the previously pasted item.<A NAME="marker-857749"></A><A NAME="marker-859672"></A></LI>
+</UL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-267.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-265.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-263.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ titled-pinboard-object
+</TITLE>
+
+<LINK REL="next" HREF="capiref-451.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-449.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-451.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-449.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3281851"></A>titled<A NAME="marker-4232986"></A>-pinboard-object</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-3281852"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3281854"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3281855"></A>A pinboard object with a title.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4232972"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4232973"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3281856"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3281860"></A><A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A><BR>
+<A HREF="capiref-449.htm#12473" CLASS="XRef">titled-object</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3283056"></A>Subclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3283080"></A><A HREF="capiref-178.htm#29088" CLASS="XRef">image-pinboard-object</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3281874"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3281880"></A>The class <CODE CLASS="Code">
+titled-pinboard-object</CODE>
+ provides a pinboard object with a title. The title is regarded as part of the object in geometry calculations.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3283991"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+titled-pinboard-object </CODE>
+does not allow the value <CODE CLASS="Code">
+:frame</CODE>
+ for the <EM CLASS="Variable">
+<A HREF="capiref-449.htm#12473" CLASS="XRef">titled-object</A></EM>
+ initarg <EM CLASS="Variable">
+title-position</EM>
+. The values <CODE CLASS="Code">
+:top</CODE>
+, <CODE CLASS="Code">
+:bottom</CODE>
+, <CODE CLASS="Code">
+:left</CODE>
+ and <CODE CLASS="Code">
+:right</CODE>
+ are allowed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3281881"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3284109"></A>This example creates three instances of <CODE CLASS="Code">
+titled-pinboard-object</CODE>
+ and one of <A HREF="capiref-208.htm#11429" CLASS="XRef">item-pinboard-object</A>, all with with a yellow background. Note that:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-3284111"></A>The title does not have the yellow background in the <CODE CLASS="Code">
+titled-pinboard-object</CODE>
+, as opposed to the <A HREF="capiref-208.htm#11429" CLASS="XRef">item-pinboard-object</A>. To specify the title background, we pass it in the <EM CLASS="Variable">
+title-args</EM>
+.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-3284113"></A>The width of the title area is determined by the title, but passing <CODE CLASS="Code">
+:visible-min-width</CODE>
+ (and other geometric hints) can be used to override this.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-3284115"></A>Setting the <CODE CLASS="Code">
+titled-object-title</CODE>
+ of the <CODE CLASS="Code">
+titled-pinboard-object</CODE>
+ does not reset its width.</LI>
+</OL>
+<PRE CLASS="RCode-first"><A NAME="pgfId-3284117"></A>(setq tpo1 (make-instance 'capi:titled-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284118"></A>                           :graphics-args </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284119"></A>                           '(:background :yellow)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284120"></A>                           :x 10 :y 10 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284121"></A>                           :width 150 :height 20</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284122"></A>                           :title &quot;Short&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284123"></A>                           :title-position :left</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284124"></A>                           :title-args </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284125"></A>                           '(:background :red ))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284126"></A>      tpo2  (make-instance 'capi:titled-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284127"></A>                           :graphics-args </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284128"></A>                           '(:background :yellow)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284129"></A>                           :x 10 :y 40 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284130"></A>                           :width 150 :height 20</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284131"></A>                           :title &quot;Long title&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284132"></A>                           :title-position :left)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284133"></A>      tpo3  (make-instance 'capi:titled-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284134"></A>                           :graphics-args </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284135"></A>                           '(:background :yellow)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284136"></A>                           :x 10 :y 70 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284137"></A>                           :width 150 :height 20</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284138"></A>                           :title &quot;Short&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284139"></A>                           :title-position :left</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284140"></A>                           :title-args </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284141"></A>                           '(:visible-min-width 100))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284142"></A>      ipo  (make-instance 'capi:item-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284143"></A>                          :graphics-args </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284144"></A>                          '(:background :yellow)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284145"></A>                          :x 10 :y 100 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284146"></A>                          :width 150 :height 20</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284147"></A>                          :text &quot;Item Pinboard&quot; ))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284148"></A>(setq pl (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284149"></A>          (make-instance 'capi:pinboard-layout</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284150"></A>                         :visible-min-width  200</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284151"></A>                         :visible-min-height 200</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284152"></A>                         :description</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284153"></A>                         (list tpo1 tpo2 tpo3 ipo))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284154"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284155"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284156"></A> pl </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284157"></A> #'(lambda()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3284158"></A>     (setf (capi:titled-object-title tpo1) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-3281887"></A>           &quot;Longer...&quot;)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3281888"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3281844"></A><A HREF="capiref-208.htm#11429" CLASS="XRef">item-pinboard-object</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-451.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-449.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.3.4  Mapping for operations
+</TITLE>
+
+<LINK REL="next" HREF="corba-39.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-37.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-34.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-28.htm">4 Writing and Compiling IDL</A> &gt <A HREF="corba-34.htm">4.3  Mapping IDL to Common Lisp</A><BR><BR>
+</DIV><A HREF="corba-39.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-37.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-853306"></A>4.3.4  <A NAME="marker-856063"></A><A NAME="marker-856091"></A>Mapping for operations</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853307"></A>The IDL operation <CODE CLASS="Code">
+credit</CODE>
+ is mapped to the Common Lisp generic function: </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853308"></A>op:credit</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-853309"></A>In IDL, the <CODE CLASS="Code">
+credit</CODE>
+ operation is defined within the <CODE CLASS="Code">
+account</CODE>
+ interface, declaring it to be an operation on <CODE CLASS="Code">
+account</CODE>
+ objects. The Common Lisp language binding adopts the convention that an operation's target object should be passed as the first argument of the corresponding Common Lisp generic function. Thus the first parameter of the generic function <CODE CLASS="Code">
+op:credit</CODE>
+ is an object of type <CODE CLASS="Code">
+BankingDemo:account</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855734"></A>The operation's <CODE CLASS="Code">
+in</CODE>
+ and <CODE CLASS="Code">
+inout</CODE>
+ arguments become the remaining parameters of the corresponding Common Lisp generic function. In this case, the <CODE CLASS="Code">
+credit</CODE>
+ operation specifies a single <CODE CLASS="Code">
+in</CODE>
+ parameter, <CODE CLASS="Code">
+in unsigned long amount</CODE>
+, that determines the second and only other parameter, <CODE CLASS="Code">
+amount</CODE>
+, of the <CODE CLASS="Code">
+op:credit</CODE>
+ generic function. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853310"></A>The operation's result type, and any other parameters declared as <CODE CLASS="Code">
+out</CODE>
+ or <CODE CLASS="Code">
+inout</CODE>
+, become results of the corresponding Common Lisp generic function. In this case, because the result type of <CODE CLASS="Code">
+credit</CODE>
+ is <CODE CLASS="Code">
+void</CODE>
+, and the operation has no <CODE CLASS="Code">
+out</CODE>
+ or <CODE CLASS="Code">
+inout</CODE>
+ parameters, <CODE CLASS="Code">
+op:credit</CODE>
+ has an empty result list. </P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-39.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-37.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

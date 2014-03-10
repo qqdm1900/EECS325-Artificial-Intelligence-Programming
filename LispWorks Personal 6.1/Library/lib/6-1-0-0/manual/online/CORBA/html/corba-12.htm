@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.1.2  Generating the stub and skeleton code from IDL
+</TITLE>
+
+<LINK REL="next" HREF="corba-13.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-11.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-10.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-9.htm">2 Quick Start Tutorial</A> &gt <A HREF="corba-10.htm">2.1  A CORBA-based Hello World </A><BR><BR>
+</DIV><A HREF="corba-13.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-11.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-853240"></A>2.1.2  <A NAME="marker-854901"></A><A NAME="marker-854955"></A><A NAME="marker-854951"></A><A NAME="marker-854949"></A>Generating the stub and skeleton code from IDL</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853241"></A>We need the IDL parser to parse the IDL to generate appropriate stubs and skeletons. We do this by including the IDL file in the defsystem that defines the code we are writing. For Hello World, the relevant defsystem is:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853482"></A>(defsystem hello-world-corba-object ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853483"></A>  :members (</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853484"></A>            (&quot;hello-world&quot; :type :idl-file)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853243"></A>The defsystem utility has been extended to correctly handle a file of type <CODE CLASS="Code">
+idl-file</CODE>
+. In this case, the fasl corresponding to the IDL file contains the compiled stubs and skeletons for the given IDL and is generated when we compile the system.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853863"></A>To create a defsystem file for the Hello World application:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-853853"></A>Create a defsystem file called <CODE CLASS="Code">
+defsys.lisp</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-853854"></A>Enter the following Lisp code into the <CODE CLASS="Code">
+defsys.lisp</CODE>
+ file:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853866"></A>(in-package &quot;CL-USER&quot;)</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853870"></A>(require &quot;corba-orb&quot;)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-853869"></A>(defsystem hello-world-corba-object ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853876"></A>  :members (</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853877"></A>            (&quot;hello-world&quot; :type :idl-file)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853882"></A>            ))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-854023"></A>:rules ((:in-order-to :compile :all</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853883"></A>         (:requires (:load :previous)))))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-853899"></A>Save and close the defsystem file.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-853910"></A>When it comes time to run the application, stubs and skeletons will be generated.</P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-13.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-11.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

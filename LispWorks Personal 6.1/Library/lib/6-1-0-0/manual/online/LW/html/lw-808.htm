@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ mark-and-sweep
+</TITLE>
+
+<LINK REL="next" HREF="lw-809.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-807.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-809.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-807.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-912297"></A><A NAME="11103"></A>mark<A NAME="marker-1041157"></A>-and-sweep</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-912298"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911557"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-911558"></A>Garbage collects a specified generation in 32-bit LispWorks. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1536864"></A>This function is deprecated: use <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> instead.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911559"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-911560"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911561"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-911562"></A>mark-and-sweep <EM CLASS="Variable">
+gen-number</EM>
+ =&gt; <EM CLASS="Variable">
+bytes</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911563"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-911564"></A><EM CLASS="Variable">
+gen-number</EM>
+</P>
+<P CLASS="RDescription-C">0 for the most recent generation, 1 for the most recent two generations, and so on up to a maximum (usually 3). Numbers outside this range signal an error.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911565"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-911566"></A><EM CLASS="Variable">
+bytes</EM>
+</P>
+<P CLASS="RDescription-C">The number of bytes allocated in that generation. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911567"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-911568"></A><CODE CLASS="Code">
+mark-and-sweep</CODE>
+ is used to garbage-collect a specified generation of storage (and all lower generations). A call to this function forces the garbage collector to scan the specified generations. This can be of use in obtaining consistent timings of programs that require memory allocation. Alternatively, performance can sometimes be improved by forcing a garbage collection, when it is known that little memory has been allocated since a previous collection, rather than waiting for a later, more extensive collection. For example, the function could be called outside a loop that allocates a small amount of memory.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-911569"></A>It is specially helpful to mark and sweep generation 2 when large, long-lived data structures become garbage, because by default it is never marked and swept. The higher the generation number the more time the <CODE CLASS="Code">
+mark-and-sweep</CODE>
+ takes, but also the more space recovered.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1131443"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1536895"></A><CODE CLASS="Code">
+mark-and-sweep</CODE>
+ is implemented only in 32-bit LispWorks, and is deprecated. Use <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> instead.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1537656"></A><CODE CLASS="Code">
+mark-and-sweep</CODE>
+ is not relevant to the Memory Management API in 64-bit implementations. In 64-bit implementations you can use <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> or <A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911570"></A>Examples </H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-911571"></A>(mark-and-sweep 0)  ; collect most recent generation</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1372779"></A>(mark-and-sweep 3)  ; collect all generations</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911572"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-911576"></A><A HREF="lw-753.htm#76923" CLASS="XRef">avoid-gc</A><BR>
+<A HREF="lw-755.htm#block-promotion" CLASS="XRef">block-promotion</A><BR>
+<A HREF="lw-800.htm#90777" CLASS="XRef">get-gc-parameters</A><BR>
+<A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A><BR>
+<A HREF="lw-798.htm#94004" CLASS="XRef">gc-if-needed</A><BR>
+<A HREF="lw-811.htm#24828" CLASS="XRef">normal-gc</A><BR>
+<A HREF="lw-831.htm#15774" CLASS="XRef">set-array-weak</A><BR>
+<A HREF="lw-833.htm#87315" CLASS="XRef">set-gc-parameters</A><BR>
+<A HREF="lw-834.htm#set-hash-table-weak" CLASS="XRef">set-hash-table-weak</A><BR>
+<A HREF="lw-1138.htm#33567" CLASS="XRef">without-interrupts</A><BR>
+<A HREF="lw-869.htm#33592" CLASS="XRef">with-heavy-allocation</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-809.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-807.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

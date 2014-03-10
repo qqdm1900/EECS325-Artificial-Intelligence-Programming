@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ abort-exit-confirmer
+</TITLE>
+
+<LINK REL="next" HREF="capiref-8.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-6.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-8.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-6.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3059710"></A><A NAME="57098"></A>abort<A NAME="marker-3944189"></A>-exit-confirmer</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-3059711"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3059712"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3059713"></A>Aborts the exiting of a dialog.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3936877"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3936878"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3059715"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3059716"></A>abort-exit-confirmer</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3059717"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3063126"></A>The function <CODE CLASS="Code">
+abort-exit-confirmer</CODE>
+ can be used to abort the exiting of a confirmer. It can be used in the <EM CLASS="Variable">
+ok-function</EM>
+ of a confirmer, to abort the exit and return to the dialog. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-3063211"></A>If <CODE CLASS="Code">
+abort-exit-confirmer</CODE>
+ is called outside the exiting of a confirmer, it does nothing.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3059724"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3068476"></A>This example asks the user for a string. If the string is longer than 20 characters, it confirms with the user that they really want such a long string, and if they do not it returns to the dialog.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-3068478"></A>(capi:popup-confirmer</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3064969"></A> (make-instance 'capi:text-input-pane)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3064970"></A> &quot;New Name&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3064971"></A> :value-function 'capi:text-input-pane-text</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3064972"></A> :ok-function </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3064973"></A> #'(lambda (value)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3064974"></A>     (when (and (&gt; (length value) 20)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3064975"></A>                (not (capi:prompt-for-confirmation</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3064976"></A>                      &quot;Name is very long. Use it?&quot;)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3064977"></A>       (capi:abort-exit-confirmer))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-3059730"></A>     value))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3059733"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3059737"></A><A HREF="capiref-300.htm#12695" CLASS="XRef">popup-confirmer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-8.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-6.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

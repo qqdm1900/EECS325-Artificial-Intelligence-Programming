@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ interface-display
+</TITLE>
+
+<LINK REL="next" HREF="capiref-187.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-185.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-187.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-185.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-2769270"></A><A NAME="50103"></A>interface<A NAME="marker-4141323"></A>-display</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-2769271"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2769273"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2769484"></A>The function called to display an interface on screen.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4141312"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4141313"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2769471"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-2769274"></A>interface-display <EM CLASS="Variable">
+interface</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2769517"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2769617"></A><EM CLASS="Variable">
+interface</EM>
+</P>
+<P CLASS="RDescription-C">An instance of a subclass of <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2769275"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2770455"></A>The generic function <CODE CLASS="Code">
+interface-display</CODE>
+ is called by <A HREF="capiref-76.htm#40005" CLASS="XRef">display</A> to display an interface on screen. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-2771323"></A>The primary method for <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A> actually does the work. You can add <CODE CLASS="Code">
+:before</CODE>
+ methods on your own interface classes for code that needs to be executed just before the interface appears, and <CODE CLASS="Code">
+:after</CODE>
+ methods for code that needs to be executed just after the interface appears.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-10417546"></A><CODE CLASS="Code">
+interface-display</CODE>
+ is useful when you need to make changes to the interface which require it to be already be created. Font queries and loading images are typical cases.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8941983"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-2771415"></A><CODE CLASS="Code">
+interface-display</CODE>
+ is called in the process of <EM CLASS="Variable">
+interface</EM>
+.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-6923373"></A><CODE CLASS="Code">
+interface-display</CODE>
+ is not called when <EM CLASS="Variable">
+interface</EM>
+ is displayed as a dialog. Another way to run code before it appears on screen is to supply a <EM CLASS="Variable">
+create-callback</EM>
+ for <EM CLASS="Variable">
+interface</EM>
+.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6923374"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5546450"></A>This example shows how <CODE CLASS="Code">
+interface-display</CODE>
+ can be used to set the initial selection in a choice whose items are computed at display-time:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-5546524"></A>(capi:define-interface my-tree ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546525"></A>  ((favorite-color :initform :blue))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546526"></A>  (:panes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546527"></A>   (tree</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546528"></A>    capi:tree-view</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546529"></A>    :roots '(:red :blue :green)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546530"></A>    :print-function</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546531"></A>    'string-capitalize))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546532"></A>  (:default-initargs </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546533"></A>   :width 200 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546534"></A>   :height 200))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546535"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546536"></A>(defmethod capi:interface-display :after </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546537"></A>  ((self my-tree))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546538"></A>  (with-slots (tree favorite-color) self</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546539"></A>    (setf (capi:choice-selected-item tree)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546540"></A>          favorite-color)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5546541"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-5546542"></A>(capi:display (make-instance 'my-tree))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2771324"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2769255"></A><A HREF="capiref-76.htm#40005" CLASS="XRef">display</A><BR>
+<A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-187.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-185.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-color-models
+</TITLE>
+
+<LINK REL="next" HREF="capiref-682.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-680.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-668.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-668.htm">3 COLOR Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-682.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-680.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-668.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886594"></A><A NAME="marker-887918"></A>define-color-models</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886595"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898534"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-898539"></A>Defines <EM CLASS="Emphasis">
+all</EM>
+ the color models.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886596"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886597"></A>color</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886598"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886599"></A>define-color-models <EM CLASS="Variable">
+model-descriptors</EM>
+=&gt; <EM CLASS="Variable">
+color-models</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900512"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900513"></A><EM CLASS="Variable">
+model-descriptors</EM>
+</P>
+<P CLASS="RDescription-C">A list, each element being a model-descriptor.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-901415"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-901488"></A><EM CLASS="Variable">
+color-models</EM>
+</P>
+<P CLASS="RDescription-C">The color models defined.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886600"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886601"></A>A model descriptor has the syntax: </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886602"></A>(<EM CLASS="Variable">
+model-name</EM>
+ <EM CLASS="Variable">
+component-descr</EM>
+*)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-886604"></A>A <EM CLASS="Variable">
+component-descr</EM>
+ is a list:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886605"></A>(<EM CLASS="Variable">
+component-name lowest-value highest-value</EM>
+)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-886607"></A>The default color models are defined by the following form:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886608"></A>(define-color-models ((:rgb (red 0.0 1.0) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886609"></A>                            (green 0.0 1.0) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886610"></A>                            (blue 0.0 1.0))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886611"></A>                      (:hsv (hue 0.0 5.99999) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886612"></A>                            (saturation 0.0 1.0) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886613"></A>                            (value 0.0 1.0)) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886614"></A>                      (:gray (level 0.0 1.0))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-886616"></A>If you want to keep existing color models, add your new ones to this list: only one <CODE CLASS="Code">
+define-color-models</CODE>
+ form is recognized. The form should be compiled.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886618"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886619"></A>To replace the HSV color model with a CMYK model, while retaining the other color models:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886620"></A>(define-color-models ((:rgb (red 0.0 1.0) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886621"></A>                            (green 0.0 1.0) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886622"></A>                            (blue 0.0 1.0))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886623"></A>                      (:cmyk (cyan 0.0 1.0) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886624"></A>                             (magenta 0.0 1.0) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886625"></A>                             (yellow 0.0 1.0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886626"></A>                             (black 0.0 1.0)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886627"></A>                      (:gray (level 0.0 1.0))))</PRE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-682.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-680.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-668.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

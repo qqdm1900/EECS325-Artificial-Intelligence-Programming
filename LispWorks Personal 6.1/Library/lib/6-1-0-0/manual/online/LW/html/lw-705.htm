@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-form-parser
+</TITLE>
+
+<LINK REL="next" HREF="lw-706.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-704.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-698.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-698.htm">30 The DSPEC Package</A><BR><BR>
+</DIV><A HREF="lw-706.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-704.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-892328"></A><A NAME="21533"></A>define<A NAME="marker-914205"></A>-form-parser</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-892329"></A>Macro	</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892331"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892332"></A>Establishes a parser for top level forms with the given definer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892333"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-892334"></A>dspec</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892335"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-892477"></A>define-form-parser <EM CLASS="Variable">
+definer-and-options</EM>
+ &amp;optional <EM CLASS="Variable">
+parameters</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+parser</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892478"></A>Arguments</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-892490"></A><EM CLASS="Variable">
+definer-and-options</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-892639"></A>A symbol <EM CLASS="Variable">
+definer</EM>
+ naming a definer of functions, macros, variables and so on, or a list (<EM CLASS="Variable">
+definer</EM>
+ <EM CLASS="Variable">
+options</EM>
+) where <EM CLASS="Variable">
+options</EM>
+ is a plist of keys and values.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892691"></A><EM CLASS="Variable">
+parameters</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+, or list of parameters <EM CLASS="Variable">
+param</EM>
+s in the top level form, optionally ending with <BR>
+<CODE CLASS="Code">
+&amp;rest </CODE>
+<EM CLASS="Variable">
+param-getter.</EM>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892714"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">The body of a parser function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892491"></A>Values	</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892492"></A><EM CLASS="Variable">
+parser</EM>
+</P>
+<P CLASS="RDescription-C">A form parser function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892341"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-932061"></A>The macro define-form-parser defines a form parser for forms beginning with <EM CLASS="Variable">
+definer</EM>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-933619"></A><EM CLASS="Variable">
+options</EM>
+ is a property list with the following keys allowed:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933620"></A><CODE CLASS="Code">
+:parser</CODE>
+</P>
+<P CLASS="RDescription-C">A parser function <EM CLASS="Variable">
+parser-function</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933621"></A><CODE CLASS="Code">
+:alias</CODE>
+</P>
+<P CLASS="RDescription-C">A dspec class or alias <EM CLASS="Variable">
+alias</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-936303"></A><CODE CLASS="Code">
+:anonymous</CODE>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-932109"></A>The parser function defined is named by <EM CLASS="Variable">
+parser-function</EM>
+. If the <CODE CLASS="Code">
+:parser</CODE>
+ option is omitted then the name defaults to a symbol in the current package whose symbol name is the symbol name of <EM CLASS="Variable">
+definer</EM>
+ with <CODE CLASS="Code">
+&quot;-FORM-PARSER&quot;</CODE>
+ appended.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-949645"></A>If <EM CLASS="Variable">
+parameters</EM>
+ and <EM CLASS="Variable">
+body</EM>
+ are given, then <EM CLASS="Variable">
+parser-function</EM>
+ is defined as a global function that is expected to return a dspec for the defining form or <CODE CLASS="Code">
+nil</CODE>
+ if this is not possible. Within <EM CLASS="Variable">
+body</EM>
+, <EM CLASS="Variable">
+definer</EM>
+ is bound to the <CODE CLASS="Code">
+car</CODE>
+ of the actual form being parsed. In simple cases, this is just <EM CLASS="Variable">
+definer</EM>
+, but if the form parser is used as in the <CODE CLASS="Code">
+:alias</CODE>
+ option of another form parser then the symbol will be bound to the <CODE CLASS="Code">
+car</CODE>
+ of that form instead.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-949779"></A>The <EM CLASS="Variable">
+params</EM>
+ are bound to subsequent subforms of the defining form. If <CODE CLASS="Code">
+&amp;rest</CODE>
+ <EM CLASS="Variable">
+param-getter</EM>
+ is supplied, then it is bound to a function of no arguments that returns two values: the next subform if there is one and a boolean to indicate if a subform was found.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-932121"></A>If <EM CLASS="Variable">
+parameters</EM>
+ and <EM CLASS="Variable">
+body</EM>
+ are omitted, then <EM CLASS="Variable">
+parser-function</EM>
+ is expected to be a form parser defined by a different <CODE CLASS="Code">
+define-form-parser</CODE>
+ form, or you can specify as an alias a definer with an existing form parser via the value <EM CLASS="Variable">
+alias</EM>
+ of the <CODE CLASS="Code">
+:alias</CODE>
+ key in <EM CLASS="Variable">
+options</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-932645"></A>If the <CODE CLASS="Code">
+:anonymous</CODE>
+ option is non-nil then <EM CLASS="Variable">
+definer</EM>
+ is not associated with the form parser.  This is useful in conjunction with <EM CLASS="Variable">
+parameters</EM>
+ and <EM CLASS="Variable">
+body</EM>
+ for defining generic form parsers that can be used in other <CODE CLASS="Code">
+define-form-parser</CODE>
+ forms.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-893087"></A>LispWorks contains pre-defined form parser functions for the Common Lisp definers <CODE CLASS="Code">
+defun</CODE>
+, <CODE CLASS="Code">
+defmethod</CODE>
+, <CODE CLASS="Code">
+defgeneric</CODE>
+, <CODE CLASS="Code">
+defvar</CODE>
+, <CODE CLASS="Code">
+defparameter</CODE>
+, <CODE CLASS="Code">
+defconstant</CODE>
+, <CODE CLASS="Code">
+defstruct</CODE>
+, <CODE CLASS="Code">
+defclass</CODE>
+, <CODE CLASS="Code">
+defmacro</CODE>
+ and <CODE CLASS="Code">
+deftype</CODE>
+ and for LispWorks definers such as <CODE CLASS="Code">
+fli:define-foreign-type</CODE>
+ and <CODE CLASS="Code">
+dspec:define-form-parser</CODE>
+ itself.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-893133"></A>When a defining symbol <EM CLASS="Variable">
+definer</EM>
+ has an associated form parser, this parser function is used by the source location commands such as <B CLASS="Button">
+Expression &gt; Find Source</B>
+ in the LispWorks IDE. Having identified the file where the definition was recorded, LispWorks parses the top level forms in the file looking for the one which matches the definition spec. When found, this match is displayed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892343"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-933811"></A>Define a parser for <CODE CLASS="Code">
+def-foo</CODE>
+ forms which have a single name as the second element in the form:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-933812"></A>(dspec:define-form-parser def-foo (name)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-933813"></A>  `(,def-foo ,name))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-933814"></A>Define a parser for <CODE CLASS="Code">
+def-other-foo</CODE>
+ forms which are like <CODE CLASS="Code">
+def-foo</CODE>
+ forms:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-933815"></A>(dspec:define-form-parser </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-933816"></A>    (def-other-foo (:parser def-foo-form-parser)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-933817"></A>Define a parser for <CODE CLASS="Code">
+def-bar</CODE>
+ forms whose name is made from the second element of the form and any subsequent keywords:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-933818"></A>(dspec:define-form-parser def-bar (name &amp;rest details)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-933819"></A>  `(,def-bar (,name</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-933820"></A>              ,@(loop for detail = (funcall details)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-933821"></A>                      while (keywordp detail)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-933822"></A>                      collect detail))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-933823"></A>Define a parser for forms which have another name as the second element in the form:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-934128"></A>(dspec:define-form-parser (two-names</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934129"></A>                           (:anonymous t)) (name1 name2)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-893460"></A>  `(,two-names ,name1 ,name2))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-894881"></A>Define a new way to define CLOS methods, and tell the dspec system to treat them the same. Note the use of <CODE CLASS="Code">
+define-dspec-alias</CODE>
+ to inform the dspec system that <CODE CLASS="Code">
+my-defmethod</CODE>
+ is another way of naming <CODE CLASS="Code">
+defmethod</CODE>
+ dspecs:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-894246"></A>(defmacro my-defmethod (name args &amp;body body)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894247"></A>  `(defmethod ,name ,args </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894248"></A>     ,@body))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894249"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894250"></A>(dspec:define-dspec-alias my-defmethod </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894251"></A>    (name &amp;rest args)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894252"></A>  `(defmethod ,name ,@args))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894253"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894257"></A>(my-defmethod foo ((x number)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894258"></A>  42)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894260"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894261"></A>(dspec:define-form-parser </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894262"></A>    (my-defmethod </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-894263"></A>        (:parser </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-894264"></A>         #.(dspec:get-form-parser 'defmethod))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-935905"></A>A simpler way to write the last form is:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-935992"></A>(dspec:define-form-parser</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-935993"></A>    (my-defmethod</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-935950"></A>        (:alias defmethod)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894234"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-897771"></A><A HREF="lw-719.htm#37863" CLASS="XRef">get-form-parser</A><BR>
+<A HREF="lw-725.htm#81988" CLASS="XRef">parse-form-dspec</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-706.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-704.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

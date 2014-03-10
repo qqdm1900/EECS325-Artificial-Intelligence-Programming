@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ allocate-dynamic-foreign-object
+</TITLE>
+
+<LINK REL="next" HREF="fli-74.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-72.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-74.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-72.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-896340"></A><A NAME="10368"></A>allocate-dynamic-foreign-object<A NAME="marker-998675"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-896341"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897968"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-912146"></A>Allocates memory for an instance of a foreign object within the scope of a <A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A> macro.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912137"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897969"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1318285"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1318286"></A>allocate-dynamic-foreign-object &amp;key <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+pointer-type</EM>
+ <EM CLASS="Variable">
+initial-element</EM>
+ <EM CLASS="Variable">
+initial-contents</EM>
+ <EM CLASS="Variable">
+fill</EM>
+ <EM CLASS="Variable">
+nelems</EM>
+ <EM CLASS="Variable">
+size-slot</EM>
+ =&gt; <EM CLASS="Variable">
+pointer</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898676"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-898750"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">A FLI type specifying the type of the object to be allocated. If <EM CLASS="Variable">
+type</EM>
+ is supplied, <EM CLASS="Variable">
+pointer-type</EM>
+ must not be supplied.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-898946"></A><EM CLASS="Variable">
+pointer-type</EM>
+</P>
+<P CLASS="RDescription-C">A FLI pointer type specifying the type of the pointer object to be allocated. If <EM CLASS="Variable">
+pointer-type</EM>
+ is supplied, <EM CLASS="Variable">
+type</EM>
+ must not be supplied.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-899018"></A><EM CLASS="Variable">
+initial-element</EM>
+</P>
+<P CLASS="RDescription-C">A keyword setting the initial value of every element in the newly allocated object to <EM CLASS="Variable">
+initial-element</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-899162"></A><EM CLASS="Variable">
+initial-contents</EM>
+</P>
+<P CLASS="RDescription-C">A list of forms which initialize the contents of each element in the newly allocated object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1318337"></A><EM CLASS="Variable">
+fill</EM>
+</P>
+<P CLASS="RDescription-C">An integer between 0 to 255.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1318338"></A><EM CLASS="Variable">
+nelems</EM>
+</P>
+<P CLASS="RDescription-C">An integer specifying how many copies of the object should be allocated. The default value is 1.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1318339"></A><EM CLASS="Variable">
+size-slot</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming a slot in the object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900985"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-901051"></A><EM CLASS="Variable">
+pointer</EM>
+</P>
+<P CLASS="RDescription-C">A pointer to the specified <EM CLASS="Variable">
+type</EM>
+ or <EM CLASS="Variable">
+pointer-type</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-899216"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-899258"></A>The function <CODE CLASS="Code">
+allocate-dynamic-foreign-object</CODE>
+ allocates memory for a new instance of an object of type <EM CLASS="Variable">
+type</EM>
+ or an instance of a pointer object of type <EM CLASS="Variable">
+pointer-type</EM>
+ within the scope of the body of the macro <A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1318558"></A>The object is initialized as if by <A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1318621"></A>Once this macro has executed, the memory allocated using <CODE CLASS="Code">
+allocate-dynamic-foreign-object</CODE>
+ is therefore automatically freed for other uses.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-901078"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-901143"></A>A full example using <A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A> and <CODE CLASS="Code">
+allocate-dynamic-foreign-object</CODE>
+ is given in <A HREF="fli-14.htm#26276" CLASS="XRef">An example of dynamic memory allocation</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900590"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1513146"></A><A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A><BR>
+<A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A><BR>
+<A HREF="fli-14.htm#26276" CLASS="XRef">An example of dynamic memory allocation</A><BR>
+<A HREF="fli-41.htm#52849" CLASS="XRef">More examples of allocation and pointer allocation</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-74.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-72.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

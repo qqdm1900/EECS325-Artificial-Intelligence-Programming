@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.9.9  Types of values returned from queries
+</TITLE>
+
+<LINK REL="next" HREF="lw-420.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-418.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-408.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-408.htm">19.9  Using MySQL</A><BR><BR>
+</DIV><A HREF="lw-420.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-418.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-408.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-908579"></A>19.9.9  <A NAME="31477"></A>Types<A NAME="marker-910847"></A> of values returned from queries</H3>
+<P CLASS="Body">
+<A NAME="pgfId-908581"></A>Common SQL uses the MySQL mechanism that returns values as strings.</P>
+<P CLASS="Body">
+<A NAME="pgfId-909426"></A>By default, Common SQL converts these strings to the appropriate Lisp type corresponding to the column type (or more accurately, the type of the field in the query) according to <A HREF="lw-419.htm#70272" CLASS="XRef">MySQL type mapping</A></P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-910035"></A>MySQL type mapping<A NAME="70272"></A><DIV>
+<IMG SRC="lw-26.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-910041"></A>MySQL column type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-910043"></A>Lisp Type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-910045"></A>Meaning</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910047"></A>All integer types</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910049"></A><CODE CLASS="Code">
+integer</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910051"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910053"></A>Double</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910055"></A><CODE CLASS="Code">
+double-float</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910057"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910059"></A>Single</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910061"></A><CODE CLASS="Code">
+single-float</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910063"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910065"></A>Decimal</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910067"></A><CODE CLASS="Code">
+rational</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910069"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910071"></A>All String types</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910073"></A><CODE CLASS="Code">
+string</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910075"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910077"></A>All Binary types</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910079"></A><CODE CLASS="Code">
+(array (unsigned-byte 8) (*))</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910081"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910083"></A>Date</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910085"></A><CODE CLASS="Code">
+integer</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910087"></A>Universal time</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910089"></A>Datetime</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910091"></A><CODE CLASS="Code">
+integer</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910093"></A>Universal time</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910095"></A>Timestamp</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910097"></A><CODE CLASS="Code">
+integer</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910099"></A>Universal time</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910101"></A>Time</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910103"></A><CODE CLASS="Code">
+integer</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910105"></A>Number of seconds</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910107"></A>Year</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910109"></A><CODE CLASS="Code">
+integer</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-910111"></A>Number of years</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-908583"></A>However, if you specify the result type as <CODE CLASS="Code">
+:string</CODE>
+, this eliminates the conversion and the return value is simply the string retrieved by MySQL. For information about specifying the result type for a column (or multiple columns) in a query, see <A HREF="lw-369.htm#11131" CLASS="XRef">Querying</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-908596"></A><A NAME="marker-910802"></A>Each of the five date-like types (that is, Date, Datetime, Timestamp, Time and Year) can have result type <CODE CLASS="Code">
+:date</CODE>
+, <CODE CLASS="Code">
+:date-string</CODE>
+ or <CODE CLASS="Code">
+:datetime-string</CODE>
+ with the following effects:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-910176"></A><CODE CLASS="Code">
+:date</CODE>
+</P>
+<P CLASS="Description-C">This result type means a Universal time. This is the default except for Year.</P>
+<P CLASS="Description">
+<A NAME="pgfId-910177"></A><CODE CLASS="Code">
+:date-string</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-910180"></A>A string with the format that MySQL uses for Date columns.</P>
+<P CLASS="Description">
+<A NAME="pgfId-910184"></A><CODE CLASS="Code">
+:datetime-string</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-910191"></A>A string with the format that MySQL uses for Datetime columns.</P>
+<P CLASS="Body">
+<A NAME="pgfId-908598"></A>All the numeric types can have result type <CODE CLASS="Code">
+:int</CODE>
+, <CODE CLASS="Code">
+:single-float</CODE>
+ or <CODE CLASS="Code">
+:double-float</CODE>
+, causing the appropriate conversion. No check is made on whether the result is actually useful.</P>
+<P CLASS="Body">
+<A NAME="pgfId-908600"></A>String types can have result type <CODE CLASS="Code">
+:binary</CODE>
+, which returns an array.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-420.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-418.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-408.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

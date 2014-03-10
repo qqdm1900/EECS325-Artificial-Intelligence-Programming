@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :ef-mb-string
+</TITLE>
+
+<LINK REL="next" HREF="fli-164.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-162.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-156.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-156.htm">6 Type Reference</A><BR><BR>
+</DIV><A HREF="fli-164.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-162.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-901379"></A><A NAME="35450"></A>:ef-mb-string<A NAME="marker-917473"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-890625"></A>FLI type descriptor</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890626"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890627"></A>Converts between a Lisp string and a C multi-byte string .</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890630"></A>Syntax</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-890631"></A>:ef-mb-string &amp;key <EM CLASS="Variable">
+limit</EM>
+ <EM CLASS="Variable">
+external-format</EM>
+ <EM CLASS="Variable">
+null-terminated-p</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890632"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920809"></A><EM CLASS="Variable">
+limit</EM>
+</P>
+<P CLASS="RDescription-C">The maximum number of bytes of the C multi-byte string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920810"></A><EM CLASS="Variable">
+external-format</EM>
+</P>
+<P CLASS="RDescription-C">An external format specification.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-920811"></A><EM CLASS="Variable">
+null-terminated-p<BR>
+</EM>
+A boolean controlling the null termination byte.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890634"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-919893"></A>The FLI <CODE CLASS="Code">
+:ef-mb-string</CODE>
+ type converts between a Lisp string and a C multi-byte string. The C string may have a maximum length of <EM CLASS="Variable">
+limit</EM>
+ bytes. The <EM CLASS="Variable">
+limit</EM>
+ can be omitted in cases where a new foreign string is being allocated.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-911751"></A>The <EM CLASS="Variable">
+external-format</EM>
+ is used to specify the encoding of the foreign string. It defaults to an encoding appropriate for C string of type <CODE CLASS="Code">
+char*</CODE>
+. If you want to pass a string to the Windows API, known as <CODE CLASS="Code">
+STR</CODE>
+ in the Windows API terminology, specify<CODE CLASS="Code">
+ win32:*multibyte-code-page-ef*</CODE>
+, which is a variable holding the external format corresponding to the current Windows multi-byte code page. To change the default, call <CODE CLASS="Code">
+</CODE>
+<A HREF="fli-143.htm#33536" CLASS="XRef">set-locale</A> or <A HREF="fli-144.htm#75458" CLASS="XRef">set-locale-encodings</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-919898"></A>If <EM CLASS="Variable">
+null-terminated-p</EM>
+ is non-nil, a NULL byte is added to the end of the string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920884"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-967638"></A>If you want to pass a string argument by reference but also allow conversion from Lisp <CODE CLASS="Code">
+nil</CODE>
+ to a null pointer, specify the <CODE CLASS="Code">
+:reference</CODE>
+ type <CODE CLASS="Code">
+:allow-null</CODE>
+ argument, for example:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-920949"></A>(:reference-pass :ef-mb-string :allow-null t)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890638"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890639"></A><A HREF="fli-164.htm#37040" CLASS="XRef">:ef-wc-string</A><BR>
+<A HREF="fli-185.htm#26451" CLASS="XRef">:reference</A><BR>
+<A HREF="fli-143.htm#33536" CLASS="XRef">set-locale</A><BR>
+<A HREF="fli-144.htm#75458" CLASS="XRef">set-locale-encodings</A><BR>
+<A HREF="fli-25.htm#74929" CLASS="XRef">Strings</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-164.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-162.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

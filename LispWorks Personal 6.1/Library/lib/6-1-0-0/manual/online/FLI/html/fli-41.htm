@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.5  More examples of allocation and pointer allocation
+</TITLE>
+
+<LINK REL="next" HREF="fli-42.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-40.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-33.htm">3 FLI Pointers</A><BR><BR>
+</DIV><A HREF="fli-42.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-40.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886754"></A>3.5  <A NAME="52849"></A>More examples of allocation and pointer allocation</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886755"></A>The functions <A HREF="fli-73.htm#10368" CLASS="XRef">allocate-dynamic-foreign-object</A>, <A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A>, <A HREF="fli-72.htm#15948" CLASS="XRef">alloca</A>, and <A HREF="fli-127.htm#13237" CLASS="XRef">malloc</A> can take the keyword arguments <CODE CLASS="Code">
+:type</CODE>
+ and <CODE CLASS="Code">
+:pointer-type</CODE>
+. It is important to understand the difference between these two arguments.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886768"></A>The <CODE CLASS="Code">
+:type</CODE>
+ argument is used to specify the name of the FLI type to allocate. Once such an object has been allocated a foreign pointer of type <CODE CLASS="Code">
+(:pointer </CODE>
+<EM CLASS="Variable">
+type</EM>
+<CODE CLASS="Code">
+)</CODE>
+ is returned, which points to the allocated type. Without this pointer it would not be possible to refer to the object.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886769"></A>The <CODE CLASS="Code">
+:pointer-type</CODE>
+ argument is used to specify a FLI pointer type. If it is used then the value <EM CLASS="Variable">
+pointer-type</EM>
+ should be of the form <CODE CLASS="Code">
+(:pointer </CODE>
+<EM CLASS="Variable">
+type</EM>
+) or be defined as a FLI pointer type. The function then allocates an object of type <EM CLASS="Variable">
+type</EM>
+, and a pointer to the object of type <EM CLASS="Variable">
+type</EM>
+ is returned. </P>
+<P CLASS="Body">
+<A NAME="pgfId-886770"></A>In this first example you can see how to allocate an integer in C, and in LispWorks using the <CODE CLASS="Code">
+:type</CODE>
+ and the <CODE CLASS="Code">
+:pointer-type</CODE>
+ arguments.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886771"></A>C   &gt; (int *)malloc(sizeof(int))</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-886772"></A>FLI &gt; (fli:allocate-foreign-object :type :int)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886773"></A>      =&gt; #&lt;Pointer to type :INT = #x007E1A60&gt;</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-886774"></A>FLI &gt; (fli:allocate-foreign-object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886775"></A>                  :pointer-type '(:pointer :int))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886778"></A>      =&gt; #&lt;Pointer to type :INT = #x007E1A60&gt;</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-42.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-40.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-property
+</TITLE>
+
+<LINK REL="next" HREF="lw-1090.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1088.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1090.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1088.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1460744"></A><A NAME="77380"></A>process<A NAME="marker-1460742"></A>-property</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1460745"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1460746"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1460747"></A>Gets and sets a general property for a process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1460748"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1460749"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1464746"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1738261"></A>process-property <EM CLASS="Variable">
+indicator</EM>
+ &amp;optional <EM CLASS="Variable">
+process</EM>
+ <EM CLASS="Variable">
+default</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1738262"></A>(setf process-property) <EM CLASS="Variable">
+value</EM>
+ <EM CLASS="Variable">
+indicator</EM>
+ &amp;optional <EM CLASS="Variable">
+process</EM>
+ <EM CLASS="Variable">
+default</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1460752"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1466739"></A><EM CLASS="Variable">
+indicator</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1466740"></A><EM CLASS="Variable">
+process</EM>
+</P>
+<P CLASS="RDescription-C">A process.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1460753"></A><EM CLASS="Variable">
+default</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1460754"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1460755"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A property value, or default.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1460756"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1467464"></A>The function <CODE CLASS="Code">
+process-property</CODE>
+ gets the value that is associated with <EM CLASS="Variable">
+indicator</EM>
+ for the process <EM CLASS="Variable">
+process</EM>
+, and <CODE CLASS="Code">
+(setf process-property)</CODE>
+ sets this value.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1460757"></A>If <EM CLASS="Variable">
+process</EM>
+ is not supplied or is <CODE CLASS="Code">
+nil</CODE>
+, the current process (that is, the result of calling <A HREF="lw-1030.htm#30865" CLASS="XRef">get-current-process</A>) is used.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1806064"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1806065"></A>In the typical case when only the current process sets the property (even if other processes read it), private properties can be used, and are much faster in SMP LispWorks, because they do not need to deal with parallel setting. See <A HREF="lw-1088.htm#10478" CLASS="XRef">process-private-property</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1492971"></A>Example</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1493640"></A>(process-property 'foo (get-current-process) 'bar)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1493641"></A>=&gt; BAR</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1492972"></A>(setf (process-property 'foo) 'foo-value)</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1493289"></A>=&gt; FOO-VALUE</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1493290"></A>(process-property 'foo)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1493291"></A>=&gt; FOO-VALUE</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1460762"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1467791"></A><A HREF="lw-1088.htm#10478" CLASS="XRef">process-private-property</A><BR>
+<A HREF="lw-1117.htm#50862" CLASS="XRef">remove-process-property</A><BR>
+<A HREF="lw-1115.htm#51356" CLASS="XRef">remove-from-process-property</A><BR>
+<A HREF="lw-1112.htm#30872" CLASS="XRef">pushnew-to-process-property</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1090.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1088.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

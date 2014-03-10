@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 22.5  External Formats
+</TITLE>
+
+<LINK REL="next" HREF="lw-499.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-497.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-484.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-484.htm">22 Internationalization</A><BR><BR>
+</DIV><A HREF="lw-499.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-497.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-484.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-892436"></A>22.5  External Formats</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889515"></A><A NAME="marker-890558"></A>External formats are two-way translations from Lisp's internal encoding to an external encoding. They can be used in file I/O, and in passing and receiving string data in foreign function calls.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889644"></A>An external format is named in LispWorks by an <A NAME="marker-890557"></A>external format specification (<A NAME="marker-890556"></A>ef-spec). An ef-spec is a symbol naming the external format, or a list with such a  name as its first element followed by parameter/value pairs.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889581"></A>LispWorks has a number of predefined external formats:</P>
+<P CLASS="Description">
+<A NAME="pgfId-891131"></A><CODE CLASS="Code">
+win32:code-page</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-891132"></A>The Windows code page with identifier given by the <CODE CLASS="Code">
+:id </CODE>
+parameter.<CODE CLASS="Code">
+ </CODE>
+Implemented only on Windows.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889677"></A><CODE CLASS="Code">
+:latin-1</CODE>
+<A NAME="marker-890540"></A></P>
+<P CLASS="Description-C"><A NAME="marker-890539"></A>ISO8859-1.</P>
+<P CLASS="Description">
+<A NAME="pgfId-889687"></A><CODE CLASS="Code">
+:latin-1-terminal</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-889806"></A>As Latin-1, except that if a non-Latin-1 character is output, it is written as <CODE CLASS="Code">
+&lt;xxxx&gt;</CODE>
+ where <CODE CLASS="Code">
+xxxx</CODE>
+ is the hexdecimal character code and does not signal error.</P>
+<P CLASS="Description">
+<A NAME="pgfId-892668"></A><CODE CLASS="Code">
+:latin-1-safe</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-892669"></A>As Latin-1, except that if a non-Latin-1 character is output, it is written as <CODE CLASS="Code">
+?</CODE>
+ and does not signal error.</P>
+<P CLASS="Description">
+<A NAME="pgfId-892673"></A><CODE CLASS="Code">
+:macos-roman</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-892674"></A>The Mac OS Roman encoding.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-892664"></A><CODE CLASS="Code">
+:ascii</P>
+<P CLASS="Description-C"></CODE>
+<A NAME="marker-892663"></A>ASCII.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889698"></A><CODE CLASS="Code">
+:unicode</P>
+<P CLASS="Description-C"></CODE>
+The <A NAME="marker-890537"></A>UCS-2 encoding of Unicode. The parameter <CODE CLASS="Code">
+:little-endian </CODE>
+defaults to the endianness of the platform.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-892941"></A><CODE CLASS="Code">
+:utf-8</P>
+<P CLASS="Description-C"></CODE>
+The <A NAME="marker-892940"></A>UTF-8 encoding of Unicode.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-892943"></A><CODE CLASS="Code">
+:jis</P>
+<P CLASS="Description-C"></CODE>
+<A NAME="marker-892942"></A>JIS. The encoding data is read from a file <CODE CLASS="Code">
+Uni2JIS</CODE>
+ and is pre-built into LispWorks.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-892945"></A><CODE CLASS="Code">
+:euc-jp</P>
+<P CLASS="Description-C"></CODE>
+<A NAME="marker-892944"></A>EUC-JP. The encoding data is read from a file <CODE CLASS="Code">
+Uni2JIS</CODE>
+ and is pre-built into LispWorks.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-893032"></A><CODE CLASS="Code">
+:sjis</P>
+<P CLASS="Description-C"></CODE>
+<A NAME="marker-893031"></A>Shift JIS.</P>
+<P CLASS="Description">
+<A NAME="pgfId-893059"></A><CODE CLASS="Code">
+:windows-cp936</CODE>
+<A NAME="marker-893058"></A></P>
+<P CLASS="Description-C">
+<A NAME="pgfId-896319"></A>Windows code page 936. The encoding data is read from a file <CODE CLASS="Code">
+windows-936-2000.ucm</CODE>
+ and is pre-built into LispWorks.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-893126"></A><CODE CLASS="Code">
+:gbk</P>
+<P CLASS="Description-C"></CODE>
+<A NAME="marker-893125"></A>A synonym for <CODE CLASS="Code">
+:windows-cp936</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893036"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+windows-936-2000.ucm</CODE>
+ is provided by way of documentation in the directory <CODE CLASS="Code">
+lib/6-1-0-0/etc/</CODE>
+. It is not read at runtime.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893149"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+Uni2JIS</CODE>
+ is provided by way of documentation in the directory <CODE CLASS="Code">
+lib/6-1-0-0/etc/</CODE>
+. It is also used at runtime by the function <CODE CLASS="Code">
+char-name</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-499.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-497.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-484.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

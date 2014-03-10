@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ A.13.2  The defdetunipred form
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-205.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-203.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-202.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-168.htm">A Common Prolog</A> &gt; <A HREF="kwprolog-m-202.htm">A.13  Adding Built-in Predicates</A><BR><BR>
+</DIV><A HREF="kwprolog-m-205.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-203.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-202.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading-App">
+<A NAME="pgfId-866866"></A>A.13.2  The defdetunipred form</H3>
+<P CLASS="Body">
+<A NAME="pgfId-869032"></A>The syntax of this form is</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-869024"></A>(<A NAME="marker-866865"></A>defdetunipred &lt;<EM CLASS="Variable">name</EM>
+&gt; &lt;<EM CLASS="Variable">num args</EM>
+&gt; &lt;<EM CLASS="Variable">unifier1</EM>
+ <EM CLASS="Variable">unifier2</EM>
+&gt; </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866867"></A>              &lt;<EM CLASS="Variable">aux-vars</EM>
+&gt; &lt;<EM CLASS="Variable">body</EM>
+&gt;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866868"></A><CODE CLASS="Code">
+defdetunipred</CODE>
+ is used when the defined predicate needs to unify values with arguments (or unify in general). The body is executed and, if successful, (that is, <CODE CLASS="Code">
+detpred-fail</CODE>
+ has not been called) unification is performed on the two unifiers. (If more than two items need to be unified, cons up lists of items to unify).</P>
+<P CLASS="Body">
+<A NAME="pgfId-869045"></A>For example</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866869"></A>(defdetunipred my-arg 3 (temp1 temp2) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866870"></A>         (temp1 temp2 index term value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866871"></A>         (setf index (special-arg 0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866872"></A>               term (special-arg 1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866873"></A>               value (special-arg 2))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866874"></A>         (unless (and (numberp index)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866875"></A>                      (plusp index)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866876"></A>                      (or (and (term-p term)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866877"></A>                               (&lt; index (length term)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866878"></A>                          (and (consp term) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866879"></A>                               (&lt; index 3))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866880"></A>                 (detpred-fail my-arg 3))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866881"></A>         (if (consp term)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866882"></A>             (setf temp1 (if (= index 1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866883"></A>                             (car term)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866884"></A>                             (cdr term)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866885"></A>            (setf temp1 (term-ref term index)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866886"></A>         (setf temp2 value))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-205.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-203.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-202.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

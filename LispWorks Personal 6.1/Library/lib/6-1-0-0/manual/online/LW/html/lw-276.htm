@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.4  Locks
+</TITLE>
+
+<LINK REL="next" HREF="lw-277.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-275.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-244.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A><BR><BR>
+</DIV><A HREF="lw-277.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-275.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886203"></A>15.4  <A NAME="63317"></A><A NAME="marker-886202"></A>Locks</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886204"></A>Locks can be used to control access to shared data by several processes.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890760"></A>The two main symbols used in locking are the function <A HREF="lw-1057.htm#93763" CLASS="XRef">make-lock</A>, to create a lock, and the macro <A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A>, to execute a body of code while holding the specified lock.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890730"></A>A lock has a name (a string) and several other components. The printed representation of a lock shows the name of the lock and whether it is currently locked. Additionally if the lock is locked it shows the name of the process holding the lock, and how many times that process has locked it. For example:</P>
+<P CLASS="Body">
+<A NAME="pgfId-890735"></A>#&lt;MP:LOCK &quot;my-lock&quot; Locked 2 times by &quot;My Process&quot; 2008CAD8&gt;</P>
+<P CLASS="Body">
+<A NAME="pgfId-890754"></A>The function <A NAME="marker-890753"></A><A HREF="lw-1045.htm#32193" CLASS="XRef">lock-owner</A> returns the process that locked a given lock.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891965"></A>The function <A NAME="marker-891964"></A><A HREF="lw-1044.htm#27302" CLASS="XRef">lock-name</A> returns the name of a lock.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891872"></A>The function <A NAME="marker-891889"></A><A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A> blocks the current process until a given lock is claimed or a timeout passes, and <A NAME="marker-891897"></A><A HREF="lw-1099.htm#96257" CLASS="XRef">process-unlock</A> releases the lock.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891922"></A>The macro <A NAME="marker-891915"></A><A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A> executes code with a lock held, and releases the lock on exit, as if by <A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A> and <A HREF="lw-1099.htm#96257" CLASS="XRef">process-unlock</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894601"></A>If you need to avoid blocking on a lock that is held by some other thread, then use <A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A> with <EM CLASS="Variable">
+timeout</EM>
+ 0, like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-894652"></A>(unless (mp:with-lock (lock nil 0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894653"></A>          (code-to-run-if-locked)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894654"></A>          t)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-894609"></A>  (code-to-run-if-not-locked))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-897067"></A>The macros <A NAME="marker-897069"></A><A HREF="lw-1137.htm#42408" CLASS="XRef">with-sharing-lock</A> and <A NAME="marker-897077"></A><A HREF="lw-1134.htm#24315" CLASS="XRef">with-exclusive-lock</A> can be used with sharing locks.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="lw-277.htm#pgfId-893007" CLASS="Hypertext">15.4.1  Features of lock APIs for SMP</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="lw-280.htm#pgfId-895410" CLASS="Hypertext">15.4.2  Guarantees and limitations when locking and unlocking</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-277.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-275.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

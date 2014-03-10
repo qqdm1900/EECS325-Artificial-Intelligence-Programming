@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-autorelease-pool
+</TITLE>
+
+<LINK REL="next" HREF="objc-73.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-71.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-33.htm">2 Objective-C Reference</A><BR><BR>
+</DIV><A HREF="objc-73.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-71.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1195326"></A><A NAME="67152"></A>with-autorelease-pool<A NAME="marker-1195325"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1195327"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167823"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1167824"></A>Evaluates forms in the scope of a temporary autorelease pool.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167254"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1167255"></A>objc</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167256"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1167257"></A>with-autorelease-pool (<EM CLASS="Variable">
+option</EM>
+*) <EM CLASS="Variable">
+form</EM>
+* =&gt; <EM CLASS="Variable">
+values</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167260"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1167846"></A><EM CLASS="Variable">
+option</EM>
+</P>
+<P CLASS="RDescription-C">There are currently no options.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1167854"></A><EM CLASS="Variable">
+form</EM>
+</P>
+<P CLASS="RDescription-C">A form.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1197030"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1197031"></A><EM CLASS="Variable">
+values</EM>
+</P>
+<P CLASS="RDescription-C">The values returned by the last <EM CLASS="Variable">
+form</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1197032"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1167795"></A>The macro <CODE CLASS="Code">
+with-autorelease-pool</CODE>
+ creates a new autorelease pool and evaluates each <EM CLASS="Variable">
+form</EM>
+ in sequence. The pool is released at the end, even if a non-local exit is performed by the <EM CLASS="Variable">
+form</EM>
+s. An autorelease pool is provided automatically for the main thread when running CAPI with Cocoa, but other threads need to allocate one if they call Objective-C methods that use <A HREF="objc-35.htm#49054" CLASS="XRef">autorelease</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167557"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1197102"></A>The <CODE CLASS="Code">
+&quot;description&quot;</CODE>
+ method returns an autoreleased NSString, so to make this function safe for use anywhere, the <CODE CLASS="Code">
+with-autorelease-pool</CODE>
+ macro is used:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1197059"></A>(defun object-description (object)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1197060"></A>  (with-autorelease-pool ()</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1197049"></A>    (invoke-into 'string object &quot;description&quot;)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167353"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1167788"></A><A HREF="objc-35.htm#49054" CLASS="XRef">autorelease</A><BR>
+<A HREF="objc-50.htm#27199" CLASS="XRef">make-autorelease-pool</A></P>
+<P CLASS="Body">
+<A NAME="pgfId-886253"></A>&nbsp;</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-73.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-71.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

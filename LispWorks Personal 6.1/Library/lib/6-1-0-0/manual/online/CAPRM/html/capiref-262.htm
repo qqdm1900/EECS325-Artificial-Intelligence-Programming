@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ole-control-add-verbs
+</TITLE>
+
+<LINK REL="next" HREF="capiref-263.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-261.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-263.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-261.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-4556689"></A><A NAME="88445"></A>ole<A NAME="marker-4556688"></A>-control-add-verbs</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-4556690"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4556691"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4556695"></A>Adds to the menu entries for the &quot;verbs&quot; that a component in an <A HREF="capiref-270.htm#79990" CLASS="XRef">ole-control-pane</A> supports.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4556696"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4559403"></A>ole-control-add-verbs <EM CLASS="Variable">
+pane</EM>
+ <EM CLASS="Variable">
+menu</EM>
+ <EM CLASS="Variable">
+item-identifier</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4556698"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-4556702"></A><EM CLASS="Variable">
+pane</EM>
+</P>
+<P CLASS="RDescription-C">An <A HREF="capiref-270.htm#79990" CLASS="XRef">ole-control-pane</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-4559448"></A><EM CLASS="Variable">
+menu</EM>
+</P>
+<P CLASS="RDescription-C">A <A HREF="capiref-245.htm#19220" CLASS="XRef">menu</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-4559719"></A><EM CLASS="Variable">
+item-identifier</EM>
+</P>
+<P CLASS="RDescription-C">A string or symbol.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4556703"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4559960"></A>The function <CODE CLASS="Code">
+ole-control-add-verbs</CODE>
+ adds to the menu entries for the &quot;verbs&quot; that the component supports. The <A HREF="capiref-270.htm#79990" CLASS="XRef">ole-control-pane</A> <EM CLASS="Variable">
+pane</EM>
+ must have an object already, and the <A HREF="capiref-245.htm#19220" CLASS="XRef">menu</A> <EM CLASS="Variable">
+menu</EM>
+ must have already been created, so <CODE CLASS="Code">
+ole-control-add-verbs</CODE>
+ is typically called in the <EM CLASS="Variable">
+popup-callback</EM>
+ of <EM CLASS="Variable">
+menu</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4560653"></A><EM CLASS="Variable">
+item-identifier</EM>
+ identifies an item in the menu or a component in the menu (but not in a sub-menu), either by being <CODE CLASS="Code">
+eq</CODE>
+ to the name of the item or <CODE CLASS="Code">
+equalp</CODE>
+ to the title of the item. If the item is found, it is replaced either by a sub-menu with the verbs that the object supports, or, if the object supports only one verb, by an entry for this.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4560852"></A>When the user selects an added menu item, the verb is passed to the object (by a call to <CODE CLASS="Code">
+IOleObject::DoVerb</CODE>
+).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4561532"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9124029"></A>This function is implemented only in LispWorks for Windows. Load the functionality by <CODE CLASS="Code">
+(require &quot;embed&quot;)</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4714005"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4714006"></A>See the example in <CODE CLASS="Code">
+examples/com/ole/simple-container/doc-viewer-pair.lisp</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4556709"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4556653"></A><A HREF="capiref-245.htm#19220" CLASS="XRef">menu</A><BR>
+<A HREF="capiref-270.htm#79990" CLASS="XRef">ole-control-pane</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-263.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-261.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

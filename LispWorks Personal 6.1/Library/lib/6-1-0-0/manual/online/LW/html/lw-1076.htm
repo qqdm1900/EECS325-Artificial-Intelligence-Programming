@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *process-initial-bindings*
+</TITLE>
+
+<LINK REL="next" HREF="lw-1077.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1075.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1077.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1075.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886570"></A><A NAME="59591"></A>*process<A NAME="marker-1059749"></A>-initial-bindings*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886572"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902285"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902290"></A>Specifies the variables initially bound in a new process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886574"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886575"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886576"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-987382"></A>This specifies the variables that are initially bound in a Lisp process when that process is created. This variable is an association list of symbols and initial value forms. The initial value forms are processed by a simple evaluation that handles symbols and function call forms, but not special operators.As a special case, if the value form is the same as the symbol and that symbol is unbound, then the symbol will be unbound in the new process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-987383"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-987523"></A>This example shows a typical use with a bound symbol:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-996290"></A>(defvar *binding-1* 10)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-996274"></A>(let ((mp:*process-initial-bindings*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-996275"></A>       (cons '(*binding-1* . 20)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-996276"></A>             mp:*process-initial-bindings*)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-996277"></A>  (mp:process-run-function</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-996278"></A>   &quot;binding-1&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-996279"></A>   '()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-996280"></A>   #'(lambda (stream)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-996281"></A>       (format stream &quot;&#126;&amp;Binding 1 is &#126;S.&#126;%&quot; *binding-1*))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-996282"></A>   *standard-output*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989144"></A>  (sleep 1))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-996286"></A>=&gt;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-993706"></A>Binding 1 is 20.</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-993986"></A>This example shows the special case with an unbound symbol:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-996272"></A>(defvar *binding-2*)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-995363"></A>(let ((mp:*process-initial-bindings*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995364"></A>       (cons '(*binding-2* . *binding-2*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995365"></A>             mp:*process-initial-bindings*)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995366"></A>  (flet ((check-binding-2 ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995367"></A>           (mp:process-run-function</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995368"></A>            &quot;binding-2&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995369"></A>            '()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995370"></A>            #'(lambda (stream)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995371"></A>                (if (boundp '*binding-2*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995372"></A>                    (format stream &quot;&#126;&amp;Binding 2 is &#126;S.&#126;%&quot; *binding-2*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995373"></A>                  (format stream &quot;&#126;&amp;Binding 2 is unbound.&#126;%&quot;)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995374"></A>            *standard-output*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995375"></A>           (sleep 1)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995376"></A>    (check-binding-2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995377"></A>    (let ((*binding-2* 123))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-994150"></A>      (check-binding-2))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-995967"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-996077"></A>Binding 2 is unbound.</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-996024"></A>Binding 2 is 123. </PRE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1077.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1075.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

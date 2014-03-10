@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.3  Pointer dereferencing and coercing
+</TITLE>
+
+<LINK REL="next" HREF="fli-40.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-38.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-33.htm">3 FLI Pointers</A><BR><BR>
+</DIV><A HREF="fli-40.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-38.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886042"></A>3.3  <A NAME="79887"></A>Pointer dereferencing and coercing</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886043"></A>The <A HREF="fli-99.htm#29735" CLASS="XRef">dereference</A> function returns the value stored at the location held by a pointer, provided the ty<A NAME="marker-886702"></A>pe of the object is an immediate type and not a structure or an aggregate type. For now, you can consider immediate data types to be the simple types such as <A HREF="fli-172.htm#15595" CLASS="XRef">:int</A>, <A HREF="fli-158.htm#32440" CLASS="XRef">:byte</A>, and <A HREF="fli-160.htm#38446" CLASS="XRef">:char</A>, and aggregate types to consist of structures defined using <CODE CLASS="Code">
+:struct</CODE>
+. Full details about types are given in <A HREF="fli-16.htm#40862" CLASS="XRef">FLI Types</A>, and the use of the <A HREF="fli-99.htm#29735" CLASS="XRef">dereference</A> function with aggregate types is discussed further in <A HREF="fli-43.htm#10757" CLASS="XRef">Advanced Uses of the FLI</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886288"></A>The <A HREF="fli-99.htm#29735" CLASS="XRef">dereference</A> function supports the <CODE CLASS="Code">
+setf</CODE>
+ function which can therefore be used to set values at the address pointed to by the pointer. In the following example an integer is allocated and a pointer to the integer is returned. Then <A HREF="fli-99.htm#29735" CLASS="XRef">dereference</A> and <CODE CLASS="Code">
+setf</CODE>
+ are used to set the value of the integer to <CODE CLASS="Code">
+12</CODE>
+. Finally, the value of the integer is returned using <CODE CLASS="Code">
+fli:dereference</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886044"></A>(setq point5 (fli:allocate-foreign object :type :int))</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886051"></A>(setf (fli:dereference point5) 12)</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886052"></A>(fli:dereference point5)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886053"></A>The function <A HREF="fli-99.htm#29735" CLASS="XRef">dereference</A> has an optional <CODE CLASS="Code">
+:type </CODE>
+keyword which can be used to return the value pointed to by a pointer as a different type. This is known<A NAME="marker-886704"></A> as coercing a pointer. The default value for <CODE CLASS="Code">
+:type</CODE>
+ is the type the pointer is specified as pointing to. In the next example the value at <CODE CLASS="Code">
+point5</CODE>
+ is returned as a Lisp boolean even thought it was set as an <CODE CLASS="Code">
+:int</CODE>
+. Because the value at <CODE CLASS="Code">
+point5</CODE>
+ is not 0, it is returned as <CODE CLASS="Code">
+t</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886060"></A>(fli:dereference point5 :type '(:boolean :int))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886061"></A>Recall that at the end of the previous section the function <A HREF="fli-133.htm#31706" CLASS="XRef">pointer-element-type</A> was demonstrated. What follows is an example which uses this function to clarify the issue of pointers and types.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886092"></A>The first action consists of allocating an integer, and setting up a pointer to this integer:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886093"></A>(setq pointer-a (fli:allocate-foreign-object :type :int))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886094"></A>Now we use <CODE CLASS="Code">
+fli:copy-pointer</CODE>
+ to make a copy of <CODE CLASS="Code">
+pointer-a</CODE>
+, but with the type of the new pointer changed to be a <CODE CLASS="Code">
+:byte</CODE>
+. We call this pointer <CODE CLASS="Code">
+pointer-b</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886095"></A>(setq pointer-b (fli:copy-pointer pointer-a :type :byte))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886096"></A>We now have two pointers which point to the same memory location, but one thinks it is pointing to an <CODE CLASS="Code">
+:int</CODE>
+, and the other thinks it is pointing to a <CODE CLASS="Code">
+:byte</CODE>
+. Test this by using the following two commands:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886097"></A>(fli:pointer-element-type pointer-a)</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886098"></A>(fli:pointer-element-type pointer-b)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886099"></A>Similar commands using <A HREF="fli-132.htm#38400" CLASS="XRef">pointer-element-size</A> show that <CODE CLASS="Code">
+pointer-a</CODE>
+ is pointing to an element of size 4, and <CODE CLASS="Code">
+pointer-b</CODE>
+ to an element of size 1.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886132"></A>So far we have seen the use of the <CODE CLASS="Code">
+:type</CODE>
+ keyword to specify how to set up or dereference a pointer to obtain values in the format we want. There is, however, a further level of abstraction in pointer typing which uses the <CODE CLASS="Code">
+:pointer-type</CODE>
+ keyword instead of the <CODE CLASS="Code">
+:type</CODE>
+ keyword.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886140"></A>The following two commands produce identical pointers, but one uses the <CODE CLASS="Code">
+:type</CODE>
+ keyword, and the other uses the <CODE CLASS="Code">
+:pointer-type</CODE>
+ keyword:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886141"></A>(fli:make-pointer :address 0 :type :int)</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886142"></A>(fli:make-pointer :address 0 :pointer-type '(:pointer :int))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886143"></A>In the instance above there is no advantage in using the <CODE CLASS="Code">
+:pointer-type</CODE>
+ option. However, <CODE CLASS="Code">
+:pointer-type</CODE>
+ can be very useful when used in combination with a defined type, as the next example shows.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886145"></A>Imagine you are writing a program with many statements creating pointers to a certain type, for example <CODE CLASS="Code">
+:byte</CODE>
+, and this is done using the <CODE CLASS="Code">
+:type</CODE>
+ keyword. If half way through coding the type to be pointed to was changed to a <CODE CLASS="Code">
+:char</CODE>
+, every individual statement would need to be changed. However, if a general pointer type had been defined at the start and all the statements had used the <CODE CLASS="Code">
+:pointer-type</CODE>
+ keyword to refer to that particular type, only one statement would need to be changed: the initial definition of the pointer type. The following code illustrates this:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886147"></A>(fli:define-c-typedef my-pointer-type (:pointer :byte))</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-886148"></A>(fli:make-pointer :address 0 :pointer-type 'my-pointer-type)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886150"></A>...</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886151"></A>(fli:make-pointer :address 100 :pointer-type 'my-pointer-type)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886152"></A>The above code consists of a definition of a new pointer type, called <CODE CLASS="Code">
+my-pointer-type</CODE>
+, which points to a <CODE CLASS="Code">
+:byte</CODE>
+. Following it are one hundred lines of code using <CODE CLASS="Code">
+my-pointer-type</CODE>
+. If you decide that all the pointers made should actually point to a <CODE CLASS="Code">
+:char</CODE>
+, only the first line needs to be changed, as shown below:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886159"></A>(fli:define-c-typedef my-point-type (:pointer :char))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886162"></A>The program can now be re-compiled. The use of <CODE CLASS="Code">
+:pointer-type</CODE>
+ with pointers is thus analogous to the use of constants instead of absolute numbers in programmi<A NAME="marker-886703"></A>ng.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-40.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-38.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

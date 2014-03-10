@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.5.2  Saving files
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-43.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-41.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-40.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A> &gt <A HREF="eduser-m-40.htm">3.5  File handling</A><BR><BR>
+</DIV><A HREF="eduser-m-43.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-41.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884152"></A>3.5.2  <A NAME="marker-884150"></A>Saving files</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884155"></A><A NAME="marker-884153"></A><A NAME="49087"></A>Save File</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884156"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884158"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X Ctrl+S</CODE>
+</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884159"></A>editor:save-file-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+buffer</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884160"></A>Saves the contents of the current buffer to the associated file. If there is no associated file, one is created with the same name as the buffer, and written in the same encoding as specified by the editor variable <A HREF="eduser-m-42.htm#80819" CLASS="XRef">output-format-default</A>, or as defaulted by <CODE CLASS="Code">
+open</CODE>
+ if this is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884161"></A>The argument <EM CLASS="Variable">
+buffer</EM>
+<I CLASS="Italic">
+ </I>
+is the buffer to be saved in its associated file. The default is the current buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884164"></A><A NAME="marker-884162"></A><A NAME="71626"></A>Save All Files</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884165"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884167"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X S</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884168"></A>Without a prefix argument, a Save Selected Buffers dialog is displayed asking whether each modified buffer is to be saved. If a buffer has no associated file it is ignored, even if it is modified. The selected buffers are saved.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-940849"></A>With a non-nil prefix argument, no such dialog is displayed and all buffers that need saving are saved. You can also prevent the Save Selected Buffers dialog from being displayed by setting the value of the editor variable <A HREF="eduser-m-42.htm#45362" CLASS="XRef">save-all-files-confirm</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1022846"></A><A NAME="marker-1022889"></A><A NAME="45362"></A>save-all-files-confirm</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1022879"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1022847"></A>Default value: <CODE CLASS="Code">
+t</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1022844"></A>When the value is true, <A HREF="eduser-m-42.htm#71626" CLASS="XRef">Save All Files</A> prompts for confirmation before writing the modified buffers, when used without a prefix argument.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884171"></A><A NAME="marker-884169"></A><A NAME="61197"></A>Write File </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884172"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884173"></A>Arguments: <EM CLASS="Variable">
+pathname<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X Ctrl+W </CODE>
+<EM CLASS="Variable">
+pathname</EM>
+</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884174"></A>editor:write-file-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+pathname</EM>
+ <EM CLASS="Variable">
+buffer</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884175"></A>Writes the contents of the current buffer to the file defined by <EM CLASS="Variable">
+pathname</EM>
+. If the file already exists, it is overwritten. If the file does not exist, it is created. The buffer then becomes associated with the new file.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884176"></A>The argument <EM CLASS="Variable">
+buffer</EM>
+ is the name of the buffer whose contents are to be written. The default is the current buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884179"></A><A NAME="marker-884177"></A><A NAME="46825"></A>Write Region </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884180"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884181"></A>Arguments: <EM CLASS="Variable">
+pathname<BR>
+</EM>
+Key sequence: None</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884182"></A>editor:write-region-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+pathname</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884183"></A>Writes the region between the mark and the current point to the file defined by <EM CLASS="Variable">
+pathname</EM>
+. If the file already exists, it is overwritten. If the file does not exist, it is created.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-907634"></A><A NAME="marker-907633"></A>Append to File</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-907635"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907636"></A>Arguments: <EM CLASS="Variable">
+pathname<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907638"></A>Appends the region between the mark and the current point to the file defined by <EM CLASS="Variable">
+pathname</EM>
+. If the file does not exist, it is created.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884185"></A><A NAME="marker-884184"></A>Backup File </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884186"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884187"></A>Arguments: <EM CLASS="Variable">
+pathname<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884188"></A>Writes the contents of the current buffer to the file defined by <EM CLASS="Variable">
+pathname</EM>
+. If the file already exists, it is overwritten. If it does not exist, it is created. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884190"></A>In contrast with <A HREF="eduser-m-42.htm#61197" CLASS="XRef">Write File</A>, no change is made concerning the file associated with the current buffer as this command is only intended to be used to write the contents of the current buffer to a backup file.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884192"></A><A NAME="marker-884191"></A>Save All Files and Exit</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884193"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884194"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X Ctrl+C</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884195"></A>A <B CLASS="Button">
+Save Selected Buffers</B>
+ dialog is displayed asking whether each modified buffer is to be saved. If a buffer has no associated file it is ignored, even if it is modified (this operates just like <A HREF="eduser-m-42.htm#71626" CLASS="XRef">Save All Files</A>). When all the required buffers have been saved LispWorks exits, prompting for confirmation first.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884198"></A><A NAME="marker-884197"></A>add-newline-at-eof-on-writing-file</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884199"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884200"></A>Default value: <CODE CLASS="Code">
+:ask-user</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884201"></A>Controls whether the commands <A HREF="eduser-m-42.htm#49087" CLASS="XRef">Save File</A> and <A HREF="eduser-m-42.htm#61197" CLASS="XRef">Write File</A> add a newline at the end of the file if the last line is non-empty. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1021144"></A>If the value of this variable is <CODE CLASS="Code">
+t</CODE>
+ then the commands add a newline and tell the user. If its value is <CODE CLASS="Code">
+nil</CODE>
+ the commands never add a newline. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1021133"></A>If the value is <CODE CLASS="Code">
+t</CODE>
+ then the commands add a newline and tell the user. If the value is <CODE CLASS="Code">
+nil</CODE>
+ the commands never add a newline. If the value is <CODE CLASS="Code">
+:ask-user</CODE>
+, the commands ask whether to add a newline.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-913209"></A><A NAME="marker-913344"></A><A NAME="80819"></A>output-format-default</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-913210"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1022759"></A>Default value: <CODE CLASS="Code">
+nil</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-913211"></A>The default external format used for writing buffers to files. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-913212"></A>If the buffer already has an external format (either it has been read from a file, or <A HREF="eduser-m-42.htm#79402" CLASS="XRef">Set External Format</A> has been used to specify an external format) then <CODE CLASS="Code">
+output-format-default</CODE>
+ is ignored. If the value is <CODE CLASS="Code">
+nil</CODE>
+ and the buffer does not have an external format,<CODE CLASS="Code">
+ cl:open</CODE>
+ chooses the external format to use.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-913218"></A>The value should be <CODE CLASS="Code">
+nil</CODE>
+ or an external format specification. See the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ for a description of these and of how <CODE CLASS="Code">
+cl:open</CODE>
+ chooses an external format.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-978708"></A>If you have specified an output encoding via the Editor tool's Preferences dialog, then <CODE CLASS="Code">
+output-format-default</CODE>
+ is initialized to that value on startup.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-978709"></A>The default value of <CODE CLASS="Code">
+output-format-default</CODE>
+ is <CODE CLASS="Code">
+nil</CODE>
+. </P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-978712"></A><A NAME="marker-978710"></A><A NAME="79402"></A>Set External Format</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-913224"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-913225"></A>Arguments: <EM CLASS="Variable">
+buffer<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-913226"></A>Prompts for an external format specification, providing a default which is the buffer's current external format if set, or the value of <A HREF="eduser-m-42.htm#80819" CLASS="XRef">output-format-default</A>. Sets the buffer's external format, so that this is used for subsequent file writing and reading.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-913230"></A>If a non-nil prefix argument is supplied, the buffer's external format is set to the value of <A HREF="eduser-m-42.htm#80819" CLASS="XRef">output-format-default</A> without prompting.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-913237"></A>See the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ for a description of external format specifications.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1020872"></A><A NAME="marker-1020870"></A>Find Unwritable Character</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1020873"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020874"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020924"></A>Finds the next occurrence of a character in the current buffer that cannot be written using the buffer external format. The prefix argument is ignored.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1020956"></A><A NAME="marker-1020955"></A>List Unwritable Characters</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1020957"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020958"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020973"></A>Lists the characters in the current buffer that cannot be written with the buffer external format. The prefix argument is ignored.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-43.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-41.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

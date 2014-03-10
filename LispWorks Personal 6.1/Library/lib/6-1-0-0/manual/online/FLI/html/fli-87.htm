@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-c-union
+</TITLE>
+
+<LINK REL="next" HREF="fli-88.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-86.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-88.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-86.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-896125"></A><A NAME="30845"></A>define-c-union<A NAME="marker-998708"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-896126"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-945088"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-945089"></A>Defines a FLI union type corresponding to the C <CODE CLASS="Code">
+union</CODE>
+ type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-944895"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898221"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896127"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-950943"></A>define-c-union <EM CLASS="Variable">
+name-and-options</EM>
+ &amp;rest <EM CLASS="Variable">
+slot-descriptions</EM>
+ =&gt; <EM CLASS="Variable">
+list</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1317543"></A><EM CLASS="Variable">
+name-and-options</EM>
+ ::=  <EM CLASS="Variable">
+name</EM>
+ | (<EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+option</EM>
+*)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1317544"></A><EM CLASS="Variable">
+option</EM>
+ ::= (:foreign-name <EM CLASS="Variable">
+string</EM>
+)</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-950960"></A><EM CLASS="Variable">
+slot-descriptions</EM>
+ ::= {<EM CLASS="Variable">
+slot-name</EM>
+ | (<EM CLASS="Variable">
+slot-name</EM>
+ <EM CLASS="Variable">
+slot-type</EM>
+)}*</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918100"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-918101"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the new union type descriptor</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1317687"></A><EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="RDescription-C">A string specifying the foreign name of the type</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-951140"></A><EM CLASS="Variable">
+slot-descriptions</EM>
+</P>
+<P CLASS="RDescription-C">A sequence of symbols, possibly with type descriptions, naming the slots of the union.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-951141"></A><EM CLASS="Variable">
+slot-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the slot.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-951142"></A><EM CLASS="Variable">
+slot-type</EM>
+</P>
+<P CLASS="RDescription-C">The FLI type of the slot.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918102"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-918103"></A><EM CLASS="Variable">
+list</P>
+<P CLASS="RDescription-C"></EM>
+The list <CODE CLASS="Code">
+(:union </CODE>
+<EM CLASS="Variable">
+name</EM>
+<CODE CLASS="Code">
+)</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918104"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-951446"></A>The macro <CODE CLASS="Code">
+define-c-union</CODE>
+ is used to define a FLI union type specifier, which corresponds to the C <CODE CLASS="Code">
+union</CODE>
+ type. It is a convenience function, as a union type could also be defined using <A HREF="fli-96.htm#39541" CLASS="XRef">define-foreign-type</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-951447"></A>A union is an aggregate type, or collection, of other FLI types. The types contained in a union are referred to as slots, and can be accessed using the <A HREF="fli-112.htm#33624" CLASS="XRef">foreign-slot-type</A> and <A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A> functions.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918106"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-951678"></A>In the following example a union is defined using <CODE CLASS="Code">
+define-c-union</CODE>
+, and the corresponding C code is given.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-951688"></A>(fli:define-c-union a-point (x :int)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-951690"></A>                            (color :byte)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-951691"></A>                            (ident :char))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-951692"></A>union a-point {</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-951693"></A>  int x;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-951695"></A>  byte color;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-951696"></A>  char ident;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-951697"></A>};</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918108"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-944560"></A><A HREF="fli-84.htm#37299" CLASS="XRef">define-c-enum</A><BR>
+<A HREF="fli-85.htm#26956" CLASS="XRef">define-c-struct</A><BR>
+<A HREF="fli-86.htm#41629" CLASS="XRef">define-c-typedef</A><BR>
+<A HREF="fli-96.htm#39541" CLASS="XRef">define-foreign-type</A><BR>
+<A HREF="fli-16.htm#40862" CLASS="XRef">FLI Types</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-88.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-86.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ start-dde-server
+</TITLE>
+
+<LINK REL="next" HREF="lw-1519.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1517.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1507.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1507.htm">44 The DDE server interface</A><BR><BR>
+</DIV><A HREF="lw-1519.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1517.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1507.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-914188"></A><A NAME="52406"></A>start<A NAME="marker-937403"></A>-dde-server</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-914197"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-914204"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-914214"></A>Creates and starts an instance of a DDE server.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-914220"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-914230"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-914232"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-914234"></A>start-dde-server <EM CLASS="Variable">
+name</EM>
+ =&gt; <EM CLASS="Variable">
+server</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-914253"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-914254"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A DDE server class</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-914257"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-914258"></A><EM CLASS="Variable">
+server</P>
+<P CLASS="RDescription-C"></EM>
+A server object</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-914236"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-914238"></A>The function <CODE CLASS="Code">
+start-dde-server</CODE>
+ creates an instance of a server of the class specified by <EM CLASS="Variable">
+name</EM>
+ which then starts accepting transactions. If successful the function returns the server, otherwise <CODE CLASS="Code">
+nil</CODE>
+ is returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-937880"></A>You need to call <CODE CLASS="Code">
+start-dde-server</CODE>
+ in a thread that will process Windows messages. This can either be done by using <CODE CLASS="Code">
+capi:execute-with-interface</CODE>
+ to run it in the thread of an application's main window (if there is one) or by running it in a dedicated thread as in the example. DDE callbacks will happen in this thread.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-937942"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-937929"></A>(mp:process-run-function </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937930"></A> &quot;DDE Server&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937931"></A> ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937932"></A> #'(lambda ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937933"></A>     (win32:start-dde-server 'lispworks-dde-server)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937934"></A>     (loop</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937935"></A>       (mp:wait-processing-events </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937936"></A>        nil</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-937878"></A>        :wait-reason &quot;DDE Request Loop&quot;))))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-914246"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-914248"></A><A HREF="lw-1516.htm#24983" CLASS="XRef">define-dde-server</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1519.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1517.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1507.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

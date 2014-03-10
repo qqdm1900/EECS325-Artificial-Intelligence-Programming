@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ parse-ipv6-address
+</TITLE>
+
+<LINK REL="next" HREF="lw-600.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-598.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-579.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-579.htm">26 The COMM Package</A><BR><BR>
+</DIV><A HREF="lw-600.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-598.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-978200"></A><A NAME="44119"></A>parse-ipv6<A NAME="marker-980776"></A>-address<A NAME="marker-996797"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-978201"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-978202"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-978203"></A>Parses a string as an IPv6 address.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-978204"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-978205"></A>comm</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-978206"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-978207"></A>parse-ipv6-address <EM CLASS="Variable">
+string</EM>
+ &amp;key <EM CLASS="Variable">
+start</EM>
+ <EM CLASS="Variable">
+end</EM>
+ <EM CLASS="Variable">
+trim-whitespace</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-978208"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978209"></A><EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978210"></A><EM CLASS="Variable">
+start</EM>
+, <EM CLASS="Variable">
+end</EM>
+</P>
+<P CLASS="RDescription-C">Bounding index designators of string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978211"></A><EM CLASS="Variable">
+trim-whitespace</P>
+<P CLASS="RDescription-C"></EM>
+A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-978212"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978213"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">An <A HREF="lw-592.htm#44856" CLASS="XRef">ipv6-address</A> object or nil.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-978214"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-980714"></A>The function <CODE CLASS="Code">
+parse-ipv6-address</CODE>
+ parses its argument string as an IPv6 address if possible, otherwise it returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-978216"></A><EM CLASS="Variable">
+start</EM>
+ and <EM CLASS="Variable">
+end</EM>
+ specify the subsequence of <EM CLASS="Variable">
+string</EM>
+ to parse. The default value of <EM CLASS="Variable">
+start</EM>
+ is 0. The default value of <EM CLASS="Variable">
+end</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, meaning the length of <EM CLASS="Variable">
+string</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-978217"></A><EM CLASS="Variable">
+trim-whitespace</EM>
+ is a boolean specifying that leading and trailing whitespace characters may be ignored.  Note that the address itself must not contain any whitespace. The default value of <EM CLASS="Variable">
+trim-whitespace</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-978218"></A>The address has to be in either standard IPv6 address notation, or dotted-quad notation. It can have the standard simplifications.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-978219"></A>In addition, the address may be followed by a '%' character and a scope ID. If the scope ID is a string of decimal characters, it is read as a decimal number, otherwise it is taken as-is.  The address may also be followed by a '/' and a prefix length in decimal format. The result <A HREF="lw-592.htm#44856" CLASS="XRef">ipv6-address</A> object remembers the prefix length and prints it when the object is printed, but it does not affect the address otherwise.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-978220"></A>If the syntax of the string <EM CLASS="Variable">
+string</EM>
+ is correct, <CODE CLASS="Code">
+parse-ipv6-address</CODE>
+ constructs the <A HREF="lw-592.htm#44856" CLASS="XRef">ipv6-address</A> object and returns it. It does not perform any address resolution.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-978221"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-978222"></A><A HREF="lw-587.htm#98418" CLASS="XRef">get-host-entry</A><BR>
+<A HREF="lw-626.htm#string-ip-address" CLASS="XRef">string-ip-address</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-600.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-598.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

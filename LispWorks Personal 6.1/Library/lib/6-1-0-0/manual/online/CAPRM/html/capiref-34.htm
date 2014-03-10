@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ choice-selected-item
+</TITLE>
+
+<LINK REL="next" HREF="capiref-35.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-33.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-35.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-33.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1885363"></A><A NAME="20478"></A>choice<A NAME="marker-3945978"></A>-selected-item</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-887637"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887593"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-996091"></A>The function <CODE CLASS="Code">
+choice-selected-item</CODE>
+ returns the currently selected item in a single selection choice.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3944345"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3944346"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-996069"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-887595"></A>choice-selected-item <EM CLASS="Variable">
+choice</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3659642"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-2296588"></A>(setf choice-selected-item) <EM CLASS="Variable">
+item</EM>
+ <EM CLASS="Variable">
+choice</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887597"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1987942"></A>The function <CODE CLASS="Code">
+choice-selected-item</CODE>
+ returns the currently selected item in a single selection choice. A <CODE CLASS="Code">
+setf</CODE>
+ method is provided as a means of setting the selection. Note that the items are compared by <EM CLASS="Variable">
+choice</EM>
+'s <EM CLASS="Variable">
+test-function</EM>
+ - see <A HREF="capiref-45.htm#36673" CLASS="XRef">collection</A> or the example below.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1987944"></A>It is an error to call this function on choices with different interactions -- in that case, you should use <CODE CLASS="Code">
+</CODE>
+<A HREF="capiref-36.htm#32414" CLASS="XRef">choice-selected-items</A>. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887603"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887605"></A>This example illustrates setting the selection. First we set up a single selection choice -- in this case, a <A HREF="capiref-214.htm#30299" CLASS="XRef">list-panel</A>.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4457633"></A>(setq list (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4457634"></A>            (make-instance 'capi:list-panel</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4457635"></A>                           :items '(a b c d e)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-887613"></A>                           :selection 2)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1640058"></A>The following code line returns the selection of the list panel.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-996528"></A>(capi:choice-selected-item list)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-996533"></A>The selection can be changed, and the change viewed, using the following code.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4457649"></A>(capi:apply-in-pane-process</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887617"></A> list #'(setf capi:choice-selected-item) 'e list)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4457656"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-887621"></A>(capi:choice-selected-item list)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1987761"></A>This example illustrates the effect of the <EM CLASS="Variable">
+test-function</EM>
+. Make a choice with <EM CLASS="Variable">
+test-function</EM>
+ <CODE CLASS="Code">
+eq</CODE>
+:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4454580"></A>(setf *list* </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4454581"></A>      (capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4454582"></A>       (make-instance 'capi:list-panel </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4454583"></A>                      :items (list &quot;a&quot; &quot;b&quot; &quot;c&quot;) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4454584"></A>                      :selection 0 </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1987049"></A>                      :visible-min-height :text-height)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1987051"></A>This call loses the selection since <CODE CLASS="Code">
+(eq &quot;b&quot; &quot;b&quot;)</CODE>
+ fails:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4455721"></A>(capi:apply-in-pane-process</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4457209"></A> *list* #'(setf capi:choice-selected-item) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-4457210"></A> &quot;b&quot; *list*)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-4457211"></A>Change the test function:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4457215"></A>(capi:apply-in-pane-process</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4457216"></A> *list* #'(setf capi:collection-test-function) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1987055"></A> 'equal *list*)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1987057"></A>This call sets the selection since <CODE CLASS="Code">
+(equal &quot;b&quot; &quot;b&quot;)</CODE>
+ succeeds:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4457605"></A>(capi:apply-in-pane-process</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4457606"></A> *list* #'(setf capi:choice-selected-item) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-4457599"></A> &quot;b&quot; *list*)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887625"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887627"></A><A HREF="capiref-33.htm#22482" CLASS="XRef">choice</A><BR>
+<A HREF="capiref-36.htm#32414" CLASS="XRef">choice-selected-items</A><BR>
+<A HREF="capiref-45.htm#36673" CLASS="XRef">collection</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-35.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-33.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

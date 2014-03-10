@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.5  Redirecting images to a Saved Session image
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-110.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-108.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-101.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-101.htm">5 Session Saving</A><BR><BR>
+</DIV><A HREF="ide-m-110.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-108.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-101.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-865960"></A>5.5  <A NAME="42925"></A>Redirecting images to a Saved Session image</H3>
+<P CLASS="Body">
+<A NAME="pgfId-865962"></A>Redirecting an image means that when the image starts it actually causes another image to start. The idea is that you save your sessions and redirect the release image, so that starting LispWorks from the Dock icon or other shortcut will actually start the saved session.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865963"></A>Only the installation image redirects, or images that were saved from it by using <CODE CLASS="Code">
+save-image</CODE>
+ with the <CODE CLASS="Code">
+-build</CODE>
+<A NAME="marker-866785"></A> command line argument. Images that were re-saved using the <CODE CLASS="Code">
+-init</CODE>
+<A NAME="marker-866790"></A> command line argument do not redirect.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865964"></A>Redirection occurs automatically when the default saved session is not the LispWorks Release. The default saved session can be set by <B CLASS="Button">
+LispWorks &gt; Saved Sessions... &gt; Saved Sessions &gt; Set As Default</B>
+. It is marked by <CODE CLASS="Code">
+*</CODE>
+ in the list. It is possible to make the process of saving a session set the default saved session to the newly saved session by selecting it under <B CLASS="Button">
+Options:</B>
+ in the Save Session dialog, described in <A HREF="ide-m-107.htm#71082" CLASS="XRef">The Save Session dialog and actual saving</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865965"></A>When the redirection switch is on, when the installation image starts it redirects to the default saved session. It does it after processing the command line arguments (including <CODE CLASS="Code">
+-build</CODE>
+, <CODE CLASS="Code">
+-load</CODE>
+<A NAME="marker-866800"></A> and <CODE CLASS="Code">
+-eval</CODE>
+<A NAME="marker-866805"></A>), but before loading any initialization file (whether the default or those that are passed by <CODE CLASS="Code">
+-siteinit</CODE>
+<A NAME="marker-866795"></A> or <CODE CLASS="Code">
+-init</CODE>
+). It passes all the command line arguments to the saved session, followed by few other arguments. Note that this means that if you start a redirected image with command line arguments, it will process the arguments, redirect and then the redirected image will process the arguments too.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865966"></A>Passing the command line argument <CODE CLASS="Code">
+-lw-no-redirection</CODE>
+<A NAME="marker-866810"></A> prevents the redirection.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-110.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-108.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-101.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

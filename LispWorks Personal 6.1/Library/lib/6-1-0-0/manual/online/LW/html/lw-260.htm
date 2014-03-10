@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.2.6.6  Atomic access to a cache in a hash table
+</TITLE>
+
+<LINK REL="next" HREF="lw-261.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-259.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-254.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-246.htm">15.2  The process programming interface </A> &gt; <A HREF="lw-254.htm">15.2.6  Old interrupt blocking APIs removed</A><BR><BR>
+</DIV><A HREF="lw-261.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-259.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-254.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-893415"></A>15.2.6.6  Atomic access to a cache in a hash table</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893416"></A>Old:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893417"></A>(without-interrupts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893418"></A> (or (gethash value *global-hashtable*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893419"></A>     (setf (gethash value *global-hashtable*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893420"></A>	   (make-cached-value))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-893421"></A>New: use the hash table lock.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893422"></A>(hcl:with-hash-table-locked </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893423"></A> *global-hashtable*</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893424"></A> (or (gethash value *global-hashtable*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893425"></A>     (setf (gethash value *global-hashtable*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893426"></A>	   (make-cached-value))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-893427"></A>Alternative new: use the hash table lock only if the value is not already cached. This can be faster than the code above, because it avoids locking the hash table for concurrent reads.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893428"></A>(or (gethash value *global-hashtable*)	; probe without the lock</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893429"></A>    (hcl:with-hash-table-locked</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893430"></A>     *global-hashtable*</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893431"></A>     (or (gethash value *global-hashtable*) ; reread with the lock</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893432"></A>	 (setf (gethash value *global-hashtable*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893433"></A>	       (make-cached-value)))))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-261.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-259.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-254.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

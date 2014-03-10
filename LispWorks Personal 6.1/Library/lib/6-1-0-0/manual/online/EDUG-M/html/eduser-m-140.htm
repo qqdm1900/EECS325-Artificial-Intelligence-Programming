@@ -1,0 +1,293 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.3.1  Buffer locking
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-141.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-139.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-139.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A> &gt <A HREF="eduser-m-136.htm">6.3  Programming the editor</A> &gt <A HREF="eduser-m-139.htm">6.3.3  Buffers</A><BR><BR>
+</DIV><A HREF="eduser-m-141.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-139.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-139.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-901027"></A>6.3.3.1  <A NAME="58005"></A>Buffer locking</H3>
+<P CLASS="Body">
+<A NAME="pgfId-901030"></A>Each buffer contains a lock that is used to prevent more than one thread from modifying the text, text properties or points within the buffer simultaneously. All of the exported editor functions (<A HREF="eduser-m-149.htm#45816" CLASS="XRef">editor:insert-string</A>, <A HREF="eduser-m-142.htm#27132" CLASS="XRef">editor:move-point</A> etc) claim this lock implicitly and are therefore atomic with respect to other such functions.</P>
+<P CLASS="Body">
+<A NAME="pgfId-901032"></A>In situations where you want to make several changes as one atomic operation, use one of the macros<A NAME="marker-901930"></A> <A HREF="eduser-m-140.htm#19224" CLASS="XRef">editor:with-buffer-locked</A> or<A NAME="marker-901935"></A> <A HREF="eduser-m-140.htm#46919" CLASS="XRef">editor:with-point-locked</A> to lock the buffer for the duration of the operation. For example, if you want to delete the next character and replace it by a space:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-901162"></A>(editor:with-buffer-locked ((editor:current-buffer))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-901163"></A>  (editor:delete-next-character-command nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-901164"></A>  (editor:insert-character (editor:current-point)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-901156"></A>                           #&#92;Space))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-901168"></A>In addition, you sometimes want to examine the text in a buffer without changing it, but ensure that no other thread can modify it in the meantime. This can be achieved by locking the buffer using <A HREF="eduser-m-140.htm#19224" CLASS="XRef">editor:with-buffer-locked</A> or <A HREF="eduser-m-140.htm#46919" CLASS="XRef">editor:with-point-locked</A> and passing the <EM CLASS="Variable">
+for-modification</EM>
+ argument as <CODE CLASS="Code">
+nil</CODE>
+. For example, if you are computing the beginning and end of some portion of the text in a buffer and then performing some operation on that text, you may want to lock the buffer to ensure that no other threads can modify the text while your are processing it.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-901227"></A><A NAME="19224"></A>editor:<A NAME="marker-901226"></A>with-buffer-locked</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-901228"></A>Macro</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-901551"></A>editor:with-buffer-locked (<EM CLASS="Variable">buffer</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-901607"></A>                           &amp;key <EM CLASS="Variable">for-modification</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-901608"></A>                                <EM CLASS="Variable">check-file-modification</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-901609"></A>                                <EM CLASS="Variable">block-interrupts</EM>
+)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-901549"></A>  &amp;body <EM CLASS="Variable">body</EM>
+ =&gt; <EM CLASS="Variable">values</EM>
+</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-901562"></A>Evaluates <EM CLASS="Variable">
+body</EM>
+ while holding the lock in <EM CLASS="Variable">
+buffer</EM>
+. At most one thread can lock a buffer at a time and the macro waits until it can claim the lock.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-904318"></A>If <EM CLASS="Variable">
+for-modification</EM>
+ is non-nil (the default), the contents of <EM CLASS="Variable">
+buffer</EM>
+ can be modified by <EM CLASS="Variable">
+body</EM>
+. If <EM CLASS="Variable">
+for-modification</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, the contents of <EM CLASS="Variable">
+buffer</EM>
+ cannot be modified until <EM CLASS="Variable">
+body</EM>
+ returns and trying to do so from within <EM CLASS="Variable">
+body</EM>
+ will signal an error. If the buffer is read-only and <EM CLASS="Variable">
+for-modification</EM>
+ is non-nil, then an <CODE CLASS="Code">
+editor:editor-error</CODE>
+ is signalled. The status of the lock can be changed to <EM CLASS="Variable">
+for-modification</EM>
+ (see <A HREF="eduser-m-140.htm#39687" CLASS="XRef">editor:change-buffer-lock-for-modification</A>). If the buffer is read-only, an <A HREF="eduser-m-144.htm#52016" CLASS="XRef">editor:editor-error</A> occurs if <EM CLASS="Variable">
+for-modification</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-904319"></A>The macro <CODE CLASS="Code">
+editor:with-buffer-locked</CODE>
+ can be used recursively, but if the outermost use passed <CODE CLASS="Code">
+nil</CODE>
+ as the value of <EM CLASS="Variable">
+for-modification</EM>
+, then inner uses cannot pass non-nil as the value of <EM CLASS="Variable">
+for-modification</EM>
+, unless <A HREF="eduser-m-140.htm#39687" CLASS="XRef">editor:change-buffer-lock-for-modification</A> is used to change the lock status.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-901281"></A>If <EM CLASS="Variable">
+check-file-modification</EM>
+ is non-nil (the default) and the buffer is associated with a file and has not already been modified, then the modification time of the file is compared to the time that the file was last read. If the file is newer than the buffer, then the user is asked if they want to re-read the file into the buffer, and if they do then the file is re-read and the operations aborts. Otherwise, there is no check for the file being newer than the buffer.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-901286"></A>If <EM CLASS="Variable">
+block-interrupts</EM>
+ is non-nil, the body is evaluated with interrupts blocked. This is useful if the buffer may be modified by an interrupt function, or some interrupt function may end up waiting for another thread that may wait for the buffer lock, which would cause a deadlock. The default is not to block interrupts.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-901288"></A>Note that using a non-nil value for <EM CLASS="Variable">
+block-interrupts</EM>
+ is not the same as using the <CODE CLASS="Code">
+without-interrupts</CODE>
+ or <CODE CLASS="Code">
+without-preemption</CODE>
+ macros. It just stops the current thread from calling interrupt functions, so other threads might run while the body is being evaluated.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-901230"></A>The <EM CLASS="Variable">
+values</EM>
+ returned are those of <EM CLASS="Variable">
+body</EM>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-901237"></A><A NAME="46919"></A>editor:<A NAME="marker-901236"></A>with-point-locked</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-901238"></A>Macro</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-901751"></A>editor:with-point-locked (<EM CLASS="Variable">point</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-901752"></A>                          &amp;key <EM CLASS="Variable">for-modification</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-901753"></A>                               <EM CLASS="Variable">check-file-modification</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-901867"></A>                               <EM CLASS="Variable">block-interrupts</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-901754"></A>                               <EM CLASS="Variable">errorp</EM>
+)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-901239"></A>  &amp;body <EM CLASS="Variable">body</EM>
+  =&gt;  <EM CLASS="Variable">values</EM>
+</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-901784"></A>Evaluates <EM CLASS="Variable">
+body</EM>
+ while holding the lock in the buffer that is associated with <EM CLASS="Variable">
+point</EM>
+. In addition, the macro checks that <EM CLASS="Variable">
+point</EM>
+ is valid and this check is atomic with respect to calls to the function <A HREF="eduser-m-142.htm#36121" CLASS="XRef">editor:delete-point</A>. The values of <EM CLASS="Variable">
+for-modification</EM>
+, <EM CLASS="Variable">
+check-file-modification</EM>
+ and <EM CLASS="Variable">
+block-interrupts</EM>
+ have the same meanings as for <A HREF="eduser-m-140.htm#19224" CLASS="XRef">editor:with-buffer-locked</A>.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-901761"></A>The value of <EM CLASS="Variable">
+errorp</EM>
+ determines the behavior when <EM CLASS="Variable">
+point</EM>
+ is not valid. If <EM CLASS="Variable">
+errorp</EM>
+ is non-nil, an error is signaled, otherwise <CODE CLASS="Code">
+nil</CODE>
+ is returned without evaluating <EM CLASS="Variable">
+body</EM>
+. The point may be invalid because it does not reference any buffer (that is, it has been deleted), or because its buffer was changed by another thread while the current thread was attempting to lock the buffer.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-901763"></A>The <EM CLASS="Variable">
+values</EM>
+ returned are those of <EM CLASS="Variable">
+body</EM>
+, or <CODE CLASS="Code">
+nil</CODE>
+ when <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ and <EM CLASS="Variable">
+point</EM>
+ is not valid.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-904104"></A><A NAME="39687"></A>editor:<A NAME="marker-904296"></A>change-buffer-lock-for-modification</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-904105"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-904106"></A>editor:change-buffer-lock-for-modification <EM CLASS="Variable">
+buffer</EM>
+ &amp;key <EM CLASS="Variable">
+check-file-modification</EM>
+ <EM CLASS="Variable">
+force-modification</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-904107"></A>Changes the status of the lock in the buffer <EM CLASS="Variable">
+buffer</EM>
+ to allow modification of the text. <EM CLASS="Variable">
+buffer</EM>
+ must already be locked for non-modification by the current thread (that is, it must be dynamically within a <A HREF="eduser-m-140.htm#19224" CLASS="XRef">editor:with-buffer-locked</A> or <A HREF="eduser-m-140.htm#46919" CLASS="XRef">editor:with-point-locked</A> form with <EM CLASS="Variable">
+for-modification</EM>
+ <CODE CLASS="Code">
+nil</CODE>
+).</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-904108"></A><EM CLASS="Variable">
+buffer</EM>
+</P>
+<P CLASS="Description-C">An editor buffer.</P>
+<P CLASS="Description">
+<A NAME="pgfId-904109"></A><EM CLASS="Variable">
+check-file-modification</EM>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-904183"></A>A boolean.</P>
+<P CLASS="Description">
+<A NAME="pgfId-904110"></A><EM CLASS="Variable">
+force-modification</EM>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-904190"></A>A boolean.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-904111"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="Description-C"><CODE CLASS="Code">
+:buffer-not-locked</CODE>
+, <CODE CLASS="Code">
+:buffer-out-of-date</CODE>
+ or <CODE CLASS="Code">
+:buffer-not-writable</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-904112"></A>If <EM CLASS="Variable">
+check-file-modification</EM>
+ is non-nil, the same test as described for <A HREF="eduser-m-140.htm#19224" CLASS="XRef">editor:with-buffer-locked</A> is performed, and if the file has been modified then <CODE CLASS="Code">
+:buffer-out-of-date</CODE>
+ is returned without changing anything (it does not prompt the user to re-read the file).</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-904113"></A>The default value of <EM CLASS="Variable">
+check-file-modification</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-904114"></A><EM CLASS="Variable">
+force-modification</EM>
+ controls what happens if the buffer is read-only. If <EM CLASS="Variable">
+force-modification</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, the function returns <CODE CLASS="Code">
+:buffer-not-writable</CODE>
+ and does nothing. If it is non-nil, the status is changed. The buffer remains read-only.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-904115"></A><EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ if the status of the locking was changed to <EM CLASS="Variable">
+for-modification</EM>
+, or if the status of the buffer lock was already <EM CLASS="Variable">
+for-modification</EM>
+. Otherwise, <EM CLASS="Variable">
+result</EM>
+ is a keyword indicating why the status could not be changed. When <EM CLASS="Variable">
+result</EM>
+ is non-nil, the status of the locking remains unchanged.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-904116"></A>The returned value can be be one of:</P>
+<P CLASS="Description">
+<A NAME="pgfId-904117"></A><CODE CLASS="Code">
+:buffer-not-locked</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-904268"></A>The buffer is not locked by the current thread.</P>
+<P CLASS="Description">
+<A NAME="pgfId-904118"></A><CODE CLASS="Code">
+:buffer-not-writable</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-904272"></A>The buffer is not writable, and <EM CLASS="Variable">
+force-modification</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="Description">
+<A NAME="pgfId-904119"></A><CODE CLASS="Code">
+:buffer-out-of-date</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-904285"></A>The file that is associated with the buffer was modified after it was read into the editor, the buffer is not modified, and <EM CLASS="Variable">
+check-file-modification</EM>
+ is non-nil.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-141.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-139.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-139.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

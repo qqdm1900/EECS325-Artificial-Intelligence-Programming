@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.4.2.1  Example View Class definition
+</TITLE>
+
+<LINK REL="next" HREF="lw-385.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-383.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-383.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-380.htm">19.4  Object oriented interface</A> &gt; <A HREF="lw-383.htm">19.4.2  Object-Oriented Data Definition Language (OODDL)</A><BR><BR>
+</DIV><A HREF="lw-385.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-383.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-383.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-886407"></A>19.4.2.1  Example View Class definition</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886408"></A>The following example shows a View Class corresponding to the traditional employees table, with the employee's department given by a join with the departments table. See <A HREF="lw-1172.htm#47877" CLASS="XRef">def-view-class</A>  for a description of the slot options.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886413"></A>(def-view-class employee (standard-db-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886414"></A>   ((employee-number :db-kind :key </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886415"></A>                     :column empno </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886416"></A>                     :type integer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886417"></A>    (employee-name :db-kind :base </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886418"></A>                   :column ename </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886419"></A>                   :type (string 20)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886420"></A>                   :accessor employee-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886421"></A>    (employee-department :db-kind :base </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886422"></A>                         :column deptno </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886423"></A>                         :type integer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886424"></A>                         :accessor employee-department)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886425"></A>    (employee-job :db-kind :base </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886426"></A>                  :column job </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886427"></A>                  :type (string 9))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886428"></A>    (employee-manager :db-kind :base </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886429"></A>                      :column mgr </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886430"></A>                      :type integer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886431"></A>    (employee-location :db-kind :join</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886432"></A>                       :db-info (:join-class department</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886433"></A>                                 :retrieval :deferred</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886434"></A>                                 :set nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886435"></A>                                 :home-key employee-department</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886437"></A>                                 :foreign-key department-number</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886439"></A>                                 :target-slot department-loc)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886441"></A>                       :accessor employee-location))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886442"></A>                (:base-table emp))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886443"></A>The <A HREF="lw-1172.htm#47877" CLASS="XRef">def-view-class</A> macro allows elements or lists of elements to follow <CODE CLASS="Code">
+:home-key</CODE>
+ and <CODE CLASS="Code">
+:foreign-key</CODE>
+. The elements can be symbols, <CODE CLASS="Code">
+nil</CODE>
+, strings, integers or floats.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886444"></A>This syntax means that an object from the join class is only included in the join slot if the values from <EM CLASS="Variable">
+home-key</EM>
+ are <CODE CLASS="Code">
+equal</CODE>
+ to the values in <EM CLASS="Variable">
+foreign-key</EM>
+, in order. These values are calculated as follows: </P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886445"></A>If the element in the list is a symbol it is taken to be a slot name and the value of the slot is used</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886451"></A>Otherwise the element is taken to be the value</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-888414"></A>Note that some database vendors may have short maximum identifier lengths. The CLOS interface uses constructed alias names for tables in its SQL queries, and long table names or long class names may cause the constructed aliases to exceed the maximum identifier length for a particular vendor.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-385.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-383.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-383.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

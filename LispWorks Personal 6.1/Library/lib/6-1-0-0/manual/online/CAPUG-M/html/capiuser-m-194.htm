@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.5.1  Generalized points 
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-195.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-193.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-193.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-181.htm">13 Graphics Ports</A> &gt <A HREF="capiuser-m-193.htm">13.5  Graphics state transforms</A><BR><BR>
+</DIV><A HREF="capiuser-m-195.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-193.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-193.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886173"></A>13.5.1  Generalized points </H3>
+<P CLASS="Body">
+<A NAME="pgfId-886174"></A>An (x, y) coordinate pair can be transformed to another coordinate system by scaling, rotation and translation. The first two can be implemented using 2 x 2 matrices to hold the coefficients:</P>
+<P CLASS="Body">
+<A NAME="pgfId-886175"></A>If the point <EM CLASS="Variable">
+P</EM>
+ is <EM CLASS="Variable">
+(a, b)</EM>
+ and it is transformed to the point <EM CLASS="Variable">
+Q (a', b')</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886176"></A><EM CLASS="Variable">
+P</EM>
+ &#8658; <EM CLASS="Variable">
+Q </EM>
+or<EM CLASS="Variable">
+ (a, b) </EM>
+&#8658; <EM CLASS="Variable">
+(a', b')</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886186"></A><EM CLASS="Variable">
+a' = pa + rb</EM>
+, <EM CLASS="Variable">
+b' = qa + sb</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890220"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="capiuser-m-78.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-886187"></A>Translation can be included in this if the points <EM CLASS="Variable">
+P</EM>
+ and <EM CLASS="Variable">
+Q</EM>
+ are regarded as 3-vectors instead of 2-vectors, with the 3rd element being unity:</P>
+<P CLASS="Body">
+<A NAME="pgfId-890221"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="capiuser-m-79.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-886199"></A>The coefficients <EM CLASS="Variable">
+u</EM>
+ and <EM CLASS="Variable">
+v</EM>
+ specify the translation.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886200"></A>So, the six elements (<EM CLASS="Variable">
+p</EM>
+, <EM CLASS="Variable">
+q</EM>
+, <EM CLASS="Variable">
+r</EM>
+, <EM CLASS="Variable">
+s</EM>
+, <EM CLASS="Variable">
+u</EM>
+, and <EM CLASS="Variable">
+v</EM>
+) of the 3 x 3 matrix contain all the transformation information. These elements are stored in a list in the graphics state slot <CODE CLASS="Code">
+transform</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-886201"></A>Transforms can be combined by matrix multiplication to effect successions of translation, scaling and rotation operations.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886202"></A>Functions are provided in Graphics Ports which apply translation, scaling and rotation to a transform, combine transforms by pre- or post-multiplication, invert a transform, perform some operations while ignoring an established transform, and so on. </P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-195.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-193.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-193.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

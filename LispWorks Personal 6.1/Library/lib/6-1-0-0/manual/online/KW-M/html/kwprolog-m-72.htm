@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.9  Monitor Windows
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-73.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-71.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-62.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-62.htm">5 The Programming Environment</A><BR><BR>
+</DIV><A HREF="kwprolog-m-73.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-71.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-62.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-891808"></A>5.9  <A NAME="marker-891799"></A>Monitor Windows</H3>
+<P CLASS="Figure">
+<A NAME="pgfId-907926"></A>Figure 5.11  KnowledgeWorks Rule Monitor<DIV>
+<IMG SRC="kwprolog-m-22.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="kwprolog-m-32.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-892943"></A>Monitor Windows allow the preconditions of forward chaining rules to be monitored. They may be obtained by choosing <B CLASS="Button">
+Rule &gt; Monitor</B>
+ or by choosing <B CLASS="Button">
+Spy &gt; Monitor Rule</B>
+ from the KnowledgeWorks Listener.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895858"></A>The top part of the window is the <B CLASS="Button">
+Select instantiations</B>
+ pane, as described below. The lower part displays a list of either <I CLASS="Italic">
+fired</I>
+ or <I CLASS="Italic">
+unfired</I>
+ instantiations. This list is not kept up to date if the rulebase is executing with debugging turned off. To examine a binding in a displayed instantiation, select the corresponding line and choose <B CLASS="Button">
+Instantiations &gt; Inspect</B>
+. This shows the objects themselves in a LispWorks Inspector tool, so double-clicking on one of the entries will cause that entry to be inspected. See the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+ for more details.</P>
+<P CLASS="Body">
+<A NAME="pgfId-920546"></A>The <B CLASS="Button">
+Show Inferencing State</B>
+ dropdown allows you to choose which named inferencing state is used to find the instantiations.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895862"></A>When the <B CLASS="Button">
+All Unfired Instantiations</B>
+ button is selected, the unfired instantiations are displayed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895912"></A>When the <B CLASS="Button">
+Matching Selected Conditions</B>
+ button is selected, the instantiations that match all of the selected preconditions are displayed. The topmost shows the preconditions of the rule. Any conditions that are matched by the object base are highlighted. This highlighting means the condition is matched without reference to any of the other conditions. A message indicates the number of instantiations matching the highlighted preconditions. A group of preconditions matched individually (hence highlighted) may not be matched together if, for instance, variables were bound across them.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893009"></A>If a rule has the conditions, say,</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891822"></A>(person ?person1 father ?person)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891823"></A>(person ?person2 son ?person)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891824"></A>(test (not (eq ?person nil)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891825"></A>these would be displayed in the top pane of the Rule Monitor Window. The first two would be highlighted if the object base contained a person object. But instantiations would only be displayed if there was a <CODE CLASS="Code">
+person</CODE>
+ object with the same <CODE CLASS="Code">
+father</CODE>
+ value as some (other) <CODE CLASS="Code">
+person</CODE>
+ object has <CODE CLASS="Code">
+son</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891826"></A>The selection of conditions may be toggled by left-clicking. So in the above example the last condition could be selected also by clicking on it, and there would be no instantiations displayed if the only consistent value of <CODE CLASS="Code">
+?person</CODE>
+ was <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="kwprolog-m-73.htm#pgfId-895994" CLASS="Hypertext">5.9.1  Forward Chaining History</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-73.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-71.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-62.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

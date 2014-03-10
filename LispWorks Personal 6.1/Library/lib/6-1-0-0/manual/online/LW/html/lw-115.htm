@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.7.1  Compiler optimization hints
+</TITLE>
+
+<LINK REL="next" HREF="lw-116.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-114.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-114.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-105.htm">9 The Compiler</A> &gt; <A HREF="lw-114.htm">9.7  Optimizing your code</A><BR><BR>
+</DIV><A HREF="lw-116.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-114.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-114.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-890104"></A>9.7.1  <A NAME="marker-890242"></A><A NAME="38666"></A>Compiler optimization hints</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890105"></A>You can make the compiler print messages which will help you to optimize your code. You add suitable <CODE CLASS="Code">
+:explain</CODE>
+ declarations, recompile the code, and check the output.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890152"></A>The full syntax of the <CODE CLASS="Code">
+:explain</CODE>
+ declaration is documented in the reference entry for <A HREF="lw-638.htm#20275" CLASS="XRef">declare</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890178"></A>Various keywords allows you to see information about compiler transformations depending on type information, allocation of floats and bignums, floating point variables, function calls, argument types and so on. Here is a simple example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-890211"></A>(defun foo (arg)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890212"></A>  (declare (:explain :variables) (optimize (float 0)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890213"></A>  (let* ((double-arg (coerce arg 'double-float))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890214"></A>         (next (+ double-arg 1d0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890215"></A>         (other (* double-arg 1/2)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890216"></A>    (values next other)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890217"></A>;;- Variables with non-floating point types:</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890218"></A>;;-  ARG OTHER</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890219"></A>;;- Variables with floating point types:</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890209"></A>;;-  DOUBLE-ARG NEXT</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-890183"></A><B CLASS="Bold">
+Note:</B>
+ the LispWorks IDE allows you to distinguish compiler optimization hints from the other output of compilation, and also helps you to locate quickly the source of each hint. For more information see the chapter &quot;The Output Browser&quot; in the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-116.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-114.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-114.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

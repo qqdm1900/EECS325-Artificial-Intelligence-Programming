@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ora-lob-write-from-plain-file
+</TITLE>
+
+<LINK REL="next" HREF="lw-1245.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1243.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1245.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1243.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1204722"></A><A NAME="91603"></A>ora<A NAME="marker-1204721"></A>-lob-write-from-plain-file</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1204723"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1204724"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1204725"></A>Writes the contents of a file into a LOB.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1204726"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1204727"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1204728"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1204729"></A>ora-lob-write-from-plain-file <EM CLASS="Variable">
+lob-locator</EM>
+ <EM CLASS="Variable">
+file-name</EM>
+ &amp;key <EM CLASS="Variable">
+offset</EM>
+ <EM CLASS="Variable">
+file-offset</EM>
+ <EM CLASS="Variable">
+if-does-not-exist</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1204730"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1204731"></A><EM CLASS="Variable">
+lob-locator</EM>
+</P>
+<P CLASS="RDescription-C">A LOB locator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1204732"></A><EM CLASS="Variable">
+file-name</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1204733"></A><EM CLASS="Variable">
+offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1204734"></A><EM CLASS="Variable">
+file-offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1204735"></A><EM CLASS="Variable">
+if-does-not-exist</EM>
+</P>
+<P CLASS="RDescription-C">A keyword or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1204736"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1204737"></A>The function <CODE CLASS="Code">
+ora-lob-write-from-plain-file</CODE>
+ writes the contents of a file into a LOB.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1204738"></A><EM CLASS="Variable">
+file-name</EM>
+ specifies the file to read, which should be a standard file. The file is always opened in a binary mode, so if the LOB is a CLOB, the file must be in the right format when writing it into the LOB.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1204739"></A><EM CLASS="Variable">
+offset</EM>
+ is the offset into the LOB from where to start writing. It starts from 1, counts characters in a CLOB, and if it is <CODE CLASS="Code">
+nil</CODE>
+ then the operation starts from the end of the previous write operation. The default value of <EM CLASS="Variable">
+offset</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1204740"></A><EM CLASS="Variable">
+file-offset</EM>
+ specifies the offset into the file to start the operation from. If <EM CLASS="Variable">
+file-offset</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then it starts reading at the start of the file. The default value of <EM CLASS="Variable">
+file-offset</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1204744"></A><EM CLASS="Variable">
+if-does-not-exist</EM>
+ is passed to <A HREF="lw-659.htm#39723" CLASS="XRef">open</A> when opening the file, with the standard Common Lisp meaning. The default value of <EM CLASS="Variable">
+if-does-not-exist</EM>
+ is <CODE CLASS="Code">
+:error</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1587428"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1204745"></A><CODE CLASS="Code">
+ora-lob-write-from-plain-file</CODE>
+  is available only when the &quot;oracle&quot; module is loaded. See the section <A HREF="lw-424.htm#Oracle LOB interface;Oracle locator objects;Oracle large objects " CLASS="XRef">Oracle LOB interface</A> for more information.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1204749"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1204750"></A><A HREF="lw-1239.htm#59638" CLASS="XRef">ora-lob-read-into-plain-file</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1245.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1243.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

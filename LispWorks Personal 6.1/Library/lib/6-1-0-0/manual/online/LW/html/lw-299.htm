@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.10.1  Aids for implementing modification checks
+</TITLE>
+
+<LINK REL="next" HREF="lw-300.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-298.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-298.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-298.htm">15.10  Low level atomic operations</A><BR><BR>
+</DIV><A HREF="lw-300.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-298.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-298.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-899333"></A>15.10.1  <A NAME="23857"></A>Aids for implementing modification checks</H3>
+<P CLASS="Body">
+<A NAME="pgfId-899339"></A>The macros <A HREF="lw-1448.htm#87198" CLASS="XRef">with-modification-check-macro</A> and <A HREF="lw-1447.htm#50273" CLASS="XRef">with-modification-change</A> provide a way for a body of code to execute and check whether there was any &quot;modification&quot; during this execution, where modification is execution of some other piece of code. This is useful in situations when reading some data out of some data structure is more common than modification, and reading the data involves getting some values that need to be consistent. It makes it possible to ensure consistency of the values without a lock.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899343"></A>The checking code should be wrapped by the macro <A HREF="lw-1448.htm#87198" CLASS="XRef">with-modification-check-macro</A>, and the modifying code should be wrapped by the macro <A HREF="lw-1447.htm#50273" CLASS="XRef">with-modification-change</A>. They are associated by the fact that their <EM CLASS="Variable">
+modification-place</EM>
+ argument is the same.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899348"></A><EM CLASS="Variable">
+modification-place</EM>
+ is a place as defined in Common Lisp (it does not need to be one of the places for atomic locking) which can receive a fixnum. It must be initialized to a fixnum. It must not be modified by any code except <A HREF="lw-1447.htm#50273" CLASS="XRef">with-modification-change</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899355"></A><A HREF="lw-1448.htm#87198" CLASS="XRef">with-modification-check-macro</A> defines a lexical macro (by <CODE CLASS="Code">
+macrolet</CODE>
+) with the name macro-name which takes no arguments, and is used to check if there was any change since the entering the body.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899356"></A>Note that these macros do not guard against errors that may occur because of changes to the data structures that are accessed, and do not create any locking between users of these macro. In particular, the modifying code will typically need to lock something too, and the checking code must do only operations that cannot fail because of modification in another thread.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-300.htm#pgfId-899357" CLASS="Hypertext">15.10.1.1  Example modification check</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-300.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-298.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-298.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.2.5  Configuring function entry and exit information
+</TITLE>
+
+<LINK REL="next" HREF="lw-47.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-45.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-41.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-39.htm">5 The Trace Facility</A> &gt; <A HREF="lw-41.htm">5.2  Tracing options</A><BR><BR>
+</DIV><A HREF="lw-47.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-45.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886299"></A>5.2.5  Configuring function entry and exit information</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886620"></A><A NAME="marker-886700"></A>:entrycond</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886623"></A>Trace keyword</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886301"></A><A NAME="marker-886300"></A>:entrycond<EM CLASS="Variable">
+ form</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886302"></A>This option controls the printing of information on entry to a traced function. <EM CLASS="Variable">
+form</EM>
+ is evaluated upon entry to the function, and information is printed if and only if <EM CLASS="Variable">
+form</EM>
+ evaluates to <CODE CLASS="Code">
+t</CODE>
+. This allows you to turn off printing of function entry information by supplying a <EM CLASS="Variable">
+form</EM>
+<I CLASS="Italic">
+ </I>
+of <CODE CLASS="Code">
+nil</CODE>
+, as in the example below.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886624"></A><A NAME="marker-886701"></A>:exitcond</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886627"></A>Trace keyword</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886304"></A><A NAME="marker-886303"></A>:exitcond<EM CLASS="Variable">
+ form</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886305"></A>This option controls the printing of information on exit from a traced function. <EM CLASS="Variable">
+form</EM>
+ is evaluated upon exit from the function, and, like <CODE CLASS="Code">
+:entrycond</CODE>
+, information is printed if and only if <EM CLASS="Variable">
+form</EM>
+ evaluates to <CODE CLASS="Code">
+t</CODE>
+. This allows you to turn off printing of function exit information by supplying a <EM CLASS="Variable">
+form</EM>
+<I CLASS="Italic">
+ </I>
+of <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886650"></A>An example of using <CODE CLASS="Code">
+:exitcond</CODE>
+ and <CODE CLASS="Code">
+:entrycond</CODE>
+ is shown below:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-886306"></A>For the <CODE CLASS="Code">
+fac</CODE>
+ function, set the values of <CODE CLASS="Code">
+:entrycond</CODE>
+ and <CODE CLASS="Code">
+:exitcond</CODE>
+ as follows.</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-886308"></A>:entrycond						=&gt; (evenp (car <A NAME="marker-886307"></A>*traced-arglist*))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886309"></A>:exitcond						=&gt; (oddp (car *traced-arglist*))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886310"></A>Information is only printed on entry to <CODE CLASS="Code">
+fac</CODE>
+ if the argument passed to <CODE CLASS="Code">
+fac</CODE>
+ is even. Conversely, information is only printed on exit from <CODE CLASS="Code">
+fac</CODE>
+ if the argument passed to <CODE CLASS="Code">
+fac</CODE>
+ is odd.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-886311"></A>Type the following call to fac in a listener:</LI>
+</OL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886312"></A>CL-USER 12 &gt; (fac 10)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886313"></A>The tracing information printed is as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886314"></A>0 FAC &gt; (10)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886315"></A>    2 FAC &gt; (8)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886316"></A>        4 FAC &gt; (6)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886317"></A>            6 FAC &gt; (4)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886318"></A>                8 FAC &gt; (2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886319"></A>                  9 FAC &lt; (1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886320"></A>              7 FAC &lt; (6)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886321"></A>          5 FAC &lt; (120)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886322"></A>      3 FAC &lt; (5040)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886323"></A>  1 FAC &lt; (362880)</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-47.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-45.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

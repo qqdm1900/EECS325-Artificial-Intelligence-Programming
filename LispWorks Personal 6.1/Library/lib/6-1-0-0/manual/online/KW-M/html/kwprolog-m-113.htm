@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ cut
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-114.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-112.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-104.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-104.htm">7 Reference Guide</A><BR><BR>
+</DIV><A HREF="kwprolog-m-114.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-112.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-891733"></A><A NAME="marker-891732"></A><A NAME="33353"></A>cut</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-891735"></A><A NAME="cut"></A>Backward Chaining Goal</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1014875"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1014876"></A>The standard prolog predicate that stops backtracking.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1014877"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-891737"></A>cut</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891740"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-891741"></A><CODE CLASS="Code">
+cut</CODE>
+ is a standard prolog predicate. When first called it succeeds and freezes certain choices made by the backward chainer up to this point. It may no longer attempt to resatisfy any of the goals between the start of clause and the <CODE CLASS="Code">
+cut</CODE>
+, and it may not attempt to use any other clauses to satisfy the same goal.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891742"></A>Examples</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-891743"></A>(defrule nice :backward</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891744"></A>  ((nice ?x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891745"></A>   &lt;--</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891746"></A>   (rottweiler ?x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891747"></A>   (cut)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891748"></A>   (fail))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-891749"></A>  ((nice ?x) &lt;--))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-933993"></A>implements &quot;everything is nice unless it is a rottweiler&quot;. First the backward chainer will attempt to prove <CODE CLASS="Code">
+(nice fido)</CODE>
+ with the first clause. If <CODE CLASS="Code">
+fido</CODE>
+ is a rottweiler the <CODE CLASS="Code">
+cut</CODE>
+ then prevents the backward chainer from using the second clause which says &quot;everything is nice&quot;. The fail ensures that <CODE CLASS="Code">
+(nice fido)</CODE>
+ fails.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1014633"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1014742"></A><A HREF="kwprolog-m-123.htm#81791" CLASS="XRef">fail</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-114.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-112.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

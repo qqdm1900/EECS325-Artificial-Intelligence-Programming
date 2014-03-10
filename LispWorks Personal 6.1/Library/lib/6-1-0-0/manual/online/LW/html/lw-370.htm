@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.3.1.2  Modification
+</TITLE>
+
+<LINK REL="next" HREF="lw-371.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-369.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-368.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-367.htm">19.3  Functional interface</A> &gt; <A HREF="lw-368.htm">19.3.1  Functional Data Manipulation Language (FDML)</A><BR><BR>
+</DIV><A HREF="lw-371.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-369.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-368.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-886198"></A>19.3.1.2  Modification</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886200"></A><A NAME="marker-886199"></A>Modifications to the database can be done using the following functions; <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-886201"></A><A HREF="lw-1189.htm#37250" CLASS="XRef">insert-records</A>,<CODE CLASS="Code">
+ </CODE>
+<A NAME="marker-910995"></A><A HREF="lw-1174.htm#30849" CLASS="XRef">delete-records</A> and <A NAME="marker-886203"></A><A HREF="lw-1283.htm#30156" CLASS="XRef">update-records</A>. The functions <A HREF="lw-1160.htm#25697" CLASS="XRef">commit</A>,<CODE CLASS="Code">
+ </CODE>
+<A HREF="lw-1256.htm#15063" CLASS="XRef">rollback</A> and the macro <A HREF="lw-1287.htm#32033" CLASS="XRef">with-transaction</A> are used to control transactions. Although<CODE CLASS="Code">
+ </CODE>
+<A NAME="marker-910594"></A><A HREF="lw-1160.htm#25697" CLASS="XRef">commit</A> or <A NAME="marker-886205"></A><A HREF="lw-1256.htm#15063" CLASS="XRef">rollback</A> may be used in isolation it is advisable to do any updates inside a <A NAME="marker-886206"></A><A HREF="lw-1287.htm#32033" CLASS="XRef">with-transaction</A> form instead. This provides consistency across different database transaction models. For example, some database systems do not provide an explicit &quot;start-transaction&quot; command while others do. <A HREF="lw-1287.htm#32033" CLASS="XRef">with-transaction</A> allows user code to ignore database-specific transaction models.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890661"></A>The function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-886207"></A><A HREF="lw-1189.htm#37250" CLASS="XRef">insert-records</A> creates records in a specified table. The values can be either specified directly with the argument <EM CLASS="Variable">
+values</EM>
+ or in the argument <EM CLASS="Variable">
+av-pairs</EM>
+, or they can be the result of a query specified in the <EM CLASS="Variable">
+query</EM>
+ argument.  The attributes can be specified with the argument <EM CLASS="Variable">
+attributes </EM>
+or in the argument <EM CLASS="Variable">
+av-pairs</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886217"></A>If <EM CLASS="Variable">
+attributes</EM>
+ is supplied then <EM CLASS="Variable">
+values </EM>
+must be a corresponding list of values for each of the listed attribute names. For example, both:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886218"></A>(insert-records :into [person]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886219"></A>    :attributes '(person_id income surname occupation)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886220"></A>    :values '(115 11000 &quot;Johnson&quot; &quot;plumber&quot;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886221"></A>and:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886222"></A>(insert-records :into [person]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886223"></A>               :av-pairs `((person_id 115) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886224"></A>                           (income 11000) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886225"></A>                           (surname &quot;Johnson&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886226"></A>                           (occupation &quot;plumber&quot;)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886227"></A>are equivalent to the following SQL:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886228"></A>INSERT INTO PERSON</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886229"></A>  (PERSON_ID,INCOME,SURNAME,OCCUPATION)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886230"></A>  VALUES (115,11000,'Johnson','plumber')</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886231"></A>If <EM CLASS="Variable">
+query</EM>
+ is provided, then neither <EM CLASS="Variable">
+values</EM>
+ nor <EM CLASS="Variable">
+av-pairs</EM>
+ should be. In this case the attribute names in the query expression must also exist in the insertion table. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886232"></A>(insert-records :into [person]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886233"></A>     :query [select [id] [firstname] [surname] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886234"></A>               :from [manager]] </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886235"></A>     :attributes '(person_id firstname surname))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-902186"></A>To delete or alter those records in a table which match some condition, use  <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-886236"></A><A NAME="marker-918332"></A><A HREF="lw-1174.htm#30849" CLASS="XRef">delete-records</A> or  <A NAME="marker-902195"></A><CODE CLASS="Code">
+</CODE>
+<A NAME="marker-918340"></A><A HREF="lw-1283.htm#30156" CLASS="XRef">update-records</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-371.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-369.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-368.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

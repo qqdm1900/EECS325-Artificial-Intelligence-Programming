@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-graphics-post-translation
+</TITLE>
+
+<LINK REL="next" HREF="capiref-654.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-652.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-495.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-495.htm">2 GP Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-654.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-652.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1514927"></A><A NAME="71140"></A><A NAME="marker-1517187"></A>with-graphics-post<A NAME="marker-1516838"></A>-translation</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1514928"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1514929"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1514930"></A>Like <A HREF="capiref-659.htm#32339" CLASS="XRef">with-graphics-translation</A> except that the translation is done after applying all existing transforms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1514931"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1514932"></A>with-graphics-post-translation (<EM CLASS="Variable">
+port</EM>
+ <EM CLASS="Variable">
+dx</EM>
+ <EM CLASS="Variable">
+dy</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1514933"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1514934"></A><EM CLASS="Variable">
+port</EM>
+</P>
+<P CLASS="RDescription-C">A graphics port.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1514935"></A><EM CLASS="Variable">
+dx</EM>
+</P>
+<P CLASS="RDescription-C">A real number.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1514936"></A><EM CLASS="Variable">
+dy</EM>
+</P>
+<P CLASS="RDescription-C">A real number.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1514937"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Lisp forms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1514938"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1514939"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The value returned by the last form of <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1514940"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1514941"></A>The macro <CODE CLASS="Code">
+with-graphics-post-translation</CODE>
+ is the same as <A HREF="capiref-659.htm#32339" CLASS="XRef">with-graphics-translation</A>, but the translation is done after applying all existing transforms. That means that the translation is &quot;absolute&quot;, not transformed. In contrast, when using <A HREF="capiref-659.htm#32339" CLASS="XRef">with-graphics-translation</A> the translation is transformed by any existing transform(s).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1514942"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1514943"></A>This form draws a 40x40 rectangle at (100,100), because the scale is applied to the coordinates of the rectangle, but not to the translation.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1514944"></A>(gp:with-graphics-scale (<EM CLASS="Variable">port</EM>
+ 2 2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1514945"></A>  (gp:with-graphics-post-translation (<EM CLASS="Variable">port</EM>
+ 100 100)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1514946"></A>    (gp:draw-rectangle <EM CLASS="Variable">port</EM>
+ 0 0 20 20)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1514947"></A>Compare with this form, using <A HREF="capiref-659.htm#32339" CLASS="XRef">with-graphics-translation</A> instead, which draws a  40x40 rectangle at (200,200), because the scale applies to the translation too:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1514948"></A>(gp:with-graphics-scale (<EM CLASS="Variable">port</EM>
+ 2 2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1514949"></A>  (gp:with-graphics-translation (<EM CLASS="Variable">port</EM>
+ 100 100)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1514950"></A>    (gp:draw-rectangle <EM CLASS="Variable">port</EM>
+ 0 0 20 20)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1514951"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1514952"></A><A HREF="capiref-658.htm#69729" CLASS="XRef">with-graphics-transform-reset</A><BR>
+<A HREF="capiref-659.htm#32339" CLASS="XRef">with-graphics-translation</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-654.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-652.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

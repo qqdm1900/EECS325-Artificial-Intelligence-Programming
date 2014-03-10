@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ pushnew-to-process-property
+</TITLE>
+
+<LINK REL="next" HREF="lw-1113.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1111.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1113.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1111.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1469849"></A><A NAME="30872"></A>pushnew<A NAME="marker-1469847"></A>-to-process-property</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1469850"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1469851"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1469852"></A>Pushes a new value to a general property of a process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1469853"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1469854"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1469855"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1469856"></A>pushnew-to-process-property <EM CLASS="Variable">
+indicator</EM>
+ <EM CLASS="Variable">
+value</EM>
+ &amp;key <EM CLASS="Variable">
+process</EM>
+ <EM CLASS="Variable">
+test</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1469857"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1470540"></A><EM CLASS="Variable">
+indicator</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1470541"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1470542"></A><EM CLASS="Variable">
+process</EM>
+</P>
+<P CLASS="RDescription-C">A process, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1470543"></A><EM CLASS="Variable">
+test</EM>
+</P>
+<P CLASS="RDescription-C">A function designator for a function of two arguments.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1469859"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1469860"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1469861"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1470883"></A>The function <CODE CLASS="Code">
+pushnew-to-process-property</CODE>
+ pushes <EM CLASS="Variable">
+value</EM>
+ to the value of the property associated with <EM CLASS="Variable">
+indicator</EM>
+ for the process <EM CLASS="Variable">
+process</EM>
+. It uses the function <EM CLASS="Variable">
+test</EM>
+ to compare existing property values of <EM CLASS="Variable">
+process</EM>
+ with <EM CLASS="Variable">
+value</EM>
+ and does not push if one matches, in the same way as <CODE CLASS="Code">
+cl:pushnew</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1470884"></A>The default value of <EM CLASS="Variable">
+test</EM>
+ is <CODE CLASS="Code">
+#'eql</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1470885"></A>If there is a property associated with <EM CLASS="Variable">
+indicator</EM>
+, the value of the property must be a list.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1470886"></A>If <EM CLASS="Variable">
+process</EM>
+ is not supplied or is <CODE CLASS="Code">
+nil</CODE>
+, the current process (that is, the result of calling <A HREF="lw-1030.htm#30865" CLASS="XRef">get-current-process</A>) is used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1470887"></A><EM CLASS="Variable">
+result</EM>
+ is the new value of the process property.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1469862"></A>The modification is done in a thread-safe way.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1805305"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1805306"></A>In the typical case when only the current process sets the property (even if other processes read it), private properties can be used, and are much faster in SMP LispWorks, because they do not need to deal with parallel setting. See <A HREF="lw-1088.htm#10478" CLASS="XRef">process-private-property</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1469867"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1471376"></A><A HREF="lw-1089.htm#77380" CLASS="XRef">process-property</A><BR>
+<A HREF="lw-1088.htm#10478" CLASS="XRef">process-private-property</A><BR>
+<A HREF="lw-1117.htm#50862" CLASS="XRef">remove-process-property</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1113.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1111.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

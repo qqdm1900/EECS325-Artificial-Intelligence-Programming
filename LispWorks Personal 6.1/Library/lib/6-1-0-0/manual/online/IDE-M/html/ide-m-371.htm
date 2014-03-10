@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 17.8.1  Example
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-372.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-370.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-370.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-352.htm">17 The Inspector</A> &gt; <A HREF="ide-m-370.htm">17.8  Creating new inspection formats</A><BR><BR>
+</DIV><A HREF="ide-m-372.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-370.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-370.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-855868"></A>17.8.1  Example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-855869"></A>Consider the following implementation of doubly-linked lists.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855870"></A>(in-package &quot;DLL&quot;)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-855872"></A>(defstruct (dll (:constructor construct-dll)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855873"></A>                (:print-function print-dll))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855874"></A>  previous-cell</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855875"></A>  value</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-855876"></A>  next-cell)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-855878"></A>(defun make-dll (&amp;rest list)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855879"></A>  (loop with first-cell </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855880"></A>        for element in list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855881"></A>        for previous = nil then cell</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855882"></A>        for cell = (construct-dll :previous-cell cell</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855883"></A>                                  :value element)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855884"></A>        doing</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855885"></A>        (if previous</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855886"></A>            (setf (dll-next-cell previous) cell)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855887"></A>          (setq first-cell cell))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855888"></A>        finally</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-855978"></A>        (return first-cell)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-855980"></A>(defun print-dll (dll stream depth)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855892"></A>  (declare (ignore depth))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-855893"></A>  (format stream &quot;#&lt;dll-cell &#126;A&gt;&quot; (dll-value dll)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-855894"></A>You can inspect a single cell by inspecting the following object:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855895"></A>(dll::make-dll &quot;mary&quot; &quot;had&quot; &quot;a&quot; &quot;little&quot; &quot;lamb&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-855896"></A>The resulting Inspector shows three slots: <CODE CLASS="Code">
+dll::previous-cell</CODE>
+ with value <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+value</CODE>
+ with value <CODE CLASS="Code">
+&quot;mary&quot; </CODE>
+and <CODE CLASS="Code">
+dll::next-cell</CODE>
+ with value <CODE CLASS="Code">
+#&lt;dll-cell had&gt;</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855897"></A>In practice, you are more likely to want to inspect the whole doubly-linked list in one window. To do this, define the following method on <CODE CLASS="Code">
+get-inspector-values</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855898"></A>(in-package &quot;DLL&quot;)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-855900"></A>(defun dll-root (object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855901"></A>  (loop for try = object then next</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855902"></A>        for next = (dll-previous-cell try)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855903"></A>        while next</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855904"></A>        finally</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-855905"></A>        (return try)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-855907"></A>(defun dll-cell (object number)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855908"></A>  (loop for count to number</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855909"></A>        for cell = object then (dll-next-cell cell)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855910"></A>        finally</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-855911"></A>        (return cell)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-855913"></A>(defmethod lw:get-inspector-values ((object dll) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855914"></A>  (mode (eql 'follow-links)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855915"></A>  (let ((root (dll-root object)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855916"></A>     (values</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855917"></A>       (loop for cell = root then (dll-next-cell cell)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855918"></A>             for count from 0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855919"></A>             while cell</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855920"></A>             collecting count)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855921"></A>       (loop for cell = root then (dll-next-cell cell)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855922"></A>     while cell</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855923"></A>             collecting (dll-value cell))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855924"></A>       nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855925"></A>       #'(lambda (object key index new-value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855926"></A>     (declare (ignore key))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855927"></A>     (setf (dll-value (dll-cell (dll-root object) index)) new-value))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-855928"></A>       &quot;FOLLOW-LINKS&quot;)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-855929"></A>Inspecting the same object with the new method defined displays a new tab in the Inspector &quot;Follow Links&quot;. This shows five slots, numbered from <CODE CLASS="Code">
+0</CODE>
+ to <CODE CLASS="Code">
+4</CODE>
+ with values <CODE CLASS="Code">
+&quot;mary&quot;</CODE>
+ <CODE CLASS="Code">
+&quot;had&quot;</CODE>
+ <CODE CLASS="Code">
+&quot;a&quot;</CODE>
+ <CODE CLASS="Code">
+&quot;little&quot;</CODE>
+ and <CODE CLASS="Code">
+&quot;lamb&quot;</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855930"></A>The following example adds another method to <CODE CLASS="Code">
+get-inspector-values</CODE>
+ which inspects cells rather than their value slots. The cells are displayed in a &quot;Fllow Cells&quot; tab of Inspector. The setter updates the <CODE CLASS="Code">
+next-cell</CODE>
+. Use this new mode to inspect the<CODE CLASS="Code">
+ &quot;lamb&quot;</CODE>
+ cell - that is, double-clink on the <CODE CLASS="Code">
+&quot;lamb&quot;</CODE>
+ cell in the &quot;Follow Cells&quot; tab - and then set its <CODE CLASS="Code">
+next-cell</CODE>
+ slot to <CODE CLASS="Code">
+(make-dll &quot;with&quot; &quot;mint&quot; &quot;sauce&quot;)</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855931"></A>(in-package &quot;DLL&quot;)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-855933"></A>(defmethod lw:get-inspector-values</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855934"></A> ((object dll) (mode (eql 'follow-cells)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855935"></A>  (let ((root (dll-root object)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855936"></A>     (values</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855937"></A>       (loop for cell = root then (dll-next-cell cell)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855938"></A>             for count from 0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855939"></A>             while cell</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855940"></A>             collecting count)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855941"></A>       (loop for cell = root then (dll-next-cell cell)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855942"></A>     while cell</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855943"></A>             collecting cell)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855944"></A>       nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855945"></A>       #'(lambda (object key index new-value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855946"></A>     (declare (ignore key))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855947"></A>     (setf (dll-next-cell (dll-cell (dll-root object) index)) new-value))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-855948"></A>       &quot;FOLLOW-CELLS&quot;)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-864897"></A>The extended sentence can now be inspected in the <CODE CLASS="Code">
+follow-links</CODE>
+ mode.</P>
+<P CLASS="Body">
+<A NAME="pgfId-856012"></A><A NAME="marker-856011"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-372.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-370.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-370.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

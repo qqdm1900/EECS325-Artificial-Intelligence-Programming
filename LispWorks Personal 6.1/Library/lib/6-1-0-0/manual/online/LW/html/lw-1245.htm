@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ora-lob-write-foreign-buffer
+</TITLE>
+
+<LINK REL="next" HREF="lw-1246.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1244.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1246.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1244.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1187510"></A><A NAME="72707"></A>ora<A NAME="marker-1182475"></A>-lob-write-foreign-buffer</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1182477"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1182478"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1182479"></A>Writes a foreign buffer to a LOB.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1182480"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1182481"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1182482"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1182483"></A>ora-lob-write-foreign-buffer <EM CLASS="Variable">
+lob-locator</EM>
+ <EM CLASS="Variable">
+offset</EM>
+ <EM CLASS="Variable">
+amount</EM>
+ <EM CLASS="Variable">
+foreign-buffer</EM>
+ <EM CLASS="Variable">
+buffer-length</EM>
+ &amp;key <EM CLASS="Variable">
+buffer-offset</EM>
+ <EM CLASS="Variable">
+csid</EM>
+ =&gt; <EM CLASS="Variable">
+amount-written</EM>
+, <EM CLASS="Variable">
+eof-or-error-p</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1182484"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1182485"></A><EM CLASS="Variable">
+lob-locator</EM>
+</P>
+<P CLASS="RDescription-C">A LOB locator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1182486"></A><EM CLASS="Variable">
+offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1182487"></A><EM CLASS="Variable">
+amount</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1182488"></A><EM CLASS="Variable">
+forreign-buffer</EM>
+</P>
+<P CLASS="RDescription-C">A FLI pointer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1187596"></A><EM CLASS="Variable">
+buffer-length</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1182489"></A><EM CLASS="Variable">
+buffer-offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1182490"></A><EM CLASS="Variable">
+csid</EM>
+</P>
+<P CLASS="RDescription-C">A.Character Set ID</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1182491"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1182492"></A><EM CLASS="Variable">
+amount-written</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1193612"></A><EM CLASS="Variable">
+eof-or-error-p</EM>
+</P>
+<P CLASS="RDescription-C">A boolean or an error object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1182494"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1182495"></A>The function <CODE CLASS="Code">
+ora-lob-write-foreign-buffer</CODE>
+ writes to the LOB pointed to by <EM CLASS="Variable">
+lob-locator </EM>
+from <EM CLASS="Variable">
+buffer</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1184923"></A>This is just like <A HREF="lw-1243.htm#66066" CLASS="XRef">ora-lob-write-buffer</A> except that it writes the LOB locator from a foreign buffer.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1182506"></A><EM CLASS="Variable">
+foreign-buffer</EM>
+ is a FLI pointer to a buffer, which must be of size at least <EM CLASS="Variable">
+buffer-length</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1182513"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1588878"></A><CODE CLASS="Code">
+ora-lob-write-foreign-buffer</CODE>
+ is available only when the &quot;oracle&quot; module is loaded. See the section <A HREF="lw-424.htm#Oracle LOB interface;Oracle locator objects;Oracle large objects " CLASS="XRef">Oracle LOB interface</A> for more information.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1182517"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1489361"></A><A HREF="lw-1227.htm#34086" CLASS="XRef">ora-lob-get-buffer</A><BR>
+<A HREF="lw-1243.htm#66066" CLASS="XRef">ora-lob-write-buffer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1246.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1244.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

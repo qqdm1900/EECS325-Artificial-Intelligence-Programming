@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11 The Debugger Tool
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-198.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-196.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A><BR><BR>
+</DIV><A HREF="ide-m-198.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-196.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="Chapter">
+<A NAME="pgfId-856290"></A><DIV>
+<IMG SRC="ide-m-109.gif">
+</DIV>
+11 <A NAME="debugger chapter"></A>The Debugger Tool</H3>
+<P CLASS="Body">
+<A NAME="pgfId-856296"></A><A NAME="marker-856292"></A><A NAME="marker-856293"></A><A NAME="marker-856294"></A><A NAME="marker-856295"></A>When developing source code, mistakes may prevent your programs from working properly, or even at all. Sometimes you can see what is causing a bug in a program immediately, and correcting it is trivial. For example, you might make a spelling mistake while typing, which you may instantly notice and correct.</P>
+<P CLASS="Body">
+<A NAME="pgfId-852589"></A>More often, however, you need to spend time studying the program and the errors it signalled before you can debug it. This is especially likely when you are developing large or complex programs.</P>
+<P CLASS="Body">
+<A NAME="pgfId-854186"></A>A Debugger tool is provided to make this process easier. This tool is a graphical front-end to the command line debugger which is supplied with your Lisp image. In order to get the best use from the Debugger tool, it is helpful if you are familiar with the command line debugger supplied. See the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ for a description of the command line debugger.</P>
+<P CLASS="Body">
+<A NAME="pgfId-852591"></A>The Debugger tool can be used to inspect programs which behave in unexpected ways, or which contain Common Lisp forms which are syntactically incorrect.</P>
+<P CLASS="Body-Next">
+<A NAME="pgfId-852593"></A><A NAME="marker-854927"></A>There are two ways that you can invoke the Debugger tool:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-855913"></A>If you evaluate code that signals an error in a Listener, the command line debugger is entered automatically. At this point, choose <B CLASS="Button">
+Debug &gt; Start GUI Debugger</B>
+<A NAME="marker-855914"></A><A NAME="marker-855915"></A> or click the 
+<IMG SRC="ide-m-110.gif" ALIGN="ABSBOTTOM">
+ button in the Listener toolbar to invoke the Debugger tool.</LI></UL>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-854794"></A>If you run code that signals an error from another source (for example, as a result of running a windowed application, or compiling code in a file of source code), by default a <A NAME="marker-925474"></A>Notifier window appears. Click on the <B CLASS="Button">
+Debug</B>
+ button or the <B CLASS="Button">
+Debug Snapshot</B>
+ button in the Notifier window to invoke the Debugger tool.</LI>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-925259"></A>For more information about the Notifier window, including the way to bypass it, see <A HREF="ide-m-219.htm#51684" CLASS="XRef">The Notifier window</A>.</P>
+</UL>
+<P CLASS="Body-Next">
+<A NAME="pgfId-856091"></A>Here is a short example introducing the Debugger tool:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-855413"></A>Define the following function in the Listener.</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-855414"></A>(defun thing (number)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-855415"></A>  (/ number 0))</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-855416"></A>This function which attempts to divide a number given as an argument by zero.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-855417"></A>Now call this function as follows:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-855418"></A>(thing 12)</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-855419"></A>The call to <CODE CLASS="Code">
+thing</CODE>
+ invokes the command line debugger.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-873571"></A>Choose <B CLASS="Button">
+Debug &gt; Start GUI Debugger</B>
+<A NAME="marker-855420"></A><A NAME="marker-855421"></A> or click the 
+<IMG SRC="ide-m-111.gif" ALIGN="ABSBOTTOM">
+ button to invoke the Debugger tool. Notice that the window title contains the name of the process being debugged.</LI>
+
+<LI CLASS="Step">
+<A NAME="pgfId-873553"></A>For now, click the <B CLASS="Button">
+Abort</B>
+ button 
+<IMG SRC="ide-m-112.gif" ALIGN="ABSBOTTOM">
+ in the Debugger toolbar to return to the top level loop in the Listener.</LI></OL>
+<P CLASS="Body-Next">
+<A NAME="pgfId-873621"></A>The command line debugger can be entered by signaling an error in interpretation or execution of a Common Lisp form. For each error signaled, a further level of the debugger is entered. Thus, if, while in the debugger, you execute code which signals an error, a lower level of the debugger is entered. The number in the debugger prompt is incremented to reflect this.</P>
+<P CLASS="Body">
+<A NAME="pgfId-859844"></A>Note that you can also invoke the command line debugger by tracing a function and forcing a break on entry to or exit from that function. See the tutorial chapter (<A HREF="ide-m-15.htm#39492" CLASS="XRef">Using the Debugger</A>) for the example code used in <A HREF="ide-m-15.htm#10743" CLASS="XRef">Debugger tool</A> and <A HREF="ide-m-198.htm#82625" CLASS="XRef">Debugger tool</A>.</P>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="ide-m-198.htm#pgfId-859849" CLASS="Hypertext">11.1  Description of the Debugger</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="ide-m-204.htm#pgfId-852608" CLASS="Hypertext">11.2  What the Debugger tool does</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="ide-m-205.htm#pgfId-852663" CLASS="Hypertext">11.3  Simple use of the Debugger tool</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="ide-m-206.htm#pgfId-852687" CLASS="Hypertext">11.4  The stack in the Debugger</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="ide-m-207.htm#pgfId-852855" CLASS="Hypertext">11.5  An example debugging session</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="ide-m-208.htm#pgfId-856550" CLASS="Hypertext">11.6  Performing operations on the error condition</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="ide-m-209.htm#pgfId-855288" CLASS="Hypertext">11.7  Performing operations on stack frames</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="ide-m-213.htm#pgfId-855289" CLASS="Hypertext">11.8  Performing operations on frame variables</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="ide-m-214.htm#pgfId-855159" CLASS="Hypertext">11.9  Configuring the debugger tool</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="ide-m-219.htm#pgfId-903406" CLASS="Hypertext">11.10  The Notifier window</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="ide-m-221.htm#pgfId-925390" CLASS="Hypertext">11.11  Errors in CAPI display callbacks</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-198.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-196.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

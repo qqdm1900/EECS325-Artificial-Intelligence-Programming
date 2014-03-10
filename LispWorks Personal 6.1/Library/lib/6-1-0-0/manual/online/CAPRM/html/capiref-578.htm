@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ image-access-pixels-to-bgra
+</TITLE>
+
+<LINK REL="next" HREF="capiref-579.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-577.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-495.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-495.htm">2 GP Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-579.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-577.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1233221"></A><A NAME="27179"></A>image<A NAME="marker-1233220"></A>-access-pixels-to-bgra</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1233222"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1233223"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1233224"></A>Copies pixel values from an Image Access object into a vector.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1233225"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1233226"></A><CODE CLASS="Code">
+graphics-ports</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1233227"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1233228"></A>image-access-pixels-to-bgra <EM CLASS="Variable">
+image-access</EM>
+ <EM CLASS="Variable">
+vector</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1233229"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1233230"></A><EM CLASS="Variable">
+image-access</P>
+<P CLASS="RDescription-C"></EM>
+An Image Access object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1233231"></A><EM CLASS="Variable">
+vector</EM>
+</P>
+<P CLASS="RDescription-C">A vector.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1233232"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1233233"></A>The function <CODE CLASS="Code">
+image-access-pixels-to-bgra</CODE>
+ copies all the pixels in the Image Access object <EM CLASS="Variable">
+image-access</EM>
+ into the vector <EM CLASS="Variable">
+vector</EM>
+ as a sequence of integer values in the range 0-255 for the blue, green, red and alpha components of each pixel. This function is optimized for the case where <EM CLASS="Variable">
+vector</EM>
+ has element type <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1233234"></A>An error is signalled if <EM CLASS="Variable">
+vector</EM>
+ is not of the correct length for the Image Access object, that is <CODE CLASS="Code">
+(* 4 </CODE>
+<EM CLASS="Variable">
+width</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+height</EM>
+<CODE CLASS="Code">
+)</CODE>
+ where <EM CLASS="Variable">
+width</EM>
+ and <EM CLASS="Variable">
+height</EM>
+ represent the size of <EM CLASS="Variable">
+image-access</EM>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1233235"></A><B CLASS="Bold">
+Note:</B>
+ <A HREF="capiref-577.htm#78563" CLASS="XRef">image-access-pixels-from-bgra</A> must be called before this function (similarly to <A HREF="capiref-576.htm#82243" CLASS="XRef">image-access-pixel</A>).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1233236"></A><EM CLASS="Variable">
+image-access</EM>
+ must be an Image Access object returned by <A HREF="capiref-597.htm#99246" CLASS="XRef">make-image-access</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1233240"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1233241"></A>See the file<BR>
+<CODE CLASS="Code">
+examples/capi/graphics/image-access-bgra.lisp</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1233242"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1233198"></A><A HREF="capiref-576.htm#82243" CLASS="XRef">image-access-pixel</A><BR>
+<A HREF="capiref-577.htm#78563" CLASS="XRef">image-access-pixels-from-bgra</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-579.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-577.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

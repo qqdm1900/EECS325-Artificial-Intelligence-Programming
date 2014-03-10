@@ -1,0 +1,12 @@
+;;;not read not submit
+(defmacro key-if (test &rest exprs)
+  (let* ((then (gensym))
+         (else (gensym)) 
+         (then (cdr (member :then exprs)))
+         (then (if (null then) '(nil)
+                 (ldiff then (member :else then))))
+         (else (cdr (member :else exprs)))
+         (else (if (null else) '(nil)
+                 (ldiff else (member :then else)))))
+    `(cond (,test ,@then) 
+           (t ,@else))))

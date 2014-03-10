@@ -1,0 +1,456 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.4  Points
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-143.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-141.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-136.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A> &gt <A HREF="eduser-m-136.htm">6.3  Programming the editor</A><BR><BR>
+</DIV><A HREF="eduser-m-143.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-141.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-901995"></A>6.3.4  <A NAME="marker-901993"></A><A NAME="84833"></A>Points</H3>
+<P CLASS="Body">
+<A NAME="pgfId-902222"></A>Locations within a buffer are recorded as <CODE CLASS="Code">
+editor:point</CODE>
+<A NAME="marker-902221"></A> objects. Each point remembers a character position within the buffer and all of the editor functions that manipulate the text of a buffer locate the text using one or more point objects (sometimes the current point).</P>
+<P CLASS="Body">
+<A NAME="pgfId-902224"></A><A NAME="marker-902223"></A>A point's <EM CLASS="Variable">
+kind</EM>
+ controls what happens to the point when text in the buffer is inserted or deleted.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902149"></A><CODE CLASS="Code">
+:temporary</CODE>
+ points are for cases where you need read-only access to the buffer. They are like GNU Emacs &quot;points&quot;. They have a lower overhead than the other kinds of point and do not need to be explicitly deleted, but do not use them in cases where you make a point, insert or delete text and then use the point again, since they do not move when the text is changed. Also, do not use them in cases where more than one thread can modify their buffer without locking the buffer first (see <A HREF="eduser-m-140.htm#58005" CLASS="XRef">Buffer locking</A>)</P>
+<P CLASS="Body">
+<A NAME="pgfId-902150"></A><CODE CLASS="Code">
+:before-insert</CODE>
+ and <CODE CLASS="Code">
+:after-insert</CODE>
+ points are for cases where you need to make a point, insert or delete text and still use the point afterwards. They are like GNU Emacs &quot;markers&quot;. The difference between these two kinds is what happens when text is inserted. For a point at position <EM CLASS="Variable">
+n</EM>
+ from the start of the buffer, inserting <EM CLASS="Variable">
+len</EM>
+ characters will leave the point at either position <EM CLASS="Variable">
+n</EM>
+ or <EM CLASS="Variable">
+n</EM>
++<EM CLASS="Variable">
+len</EM>
+ according to the following table.</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-902154"></A>Editor point positions after text insertion<DIV>
+<IMG SRC="eduser-m-10.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-902162"></A><EM CLASS="Variable">
+kind</EM>
+</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-902164"></A>Insert at &lt; <EM CLASS="Variable">
+n</EM>
+</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-902166"></A>Insert at = <EM CLASS="Variable">
+n</EM>
+</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-902168"></A>Insert at &gt; <EM CLASS="Variable">
+n</EM>
+</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-902170"></A><CODE CLASS="Code">
+:before-insert</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-902172"></A><EM CLASS="Variable">
+n</EM>
++<EM CLASS="Variable">
+len</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-902174"></A><EM CLASS="Variable">
+n</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-902176"></A><EM CLASS="Variable">
+n</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-902178"></A><CODE CLASS="Code">
+:after-insert</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-902180"></A><EM CLASS="Variable">
+n</EM>
++<EM CLASS="Variable">
+len</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-902182"></A><EM CLASS="Variable">
+n</EM>
++<EM CLASS="Variable">
+len</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-902184"></A><EM CLASS="Variable">
+n</EM>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-902185"></A>When text is deleted, <CODE CLASS="Code">
+:before-insert</CODE>
+ and <CODE CLASS="Code">
+:after-insert</CODE>
+ points are treated the same: points &lt;= the start of the deletion remain unchanged, points &gt;= the end of the deletion are moved with the text and points within the deleted region are automatically deleted and cannot be used again.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902186"></A>All points with kind other than <CODE CLASS="Code">
+:temporary</CODE>
+ are stored within the data structures of the editor buffer so they can be updated when the text changes. A point can be removed from the buffer by <A HREF="eduser-m-142.htm#36121" CLASS="XRef">editor:delete-point</A>, and point objects are also destroyed if their buffer is killed.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-901997"></A>editor:<A NAME="marker-901996"></A>point-kind</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-901998"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-901999"></A>editor:point-kind <EM CLASS="Variable">
+point</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902000"></A>Returns the kind of the point, which is <CODE CLASS="Code">
+:temporary</CODE>
+, <CODE CLASS="Code">
+:before-insert</CODE>
+ or <CODE CLASS="Code">
+:after-insert</CODE>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902045"></A>editor:<A NAME="marker-902044"></A>current-point</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902046"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902047"></A>editor:current-point</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902048"></A>Returns the current point. See also <A HREF="eduser-m-141.htm#19363" CLASS="XRef">editor:buffer-point</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902050"></A>editor:<A NAME="marker-902049"></A>current-mark </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902051"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902052"></A>editor:current-mark &amp;optional <EM CLASS="Variable">
+pop-pno-error-p</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902053"></A>Returns the current mark. If <EM CLASS="Variable">
+pop-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, the mark ring is rotated so that the previous mark becomes the current mark. If no mark is set and <EM CLASS="Variable">
+no-error-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+nil</CODE>
+ is returned; otherwise an error is signalled. The default for both of these optional arguments is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902055"></A>editor:<A NAME="marker-902054"></A>set-current-mark</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902056"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902057"></A>editor:set-current-mark <EM CLASS="Variable">
+point</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902058"></A>Sets the current mark to be <EM CLASS="Variable">
+point</EM>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902065"></A>editor:<A NAME="marker-902064"></A>point&lt; 	</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902066"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902067"></A>editor:point&lt; <EM CLASS="Variable">
+point1</EM>
+ <EM CLASS="Variable">
+point2</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902068"></A>Returns non-nil if <EM CLASS="Variable">
+point1</EM>
+ is before <EM CLASS="Variable">
+point2</EM>
+ in the buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-903279"></A>editor:<A NAME="marker-903278"></A>point&lt;= 	</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-903280"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-903281"></A>editor:point&lt;= <EM CLASS="Variable">
+point1</EM>
+ <EM CLASS="Variable">
+point2</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903282"></A>Returns non-nil if <EM CLASS="Variable">
+point1</EM>
+ is before or at the same offset as <EM CLASS="Variable">
+point2</EM>
+ in the buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902070"></A>editor:<A NAME="marker-902069"></A>point&gt; </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902071"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902072"></A>editor:point&gt; <EM CLASS="Variable">
+point1</EM>
+ <EM CLASS="Variable">
+point2</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902073"></A>Returns non-nil if <EM CLASS="Variable">
+point1</EM>
+ is after <EM CLASS="Variable">
+point2</EM>
+ in the buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-903290"></A>editor:<A NAME="marker-903289"></A>point&gt;= </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-903291"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-903292"></A>editor:point&gt;= <EM CLASS="Variable">
+point1</EM>
+ <EM CLASS="Variable">
+point2</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903293"></A>Returns non-nil if <EM CLASS="Variable">
+point1</EM>
+ is after or at the same offset as <EM CLASS="Variable">
+point2</EM>
+ in the buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902075"></A>editor:<A NAME="marker-902074"></A>copy-point</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902076"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902077"></A>editor:copy-point <EM CLASS="Variable">
+point</EM>
+ &amp;optional <EM CLASS="Variable">
+kind</EM>
+ <EM CLASS="Variable">
+new-point</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902078"></A>Makes and returns a copy of <EM CLASS="Variable">
+point</EM>
+. The argument <EM CLASS="Variable">
+kind</EM>
+ can take the value <CODE CLASS="Code">
+:before</CODE>
+, <CODE CLASS="Code">
+:after</CODE>
+, or<CODE CLASS="Code">
+ :temporary</CODE>
+. If <EM CLASS="Variable">
+new-point</EM>
+ is supplied, the copied point is bound to that as well as being returned.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902081"></A><A NAME="36121"></A>editor:<A NAME="marker-902080"></A>delete-point</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902082"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902083"></A>editor:delete-point <EM CLASS="Variable">
+point</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902084"></A>Deletes the point <EM CLASS="Variable">
+point</EM>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902085"></A>This should be done to any non-temporary point which is no longer needed.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902088"></A><A NAME="27132"></A>editor:<A NAME="marker-902087"></A>move-point</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902089"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902090"></A>editor:move-point <EM CLASS="Variable">
+point new-position</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902091"></A>Moves <EM CLASS="Variable">
+point</EM>
+ to <EM CLASS="Variable">
+new-position</EM>
+, which should itself be a point.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902093"></A>editor:<A NAME="marker-902092"></A>start-line-p</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902094"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902096"></A>editor:<A NAME="marker-902095"></A>start-line-p <EM CLASS="Variable">
+point</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902097"></A>Returns <CODE CLASS="Code">
+t</CODE>
+ if <EM CLASS="Variable">
+point</EM>
+ is immediately before the first character in a line, and <CODE CLASS="Code">
+nil</CODE>
+ otherwise.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902099"></A>editor:<A NAME="marker-902098"></A>end-line-p</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902100"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902101"></A>editor:end-line-p <EM CLASS="Variable">
+point</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902102"></A>Returns <CODE CLASS="Code">
+t</CODE>
+ if <EM CLASS="Variable">
+point</EM>
+ is immediately after the last character in a line, and <CODE CLASS="Code">
+nil</CODE>
+ otherwise.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902104"></A>editor:<A NAME="marker-902103"></A>same-line-p</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902105"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902106"></A>editor:same-line-p <EM CLASS="Variable">
+point1 point2</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902107"></A>Returns <CODE CLASS="Code">
+t</CODE>
+ if <EM CLASS="Variable">
+point1</EM>
+ and <EM CLASS="Variable">
+point2</EM>
+ are on the same line, and <CODE CLASS="Code">
+nil</CODE>
+ otherwise.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902109"></A>editor:<A NAME="marker-902108"></A>save-excursion</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902110"></A>Macro</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902111"></A>editor:save-excursion &amp;rest <EM CLASS="Variable">
+body</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902112"></A>Saves the location of the point and the mark and restores them after completion of <EM CLASS="Variable">
+body</EM>
+. This restoration is accomplished even when there is an abnormal exit from <EM CLASS="Variable">
+body</EM>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-902114"></A>editor:<A NAME="marker-902113"></A>with-point</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-902115"></A>Macro</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-902116"></A>editor:with-point <EM CLASS="Variable">
+point-bindings</EM>
+ &amp;rest <EM CLASS="Variable">
+body</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902117"></A><EM CLASS="Variable">
+point-bindings</EM>
+ is a list of bindings, each of the form <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+var</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+point</EM>
+<CODE CLASS="Code">
+ [</CODE>
+<EM CLASS="Variable">
+kind</EM>
+<CODE CLASS="Code">
+])</CODE>
+. Each variable <EM CLASS="Variable">
+var</EM>
+ is bound to a new point which is a copy of the point <EM CLASS="Variable">
+point</EM>
+ though possibly with a different kind, if <EM CLASS="Variable">
+kind</EM>
+ is supplied. If <EM CLASS="Variable">
+kind</EM>
+ is not supplied, then the new point has <EM CLASS="Variable">
+kind</EM>
+ <CODE CLASS="Code">
+:temporary</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902118"></A>The forms of <EM CLASS="Variable">
+body</EM>
+ are evaluated within the scope of the point bindings, and then the points in each variable <EM CLASS="Variable">
+var</EM>
+ are deleted, as if by <A HREF="eduser-m-142.htm#36121" CLASS="XRef">editor:delete-point</A>. Each point <EM CLASS="Variable">
+var</EM>
+ is deleted even if there was an error when evaluating <EM CLASS="Variable">
+body</EM>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-902122"></A>The main reason for using <CODE CLASS="Code">
+with-point</CODE>
+ to create non-temporary points is to allow <EM CLASS="Variable">
+body</EM>
+ to modify the buffer while keeping these points up to date for later use within <EM CLASS="Variable">
+body</EM>
+.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-143.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-141.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

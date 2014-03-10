@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.2.3  Passing a constant string
+</TITLE>
+
+<LINK REL="next" HREF="fli-49.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-47.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-45.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A> &gt; <A HREF="fli-45.htm">4.2  Modifying, passing and returning strings</A><BR><BR>
+</DIV><A HREF="fli-49.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-47.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888072"></A>4.2.3  Passing a constant <A NAME="marker-888837"></A>string</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888073"></A>Use of the <A HREF="fli-186.htm#15890" CLASS="XRef">:reference-pass</A> type in this example converts the Lisp string to a foreign string on calling, but does not convert the string back again on return.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888092"></A>Here is the C code for the example.  It uses the argument string but returns an integer.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888093"></A>Windows version:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888108"></A>#include &lt;string.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888109"></A>#include &lt;ctype.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888110"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888111"></A>__declspec(dllexport) int __cdecl count_upper(const char *string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888112"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888113"></A>  int count;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888114"></A>  int len;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888115"></A>  int ii;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888116"></A>  count = 0;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888117"></A>  len = strlen(string);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888118"></A>  for (ii = 0; ii &lt; len ; ii++)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888119"></A>      if (isupper(string[ii]))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888120"></A>         count++;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888121"></A>  return count;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888090"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888126"></A>Linux/Unix/Macintosh version:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888131"></A>#include &lt;string.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888132"></A>#include &lt;ctype.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888133"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888134"></A>int count_upper(const char *string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888135"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888136"></A>  int count;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888137"></A>  int len;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888138"></A>  int ii;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888139"></A>  count = 0;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888140"></A>  len = strlen(string);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888141"></A>  for (ii = 0; ii &lt; len ; ii++)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888142"></A>      if (isupper(string[ii]))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888143"></A>         count++;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888144"></A>  return count;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888127"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888168"></A>Here is the foreign function definition using <CODE CLASS="Code">
+:reference-pass</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888171"></A>(fli:define-foreign-function (count-upper &quot;count_upper&quot; :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888172"></A>                             ((string (:reference-pass :ef-mb-string)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888173"></A>                             :result-type :int</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888174"></A>                             :language :c</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888175"></A>                             :calling-convention :cdecl)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888176"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888177"></A>(count-upper &quot;ABCdef&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888178"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888179"></A>3</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-49.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-47.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

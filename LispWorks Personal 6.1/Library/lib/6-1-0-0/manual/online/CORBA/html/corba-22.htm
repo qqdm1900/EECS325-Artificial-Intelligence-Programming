@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.2.5  The complete Hello World server source code
+</TITLE>
+
+<LINK REL="next" HREF="corba-23.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-21.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-17.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-9.htm">2 Quick Start Tutorial</A> &gt <A HREF="corba-17.htm">2.2  Complete source code for the Hello World example</A><BR><BR>
+</DIV><A HREF="corba-23.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-21.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-17.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-853315"></A>2.2.5  The complete Hello World server source code</H3>
+<P CLASS="Body">
+<A NAME="pgfId-854177"></A>The complete code for the Hello World server (the <CODE CLASS="Code">
+hello-world-server.lisp</CODE>
+ file) is:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853283"></A>(in-package &quot;CL-USER&quot;)</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853284"></A>(defclass world-implementation (HelloWorld:world-servant) ())</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-853285"></A>(corba:define-method op:hello ((self world-implementation))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853410"></A>  (declare (ignore self))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853412"></A>  &quot;Hello World!&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855188"></A>(defun server-startup ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855189"></A>  (let* ((orb (op:orb_init nil &quot;LispWorks ORB&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855190"></A>         (poa (op:resolve_initial_references orb &quot;RootPOA&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855191"></A>         (impl (make-instance 'world-implementation))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855192"></A>         (world (op:narrow 'HelloWorld:world</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855193"></A>                           (op:servant_to_reference poa impl))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855194"></A>    (object-to-file orb world)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855195"></A>    (let ((manager (op:the_poamanager poa)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853430"></A>      (op:activate manager))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-852227"></A>&nbsp;</P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-23.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-21.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-17.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.2.3  Editor command groups
+</TITLE>
+
+<LINK REL="next" HREF="delivery-225.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-223.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-221.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-211.htm">9 Delivery and Internal Systems</A> &gt; <A HREF="delivery-221.htm">9.2  Editors for delivered applications</A><BR><BR>
+</DIV><A HREF="delivery-225.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-223.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-221.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-855169"></A>9.2.3  Editor <A NAME="79066"></A>command groups</H3>
+<P CLASS="Body">
+<A NAME="pgfId-858388"></A>If any part of the editor is present in the image, every editor command that has been loaded will be kept in the delivered image. Two <CODE CLASS="Code">
+deliver</CODE>
+ keywords allow you to specify which commands to keep and which commands to delete:</P>
+<P CLASS="Body">
+<A NAME="pgfId-858390"></A><CODE CLASS="Code">
+:editor-commands-to-keep</CODE>
+<A NAME="marker-858389"></A>    (default <CODE CLASS="Code">
+nil)</CODE>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-858392"></A><CODE CLASS="Code">
+:editor-commands-to-delete</CODE>
+<A NAME="marker-858391"></A>  (default <CODE CLASS="Code">
+:all-groups)</CODE>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-858393"></A>The effect of these default values is that all the commands are deleted. If a command is both these lists, it is kept.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855170"></A>To get rid of <A NAME="marker-855171"></A>editor commands, use the keyword argument <A NAME="marker-855172"></A><CODE CLASS="Code">
+:editor-commmands-to-delete </CODE>
+to <CODE CLASS="Code">
+deliver</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-856218"></A>Deleting a command does not automatically delete the associated function. For example, the function <CODE CLASS="Code">
+editor:do-something-command</CODE>
+ could be called by the application even if the command <CODE CLASS="Code">
+&quot;Do Something&quot;</CODE>
+ has been deleted. </P>
+<P CLASS="Body">
+<A NAME="pgfId-856219"></A>The function itself is only deleted if it is not referenced elsewhere in the application or if it is removed explicitly. Therefore, an application which uses the editor in a non-interactive or limited interactive manner can delete all or most of the editor commands. Note also that key bindings associate key sequences with commands and not functions, so if a command is deleted any sequences bound to it will no longer work. For consistency, the delivery process unbinds them too.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855175"></A>The keyword <CODE CLASS="Code">
+:editor-commands-to-delete</CODE>
+ is processed in different ways depending on the sort of value passed: </P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855176"></A>List value</P>
+<P CLASS="Description-C">Process each element of the list. (Thus the list is traversed recursively.)</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855177"></A>String value</P>
+<P CLASS="Description-C">The corresponding editor command is deleted. </P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855178"></A>Symbol value</P>
+<P CLASS="Description-C">Taken to specify a Command Group. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855179"></A>The available Command Groups are:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855180"></A><CODE CLASS="Code">
+:simple-editor</CODE>
+</P>
+<P CLASS="Description-C">The simple editor contains basic mechanisms for editing text files, including regions, buffers and windows, movement, insertion and removal commands, key bindings, the echo area and extended commands (such as <CODE CLASS="Code">
+Alt+X</CODE>
+), file handling commands, filling and indenting, and undo.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855181"></A><CODE CLASS="Code">
+:full-editor</CODE>
+</P>
+<P CLASS="Description-C">The full editor has all the facilities of the simple editor, and adds handling for Lisp forms, auto-save help and other documentation commands searching, including the system based search commands, tags support, and support for interactive modes.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855182"></A><CODE CLASS="Code">
+:extended-editor</CODE>
+	</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-855183"></A>The extended editor adds Lisp introspection to those features: arglists, evaluate, trace, walk-form, symbol completion, dspecs, callers and callees, buffer changes, and hooks into the inspector and class, generic function, and system browsers.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855184"></A><CODE CLASS="Code">
+:demand-loaded</CODE>
+</P>
+<P CLASS="Description-C">Commands present in the standard LispWorks image only if they are demand loaded. </P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855185"></A><CODE CLASS="Code">
+:tools</CODE>
+</P>
+<P CLASS="Description-C">Commands supporting tools which must be explicitly loaded on top of the editor, for example the listener. </P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-855187"></A><CODE CLASS="Code">
+:exclude</CODE>
+<A NAME="marker-855186"></A></P>
+<P CLASS="Description-C">Commands always deleted by the delivery process, for example, compilation commands.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-225.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-223.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-221.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

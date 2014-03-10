@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 38 The SQL Package
+</TITLE>
+
+<LINK REL="next" HREF="lw-1156.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1154.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A><BR><BR>
+</DIV><A HREF="lw-1156.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1154.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="Chapter">
+<A NAME="pgfId-887891"></A><DIV>
+<IMG SRC="lw-48.gif">
+</DIV>
+38 <A NAME="13331"></A>The SQL Package</H3>
+<P CLASS="Body">
+<A NAME="pgfId-887892"></A>This chapter describes the symbols available in the <CODE CLASS="Code">
+SQL</CODE>
+ package which implements Common SQL. You should use this chapter in conjunction with <A HREF="lw-343.htm#41210" CLASS="XRef">Common SQL</A>. In particular that chapter contains more information about the Oracle LOB interface (that is, those functions with names beginning <CODE CLASS="Code">
+sql:ora-lob-</CODE>
+).</P>
+<P CLASS="Body">
+<A NAME="pgfId-1027318"></A>On Microsoft Windows, Linux, x86/x64 Solaris, FreeBSD and Mac OS X, Common SQL is included only in LispWorks Enterprise Edition.</P>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1156.htm#pgfId-887897" CLASS="Hypertext">add-sql-stream</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1157.htm#pgfId-887936" CLASS="Hypertext">attribute-type</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1158.htm#pgfId-969350" CLASS="Hypertext">cache-table-queries</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1159.htm#pgfId-984175" CLASS="Hypertext">*cache-table-queries-default*</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1160.htm#pgfId-985904" CLASS="Hypertext">commit</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1161.htm#pgfId-887997" CLASS="Hypertext">connect</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1162.htm#pgfId-888044" CLASS="Hypertext">*connect-if-exists*</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1163.htm#pgfId-888071" CLASS="Hypertext">connected-databases</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1164.htm#pgfId-888103" CLASS="Hypertext">create-index</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1165.htm#pgfId-888133" CLASS="Hypertext">create-table</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1166.htm#pgfId-888163" CLASS="Hypertext">create-view</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1167.htm#pgfId-888198" CLASS="Hypertext">create-view-from-class</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1168.htm#pgfId-888222" CLASS="Hypertext">database-name</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1169.htm#pgfId-888253" CLASS="Hypertext">*default-database*</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1170.htm#pgfId-888268" CLASS="Hypertext">*default-database-type*</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1171.htm#pgfId-1046253" CLASS="Hypertext">*default-update-objects-max-len*</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1172.htm#pgfId-888283" CLASS="Hypertext">def-view-class</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1173.htm#pgfId-888434" CLASS="Hypertext">delete-instance-records</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1174.htm#pgfId-888457" CLASS="Hypertext">delete-records</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1175.htm#pgfId-888482" CLASS="Hypertext">delete-sql-stream</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1176.htm#pgfId-1598406" CLASS="Hypertext">destroy-prepared-statement</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1177.htm#pgfId-888521" CLASS="Hypertext">disable-sql-reader-syntax</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1178.htm#pgfId-888550" CLASS="Hypertext">disconnect</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1179.htm#pgfId-888584" CLASS="Hypertext">do-query</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1180.htm#pgfId-888621" CLASS="Hypertext">drop-index</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1181.htm#pgfId-888646" CLASS="Hypertext">drop-table</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1182.htm#pgfId-888668" CLASS="Hypertext">drop-view</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1183.htm#pgfId-888696" CLASS="Hypertext">drop-view-from-class</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1184.htm#pgfId-888720" CLASS="Hypertext">enable-sql-reader-syntax</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1185.htm#pgfId-888749" CLASS="Hypertext">execute-command</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1186.htm#pgfId-888770" CLASS="Hypertext">find-database</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1187.htm#pgfId-888803" CLASS="Hypertext">initialize-database-type</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1188.htm#pgfId-888830" CLASS="Hypertext">*initialized-database-types*</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1189.htm#pgfId-888846" CLASS="Hypertext">insert-records</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1190.htm#pgfId-1005777" CLASS="Hypertext">instance-refreshed</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1191.htm#pgfId-1001436" CLASS="Hypertext">list-attribute-types</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1192.htm#pgfId-888889" CLASS="Hypertext">list-attributes</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1193.htm#pgfId-888912" CLASS="Hypertext">list-classes</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1194.htm#pgfId-888930" CLASS="Hypertext">list-sql-streams</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1195.htm#pgfId-888968" CLASS="Hypertext">list-tables</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1196.htm#pgfId-1248918" CLASS="Hypertext">lob-stream</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1197.htm#pgfId-888994" CLASS="Hypertext">locally-disable-sql-reader-syntax</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1198.htm#pgfId-889028" CLASS="Hypertext">locally-enable-sql-reader-syntax</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1199.htm#pgfId-889062" CLASS="Hypertext">loop</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1200.htm#pgfId-889111" CLASS="Hypertext">map-query</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1201.htm#pgfId-1391575" CLASS="Hypertext">*mysql-library-directories*</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1202.htm#pgfId-1389226" CLASS="Hypertext">*mysql-library-path*</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1203.htm#pgfId-1522191" CLASS="Hypertext">*mysql-library-sub-directories*</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1204.htm#pgfId-1098223" CLASS="Hypertext">ora-lob-append</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1205.htm#pgfId-1092052" CLASS="Hypertext">ora-lob-assign</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1206.htm#pgfId-1070130" CLASS="Hypertext">ora-lob-char-set-form</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1207.htm#pgfId-1071463" CLASS="Hypertext">ora-lob-char-set-id</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1208.htm#pgfId-1140774" CLASS="Hypertext">ora-lob-close</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1209.htm#pgfId-1103641" CLASS="Hypertext">ora-lob-copy</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1210.htm#pgfId-1096546" CLASS="Hypertext">ora-lob-create-empty</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1211.htm#pgfId-1205438" CLASS="Hypertext">ora-lob-create-temporary</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1212.htm#pgfId-1228736" CLASS="Hypertext">ora-lob-disable-buffering</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1213.htm#pgfId-1066346" CLASS="Hypertext">ora-lob-element-type</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1214.htm#pgfId-1222837" CLASS="Hypertext">ora-lob-enable-buffering</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1215.htm#pgfId-1067681" CLASS="Hypertext">ora-lob-env-handle</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1216.htm#pgfId-1132585" CLASS="Hypertext">ora-lob-erase</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1217.htm#pgfId-1154300" CLASS="Hypertext">ora-lob-file-close</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1218.htm#pgfId-1155341" CLASS="Hypertext">ora-lob-file-close-all</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1219.htm#pgfId-1077605" CLASS="Hypertext">ora-lob-file-exists</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1220.htm#pgfId-1079927" CLASS="Hypertext">ora-lob-file-get-name</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1221.htm#pgfId-1078975" CLASS="Hypertext">ora-lob-file-is-open</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1222.htm#pgfId-1150159" CLASS="Hypertext">ora-lob-file-open</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1223.htm#pgfId-1156581" CLASS="Hypertext">ora-lob-file-set-name</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1224.htm#pgfId-1230041" CLASS="Hypertext">ora-lob-flush-buffer</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1225.htm#pgfId-1087754" CLASS="Hypertext">ora-lob-free</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1226.htm#pgfId-1214678" CLASS="Hypertext">ora-lob-free-temporary</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1227.htm#pgfId-1187625" CLASS="Hypertext">ora-lob-get-buffer</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1228.htm#pgfId-1074410" CLASS="Hypertext">ora-lob-get-chunk-size</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1229.htm#pgfId-1081372" CLASS="Hypertext">ora-lob-get-length</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1230.htm#pgfId-1063760" CLASS="Hypertext">ora-lob-internal-lob-p</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1231.htm#pgfId-1086991" CLASS="Hypertext">ora-lob-is-equal</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1232.htm#pgfId-1075305" CLASS="Hypertext">ora-lob-is-open</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1233.htm#pgfId-1083883" CLASS="Hypertext">ora-lob-is-temporary</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1234.htm#pgfId-1119995" CLASS="Hypertext">ora-lob-load-from-file</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1235.htm#pgfId-1067286" CLASS="Hypertext">ora-lob-lob-locator</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1236.htm#pgfId-1071973" CLASS="Hypertext">ora-lob-locator-is-init</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1237.htm#pgfId-1136653" CLASS="Hypertext">ora-lob-open</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1238.htm#pgfId-1165129" CLASS="Hypertext">ora-lob-read-buffer</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1239.htm#pgfId-1199371" CLASS="Hypertext">ora-lob-read-into-plain-file</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1240.htm#pgfId-1176319" CLASS="Hypertext">ora-lob-read-foreign-buffer</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1241.htm#pgfId-1148521" CLASS="Hypertext">ora-lob-svc-ctx-handle</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1242.htm#pgfId-1135771" CLASS="Hypertext">ora-lob-trim</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1243.htm#pgfId-1180105" CLASS="Hypertext">ora-lob-write-buffer</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1244.htm#pgfId-1204722" CLASS="Hypertext">ora-lob-write-from-plain-file</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1245.htm#pgfId-1187510" CLASS="Hypertext">ora-lob-write-foreign-buffer</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1246.htm#pgfId-1489365" CLASS="Hypertext">p-oci-env</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1247.htm#pgfId-1485172" CLASS="Hypertext">p-oci-file</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1248.htm#pgfId-1485181" CLASS="Hypertext">p-oci-lob-locator</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1249.htm#pgfId-1485190" CLASS="Hypertext">p-oci-lob-or-file</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1250.htm#pgfId-1485199" CLASS="Hypertext">p-oci-svc-ctx</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1251.htm#pgfId-1625751" CLASS="Hypertext">prepare-statement</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1252.htm#pgfId-1066313" CLASS="Hypertext">print-query</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1253.htm#pgfId-889193" CLASS="Hypertext">query</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1254.htm#pgfId-940018" CLASS="Hypertext">reconnect</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1255.htm#pgfId-889229" CLASS="Hypertext">restore-sql-reader-syntax-state</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1256.htm#pgfId-889264" CLASS="Hypertext">rollback</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1257.htm#pgfId-889287" CLASS="Hypertext">select</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1258.htm#pgfId-1628451" CLASS="Hypertext">set-prepared-statement-variables</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1259.htm#pgfId-1089848" CLASS="Hypertext">simple-do-query</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1260.htm#pgfId-889331" CLASS="Hypertext">sql</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1261.htm#pgfId-998033" CLASS="Hypertext">sql-connection-error</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1262.htm#pgfId-994881" CLASS="Hypertext">sql-database-data-error</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1263.htm#pgfId-996934" CLASS="Hypertext">sql-database-error</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1264.htm#pgfId-1460052" CLASS="Hypertext">*sql-enlarge-static*</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1265.htm#pgfId-889365" CLASS="Hypertext">sql-expression</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1266.htm#pgfId-998820" CLASS="Hypertext">sql-fatal-error</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1267.htm#pgfId-958751" CLASS="Hypertext">*sql-libraries*</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1268.htm#pgfId-1589448" CLASS="Hypertext">*sql-loading-verbose*</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1269.htm#pgfId-889405" CLASS="Hypertext">sql-operation</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1270.htm#pgfId-889451" CLASS="Hypertext">sql-operator</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1271.htm#pgfId-889477" CLASS="Hypertext">sql-recording-p</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1272.htm#pgfId-889515" CLASS="Hypertext">sql-stream</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1273.htm#pgfId-997478" CLASS="Hypertext">sql-temporary-error</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1274.htm#pgfId-998317" CLASS="Hypertext">sql-timeout-error</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1275.htm#pgfId-994206" CLASS="Hypertext">sql-user-error</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1276.htm#pgfId-1008929" CLASS="Hypertext">standard-db-object</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1277.htm#pgfId-889553" CLASS="Hypertext">start-sql-recording</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1278.htm#pgfId-889591" CLASS="Hypertext">status</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1279.htm#pgfId-922550" CLASS="Hypertext">stop-sql-recording</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1280.htm#pgfId-922679" CLASS="Hypertext">table-exists-p</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1281.htm#pgfId-1004288" CLASS="Hypertext">update-instance-from-records</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1282.htm#pgfId-1044185" CLASS="Hypertext">update-objects-joins</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1283.htm#pgfId-1046088" CLASS="Hypertext">update-records</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1284.htm#pgfId-889695" CLASS="Hypertext">update-records-from-instance</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1285.htm#pgfId-920003" CLASS="Hypertext">update-record-from-slot</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1286.htm#pgfId-1003828" CLASS="Hypertext">update-slot-from-record</A></H4>
+<H4 CLASS="REntryTOC">
+<A HREF="lw-1287.htm#pgfId-889797" CLASS="Hypertext">with-transaction</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1156.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1154.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

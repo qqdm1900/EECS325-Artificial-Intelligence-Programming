@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.1.1  Writing a delivery script
+</TITLE>
+
+<LINK REL="next" HREF="delivery-274.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-272.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-272.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-271.htm">12 Example: Delivering CAPI Othello</A> &gt; <A HREF="delivery-272.htm">12.1  Preparing for delivery </A><BR><BR>
+</DIV><A HREF="delivery-274.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-272.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-272.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-852463"></A>12.1.1  Writing a delivery script</H3>
+<P CLASS="Body">
+<A NAME="pgfId-852469"></A>The next task is to create a delivery script. This is a Lisp file that, when loaded into the image, loads your compiled application code into the image, then calls the delivery function <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A> to produce a standalone image.</P>
+<P CLASS="Body">
+<A NAME="pgfId-854572"></A>The first delivery should be at delivery level 0. A successful delivery at this level proves that the code is suitable for delivery as a standalone application. After assuring yourself of this, you can look into removing code from the image to make it smaller.</P>
+<P CLASS="Body">
+<A NAME="pgfId-854595"></A>If the delivered image is small enough for your purposes, there is no need to pursue a smaller image. An application delivered at level 0 contains a lot more in the way of debugging information and aids, and so is in some ways preferable to a leaner image.</P>
+<P CLASS="Body">
+<A NAME="pgfId-852896"></A>The startup function in the Othello game is <CODE CLASS="Code">
+cl-user::play-othello</CODE>
+. The initial delivery script therefore looks like this: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-852495"></A>(in-package &quot;CL-USER&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-856922"></A>(load-all-patches)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853910"></A>;; Load the compiled file othello. Should be in the same </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852503"></A>;; directory as this script.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853911"></A>(load (current-pathname &quot;othello&quot; nil))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853914"></A>;; Now deliver the application itself to create the image othello</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853915"></A>(deliver 'play-othello &quot;othello&quot; 0 :interface :capi)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-854622"></A>Save this script in the newly created <CODE CLASS="Code">
+othello</CODE>
+ directory as <CODE CLASS="Code">
+script.lisp</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-860264"></A><B CLASS="Bold">
+Note:</B>
+ Alternatively you can create a delivery script using the Application Builder tool in the LispWorks IDE. The Application Builder is a windowing interface offering another way to performs the steps described the following sections. For full instructions on using the Application Builder tool, see the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-860275"></A>The remainder of this section shows you how to complete delivery of the othello application using a command shell.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-274.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-272.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-272.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

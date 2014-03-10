@@ -1,0 +1,8 @@
+(defun rotate-array (arr)
+  (let ((d2 (array-dimensions arr)))
+    (let ((d (car d2))
+          (ar (make-array d2)))
+        (dotimes (i d)
+          (dotimes (j d)
+            (setf (aref ar j (- d i 1)) (aref arr i j))))
+      ar)))

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.1.2.2  Incorporating the templates into the application
+</TITLE>
+
+<LINK REL="next" HREF="delivery-217.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-215.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-214.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-211.htm">9 Delivery and Internal Systems</A> &gt; <A HREF="delivery-212.htm">9.1  Delivery and CLOS</A> &gt; <A HREF="delivery-214.htm">9.1.2  Special dispatch functions and templates for them</A><BR><BR>
+</DIV><A HREF="delivery-217.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-215.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-214.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-857582"></A>9.1.2.2  <A NAME="41731"></A>Incorporating the templates into the application</H3>
+<P CLASS="Body">
+<A NAME="pgfId-857583"></A>A typical measure is to put all the templates generated into a file. You can add new ones to it as you work through the delivery process. The <A NAME="marker-857584"></A>templates must be compiled and loaded into the application before delivery. To do this: </P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-857585"></A>Collect into one template file all the method combination template forms that have been output, so that it looks something like this: </LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-857586"></A>(CLOS::PRE-COMPILE-COMBINED-METHODS ((1 COMMON-LISP:NIL) COMMON-LISP:NIL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857587"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857588"></A>    (COMMON-LISP:MULTIPLE-VALUE-PROG1 (CLOS::_CALL-METHOD_)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857589"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857590"></A>                          (CLOS::_CALL-METHOD_)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857591"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857592"></A>                          (CLOS::_CALL-METHOD_))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857593"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857594"></A>(CLOS::DEFINE-PRE-TEMPLATES</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857595"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857596"></A>  CLOS::DEMAND-CACHING-DCODE-MISS-FUNCTION (5 COMMON-LISP:NIL (4)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857597"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857598"></A>(CLOS::DEFINE-PRE-TEMPLATES</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857599"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857600"></A>  CLOS::DEMAND-CACHING-DCODE-MISS-FUNCTION (6 COMMON-LISP:NIL (4)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-857601"></A>...</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-857602"></A>No matter how many times the template form is printed, it only needs to be included in the template file once. </P>
+<LI CLASS="Step">
+<A NAME="pgfId-861277"></A>In the LispWorks image, compile the template file.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-861279"></A>Load the compiled template file into the image (along with the application and library files) before delivery.<A NAME="marker-861290"></A></LI>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-217.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-215.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-214.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

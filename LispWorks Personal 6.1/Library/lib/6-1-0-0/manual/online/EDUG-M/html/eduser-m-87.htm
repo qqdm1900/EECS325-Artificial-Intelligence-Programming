@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.30  Key bindings
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-88.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-86.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A><BR><BR>
+</DIV><A HREF="eduser-m-88.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-86.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-885768"></A>3.30  <A NAME="73710"></A><A NAME="marker-885766"></A>Key bindings</H3>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885769"></A>The commands for modifying key bindings that are described below are designed to be invoked explicitly during each session with the Editor. If the user wishes to create key bindings which are set up every session, the function <CODE CLASS="Code">
+editor:bind-key</CODE>
+ should be used--see <A HREF="eduser-m-134.htm#32041" CLASS="XRef">Customizing default key bindings</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885776"></A><A NAME="marker-885774"></A><A NAME="56026"></A>Bind Key </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885777"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885778"></A>Argument: <EM CLASS="Variable">
+command key-sequence bind-type<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885779"></A>Binds <EM CLASS="Variable">
+command</EM>
+ (full command names must be used) to <EM CLASS="Variable">
+key-sequence</EM>
+. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907607"></A>After entering <EM CLASS="Variable">
+command</EM>
+, enter the keys of <EM CLASS="Variable">
+key-sequence</EM>
+ and press <CODE CLASS="Code">
+Return</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907619"></A><EM CLASS="Variable">
+bind-type</EM>
+ can be either buffer, global or mode. If a <EM CLASS="Variable">
+bind-type</EM>
+ of buffer or mode is selected, the name of the buffer or mode required must then be entered. When a <EM CLASS="Variable">
+bind-type</EM>
+ of buffer is selected, the current buffer is offered as a default. The default value for <EM CLASS="Variable">
+bind-type</EM>
+ is &quot;Global&quot;.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885780"></A>Unless a bind type of global is selected, the scope of the new key binding is restricted as specified. Generally, most key bindings are global. Note that the Echo Area is defined as a mode, and some commands (especially those involving completion) are restricted to the Echo Area.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-924398"></A><A NAME="marker-924396"></A>Bind String to Key </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-924399"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-924418"></A>Argument: <EM CLASS="Variable">
+string key-sequence bind-type<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-924419"></A>Make <EM CLASS="Variable">
+key-sequence</EM>
+ insert<EM CLASS="Variable">
+ string</EM>
+. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-924443"></A>After entering <EM CLASS="Variable">
+string</EM>
+, enter the keys of <EM CLASS="Variable">
+key-sequence</EM>
+ and press <CODE CLASS="Code">
+Return</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-924444"></A><EM CLASS="Variable">
+bind-type</EM>
+ is interpreted as in <A HREF="eduser-m-87.htm#56026" CLASS="XRef">Bind Key</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-924446"></A><A NAME="marker-924445"></A>Delete Key Binding </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885783"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885784"></A>Argument: <EM CLASS="Variable">
+key-sequence bind-type<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885785"></A>Removes a key binding, so that the key sequence no longer invokes any command. The argument <EM CLASS="Variable">
+bind-type</EM>
+ can be either buffer, global or mode. If a <EM CLASS="Variable">
+bind-type</EM>
+ of buffer or mode is selected, the name of the buffer or mode required must then be entered. The default value for <EM CLASS="Variable">
+bind-type</EM>
+ is &quot;Global&quot;.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885786"></A>It is necessary to enter the kind of binding, because a single key sequence may sometimes be bound differently in different buffers and modes.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885789"></A><A NAME="marker-885787"></A><A NAME="22600"></A>Illegal</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885790"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885791"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885792"></A>Signals an editor error with the message &quot;Illegal command in the current mode&quot; accompanied by a beep. It is sometimes useful to bind key sequences to this command, to ensure the key sequence is not otherwise bound.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885794"></A><A NAME="marker-885793"></A>Do Nothing</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885795"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885796"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885798"></A>Does nothing. This is therefore similar to <A HREF="eduser-m-87.htm#22600" CLASS="XRef">Illegal</A>, except that there is no beep and no error message.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-88.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-86.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

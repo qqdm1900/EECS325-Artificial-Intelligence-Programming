@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ interface-preserving-state-p
+</TITLE>
+
+<LINK REL="next" HREF="capiref-198.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-196.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-198.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-196.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-8643809"></A><A NAME="31228"></A>interface<A NAME="marker-8643808"></A>-preserving-state-p</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-8643810"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8643811"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8638580"></A>The predicate for whether an interface is in &quot;preserving-state&quot; context. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8638581"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-8638582"></A>interface-preserving-state-p <EM CLASS="Variable">
+interface</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8638583"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8638584"></A><EM CLASS="Variable">
+interface</EM>
+</P>
+<P CLASS="RDescription-C">An <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8638585"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8638586"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+:different-invocation</CODE>
+ or <CODE CLASS="Code">
+:keeping-processes</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8638587"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8638588"></A>An interface enters &quot;preserving-state&quot; context just before it is destroyed by <CODE CLASS="Code">
+hcl:save-current-session</CODE>
+, and exits the context just after <A HREF="capiref-186.htm#50103" CLASS="XRef">interface-display</A> returns. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-8638589"></A>If the interface <EM CLASS="Variable">
+interface</EM>
+ is in &quot;preserving-state&quot; context, the result of <CODE CLASS="Code">
+:interface-preserving-state-p</CODE>
+ is either <CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+:different-invocation</CODE>
+. The value <CODE CLASS="Code">
+t</CODE>
+ means that the current invocation of LispWorks is still the same invocation. The value <CODE CLASS="Code">
+:different-invocation</CODE>
+ means it is a different invocation, in other words it is the saved image that is restarted. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-8638590"></A>In other circumstances <CODE CLASS="Code">
+interface-preserving-state-p</CODE>
+ can  return <CODE CLASS="Code">
+:keeping-processes</CODE>
+, which means that the interfaces are destroyed but processes that are not associated with <EM CLASS="Variable">
+interface</EM>
+ are not killed. That currently happens only on Microsoft Windows when the programmer changes the arrangement of IDE windows via <B CLASS="Button">
+Preferences... &gt; Environment &gt; General &gt; Window Options</B>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8638591"></A><CODE CLASS="Code">
+interface-preserving-state-p</CODE>
+ is typically used in the <EM CLASS="Variable">
+destroy-callback</EM>
+ of an interface or a pane to decide whether really to destroy the information, and in the <EM CLASS="Variable">
+create-callback</EM>
+ or <A HREF="capiref-186.htm#50103" CLASS="XRef">interface-display</A> to decide whether the existing information can be used. Note that if it is a pane, it needs to find the <A HREF="capiref-455.htm#37420" CLASS="XRef">top-level-interface</A>. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-8638592"></A>Information that is made entirely of Lisp objects can be preserved in all cases. Information that is associated with external objects is invalid when the image is restarted. So when <CODE CLASS="Code">
+interface-preserving-state-p</CODE>
+ is used inside the <EM CLASS="Variable">
+create-callback</EM>
+ or <A HREF="capiref-186.htm#50103" CLASS="XRef">interface-display</A>, external information can be preserved only if it returns <CODE CLASS="Code">
+t</CODE>
+. When <CODE CLASS="Code">
+interface-preserving-state-p</CODE>
+ returns <CODE CLASS="Code">
+t</CODE>
+, the external information may be preserved, unless it is tied to the lightweight process. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8638593"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8638594"></A><A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A><BR>
+<A HREF="capiref-186.htm#50103" CLASS="XRef">interface-display</A><BR>
+<A HREF="capiref-196.htm#71388" CLASS="XRef">interface-preserve-state</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-198.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-196.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

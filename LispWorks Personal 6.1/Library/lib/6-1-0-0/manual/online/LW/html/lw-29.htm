@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.4.3  Miscellaneous commands
+</TITLE>
+
+<LINK REL="next" HREF="lw-30.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-28.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-26.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-22.htm">3 The Debugger</A> &gt; <A HREF="lw-26.htm">3.4  REPL debugger commands</A><BR><BR>
+</DIV><A HREF="lw-30.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-28.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-26.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886100"></A>3.4.3  Miscellaneous commands</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886101"></A><A NAME="marker-887152"></A>:v </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886488"></A>Debugger command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-890732"></A>This displays information about the current stack frame. In the case of a call frame corresponding to a compiled function the names and values of the function's arguments are shown. Closure variables (either from an outer scope or used by an inner scope) and special variables are indicated by {Closing} or {Special} as in this session:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-890672"></A>CL-USER 40 &gt; (compile (defun foo (*zero* one two) (declare (special *zero*)) (divider one *zero*) (list #'(lambda () one) two)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890673"></A>FOO</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890674"></A>NIL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890675"></A>NIL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890676"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890677"></A>CL-USER 41 &gt; (foo 0 1 2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890678"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890679"></A>Error: Division-by-zero caused by / of (1 0).</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890680"></A>  1 (continue) Return a value to use.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890681"></A>  2 Supply new arguments to use.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890682"></A>  3 (abort) Return to level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890683"></A>  4 Return to top loop level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890684"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890685"></A>Type :b for backtrace, :c &lt;option number&gt; to proceed,  or :? for other options</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890686"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890687"></A>CL-USER 42 : 1 &gt; :v</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890688"></A>Call to FOO (offset 87)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890689"></A>  *ZERO*  {Special} : 0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890690"></A>  ONE     {Closing} : 1</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890691"></A>  TWO               : 2</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890692"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890693"></A>CL-USER 43 : 1 &gt;</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-890774"></A>For an interpreted function the names and values of local variables are also shown.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-890789"></A>If the value of an argument is not known (perhaps because the code has been compiled for speed rather than other considerations), then it is printed as the keyword <CODE CLASS="Code">
+:dont-know</CODE>
+<A NAME="marker-890777"></A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-887784"></A><A NAME="marker-887912"></A>:l</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-887817"></A>Debugger Command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887813"></A>:l [<EM CLASS="Variable">
+m</EM>
+|<EM CLASS="Variable">
+var-name</EM>
+|<EM CLASS="Variable">
+var-name-substring</EM>
+]</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-887785"></A>By default this prints a list of the values of all the local variables in the current frame.  If the command is followed by a number then it prints the value of the <EM CLASS="Variable">
+m</EM>
+'th local variables (counting from 0, in the order shown by the <CODE CLASS="Code">
+:v</CODE>
+ command).  If it is followed by a variable name <EM CLASS="Variable">
+var-name</EM>
+ then it prints the value of that variable (note that the same effect can be achieved by just entering the name of the variable into the Listener).  If it is followed by a string <EM CLASS="Variable">
+var-name-substring </EM>
+then it prints the value of the first variable whose name contains <EM CLASS="Variable">
+var-name-substring</EM>
+. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-887904"></A>In all cases, <CODE CLASS="Code">
+*</CODE>
+ is set to the printed value.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886104"></A><A NAME="marker-887153"></A>:error</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886491"></A>Debugger command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886489"></A>This reprints the message which was displayed upon entry to the current level of the debugger. This is typically an error message and includes several continuation options.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886106"></A><A NAME="marker-887154"></A>:cc</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886494"></A>Debugger command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886570"></A>:cc &amp;optional <EM CLASS="Variable">
+var</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886492"></A>This returns the current condition object which caused entry to this level of the debugger. If an optional <EM CLASS="Variable">
+var</EM>
+ is supplied then this must be a symbol, whose symbol-value is set to the value of the condition object.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886110"></A><A NAME="marker-887156"></A>:ed</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886500"></A>Debugger command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886498"></A>This allows you to edit the function associated with the current frame. If you are using TAGS, you are prompted for a TAGS file.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886112"></A><A NAME="marker-887157"></A>:all</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886503"></A>Debugger command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887303"></A>:all &amp;optional <EM CLASS="Variable">
+flag</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886501"></A>This option enables you to set the debugger option to show all frames (if <EM CLASS="Variable">
+flag</EM>
+ is non-nil), or back to the default (if <EM CLASS="Variable">
+flag</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+). By default, <EM CLASS="Variable">
+flag</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886114"></A><A NAME="marker-887158"></A>:lambda</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886506"></A>Debugger command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886504"></A>This returns the lambda expression for an anonymous interpreted frame. If the expression is not known, then it is printed as the keyword <CODE CLASS="Code">
+:dont-know</CODE>
+</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-892076"></A><A NAME="marker-892075"></A>:func</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-892096"></A>Debugger command</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-892105"></A>:func &amp;optional <EM CLASS="Variable">
+disassemble-p</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-892097"></A>This returns (and sets <CODE CLASS="Code">
+*</CODE>
+ to) the function object of the current frame. This is especially useful for the call frame of functions that are not the symbol function of some symbols, for example closures and method functions.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-892153"></A>If <EM CLASS="Variable">
+disassemble-p</EM>
+ is true, <CODE CLASS="Code">
+:func</CODE>
+ first disassembles the function, and then returns it and sets <CODE CLASS="Code">
+*</CODE>
+. The default value of <EM CLASS="Variable">
+disassemble-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-892161"></A><CODE CLASS="Code">
+:func</CODE>
+ is applicable only in call frames.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-892099"></A><A NAME="marker-892098"></A>:lf </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886528"></A>Debugger command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-887348"></A>This command prints symbols from other packages corresponding to the symbol that was called, but could not be found, in the current package. Any such symbols are also offered as restarts when you first enter the debugger.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887351"></A>NEW 21 &gt; (initialize-graphics-port)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887356"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887357"></A>Error: Undefined function INITIALIZE-GRAPHICS-PORT called with arguments ().</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887358"></A>  1 (continue) Try invoking INITIALIZE-GRAPHICS-PORT again.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887359"></A>  2 Return some values from the call to INITIALIZE-GRAPHICS-PORT.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887360"></A>  3 Try invoking GRAPHICS-PORTS:INITIALIZE-GRAPHICS-PORT with the same arguments.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887361"></A>  4 Set the symbol-function of INITIALIZE-GRAPHICS-PORT to the symbol-function of GRAPHICS-PORTS:INITIALIZE-GRAPHICS-PORT.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887362"></A>  5 Try invoking something other than INITIALIZE-GRAPHICS-PORT with the same arguments.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887363"></A>  6 Set the symbol-function of INITIALIZE-GRAPHICS-PORT to another function.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887364"></A>  7 (abort) Return to level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887365"></A>  8 Return to top loop level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887366"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887367"></A>Type :c followed by a number to proceed or type :? for other options</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887368"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887369"></A>NEW 22 : 1 &gt; :lf</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887370"></A>Possible candidates are (GRAPHICS-PORTS:INITIALIZE-GRAPHICS-PORT)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887371"></A>GRAPHICS-PORTS:INITIALIZE-GRAPHICS-PORT</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887372"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887373"></A>NEW 23 : 1 &gt; </PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-30.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-28.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-26.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

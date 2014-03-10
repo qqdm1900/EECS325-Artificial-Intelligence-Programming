@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.5.1.2  SQL strings representing symbolic expressions
+</TITLE>
+
+<LINK REL="next" HREF="lw-393.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-391.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-390.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-389.htm">19.5  Symbolic SQL syntax</A> &gt; <A HREF="lw-390.htm">19.5.1  The &quot;[...]&quot; Syntax</A><BR><BR>
+</DIV><A HREF="lw-393.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-391.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-390.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-893910"></A>19.5.1.2  SQL strings representing symbolic expressions</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886533"></A>There are some SQL operators which may take a single argument (for example <CODE CLASS="Code">
+any</CODE>
+<A NAME="marker-886532"></A>, <CODE CLASS="Code">
+some</CODE>
+<A NAME="marker-901139"></A>, <CODE CLASS="Code">
+all</CODE>
+<A NAME="marker-886534"></A>, <CODE CLASS="Code">
+not</CODE>
+<A NAME="marker-886535"></A>, <CODE CLASS="Code">
+union</CODE>
+<A NAME="marker-886536"></A>, <CODE CLASS="Code">
+intersect</CODE>
+<A NAME="marker-886537"></A>,  <CODE CLASS="Code">
+except</CODE>
+<A NAME="marker-901182"></A>, and <CODE CLASS="Code">
+minus</CODE>
+<A NAME="marker-886538"></A>). These are read as calls to the appropriate SQL operator. For example:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886542"></A>[<A NAME="marker-886541"></A>any '(3 4)] -&gt; #&lt;SQL-VALUE-EXP &quot;(ANY (3,4))&quot;&gt;</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886543"></A>This causes no conflict, however, as it is illegal to use these reserved words as identifiers in SQL. Similarly with two argument operators:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886545"></A>[<A NAME="marker-886544"></A>&gt; [baz] [beep]] </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886546"></A>     -&gt; #&lt;SQL-RELATIONAL-EXP &quot;(BAZ &gt; BEEP)&quot;&gt;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886548"></A>The <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> statement itself may be prepared for later query execution using the<CODE CLASS="Code">
+ []</CODE>
+ syntax. For example:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886550"></A>[<A NAME="marker-886549"></A>select [person_id] [surname] :from [person]]</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886551"></A>This form results in a SQL expression, which could be bound to a Lisp variable and later given to <A HREF="lw-1253.htm#39816" CLASS="XRef">query</A> to execute. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886552"></A>[select [foo] [bar *] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886553"></A>        :from '([baz] [bar])</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886554"></A>        :where [or [= [foo] 3] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886555"></A>                   [&gt; [baz.quux] 10]]]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886556"></A>-&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886557"></A>#&lt;SQL-QUERY </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886558"></A>    &quot;(SELECT FOO,BAR.* FROM BAZ,BAR</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886559"></A>                      WHERE ((FOO = 3) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886560"></A>                             OR (BAZ.QUUX &gt; 10)))&quot;&gt;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886561"></A>Strings can be inserted in place of database identifiers within a <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A>:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886562"></A>[select [foo bar] [baz] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886563"></A>        :from '([foo] [quux])</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886564"></A>        :where [or [&gt; [baz] 3] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886565"></A>                   [like [foo bar] &quot;SU%&quot;]]]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886566"></A>-&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886567"></A>#&lt;SQL-QUERY: </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886568"></A>   &quot;(SELECT FOO.BAR,BAZ </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886569"></A>         FROM FOO,QUUX</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886570"></A>         WHERE ((BAZ &gt; 3) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886571"></A>                OR (FOO.BAR LIKE 'SU%')))&quot;&gt;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886572"></A>Any non-constant included gets filled in at runtime, for example:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-896574"></A>[&gt; [foo] x]</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-896575"></A>when macroexpanded reads as</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-896576"></A>(SQL-&gt; #&lt;SQL-IDENT &quot;FOO&quot;&gt; X)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-896577"></A>which constructs the actual SQL string at runtime.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886573"></A>Any arguments to a SQL operator that are Lisp constants are translated to the matching SQL construct at compile-time, for example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886574"></A>&quot;foo&quot; -&gt; &quot;'foo'&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886575"></A>3 -&gt; &quot;3&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886576"></A>'(&quot;this&quot; 5 &quot;that&quot;) -&gt; &quot;('this', 5, 'that')&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886577"></A>'xyz -&gt; &quot;XYZ&quot;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-901564"></A>SQL operators which are supported are <CODE CLASS="Code">
+null</CODE>
+, <CODE CLASS="Code">
+exists</CODE>
+, <CODE CLASS="Code">
+*</CODE>
+, <CODE CLASS="Code">
++</CODE>
+, <CODE CLASS="Code">
+/</CODE>
+, <CODE CLASS="Code">
+-</CODE>
+, <CODE CLASS="Code">
+like</CODE>
+, <CODE CLASS="Code">
+substr</CODE>
+, <CODE CLASS="Code">
+and</CODE>
+, <CODE CLASS="Code">
+or</CODE>
+, <CODE CLASS="Code">
+not</CODE>
+, <CODE CLASS="Code">
+in</CODE>
+, <CODE CLASS="Code">
+all</CODE>
+, <CODE CLASS="Code">
+any</CODE>
+, <CODE CLASS="Code">
+some</CODE>
+,<CODE CLASS="Code">
+||</CODE>
+, <CODE CLASS="Code">
+=</CODE>
+, <CODE CLASS="Code">
+&lt;</CODE>
+, <CODE CLASS="Code">
+&gt;</CODE>
+ ,<CODE CLASS="Code">
+&gt;=</CODE>
+, <CODE CLASS="Code">
+&lt;=</CODE>
+, <CODE CLASS="Code">
+&lt;&gt;</CODE>
+, <CODE CLASS="Code">
+order-by</CODE>
+, <CODE CLASS="Code">
+count</CODE>
+, <CODE CLASS="Code">
+max</CODE>
+, <CODE CLASS="Code">
+min</CODE>
+, <CODE CLASS="Code">
+avg</CODE>
+, <CODE CLASS="Code">
+sum</CODE>
+, <CODE CLASS="Code">
+minus</CODE>
+, <CODE CLASS="Code">
+nvl</CODE>
+, <CODE CLASS="Code">
+distinct</CODE>
+, <CODE CLASS="Code">
+except</CODE>
+, <CODE CLASS="Code">
+intersect</CODE>
+, <CODE CLASS="Code">
+union</CODE>
+, <CODE CLASS="Code">
+slot-value</CODE>
+, <CODE CLASS="Code">
+between</CODE>
+ and <CODE CLASS="Code">
+userenv</CODE>
+. There are also pseudo operators for calling database functions  (see <A HREF="lw-393.htm#34205" CLASS="XRef">Calling database functions</A>). </P>
+<P CLASS="Body">
+<A NAME="pgfId-900897"></A>The general syntax is: <CODE CLASS="Code">
+[&lt;operator&gt; &lt;operand&gt; ...]</CODE>
+, for instance:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886579"></A>(select [count [*]] :from [emp])</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-903965"></A>The operand can itself be a SQL expression, as in the following example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-903976"></A>(sql:create-table [company] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903977"></A>                  '(([name] (varchar 20) not-null)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903978"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903979"></A>(loop for company in '(&quot;LispWorks Ltd&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903980"></A>                       &quot;Harlequin&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903981"></A>                       &quot;Oracle&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903982"></A>                       &quot;Rover&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903983"></A>                       &quot;Microsoft&quot;) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903984"></A>      do </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903985"></A>      (sql:insert-records :into [company]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903986"></A>                          :av-pairs `(([name] ,company))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903987"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903988"></A>(sql:create-table [person] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903989"></A>                  '(([surname] (varchar 20) not-null) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903990"></A>                    ([firstname] (varchar 20) not-null)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903991"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903992"></A>(loop for person in '((&quot;Joe&quot; &quot;Bloggs&quot;) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903993"></A>                      (&quot;Fred&quot; &quot;Smith&quot;) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903994"></A>                      (&quot;Rover&quot; &quot;the Dog&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903995"></A>                      (&quot;Fido&quot; &quot;the Dog&quot;)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903996"></A>      do (sql:insert-records :into [person] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903997"></A>                             :av-pairs </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903998"></A>                             `(([firstname] ,(car person)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-903999"></A>                               ([surname] ,(second person)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904000"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904044"></A>(sql:select [name] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904045"></A>            :from [company] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904046"></A>            :where [= [name] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904047"></A>                      [any [select [surname] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904048"></A>                                   :from [person]]]])</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904049"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904050"></A>(sql:select [surname] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904051"></A>            :from [person] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904052"></A>            :set-operation [union [select [firstname] </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-903974"></A>                                          :from [person]]])</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-393.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-391.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-390.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

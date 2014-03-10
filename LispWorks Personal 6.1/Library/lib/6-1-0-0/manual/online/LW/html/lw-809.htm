@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *max-trace-indent*
+</TITLE>
+
+<LINK REL="next" HREF="lw-810.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-808.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-810.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-808.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886164"></A><A NAME="marker-886163"></A><A NAME="97748"></A>*max-trace-indent*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886165"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886166"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886167"></A>The maximum level of indentation used in trace output.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886168"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886169"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886170"></A>Initial value </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886171"></A>50</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886172"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886173"></A><CODE CLASS="Code">
+*max-trace-indent*</CODE>
+ is the maximum indentation that is used during output from tracing. Typically each successive invocation of tracing causes the output to be further indented, making it easier to see how the calls are nested. The value o<CODE CLASS="Code">
+f *max-trace-indent*</CODE>
+ should be an integer. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886174"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886175"></A>USER 8 &gt; (setq hcl:*max-trace-indent* 4)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886176"></A>4</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886177"></A>USER 9 &gt; (defun sum (n res) (if (= n 0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886178"></A>                       res</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886179"></A>                      (+ n (sum (1- n) res))))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886180"></A>SUM</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886181"></A>USER 10 &gt; (trace sum)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886182"></A>SUM</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886183"></A>USER 11 &gt; (sum 3 0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886184"></A> 0 SUM &gt; (3 0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886185"></A>   1 SUM &gt; (2 0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886186"></A>     2 SUM &gt; (1 0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886187"></A>     3 SUM &gt; (0 0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886188"></A>     3 SUM &lt; (0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886189"></A>     2 SUM &lt; (1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886190"></A>   1 SUM &lt; (3)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886191"></A> 0 SUM &lt; (6)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886192"></A> 6 </PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886193"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886194"></A><CODE CLASS="Code">
+*max-trace-indent</CODE>
+* is an extension to Common Lisp. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886195"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886199"></A><A HREF="lw-675.htm#58889" CLASS="XRef">trace</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-810.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-808.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.5.2  Generic Process Wait functions
+</TITLE>
+
+<LINK REL="next" HREF="lw-284.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-282.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-281.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-281.htm">15.5  Process Waiting</A><BR><BR>
+</DIV><A HREF="lw-284.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-282.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-281.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-894689"></A>15.5.2  <A NAME="61346"></A>Generic Process Wait functions</H3>
+<P CLASS="Body">
+<A NAME="pgfId-894691"></A>The generic Process Wait functions are:</P>
+<P CLASS="Body">
+<A NAME="pgfId-897517"></A><A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> and <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-897523"></A><A HREF="lw-1108.htm#68857" CLASS="XRef">process-wait-with-timeout</A></P>
+<P CLASS="Body">
+<A NAME="pgfId-894920"></A><A HREF="lw-1104.htm#39610" CLASS="XRef">process-wait-local</A> and <A HREF="lw-1106.htm#75128" CLASS="XRef">process-wait-local-with-timeout</A></P>
+<P CLASS="Body">
+<A NAME="pgfId-894699"></A><A HREF="lw-1105.htm#28878" CLASS="XRef">process-wait-local-with-periodic-checks</A> and <A HREF="lw-1107.htm#88331" CLASS="XRef">process-wait-local-with-timeout-and-periodic-checks</A>. </P>
+<P CLASS="Body">
+<A NAME="pgfId-895327"></A><B CLASS="Bold">
+Note:</B>
+ For brevity we sometimes refer to &quot;the <CODE CLASS="Code">
+*-periodic-checks</CODE>
+ functions&quot; or &quot;the <CODE CLASS="Code">
+*-with-timeout</CODE>
+ functions&quot;.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894702"></A>All the generic Process Wait functions take <EM CLASS="Variable">
+wait-reason</EM>
+ and <EM CLASS="Variable">
+wait-function</EM>
+ arguments and potentially also arguments to pass to the <EM CLASS="Variable">
+wait-function</EM>
+. The <CODE CLASS="Code">
+*-with-timeout</CODE>
+ functions mentioned above also take a <EM CLASS="Variable">
+timeout</EM>
+ argument. The <CODE CLASS="Code">
+*-periodic-checks</CODE>
+ functions also take a <EM CLASS="Variable">
+period</EM>
+ argument.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894703"></A>The <EM CLASS="Variable">
+wait-reason</EM>
+ is used only to mark the process as waiting for something for debugging purposes. It does not affect the behavior of the functions.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894704"></A>The generic Process Wait functions &quot;wake up&quot; (that is, they simply return to the caller) either when the timeout passed (if they take a <EM CLASS="Variable">
+timeout</EM>
+ argument), or when the wait function returns true. The three pairs of functions mentioned above differ in the mechanism that calls the wait function.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895007"></A><A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> and <A HREF="lw-1108.htm#68857" CLASS="XRef">process-wait-with-timeout</A> arrange that the &quot;scheduler&quot; will call the wait function when it runs. The &quot;scheduler&quot; is invoked at various points, in an indeterminate process. The advantage of this is that the programmer does not need to worry too much about when the wait function is going to be called. In non-SMP LispWorks (that is, LispWorks 5.1 and earlier) the programmer does not need to worry at all: when some process sets up something that would make the wait function return true, the waiter process could not run anyway until the setting-up process stopped for some reason (including preemption), by which time the scheduler would have called the wait function if it had not done it before. In SMP LispWorks (that is, LispWorks 6.0 and later), these two processes can run simultaneously, so the delay between the setting up and the scheduling is not necessary. It can be avoided by &quot;poking&quot; the waiting process with <A HREF="lw-1086.htm#16739" CLASS="XRef">process-poke</A>, if the waiting process is known, or by invoking the scheduler by <A HREF="lw-1069.htm#32835" CLASS="XRef">process-allow-scheduling</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894707"></A><B CLASS="Bold">
+Note:</B>
+ All the specific Process Wait functions record that they wait, and the operations that allow them to continue implicitly &quot;poke&quot; the waiting process.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894709"></A>A large disadvantage of <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> and <A HREF="lw-1108.htm#68857" CLASS="XRef">process-wait-with-timeout</A> is that their <EM CLASS="Variable">
+wait-function</EM>
+ is called by the &quot;scheduler&quot; in an indeterminate process. That means that the wait function does not see the dynamic environment of the calling process (including error handlers), and cannot be debugged properly. It is also called often, and so it needs to be reasonably fast and not allocate much. In addition, having to call the wait function adds overhead to the system. Therefore in general, if you can achieve the required effect by using either any of the specific wait functions or a <CODE CLASS="Code">
+process-wait-local*</CODE>
+ function, you should do that and avoid <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> and <A HREF="lw-1108.htm#68857" CLASS="XRef">process-wait-with-timeout</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894710"></A><A HREF="lw-1104.htm#39610" CLASS="XRef">process-wait-local</A> and <A HREF="lw-1106.htm#75128" CLASS="XRef">process-wait-local-with-timeout</A> do not have all the disadvantages listed above, but their <EM CLASS="Variable">
+wait-function</EM>
+ is called only when the process is poked (or at the end of the <EM CLASS="Variable">
+timeout</EM>
+). That means that the programmer does need to worry about when they are called. Typically some other process will set up something, and then poke the waiting process to check if it can run.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894711"></A><B CLASS="Bold">
+Note:</B>
+ if the setting up process always knows for sure whether the waiting process can run, then it is normally simpler to use one of the specific Process Wait functions, or maybe even <A HREF="lw-1097.htm#48925" CLASS="XRef">process-stop</A> and <A HREF="lw-1100.htm#39078" CLASS="XRef">process-unstop</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894712"></A>The <CODE CLASS="Code">
+*-periodic-checks</CODE>
+ functions give a partial solution to the question of calling the wait function, by ensuring there is a maximum period of time between calls. If having a bounded delay where a bound of more than 0.1 second is not a problem, then the <CODE CLASS="Code">
+*-periodic-checks</CODE>
+ functions are a simple and efficient way to achieve it.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894713"></A>When the delays need to be bounded by a shorter period, either one of the specific Process Wait functions or explicit calls to <A HREF="lw-1086.htm#16739" CLASS="XRef">process-poke</A> need to be used. The latter combined with <A HREF="lw-1104.htm#39610" CLASS="XRef">process-wait-local</A> is the most efficient mechanism, but it does require the programmer to ensure that <A HREF="lw-1086.htm#16739" CLASS="XRef">process-poke</A> is called in all the right places.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-284.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-282.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-281.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

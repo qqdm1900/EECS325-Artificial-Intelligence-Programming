@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 14.1  Introduction
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-218.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-216.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-216.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-216.htm">14 The Color System</A><BR><BR>
+</DIV><A HREF="capiuser-m-218.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-885977"></A>14.1  Introduction</H3>
+<P CLASS="Body">
+<A NAME="pgfId-885978"></A>The LispWorks Color System allows applications to use keyword symbols as aliases for colors in Graphics Ports drawing functions. They can also be used for backgrounds and foregrounds of windows and CAPI objects.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885979"></A>For example, the call</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-885980"></A>(gp:draw-line my-port x1 y1 x2 y2 </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885981"></A>    :foreground :navyblue)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-885982"></A>uses the keyword symbol <CODE CLASS="Code">
+:navyblue</CODE>
+ for the color of the line.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885983"></A>Colors are looked up in a color database. The LispWorks image is delivered with a large color database already loaded (approximately 660 entries.) The color database contains color-specs which define the colors in terms of a standard color model. When the drawing function is executed, the color-spec is converted into a colormap index (or &quot;pixel&quot; value). </P>
+<P CLASS="Body">
+<A NAME="pgfId-885984"></A>The LispWorks Color System has facilities for:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-885985"></A>Defining new color aliases in one of several color models</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-885986"></A>Loading the color database from a file of color descriptions</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-885987"></A>Converting color specifications between color models</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-885988"></A>Defining new color models</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-885989"></A>It is accessible from the <CODE CLASS="Code">
+color</CODE>
+ package, and all symbols mentioned in this chapter are assumed to be external to this package unless otherwise stated. You can qualify them all explicitly in your code, for example <CODE CLASS="Code">
+color:apropos-color-names</CODE>
+.</P>
+<P CLASS="Body-Next">
+<A NAME="pgfId-888044"></A>However it is more convenient to create a package which has the <CODE CLASS="Code">
+color</CODE>
+ package on its package-use-list:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888046"></A>(defpackage &quot;MY-PACKAGE&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888047"></A>	(:add-use-defaults t)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888048"></A>	(:use &quot;COLOR&quot; &quot;CAPI&quot;) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888049"></A>)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888050"></A>This creates a package in which all the <CODE CLASS="Code">
+color</CODE>
+ symbols (and for convenience, <CODE CLASS="Code">
+capi</CODE>
+ as well) are accessible. To run the examples in this chapter, evaluate the form above and then:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-888053"></A><CODE CLASS="Code">
+(in-package &quot;MY-PACKAGE&quot;)</CODE>
+</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-885991"></A>The color-models available by default are RGB, HSV and GRAY.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-218.htm#pgfId-889859" CLASS="Hypertext">14.1.1  Rendering of colors</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-218.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

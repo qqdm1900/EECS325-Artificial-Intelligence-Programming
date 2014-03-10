@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-action
+</TITLE>
+
+<LINK REL="next" HREF="lw-899.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-897.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-899.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-897.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1124474"></A><A NAME="38571"></A>define-<A NAME="marker-1127372"></A>action</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1125253"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1125256"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1125262"></A>Adds a new action to a specified list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1125264"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1125276"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1125364"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1125265"></A>define-action <EM CLASS="Variable">
+name-or-list</EM>
+ <EM CLASS="Variable">
+action-name</EM>
+ <EM CLASS="Variable">
+data</EM>
+ &amp;rest <EM CLASS="Variable">
+specs</EM>
+ =&gt; </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1125370"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1125372"></A><EM CLASS="Variable">
+name-or-list</EM>
+</P>
+<P CLASS="RDescription-C">A list or action list object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1125374"></A><EM CLASS="Variable">
+action-name</EM>
+</P>
+<P CLASS="RDescription-C">A general lisp object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1125398"></A><EM CLASS="Variable">
+data</EM>
+</P>
+<P CLASS="RDescription-C">An object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1125566"></A><EM CLASS="Variable">
+specs</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1124476"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1126037"></A>The <CODE CLASS="Code">
+define-action</CODE>
+ macro adds a new action to the action list specified by <EM CLASS="Variable">
+name-or-list</EM>
+; this action will be executed according to the action-list's execution-function (see <A HREF="lw-918.htm#19789" CLASS="XRef">execute-actions</A>) when executed.   If the action-list specified by <EM CLASS="Variable">
+name-or-list</EM>
+ does not exist, then this is handled according to the value of <A HREF="lw-935.htm#14762" CLASS="XRef">*handle-missing-action-list*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1124477"></A><EM CLASS="Variable">
+name-or-list</EM>
+ is evaluated to give either a list UID (to be looked up in the global registry of lists) or an action list object. <EM CLASS="Variable">
+action-name</EM>
+ is a UID (general lisp object, to be compared by <CODE CLASS="Code">
+equalp</CODE>
+). It uniquely identifies this action within its list (as opposed to among all lists). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1124479"></A><EM CLASS="Variable">
+data</EM>
+ specifies an object referring to data relevant to the action. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1124481"></A><EM CLASS="Variable">
+specs</EM>
+ is a free-form list of ordering specifiers and extra keywords, used to control more details of how and when this action is executed. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1124485"></A>Action-items are normally expected not to be redefined. If an action-item with that action-name already exists in the action-list (that is, one with an identifier <CODE CLASS="Code">
+equalp</CODE>
+ to the action-name), then the notification and subsequent handling of this attempt is controlled by the values in the list <A HREF="lw-933.htm#14816" CLASS="XRef">*handle-existing-action-in-action-list*</A>. This is to prevent problems due to re-evaluating an action definition inappropriately. Notification and redefine behavior can be overridden by using the <CODE CLASS="Code">
+:force</CODE>
+ keyword argument. In this case, any required redefinition is performed unconditionally and without notification.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1124487"></A>The following keywords are recognized in the <EM CLASS="Variable">
+specs</EM>
+ argument:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1124488"></A><CODE CLASS="Code">
+:after</CODE>
+</P>
+<P CLASS="RDescription-C">The following element in <EM CLASS="Variable">
+specs</EM>
+ is a UID. <CODE CLASS="Code">
+:after</CODE>
+ specifies that the action-item being defined must be run after the action-item named. If there is no action-item with a matching name, the restriction is ignored.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1124489"></A><CODE CLASS="Code">
+:before</CODE>
+</P>
+<P CLASS="RDescription-C">Like <CODE CLASS="Code">
+:after</CODE>
+, but this action-item must be run before the one specified.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1124491"></A><CODE CLASS="Code">
+:after</CODE>
+ and <CODE CLASS="Code">
+:before</CODE>
+ can be specified as many times as necessary to describe the ordering constraints of this action-item with respect to its neighbors.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1124493"></A><CODE CLASS="Code">
+:once</CODE>
+</P>
+<P CLASS="RDescription-C">Specifies that this action-item should be executed only once; after execution, it is disabled.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1124494"></A><CODE CLASS="Code">
+:force</P>
+<P CLASS="RDescription-C"></CODE>
+Specifies that this definition should override any previous definition of this action-item, rather than be subject to the value of <A HREF="lw-933.htm#14816" CLASS="XRef">*handle-existing-action-in-action-list*</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1124496"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1124498"></A>(define-action :network-startup &quot;Reset decnet buffers&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1124499"></A>               '(decnet::reset-network-buffers </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1127366"></A>                 *net-buffers*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1124500"></A>                :after &quot;Reset core network&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1124501"></A>                :once))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1129187"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1129191"></A><A HREF="lw-982.htm#22052" CLASS="XRef">undefine-action</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-899.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-897.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

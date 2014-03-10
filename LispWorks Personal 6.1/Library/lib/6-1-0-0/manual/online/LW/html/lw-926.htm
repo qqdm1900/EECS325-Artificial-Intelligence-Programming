@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ find-regexp-in-string
+</TITLE>
+
+<LINK REL="next" HREF="lw-927.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-925.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-927.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-925.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1401190"></A><A NAME="88727"></A>find<A NAME="marker-1401299"></A>-regexp<A NAME="marker-1419810"></A><A NAME="marker-1419811"></A><A NAME="marker-1419812"></A>-in-string</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1401191"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1401192"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1401193"></A>Matches a regular expression.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1401194"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1401195"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1401196"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1401197"></A>find-regexp-in-string pattern <EM CLASS="Variable">
+string</EM>
+ &amp;key <EM CLASS="Variable">
+start</EM>
+ <EM CLASS="Variable">
+end</EM>
+ <EM CLASS="Variable">
+from-end</EM>
+ <EM CLASS="Variable">
+case-sensitive</EM>
+ =&gt; <EM CLASS="Variable">
+pos</EM>
+, <EM CLASS="Variable">
+len</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1401198"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1401199"></A><EM CLASS="Variable">
+pattern</EM>
+</P>
+<P CLASS="RDescription-C">A string or a precompiled regular expression object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1401335"></A><EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1401386"></A><EM CLASS="Variable">
+start</EM>
+, <EM CLASS="Variable">
+end</EM>
+</P>
+<P CLASS="RDescription-C">Bounding index designators of <EM CLASS="Variable">
+string</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1401404"></A><EM CLASS="Variable">
+from-end</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1420023"></A><EM CLASS="Variable">
+case-sensitive</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1401200"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1401201"></A><EM CLASS="Variable">
+pos</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1407623"></A><EM CLASS="Variable">
+len</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1401202"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1401203"></A>The function <CODE CLASS="Code">
+find-regexp-in-string</CODE>
+ searches the string <EM CLASS="Variable">
+string</EM>
+ for a match for the regular expression <EM CLASS="Variable">
+pattern</EM>
+. The index in <EM CLASS="Variable">
+string</EM>
+ of the start of the first match is returned in <EM CLASS="Variable">
+pos</EM>
+, and the length of the match is <EM CLASS="Variable">
+len</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1405524"></A>If <EM CLASS="Variable">
+from-end</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ (the default value) then the search starts at index <EM CLASS="Variable">
+start</EM>
+ and ends at index <EM CLASS="Variable">
+end</EM>
+. <EM CLASS="Variable">
+start</EM>
+ defaults to 0 and <EM CLASS="Variable">
+end</EM>
+ defaults to <CODE CLASS="Code">
+nil</CODE>
+. If <EM CLASS="Variable">
+from-end</EM>
+ is true, then the search direction is reversed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1407652"></A><EM CLASS="Variable">
+pattern</EM>
+ should be a precompiled regular expression object or a string. If <EM CLASS="Variable">
+pattern</EM>
+ is a string then <CODE CLASS="Code">
+find-regexp-in-string</CODE>
+ first makes a precompiled regular expression object. This operation allocates, therefore if you need to repeatedly call  <CODE CLASS="Code">
+find-regexp-in-string</CODE>
+ with the same pattern, it is better to call <A HREF="lw-952.htm#51692" CLASS="XRef">precompile-regexp</A> once and pass its result, a precompiled regular expression object, as <EM CLASS="Variable">
+pattern</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1420354"></A><EM CLASS="Variable">
+case-sensitive</EM>
+ controls whether a string <EM CLASS="Variable">
+pattern</EM>
+ is precompiled as a case sensitive or case insensitive search. A true value other than <CODE CLASS="Code">
+:default</CODE>
+ means a case sensitive search. The value <CODE CLASS="Code">
+nil</CODE>
+ means a case insensitive search. The default value of <EM CLASS="Variable">
+case-sensitive</EM>
+ is <CODE CLASS="Code">
+:default</CODE>
+ which means that a string <EM CLASS="Variable">
+pattern</EM>
+ is compiled with case sensitivity according to the value of the Editor variable <CODE CLASS="Code">
+DEFAULT-SEARCH-KIND</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1442385"></A>The regular expression syntax used by <CODE CLASS="Code">
+find-regexp-in-string</CODE>
+ is similar to that used by Emacs, as described in the &quot;Regular expression syntax&quot; section of the <I CLASS="Italic">
+LispWorks Editor User Guide</I>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1409422"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1413077"></A>This form allocates several regular expression objects:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1413149"></A>(loop with pos = 0 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413078"></A>      with len = 0 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413079"></A>      while pos </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413080"></A>      do (multiple-value-setq (pos len) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413081"></A>             (find-regexp-in-string &quot;[0,2,4,6,8]&quot; &quot;0123456789&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413082"></A>                                    :start (+ pos len)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413083"></A>      when pos </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413084"></A>      do (format t &quot;&#126;&amp;Match at pos &#126;D len &#126;D&#126;%&quot; </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1413085"></A>                 pos len))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1413175"></A>This form does the same matching but allocates just one precompiled regular expression object:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1413087"></A>(loop with pattern = (precompile-regexp &quot;[0,2,4,6,8]&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413088"></A>      with pos = 0 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413089"></A>      with len = 0 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413090"></A>      while pos </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413091"></A>      do (multiple-value-setq (pos len)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413092"></A>             (find-regexp-in-string pattern &quot;0123456789&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413093"></A>                                    :start (+ pos len))) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1413094"></A>      when pos do (format t &quot;&#126;&amp;Match at pos &#126;D len &#126;D&#126;%&quot; </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1409439"></A>                          pos len))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1409440"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1409441"></A><A HREF="lw-952.htm#51692" CLASS="XRef">precompile-regexp</A><BR>
+<A HREF="lw-960.htm#70716" CLASS="XRef">regexp-find-symbols</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-927.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-925.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

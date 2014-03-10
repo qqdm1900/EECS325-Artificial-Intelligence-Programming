@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ defcontext
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-119.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-117.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-104.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-104.htm">7 Reference Guide</A><BR><BR>
+</DIV><A HREF="kwprolog-m-119.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-117.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-891840"></A><A NAME="marker-891839"></A><A NAME="22794"></A>defcontext</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-891842"></A><A NAME="defcontext"></A><EM CLASS="Entrytype">
+Macro</EM>
+</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1013411"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1013412"></A>Defines a context.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891843"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-891844"></A>defcontext <EM CLASS="Variable">
+context-name</EM>
+ &amp;key (<EM CLASS="Variable">
+refractoriness</EM>
+ t) (<EM CLASS="Variable">
+auto-return</EM>
+ t) <EM CLASS="Variable">
+strategy</EM>
+ <EM CLASS="Variable">
+meta</EM>
+ <EM CLASS="Variable">
+documentation</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949216"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-949217"></A><EM CLASS="Variable">
+context-name</EM>
+</P>
+<P CLASS="RDescription-C">The name of the context being defined.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-949873"></A><EM CLASS="Variable">
+refractoriness</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-950968"></A><EM CLASS="Variable">
+auto-return</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-950992"></A><EM CLASS="Variable">
+strategy</EM>
+</P>
+<P CLASS="RDescription-C">A list of symbols.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-950987"></A><EM CLASS="Variable">
+meta</EM>
+</P>
+<P CLASS="RDescription-C">A list of actions.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-950997"></A><EM CLASS="Variable">
+documentation</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891847"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-891848"></A>Defines a context named <EM CLASS="Variable">
+context-name</EM>
+. If a context of that name already exists then it, and all the rules in it, are first removed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-951415"></A>If <EM CLASS="Variable">
+refractoriness</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then a rule instantiation remains eligible to fire again after firing once. If <EM CLASS="Variable">
+refractoriness</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ (the default) then each rule instantiation will only fire once.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-951523"></A>The <EM CLASS="Variable">
+auto-return</EM>
+ indicates, when there are no more rules to be fired in the context, whether to signal an error or simply to pass control to the next context on the agenda. The default value <CODE CLASS="Code">
+t</CODE>
+ passes control on without an error.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-951554"></A>The <EM CLASS="Variable">
+strategy</EM>
+ is the conflict resolution strategy for the context, consisting of a list of tactic names.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-951555"></A>The <EM CLASS="Variable">
+meta</EM>
+ is a list of actions which make up the optional meta-interpreter for the context.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-954169"></A>If <A NAME="marker-954574"></A><EM CLASS="Variable">
+documentation</EM>
+ is given, then it should be a string. The value can be retrieved by calling the function <CODE CLASS="Code">
+documentation</CODE>
+ with doc-type <CODE CLASS="Code">
+context</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891851"></A>Examples</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-891852"></A>(defcontext my-context :strategy (priority recency))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891853"></A>(defcontext another-context :strategy (order)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891854"></A>  :meta ((start-cycle)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891855"></A>         (instantiation ?inst)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891856"></A>         (fire-rule)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891857"></A>         (cut)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-891858"></A>         (another-context)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891859"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-957298"></A><A HREF="kwprolog-m-160.htm#40630" CLASS="XRef">standard-context</A><BR>
+<A HREF="kwprolog-m-139.htm#31764" CLASS="XRef">-lex</A><BR>
+<A HREF="kwprolog-m-140.htm#42085" CLASS="XRef">lex</A><BR>
+<A HREF="kwprolog-m-143.htm#22529" CLASS="XRef">-mea</A><BR>
+<A HREF="kwprolog-m-144.htm#27331" CLASS="XRef">mea</A><BR>
+<A HREF="kwprolog-m-148.htm#22665" CLASS="XRef">-order</A><BR>
+<A HREF="kwprolog-m-149.htm#42344" CLASS="XRef">order</A><BR>
+<A HREF="kwprolog-m-151.htm#34224" CLASS="XRef">-priority</A><BR>
+<A HREF="kwprolog-m-152.htm#35235" CLASS="XRef">priority</A><BR>
+<A HREF="kwprolog-m-153.htm#18676" CLASS="XRef">-recency</A><BR>
+<A HREF="kwprolog-m-154.htm#18945" CLASS="XRef">recency</A><BR>
+<A HREF="kwprolog-m-158.htm#41168" CLASS="XRef">-specificity</A><BR>
+<A HREF="kwprolog-m-159.htm#33227" CLASS="XRef">specificity</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-119.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-117.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

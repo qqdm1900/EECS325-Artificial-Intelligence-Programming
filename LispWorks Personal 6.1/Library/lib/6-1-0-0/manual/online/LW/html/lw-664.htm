@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ room
+</TITLE>
+
+<LINK REL="next" HREF="lw-665.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-663.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-665.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-663.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1040130"></A><A NAME="94982"></A>room<A NAME="marker-1040129"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1040131"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040132"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040133"></A>Print information about the state of internal storage and its management.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040134"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040135"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040136"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040137"></A>room &amp;optional <EM CLASS="Variable">
+x</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040138"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040139"></A><EM CLASS="Variable">
+x</EM>
+</P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+t</CODE>
+, or <CODE CLASS="Code">
+:default</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040140"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040141"></A><CODE CLASS="Code">
+room</CODE>
+ returns no values. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040142"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040143"></A>This function provides statistics on the current state of the storage, including the amount of space currently allocated, and the amount available for allocation. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040147"></A>As outlined in the Common Lisp Hyperspec, the <CODE CLASS="Code">
+room</CODE>
+ function takes an optional argument which controls the level of detail it produces.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040148"></A>Given an argument of <CODE CLASS="Code">
+nil</CODE>
+, a summary of the total allocation in the entire heap (in kilobytes) is produced. The &quot;allocated&quot; figure only represents the amount of space allocated in heap segments that are writable, as opposed to read-only segments that hold some of the system code such as the garbage collector (GC) itself. The free space figure covers all the free space in all segments. To obtain these values programmatically, call <A HREF="lw-1419.htm#46961" CLASS="XRef">room-values</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040149"></A>When called without an argument, <CODE CLASS="Code">
+room</CODE>
+ additionally prints information on the distribution of space between the generations of the heap.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040150"></A>When called with argument <CODE CLASS="Code">
+t</CODE>
+, a breakdown of allocation in the individual segments of each generation is produced. Each segment is identified by its start address in memory. For each segment there is a free space threshold (the &quot;minimum free space&quot;)--when the available space in the segment falls below this value, the GC takes action to attempt to free more space in this segment. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040151"></A>Two statistics about promotion are also reported on a per-segment basis: the number of sweeps that an object must survive in this generation before becoming eligible for promotion, and the total volume of objects that have survived for that long and are consequently awaiting promotion to the next generation. These statistics are not relevant for static segments, which are indicated as &quot;static&quot;.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1131596"></A><CODE CLASS="Code">
+room</CODE>
+ prints numbers in decimal format, except for the segment start addresses which it prints in hexadecimal format.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1217997"></A>Examples </H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1219071"></A>CL-USER 22 &gt; (room nil)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219072"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219073"></A>Total Size 39424K, Allocated 32591K, Free 6461K</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219074"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219075"></A>CL-USER 23 &gt; (room)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219076"></A> Generation 0:  Total Size 4394K, Allocated 952K, Free 3433K </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219077"></A> Generation 1:  Total Size 1397K, Allocated 795K, Free 589K </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219078"></A> Generation 2:  Total Size 4292K, Allocated 2172K, Free 2111K </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219079"></A> Generation 3:  Total Size 29009K, Allocated 28885K, Free 112K </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219080"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219081"></A>Total Size 39424K, Allocated 32805K, Free 6247K</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219082"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219083"></A>CL-USER 24 &gt; (room t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219084"></A> Generation 0:  Total Size 4394K, Allocated 1004K, Free 3382K </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219085"></A>          Segment 2008EC80: Total Size 507K, Allocated 353K, Free 149K</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219086"></A>                    minimum free space 64K, </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219087"></A>                      Awaiting promotion = 23K, sweeps before promotion =10</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219088"></A>          Segment 222B4498: Total Size 3886K, Allocated 650K, Free 3232K</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219089"></A>                    minimum free space 0K, </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219090"></A>                      Awaiting promotion = 51K, sweeps before promotion =2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219091"></A> Generation 1:  Total Size 1397K, Allocated 795K, Free 589K </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219092"></A>          Segment 2070DC18: Total Size 68K, Allocated 64K, Free 0K</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219093"></A>                    minimum free space 3K, </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219094"></A>                      Awaiting promotion = 0K, sweeps before promotion =4</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219095"></A>          Segment 21D84498: Total Size 1088K, Allocated 613K, Free 470K</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219096"></A>                    minimum free space 0K, </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219097"></A>                      Awaiting promotion = 0K, sweeps before promotion =4</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219098"></A>          Segment 200528D8: Total Size 240K, Allocated 118K, Free 118K</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219099"></A>                    minimum free space 0K, static</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219100"></A> Generation 2:  Total Size 4292K, Allocated 2172K, Free 2111K </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219101"></A>          Segment 21E94498: Total Size 4224K, Allocated 2107K, Free 2111K</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219102"></A>                    minimum free space 0K, </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219103"></A>                      Awaiting promotion = 0K, sweeps before promotion =4</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219104"></A>          Segment 20E7DC18: Total Size 68K, Allocated 64K, Free 0K</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219105"></A>                    minimum free space 117K, </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219106"></A>                      Awaiting promotion = 0K, sweeps before promotion =4</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219107"></A> Generation 3:  Total Size 29009K, Allocated 28885K, Free 112K </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219108"></A>          Segment 2071EC90: Total Size 7547K, Allocated 7543K, Free 0K</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219109"></A>                    minimum free space 0K, </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219110"></A>                      Awaiting promotion = 0K, sweeps before promotion =10</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219111"></A>          Segment 20E8EC90: Total Size 15318K, Allocated 15201K, Free 112K</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219112"></A>                    minimum free space 0K, </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219113"></A>                      Awaiting promotion = 0K, sweeps before promotion =10</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219114"></A>          Segment 2010DC18: Total Size 6144K, Allocated 6139K, Free 0K</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219115"></A>                    minimum free space 3K, </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219116"></A>                      Awaiting promotion = 0K, sweeps before promotion =10</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1219117"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1219118"></A>Total Size 39424K, Allocated 32857K, Free 6195K</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1218061"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040193"></A><A HREF="lw-792.htm#86799" CLASS="XRef">find-object-size</A><BR>
+<A HREF="lw-1419.htm#46961" CLASS="XRef">room-values</A><BR>
+<A HREF="lw-849.htm#89830" CLASS="XRef">total-allocation</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-665.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-663.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

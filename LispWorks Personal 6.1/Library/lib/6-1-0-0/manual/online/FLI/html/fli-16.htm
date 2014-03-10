@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2 FLI Types
+</TITLE>
+
+<LINK REL="next" HREF="fli-17.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-15.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A><BR><BR>
+</DIV><A HREF="fli-17.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-15.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="Chapter">
+<A NAME="pgfId-885921"></A><DIV>
+<IMG SRC="fli-5.gif">
+</DIV>
+2 <A NAME="40862"></A>FLI Types</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886402"></A>A central aspect of the FLI is implementation of foreign language types. FLI variables, function arguments and temporary objects have predictable properties and structures which are analogous to the properties and structures of the types found in C. The FLI can translate Lisp data objects into FLI data objects, which are then passed to the foreign language, such as C. Similarly, data can be passed from C or the Windows functions to the FLI, and then translated into a suitable Lisp form. The FLI types can therefore best be seen as an intermediate stage in the passing of data between Lisp and other languages.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887021"></A>Here are some of the features and sorts of foreign types:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887022"></A>Consistency -- Foreign types behave in a consistent and predictable manner. There is only one definition for any given foreign type.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887023"></A>Parameterized types -- these can be created using a <CODE CLASS="Code">
+deftype</CODE>
+-like syntax. The macro <A NAME="marker-889116"></A><A HREF="fli-96.htm#39541" CLASS="XRef">define-foreign-type</A> provides a simple mechanism for creating parameterized types.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887030"></A>Encapsulated types -- the ability to define a new foreign type as an extension to an existing type definition is provided. All types are converters between Lisp and the foreign language. New types can be defined to add an extra level of conversion around an existing type. The macro <A HREF="fli-91.htm#23684" CLASS="XRef">define-foreign-converter</A> and the foreign type <A HREF="fli-200.htm#39892" CLASS="XRef">:wrapper</A> provide this functionality.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887989"></A>Generalized accessors --  the FLI does not create named accessors. Instead, several generalized accessors use information stored within the foreign type object in order to destructure the foreign object. These accessors are <A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A>, <A HREF="fli-103.htm#24571" CLASS="XRef">foreign-aref</A> and <A HREF="fli-99.htm#29735" CLASS="XRef">dereference</A>. This makes it possible to handle type definitions corresponding to C types defined using unnamed structures, as we do not rely on specialized accessors for the given type.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887037"></A>Documentation for types -- foreign type definitions can now include <A NAME="marker-887060"></A>documentation strings.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-887038"></A><A NAME="marker-887061"></A>Specialized type constructors -- to make the definition of the Lisp to C interfaces even easier several type constructor macros are provided to mimic the C type constructors <CODE CLASS="Code">
+typedef</CODE>
+, <CODE CLASS="Code">
+enum</CODE>
+, <CODE CLASS="Code">
+struct</CODE>
+, and <CODE CLASS="Code">
+union</CODE>
+. The new FLI constructors are <A HREF="fli-86.htm#41629" CLASS="XRef">define-c-typedef</A>, <A HREF="fli-84.htm#37299" CLASS="XRef">define-c-enum</A>, <A HREF="fli-85.htm#26956" CLASS="XRef">define-c-struct</A> and <A HREF="fli-87.htm#30845" CLASS="XRef">define-c-union</A>. Note that the equivalent foreign types for most standard C types are already available within the FLI.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-886466"></A>There are two fundamental sorts of FLI type<A NAME="marker-886652"></A>s: <I CLASS="Italic">
+immediate</I>
+ and <I CLASS="Italic">
+aggregate</I>
+. <A NAME="marker-886653"></A><A NAME="marker-891207"></A>Immediate types, which correspond to the C fundamental types, are so called because they are basic data types such as integers, booleans and bytes which have a direct representation in the computer memory. Aggregate types, which correspond to the C derived types, consist of a combination of immediate types, and possibly of smaller aggregate types. Examples of aggregate types are arrays and structures. Any user-defined type is an aggregate type.</P>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="fli-17.htm#pgfId-888612" CLASS="Hypertext">2.1  Immediate types</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="fli-23.htm#pgfId-886654" CLASS="Hypertext">2.2  Aggregate types</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="fli-27.htm#pgfId-887065" CLASS="Hypertext">2.3  Parameterized types</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="fli-28.htm#pgfId-887095" CLASS="Hypertext">2.4  Encapsulated types</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="fli-31.htm#pgfId-886767" CLASS="Hypertext">2.5  The void type</A></H4>
+<H4 CLASS="FM1HeadingTOC">
+<A HREF="fli-32.htm#pgfId-884490" CLASS="Hypertext">2.6  Summary</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-17.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-15.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.21.2  Regular expression searching
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-70.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-68.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-67.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A> &gt <A HREF="eduser-m-67.htm">3.21  Searching and replacing</A><BR><BR>
+</DIV><A HREF="eduser-m-70.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-68.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-67.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-885279"></A>3.21.2  <A NAME="marker-885277"></A><A NAME="76692"></A>Regular expression searching</H3>
+<P CLASS="Body">
+<A NAME="pgfId-885280"></A>A regular expression (<I CLASS="Italic">
+regexp</I>
+) allows the specification of the search string to include wild characters, repeated characters, ranges of characters, and alternatives. Strings which follow a specific pattern can be located, which makes regular expression searches very powerful.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885281"></A>The regular expression syntax used is similar to that of Emacs. In addition to ordinary characters, a regular expression can contain the following special characters to produce the search pattern:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885282"></A><CODE CLASS="Code">
+.</CODE>
+</P>
+<P CLASS="RDescription-C">Matches any single character except a newline. For example, <CODE CLASS="Code">
+c.r</CODE>
+ matches any three character string starting with <CODE CLASS="Code">
+c</CODE>
+ and ending with <CODE CLASS="Code">
+r</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885283"></A><CODE CLASS="Code">
+*</CODE>
+</P>
+<P CLASS="RDescription-C">Matches the previous regexp any number of times (including 0 times). For example, <CODE CLASS="Code">
+ca*r</CODE>
+ matches strings beginning with <CODE CLASS="Code">
+c</CODE>
+ and ending with <CODE CLASS="Code">
+r</CODE>
+, with any number of <CODE CLASS="Code">
+a</CODE>
+'s in-between.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-978773"></A>An empty regexp followed by <CODE CLASS="Code">
+*</CODE>
+ matches an empty part of the input. By extension, <CODE CLASS="Code">
+^*</CODE>
+ will match exactly what <CODE CLASS="Code">
+^</CODE>
+ matches.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885284"></A><CODE CLASS="Code">
++</CODE>
+</P>
+<P CLASS="RDescription-C">Matches the previous regexp any number of times, but at least once. For example, <CODE CLASS="Code">
+ca+r</CODE>
+ matches strings beginning with <CODE CLASS="Code">
+c</CODE>
+ and ending with <CODE CLASS="Code">
+r</CODE>
+, with at least one <CODE CLASS="Code">
+a</CODE>
+ in-between. An empty regexp followed by <CODE CLASS="Code">
++</CODE>
+ matches an empty part of the input.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885285"></A><CODE CLASS="Code">
+?</CODE>
+</P>
+<P CLASS="RDescription-C">Matches the previous regexp either 0 or 1 times. For example, <CODE CLASS="Code">
+ca?r</CODE>
+ matches either the string <CODE CLASS="Code">
+cr</CODE>
+ or <CODE CLASS="Code">
+car</CODE>
+, and nothing else. An empty regexp followed by <CODE CLASS="Code">
+?</CODE>
+ matches an empty part of the input.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885286"></A><CODE CLASS="Code">
+^</CODE>
+</P>
+<P CLASS="RDescription-C">Matches the next regexp as long as it is at the beginning of a line. For example, <CODE CLASS="Code">
+^foo</CODE>
+ matches the string <CODE CLASS="Code">
+foo</CODE>
+ as long as it is at the beginning of a line.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885287"></A><CODE CLASS="Code">
+$</CODE>
+</P>
+<P CLASS="RDescription-C">Matches the previous regexp as long as it is at the end of a line. For example, <CODE CLASS="Code">
+foo$</CODE>
+ matches the string <CODE CLASS="Code">
+foo</CODE>
+ as long as it is at the end of a line.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885288"></A><CODE CLASS="Code">
+[ ]</CODE>
+</P>
+<P CLASS="RDescription-C">Contains a character set to be used for matching, where the other special characters mentioned do not apply. The empty string is automatically part of the character set. For example, <CODE CLASS="Code">
+[a.b]</CODE>
+ matches either <CODE CLASS="Code">
+a</CODE>
+ or <CODE CLASS="Code">
+.</CODE>
+ or <CODE CLASS="Code">
+b</CODE>
+ or the empty string. The regexp <CODE CLASS="Code">
+c[ad]*r</CODE>
+ matches strings beginning with <CODE CLASS="Code">
+c</CODE>
+ and ending with <CODE CLASS="Code">
+r</CODE>
+, with any number of <CODE CLASS="Code">
+a</CODE>
+'s and <CODE CLASS="Code">
+d</CODE>
+'s in-between.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-885289"></A>The characters <CODE CLASS="Code">
+-</CODE>
+ and <CODE CLASS="Code">
+^</CODE>
+ have special meanings inside character sets. <CODE CLASS="Code">
+-</CODE>
+ defines a range and <CODE CLASS="Code">
+^</CODE>
+ defines a complement character set. For example, <CODE CLASS="Code">
+[a-d]</CODE>
+ matches any character in the range <CODE CLASS="Code">
+a</CODE>
+ to <CODE CLASS="Code">
+d</CODE>
+ inclusive. <CODE CLASS="Code">
+[^ab]</CODE>
+ matches any character except <CODE CLASS="Code">
+a</CODE>
+ or <CODE CLASS="Code">
+b</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885290"></A><CODE CLASS="Code">
+&#92;</CODE>
+</P>
+<P CLASS="RDescription-C">Quotes the special characters. For example, <CODE CLASS="Code">
+&#92;*</CODE>
+ matches the character <CODE CLASS="Code">
+*</CODE>
+ (that is, <CODE CLASS="Code">
+*</CODE>
+ has lost its special meaning).</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885291"></A><CODE CLASS="Code">
+&#92;|</CODE>
+</P>
+<P CLASS="RDescription-C">Specifies an alternative. For example, <CODE CLASS="Code">
+ab&#92;|cd</CODE>
+ matches either <CODE CLASS="Code">
+ab</CODE>
+ or <CODE CLASS="Code">
+cd</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-885292"></A><CODE CLASS="Code">
+&#92;(</CODE>
+,<CODE CLASS="Code">
+ &#92;)</CODE>
+</P>
+<P CLASS="RDescription-C">Provides a grouping construct. For example, <CODE CLASS="Code">
+ab&#92;(cd&#92;|ef&#92;)</CODE>
+ matches either <CODE CLASS="Code">
+abcd</CODE>
+ or <CODE CLASS="Code">
+abef</CODE>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885294"></A>Regexp Forward <A NAME="marker-1055641"></A>Search</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885295"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885296"></A>Arguments: <EM CLASS="Variable">
+string<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Meta+Ctrl+S </CODE>
+<EM CLASS="Variable">
+string</EM>
+</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885297"></A>editor:regexp-forward-search-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+string</EM>
+ <EM CLASS="Variable">
+the-point</EM>
+ <EM CLASS="Variable">
+limit</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885298"></A>Performs a forward search for <EM CLASS="Variable">
+string</EM>
+ using regular expressions. The search pattern must be terminated with a carriage return before any searching is done. If an empty string is provided, the last regexp search is repeated.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885299"></A>The argument <EM CLASS="Variable">
+the-point</EM>
+ specifies the position from which the search is to start. The default is the current point. <EM CLASS="Variable">
+limit</EM>
+ specifies a limiting point in the buffer for the search. The default is the end of the buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885301"></A>Regexp Reverse <A NAME="marker-1055663"></A>Search</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885302"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885303"></A>Arguments: <EM CLASS="Variable">
+string<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Meta+Ctrl+R </CODE>
+<EM CLASS="Variable">
+string</EM>
+</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885304"></A>editor:regexp-reverse-search-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+string the-point limit</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885305"></A>Performs a backward search for <EM CLASS="Variable">
+string</EM>
+ using regular expressions. The search pattern must be terminated with a carriage return before any searching is done. If an empty string is provided, the last regexp search is repeated.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885306"></A>The argument <EM CLASS="Variable">
+the-point</EM>
+ specifies the position from which the search is to start. The default is one position before the current point. <EM CLASS="Variable">
+limit</EM>
+ specifies a limiting point in the buffer for the search. The default is the current point.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-937742"></A><A NAME="marker-937741"></A>Count Occurrences</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-937743"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-937744"></A>Arguments: None<BR>
+Default binding: None</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-937745"></A>editor:count-occurrences-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+regexp</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-937746"></A>Counts the number of regular expression matches for the string <EM CLASS="Variable">
+regexp</EM>
+ between the current point and the end of the buffer.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-937748"></A><CODE CLASS="Code">
+Count Matches</CODE>
+<A NAME="marker-937747"></A> is a synonym for <CODE CLASS="Code">
+Count Occurrences</CODE>
+.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-70.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-68.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-67.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

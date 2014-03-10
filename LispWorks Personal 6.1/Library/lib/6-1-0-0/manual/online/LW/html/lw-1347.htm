@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ copy-preferences-from-older-version
+</TITLE>
+
+<LINK REL="next" HREF="lw-1348.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1346.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1348.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1346.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1242417"></A><A NAME="19960"></A>copy<A NAME="marker-1244489"></A>-preferences-from-older-version</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1242418"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1242419"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1242420"></A>Copies uses preferences.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1242421"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1242422"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1242423"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1244617"></A>copy-preferences-from-older-version <EM CLASS="Variable">
+old-path</EM>
+ <EM CLASS="Variable">
+new-path</EM>
+ &amp;optional <EM CLASS="Variable">
+flag-name</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1242425"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1242426"></A><EM CLASS="Variable">
+old-path</EM>
+</P>
+<P CLASS="RDescription-C">A preference path.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1249064"></A><EM CLASS="Variable">
+new-path</EM>
+</P>
+<P CLASS="RDescription-C">A preference path.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1249238"></A><EM CLASS="Variable">
+flag-name</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1242429"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1243085"></A>The function <CODE CLASS="Code">
+copy-preferences-from-older-version </CODE>
+copies uses preferences from one part of the registry to another.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1243087"></A><EM CLASS="Variable">
+old-path</EM>
+ and <EM CLASS="Variable">
+new-path</EM>
+ are the paths of preferences for the old and the new version, corresponding to the paths that were passed to <CODE CLASS="Code">
+(setf </CODE>
+<A HREF="lw-1418.htm#19972" CLASS="XRef">product-registry-path</A><CODE CLASS="Code">
+)</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1248516"></A><EM CLASS="Variable">
+flag-name</EM>
+ is a name of the flag to use to record in the registry that the copy is already done. <EM CLASS="Variable">
+flag-name</EM>
+ must be a valid registry value name on Microsoft Windows, and a valid filename on all other platforms. The default value of <EM CLASS="Variable">
+flag-name</EM>
+ is the string <CODE CLASS="Code">
+&quot;copied-old-preferences&quot;</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1249406"></A><CODE CLASS="Code">
+copy-preferences-from-older-version</CODE>
+ performs several checks:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1249407"></A>It checks if it already copied to <EM CLASS="Variable">
+new-path</EM>
+ in the current session, and if so does nothing.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1243091"></A>It checks if the <EM CLASS="Variable">
+flag-name</EM>
+ entry exists, and if so it does nothing.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1243092"></A>It checks if another call to <CODE CLASS="Code">
+copy-preferences-from-older-version</CODE>
+ is already executing (in another thread), and if so it just waits for the other call to finish.</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-1243093"></A>Then if all the checks above indicate that copying is still needed, <CODE CLASS="Code">
+copy-preferences-from-older-version</CODE>
+ copies the values from the tree below <EM CLASS="Variable">
+old-path</EM>
+ to a tree below <EM CLASS="Variable">
+new-path</EM>
+. It traverses the entire tree below <EM CLASS="Variable">
+old-path</EM>
+, and checks each key to see if it has any values.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1243094"></A>For a key that has values, it checks if the key exists under <EM CLASS="Variable">
+new-path</EM>
+, and if the key exists it does not copy any of the values for this key, though it still traverses and maybe copies its subkeys. If the key does not exist under <EM CLASS="Variable">
+new-path</EM>
+, it creates the key and copies the values.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1243095"></A>Because it makes checks before doing any work, <CODE CLASS="Code">
+copy-preferences-from-older-version</CODE>
+ is an inexpensive call that can be used freely.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1242431"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1242435"></A><A HREF="lw-1418.htm#19972" CLASS="XRef">product-registry-path</A><BR>
+<A HREF="lw-995.htm#94838" CLASS="XRef">user-preference</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1348.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1346.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

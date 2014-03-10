@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ lock-and-condition-variable-wait
+</TITLE>
+
+<LINK REL="next" HREF="lw-1040.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1038.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1040.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1038.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1653392"></A><A NAME="85947"></A>lock<A NAME="marker-1669258"></A>-and-condition-variable-<A NAME="marker-1666712"></A>wait</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1653393"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1653394"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1653395"></A>Locks a lock and calls a predicate. If this returns <CODE CLASS="Code">
+nil</CODE>
+, performs the equivalent of <A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A>. Optionally calls a function on return.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1802664"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1802665"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1653396"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1653397"></A>lock-and-condition-variable-wait <EM CLASS="Variable">
+lock</EM>
+ <EM CLASS="Variable">
+condvar</EM>
+ <EM CLASS="Variable">
+predicate</EM>
+ &amp;key <EM CLASS="Variable">
+args</EM>
+ <EM CLASS="Variable">
+return-function</EM>
+ <EM CLASS="Variable">
+return-function-args</EM>
+ <EM CLASS="Variable">
+lock-timeout</EM>
+ <EM CLASS="Variable">
+lock-wait-reason</EM>
+ <EM CLASS="Variable">
+condvar-timeout</EM>
+ <EM CLASS="Variable">
+condvar-wait-reason</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1653398"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1653399"></A>The function <CODE CLASS="Code">
+lock-and-condition-variable-wait</CODE>
+ first locks the lock <EM CLASS="Variable">
+lock</EM>
+ as in <A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A>, using <EM CLASS="Variable">
+lock-wait-reason</EM>
+ and <EM CLASS="Variable">
+lock-timeout</EM>
+ for the <EM CLASS="Variable">
+whostate</EM>
+ and <EM CLASS="Variable">
+timeout</EM>
+ arguments of <A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1653400"></A>It then applies the function <EM CLASS="Variable">
+predicate</EM>
+ to the arguments <EM CLASS="Variable">
+args</EM>
+. If this call returns <CODE CLASS="Code">
+nil</CODE>
+ it performs the equivalent of a call to <A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A>, passing it the <EM CLASS="Variable">
+condvar</EM>
+, <EM CLASS="Variable">
+lock</EM>
+, <EM CLASS="Variable">
+condvar-timeout</EM>
+ and <EM CLASS="Variable">
+condvar-wait-reason</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1653401"></A>If <EM CLASS="Variable">
+return-function</EM>
+ is supplied, it is then applied to <EM CLASS="Variable">
+return-function-args</EM>
+, and the return value(s) are returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1653402"></A>Before returning, the lock is unlocked (in an unwinding form) as in <A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1653403"></A><CODE CLASS="Code">
+lock-and-condition-variable-wait</CODE>
+ returns whatever <EM CLASS="Variable">
+return-function</EM>
+ returns if it is supplied. If <EM CLASS="Variable">
+return-function</EM>
+ is not supplied, <CODE CLASS="Code">
+lock-and-condition-variable-wait</CODE>
+ returns the result of the predicate if this is not <CODE CLASS="Code">
+nil</CODE>
+, otherwise it returns the result of the equivalent call to <A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1653404"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1653405"></A><EM CLASS="Variable">
+predicate</EM>
+ and the <EM CLASS="Variable">
+return-function</EM>
+ are called with the lock held, so they should do as little as needed, and avoid locking anything else.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1653406"></A><CODE CLASS="Code">
+lock-and-condition-variable-wait</CODE>
+ makes it much easier to avoid errors when using condition variables.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1653407"></A>When <EM CLASS="Variable">
+return-function</EM>
+ is not supplied, <CODE CLASS="Code">
+lock-and-condition-variable-wait</CODE>
+ does not lock on return, which makes it it much more efficient than the equivalent code using <A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A> and <A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A>.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1653408"></A>When return-function is not needed, <A HREF="lw-1127.htm#49462" CLASS="XRef">simple-lock-and-condition-variable-wait</A> may be more convenient.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1653409"></A>All the four signalling functions (<A HREF="lw-1017.htm#35505" CLASS="XRef">condition-variable-signal</A>, <A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A>, <A HREF="lw-1038.htm#96844" CLASS="XRef">lock-and-condition-variable-signal</A>, <A HREF="lw-1037.htm#54717" CLASS="XRef">lock-and-condition-variable-broadcast</A>) can be used to wake a process waiting in <CODE CLASS="Code">
+lock-and-condition-variable-wait</CODE>
+. The non-locking one can be used without the lock when it is useful.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1653410"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1653412"></A><A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A><BR>
+<A HREF="lw-1127.htm#49462" CLASS="XRef">simple-lock-and-condition-variable-wait</A><A HREF="lw-1038.htm#96844" CLASS="XRef">lock-and-condition-variable-signal</A><BR>
+<A HREF="lw-1037.htm#54717" CLASS="XRef">lock-and-condition-variable-broadcast</A><BR>
+<A HREF="lw-1017.htm#35505" CLASS="XRef">condition-variable-signal</A><BR>
+<A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1040.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1038.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

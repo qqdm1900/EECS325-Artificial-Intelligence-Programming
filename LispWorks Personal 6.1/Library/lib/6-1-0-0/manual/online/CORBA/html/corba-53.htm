@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.4.1  Implementing the servant classes
+</TITLE>
+
+<LINK REL="next" HREF="corba-54.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-52.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-52.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-48.htm">6 The Bank Server</A> &gt <A HREF="corba-52.htm">6.4  Implementing the bank server</A><BR><BR>
+</DIV><A HREF="corba-54.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-52.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-52.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-853262"></A>6.4.1  <A NAME="marker-853935"></A><A NAME="marker-853951"></A>Implementing the servant classes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853263"></A>The bank fasl file defines three abstract servant classes <BR>
+<CODE CLASS="Code">
+BankingDemo:account-servant</CODE>
+, <BR>
+<CODE CLASS="Code">
+BankingDemo:checkingAccount-servant</CODE>
+, and <BR>
+<CODE CLASS="Code">
+BankingDemo:bank-servant</CODE>
+ corresponding to the IDL interfaces <CODE CLASS="Code">
+account</CODE>
+, <CODE CLASS="Code">
+checkingAccount</CODE>
+, and <CODE CLASS="Code">
+bank</CODE>
+. The class <BR>
+<CODE CLASS="Code">
+BankingDemo:checkingAccount-servant</CODE>
+ is defined to inherit from <BR>
+<CODE CLASS="Code">
+BankingDemo:account-servant</CODE>
+, matching the inheritance relationship in the IDL. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853264"></A>Note that each class inherits from the abstract class <CODE CLASS="Code">
+PortableServer:ServantBase</CODE>
+, allowing instances of the class to be registered with a POA. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853265"></A>In our implementation of the bank server, these servant classes are implemented by the subclasses </P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853583"></A><CODE CLASS="Code">
+bank-implementation</CODE>
+, </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853584"></A><CODE CLASS="Code">
+account-implementation</CODE>
+, and </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853585"></A><CODE CLASS="Code">
+checkingAccount-implementation</CODE>
+</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-853266"></A>The <CODE CLASS="Code">
+bank-implementation</CODE>
+ class implements <CODE CLASS="Code">
+BankingDemo:bank-servant</CODE>
+ by representing a bank as a connection to a database: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853267"></A>(defclass bank-implementation (BankingDemo:Bank-servant)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853268"></A>  ((connection :initarg :connection)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853269"></A>   (poa :initarg :poa)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853270"></A>   (account-impls :initform nil)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853271"></A>We have included the <CODE CLASS="Code">
+poa</CODE>
+ slot to record the POA in which the bank servant is active, so that servants representing accounts at the bank can be registered in the same POA. A slot <CODE CLASS="Code">
+op:name</CODE>
+ corresponding to the attribute name defined in the IDL is inherited from the <CODE CLASS="Code">
+Bank-servant</CODE>
+, as are definitions of accessor functions for this slot.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853272"></A>The <CODE CLASS="Code">
+account-implementation</CODE>
+ class implements <BR>
+<CODE CLASS="Code">
+BankingDemo:account-servant</CODE>
+: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853273"></A>(defclass account-implementation (BankingDemo:Account-servant)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853274"></A>  ((bank :initarg :bank)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853275"></A>An instance of this class represents an account. The <CODE CLASS="Code">
+bank</CODE>
+ slot provides a connection to the database that holds the account's record. Slots <CODE CLASS="Code">
+op:name</CODE>
+ and <CODE CLASS="Code">
+op:balance</CODE>
+, corresponding to attributes defined in the IDL, are inherited from <CODE CLASS="Code">
+account-servant</CODE>
+. The <CODE CLASS="Code">
+name</CODE>
+ slot identifies the record in the database. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853276"></A>Finally, the <CODE CLASS="Code">
+checkingAccount-implementation</CODE>
+ class implements <BR>
+<CODE CLASS="Code">
+BankingDemo:checkingAccount-servant</CODE>
+ simply by inheriting from <BR>
+<CODE CLASS="Code">
+account-implementation</CODE>
+:</P>
+<PRE CLASS="Code-body"><A NAME="pgfId-853277"></A>(defclass checkingaccount-implementation   (Bankingdemo:Checkingaccount-servant account-implementation)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853278"></A>())</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853854"></A>A slot <CODE CLASS="Code">
+op:limit</CODE>
+, corresponding to the attribute limit defined in the IDL, is inherited from <CODE CLASS="Code">
+checkingaccount-servant</CODE>
+.</P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-54.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-52.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-52.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ char-external-code
+</TITLE>
+
+<LINK REL="next" HREF="lw-737.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-735.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-735.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-735.htm">31 The EXTERNAL-FORMAT Package</A><BR><BR>
+</DIV><A HREF="lw-737.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-735.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-735.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886691"></A><A NAME="43727"></A>char<A NAME="marker-890284"></A>-external-code</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886692"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886693"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886694"></A>Returns the code of a character in the specified character set.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886695"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886696"></A>external-format</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886697"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886698"></A>char-external-code <EM CLASS="Variable">
+char</EM>
+ <EM CLASS="Variable">
+set</EM>
+ =&gt; <EM CLASS="Variable">
+code</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886699"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889327"></A><EM CLASS="Variable">
+char</EM>
+</P>
+<P CLASS="RDescription-C">The character whose code you wish to return.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889328"></A><EM CLASS="Variable">
+set</EM>
+</P>
+<P CLASS="RDescription-C">A character set. Legal values for <EM CLASS="Variable">
+set</EM>
+ are <CODE CLASS="Code">
+:unicode</CODE>
+, <CODE CLASS="Code">
+:latin-1</CODE>
+, <CODE CLASS="Code">
+:ascii</CODE>
+, <CODE CLASS="Code">
+:macos-roman</CODE>
+, <CODE CLASS="Code">
+:jis-x-208</CODE>
+, <CODE CLASS="Code">
+:jis-x-212</CODE>
+, <CODE CLASS="Code">
+:euc-jp</CODE>
+ and <CODE CLASS="Code">
+:sjis.</CODE>
+ Additionally, on Windows, <EM CLASS="Variable">
+set</EM>
+ can be a valid Windows code page identifier.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887993"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887994"></A><EM CLASS="Variable">
+code</EM>
+</P>
+<P CLASS="RDescription-C">The code of <EM CLASS="Variable">
+char</EM>
+ in the character set <EM CLASS="Variable">
+set</EM>
+. An integer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886704"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886705"></A>Returns the code of the character <EM CLASS="Variable">
+char</EM>
+ in the coded character set specified by <EM CLASS="Variable">
+set</EM>
+, or <CODE CLASS="Code">
+nil</CODE>
+, if there is no encoding. Note that a coded character set is not the same thing as an external format. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-886706"></A>For the <EM CLASS="Variable">
+set</EM>
+ parameter, the <CODE CLASS="Code">
+:jis-*</CODE>
+ codes are KUTEN indexes (from the 1990 version of these standards) encoded as </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886707"></A>(+ (* 100 row) column)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-886708"></A><CODE CLASS="Code">
+:euc-jp</CODE>
+ is the complete two-byte format encoded as </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886709"></A>(+ (* 256 first-byte) second-byte)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-886710"></A><CODE CLASS="Code">
+:sjis</CODE>
+ is Shift-JIS encoded in the same way. Strictly speaking, EUC and Shift-JIS are not coded character sets, but encodings of the JIS sets, but the encoding is easily expressed as an integer, so the same interface to it is used.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889498"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889527"></A><A HREF="lw-742.htm#28396" CLASS="XRef">find-external-char</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-737.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-735.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-735.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

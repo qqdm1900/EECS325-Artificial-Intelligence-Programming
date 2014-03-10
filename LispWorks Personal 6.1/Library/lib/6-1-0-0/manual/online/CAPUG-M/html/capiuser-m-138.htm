@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.3  Adapting the example
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-139.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-137.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-134.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-134.htm">10 Defining Interface Classes </A><BR><BR>
+</DIV><A HREF="capiuser-m-139.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-137.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-134.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884255"></A>10.3  Adapting the example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884256"></A>The <CODE CLASS="Code">
+:panes </CODE>
+and <CODE CLASS="Code">
+:layouts</CODE>
+ keywords can take a number of panes and layouts, each specified one after the other. By listing several panes, menus, and so on, complicated interfaces can be constructed quickly. </P>
+<P CLASS="Body">
+<A NAME="pgfId-885156"></A>To see how simply this is done, let us add an editor pane to our interface. We need this to display the text contained in the file chosen with the <B CLASS="Button">
+Open File</B>
+ button.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884258"></A>The editor pane needs a layout. It could be added to the <CODE CLASS="Code">
+row-layout</CODE>
+ already built, or another layout could be made for it. Then, the two layouts would have to be put inside a third to contain them (see <A HREF="capiuser-m-88.htm#48708" CLASS="XRef">Laying Out CAPI Panes</A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-884262"></A>The first thing to do is add the editor pane to the panes description. The old panes description read:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884263"></A> (:panes</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884264"></A>  (page-up push-button </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884266"></A>           :text &quot;Page Up&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884267"></A>  (page-down push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884269"></A>             :text &quot;Page Down&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884270"></A>  (open-file push-button</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884272"></A>             :text &quot;Open File&quot;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884815"></A>The new one includes an editor pane named <CODE CLASS="Code">
+viewer</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884872"></A>(:panes</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884882"></A> (page-up push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884883"></A>          :text &quot;Page Up&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884884"></A> (page-down push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884885"></A>            :text &quot;Page Down&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884886"></A> (open-file push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884887"></A>            :text &quot;Open File&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884888"></A> (viewer editor-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884889"></A>         :title &quot;File:&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885688"></A>         :text &quot;No file selected.&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885690"></A>         :visible-min-height '(:character 8)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884891"></A>         :reader viewer-pane))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884873"></A>This specifies the editor pane, with a stipulation that it must be at least 8 characters high. This allows you to see a worthwhile amount of the file being viewed in the pane.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884292"></A><A NAME="marker-888431"></A>Note the use of <CODE CLASS="Code">
+:reader</CODE>
+<A NAME="marker-884291"></A>, which defines a reader method for the interface which returns the editor pane. Similarly, you can also specify writers or accessors. If you omit accessor methods, it is still possible to access panes and other elements in an interface instance using <CODE CLASS="Code">
+with-slots</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884293"></A>The interface also needs a layout for the editor pane in the layouts section. The old layouts description read:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884294"></A>  (:layouts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884295"></A>   (row-of-buttons row-layout</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884297"></A>                   '(page-up page-down open-file)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884298"></A>The new one reads: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884299"></A>  (:layouts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884300"></A>   (main-layout column-layout </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884302"></A>                '(row-of-buttons row-with-editor-pane))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884303"></A>   (row-of-buttons row-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884305"></A>                   '(page-up page-down open-file))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884306"></A>   (row-with-editor-pane row-layout</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884308"></A>                         '(viewer)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884310"></A>This creates another <A NAME="marker-884309"></A><CODE CLASS="Code">
+row-layout</CODE>
+ for the new pane and then encapsulates the two row layouts into a third <A NAME="marker-884311"></A><CODE CLASS="Code">
+column-layout</CODE>
+ called <CODE CLASS="Code">
+main-layout</CODE>
+. This is used as the default layout, specified by setting the <CODE CLASS="Code">
+:layout</CODE>
+ initarg to <CODE CLASS="Code">
+main-layout</CODE>
+ in the <CODE CLASS="Code">
+:default-initargs</CODE>
+<A NAME="marker-884314"></A> section. If there is no default layout specified, <CODE CLASS="Code">
+define-interface</CODE>
+ uses the first one listed. </P>
+<P CLASS="Body">
+<A NAME="pgfId-884317"></A>By putting the layout of buttons and the layout with the editor pane in a column layout, their relative position has been controlled: the buttons appear in a row above the editor pane.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884318"></A>The code for the new interface is now as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884537"></A>(define-interface demo ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884538"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884540"></A> (:panes</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884541"></A>  (page-up push-button </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884543"></A>           :text &quot;Page Up&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884544"></A>  (page-down push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884546"></A>             :text &quot;Page Down&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884547"></A>  (open-file push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884549"></A>             :text &quot;Open File&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884935"></A>  (viewer editor-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884936"></A>          :title &quot;File:&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885700"></A>          :text &quot;No file selected.&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884937"></A>          :visible-min-height '(:character 8)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884938"></A>          :reader viewer-pane))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884564"></A> (:layouts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884565"></A>   (main-layout column-layout </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884567"></A>                '(row-of-buttons row-with-editor-pane))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884568"></A>   (row-of-buttons row-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884570"></A>                   '(page-up page-down open-file))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884571"></A>   (row-with-editor-pane row-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884573"></A>                         '(viewer)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884586"></A>  (:default-initargs :title &quot;Demo&quot;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884747"></A>Displaying an instance of the interface by entering the line of code below produces the window in <A HREF="capiuser-m-138.htm#33076" CLASS="XRef">A CAPI interface with editor pane</A>:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884748"></A>(display (make-instance 'demo))</CODE>
+<P CLASS="Figure">
+<A NAME="pgfId-884591"></A>Figure 10.2  <A NAME="33076"></A>A CAPI interface with editor pane<DIV>
+<IMG SRC="capiuser-m-52.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-53.gif">
+</DIV>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-139.htm#pgfId-884327" CLASS="Hypertext">10.3.1  Adding menus</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-139.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-137.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-134.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

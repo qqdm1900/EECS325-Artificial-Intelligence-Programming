@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ collect-interfaces
+</TITLE>
+
+<LINK REL="next" HREF="capiref-45.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-43.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-45.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-43.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-2298152"></A><A NAME="65206"></A>collect<A NAME="marker-3948520"></A>-interfaces</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-2298153"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2298154"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2298155"></A>Finds all interfaces of a given class.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3948509"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3948510"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3660019"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3660020"></A>collect-interfaces <EM CLASS="Variable">
+proto</EM>
+ &amp;key <EM CLASS="Variable">
+screen</EM>
+ <EM CLASS="Variable">
+current-process-first</EM>
+ <EM CLASS="Variable">
+sort-by</EM>
+ =&gt; <EM CLASS="Variable">
+interfaces</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2298159"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2298163"></A><EM CLASS="Variable">
+proto</EM>
+</P>
+<P CLASS="RDescription-C">A class, class name, or an interface.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2300740"></A>screen</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+, the symbol <CODE CLASS="Code">
+:any</CODE>
+, a screen, or a keyword naming a library.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-2300801"></A>current-process-first</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-2300802"></A>A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2301091"></A><EM CLASS="Variable">
+sort-by</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+:visible</CODE>
+ or <CODE CLASS="Code">
+:create</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2301093"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2298165"></A><EM CLASS="Variable">
+interfaces</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2298166"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2298167"></A>The generic function <CODE CLASS="Code">
+collect-interfaces</CODE>
+ returns a list of CAPI interfaces which are instances of the class indicated by <EM CLASS="Variable">
+proto</EM>
+, or subclasses thereof.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2298168"></A>If screen is <CODE CLASS="Code">
+nil</CODE>
+, the interfaces on the default screen are returned. This is the default. If <EM CLASS="Variable">
+screen</EM>
+ is<CODE CLASS="Code">
+:any</CODE>
+, <EM CLASS="Variable">
+interfaces</EM>
+ includes those on any screen. If <EM CLASS="Variable">
+screen</EM>
+ is a <A HREF="capiref-363.htm#41931" CLASS="XRef">screen</A> object, the interfaces on that screen are returned. <EM CLASS="Variable">
+screen</EM>
+ can also be a library name, currently the accepted values are <CODE CLASS="Code">
+:win32</CODE>
+, <CODE CLASS="Code">
+:motif</CODE>
+ and <CODE CLASS="Code">
+:cocoa</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2305150"></A>If interfaces on multiple screens are returned, then those on each screen are grouped together in <EM CLASS="Variable">
+interfaces</EM>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-2305199"></A>Amongst those for each screen, the interfaces are grouped as follows. If <EM CLASS="Variable">
+current-process-first</EM>
+ is true, then the interfaces in the current process appear together at the beginning of the group. If <EM CLASS="Variable">
+sort-by </EM>
+is <CODE CLASS="Code">
+:create</CODE>
+ then these interfaces are sorted by creation time, otherwise <EM CLASS="Variable">
+sort-by</EM>
+ is <CODE CLASS="Code">
+:visible</CODE>
+ and they are are sorted in <A NAME="marker-5897193"></A>Z-order. The interfaces of other processes appear at the end of the group, also sorted according to <EM CLASS="Variable">
+sort-by</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2305217"></A>If <EM CLASS="Variable">
+current-process-first</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then the interfaces for each screen are sorted according to <EM CLASS="Variable">
+sort-by</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3119427"></A>The default value of <EM CLASS="Variable">
+sort-by </EM>
+is <CODE CLASS="Code">
+:create</CODE>
+ and of <EM CLASS="Variable">
+current-process-first</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2298169"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2298173"></A><A HREF="capiref-143.htm#79439" CLASS="XRef">find-interface</A><BR>
+<A HREF="capiref-181.htm#25724" CLASS="XRef">installed-libraries</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-45.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-43.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

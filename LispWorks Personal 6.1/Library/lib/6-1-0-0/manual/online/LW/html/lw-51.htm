@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.3  Example
+</TITLE>
+
+<LINK REL="next" HREF="lw-52.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-50.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-39.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-39.htm">5 The Trace Facility</A><BR><BR>
+</DIV><A HREF="lw-52.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-50.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-39.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886026"></A>5.3  Example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886027"></A>The following example illustrates how <A HREF="lw-675.htm#58889" CLASS="XRef">trace</A> may be used as a debugging tool. Suppose that you have defined a function <CODE CLASS="Code">
+f,</CODE>
+ and intend its first argument to be a non-negative number. You can trap calls to <CODE CLASS="Code">
+f</CODE>
+ where this is not true, providing an entry into the main debugger in these cases. It is then possible for you to investigate how the problem arose.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886028"></A>To do this, you specify a <CODE CLASS="Code">
+:break</CODE>
+ option for <CODE CLASS="Code">
+f</CODE>
+ using <A HREF="lw-675.htm#58889" CLASS="XRef">trace</A>. If the form following this option evaluates to a non-nil value upon calling the function, then the debugger is entered. In order to inspect the first argument to the function <CODE CLASS="Code">
+f</CODE>
+, you have access to the variable <CODE CLASS="Code">
+*traced-arglist*</CODE>
+. This variable is bound to a list of the arguments with which the function was called, so the first member of the list corresponds to the first argument of <CODE CLASS="Code">
+f</CODE>
+ when tracing <CODE CLASS="Code">
+f</CODE>
+. </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886029"></A>CL-USER 12 &gt; (defun f (a1 a2) (+ (sqrt a1) a2))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886030"></A>F</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886031"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886032"></A>CL-USER 13 &gt; (trace (f :break (&lt; (car *traced-arglist*) 0)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886033"></A>F</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886034"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886035"></A>CL-USER 14 &gt; (f 9.0 3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886036"></A>0 F &gt; (9.0 3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886037"></A>0 F &lt; (6.0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886038"></A>6.0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886039"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886040"></A>CL-USER 15 &gt; (f -16.0 3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886041"></A>0 F &gt; (-16.0 3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886042"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886043"></A>Break on entry to F</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886044"></A>  1 (continue) return from break.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886045"></A>  2 (abort) return to level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886046"></A>  3 return to top loop level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886047"></A>  4 Destroy process.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886048"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886049"></A>Type :c followed by a number to proceed</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-52.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-50.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-39.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

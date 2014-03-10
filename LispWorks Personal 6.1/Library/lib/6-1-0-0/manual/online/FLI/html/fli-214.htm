@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-foreign-file
+</TITLE>
+
+<LINK REL="next" HREF="fli-215.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-213.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-209.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-201.htm">7 The Foreign Parser</A> &gt; <A HREF="fli-209.htm">7.5  Foreign Parser Reference</A><BR><BR>
+</DIV><A HREF="fli-215.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-213.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-209.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="REntry">
+<A NAME="pgfId-887232"></A><A NAME="18638"></A>process<A NAME="marker-893048"></A>-foreign-file</H3>
+<DIV>
+<H4 CLASS="REntry-type">
+<A NAME="pgfId-887233"></A>Function</H4>
+</DIV>
+<DIV>
+<H4 CLASS="REntry-head">
+<A NAME="pgfId-887237"></A>Package<A NAME="marker-887236"></A></H4>
+<P CLASS="RSignature">
+<A NAME="pgfId-887238"></A>foreign-parser</P>
+</DIV>
+<DIV>
+<H4 CLASS="REntry-head">
+<A NAME="pgfId-887239"></A>Syntax</H4>
+<P CLASS="RSignature">
+<A NAME="pgfId-893206"></A>process-foreign-file<EM CLASS="Variable">
+ source</EM>
+ &amp;key <EM CLASS="Variable">
+dff</EM>
+ <EM CLASS="Variable">
+language</EM>
+ <EM CLASS="Variable">
+preprocess</EM>
+ <EM CLASS="Variable">
+preprocessor</EM>
+ <EM CLASS="Variable">
+preprocessor-format-string</EM>
+ <EM CLASS="Variable">
+preprocessor-options</EM>
+ <EM CLASS="Variable">
+preprocessor-include-path</EM>
+ <EM CLASS="Variable">
+case-sensitive</EM>
+ <EM CLASS="Variable">
+package</EM>
+ =&gt;</P>
+</DIV>
+<DIV>
+<H4 CLASS="REntry-head">
+<A NAME="pgfId-887241"></A>Arguments</H4>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887242"></A><EM CLASS="Variable">
+source</EM>
+</P>
+<P CLASS="RDescription-C">One or more filenames.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887243"></A><EM CLASS="Variable">
+dff</EM>
+</P>
+<P CLASS="RDescription-C">A filename.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887244"></A><EM CLASS="Variable">
+language</EM>
+</P>
+<P CLASS="RDescription-C">A keyword.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887245"></A><EM CLASS="Variable">
+preprocess</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-892558"></A><EM CLASS="Variable">
+preprocessor-format-string</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-892563"></A>A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887246"></A><EM CLASS="Variable">
+preprocessor</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887247"></A><EM CLASS="Variable">
+preprocessor-options</EM>
+ </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-887248"></A>A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892567"></A><EM CLASS="Variable">
+include-path</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887251"></A><EM CLASS="Variable">
+case-sensitive</EM>
+</P>
+<P CLASS="RDescription-C">See description.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-898353"></A><EM CLASS="Variable">
+package</EM>
+</P>
+<P CLASS="RDescription-C">A package designator or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H4 CLASS="REntry-head">
+<A NAME="pgfId-887254"></A>Description</H4>
+<P CLASS="RBody">
+<A NAME="pgfId-887255"></A>The <CODE CLASS="Code">
+process-foreign-file</CODE>
+ function takes a file or files of foreign declarations -- usually header files -- and parses them, producing `dff' files of Lisp definitions using <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>, <A HREF="fli-97.htm#17537" CLASS="XRef">define-foreign-variable</A>, <A HREF="fli-96.htm#39541" CLASS="XRef">define-foreign-type</A>, and so on, providing a Lisp interface to the foreign code.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-887257"></A><EM CLASS="Variable">
+source</EM>
+ gives the name of the header files or file to be processed. The name of a file consists of<EM CLASS="Variable">
+ source-file-name</EM>
+ and <EM CLASS="Variable">
+source-file-type</EM>
+ (typically <CODE CLASS="Code">
+.h</CODE>
+). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-887258"></A><EM CLASS="Variable">
+dff</EM>
+ is an output file which will contain the Lisp foreign function definitions. The default value is <CODE CLASS="Code">
+nil</CODE>
+, in which case the dff file will be <EM CLASS="Emphasis">
+source-file-name</EM>
+<CODE CLASS="Code">
+-dff.lisp</CODE>
+. (See <EM CLASS="Emphasis">
+source</EM>
+, above.)</P>
+<P CLASS="RBody">
+<A NAME="pgfId-887259"></A><EM CLASS="Variable">
+language</EM>
+ specifies the language the header files are written in. Currently the supported languages are <CODE CLASS="Code">
+:c</CODE>
+ (standard K&amp;R C header files) and <CODE CLASS="Code">
+:ansi-c</CODE>
+. The default value is <CODE CLASS="Code">
+:ansi-c</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-887260"></A><EM CLASS="Variable">
+preprocess</EM>
+, when non-nil, runs the preprocessor on the input files. The default value is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-892576"></A><EM CLASS="Variable">
+preprocessor-format-string</EM>
+ should be a format string which is used to make a preprocessor command line. The format arguments are a pathname or string giving the preprocessor executable, a list of strings giving the preprocessor options, a list of strings giving macro names to define, a list of pathnames or strings contain the include path, and a source pathname.  On Windows, the default contains options needed for VC++.  The default is the value of <A HREF="fli-211.htm#65878" CLASS="XRef">*preprocessor-format-string*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-887261"></A><EM CLASS="Variable">
+preprocessor</EM>
+ is a string containing the pathname of the preprocessor program. By default this is the value of <A HREF="fli-210.htm#69849" CLASS="XRef">*preprocessor*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-887262"></A><EM CLASS="Variable">
+preprocessor-options</EM>
+ is a string containing command line options to be passed to the preprocessor if it is called. By default this is the value of <A HREF="fli-213.htm#89127" CLASS="XRef">*preprocessor-options*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-892608"></A><EM CLASS="Variable">
+include-path</EM>
+ should be a list of pathnames or strings that will be added as the include path for the preprocessor. The default is the value of <CODE CLASS="Code">
+<A HREF="fli-212.htm#39208" CLASS="XRef">*preprocessor-include-path*</A></CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-887265"></A><EM CLASS="Variable">
+case-sensitive</EM>
+ specifies whether to maintain case sensitivity in symbol names as in the source files. Values can be:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-887266"></A><CODE CLASS="Code">
+t</CODE>
+ -- the names of all Lisp functions and classes created are of the form |name|. This is the default value.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-887267"></A><CODE CLASS="Code">
+nil</CODE>
+ -- all foreign names are converted to uppercase and an error is signalled if any name clashes occur as a result of this conversion. For example, <CODE CLASS="Code">
+OneTwoTHREE</CODE>
+ becomes <CODE CLASS="Code">
+ONETWOTHREE</CODE>
+.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-887268"></A><CODE CLASS="Code">
+:split-name</CODE>
+ -- attempts to split the name up into something sensible. For example, <CODE CLASS="Code">
+OneTwoTHREE</CODE>
+ becomes <CODE CLASS="Code">
+ONE-TWO-THREE</CODE>
+.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-887269"></A><CODE CLASS="Code">
+:prefix</CODE>
+ -- changes lowercase to uppercase and concatenates the string with the string held in <CODE CLASS="Code">
+sys:*prefix-name-string*</CODE>
+. For example, <CODE CLASS="Code">
+OneTwoTHREE</CODE>
+ becomes <CODE CLASS="Code">
+FOREIGN-ONETWOTHREE</CODE>
+. </LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-887270"></A><CODE CLASS="Code">
+(list :user-routine </CODE>
+<EM CLASS="Variable">
+function-name</EM>
+<CODE CLASS="Code">
+)</CODE>
+ -- enables you to pass your own function for name formatting. Your function must take a string argument and return a string result. It is not advised to use destructive functions (for example, <CODE CLASS="Code">
+nreverse</CODE>
+) as this may cause unusual side effects.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-887271"></A>If <EM CLASS="Variable">
+case-sensitive</EM>
+ takes any other value, names are not changed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-898394"></A><EM CLASS="Variable">
+package</EM>
+ is used to generate an <CODE CLASS="Code">
+in-package</CODE>
+ form at the start of the output (dff) file. The name of the package designated by <EM CLASS="Variable">
+package</EM>
+ is used in this form. The default value of <EM CLASS="Variable">
+package</EM>
+ is the value of <CODE CLASS="Code">
+*package*</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-898399"></A>Note that in some cases the derived Lisp FLI definitions will not be quite correct, due to an <A NAME="marker-891290"></A>ambiguity in C. <CODE CLASS="Code">
+char*</CODE>
+ can mean a pointer to a character, or a string, and in many cases you will want to pass a string. Therefore, <CODE CLASS="Code">
+process-foreign-file</CODE>
+ is useful for generating prototype FLI definitions, especially when there are many, but you do need to check the results when <CODE CLASS="Code">
+char*</CODE>
+ is used.</P>
+</DIV>
+<DIV>
+<H4 CLASS="REntry-head">
+<A NAME="pgfId-887283"></A>See also</H4>
+<P CLASS="RBody">
+<A NAME="pgfId-889030"></A><A HREF="fli-140.htm#30636" CLASS="XRef">register-module</A><BR>
+<A HREF="fli-210.htm#69849" CLASS="XRef">*preprocessor*</A><BR>
+<A HREF="fli-213.htm#89127" CLASS="XRef">*preprocessor-options*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-215.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-213.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-209.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

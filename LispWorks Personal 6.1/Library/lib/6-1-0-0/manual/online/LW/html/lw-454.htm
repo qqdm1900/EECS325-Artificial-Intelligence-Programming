@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 20.2.4  Stream input
+</TITLE>
+
+<LINK REL="next" HREF="lw-455.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-453.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-450.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-448.htm">20 User Defined Streams</A> &gt; <A HREF="lw-450.htm">20.2  An illustrative example of user defined streams</A><BR><BR>
+</DIV><A HREF="lw-455.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-453.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-890914"></A>20.2.4  Stream input<A NAME="marker-890913"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-888219"></A>The following method for <A NAME="marker-891289"></A><A HREF="lw-1315.htm#19679" CLASS="XRef">stream-read-char</A> reads a character from the stream. If the character read is a <CODE CLASS="Code">
+#&#92;Line-Separator</CODE>
+, then the method returns <CODE CLASS="Code">
+#&#92;Newline</CODE>
+, otherwise the character read is returned. <A HREF="lw-1315.htm#19679" CLASS="XRef">stream-read-char</A> returns <CODE CLASS="Code">
+:eof</CODE>
+ at the end of the file.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888173"></A>(defmethod stream:stream-read-char ((stream unicode-ls-stream))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888174"></A>  (let ((char (read-char (ls-stream-file-stream stream) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888175"></A>               nil :eof)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888176"></A>    (if (eq char #&#92;Line-Separator)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888177"></A>        #&#92;Newline</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888178"></A>      char)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888353"></A>There is no need to define a new method for <A HREF="lw-1317.htm#11978" CLASS="XRef">stream-read-line</A> as the default method uses <A HREF="lw-1315.htm#19679" CLASS="XRef">stream-read-char</A> repeatedly to read a line, and our implementation of <A HREF="lw-1315.htm#19679" CLASS="XRef">stream-read-char</A> ensures that this will work.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888283"></A>We also need to make sure that if a <CODE CLASS="Code">
+#&#92;Newline</CODE>
+ is unread, it is unread as a <CODE CLASS="Code">
+#&#92;Line-Separator</CODE>
+. The following method for <A NAME="marker-891321"></A><CODE CLASS="Code">
+<A HREF="lw-1322.htm#30446" CLASS="XRef">stream-unread-char</A> </CODE>
+uses the Common Lisp file stream function <CODE CLASS="Code">
+unread-char</CODE>
+ to achieve this.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888179"></A>(defmethod stream:stream-unread-char ((stream unicode-ls-stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888180"></A>                                      char)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888181"></A>  (unread-char (if (eq char #&#92;Newline) #&#92;Line-Separator char)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888182"></A>               (ls-stream-file-stream stream)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888284"></A>Finally, although the default methods for <A NAME="marker-891360"></A><CODE CLASS="Code">
+<A HREF="lw-1310.htm#21867" CLASS="XRef">stream-listen</A></CODE>
+ and <A NAME="marker-891350"></A><CODE CLASS="Code">
+<A HREF="lw-1301.htm#33230" CLASS="XRef">stream-clear-input</A></CODE>
+ would work for our stream, it is faster to use the functions provided by <CODE CLASS="Code">
+file-stream</CODE>
+, again using our accessor <CODE CLASS="Code">
+ls-stream-file-stream</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888183"></A>(defmethod stream:stream-listen ((stream unicode-ls-stream))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888184"></A>  (listen (ls-stream-file-stream stream)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-888215"></A>(defmethod stream:stream-clear-input ((stream unicode-ls-stream))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888216"></A>  (clear-input (ls-stream-file-stream stream)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-455.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-453.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

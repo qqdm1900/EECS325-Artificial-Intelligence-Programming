@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ modify-hash
+</TITLE>
+
+<LINK REL="next" HREF="lw-811.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-809.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-811.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-809.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1390965"></A><A NAME="77199"></A>modify<A NAME="marker-1397062"></A>-hash</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1390966"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1390967"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1390968"></A>Reads and writes an entry in a hash table atomically.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1390969"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1390970"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1390971"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1390972"></A>modify-hash <EM CLASS="Variable">
+hash-table</EM>
+ <EM CLASS="Variable">
+key</EM>
+ <EM CLASS="Variable">
+function</EM>
+ =&gt; <EM CLASS="Variable">
+new-value</EM>
+, <EM CLASS="Variable">
+key</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1390973"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1390974"></A><EM CLASS="Variable">
+hash-table</EM>
+</P>
+<P CLASS="RDescription-C">A hash table.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1390975"></A><EM CLASS="Variable">
+key</EM>
+</P>
+<P CLASS="RDescription-C">An object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1390976"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1390977"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1390978"></A><EM CLASS="Variable">
+new-value</EM>
+</P>
+<P CLASS="RDescription-C">An object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1390979"></A><EM CLASS="Variable">
+key</EM>
+</P>
+<P CLASS="RDescription-C">An object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1390980"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1390981"></A>The function <CODE CLASS="Code">
+modify-hash</CODE>
+ locks the hash table <EM CLASS="Variable">
+hash-table</EM>
+. It then calls the function <EM CLASS="Variable">
+function</EM>
+ with three arguments: <EM CLASS="Variable">
+key</EM>
+, the value currently associated with <EM CLASS="Variable">
+key</EM>
+ in <EM CLASS="Variable">
+hash-table</EM>
+ (if any), and a flag which is true if the key was in the table. (This last argument is needed in case the associated value is <CODE CLASS="Code">
+nil</CODE>
+).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1390982"></A><CODE CLASS="Code">
+modify-hash</CODE>
+ then sets the result of the function <EM CLASS="Variable">
+function </EM>
+as the value for <EM CLASS="Variable">
+key</EM>
+ in the table. <CODE CLASS="Code">
+modify-hash</CODE>
+ returns two values, the <EM CLASS="Variable">
+new-value</EM>
+ and the <EM CLASS="Variable">
+key</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1390983"></A>The overall effect is like:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1400840"></A>(with-hash-table-locked</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1400841"></A> <EM CLASS="Variable">hash-table</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1400842"></A> (multiple-value-bind (value found-p)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1400843"></A>     (gethash <EM CLASS="Variable">key</EM>
+ <EM CLASS="Variable">hash-table</EM>
+)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1400844"></A>   (let ((new-value (funcall <EM CLASS="Variable">function</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1400845"></A>                             <EM CLASS="Variable">key</EM>
+ value found-p)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1400846"></A>     (setf (gethash <EM CLASS="Variable">key</EM>
+ <EM CLASS="Variable">hash-table</EM>
+) new-value)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1390991"></A>     (values new-value <EM CLASS="Variable">key</EM>
+))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1514541"></A>but <CODE CLASS="Code">
+modify-hash</CODE>
+ should be more efficient.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1514668"></A>It is guaranteed that no other thread can modify the value associated with <EM CLASS="Variable">
+key</EM>
+ until <CODE CLASS="Code">
+modify-hash</CODE>
+ returns.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1514669"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1514913"></A><EM CLASS="Variable">
+function</EM>
+ is called with <EM CLASS="Variable">
+hash-table</EM>
+ locked, so it should not do anything that may require hanging the modification, or that waits for another process that tries to modify the table.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1514543"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1390993"></A><A HREF="lw-654.htm#47359" CLASS="XRef">make-hash-table</A><BR>
+<A HREF="lw-868.htm#20054" CLASS="XRef">with-hash-table-locked</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-811.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-809.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

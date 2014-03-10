@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.3.6  Miscellaneous
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-103.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-101.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-96.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-93.htm">4 Editing Lisp Programs</A> &gt <A HREF="eduser-m-96.htm">4.3  Functions and definitions</A><BR><BR>
+</DIV><A HREF="eduser-m-103.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-101.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-96.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884049"></A>4.3.6  Miscellaneous</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884053"></A><A NAME="Buffer Changed Definitions"></A><A NAME="marker-884051"></A>Buffer Changed Definitions</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884054"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884055"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884056"></A>Calcuates which definitions that have been changed in the current buffer during the current LispWorks session, and displays these in the Changed Definitions tab of the Editor tool.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899119"></A>By default the reference point against which changes are calculated is the time when the file was last read into the buffer. A prefix argument equal to the value of the editor variable <A HREF="eduser-m-39.htm#90873" CLASS="XRef">prefix-argument-default</A> means the reference point is the last evaluation. A prefix argument of 1 means the reference point is the time the buffer was last saved to file.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899118"></A>Note: the most convenient to use this command is via the Editor tool. Switch it to the Changed Definitions tab, where you can specify the reference point for calculating the changes.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884060"></A><A NAME="52389"></A>Function<A NAME="marker-969869"></A> Arglist </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884061"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884062"></A>Argument: <EM CLASS="Variable">
+function<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Meta+=</CODE>
+ <EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884063"></A>Prints the arguments expected by <EM CLASS="Variable">
+function</EM>
+ in the Echo Area. The symbol under the current point is offered as a default value for <EM CLASS="Variable">
+function</EM>
+<I CLASS="Italic">
+. </I>
+A prefix argument automatically causes this default value to be used.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899170"></A>Note: example code showing how to use this command to display argument lists automatically is supplied with LispWorks, in the file </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-899183"></A>examples/editor/commands/space-show-arglist.lisp</CODE>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-948855"></A><A NAME="marker-948854"></A>Function Arglist Displayer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-949023"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-949024"></A>Argument: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+`</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-948838"></A>Shows or hides information about the operator in the current form. The command controls display of a special window (displayer) on top of the editor. The displayer shows the operator and its arguments, and tries to highlight the current argument (that is, the argument at the cursor position). If it does not recognize the operator of the current form, it tries the surrounding form, and if that fails it tries a third level of surrounding form.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-948896"></A>Additionally, while the displayer is visible:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-948891"></A><CODE CLASS="Code">
+Ctrl+/</CODE>
+</P>
+<P CLASS="Description-C">Controls whether the documentation string of the operator is also shown.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-948892"></A><CODE CLASS="Code">
+Ctrl++</CODE>
+</P>
+<P CLASS="Description-C">Moves the displayer up.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-948893"></A><CODE CLASS="Code">
+Ctrl+-</CODE>
+</P>
+<P CLASS="Description-C">Moves the displayer down.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-948989"></A>You can dismiss the displayer by invoking the command again, or by entering <CODE CLASS="Code">
+Ctrl+G</CODE>
+. On Cocoa and Windows it is dismissed automatically when the underlying pane loses the focus.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-948998"></A>In the LispWorks IDE you can change the style of the highlighting by <B CLASS="Button">
+Preferences... &gt; Environment &gt; Styles &gt; Colors and Attributes &gt; Arglist Highlight</B>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-965592"></A><A NAME="marker-965619"></A>If passed a prefix argument, for example:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-965603"></A>Ctrl+U Ctrl+`</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-965606"></A>it does not raise a displayer window, but instead displays the operator and its arguments, with highlight, in the Echo Area. This display is interface-specific, and implemented only for the Editor and other tools based on the editor.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884065"></A><A NAME="marker-884064"></A>Function Argument List</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884066"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884068"></A>Argument: <EM CLASS="Variable">
+function<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+Shift+A </CODE>
+<EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884070"></A>This command is similar to <A HREF="eduser-m-102.htm#52389" CLASS="XRef">Function Arglist</A>, except that the symbol at the head of the current form is offered as a default value for <EM CLASS="Variable">
+function</EM>
+, unless that symbol is a member of the list <A HREF="eduser-m-151.htm#66162" CLASS="XRef">editor:*find-likely-function-ignores*</A> in which case the second symbol in the form is offered as the default. A prefix argument automatically causes this default value to be used.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884073"></A><A NAME="marker-884072"></A>Describe <A NAME="marker-954691"></A>Class</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884074"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884075"></A>Argument: <EM CLASS="Variable">
+class<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884076"></A>Displays a description of the class named by <EM CLASS="Variable">
+class</EM>
+ in a Class Browser tool. The symbol under the current point is offered as a default value for <EM CLASS="Variable">
+class</EM>
+<I CLASS="Italic">
+. </I>
+A prefix argument automatically causes this default value to be used. </P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884078"></A><A NAME="marker-884077"></A>Describe Generic<A NAME="marker-954682"></A> Function</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884079"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884080"></A>Argument: <EM CLASS="Variable">
+function<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884081"></A>Displays a description of <EM CLASS="Variable">
+function</EM>
+ in a Generic Function Browser tool. The symbol under the current point is offered as a default value for <EM CLASS="Variable">
+function</EM>
+<I CLASS="Italic">
+. </I>
+A prefix argument automatically causes this default value to be used. </P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-951483"></A><A NAME="marker-951482"></A>Describe Meth<A NAME="marker-954680"></A>od Call</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-951484"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-951485"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-951494"></A>Displays a Generic Function Browser tool, with a specific method combination shown.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-951497"></A>When invoked with a prefix argument <EM CLASS="Variable">
+p</EM>
+ while the cursor is in a <CODE CLASS="Code">
+defmethod</CODE>
+ form, it uses the generic function and specializers of the method to choose the method combination.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-951501"></A>Otherwise, it prompts for the generic function name and the list of specializers, which can be class names or lists of the form <CODE CLASS="Code">
+(eql </CODE>
+<EM CLASS="Variable">
+object</EM>
+<CODE CLASS="Code">
+)</CODE>
+ where <EM CLASS="Variable">
+object</EM>
+ is not evaluated.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-891646"></A><A NAME="marker-891645"></A>Describe System</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-891647"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-891648"></A>Argument: <EM CLASS="Variable">
+system<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-891649"></A>Displays a description of the <CODE CLASS="Code">
+defsystem</CODE>
+-defined system named by <EM CLASS="Variable">
+system</EM>
+. The symbol under the current point is offered as a default value for <EM CLASS="Variable">
+system</EM>
+<I CLASS="Italic">
+. </I>
+A prefix argument automatically causes this default value to be used.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-103.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-101.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-96.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

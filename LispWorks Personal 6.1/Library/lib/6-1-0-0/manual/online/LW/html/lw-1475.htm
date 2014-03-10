@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ create-registry-key
+</TITLE>
+
+<LINK REL="next" HREF="lw-1476.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1474.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1471.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1471.htm">42 The Windows registry API</A><BR><BR>
+</DIV><A HREF="lw-1476.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1474.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-956274"></A><A NAME="44547"></A>create-<A NAME="marker-1025366"></A>registry-key</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-956275"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-961118"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-961132"></A>Creates a new registry key.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1042668"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1042669"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956276"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-956277"></A>create-registry-key <EM CLASS="Variable">
+subkey</EM>
+ &amp;key <EM CLASS="Variable">
+class</EM>
+ <EM CLASS="Variable">
+root</EM>
+ <EM CLASS="Variable">
+access</EM>
+ <EM CLASS="Variable">
+errorp</EM>
+ =&gt; <EM CLASS="Variable">
+handle</EM>
+, <EM CLASS="Variable">
+disposition</EM>
+, <EM CLASS="Variable">
+error-code</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956278"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956279"></A><EM CLASS="Variable">
+subkey</EM>
+</P>
+<P CLASS="RDescription-C">A string specifying the name of the key.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956280"></A><EM CLASS="Variable">
+class</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956281"></A><EM CLASS="Variable">
+root</EM>
+</P>
+<P CLASS="RDescription-C">A keyword or handle.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956282"></A><EM CLASS="Variable">
+access</EM>
+</P>
+<P CLASS="RDescription-C">A keyword or an integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956283"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956284"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956285"></A><EM CLASS="Variable">
+handle</EM>
+</P>
+<P CLASS="RDescription-C">The handle of the new key.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956286"></A><EM CLASS="Variable">
+disposition</EM>
+</P>
+<P CLASS="RDescription-C">A keyword, either <CODE CLASS="Code">
+:created-new-key</CODE>
+ or <CODE CLASS="Code">
+:opened-existing-key</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956287"></A><EM CLASS="Variable">
+error-code</EM>
+</P>
+<P CLASS="RDescription-C">An integer error code or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956288"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-956289"></A>The function <CODE CLASS="Code">
+create-registry-key</CODE>
+ creates a new registry key named <EM CLASS="Variable">
+subkey</EM>
+ under the parent key <EM CLASS="Variable">
+root</EM>
+.  If the key already exists, it is opened and returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-956290"></A><EM CLASS="Variable">
+subkey</EM>
+ is a string specifying a path from a root. Each component of the path is separated by a backslash.  Use <CODE CLASS="Code">
+&quot;&quot;</CODE>
+ to denote the null path (that is, the root).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-956291"></A><EM CLASS="Variable">
+class</EM>
+ can be used to specify the class of the key if it is created.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-956292"></A><EM CLASS="Variable">
+root</EM>
+ should be a handle to an open registry key (for example a key returned by <CODE CLASS="Code">
+create-registry-key</CODE>
+ or <A HREF="lw-1478.htm#24780" CLASS="XRef">open-registry-key</A> or one of the keywords <CODE CLASS="Code">
+:classes</CODE>
+, <CODE CLASS="Code">
+:user</CODE>
+, <CODE CLASS="Code">
+:local-machine</CODE>
+ and <CODE CLASS="Code">
+:users</CODE>
+ which represent the standard top level roots in the registry. The default value of <EM CLASS="Variable">
+root</EM>
+ is <CODE CLASS="Code">
+:user</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-956293"></A>If <EM CLASS="Variable">
+access</EM>
+ is <CODE CLASS="Code">
+:read</CODE>
+, then the key is created with <CODE CLASS="Code">
+KEY_READ</CODE>
+ permissions.  If <EM CLASS="Variable">
+access</EM>
+ is <CODE CLASS="Code">
+:write</CODE>
+, then the key is created with <CODE CLASS="Code">
+KEY_WRITE</CODE>
+ permissions.  If <EM CLASS="Variable">
+access</EM>
+ is an integer, then the value <EM CLASS="Variable">
+access</EM>
+ specifies the desired Win32 access rights. The default value of <EM CLASS="Variable">
+access</EM>
+ is <CODE CLASS="Code">
+:read</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-956294"></A>The return values on success are the handle of the new key and a keyword <CODE CLASS="Code">
+:created-new-key</CODE>
+ or <CODE CLASS="Code">
+:opened-existing-key</CODE>
+ indicating whether a new key was created or opened.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-956295"></A>If an error occurs and <EM CLASS="Variable">
+errorp</EM>
+ is true then an error is signalled.  Otherwise, the return values are <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+nil</CODE>
+ and the Windows <EM CLASS="Variable">
+error-code</EM>
+. The default value of <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956263"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-959176"></A><A HREF="lw-1476.htm#30969" CLASS="XRef">delete-registry-key</A><BR>
+<A HREF="lw-1478.htm#24780" CLASS="XRef">open-registry-key</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1476.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1474.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :one-of
+</TITLE>
+
+<LINK REL="next" HREF="fli-182.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-180.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-156.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-156.htm">6 Type Reference</A><BR><BR>
+</DIV><A HREF="fli-182.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-180.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-890000"></A>:one-of<A NAME="marker-917485"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-890001"></A>FLI type descriptor</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890002"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890003"></A>Converts between Lisp and C types of the same underlying type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890006"></A>Syntax</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-890007"></A>:one-of &amp;rest <EM CLASS="Variable">
+types</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890008"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890009"></A>types</P>
+<P CLASS="RDescription-C">A list of types sharing the same underlying type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890010"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890011"></A>The FLI <CODE CLASS="Code">
+:one-of</CODE>
+ type is used to allocate an object which can be one of a number of types. The types must have the same underlying structure, which means they must have the same size and must be referenced in the same manner. The FLI <CODE CLASS="Code">
+:one-of</CODE>
+ type is useful when a foreign function returns a value whose underlying type is known, but whose exact type is not.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-909274"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890013"></A>In the following example, a <CODE CLASS="Code">
+:one-of</CODE>
+ type is allocated.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-909329"></A>(setq thing (fli:allocate-foreign-object</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-909378"></A>             :type '(:one-of :ptr :int :unsigned)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-909487"></A>If <CODE CLASS="Code">
+thing</CODE>
+ is set to be 100 using <CODE CLASS="Code">
+dereference</CODE>
+, it is taken to be an object of type <CODE CLASS="Code">
+:int</CODE>
+, as this is the first element in the sequence of types defined by <CODE CLASS="Code">
+:one-of</CODE>
+ which matches the type of the number 100.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-909504"></A>(setf (fli:dereference thing) 100)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-909512"></A>However, if <CODE CLASS="Code">
+thing</CODE>
+ is now dereferenced, it is returned as a pointer to the address 100 (Or hex address 64), as there is no method for determining the type of <CODE CLASS="Code">
+thing</CODE>
+, and therefore the first element in the list of <CODE CLASS="Code">
+:one-of</CODE>
+ is used.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-909720"></A>(fli:dereference thing)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890014"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890015"></A><A HREF="fli-195.htm#36875" CLASS="XRef">:union</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-182.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-180.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

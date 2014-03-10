@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ attach-ssl
+</TITLE>
+
+<LINK REL="next" HREF="lw-581.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-579.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-579.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-579.htm">26 The COMM Package</A><BR><BR>
+</DIV><A HREF="lw-581.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-910919"></A><A NAME="92293"></A>attach<A NAME="marker-913322"></A>-ssl</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-911233"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911182"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-911246"></A>Attaches SSL to a socket stream.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1004248"></A>Package</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1004249"></A><CODE CLASS="Code">
+comm</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911252"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-911328"></A>attach-ssl <EM CLASS="Variable">
+socket-stream</EM>
+ &amp;key <EM CLASS="Variable">
+ssl-ctx</EM>
+ <EM CLASS="Variable">
+ssl-side</EM>
+ <EM CLASS="Variable">
+ctx-configure-callback</EM>
+ <EM CLASS="Variable">
+ssl-configure-callback</EM>
+ =&gt; <EM CLASS="Variable">
+ssl</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-910923"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-911832"></A><EM CLASS="Variable">
+socket-stream</EM>
+</P>
+<P CLASS="RDescription-C">A <A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912016"></A><EM CLASS="Variable">
+ssl-ctx</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or a foreign pointer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-918789"></A><EM CLASS="Variable">
+ssl-side</EM>
+</P>
+<P CLASS="RDescription-C">One of the keywords <CODE CLASS="Code">
+:client</CODE>
+, <CODE CLASS="Code">
+:server</CODE>
+ or <CODE CLASS="Code">
+:both</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912025"></A><EM CLASS="Variable">
+ctx-configure-callback</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-912063"></A>A function designator or <CODE CLASS="Code">
+nil</CODE>
+. The default value is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912075"></A><EM CLASS="Variable">
+ssl-configure-callback</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-912158"></A>A function designator or <CODE CLASS="Code">
+nil</CODE>
+. The default value is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911533"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912139"></A><EM CLASS="Variable">
+ssl</EM>
+</P>
+<P CLASS="RDescription-C">A foreign pointer of type <A HREF="lw-622.htm#94102" CLASS="XRef">ssl-pointer</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911554"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-911555"></A>The function <CODE CLASS="Code">
+attach-ssl</CODE>
+ attaches SSL to the socket-stream socket-stream. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-910924"></A>The allowed values and meaning of the keyword arguments are as described for <A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-910926"></A>Note that <CODE CLASS="Code">
+attach-ssl</CODE>
+ is used by<BR>
+<CODE CLASS="Code">
+(make-instance 'comm:socket-stream :ssl-ctx ...)</CODE>
+ <BR>
+and by<BR>
+<CODE CLASS="Code">
+(comm:open-tcp-stream ... :ssl-ctx ...)</CODE>
+ <BR>
+but you can also call it explicitly.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-910928"></A>Before starting to create objects, <CODE CLASS="Code">
+attach-ssl</CODE>
+ ensures the SSL library (by calling <A HREF="lw-586.htm#66655" CLASS="XRef">ensure-ssl</A>) and calls <A HREF="lw-585.htm#51239" CLASS="XRef">do-rand-seed</A> to seed the Pseudo Random Number Generator (PRNG), so normally you do not need to worry about these. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-911781"></A>If <EM CLASS="Variable">
+ssl-ctx</EM>
+ is a symbol, it creates the <CODE CLASS="Code">
+SSL_CTX</CODE>
+ and calls <EM CLASS="Variable">
+ctx-configure-callback</EM>
+ if this is non-nil. If <EM CLASS="Variable">
+ssl-ctx</EM>
+ is not a <A HREF="lw-622.htm#94102" CLASS="XRef">ssl-pointer</A>, it creates the <CODE CLASS="Code">
+SSL</CODE>
+ object, calls <EM CLASS="Variable">
+ssl-configure-callback</EM>
+ if this is non-nil, and sets the ACCEPT/CONNECT state if the value of <EM CLASS="Variable">
+ssl-side</EM>
+ is not <CODE CLASS="Code">
+:both</CODE>
+. Then it uses <CODE CLASS="Code">
+SSL_set_fd</CODE>
+ to attach the <CODE CLASS="Code">
+SSL</CODE>
+ to the socket, and records this in the socket stream. It returns the <CODE CLASS="Code">
+SSL</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-911813"></A>The default value of <EM CLASS="Variable">
+ssl-ctx</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ and the default value of <EM CLASS="Variable">
+ssl-side</EM>
+ is <CODE CLASS="Code">
+:server</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-910931"></A>When a <A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A> is closed, <A HREF="lw-584.htm#57587" CLASS="XRef">detach-ssl</A> is called with <CODE CLASS="Code">
+:retry-count nil</CODE>
+, which, if the stream is attached to SSL, calls <CODE CLASS="Code">
+SSL_shutdown</CODE>
+ and then frees the object (or objects) that were automatically allocated.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-910932"></A>If SSL is already attached to <EM CLASS="Variable">
+socket-stream</EM>
+ then <CODE CLASS="Code">
+attach-ssl</CODE>
+ signals an error.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-910896"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-912002"></A><A HREF="lw-584.htm#57587" CLASS="XRef">detach-ssl</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-581.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

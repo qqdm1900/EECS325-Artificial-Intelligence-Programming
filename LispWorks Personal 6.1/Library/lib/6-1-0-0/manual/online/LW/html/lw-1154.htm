@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ write-serial-port-string
+</TITLE>
+
+<LINK REL="next" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1153.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1143.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1143.htm">37 The SERIAL-PORT Package</A><BR><BR>
+</DIV><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1153.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1143.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-956105"></A>write<A NAME="marker-959466"></A>-serial-port-string</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-956106"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956107"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-956108"></A>Writes a string to a serial port.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956109"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-956110"></A>serial-port</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956111"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-956112"></A>write-serial-port-string <EM CLASS="Variable">
+string</EM>
+ <EM CLASS="Variable">
+serial-port</EM>
+ &amp;optional <EM CLASS="Variable">
+timeout-error-p</EM>
+ &amp;key <EM CLASS="Variable">
+start</EM>
+ <EM CLASS="Variable">
+end</EM>
+ =&gt; <EM CLASS="Variable">
+nwritten</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956113"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956114"></A><EM CLASS="Variable">
+string</P>
+<P CLASS="RDescription-C"></EM>
+A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956118"></A><EM CLASS="Variable">
+serial-port</EM>
+</P>
+<P CLASS="RDescription-C">A <A HREF="lw-1147.htm#52843" CLASS="XRef">serial-port</A> object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956119"></A><EM CLASS="Variable">
+timeout-error-p</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956120"></A><EM CLASS="Variable">
+start, end</EM>
+</P>
+<P CLASS="RDescription-C">Bounding index designators for <EM CLASS="Variable">
+string</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956121"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-956122"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The string <EM CLASS="Variable">
+string</EM>
+ or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956123"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-956124"></A>The function <CODE CLASS="Code">
+write-serial-port-string</CODE>
+ writes characters from the subsequence of <EM CLASS="Variable">
+string</EM>
+ bounded by <EM CLASS="Variable">
+start</EM>
+ and <EM CLASS="Variable">
+end </EM>
+to the serial port associated with <EM CLASS="Variable">
+serial-port</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-956125"></A>The default values of <EM CLASS="Variable">
+start</EM>
+ and <EM CLASS="Variable">
+end</EM>
+ are 0 and <CODE CLASS="Code">
+nil</CODE>
+ (interpreted as the length of <EM CLASS="Variable">
+string</EM>
+) respectively.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-956126"></A>If the characters are successfully written then <EM CLASS="Variable">
+string</EM>
+ is returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-956246"></A>A timeout will occur if the characters cannot be written before the write timeout (as specified by values given when the serial port was opened by <A HREF="lw-1144.htm#56895" CLASS="XRef">open-serial-port</A>).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-956276"></A>When a timeout occurs, if <EM CLASS="Variable">
+timeout-error-p</EM>
+ is non-nil, then an error of type <CODE CLASS="Code">
+serial-port-timeout</CODE>
+ is signalled, otherwise <CODE CLASS="Code">
+nil</CODE>
+ is returned. The default value of <EM CLASS="Variable">
+timeout-error-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-956128"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-956132"></A><A HREF="lw-1153.htm#12762" CLASS="XRef">write-serial-port-char</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1153.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1143.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

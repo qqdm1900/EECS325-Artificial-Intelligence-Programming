@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.2  Application Manifests
+</TITLE>
+
+<LINK REL="next" HREF="delivery-191.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-189.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-188.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-188.htm">7 Delivery on Microsoft Windows</A><BR><BR>
+</DIV><A HREF="delivery-191.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-189.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-188.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-861764"></A>7.2  <A NAME="98434"></A>Application Manifests</H3>
+<P CLASS="Body">
+<A NAME="pgfId-861765"></A>LispWorks for Windows is supplied with an embedded application manifest. This default manifest tells the Operating System:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-861766"></A>which <CODE CLASS="Code">
+msvcr80.dll</CODE>
+ to use, and</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-861767"></A>to use Common Controls 6</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-861768"></A>You can change the manifest in your delivered image by passing the keyword argument <A HREF="delivery-137.htm#41218" CLASS="XRef">:manifest-file</A> to <CODE CLASS="Code">
+deliver</CODE>
+. The value must be the name of a file that is a legal application manifest, which is is used as the manifest. The manifest must contain at least the &quot;dependency&quot; element for <CODE CLASS="Code">
+Microsoft.VC80.CRT</CODE>
+ (without it, your application will fail to start with error messages &quot;Failed to find msvcr80.dll&quot; or &quot;The application configuration is incorrect&quot;). If the manifest does not contain the &quot;dependency&quot; element for <CODE CLASS="Code">
+Microsoft.Windows.common-controls</CODE>
+ your application will use Common Controls 5, and therefore will not be a &quot;Themed&quot; application.</P>
+<P CLASS="Body">
+<A NAME="pgfId-861769"></A>The value of <A HREF="delivery-137.htm#41218" CLASS="XRef">:manifest-file</A> can also be the special value <CODE CLASS="Code">
+:no-common-controls-6</CODE>
+, in which case a default manifest without the element for Common Controls is used.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865233"></A>The default manifests that LispWorks uses are provided by way of documentation in the <CODE CLASS="Code">
+lib/6-1-0-0/config</CODE>
+ directory. If desired, you can base your application manifests as supplied via <A HREF="delivery-137.htm#41218" CLASS="XRef">:manifest-file</A> on these files:</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-865261"></A>The default manifests used by LispWorks<DIV>
+<IMG SRC="delivery-9.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-865243"></A>&nbsp;</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-865245"></A>32-bit LispWorks</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-865247"></A>64-bit LispWorks</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-865249"></A>With Common Controls 6</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-865251"></A><CODE CLASS="Code">
+winlisp32.manifest</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-865253"></A><CODE CLASS="Code">
+winlisp64.manifest</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-865255"></A>Without Common Controls 6</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-865257"></A><CODE CLASS="Code">
+lisp32.manifest</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-865259"></A><CODE CLASS="Code">
+lisp64.manifest</CODE>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-865266"></A><B CLASS="Bold">
+Note:</B>
+ the above only applies when LispWorks is an executable. If LispWorks is a DLL, then it will be themed if the executable that loads it contains the Common Controls 6 manifest</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-191.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-189.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-188.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

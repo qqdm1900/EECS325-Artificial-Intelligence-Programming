@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.4.5  Example debugging session
+</TITLE>
+
+<LINK REL="next" HREF="lw-32.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-30.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-26.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-22.htm">3 The Debugger</A> &gt; <A HREF="lw-26.htm">3.4  REPL debugger commands</A><BR><BR>
+</DIV><A HREF="lw-32.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-30.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-26.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886198"></A>3.4.5  <A NAME="88945"></A>Example debugging session</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886199"></A>This section presents a short interactive debugging session. It starts by defining a routine to calculate Fibonacci Numbers, and then erroneously calls it with a string.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-886965"></A>First, define the <CODE CLASS="Code">
+fibonacci</CODE>
+ function shown below in a listener.</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-887011"></A>(defun fibonacci (m)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887014"></A>  (let ((fib-n-1 1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887015"></A>        (fib-n-2 1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887016"></A>        (index 2))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887017"></A>    (loop</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887018"></A>     (if (= index m) (return fib-n-1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887019"></A>     (incf index)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887533"></A>     (psetq fib-n-1 (+ fib-n-1 fib-n-2)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887020"></A>                 fib-n-2 fib-n-1))))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-887024"></A>Next, call the function as follows.</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886211"></A>(fibonacci &quot;turtle&quot;)</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-886221"></A>The system generates an error, since <CODE CLASS="Code">
+=</CODE>
+ expects its arguments to be numbers, and displays several continuation options, so that you can try to find out how the problem arose. </P>
+<LI CLASS="Step">
+<A NAME="pgfId-887029"></A>Type <CODE CLASS="Code">
+:bq</CODE>
+ at the debugger prompt to perform a quick backtrace. Notice that the problem is in the call to <CODE CLASS="Code">
+fibonacci</CODE>
+. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-887034"></A>Note that the calls to <CODE CLASS="Code">
+*%apply-interpreted-function</CODE>
+ in the backtrace occur because <CODE CLASS="Code">
+fibonacci</CODE>
+ is being interpreted.</P>
+<P CLASS="Step-C">
+<A NAME="pgfId-886964"></A>You should have passed the length of the string as an argument to <CODE CLASS="Code">
+fibonacci</CODE>
+, rather than the string itself.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-887039"></A>Do this now, by typing the following form at the debugger prompt.</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886233"></A>(legnth &quot;turtle&quot;)</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-886957"></A>You intended to call <CODE CLASS="Code">
+fibonacci</CODE>
+ with the length of the string, but typed in <CODE CLASS="Code">
+length</CODE>
+ incorrectly. This takes you into the second level of the debugger. Note that the continuation options from your entry into the top level of the debugger are still displayed, and are listed after the new options. You can select any of these options.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-886251"></A>Type <CODE CLASS="Code">
+:a</CODE>
+ to return to the top level of the debugger.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-887048"></A>Type <CODE CLASS="Code">
+:v</CODE>
+ to display variable information about the current stack frame in the debugger. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-887049"></A>The following output is displayed:</P>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-886255"></A>M : &quot;turtle&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886256"></A>INDEX : 2</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886257"></A>FIB-N-2 : 1</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886258"></A>FIB-N-1 : 1</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-887054"></A>You need to set the value of the variable <CODE CLASS="Code">
+m</CODE>
+ to be the length of the string &quot;turtle&quot;, rather than the string itself.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-887055"></A>Type in the form below.</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886260"></A>(setq m (length &quot;turtle&quot;))</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-886264"></A>In order to get the original computation to resume using the new value of <CODE CLASS="Code">
+m</CODE>
+, you still need to handle the original error. </P>
+<LI CLASS="Step">
+<A NAME="pgfId-887068"></A>Type <CODE CLASS="Code">
+:error</CODE>
+ to remind yourself of the original error condition you need to handle.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-887069"></A>You can handle this error by returning <CODE CLASS="Code">
+nil</CODE>
+ from the call to <CODE CLASS="Code">
+=</CODE>
+, which is the result that would have been obtained if <CODE CLASS="Code">
+m</CODE>
+ had been correctly set. </P>
+<LI CLASS="Step">
+<A NAME="pgfId-887075"></A>Type <CODE CLASS="Code">
+:c</CODE>
+ to invoke the continue restart, which in this case requires you to return a value to use.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-887078"></A>When prompted for a form to be evaluated, type <CODE CLASS="Code">
+nil</CODE>
+.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-887074"></A>This causes execution to continue as desired, and you can obtain the final result with no further problems.</P>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-32.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-30.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-26.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ safe-locale-file-encoding
+</TITLE>
+
+<LINK REL="next" HREF="lw-1422.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1420.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1422.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1420.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1293373"></A><A NAME="83213"></A>safe<A NAME="marker-1294189"></A>-locale-file-encoding</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1293374"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1293375"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1293376"></A>Provides a safe encoding which corresponds to the current code page on Microsoft Windows, and the locale on Unix.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1293377"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1293378"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1293379"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1293380"></A>safe-locale-file-encoding <EM CLASS="Variable">
+pathname</EM>
+ <EM CLASS="Variable">
+ef-spec</EM>
+ <EM CLASS="Variable">
+buffer</EM>
+ <EM CLASS="Variable">
+length</EM>
+ =&gt; <EM CLASS="Variable">
+new-ef-spec</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1293388"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1293389"></A>The function <CODE CLASS="Code">
+safe-locale-file-encoding</CODE>
+ is similar to  <A HREF="lw-1400.htm#locale-file-encoding" CLASS="XRef">locale-file-encoding</A> except that it always returns a safe external format. That is, the external format does not signal error on writing characters not in the encoding.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1297825"></A>On Microsoft Windows, <CODE CLASS="Code">
+safe-locale-file-encoding</CODE>
+ consults the ANSI code page. If the code page identifier <EM CLASS="Variable">
+id</EM>
+ is in <CODE CLASS="Code">
+win32:*latin-1-code-pages*</CODE>
+, it merges <EM CLASS="Variable">
+ef-spec</EM>
+ with <CODE CLASS="Code">
+:latin-1-safe</CODE>
+. This external format writes Latin-1 on output, using 63 (ASCII '?') to replace any non-Latin-1 characters that are written. If the code page identifier <EM CLASS="Variable">
+id</EM>
+ is not in <CODE CLASS="Code">
+win32:*latin-1-code-pages*</CODE>
+ then <CODE CLASS="Code">
+safe-locale-file-encoding</CODE>
+ merges <EM CLASS="Variable">
+ef-spec</EM>
+ with an encoding corresponding to the current code page that uses the code page's replacement code for characters that cannot be encoded.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1293390"></A><CODE CLASS="Code">
+safe-locale-file-encoding</CODE>
+ merges <EM CLASS="Variable">
+ef-spec</EM>
+ with <CODE CLASS="Code">
+:latin-1-safe</CODE>
+ on Unix.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1293391"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1293395"></A><A HREF="lw-1363.htm#53291" CLASS="XRef">*file-encoding-detection-algorithm*</A><BR>
+<A HREF="lw-1457.htm#37673" CLASS="XRef">*latin-1-code-pages*</A><BR>
+<A HREF="lw-1400.htm#locale-file-encoding" CLASS="XRef">locale-file-encoding</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1422.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1420.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ compile-file-if-needed
+</TITLE>
+
+<LINK REL="next" HREF="lw-767.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-765.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-767.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-765.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1133995"></A><A NAME="17916"></A>compile<A NAME="marker-1133994"></A>-file-if-needed</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1133996"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1133997"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1133998"></A>Compiles a Lisp source file if it is newer than the corresponding fasl file.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1133999"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1134000"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1134001"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1134002"></A>compile-file-if-needed <EM CLASS="Variable">
+input-pathname</EM>
+ &amp;key <EM CLASS="Variable">
+output-file</EM>
+ <EM CLASS="Variable">
+load</EM>
+ &amp;allow-other-keys =&gt; <EM CLASS="Variable">
+output-truename</EM>
+, <EM CLASS="Variable">
+warnings-p</EM>
+, <EM CLASS="Variable">
+failure-p</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1134003"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1134004"></A><EM CLASS="Variable">
+input-pathname</P>
+<P CLASS="RDescription-C"></EM>
+A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1134005"></A><EM CLASS="Variable">
+output-file</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1134009"></A><EM CLASS="Variable">
+load</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1134010"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1134011"></A><EM CLASS="Variable">
+output-truename</EM>
+</P>
+<P CLASS="RDescription-C">A pathname or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1134012"></A><EM CLASS="Variable">
+warnings-p</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1134013"></A><EM CLASS="Variable">
+failure-p</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1134014"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1145948"></A>The function <CODE CLASS="Code">
+compile-file-if-needed</CODE>
+ compares the <CODE CLASS="Code">
+file-write-date</CODE>
+ of the source file named by <EM CLASS="Variable">
+input-pathname</EM>
+ with the <CODE CLASS="Code">
+file-write-date</CODE>
+ of the appropriate fasl file (as computed by <CODE CLASS="Code">
+compile-file-pathname</CODE>
+ from <EM CLASS="Variable">
+input-pathname</EM>
+ and <EM CLASS="Variable">
+output-file</EM>
+).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1147466"></A>If the fasl file does not exist or is older than <EM CLASS="Variable">
+input-pathname</EM>
+, then <CODE CLASS="Code">
+compile-file</CODE>
+ is called with <EM CLASS="Variable">
+input-pathname</EM>
+, <EM CLASS="Variable">
+output-file</EM>
+, <EM CLASS="Variable">
+load</EM>
+ and any other arguments passed., and the values returned are those returned from <CODE CLASS="Code">
+compile-file</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1147467"></A>Otherwise, if <EM CLASS="Variable">
+load</EM>
+ is true <CODE CLASS="Code">
+compile-file-if-needed</CODE>
+ loads the fasl file and returns <CODE CLASS="Code">
+nil</CODE>
+, and if <EM CLASS="Variable">
+load</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ it simply returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1134033"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1156072"></A>CL-USER 19 &gt; (compile-file-if-needed &quot;H:/tmp/foo.lisp&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156073"></A>                                     :output-file</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156074"></A>                                     &quot;C:/temp/&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156075"></A>;;; Compiling file H:/tmp/foo.lisp ...</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156076"></A>;;; Safety = 3, Speed = 1, Space = 1, Float = 1, Interruptible = 0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156077"></A>;;; Compilation speed = 1, Debug = 2, Fixnum safety = 3</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156078"></A>;;; Source level debugging is off </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156079"></A>;;; Source file recording is  on </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156080"></A>;;; Cross referencing is off</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156081"></A>; (TOP-LEVEL-FORM 1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156082"></A>; (TOP-LEVEL-FORM 2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156084"></A>; (TOP-LEVEL-FORM 3)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156085"></A>; FOO</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156086"></A>; BAR</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156087"></A>#P&quot;C:/temp/foo.ofasl&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156088"></A>NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156089"></A>NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156090"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156091"></A>CL-USER 20 &gt; (compile-file-if-needed &quot;H:/tmp/foo.lisp&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156092"></A>                                     :output-file</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156093"></A>                                     &quot;C:/temp/&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156094"></A>                                     :load t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1156095"></A>; Loading fasl file C:&#92;temp&#92;foo.ofasl</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1149787"></A>NIL</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1134111"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1133938"></A><A HREF="lw-635.htm#53982" CLASS="XRef">compile-file</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-767.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-765.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

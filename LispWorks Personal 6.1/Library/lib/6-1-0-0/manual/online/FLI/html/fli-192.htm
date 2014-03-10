@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :struct
+</TITLE>
+
+<LINK REL="next" HREF="fli-193.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-191.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-156.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-156.htm">6 Type Reference</A><BR><BR>
+</DIV><A HREF="fli-193.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-191.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-888991"></A><A NAME="46166"></A>:struct<A NAME="marker-917493"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888992"></A>FLI type descriptor</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888993"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888994"></A>Converts between a FLI structure and a C <CODE CLASS="Code">
+struct</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888997"></A>Syntax</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888998"></A>:struct &amp;rest <EM CLASS="Variable">
+slots</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-892460"></A><EM CLASS="Variable">
+slots</EM>
+ ::= {<EM CLASS="Variable">
+symbol</EM>
+ | (<EM CLASS="Variable">
+symbol</EM>
+ <EM CLASS="Variable">
+slot-type</EM>
+)}*</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-940985"></A><EM CLASS="Variable">
+slot-type</EM>
+ ::= <EM CLASS="Variable">
+type</EM>
+ | (:bit-field <EM CLASS="Variable">
+integer-type</EM>
+ <EM CLASS="Variable">
+size</EM>
+)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888999"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889000"></A><EM CLASS="Variable">
+slots</EM>
+</P>
+<P CLASS="RDescription-C">A sequence of one or more slots making up the structure.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892464"></A><EM CLASS="Variable">
+symbol</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the slot.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892465"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">The slot type. If no type is given it defaults to an <CODE CLASS="Code">
+:int</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-941001"></A><EM CLASS="Variable">
+integer-type</EM>
+</P>
+<P CLASS="RDescription-C">An integer type. Only <CODE CLASS="Code">
+:int</CODE>
+, <CODE CLASS="Code">
+(:unsigned :int)</CODE>
+ and <CODE CLASS="Code">
+(:signed :int)</CODE>
+ are guaranteed to work on all platforms.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-941048"></A><EM CLASS="Variable">
+size</EM>
+</P>
+<P CLASS="RDescription-C">An integer specifying a number of bits for the field.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889001"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889002"></A>The FLI <CODE CLASS="Code">
+:struct</CODE>
+ type is an aggregate type, and converts between a FLI structure and a C <CODE CLASS="Code">
+struct</CODE>
+ type. The FLI structure consists of a collection of one or more slots. Each slot has a name and a type. A structure can also contain bit fields, which are integers with a specified number of bits.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-893207"></A>The <A HREF="fli-109.htm#20235" CLASS="XRef">foreign-slot-names</A>, <A HREF="fli-112.htm#33624" CLASS="XRef">foreign-slot-type</A>, and <A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A> functions can be used to access and change the slots of the structure. The convenience FLI function <A HREF="fli-85.htm#26956" CLASS="XRef">define-c-struct</A> is provided to simplify the definition of structures.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889003"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889004"></A>In the following example a structure for passing coordinates to Windows functions is defined.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-892695"></A>(fli:define-c-struct tagPOINT (x :long) (y :long))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-892714"></A>An instance of the structure is allocated and bound to the Lisp variable <CODE CLASS="Code">
+place</CODE>
+.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-892735"></A>(setq place </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-892796"></A>      (fli:allocate-foreign-object :type 'tagPOINT))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-889005"></A>Finally, the <CODE CLASS="Code">
+x</CODE>
+ slot of <CODE CLASS="Code">
+place</CODE>
+ is set to be <CODE CLASS="Code">
+4</CODE>
+ using <CODE CLASS="Code">
+fli:foreign-slot-value</CODE>
+.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-892834"></A>(seft (fli:foreign-slot-value place 'x) 4)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892821"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889006"></A><A HREF="fli-85.htm#26956" CLASS="XRef">define-c-struct</A><BR>
+<A HREF="fli-109.htm#20235" CLASS="XRef">foreign-slot-names</A><BR>
+<A HREF="fli-110.htm#30205" CLASS="XRef">foreign-slot-offset</A><BR>
+<A HREF="fli-111.htm#29211" CLASS="XRef">foreign-slot-pointer</A><BR>
+<A HREF="fli-112.htm#33624" CLASS="XRef">foreign-slot-type</A><BR>
+<A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A><BR>
+<A HREF="fli-26.htm#96265" CLASS="XRef">Structures and unions</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-193.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-191.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

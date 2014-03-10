@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ timer-name
+</TITLE>
+
+<LINK REL="next" HREF="lw-1131.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1129.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1131.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1129.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-924738"></A><A NAME="11110"></A>timer<A NAME="marker-1056904"></A>-name</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-924739"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924740"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-924741"></A>Returns the name of a specified timer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1802279"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1802280"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924742"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-924743"></A>timer-name <EM CLASS="Variable">
+timer</EM>
+ =&gt; <EM CLASS="Variable">
+name</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1057277"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1057278"></A>(setf timer-name) <EM CLASS="Variable">
+name timer</EM>
+ =&gt; <EM CLASS="Variable">
+name</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924746"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-924747"></A><EM CLASS="Variable">
+timer</EM>
+</P>
+<P CLASS="RDescription-C">A timer</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924748"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-924749"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A string</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924750"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-924751"></A>The function <CODE CLASS="Code">
+timer-name</CODE>
+ returns the name of the specified <EM CLASS="Variable">
+timer</EM>
+. The <EM CLASS="Variable">
+timer</EM>
+ argument is a timer returned by <A HREF="lw-1061.htm#14810" CLASS="XRef">make-timer</A> or <A HREF="lw-1059.htm#22839" CLASS="XRef">make-named-timer</A>. If the timer has no name, <CODE CLASS="Code">
+timer-name</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-924758"></A>The name of a timer created by either <CODE CLASS="Code">
+make-timer</CODE>
+ or <CODE CLASS="Code">
+make-named-timer</CODE>
+ can be set by means of the following syntax:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924759"></A>(setf (mp:timer-name timer) name)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924760"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-924761"></A>(setq timer</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-924762"></A>      (mp:make-timer 'print 10 *standard-output*))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924763"></A>#&lt;Time Event : PRINT&gt;</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924764"></A>(mp:timer-name timer)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924765"></A>NIL</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924766"></A>(setf (mp:timer-name timer) 'timer-1)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924767"></A>TIMER-1</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924768"></A>(mp:timer-name timer)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924769"></A>TIMER-1</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924770"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-924782"></A><A HREF="lw-1059.htm#22839" CLASS="XRef">make-named-timer</A><BR>
+<A HREF="lw-1061.htm#14810" CLASS="XRef">make-timer</A><BR>
+<A HREF="lw-1118.htm#10391" CLASS="XRef">schedule-timer</A><BR>
+<A HREF="lw-1119.htm#11284" CLASS="XRef">schedule-timer-milliseconds</A><BR>
+<A HREF="lw-1120.htm#16690" CLASS="XRef">schedule-timer-relative</A><BR>
+<A HREF="lw-1129.htm#18761" CLASS="XRef">timer-expired-p</A><BR>
+<A HREF="lw-1132.htm#28452" CLASS="XRef">unschedule-timer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1131.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1129.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

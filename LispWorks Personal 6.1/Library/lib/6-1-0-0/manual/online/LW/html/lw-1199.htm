@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ loop
+</TITLE>
+
+<LINK REL="next" HREF="lw-1200.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1198.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1200.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1198.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-889062"></A><A NAME="16896"></A>loop<A NAME="marker-1047510"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-889063"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889064"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889065"></A>Extends <CODE CLASS="Code">
+loop</CODE>
+ to provide a clause for iterating over query results.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889066"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889067"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889068"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889069"></A>loop {for|as} <EM CLASS="Variable">
+var</EM>
+ [<EM CLASS="Variable">
+type-spec</EM>
+] being {the|each} {records|record} {in|of} <EM CLASS="Variable">
+query-expression</EM>
+ [not-inside-transaction <EM CLASS="Variable">
+not-inside-transaction</EM>
+] [get-all <EM CLASS="Variable">
+get-all</EM>
+] =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889070"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889071"></A><EM CLASS="Variable">
+var</EM>
+</P>
+<P CLASS="RDescription-C">A variable.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889072"></A><EM CLASS="Variable">
+query-expression</EM>
+</P>
+<P CLASS="RDescription-C">A SQL query statement or a prepared-statement containing a query.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1371149"></A><EM CLASS="Variable">
+not-inside-transaction</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1371303"></A>A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1371292"></A><EM CLASS="Variable">
+get-all</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889073"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889074"></A><EM CLASS="Variable">
+result</P>
+<P CLASS="RDescription-C"></EM>
+A <CODE CLASS="Code">
+loop</CODE>
+ return value.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889075"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889076"></A>The Common Lisp <CODE CLASS="Code">
+loop</CODE>
+ macro has been extended with a clause for iterating over query results. This extension is available only when Common SQL has been loaded. For a full description of the rest of the Common Lisp <CODE CLASS="Code">
+loop</CODE>
+ facility, including the possible return values, see the ANSI Common Lisp specification.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-889080"></A>Each iteration of the loop assigns the next record of the table to the variable <EM CLASS="Variable">
+var</EM>
+. The record is represented in Lisp as a list. Destructuring can be used in <EM CLASS="Variable">
+var</EM>
+ to bind variables to specific attributes of the records resulting from <EM CLASS="Variable">
+query-expression</EM>
+. In conjunction with the panoply of existing clauses available from the <CODE CLASS="Code">
+loop</CODE>
+ macro, the new iteration clause provides an integrated report generation facility.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1372145"></A>The additional loop keywords <CODE CLASS="Code">
+not-inside-transaction</CODE>
+ and <CODE CLASS="Code">
+get-all</CODE>
+ may be useful when fetching many records through a connection with <EM CLASS="Variable">
+database-type</EM>
+ <CODE CLASS="Code">
+:mysql</CODE>
+. See the section <A HREF="lw-414.htm#47910" CLASS="XRef">Special considerations for iteration functions and macros</A> for details.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889081"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889082"></A>This extended <CODE CLASS="Code">
+loop</CODE>
+ example performs the following on each record returned as a result of a query: bind <CODE CLASS="Code">
+name</CODE>
+ to the query result, find the salary (if any) from an associated hash-table, increment a count for salaries greater than 20000, accumulate the salary, and print the details. Finally, it prints the average salary.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-889083"></A>(loop</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889084"></A>  for (name) being each record in</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889085"></A>  [select [ename] :from [emp]]</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889086"></A>  as salary = (gethash name *salary-table*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889087"></A>  initially (format t &quot;&#126;&amp;&#126;20A&#126;10D&quot; 'name 'salary)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889088"></A>  when (and salary (&gt; salary 20000))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889089"></A>   count salary into salaries</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889090"></A>   and sum salary into total</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889091"></A>   and do (format t &quot;&#126;&amp;&#126;20A&#126;10D&quot; name salary)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889092"></A>  else</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889093"></A>   do (format t &quot;&#126;&amp;&#126;20A&#126;10A&quot; name &quot;N/A&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889094"></A>  finally</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-889095"></A>   (format t &quot;&#126;2&amp;Av Salary: &#126;10D&quot; (/ total salaries)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889096"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889100"></A><A HREF="lw-1179.htm#26371" CLASS="XRef">do-query</A><BR>
+<A HREF="lw-1200.htm#17430" CLASS="XRef">map-query</A><BR>
+<A HREF="lw-1251.htm#97309" CLASS="XRef">prepare-statement</A><BR>
+<A HREF="lw-1253.htm#39816" CLASS="XRef">query</A><BR>
+<A HREF="lw-1257.htm#30104" CLASS="XRef">select</A><BR>
+<A HREF="lw-1259.htm#54409" CLASS="XRef">simple-do-query</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1200.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1198.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.3.4  Garbage collection strategy 
+</TITLE>
+
+<LINK REL="next" HREF="lw-142.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-140.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-135.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-128.htm">10 Storage Management</A> &gt; <A HREF="lw-135.htm">10.3  Memory Management in 32-bit LispWorks</A><BR><BR>
+</DIV><A HREF="lw-142.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-140.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-135.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886678"></A>10.3.4  Garbage collection strategy </H3>
+<P CLASS="Body">
+<A NAME="pgfId-886680"></A><A NAME="marker-886679"></A>When the GC runs out of memory, it has to find more memory. Normally (that is, when allocating in generation 0) the first operation is a mark and sweep. Before performing the mark and sweep, the GC compares the amount of memory allocated since the previous mark and sweep with the <CODE CLASS="Code">
+:minimum-for-sweep</CODE>
+ value, which is set by <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-886954"></A><A HREF="lw-833.htm#87315" CLASS="XRef">set-gc-parameters</A>. If the amount allocated is less than <CODE CLASS="Code">
+:minimum-for-sweep</CODE>
+<A NAME="marker-886955"></A> the GC does not do a mark and sweep, but causes an overflow (described below). This prevents an excessive number of mark and sweep operations in periods when the program allocates a large amount of data which stays alive.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886684"></A>If more than <CODE CLASS="Code">
+:minimum-for-sweep</CODE>
+ has been allocated, a mark and sweep operation takes place. After this operation the GC checks that the segment it was trying to allocate to has more free space than the minimum free space for this segment. If the remaining free space is less than <CODE CLASS="Code">
+minimum-free-space</CODE>
+, the GC tries to create more free space by promoting objects from the segment.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886685"></A>Before promoting, the GC performs two checks. First, it checks that there are enough objects marked for promotion to justify a promotion operation. The minimum free space for a segment is set by <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-886959"></A><A HREF="lw-835.htm#99498" CLASS="XRef">set-minimum-free-space</A>, and can be shown by <CODE CLASS="Code">
+(room t)</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886689"></A>Second, the GC checks that there is enough free space in the next generation to accommodate the promoted objects. If there is insufficient space, the GC tries to free some, either by a mark and sweep on the next generation, promoting the next generation, or by enlarging the generation.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886690"></A>The minimum amount of space for promotion is the value <CODE CLASS="Code">
+minimum-for-promote</CODE>
+, which is set by <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-886963"></A><A HREF="lw-833.htm#87315" CLASS="XRef">set-gc-parameters</A>. </P>
+<P CLASS="Body">
+<A NAME="pgfId-886692"></A>If there is insufficient space, and there are not enough objects marked for promotion, the GC increases the size of the image, by overflow, as described below.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893143"></A>On Motif only, note that the GC monitor window does not indicate a mark and sweep of generation 0, as this operation takes a small amount of time (it would take longer to change the display of the window). The GC monitor window appears only in the Motif IDE.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-142.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-140.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-135.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

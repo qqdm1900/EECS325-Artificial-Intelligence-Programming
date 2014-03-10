@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-rule-actions
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-168.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-166.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-104.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-104.htm">7 Reference Guide</A><BR><BR>
+</DIV><A HREF="kwprolog-m-168.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-166.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-892825"></A><A NAME="with-rule-actions"></A><A NAME="marker-892824"></A>with-rule-actions</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-892826"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1017984"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1017985"></A>Allows rule syntax to be embedded in Lisp code.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892827"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-892828"></A>with-rule-actions <EM CLASS="Variable">
+bound-variables</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+successp</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-988661"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-988662"></A><EM CLASS="Variable">
+bound-variables</EM>
+</P>
+<P CLASS="RDescription-C">A list of variables (each starting with <CODE CLASS="Code">
+?</CODE>
+)</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-988676"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">A rule body.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-988757"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-988758"></A><EM CLASS="Variable">
+successp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892831"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892832"></A>This macro enables rule syntax to be embedded within Lisp. The <EM CLASS="Variable">
+body</EM>
+ is executed just as if it were the right hand side of a forward or backward chaining rule. All variables in the body (each starting with <CODE CLASS="Code">
+?</CODE>
+) are taken to be unbound unless found in the list <EM CLASS="Variable">
+bound-variables</EM>
+, in which case its value is taken from the Lisp variable of the same name. It is similar to the function <CODE CLASS="Code">
+any</CODE>
+ but can be compiled for efficiency.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-988774"></A>The value <EM CLASS="Variable">
+successp</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ if the body succeeds (that is, all clauses are successfully executed) or <CODE CLASS="Code">
+nil</CODE>
+ if any of the clauses fail.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1022500"></A>Any subgoals that match the object base will only find objects from the current inferencing state.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892835"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-892836"></A>(defun my-fn (?x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892837"></A>  &quot;prints all the lists which append to give ?x and</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892838"></A>   then returns NIL&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892839"></A>  (with-rule-actions (?x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892840"></A>    (append ?a ?b ?x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892841"></A>    ((format t &quot;&#126;%&#126;S and &#126;S append to give &#126;S&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892842"></A>             ?a ?b ?x))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-892843"></A>    (fail)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892844"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892846"></A><A HREF="kwprolog-m-106.htm#39551" CLASS="XRef">any</A></P>
+<P CLASS="Body">
+<A NAME="pgfId-884490"></A>&nbsp;</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-168.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-166.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

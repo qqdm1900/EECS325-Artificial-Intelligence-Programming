@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ reset-profiler
+</TITLE>
+
+<LINK REL="next" HREF="lw-825.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-823.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-825.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-823.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-889819"></A><A NAME="35624"></A>reset<A NAME="marker-1041649"></A>-profiler</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-889820"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889821"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889822"></A>Resets the profiler so that symbols below a given threshold are no longer profiled.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889823"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889824"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889825"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889826"></A>reset-profiler &amp;key <EM CLASS="Variable">
+according-to</EM>
+ =&gt; nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889827"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889828"></A><EM CLASS="Variable">
+according-to</EM>
+</P>
+<P CLASS="RDescription-C">One of two values -- <CODE CLASS="Code">
+:profile</CODE>
+ or <CODE CLASS="Code">
+:top</CODE>
+. This refers to which column of the profiling results <CODE CLASS="Code">
+reset-profiler</CODE>
+ uses to determine which symbols to delete from<CODE CLASS="Code">
+ </CODE>
+<A HREF="lw-818.htm#18560" CLASS="XRef">*profile-symbol-list*</A>. The default is <CODE CLASS="Code">
+:profile</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889829"></A>Values </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889830"></A><CODE CLASS="Code">
+reset-profiler</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889831"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889832"></A>This function updates the list of symbols being profiled according to the results of the previous profiling run. <CODE CLASS="Code">
+reset-profiler</CODE>
+ runs down the list of symbols being profiled and removes any symbols whose appearance in the previous profiling run falls below the value <A HREF="lw-817.htm#46115" CLASS="XRef">*profiler-threshold*</A>. In this way the number of symbols being considered by the profiler can be reduced to just those which are important. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889833"></A>Example </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889834"></A>(reset-profiler :according-to :top)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889835"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889836"></A>Reducing the number of symbols in <CODE CLASS="Code">
+profile-symbol-list</CODE>
+ does not actually speed up the execution of the form being profiled, but does reduce the setting up time of the profiler and the size of the list of results.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889837"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889841"></A><A HREF="lw-816.htm#18999" CLASS="XRef">profile</A><BR>
+<A HREF="lw-817.htm#46115" CLASS="XRef">*profiler-threshold*</A><BR>
+<A HREF="lw-814.htm#46635" CLASS="XRef">print-profile-list</A><BR>
+<A HREF="lw-837.htm#43404" CLASS="XRef">set-profiler-threshold</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-825.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-823.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

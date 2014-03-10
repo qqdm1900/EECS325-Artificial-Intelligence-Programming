@@ -1,0 +1,87 @@
+(defparameter *general-planning-kb*
+  '(
+    (plan-for (v2-state ?robot-loc-1 room1 ?unlocked-lst-1)
+              (v2-state ?robot-loc-2 room1 ?unlocked-lst-2) 
+              nil)
+    (<- (plan-for ?state1 ?goal (cons ?action ?actions))
+        (action-for ?state1 ?state2 ?action)
+        (results ?state1 ?state2 ?action)
+        (plan-for ?state2 ?goal ?actions))
+    ))
+
+(defparameter *room-kb*
+  '( 
+
+    (-> (all-different (cons ?l3 (cons ?l2 ?l1)))
+        (all-different (cons ?l2 ?l1))
+        (all-different (cons ?l3 ?l1))
+        (different ?l3 ?l2))
+    (-> (different ?x ?y) (different ?y ?x))
+
+
+    (all-different (cons room1 (cons room2  (cons room3 (cons hall nil)))))
+   ))
+
+(defparameter *member-kb*
+  '((member ?x (cons ?x ?l1))
+    (<- (member ?x (cons ?l3 (cons ?l1 ?l2))) (member ?x (cons ?l1 ?l2)))))
+
+
+
+(defparameter *shakey-2-kb*
+  '(
+    (results (v2-state ?box-loc-1 ?box-loc-1 ?unlocked-lst)
+             (v2-state ?box-loc-2 ?box-loc-2 ?unlocked-lst)
+             (push-box ?box-loc-1 ?box-loc-2))
+
+    (results (v2-state ?robot-loc-1 ?box-loc ?unlocked-lst)
+             (v2-state ?robot-loc-2 ?box-loc ?unlocked-lst)
+             (move-to ?robot-loc-2))
+
+    (results (v2-state ?robot-loc-1 ?box-loc ?unlocked-lst)
+             (v2-state ?robot-loc-1 ?box-loc (cons ?room ?unlocked-lst))
+             (unlock ?room))
+
+    ;;;Robot moves to the box location
+    (<- (action-for (v2-state ?robot-loc ?box-loc ?unlocked-lst)
+                    (v2-state hall ?box-loc ?unlocked-lst)
+                    (move-to hall))
+        (member ?robot-loc ?unlocked-lst)
+        (different ?robot-loc hall)
+        (different ?robot-loc ?box-loc))
+
+    (<- (action-for (v2-state hall ?box-loc ?unlocked-lst)
+                    (v2-state ?box-loc ?box-loc ?unlocked-lst)
+                    (move-to ?box-loc))
+        (member ?box-loc ?unlocked-lst))
+
+
+    ;;;Robot and box are both at hall and room1 is looked
+    (<- (action-for (v2-state hall hall ?unlocked-lst)
+                    (v2-state hall hall (cons room1 ?unlocked-lst))
+                    (unlock room1))
+        (not (member room1 ?unlocked-lst)))
+
+
+    ;;;Robot tries to go to a locked room
+    (<- (action-for (v2-state hall ?box-loc ?unlocked-lst)
+                    (v2-state hall ?box-loc (cons ?box-loc ?unlocked-lst))
+                    (unlock ?box-loc))
+        (different ?box-loc hall)
+        (not (member ?box-loc ?unlocked-lst)))
+
+
+    ;;;Robot pushes box to room1 from hall
+    (<- (action-for (v2-state hall hall ?unlocked-lst)
+                    (v2-state room1 room1 ?unlocked-lst) 
+                    (push-box hall room1))
+        (member room1 ?unlocked-lst))
+
+    (<- (action-for (v2-state ?box-loc ?box-loc ?unlocked-lst)
+                    (v2-state hall hall ?unlocked-lst)
+                    (push-box ?box-loc hall))
+        (member ?box-loc ?unlocked-lst)  
+        (different ?box-loc hall)
+        (different ?box-loc room1))
+
+))

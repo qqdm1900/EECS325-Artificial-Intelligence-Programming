@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ class-extra-initargs
+</TITLE>
+
+<LINK REL="next" HREF="lw-563.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-561.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-559.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-559.htm">25 The CLOS Package</A><BR><BR>
+</DIV><A HREF="lw-563.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-561.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-559.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-895208"></A><A NAME="74710"></A>class<A NAME="marker-911576"></A>-extra-initargs</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-895209"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895210"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-895211"></A>Extends the valid initialization arguments of a class.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895212"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-895213"></A>clos</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895214"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-895215"></A>class-extra-initargs <EM CLASS="Variable">
+prototype</EM>
+ =&gt; <EM CLASS="Variable">
+initargs</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895216"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-895217"></A><EM CLASS="Variable">
+prototype</EM>
+</P>
+<P CLASS="RDescription-C">A class prototype.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895218"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-895219"></A><EM CLASS="Variable">
+initargs</EM>
+</P>
+<P CLASS="RDescription-C">A list of additional initialization arguments.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895220"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-934311"></A>The generic function <CODE CLASS="Code">
+class-extra-initargs</CODE>
+ lets you extend the set of valid initialization arguments for a class and its subclasses. <EM CLASS="Variable">
+initargs</EM>
+ should be a list of symbols. Each symbol becomes a valid initarg for the class. By default in a non-delivered LispWorks image, <A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A> and other CLOS initializations (see <A HREF="lw-568.htm#61724" CLASS="XRef">set-clos-initarg-checking</A>) check that initargs passed to them are valid.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-933230"></A>The extra initargs are used for <A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A>, <CODE CLASS="Code">
+reinitialize-instance</CODE>
+, <A HREF="lw-679.htm#82914" CLASS="XRef">update-instance-for-redefined-class</A> and <A HREF="lw-678.htm#11114" CLASS="XRef">update-instance-for-different-class</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-910429"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-933431"></A>class-extra-initargs is useful only in complex cases. In most cases other ways of extending the set of valid initargs are simpler and clearer, such as the <CODE CLASS="Code">
+:extra-initargs</CODE>
+<A NAME="marker-926639"></A> class option, described in <A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895224"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-895225"></A>In this session an illegal initarg <CODE CLASS="Code">
+:my-keyword</CODE>
+ is passed, causing <CODE CLASS="Code">
+make-instance</CODE>
+ to signal an error.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-895226"></A>Then <CODE CLASS="Code">
+:my-keyword</CODE>
+ is added as an extra initarg, after which <CODE CLASS="Code">
+make-instance</CODE>
+ accepts it.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-895227"></A>CL-USER 38 &gt; (defclass my-class () ((a :initform nil)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895228"></A>#&lt;STANDARD-CLASS MY-CLASS 113AAA2F&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895229"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895230"></A>CL-USER 39 &gt; (make-instance 'my-class :my-keyword 8)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895231"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895232"></A>Error: MAKE-INSTANCE is called with unknown keyword :MY-KEYWORD among the  arguments (MY-CLASS :MY-KEYWORD 8) {no keywords allowed}</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895233"></A>  1 (continue) Ignore the keyword :MY-KEYWORD</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895234"></A>  2 (abort) Return to level 0.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895235"></A>  3 Return to top loop level 0.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895236"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895237"></A>Type :b for backtrace, :c &lt;option number&gt; to proceed,  or :? for other options</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895238"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895239"></A>CL-USER 40 : 1 &gt; :a</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895240"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895241"></A>CL-USER 41 &gt; (defmethod clos:class-extra-initargs</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895242"></A>	                ((x my-class))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895243"></A>               '(:my-keyword))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895244"></A>#&lt;STANDARD-METHOD CLOS:CLASS-EXTRA-INITARGS (MY-CLASS) 1137C763&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895245"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-895246"></A>CL-USER 42 &gt; (make-instance 'my-class :my-keyword 8)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-895247"></A>#&lt;MY-CLASS 11368963&gt;</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895248"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-895252"></A><A HREF="lw-563.htm#78568" CLASS="XRef">compute-class-potential-initargs</A><BR>
+<A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A><BR>
+<A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A><BR>
+<A HREF="lw-568.htm#61724" CLASS="XRef">set-clos-initarg-checking</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-563.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-561.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-559.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

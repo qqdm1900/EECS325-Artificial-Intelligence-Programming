@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-objc-protocol
+</TITLE>
+
+<LINK REL="next" HREF="objc-44.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-42.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-33.htm">2 Objective-C Reference</A><BR><BR>
+</DIV><A HREF="objc-44.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-42.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1147729"></A><A NAME="13205"></A>define-objc-protocol<A NAME="marker-1147728"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1147730"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1147731"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1147735"></A>Defines an Objective-C formal protocol.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1147736"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1147737"></A>objc</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1147738"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1148105"></A>define-objc-protcol <EM CLASS="Variable">
+name</EM>
+ &amp;key <EM CLASS="Variable">
+incorporated-protocols</EM>
+ <EM CLASS="Variable">
+instance-methods</EM>
+ <EM CLASS="Variable">
+class-methods</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1147740"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1148436"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A string naming the protocol to define.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1148437"></A><EM CLASS="Variable">
+incorporated-protocols</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1148438"></A>A list of protocol names.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1148399"></A><EM CLASS="Variable">
+instance-methods</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1148427"></A>A list of instance method specifications.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1148400"></A><EM CLASS="Variable">
+class-methods</EM>
+</P>
+<P CLASS="RDescription-C">A list of class method specifications.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1148401"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1175797"></A>The macro <CODE CLASS="Code">
+define-objc-protocol</CODE>
+ defines an Objective-C formal protocol named by <EM CLASS="Variable">
+name</EM>
+ for use in the <CODE CLASS="Code">
+:objc-class-protocols </CODE>
+option of <A HREF="objc-40.htm#90461" CLASS="XRef">define-objc-class</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1175801"></A>If <EM CLASS="Variable">
+incorporated-protocols</EM>
+ is specified, it should be a list of already defined formal protocol names. These protocols are registered as being incorporated within <EM CLASS="Variable">
+name</EM>
+. The default is for no protocols to be incorporated.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1148784"></A>If <EM CLASS="Variable">
+instance-methods</EM>
+ or <EM CLASS="Variable">
+class-methods</EM>
+ are specified, they define the instance and class methods respectively in the protocol. Each should give a list of method specifications, which are lists of the form:</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1148854"></A>(<EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+result-type</EM>
+ <EM CLASS="Variable">
+arg-type</EM>
+*)</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1148864"></A>with components:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1148874"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A string naming the method. The <EM CLASS="Variable">
+name</EM>
+ should be a concatenation of the message name and its argument names, including the colons, for example <CODE CLASS="Code">
+&quot;setWidth:height:&quot;</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1148884"></A><EM CLASS="Variable">
+result-type</EM>
+</P>
+<P CLASS="RDescription-C">The Objective-C FLI type that the method returns.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1149097"></A><EM CLASS="Variable">
+arg-type</EM>
+</P>
+<P CLASS="RDescription-C">The Objective-C FLI type of the corresponding argument of the method.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1149136"></A>The receiver and selector arguments should not be specified by the <EM CLASS="Variable">
+arg-type</EM>
+s. All the standard Cocoa Foundation and Application Kit protocols from the Mac OS X 10.4 SDK are predefined by LispWorks.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1201956"></A>Note: It is not possible to define new protocols entirely in Lisp on Mac OS X 10.5, but <CODE CLASS="Code">
+define-objc-protocol</CODE>
+ can be used to declare existing protocols.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1148757"></A>Example</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1147793"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1147797"></A><A HREF="objc-40.htm#90461" CLASS="XRef">define-objc-class</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-44.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-42.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

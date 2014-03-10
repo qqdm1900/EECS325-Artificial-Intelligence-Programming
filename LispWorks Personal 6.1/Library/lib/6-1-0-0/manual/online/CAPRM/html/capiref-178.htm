@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ image-pinboard-object
+</TITLE>
+
+<LINK REL="next" HREF="capiref-179.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-177.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-179.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-177.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-896400"></A><A NAME="29088"></A>image<A NAME="marker-4108989"></A>-pinboard-object</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-896658"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896404"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896406"></A>An image pinboard object is a pinboard object that displays itself as an image. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4108963"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4108964"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1732479"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1732483"></A><A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A><BR>
+<A HREF="capiref-449.htm#12473" CLASS="XRef">titled-object</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2177494"></A>Initargs</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2177495"></A><CODE CLASS="Code">
+:image</CODE>
+<A NAME="marker-2177520"></A></P>
+<P CLASS="RDescription-C">The image to be displayed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3773390"></A>Accessors</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3773392"></A><A NAME="marker-3773391"></A>image-pinboard-object-image</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3773393"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896426"></A>The <EM CLASS="Variable">
+image</EM>
+ initarg for an <CODE CLASS="Code">
+image-pinboard-object</CODE>
+ should either be an <A HREF="capiref-537.htm#53640" CLASS="XRef">external-image</A> or any other object accepted by <A HREF="capiref-592.htm#43526" CLASS="XRef">load-image</A>. The image displayed in the object can be changed dynamically using the writer function </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-896526"></A>(setf image-pinboard-object-image)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1997460"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4338556"></A>(cd (sys:lispworks-dir &quot;examples/capi/&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338557"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338558"></A>(setf image</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338559"></A>      (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338560"></A>       (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338561"></A>        'capi:image-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338562"></A>        :image &quot;applications/images/info.bmp&quot;)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338563"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338564"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338565"></A> (capi:element-parent image)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338566"></A> #'(setf capi:image-pinboard-object-image)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338567"></A> &quot;graphics/Setup.bmp&quot; image)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338568"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338569"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338570"></A> (capi:element-parent image)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338571"></A> #'(setf capi:image-pinboard-object-image)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338572"></A> &quot;applications/images/info.bmp&quot; image)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338573"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338574"></A>(capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338575"></A> (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338576"></A>  'capi:image-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338577"></A>  :image &quot;graphics/Setup.bmp&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338578"></A>  :title &quot;LispWorks Splashscreen&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4338579"></A>  :title-adjust :right</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1997475"></A>  :title-position :bottom))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1997476"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896458"></A><A HREF="capiref-293.htm#24209" CLASS="XRef">pinboard-layout</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-179.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-177.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

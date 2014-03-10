@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ pointer-element-type
+</TITLE>
+
+<LINK REL="next" HREF="fli-134.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-132.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-134.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-132.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-897728"></A><A NAME="31706"></A>pointer-element-type<A NAME="marker-998700"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-897729"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898589"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-931252"></A>Returns the type of the foreign object pointed to by a FLI pointer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-931226"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898590"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897730"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897731"></A>pointer-element-type <EM CLASS="Variable">
+pointer-or-type</EM>
+ =&gt; <EM CLASS="Variable">
+type</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920068"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1412768"></A><EM CLASS="Variable">
+pointer-or-type</EM>
+</P>
+<P CLASS="RDescription-C">A FLI pointer to a foreign object or the name of a FLI pointer type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920070"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920071"></A><EM CLASS="Variable">
+type</P>
+<P CLASS="RDescription-C"></EM>
+The name of a FLI pointer type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920072"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920073"></A>The function <CODE CLASS="Code">
+pointer-element-type</CODE>
+ returns the type of the foreign object specified, or the element type of the foreign type specified.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1412792"></A>If <EM CLASS="Variable">
+pointer-or-type</EM>
+ is a FLI pointer, <EM CLASS="Variable">
+type</EM>
+ is the type of the foreign object pointed to by <EM CLASS="Variable">
+pointer-or-type</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1412795"></A>If <EM CLASS="Variable">
+pointer-or-type</EM>
+ is the name of a FLI pointer type,  <EM CLASS="Variable">
+type</EM>
+ is the type of the elements of that FLI pointer type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920074"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920075"></A>In the following example a pointer to an integer is defined, and <CODE CLASS="Code">
+pointer-element-type</CODE>
+ is used to confirm that the pointer points to an integer.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-931316"></A>(setq point (fli:allocate-foreign-object :type :int))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-931325"></A>(fli:pointer-element-type point)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-931374"></A>In the next example a new type, <CODE CLASS="Code">
+HAPPY</CODE>
+, is defined. The pointer <CODE CLASS="Code">
+point</CODE>
+ is set to point to an instance of <CODE CLASS="Code">
+HAPPY</CODE>
+, and <CODE CLASS="Code">
+pointer-element-type</CODE>
+ is used to find the type of the object pointed to by <CODE CLASS="Code">
+point</CODE>
+.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-931407"></A>(fli:define-c-typedef HAPPY :long)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-931584"></A>(setq point (fli:allocate-foreign-object :type 'HAPPY))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-931644"></A>(fli:pointer-element-type point)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920076"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920077"></A><A HREF="fli-112.htm#33624" CLASS="XRef">foreign-slot-type</A><BR>
+<A HREF="fli-132.htm#38400" CLASS="XRef">pointer-element-size</A><BR>
+<A HREF="fli-134.htm#93408" CLASS="XRef">pointer-element-type-p</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-134.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-132.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="readme.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.19.5  Problems with CAPI and Graphics Ports on Cocoa
+</TITLE>
+
+<LINK REL="next" HREF="readme-484.htm" TYPE="text/html">
+<LINK REL="prev" HREF="readme-482.htm" TYPE="text/html">
+<LINK REL="up" HREF="readme-478.htm" TYPE="text/html">
+<LINK REL="top" HREF="readme.htm" TYPE="text/html">
+<LINK REL="contents" HREF="readme-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="readme-485.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="readme.htm">LispWorks Release Notes and Installation Guide</A> &gt; <A HREF="readme-292.htm">13 Release Notes</A> &gt; <A HREF="readme-478.htm">13.19  Known Problems</A><BR><BR>
+</DIV><A HREF="readme-484.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-482.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-478.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-903525"></A>13.19.5  Problems with CAPI and Graphics Ports on Cocoa</H3>
+<P CLASS="Body">
+<A NAME="pgfId-903529"></A>The <A NAME="marker-934535"></A><CODE CLASS="Code">
+capi:interface-override-cursor</CODE>
+ is ignored.</P>
+<P CLASS="Body">
+<A NAME="pgfId-934539"></A>Some graphics state parameters are ignored, in particular <EM CLASS="Variable">
+operation</EM>
+<A NAME="marker-959380"></A>, <EM CLASS="Variable">
+stipple</EM>
+<A NAME="marker-959388"></A>, <EM CLASS="Variable">
+pattern</EM>
+<A NAME="marker-959396"></A>, <EM CLASS="Variable">
+fill-style</EM>
+<A NAME="marker-959404"></A> and <EM CLASS="Variable">
+mask</EM>
+<A NAME="marker-959412"></A> (other than a rectangle).</P>
+<P CLASS="Body">
+<A NAME="pgfId-903540"></A>LispWorks ignores the System Preferences setting for the smallest font size to smooth.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903558"></A>There is no support for state images or checkboxes in <A NAME="marker-938333"></A><CODE CLASS="Code">
+capi:tree-view</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903583"></A><CODE CLASS="Code">
+</CODE>
+<A NAME="55387"></A><A NAME="marker-938340"></A><CODE CLASS="Code">
+capi:with-page</CODE>
+ does not work, because Cocoa tries to control page printing.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903590"></A>The <CODE CLASS="Code">
+:help-callback</CODE>
+<A NAME="marker-941027"></A> initarg is only implemented for the <CODE CLASS="Code">
+:tooltip</CODE>
+ value of the type argument.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903594"></A>The <CODE CLASS="Code">
+:visible-border</CODE>
+<A NAME="marker-941034"></A> initarg only works for scrolling panes.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903621"></A>Caret movement and selection setting in <A NAME="marker-938354"></A><CODE CLASS="Code">
+capi:text-input-pane</CODE>
+ is implemented, but note that it works only for the focussed pane.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903642"></A><A NAME="marker-938361"></A><CODE CLASS="Code">
+capi:docking-layout</CODE>
+ doesn't support (un)docking.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903654"></A>There is no meta key in the input-model of <A NAME="marker-938368"></A><CODE CLASS="Code">
+capi:output-pane</CODE>
+.  Note that, in the editor when using Emacs emulation, the <CODE CLASS="Code">
+Escape</CODE>
+ key can be used as a prefix.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903671"></A>There has been no testing with 256 color displays.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903678"></A>There is no visual feedback for dead-key processing, for example <B CLASS="Button">
+Option+n</B>
+ is the tidle dead-key.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903713"></A>The graph pane's plan mode rectangle doesn't redraw when moved or resized.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903721"></A>Some pinboard code uses <CODE CLASS="Code">
+:operation boole-xor</CODE>
+ which is not implemented.</P>
+<P CLASS="Body">
+<A NAME="pgfId-940471"></A><A NAME="marker-938375"></A><CODE CLASS="Code">
+capi:editor-pane</CODE>
+ will only work with <A NAME="marker-940496"></A>fonts whose widths are (almost) integral. Unfortunately Mac OS X fonts do not generally guarantee that, so for example Monaco 10, 15, 20 pt can be used etc but not Monaco 12 pt. The nearest good size is used instead, so as another example you might select Menlo 11-pt, but editor text would be displayed in Menlo 12-pt.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903823"></A>The default menu bar is visible when the current window has no menu bar.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903834"></A><A NAME="marker-938382"></A><CODE CLASS="Code">
+capi:tree-view</CODE>
+ is slow for a large number (thousands) of items.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903860"></A>The editor displays decomposed characters as separate glyphs.</P>
+<P CLASS="Body">
+<A NAME="pgfId-919289"></A>The <CODE CLASS="Code">
+:gap</CODE>
+ option is not supported for the columns of <A NAME="marker-938389"></A><CODE CLASS="Code">
+capi:multi-column-list-panel</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-919290"></A><A NAME="marker-919294"></A><CODE CLASS="Code">
+capi:display-dialog</CODE>
+ ignores the specified <CODE CLASS="Code">
+:x</CODE>
+ and <CODE CLASS="Code">
+:y</CODE>
+ coords of the dialog (for drop-down sheets the coords are not relevant and for dialogs which are separate windows Cocoa forces the window to be in the top-center of the screen).</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Release Notes and Installation Guide - 23 Dec 2011</I></P>
+<P><A HREF="readme-484.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-482.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-478.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

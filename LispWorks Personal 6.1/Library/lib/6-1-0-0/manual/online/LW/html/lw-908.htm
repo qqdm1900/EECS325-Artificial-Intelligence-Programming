@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ dll-quit
+</TITLE>
+
+<LINK REL="next" HREF="lw-909.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-907.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-909.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-907.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1528054"></A><A NAME="24466"></A>dll<A NAME="marker-1528053"></A>-quit</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1528055"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1528056"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1528057"></A>Makes a LispWorks dynamic library quit.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1528058"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1528059"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1528060"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1602086"></A>dll-quit &amp;key <EM CLASS="Variable">
+kill-all-processes</EM>
+ <EM CLASS="Variable">
+timeout</EM>
+ <EM CLASS="Variable">
+output</EM>
+ <EM CLASS="Variable">
+force</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+, <EM CLASS="Variable">
+quit-output</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1528062"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1604276"></A><EM CLASS="Variable">
+kill-all-processes</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1601488"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A positive integer or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1601535"></A><EM CLASS="Variable">
+output</EM>
+</P>
+<P CLASS="RDescription-C">An output stream designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1601555"></A><EM CLASS="Variable">
+force</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1528063"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1529148"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1602106"></A><EM CLASS="Variable">
+quit-output</EM>
+</P>
+<P CLASS="RDescription-C">A string or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1528064"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1530727"></A>The function <CODE CLASS="Code">
+dll-quit</CODE>
+ makes a LispWorks dynamic library (or DLL) quit on returning from the callback in which it was called. It must be called only:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1530730"></A>In an image running as a dynamic library, meaning an image created by <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> with <CODE CLASS="Code">
+:dll-exports</CODE>
+ or by <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> with <CODE CLASS="Code">
+:dll-exports</CODE>
+, and </LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1530731"></A>Inside the dynamic scope of a callback into the dynamic library. That is, not in a process that was started by <A HREF="lw-1091.htm#96518" CLASS="XRef">process-run-function</A>. </LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-1530733"></A><CODE CLASS="Code">
+dll-quit</CODE>
+ sets up the internal state such that just before returning into its caller in the LispWorks dynamic library it causes LispWorks to quit. After quitting the callback returns as normal. The library can be unloaded using <CODE CLASS="Code">
+FreeLibrary</CODE>
+, or you can re-use it (without re-loading).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1603159"></A>By default <EM CLASS="Variable">
+kill-all-processes</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ which means that, if there are other running processses, <CODE CLASS="Code">
+dll-quit</CODE>
+ just returns <CODE CLASS="Code">
+nil</CODE>
+. If <EM CLASS="Variable">
+kill-all-processes</EM>
+ is non-nil, <CODE CLASS="Code">
+dll-quit</CODE>
+ tries to kill all the other processes, and if it succeeds, it quits.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1603161"></A>If <EM CLASS="Variable">
+kill-all-processes</EM>
+ is true, <EM CLASS="Variable">
+timeout</EM>
+ is a maximum time to wait after killing the other processes. It allows <EM CLASS="Variable">
+timeout</EM>
+ seconds for all processes to die.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1533072"></A><CODE CLASS="Code">
+dll-quit</CODE>
+ should be called when no other processes are running, whether they were created by a callback or by <A HREF="lw-1091.htm#96518" CLASS="XRef">process-run-function</A>. If such processes exist, by default <CODE CLASS="Code">
+dll-quit</CODE>
+ does nothing and returns <CODE CLASS="Code">
+nil</CODE>
+. If <EM CLASS="Variable">
+force</EM>
+ is non-nil, <CODE CLASS="Code">
+dll-quit</CODE>
+ always tries to set LispWorks up for quitting. LispWorks will quit even after a failure to kill all other processes and complete any required shut down operations. A true value of <EM CLASS="Variable">
+force</EM>
+ automatically implies <EM CLASS="Variable">
+kill-all-processes</EM>
+ true. However, if any of the other processes is stuck in a foreign call, the quitting may fail to finish properly. The default value of <EM CLASS="Variable">
+force</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1605952"></A>If <EM CLASS="Variable">
+output</EM>
+ is supplied, <CODE CLASS="Code">
+dll-quit</CODE>
+ generates output if it is called when other processes are still running, or a required shut down operation was not completed. <EM CLASS="Variable">
+output</EM>
+ can be an output stream, <CODE CLASS="Code">
+t</CODE>
+ (interpreted as <CODE CLASS="Code">
+*standard-output*</CODE>
+) or <CODE CLASS="Code">
+nil</CODE>
+. If <EM CLASS="Variable">
+output</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+dll-quit</CODE>
+ collects the output and returns it as second argument <EM CLASS="Variable">
+quit-output</EM>
+. Otherwise it writes the output to the stream and <EM CLASS="Variable">
+quit-output</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1605491"></A>The output contains a list of the other processes that are still running. If <EM CLASS="Variable">
+kill-all-processes</EM>
+ or <EM CLASS="Variable">
+force</EM>
+ was supplied, and killing the other processes failed, the output also contains backtraces of the other processes, and possibly other debugging information.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1533171"></A><EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ on success: the LispWorks dynamic library is set to quit on returning from the callback. <EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ when other processes are running: the image is not set to quit.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1602775"></A><EM CLASS="Variable">
+quit-output</EM>
+ contains the output which was generated when <EM CLASS="Variable">
+output</EM>
+ <CODE CLASS="Code">
+nil</CODE>
+ was passed. Otherwise <EM CLASS="Variable">
+quit-output</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1530736"></A>If <CODE CLASS="Code">
+dll-quit</CODE>
+ is called inside a recursive foreign callback, the LispWorks dynamic library quits only when the outermost callback returns.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1530742"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1842588"></A><CODE CLASS="Code">
+dll-quit</CODE>
+ is intended for use when a LispWorks dynamic library is loaded by a main process which you (the LispWorks programmer) do not control. If you control the main process, then use <A HREF="lw-1524.htm#98485" CLASS="XRef">QuitLispWorks</A> instead.</LI>
+<P CLASS="RStep-C">
+<A NAME="pgfId-1530744"></A>It is expected that the main process will call into the dynamic library with some &quot;shutdown&quot; call, and then calls <CODE CLASS="Code">
+FreeLibrary</CODE>
+ to free the library. The shutdown call should close and free everything that needs to be closed or freed, call <CODE CLASS="Code">
+dll-quit</CODE>
+, and return.</P>
+<LI CLASS="RStep">
+<A NAME="pgfId-1533221"></A><CODE CLASS="Code">
+dll-quit</CODE>
+ is supported only where LispWorks can be a dynamic library. Currently this is in 32-bit LispWorks on Microsoft Windows, Intel Macintosh, Linux, x86/x64 Solaris and FreeBSD, and in 64-bit LispWorks on Windows, Intel Macintosh, Linux and x86/x64 Solaris.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1528066"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1528067"></A><A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A><BR>
+<A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-909.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-907.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ensure-&lt;command&gt;
+</TITLE>
+
+<LINK REL="next" HREF="capiref-684.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-682.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-668.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-668.htm">3 COLOR Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-684.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-682.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-668.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886679"></A><A NAME="marker-887906"></A><A NAME="12600"></A>ensure-<EM CLASS="Variable">
+&lt;command&gt;</EM>
+</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886680"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898583"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-898618"></A>Return a color specification for a given model. The model depends on the particular function called</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886681"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886682"></A>color</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886683"></A>Signature</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886685"></A>ensure-rgb <EM CLASS="Variable">color-spec</EM>
+ =&gt; <EM CLASS="Variable">result</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886687"></A>ensure-hsv <EM CLASS="Variable">color-spec</EM>
+ =&gt; <EM CLASS="Variable">result</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886689"></A>ensure-gray <EM CLASS="Variable">color-spec</EM>
+ =&gt; <EM CLASS="Variable">result</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886691"></A>ensure-model-color <EM CLASS="Variable">color-spec model</EM>
+ =&gt; <EM CLASS="Variable">result</EM>
+</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886693"></A>ensure-color <EM CLASS="Variable">color-spec match-color-spec</EM>
+ =&gt; <EM CLASS="Variable">result</EM>
+</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886694"></A>Arguments</H5>
+<P CLASS="RBody-Next">
+<A NAME="pgfId-886695"></A>For all functions:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900614"></A><EM CLASS="Variable">
+color-spec</EM>
+ </P>
+<P CLASS="RDescription-C">A color specification.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900588"></A><EM CLASS="Variable">
+match-color-spec</EM>
+ </P>
+<P CLASS="RDescription-C">A color specification.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900558"></A><EM CLASS="Variable">
+model</EM>
+ </P>
+<P CLASS="RDescription-C"> A color-model (<CODE CLASS="Code">
+:rgb</CODE>
+, <CODE CLASS="Code">
+:hsv</CODE>
+ or <CODE CLASS="Code">
+:gray</CODE>
+).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-901532"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-903556"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A color specification.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886696"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886697"></A>These functions all return a color specification, given (at least) a color specification as argument.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886698"></A><CODE CLASS="Code">
+ensure-rgb</CODE>
+, <CODE CLASS="Code">
+ensure-hsv</CODE>
+ and <CODE CLASS="Code">
+ensure-gray</CODE>
+ all return a color specification in the appropriate model. If <EM CLASS="Variable">
+color-spec</EM>
+ is in the same model, it is just returned. Otherwise a new color specification for that model is calculated. Thus, <CODE CLASS="Code">
+ensure-rgb</CODE>
+ returns a color specification in the RGB color model, whatever color model is used in <EM CLASS="Variable">
+color-spec</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-908310"></A>If <EM CLASS="Variable">
+color-spec</EM>
+ has an alpha component, then <EM CLASS="Variable">
+result</EM>
+ has that same alpha component. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-886699"></A><CODE CLASS="Code">
+ensure-model-color</CODE>
+ is similar to the above three functions, except that a color-model <EM CLASS="Variable">
+model</EM>
+ is explicitly passed as an argument to the function. The color-spec returned is in the color-model specified by <EM CLASS="Variable">
+model</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886700"></A><CODE CLASS="Code">
+ensure-color</CODE>
+ returns a color specification for <EM CLASS="Variable">
+color-spec</EM>
+, in the color model specified by <EM CLASS="Variable">
+match-color-spec</EM>
+. Thus, color specifications may be converted from one model to another with having to explicitly state the color model.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886701"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886702"></A>COLOR 36 &gt; (ensure-hsv (make-rgb 0.70s0 0.90s0 0.99s0))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886703"></A>#(:HSV 4.31033S0 0.707069S0 0.99S0)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886705"></A>COLOR 37 &gt; (ensure-gray (make-rgb 0.70s0 0.90s0 0.99s0))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886706"></A>#(:GRAY 0.863331S0)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886708"></A>COLOR 39 &gt; (ensure-model-color (make-rgb 0.70s0 0.90s0 0.99s0) :hsv)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886709"></A>#(:HSV 4.31033S0 0.707069S0 0.99S0)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886711"></A>COLOR 43 &gt; (ensure-color (make-hsv 0.70s0 0.90s0 0.99s0) (make-rgb 0.70s0 0.90s0 0.99s0))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886712"></A>#(:RGB 0.99S0 0.890999S0 0.92069924)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886713"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886715"></A><A HREF="capiref-679.htm#17457" CLASS="XRef">convert-color</A><BR>
+<A HREF="capiref-678.htm#70061" CLASS="XRef">colors=</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-684.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-682.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-668.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ gc-generation
+</TITLE>
+
+<LINK REL="next" HREF="lw-798.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-796.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-798.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-796.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1076304"></A><A NAME="55872"></A>gc<A NAME="marker-1077086"></A>-generation</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1076305"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1076306"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1076307"></A>Does a Copying GC.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1076308"></A>Package </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1076309"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1076310"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1076311"></A>gc-generation <EM CLASS="Variable">
+gen-num</EM>
+ &amp;key <EM CLASS="Variable">
+coalesce</EM>
+ <EM CLASS="Variable">
+promote</EM>
+ <EM CLASS="Variable">
+block</EM>
+ =&gt; <EM CLASS="Variable">
+allocation</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1076312"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1080071"></A><EM CLASS="Variable">
+gen-num</EM>
+</P>
+<P CLASS="RDescription-C">An integer between 0 and 7 inclusive, or <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1079596"></A><EM CLASS="Variable">
+coalesce</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1079613"></A><EM CLASS="Variable">
+promote</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1080145"></A><EM CLASS="Variable">
+block</EM>
+</P>
+<P CLASS="RDescription-C">An integer between 0 and 7, inclusive, or one of the keywords <CODE CLASS="Code">
+:blocking-gen-num</CODE>
+ and <CODE CLASS="Code">
+:all</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1076314"></A>Values </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1076315"></A><EM CLASS="Variable">
+allocation</EM>
+</P>
+<P CLASS="RDescription-C">The total allocation in generation <EM CLASS="Variable">
+gen-num</EM>
+ and younger generations.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1076316"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1077174"></A>The function <CODE CLASS="Code">
+gc-generation</CODE>
+ does a Garbage Collection of a specific generation. The actual operation is different between 64-bit LispWorks and 32-bit LispWorks.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1357365"></A><EM CLASS="Variable">
+gen-num</EM>
+ should be a valid generation number, or <CODE CLASS="Code">
+t</CODE>
+. The value <CODE CLASS="Code">
+t</CODE>
+ is mapped to the blocking generation number in 64-bit LispWorks, and to 2 in 32-bit LispWorks. For backwards compatibility the keyword <CODE CLASS="Code">
+:blocking-gen-num</CODE>
+ is also accepted, with the same meaning as <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1356298"></A>It is especially helpful to GC the blocking generation (or other higher generations) when large, long-lived data structures become garbage. This is because higher generations are rarely collected by default. For the higher generations, the GC takes longer but recovers more space.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1357744"></A>Another situation which may require <CODE CLASS="Code">
+gc-generation</CODE>
+ is when objects are marked for special free action (by <A HREF="lw-795.htm#24068" CLASS="XRef">flag-special-free-action</A> or <EM CLASS="Variable">
+free-function i</EM>
+n a weak hash table). If such objects live long enough to be promoted to higher generation, they may not be GCed long after there are no pointers to them. If the free action is important, you may need to periodically GC higher generation (typically the blocking generation, by passing <EM CLASS="Variable">
+gen-num</EM>
+ <CODE CLASS="Code">
+t</CODE>
+).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1358106"></A>Operation in 64-bit LispWorks</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1357708"></A>By default <CODE CLASS="Code">
+gc-generation</CODE>
+ operates on the live objects in generation <EM CLASS="Variable">
+gen-num</EM>
+ and all lower generations at or above the generation specified by <EM CLASS="Variable">
+block</EM>
+ by copying them inside their current generation, and it operates on the live objects in generations lower than <EM CLASS="Variable">
+block</EM>
+ by copying them to the next higher generation.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1356271"></A>If <EM CLASS="Variable">
+promote</EM>
+ is non-nil, the live objects in generation <EM CLASS="Variable">
+gen-num</EM>
+ are also promoted to the next generation. That is the same operation that happens when the GC is invoked automatically. The default value of <EM CLASS="Variable">
+promote</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1077178"></A>If <EM CLASS="Variable">
+coalesce</EM>
+ is non-nil, all non-static live objects in lower generations are promoted to generation <EM CLASS="Variable">
+gen-num</EM>
+. That is what <A HREF="lw-761.htm#25516" CLASS="XRef">clean-down</A> does (with <EM CLASS="Variable">
+gen-num</EM>
+ being the highest generation). It may be useful directly in some cases. The default value of <EM CLASS="Variable">
+coalesce</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1079776"></A><EM CLASS="Variable">
+block</EM>
+ specifies a generation number up to which to promote. An integer value specifies the generation number. If <EM CLASS="Variable">
+block</EM>
+ is <CODE CLASS="Code">
+:blocking-gen-num</CODE>
+, then <CODE CLASS="Code">
+gc-generation</CODE>
+ promotes up to the blocking generation. If <EM CLASS="Variable">
+block</EM>
+ is <CODE CLASS="Code">
+:all</CODE>
+, then <CODE CLASS="Code">
+gc-generation</CODE>
+ promotes nothing. The default value of <EM CLASS="Variable">
+block</EM>
+ is <CODE CLASS="Code">
+:blocking-gen-num</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1077180"></A><CODE CLASS="Code">
+gc-generation</CODE>
+ is useful when you know points in your application where many objects tend to die, or when you know that that application is less heavily loaded at some time. Typically many objects die in the end (or beginning) of an iteration in a top level loop of the application, and that is normally a useful place to put a call to <CODE CLASS="Code">
+gc-generation</CODE>
+ of generation 2 or generation 3. If you know a time when the application can spend time GCing, a call to <CODE CLASS="Code">
+gc-generation</CODE>
+ with a higher value of <EM CLASS="Variable">
+gen-num</EM>
+ may be useful. It is probably never really useful to use <CODE CLASS="Code">
+gc-generation</CODE>
+ on generation 0 or 1.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1077181"></A>To decide on which <EM CLASS="Variable">
+gen-num</EM>
+ to call <CODE CLASS="Code">
+gc-generation</CODE>
+, check which generation gets full by making periodic calls to <A HREF="lw-664.htm#94982" CLASS="XRef">room</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1077182"></A><CODE CLASS="Code">
+gc-generation</CODE>
+ with <EM CLASS="Variable">
+promote</EM>
+ or <EM CLASS="Variable">
+coalesce</EM>
+ may also be useful to move objects from the blocking generation to higher generations, which does not happen automatically (except when saving the image). For example, after loading a large amount of code, and before generating any data that may die shortly, assuming the blocking generation is 3, it may be useful to do:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1077183"></A>(gc-generation 4 :coalesce t)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1077184"></A>to move all (non-static) objects to generation 4, where they will not be touched by the GC any more (except following pointers to younger generations).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1358161"></A>Operation in 32-bit LispWorks</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1357138"></A><CODE CLASS="Code">
+gc-generation</CODE>
+ marks and sweeps the generation <EM CLASS="Variable">
+gen-num</EM>
+ and all generations below, and then does some additional cleanups. <EM CLASS="Variable">
+coalesce</EM>
+, <EM CLASS="Variable">
+promote</EM>
+ and <EM CLASS="Variable">
+block</EM>
+ are ignored.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1077185"></A>Compatibility note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1079852"></A>In 32-bit LispWorks, <CODE CLASS="Code">
+gc-generation</CODE>
+ simply calls <A HREF="lw-808.htm#11103" CLASS="XRef">mark-and-sweep</A>. This has a similar effect, but two significant differences must be noted:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1077186"></A>by default, <CODE CLASS="Code">
+gc-generation</CODE>
+ promotes the young generations, so repeated calls to <CODE CLASS="Code">
+gc-generation</CODE>
+ will promote everything to generation <EM CLASS="Variable">
+gen-num</EM>
+ or generation <EM CLASS="Variable">
+block</EM>
+ (whichever is lower). In contrast <A HREF="lw-808.htm#11103" CLASS="XRef">mark-and-sweep</A> never promotes.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1077187"></A>In 32-bit LispWorks, generation 2 is the blocking generation. In 64-bit LispWorks, the default blocking generation is generation 3. That is because the 64-bit implementation promotes faster and so needs more generations before the block.</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-1358334"></A>Also note that</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1368724"></A>(gc-generation t)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1358452"></A>is intended as the replacement of</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1358481"></A>(mark-and-sweep 2)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1076322"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1076289"></A><A HREF="lw-761.htm#25516" CLASS="XRef">clean-down</A><BR>
+<A HREF="lw-808.htm#11103" CLASS="XRef">mark-and-sweep</A><BR>
+<A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A><BR>
+<A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-798.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-796.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

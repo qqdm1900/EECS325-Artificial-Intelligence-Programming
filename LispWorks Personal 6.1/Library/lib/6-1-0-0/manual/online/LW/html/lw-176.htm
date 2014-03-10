@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11.4  Profiler output
+</TITLE>
+
+<LINK REL="next" HREF="lw-177.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-175.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-170.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-170.htm">11 The Profiler</A><BR><BR>
+</DIV><A HREF="lw-177.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-175.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-170.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-887679"></A>11.4  Profiler output</H3>
+<P CLASS="Body">
+<A NAME="pgfId-887682"></A>A typical report would be: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887783"></A>profile-stacks called 564 times</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887784"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887785"></A>Call tree</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887786"></A>Symbol                seen   (%)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887787"></A>    1: MOD              17 (  3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887788"></A>     2: FLOOR            5 (  1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887789"></A>    1: EQL               8 (  1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887790"></A>    1: &gt;=                7 (  1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887791"></A>     2: REALP            2 (  0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887792"></A>    1: +                 6 (  1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887793"></A>    1: LENGTH            4 (  1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887794"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887795"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887796"></A>Cumulative profile summary</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887797"></A>Symbol      called  profile   (%)      top   (%)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887798"></A>MOD        1000000       17 (  3)        8 (  1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887799"></A>EQL        2000117        8 (  1)        8 (  1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887800"></A>&gt;=         1000001        7 (  1)        5 (  1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887801"></A>+          1000000        6 (  1)        6 (  1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887802"></A>FLOOR      1000000        5 (  1)        5 (  1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887803"></A>LENGTH     2000086        4 (  1)        4 (  1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887804"></A>REALP      1000001        2 (  0)        2 (  0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887805"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887781"></A>Top of stack not monitored 93% of the time</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887816"></A>The first line means that Lisp was interrupted 564 times by the profiler.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887882"></A>The call tree shows that in 17 of these interrupts (3% of them) the profiler found the function <CODE CLASS="Code">
+mod</CODE>
+ on the stack, in 5 of these interrupts it found the function <CODE CLASS="Code">
+floor</CODE>
+ on the stack, and so on. Moreover, <CODE CLASS="Code">
+floor</CODE>
+ only appears under the <CODE CLASS="Code">
+mod</CODE>
+ branch of the tree, which means that each of these times <CODE CLASS="Code">
+floor</CODE>
+ was called by <CODE CLASS="Code">
+mod</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887881"></A>The cumulative profile summary also shows how many times each symbol was found on the stack. Moreover it shows that the function <CODE CLASS="Code">
+mod</CODE>
+ was called 1000000 times, the function <CODE CLASS="Code">
+eql</CODE>
+ was called 2000117 times, and so on. (Note: this information is not collected on Intel-based platforms by default.) In 17 of these interrupts it found the function <CODE CLASS="Code">
+mod</CODE>
+ on the stack, and on 8 of these occasions <CODE CLASS="Code">
+mod</CODE>
+ was on the top of the stack. You can deduce that 526 times the function on the top of the stack was none of those reported.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887689"></A>You can control sort order of the cumulative profile summary with <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-887690"></A><A HREF="lw-814.htm#46635" CLASS="XRef">print-profile-list</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-177.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-175.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-170.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

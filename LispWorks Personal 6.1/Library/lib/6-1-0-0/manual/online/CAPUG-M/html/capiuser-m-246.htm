@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 16.3.1  The drop callback
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-247.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-245.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-245.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-236.htm">16 Drag and Drop</A> &gt <A HREF="capiuser-m-245.htm">16.3  Dropping</A><BR><BR>
+</DIV><A HREF="capiuser-m-247.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-245.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-245.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-911218"></A>16.3.1  The drop callback</H3>
+<P CLASS="Body">
+<A NAME="pgfId-911219"></A>To implement dropping in <CODE CLASS="Code">
+list-panel</CODE>
+ or <CODE CLASS="Code">
+tree-view</CODE>
+  or <CODE CLASS="Code">
+output-pane</CODE>
+, supply the <CODE CLASS="Code">
+:drop-callback</CODE>
+ initarg.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911580"></A>You can also supply <CODE CLASS="Code">
+:drop-callback</CODE>
+ for an <CODE CLASS="Code">
+interface</CODE>
+. When the user drags an object over a window, the system first tries to call the <EM CLASS="Variable">
+drop-callback</EM>
+ of any pane under the mouse and otherwise calls the <EM CLASS="Variable">
+drop-callback</EM>
+ of the top-level interface, if supplied.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911473"></A>The <EM CLASS="Variable">
+drop-callback</EM>
+ receives as arguments a <EM CLASS="Variable">
+drop-object</EM>
+ which is used to communicate information about the dropping operation and <EM CLASS="Variable">
+stage</EM>
+ which is a keyword. The <EM CLASS="Variable">
+drop-callback</EM>
+ is called at several stages: when the pane is displayed; when the user drags over the pane; and when the user drops over the pane. Various functions are provided which you can use to query the <EM CLASS="Variable">
+drop-object</EM>
+ and set attributes appropriately. </P>
+<P CLASS="Body">
+<A NAME="pgfId-911604"></A>You will use <CODE CLASS="Code">
+set-drop-object-supported-formats</CODE>
+ to specify the data formats that it wants to receive. The <CODE CLASS="Code">
+:string</CODE>
+ format can be used to receive a string from another application and the <CODE CLASS="Code">
+:filename-list</CODE>
+ format can be used to receive a list of filenames from another application such as the Macintosh Finder or the Windows Explorer. Any other keyword in formats is assumed to be a private format that can only be used to receive objects from with the same Lisp image.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911608"></A>You can use <CODE CLASS="Code">
+drop-object-provides-format</CODE>
+ to query whether a given data format is actually available, and then you can call <CODE CLASS="Code">
+(setf drop-object-drop-effect)</CODE>
+ to modify the effect of the dropping operation .</P>
+<P CLASS="Body">
+<A NAME="pgfId-911478"></A>Finally, at the <CODE CLASS="Code">
+:drop</CODE>
+ stage, you will use <CODE CLASS="Code">
+drop-object-get-object</CODE>
+ to retrieve (for each data format) the object which was returned by the <EM CLASS="Variable">
+drag-callback</EM>
+, and then do something with this object, typically copying or moving it to the pane in some way.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-247.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-245.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-245.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

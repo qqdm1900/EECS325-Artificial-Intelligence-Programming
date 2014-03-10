@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.10.1.1  Example modification check
+</TITLE>
+
+<LINK REL="next" HREF="lw-301.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-299.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-299.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-298.htm">15.10  Low level atomic operations</A> &gt; <A HREF="lw-299.htm">15.10.1  Aids for implementing modification checks</A><BR><BR>
+</DIV><A HREF="lw-301.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-299.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-299.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-899357"></A>15.10.1.1  Example modification check</H3>
+<PRE CLASS="Code-first"><A NAME="pgfId-899358"></A>(defstruct my-cache</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899359"></A>  (modification-count 0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899360"></A>  a</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899361"></A>  b)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899362"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899363"></A>;; modifier code</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899364"></A>(sys:with-modification-change</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899365"></A> (my-cache-modification-count cache)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899366"></A> (setf (my-cache-a cache) (calculate-a-value ....)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899367"></A>       (my-cache-b cache) (calculate-b-value ....)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899368"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899369"></A>;; reading code</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899370"></A>(loop</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899371"></A>  (sys:with-modification-check-macro</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899372"></A>   my-cache-did-not-change-p (my-cache-modification-count cache)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899373"></A>   (let ((a (my-cache-a cache))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899374"></A>	 (b (my-cache-b cache)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899375"></A>     (when (my-cache-did-not-change-p)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-899376"></A>       (return (values a b )))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-899377"></A>Provided that all modification to the <CODE CLASS="Code">
+a</CODE>
+ and <CODE CLASS="Code">
+b</CODE>
+ slots of a <CODE CLASS="Code">
+my-cache</CODE>
+ object are done by the modifier code above, the return values of <CODE CLASS="Code">
+a</CODE>
+ and <CODE CLASS="Code">
+b</CODE>
+ in the reading code  are guaranteed to have been set by the same <CODE CLASS="Code">
+setf</CODE>
+ invocation in the modifier code.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-301.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-299.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-299.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

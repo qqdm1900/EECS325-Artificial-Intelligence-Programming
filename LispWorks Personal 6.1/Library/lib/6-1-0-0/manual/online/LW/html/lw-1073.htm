@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-exclusive-lock
+</TITLE>
+
+<LINK REL="next" HREF="lw-1074.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1072.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1074.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1072.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1312584"></A><A NAME="52783"></A>process<A NAME="marker-1317016"></A>-exclusive-lock</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1312585"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1312586"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1312587"></A>Like <A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A>, but on a &quot;sharing&quot; lock.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1312588"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1312589"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1312590"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1312591"></A>process-exclusive-lock <EM CLASS="Variable">
+sharing-lock</EM>
+ &amp;optional <EM CLASS="Variable">
+whostate</EM>
+ <EM CLASS="Variable">
+timeout</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1313468"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1313469"></A><EM CLASS="Variable">
+sharing-lock</EM>
+</P>
+<P CLASS="RDescription-C">A sharing lock.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1315933"></A><EM CLASS="Variable">
+whostate</EM>
+</P>
+<P CLASS="RDescription-C">The status of the process while the lock is locked, as seen in the Process Browser.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1313748"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A timeout interval, in seconds.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1312594"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1312595"></A>The function <CODE CLASS="Code">
+process-exclusive-lock</CODE>
+ is the same as <A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A>, but on a &quot;sharing&quot; lock. It waits until the lock is free before locking in exclusive mode.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1312596"></A>Calls to <CODE CLASS="Code">
+process-exclusive-lock</CODE>
+ should be paired with <A HREF="lw-1074.htm#80083" CLASS="XRef">process-exclusive-unlock</A> calls. In most cases the macro <A HREF="lw-1134.htm#24315" CLASS="XRef">with-exclusive-lock</A> the best way to achieve this.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1312597"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1312598"></A>It is not possible to use exclusive lock in the scope of a sharing lock on the same lock, and trying to do this will cause the process to hang. Whether it is possible to use an exclusive lock inside an exclusive lock of the same lock is determined by the <EM CLASS="Variable">
+recursivep</EM>
+ argument in <A HREF="lw-1057.htm#93763" CLASS="XRef">make-lock</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1455355"></A><CODE CLASS="Code">
+process-exclusive-lock</CODE>
+ is guaranteed to return if it locked process, but may throw before locking, as described in <A HREF="lw-280.htm#95000" CLASS="XRef">Guarantees and limitations when locking and unlocking</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1312599"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1312601"></A><A HREF="lw-1057.htm#93763" CLASS="XRef">make-lock</A><BR>
+<A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A><BR>
+<A HREF="lw-1134.htm#24315" CLASS="XRef">with-exclusive-lock</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1074.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1072.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

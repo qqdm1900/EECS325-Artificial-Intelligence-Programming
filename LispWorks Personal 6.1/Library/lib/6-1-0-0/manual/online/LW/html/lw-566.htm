@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-a-class-option
+</TITLE>
+
+<LINK REL="next" HREF="lw-567.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-565.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-559.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-559.htm">25 The CLOS Package</A><BR><BR>
+</DIV><A HREF="lw-567.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-565.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-559.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-908853"></A><A NAME="39713"></A>process<A NAME="marker-911388"></A>-a-class-option</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-895572"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895612"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-895628"></A>Describes how the value of a class option is parsed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895918"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-905616"></A>clos</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-905617"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-905618"></A>process-a-class-option <EM CLASS="Variable">
+metaclass</EM>
+ <EM CLASS="Variable">
+option</EM>
+ <EM CLASS="Variable">
+value</EM>
+ =&gt; <EM CLASS="Variable">
+initargs</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895946"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-895969"></A><EM CLASS="Variable">
+metaclass</EM>
+</P>
+<P CLASS="RDescription-C">The metaclass of the class being parsed.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-896152"></A><EM CLASS="Variable">
+option</EM>
+</P>
+<P CLASS="RDescription-C">The <A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A> option name.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-896182"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RDescription-C">The tail of the <A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A> option form.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896519"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-896520"></A><EM CLASS="Variable">
+initargs</P>
+<P CLASS="RDescription-C"></EM>
+A plist of initargs describing the option. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896521"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896031"></A><A NAME="marker-905639"></A><A NAME="marker-905667"></A>The generic function <CODE CLASS="Code">
+process-a-class-option</CODE>
+ describes how the value of a class option is parsed. It is called at <A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A> macroexpansion time. By default LispWorks parses class options as defined in AMOP, but you need to supply a method if you need class options with different behavior.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-897327"></A><EM CLASS="Variable">
+initargs</EM>
+ should be a plist of class initargs and values. These are added to any other initargs for the class.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898900"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-899428"></A>(defclass m1 (standard-class)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-899429"></A>  ((title :initarg :title)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-899431"></A>For single-valued, evaluated title option, add a method like this:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-900910"></A>(defmethod clos:process-a-class-option </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900911"></A>           ((class m1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900912"></A>            (name (eql :title))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900913"></A>            value)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900914"></A>  (unless (and value (null (cdr value)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900915"></A>    (error &quot;m1 :title must have a single value.&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900916"></A>  (list name (car value)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900917"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900918"></A>(defclass my-titled-class ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900919"></A>  ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900920"></A>  (:metaclass m1)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-899443"></A>  (:title &quot;Initial Title&quot;))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-901869"></A>If the value is not to be evaluated, the method would look like this:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-901871"></A>(defmethod clos:process-a-class-option </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-901872"></A>           ((class m1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-901873"></A>            (name (eql :title))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-901874"></A>            value)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-901875"></A>  (unless (and value (null (cdr value)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-901876"></A>    (error &quot;m1 :title must have a single value.&quot;))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-901863"></A>  `(,name ',value))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-899446"></A>Now suppose we want an option whose value is a list of titles:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-901189"></A>(defclass m2 (standard-class)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-901190"></A>  ((titles-list :initarg :list-of-possible-titles)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-899451"></A>If the titles are to be evaluated, add a method like this:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-901737"></A>(defmethod clos:process-a-class-option </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-901738"></A>           ((class m2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-901739"></A>            (name (eql :list-of-possible-titles))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-901740"></A>            value)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-901741"></A>  (list name `(list ,@value)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-899458"></A>Or, if the titles should not be evaluated, add a method like this:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-900510"></A>(defmethod clos:process-a-class-option </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900511"></A>           ((class m2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900512"></A>            (name (eql :list-of-possible-titles))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900513"></A>            value)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900514"></A>  (list name `',value))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900515"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900516"></A>(defclass my-multi-titled-class ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900517"></A>  ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900518"></A>  (:metaclass m2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900519"></A>  (:list-of-possible-titles </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-900520"></A>   &quot;Initial Title 1&quot; </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-898901"></A>   &quot;Initial Title 2&quot;))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902093"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902121"></A><A HREF="lw-639.htm#55217" CLASS="XRef">defclass</A><BR>
+<A HREF="lw-567.htm#94386" CLASS="XRef">process-a-slot-option</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-567.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-565.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-559.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

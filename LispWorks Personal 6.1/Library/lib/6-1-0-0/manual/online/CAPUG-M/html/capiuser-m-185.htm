@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.2.1  The drawing mode and anti-aliasing
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-186.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-184.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-184.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-181.htm">13 Graphics Ports</A> &gt <A HREF="capiuser-m-184.htm">13.2  Features</A><BR><BR>
+</DIV><A HREF="capiuser-m-186.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-184.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-184.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-911439"></A>13.2.1  <A NAME="marker-912956"></A>The drawing mode and anti-aliasing</H3>
+<P CLASS="Body">
+<A NAME="pgfId-911455"></A>Graphics ports has two drawing modes:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-911456"></A><CODE CLASS="Code">
+:compatible</CODE>
+</P>
+<P CLASS="Description-C">Compatible with LispWorks 6.0 and earlier versions</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-911457"></A><CODE CLASS="Code">
+:quality</CODE>
+</P>
+<P CLASS="Description-C">Introduced in LispWorks 6.1, allowing high quality drawing</P>
+<P CLASS="Body">
+<A NAME="pgfId-911459"></A>The main visible effect is that with <EM CLASS="Variable">
+drawing-mode</EM>
+ <CODE CLASS="Code">
+:quality</CODE>
+, all drawings are transformed properly.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911462"></A>With <EM CLASS="Variable">
+drawing-mode</EM>
+ <CODE CLASS="Code">
+:compatible</CODE>
+, strings and images are not scaled or rotated at all, and ellipses are not rotated correctly. Other shapes are transformed &quot;at the front&quot;, that is they are drawn as if the drawing function was called with transformed coordinates. The target of <CODE CLASS="Code">
+copy-pixels</CODE>
+ is also transformed &quot;at the front&quot;, that is the rectangle can be translated, but not scaled or rotated.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911469"></A>With <EM CLASS="Variable">
+drawing-mode</EM>
+ <CODE CLASS="Code">
+:quality</CODE>
+, all drawings are fully transformed correctly. Shapes are transformed &quot;at the back&quot;, that is they are drawn and then the result of the drawing is  transformed. Note that <CODE CLASS="Code">
+clear-rectangle</CODE>
+ and <CODE CLASS="Code">
+pixblt</CODE>
+ are not drawing functions in this sense, and do not take transforms into account. </P>
+<P CLASS="Body">
+<A NAME="pgfId-911928"></A>Another difference is that <EM CLASS="Variable">
+drawing-mode</EM>
+ <CODE CLASS="Code">
+:quality</CODE>
+ supports anti-aliasing on Windows, and on GTK+ it adds control over anti-aliasing. See <EM CLASS="Variable">
+shape-mode</EM>
+<A NAME="marker-911929"></A> and <EM CLASS="Variable">
+text-mode</EM>
+<A NAME="marker-911930"></A> in the page for <A NAME="marker-911937"></A><CODE CLASS="Code">
+graphics-state</CODE>
+ in the <I CLASS="Italic">
+LispWorks CAPI Reference Manual</I>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911479"></A>With <EM CLASS="Variable">
+drawing-mode</EM>
+ <CODE CLASS="Code">
+:quality</CODE>
+ the <EM CLASS="Variable">
+operation</EM>
+<A NAME="marker-911919"></A> value in the <CODE CLASS="Code">
+graphics-state</CODE>
+ is not supported and is ignored. This is because operations do not combine sensibly with anti-aliasing and colors with alpha components. Instead, there is now <EM CLASS="Variable">
+compositing-mode</EM>
+. See the page for <CODE CLASS="Code">
+graphics-state</CODE>
+ in the <I CLASS="Italic">
+LispWorks CAPI Reference Manual</I>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-912421"></A>On Microsoft Windows with <EM CLASS="Variable">
+drawing-mode</EM>
+ <CODE CLASS="Code">
+:quality</CODE>
+ only <A NAME="marker-912429"></A>Truetype fonts are supported.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911484"></A>The <EM CLASS="Variable">
+drawing-mode</EM>
+ of all graphics ports is <CODE CLASS="Code">
+:quality</CODE>
+ by default, except when a graphics port is made in association with another graphics ports (for exanple, by <A NAME="marker-911704"></A><CODE CLASS="Code">
+create-pixmap-port</CODE>
+), in which case the <EM CLASS="Variable">
+drawing-mode</EM>
+ is inherited from the &quot;parent&quot; graphics port.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911735"></A>All the interfaces that create graphics ports, or modify a graphics port to draw to another place,  take keyword argument <CODE CLASS="Code">
+:drawing-mode</CODE>
+. Its value <EM CLASS="Variable">
+drawing--mode</EM>
+ can be <CODE CLASS="Code">
+:quality</CODE>
+, <CODE CLASS="Code">
+:compatible</CODE>
+, or <CODE CLASS="Code">
+nil</CODE>
+ which is interpreted as use the default (either inherited or the global default <CODE CLASS="Code">
+:quality</CODE>
+). These interfaces are listed in <A HREF="capiuser-m-183.htm#11250" CLASS="XRef">Creating instances</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911497"></A>These examples in the <CODE CLASS="Code">
+examples/capi/graphics/</CODE>
+ directory demonstrate features that are available only with <EM CLASS="Variable">
+drawing-mode</EM>
+ <CODE CLASS="Code">
+:quality</CODE>
+:</P>
+<P CLASS="Description">
+<A NAME="pgfId-911498"></A><CODE CLASS="Code">
+catherine-wheel.lisp</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-911826"></A>Rotating a string.</P>
+<P CLASS="Description">
+<A NAME="pgfId-911499"></A><CODE CLASS="Code">
+compositing-mode-simple.lisp</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-911798"></A>Using <EM CLASS="Variable">
+compositing-mode</EM>
+.</P>
+<P CLASS="Description">
+<A NAME="pgfId-911854"></A><CODE CLASS="Code">
+compositing-mode.lisp</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-911855"></A>Using <EM CLASS="Variable">
+compositing-mode</EM>
+.</P>
+<P CLASS="Description">
+<A NAME="pgfId-911453"></A><CODE CLASS="Code">
+images-with-alpha.lisp</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-911860"></A>Using <EM CLASS="Variable">
+compositing-mode</EM>
+, transforming an image.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-186.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-184.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-184.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

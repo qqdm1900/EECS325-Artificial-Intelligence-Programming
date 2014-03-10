@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-dynamic-lisp-array-pointer
+</TITLE>
+
+<LINK REL="next" HREF="fli-151.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-149.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-151.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-149.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1112879"></A><A NAME="89393"></A>with-dynamic-lisp-array-pointer<A NAME="marker-1112878"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1112880"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1112719"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1112720"></A>Creates a dynamic-extent foreign pointer which points to the data in a given Lisp array while the forms are executed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1112721"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1112722"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1112723"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1112724"></A>with-dynamic-lisp-array-pointer (<EM CLASS="Variable">
+pointer-var</EM>
+ <EM CLASS="Variable">
+lisp-array</EM>
+ &amp;key <EM CLASS="Variable">
+start</EM>
+ <EM CLASS="Variable">
+type</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+last</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1112727"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1112928"></A><EM CLASS="Variable">
+pointer-var</EM>
+</P>
+<P CLASS="RDescription-C">A variable to be bound to the foreign pointer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1112929"></A><EM CLASS="Variable">
+lisp-array</P>
+<P CLASS="RDescription-C"></EM>
+A Lisp array.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1112930"></A><EM CLASS="Variable">
+start</P>
+<P CLASS="RDescription-C"></EM>
+An index into the Lisp array. The default is <CODE CLASS="Code">
+0</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1113022"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">A foreign type. The default is <CODE CLASS="Code">
+:void</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1112731"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">A list of forms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1112733"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1112734"></A><EM CLASS="Variable">
+last</P>
+<P CLASS="RDescription-C"></EM>
+The value of the last form in <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1112735"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1112736"></A>The macro <CODE CLASS="Code">
+with-dynamic-lisp-array-pointer</CODE>
+ enables the data in a Lisp array (a string or a byte array) to be shared directly with foreign code, without making a copy. A dynamic-extent pointer to the array's data can be used within <EM CLASS="Variable">
+body</EM>
+ wherever the <A HREF="fli-182.htm#28209" CLASS="XRef">:pointer</A> foreign type allows. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1113153"></A><CODE CLASS="Code">
+with-dynamic-lisp-array-pointer</CODE>
+ creates a dynamic extent foreign pointer, with element type <EM CLASS="Variable">
+type</EM>
+, which is initialized to point to the element of <EM CLASS="Variable">
+lisp-array</EM>
+ at index <EM CLASS="Variable">
+index</EM>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1113154"></A>This foreign pointer is bound to <EM CLASS="Variable">
+pointer-var</EM>
+, the forms of <EM CLASS="Variable">
+body</EM>
+ are executed and the value of the last form returned. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1113257"></A>Pointers created with this macro must be used with care. There are three restrictions:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1113275"></A><EM CLASS="Variable">
+lisp-array</EM>
+ must be static, for example allocated as shown below.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1113359"></A>The pointer has dynamic extent and <EM CLASS="Variable">
+lisp-array</EM>
+ is guaranteed to be preserved only during the execution of <EM CLASS="Variable">
+body</EM>
+. If you keep the value of the pointer, you must also preserve <EM CLASS="Variable">
+lisp-array,</EM>
+ that is you must ensure it is not garbage-collected.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1113313"></A>Lisp strings and arrays are not null-terminated, therefore foreign code must only access the data of <EM CLASS="Variable">
+lisp-array</EM>
+ up to its known length.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1113468"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1248649"></A>(let ((vector </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1248650"></A>       (make-array 3 :element-type '(unsigned-byte 8)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1248651"></A>                   :initial-contents '(65 77 23)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1248652"></A>                   :allocation :static)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1248653"></A>  (fli:with-dynamic-lisp-array-pointer </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1248654"></A>      (ptr vector :start 1 :type :unsigned-byte)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1113469"></A>    (fli:dereference ptr)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1248658"></A>=&gt; </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1113524"></A>77</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1113470"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1113554"></A><A HREF="fli-174.htm#59006" CLASS="XRef">:lisp-array</A><BR>
+<A HREF="fli-177.htm#65335" CLASS="XRef">:lisp-simple-1d-array</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-151.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-149.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

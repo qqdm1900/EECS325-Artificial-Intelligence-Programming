@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-top-level-interface-geometry
+</TITLE>
+
+<LINK REL="next" HREF="capiref-402.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-400.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-402.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-400.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1445349"></A><A NAME="set-top-level-interface-geometry"></A>set<A NAME="marker-4230185"></A>-top-level-interface-geometry</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1445350"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1445732"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1445733"></A>Sets the geometry of a top level interface.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4230164"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4230165"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1445735"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1444142"></A>set-top-level-interface-geometry <EM CLASS="Variable">
+interface</EM>
+ &amp;key <EM CLASS="Variable">
+x</EM>
+ <EM CLASS="Variable">
+y width</EM>
+ <EM CLASS="Variable">
+height</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3923080"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3923098"></A><EM CLASS="Variable">
+interface</EM>
+</P>
+<P CLASS="RDescription-C">A CAPI interface.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-3923121"></A><EM CLASS="Variable">
+x</EM>
+, <EM CLASS="Variable">
+y</EM>
+, <EM CLASS="Variable">
+width</EM>
+, <EM CLASS="Variable">
+height</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-3923141"></A>Integers specifying the new geometry.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1444143"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1447106"></A>The coordinates of <EM CLASS="Variable">
+interface</EM>
+ are modified according to the keyword arguments passed. The value of <EM CLASS="Variable">
+interface</EM>
+ should be a top level interface. If a keyword is omitted then that part of the coordinates is not changed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9902688"></A><EM CLASS="Variable">
+x</EM>
+ and <EM CLASS="Variable">
+y</EM>
+ are measured from the top-left of the screen rectangle representing the area of the primary monitor (the primary screen rectangle).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9128175"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9128176"></A>On Cocoa <CODE CLASS="Code">
+set-top-level-interface-geometry</CODE>
+ behaves as if an interface toolbar is not present, even if <EM CLASS="Variable">
+interface</EM>
+ does contain an interface toolbar.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3923978"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4427564"></A>(setf ii</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427565"></A>      (capi:element-interface</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427566"></A>       (capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427567"></A>        (make-instance 'capi:text-input-pane))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427568"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427569"></A>(multiple-value-bind (x y width height)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427570"></A>    (capi:top-level-interface-geometry ii)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427571"></A>  (capi:execute-with-interface </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427572"></A>   ii</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427573"></A>   'capi:set-top-level-interface-geometry</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427574"></A>   ii</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427575"></A>   :x (round (+ x (/ width 4)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427576"></A>   :y y</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4427577"></A>   :width (round (* 0.75 width))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-4427554"></A>   :height height))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3923980"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1444149"></A><A HREF="capiref-459.htm#22896" CLASS="XRef">top-level-interface-p</A><BR>
+<A HREF="capiref-457.htm#top-level-interface-geometry" CLASS="XRef">top-level-interface-geometry</A><BR>
+<A HREF="capiref-456.htm#top-level-interface-display-state" CLASS="XRef">top-level-interface-display-state</A><BR>
+<A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-402.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-400.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

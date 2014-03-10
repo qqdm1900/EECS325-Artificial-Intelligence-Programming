@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ start-profiling
+</TITLE>
+
+<LINK REL="next" HREF="lw-844.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-842.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-844.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-842.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1243246"></A><A NAME="80652"></A>start-<A NAME="marker-1243245"></A>profiling</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1243247"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1243248"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1243249"></A>Starts collecting profiling information.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1243250"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1243251"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1243252"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1243253"></A>start-profiling &amp;key <EM CLASS="Variable">
+initialize</EM>
+ <EM CLASS="Variable">
+processes</EM>
+ <EM CLASS="Variable">
+profile-waiting</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1243963"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1245061"></A><EM CLASS="Variable">
+initialize</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1245062"></A><EM CLASS="Variable">
+processes</EM>
+</P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+:current</CODE>
+, <CODE CLASS="Code">
+:all</CODE>
+, a <CODE CLASS="Code">
+mp:process</CODE>
+ or a list of <CODE CLASS="Code">
+mp:process</CODE>
+ objects.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1440351"></A><EM CLASS="Variable">
+profile-waiting</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1516900"></A><EM CLASS="Variable">
+ignore-in-foreign</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1243258"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1246010"></A>The function <CODE CLASS="Code">
+start-profiling</CODE>
+ starts collecting profiling information.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1246011"></A>If <EM CLASS="Variable">
+initialize</EM>
+ is non-nil any profiling information collected so far is discarded. The default value of <EM CLASS="Variable">
+initialize</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1246434"></A>If <EM CLASS="Variable">
+processes</EM>
+ is supplied, the set of processes that will be profiled is set as if by calling:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1246774"></A>(set-process-profiling :set :processes <EM CLASS="Variable">
+processes</EM>
+)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1246435"></A>Otherwise, the set of processes remains unchanged, so is controlled by any previous calls to <A HREF="lw-836.htm#26339" CLASS="XRef">set-process-profiling</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1493697"></A><EM CLASS="Variable">
+profile-waiting</EM>
+ is used only in SMP LispWorks. When <EM CLASS="Variable">
+profile-waiting</EM>
+ is true, processes that are marked for profiling are profiled even if they are in a wait state. In non-SMP LispWorks, only processes that are active are profiled.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1516909"></A><EM CLASS="Variable">
+ignore-in-foreign</EM>
+ controls whether to ignore processes that are inside foreign calls. The default value of <EM CLASS="Variable">
+ignore-in-foreign</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1493698"></A><CODE CLASS="Code">
+start-profiling</CODE>
+ can be repeatedly called without intervening calls to <A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A>, for example to change the setting of <EM CLASS="Variable">
+profile-waiting</EM>
+ or the profiled processes.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1246015"></A><CODE CLASS="Code">
+start-profiling</CODE>
+ cannot be used while <A HREF="lw-816.htm#18999" CLASS="XRef">profile</A> is used or while the Profiler tool is profiling (on any thread). Between the call to <CODE CLASS="Code">
+start-profiling</CODE>
+ and the next call to <A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A> with <EM CLASS="Variable">
+print</EM>
+ <CODE CLASS="Code">
+t</CODE>
+ (or omitted), <A HREF="lw-816.htm#18999" CLASS="XRef">profile</A> and the Profiler tool cannot be used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1246016"></A>Various parameters which are set by <A HREF="lw-840.htm#73344" CLASS="XRef">set-up-profiler</A> control the behavior of the profiler. See the documentation for <A HREF="lw-840.htm#73344" CLASS="XRef">set-up-profiler</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1246018"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1246020"></A>The following sequence of calls to <CODE CLASS="Code">
+start-profiling</CODE>
+ and <A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A> can be used to profile only interesting work and print the results:</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1246021"></A>Start profiling the current process:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1246022"></A>(start-profiling :processes :current)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1246023"></A>(do-interesting-work)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1246024"></A>Temporarily suspend profiling:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1246025"></A>(stop-profiling :print nil)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1246026"></A>(do-uninteresting-work)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1246027"></A>Resume profiling:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1246028"></A>(start-profiling :initialize nil)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1246029"></A>(do-more-interesting-work)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1243260"></A>(stop-profiling)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1243261"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1249928"></A><A HREF="lw-816.htm#18999" CLASS="XRef">profile</A><BR>
+<A HREF="lw-782.htm#75088" CLASS="XRef">do-profiling</A><BR>
+<A HREF="lw-836.htm#26339" CLASS="XRef">set-process-profiling</A><BR>
+<A HREF="lw-844.htm#86511" CLASS="XRef">stop-profiling</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-844.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-842.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

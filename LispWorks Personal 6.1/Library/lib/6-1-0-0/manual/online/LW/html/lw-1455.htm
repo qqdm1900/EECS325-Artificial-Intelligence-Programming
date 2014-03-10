@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ impersonating-user
+</TITLE>
+
+<LINK REL="next" HREF="lw-1456.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1454.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1450.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1450.htm">41 Miscellaneous WIN32 symbols</A><BR><BR>
+</DIV><A HREF="lw-1456.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1454.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1038936"></A><A NAME="44892"></A><A NAME="marker-1040695"></A>impersonating<A NAME="marker-1040496"></A>-user</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1038937"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038938"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1038939"></A>Executes code while impersonating the user.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038940"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1038941"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038942"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1038943"></A>impersonating-user (<EM CLASS="Variable">
+user-name</EM>
+ <EM CLASS="Variable">
+password</EM>
+ &amp;key <EM CLASS="Variable">
+domain</EM>
+ <EM CLASS="Variable">
+logon-type</EM>
+ <EM CLASS="Variable">
+fail-form</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1041182"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041183"></A><EM CLASS="Variable">
+user-name</EM>
+</P>
+<P CLASS="RDescription-C">A string, or <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041184"></A><EM CLASS="Variable">
+password</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041496"></A><EM CLASS="Variable">
+domain</EM>
+</P>
+<P CLASS="RDescription-C">A string or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041521"></A><EM CLASS="Variable">
+logon-type</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+ or one of the keywords <CODE CLASS="Code">
+:interactive</CODE>
+, <CODE CLASS="Code">
+:batch</CODE>
+, <CODE CLASS="Code">
+:network</CODE>
+, <CODE CLASS="Code">
+:network-cleartext</CODE>
+, <CODE CLASS="Code">
+:service</CODE>
+ and <CODE CLASS="Code">
+:new-credentials</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041185"></A><EM CLASS="Variable">
+fail-form</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp form.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041186"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Lisp forms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038944"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1038945"></A>The macro <CODE CLASS="Code">
+impersonating-user</CODE>
+ executes the code of <EM CLASS="Variable">
+body</EM>
+ while impersonating a specified user.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1038946"></A><EM CLASS="Variable">
+user-name</EM>
+ and <EM CLASS="Variable">
+password</EM>
+ specify login credentials. In general, these are strings but the symbol <CODE CLASS="Code">
+t</CODE>
+ as <EM CLASS="Variable">
+user-name</EM>
+ is treated specially to mean the user that is currently interacting with the console of the computer (<EM CLASS="Variable">
+password</EM>
+ is ignored in this case).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1038947"></A><EM CLASS="Variable">
+domain</EM>
+, if non-nil, must be a string specifying the domain or server where the account database to find the user is held. It can be &quot;.&quot; meaning the local database. <EM CLASS="Variable">
+domain</EM>
+ <CODE CLASS="Code">
+nil</CODE>
+ means use the default domain or server, as defined by Windows.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1041829"></A>The <EM CLASS="Variable">
+logon-type</EM>
+ keywords are mapped to the <CODE CLASS="Code">
+LOGON32_LOGON_*</CODE>
+ constants which are documented in the MSDN entry for <CODE CLASS="Code">
+LogonUser</CODE>
+. The default value <CODE CLASS="Code">
+nil</CODE>
+ of <EM CLASS="Variable">
+logon-type </EM>
+is treated as an alias for <CODE CLASS="Code">
+:interactive</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1038949"></A><EM CLASS="Variable">
+body</EM>
+ is evaluated only if the impersonation is successful. If the impersonation is not successful for any reason, <EM CLASS="Variable">
+body</EM>
+ is not executed, and instead <EM CLASS="Variable">
+fail-form</EM>
+ is evaluated.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1038950"></A>On success, <CODE CLASS="Code">
+impersonating-user</CODE>
+ returns the result of the last form of <EM CLASS="Variable">
+body</EM>
+. On failure, it returns the result of <EM CLASS="Variable">
+fail-form</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038951"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1038952"></A>Impersonation means that, in operations where the user identity makes a difference, the user identity is the impersonated user rather than the user running the process. For example, when opening a file the system uses the credentials of the impersonated user to check the access control list of the file. When creating a file, the impersonated user is also used as the owner and creator of the file.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1038953"></A>The process that tries to impersonate must have special privilege to do that. Processes do not normally have these privileges. The processes that do are those that run with system credentials, for example services. Impersonation is used by these processes to perform specific operations with the credentials of some user rather than the system user.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1038954"></A>Impersonation can also be used when a service process wants to start a process to interact with the user. In that situation, the new process must run as the user. To do that, you start process inside the scope of <CODE CLASS="Code">
+impersonating-user</CODE>
+, for example by calling <A HREF="lw-1341.htm#26978" CLASS="XRef">call-system</A> or <A HREF="lw-1411.htm#15712" CLASS="XRef">open-pipe</A>.  Normally you will want to run as the user that is currently logged on the console (see the special <EM CLASS="Variable">
+user-name</EM>
+ value <CODE CLASS="Code">
+t</CODE>
+ above).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038957"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1038958"></A><A HREF="lw-1454.htm#92905" CLASS="XRef">impersonating-named-pipe-client</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1456.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1454.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ guess-external-format 
+</TITLE>
+
+<LINK REL="next" HREF="lw-1385.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1383.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1385.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1383.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-894214"></A><A NAME="57205"></A>guess<A NAME="marker-1026843"></A>-external-format </H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-894215"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894216"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-894217"></A>Tries to work out the external format </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894218"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-894219"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894220"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-894221"></A>guess-external-format <EM CLASS="Variable">
+pathname</EM>
+ <EM CLASS="Variable">
+ef-spec</EM>
+ <EM CLASS="Variable">
+buffer</EM>
+ <EM CLASS="Variable">
+length</EM>
+ =&gt; <EM CLASS="Variable">
+ef-spec</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894222"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-894223"></A><EM CLASS="Variable">
+pathname</EM>
+</P>
+<P CLASS="RDescription-C">Pathname identifying location of <EM CLASS="Variable">
+buffer</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-894224"></A><EM CLASS="Variable">
+ef-spec</EM>
+</P>
+<P CLASS="RDescription-C">An external format spec.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-894225"></A><EM CLASS="Variable">
+buffer</EM>
+</P>
+<P CLASS="RDescription-C">A buffer whose contents are examined.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-894226"></A><EM CLASS="Variable">
+length</EM>
+</P>
+<P CLASS="RDescription-C">Length (an integer) up to which <EM CLASS="Variable">
+buffer</EM>
+ should be examined.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894227"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-894228"></A><EM CLASS="Variable">
+ef-spec</EM>
+</P>
+<P CLASS="RDescription-C">An external format spec.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894229"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-894230"></A>If <EM CLASS="Variable">
+ef-spec</EM>
+ is complete, then it is returned. Otherwise <CODE CLASS="Code">
+guess-external-format</CODE>
+ calls, in turn, functions on the list <A HREF="lw-1363.htm#53291" CLASS="XRef">*file-encoding-detection-algorithm*</A>. If a complete external format spec is returned it is used, otherwise the return value is passed to the next function. If the name of the external format spec returned by the last function on this list is <CODE CLASS="Code">
+:default</CODE>
+, an error of type <A HREF="lw-1364.htm#84320" CLASS="XRef">file-encoding-resolution-error</A> is signalled. The caller offers a restart for trying again with respecified <CODE CLASS="Code">
+external-format</CODE>
+ and/or <CODE CLASS="Code">
+element-type</CODE>
+ arguments. Otherwise <CODE CLASS="Code">
+guess-external-format</CODE>
+ proceeds to guess the <EM CLASS="Variable">
+eol-style.</EM>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1275736"></A>To guess the <EM CLASS="Variable">
+eol-style</EM>
+, functions on the list <A HREF="lw-1365.htm#82936" CLASS="XRef">*file-eol-style-detection-algorithm*</A> are called in turn. If a complete external format spec is returned it is used, otherwise the return value is passed to the next function. If the external format spec returned by the last function on this list does not contain <CODE CLASS="Code">
+:eol-style</CODE>
+, an error of type <CODE CLASS="Code">
+file-encoding-resolution-error</CODE>
+ is signalled.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894231"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-894232"></A><A HREF="lw-1363.htm#53291" CLASS="XRef">*file-encoding-detection-algorithm*</A><BR>
+<A HREF="lw-1365.htm#82936" CLASS="XRef">*file-eol-style-detection-algorithm*</A><BR>
+<A HREF="lw-1364.htm#84320" CLASS="XRef">file-encoding-resolution-error</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1385.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1383.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

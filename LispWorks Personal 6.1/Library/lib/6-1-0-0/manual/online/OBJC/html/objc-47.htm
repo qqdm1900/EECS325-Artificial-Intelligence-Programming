@@ -1,0 +1,382 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ invoke
+</TITLE>
+
+<LINK REL="next" HREF="objc-48.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-46.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-33.htm">2 Objective-C Reference</A><BR><BR>
+</DIV><A HREF="objc-48.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-46.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1193647"></A><A NAME="46194"></A>invoke<A NAME="marker-1193646"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1153069"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1153070"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1153074"></A>Invokes an Objective-C method.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1153075"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1153076"></A>objc</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1153077"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1153078"></A>invoke <EM CLASS="Variable">
+class-or-object-pointer</EM>
+ <EM CLASS="Variable">
+method</EM>
+ &amp;rest <EM CLASS="Variable">
+args</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1153079"></A>Arguments</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-1153083"></A><EM CLASS="Variable">
+class-or-object-pointer</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1153341"></A>A string naming an Objective-C class or a pointer to an Objective-C foreign object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1153659"></A><EM CLASS="Variable">
+method</EM>
+</P>
+<P CLASS="RDescription-C">A string naming the method to invoke.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1153712"></A><EM CLASS="Variable">
+args</EM>
+</P>
+<P CLASS="RDescription-C">Arguments to the method.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1153738"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1153739"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RDescription-C">The value returned by the method.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1153084"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1153088"></A>The function <CODE CLASS="Code">
+invoke</CODE>
+ is used to call Objective-C instance and class methods. If <EM CLASS="Variable">
+class-or-object-pointer</EM>
+ is a string, then it must name an Objective-C class and the class method named <EM CLASS="Variable">
+method</EM>
+ in that class is called. Otherwise <EM CLASS="Variable">
+class-or-object-pointer</EM>
+ should be a foreign pointer to an Objective-C object or class and the appropriate instance or class method named <EM CLASS="Variable">
+method</EM>
+ is invoked. The value of <EM CLASS="Variable">
+method</EM>
+ should be a concatenation of the message name and its argument names, including the colons, for example <CODE CLASS="Code">
+&quot;setWidth:height:&quot;</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1154211"></A>Each argument in <EM CLASS="Variable">
+args</EM>
+ is converted to an appropriate FLI Objective-C value and is passed in order to the method. This conversion is done based on the signature of the method as follows:</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1154316"></A><CODE CLASS="Code">
+NSRect</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1154644"></A>If the argument is a vector of four elements of the form <CODE CLASS="Code">
+#(</CODE>
+<EM CLASS="Variable">
+x</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+y</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+width</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+height</EM>
+<CODE CLASS="Code">
+)</CODE>
+, the <EM CLASS="Variable">
+x</EM>
+, <EM CLASS="Variable">
+y</EM>
+, <EM CLASS="Variable">
+width</EM>
+ and <EM CLASS="Variable">
+height</EM>
+ are used to form the rectangle. Otherwise it is assumed to be a foreign pointer to a <A HREF="objc-85.htm#93402" CLASS="XRef">ns-rect</A> nd is copied.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1154686"></A><CODE CLASS="Code">
+NSSize</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1175822"></A>If the argument is a vector of two elements of the form <CODE CLASS="Code">
+#(</CODE>
+<EM CLASS="Variable">
+width</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+height</EM>
+<CODE CLASS="Code">
+)</CODE>
+, the <EM CLASS="Variable">
+width</EM>
+ and <EM CLASS="Variable">
+height </EM>
+are used to form the size. Otherwise it is assumed to be a foreign pointer to a <A HREF="objc-86.htm#70754" CLASS="XRef">ns-size</A> and is copied.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1175826"></A><CODE CLASS="Code">
+NSPoint</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1154977"></A>If the argument is a vector of two elements of the form <CODE CLASS="Code">
+#(</CODE>
+<EM CLASS="Variable">
+x</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+y</EM>
+<CODE CLASS="Code">
+)</CODE>
+, the <EM CLASS="Variable">
+x</EM>
+ and <EM CLASS="Variable">
+y</EM>
+ are used to form the point. Otherwise it is assumed to be a foreign pointer to a <A HREF="objc-83.htm#20818" CLASS="XRef">ns-point</A> and is copied.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1176356"></A><CODE CLASS="Code">
+NSRange</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1176357"></A>If the argument is a cons of the form <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+location</EM>
+<CODE CLASS="Code">
+ . </CODE>
+<EM CLASS="Variable">
+length</EM>
+<CODE CLASS="Code">
+)</CODE>
+, the <EM CLASS="Variable">
+location</EM>
+ and <EM CLASS="Variable">
+length</EM>
+ are used to form the range. Otherwise it is assumed to be a foreign pointer to a <A HREF="objc-84.htm#90173" CLASS="XRef">ns-range</A> object and is copied.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1155158"></A>other structures</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1155159"></A>The argument should be a foreign pointer to the appropriate struct object and is copied.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1155222"></A><CODE CLASS="Code">
+BOOL</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1155223"></A>If the argument is <CODE CLASS="Code">
+nil</CODE>
+ then <CODE CLASS="Code">
+NO</CODE>
+ is passed, if the argument is <CODE CLASS="Code">
+t</CODE>
+ then <CODE CLASS="Code">
+YES</CODE>
+ is passed. Otherwise the argument must be an integer (due to a limitation in the Objective-C type system, this case cannot be distinguished from the <CODE CLASS="Code">
+signed char</CODE>
+ type).</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1155286"></A><CODE CLASS="Code">
+id</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1156613"></A>If the argument is a string then it is converted to a newly allocated Objective-C <A NAME="marker-1186298"></A><CODE CLASS="Code">
+NSString</CODE>
+ object which is released when the function returns.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1156617"></A>If the argument is a vector then it is recursively converted to a newly allocated Objective-C <A NAME="marker-1186341"></A><CODE CLASS="Code">
+NSArray</CODE>
+ object which is released when the function returns.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1156621"></A>If the argument is <CODE CLASS="Code">
+nil</CODE>
+ then a null pointer is passed.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1190169"></A>Otherwise the argument should be a foreign pointer to an Objective-C object of the appropriate class.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1190177"></A><CODE CLASS="Code">
+Class</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1190272"></A>The argument is coerced to an Objective-C class pointer as if by <A HREF="objc-37.htm#28261" CLASS="XRef">coerce-to-objc-class</A>. In particular, this allows strings to be passed as class arguments.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1190173"></A><CODE CLASS="Code">
+char *</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1157013"></A>If the argument is a string then it is converted to a newly allocated foreign string which is freed when the function returns.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1155338"></A>Otherwise the argument should be a foreign pointer.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1206896"></A>struct <EM CLASS="Variable">
+structname</EM>
+ *</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1206943"></A>The argument should be a foreign pointer to a struct whose type is defined by <A HREF="objc-44.htm#38029" CLASS="XRef">define-objc-struct</A> with <CODE CLASS="Code">
+:foreign-name</CODE>
+ <EM CLASS="Variable">
+structname</EM>
+.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1155521"></A>other integer and pointer types</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1155522"></A>All other integer and pointer types are converted using the normal FLI rules.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1157486"></A>When the method returns, its value is converted according to its type:</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1176381"></A><CODE CLASS="Code">
+NSRect</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1176382"></A>A vector of four elements of the form <CODE CLASS="Code">
+#(</CODE>
+<EM CLASS="Variable">
+x</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+y</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+width</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+height</EM>
+<CODE CLASS="Code">
+) </CODE>
+is created containing the rectangle.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1157489"></A><CODE CLASS="Code">
+NSSize</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1157490"></A>A vector of two elements of the form <CODE CLASS="Code">
+#(</CODE>
+<EM CLASS="Variable">
+width</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+height</EM>
+<CODE CLASS="Code">
+) </CODE>
+is created containing the size.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1157491"></A><CODE CLASS="Code">
+NSPoint</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1157492"></A>A vector of two elements of the form <CODE CLASS="Code">
+#(</CODE>
+<EM CLASS="Variable">
+x</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+y</EM>
+<CODE CLASS="Code">
+) </CODE>
+is created containing the point.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1157493"></A><CODE CLASS="Code">
+NSRange</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1157494"></A>A cons of the form <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+location</EM>
+<CODE CLASS="Code">
+ . </CODE>
+<EM CLASS="Variable">
+length</EM>
+<CODE CLASS="Code">
+) </CODE>
+is created containing the range.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1157495"></A>other structures</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1157496"></A>Other structures cannot be returned by value using <A HREF="objc-47.htm#46194" CLASS="XRef">invoke</A>. See <A HREF="objc-49.htm#40401" CLASS="XRef">invoke-into</A> for how to handle these types.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1157497"></A><CODE CLASS="Code">
+BOOL</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1157498"></A>If the value is <CODE CLASS="Code">
+NO</CODE>
+ then <CODE CLASS="Code">
+0</CODE>
+ is returned, otherwise <CODE CLASS="Code">
+1</CODE>
+ is returned. See also <A HREF="objc-48.htm#78367" CLASS="XRef">invoke-bool</A>.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1176405"></A><CODE CLASS="Code">
+id</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1176406"></A>An object of type <A HREF="objc-60.htm#36910" CLASS="XRef">objc-object-pointer</A> is returned.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1157516"></A><CODE CLASS="Code">
+char *</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1157517"></A>The value is converted to a string and returned.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1157519"></A>other integer and pointer types</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1157520"></A>All other integer and pointer types are converted using the normal FLI rules.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1154053"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1154057"></A><A HREF="objc-48.htm#78367" CLASS="XRef">invoke-bool</A><BR>
+<A HREF="objc-49.htm#40401" CLASS="XRef">invoke-into</A><BR>
+<A HREF="objc-36.htm#79215" CLASS="XRef">can-invoke-p</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-48.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-46.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

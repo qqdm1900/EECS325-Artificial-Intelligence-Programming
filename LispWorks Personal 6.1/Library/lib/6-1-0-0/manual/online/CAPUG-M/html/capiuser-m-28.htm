@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.3.2  Text input panes
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-29.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-27.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-26.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-13.htm">3 Creating Common Windows</A> &gt <A HREF="capiuser-m-26.htm">3.3  Displaying and entering text</A><BR><BR>
+</DIV><A HREF="capiuser-m-29.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-27.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-26.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884249"></A>3.3.2  Text input <A NAME="marker-885473"></A>panes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884250"></A>When you want the user to enter a line of text -- for instance a search string -- a text input pane can be used.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884253"></A>(setq text (make-instance '<A NAME="marker-884252"></A>text-input-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884254"></A>                          :title &quot;Search: &quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884256"></A>                          :<A NAME="marker-884255"></A>callback 'test-callback))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884261"></A>(contain text)</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884790"></A>Figure 3.4  A text input pane<DIV>
+<IMG SRC="capiuser-m-12.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-15.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884264"></A>Notice that the default title position for text input panes is <CODE CLASS="Code">
+:left</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884265"></A>You can place text programmatically in the text input pane by supplying a string for the <A NAME="marker-900243"></A><CODE CLASS="Code">
+:text</CODE>
+ initarg, or later by calling <CODE CLASS="Code">
+(setf text-input-pane-text)</CODE>
+ in the appropriate process.</P>
+<P CLASS="Body">
+<A NAME="pgfId-900219"></A>You can add toolbar buttons for easier user input via the <A NAME="marker-900248"></A><CODE CLASS="Code">
+:buttons</CODE>
+ initarg. This example allows the user to enter the filename of an existing Lisp source file, either directly or by selecting the file in a dialog raised by the <B CLASS="Button">
+Browse File</B>
+ button. There is also a <B CLASS="Button">
+Cancel</B>
+ button, but the default <B CLASS="Button">
+OK</B>
+ button is not displayed:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-900253"></A>(capi:contain </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900254"></A> (make-instance </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900255"></A>  'capi:text-input-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900256"></A>  :buttons </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900257"></A>  (list :cancel t</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900258"></A>        :ok nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900259"></A>        :browse-file </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900260"></A>        (list :operation :open</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-900236"></A>              :filter &quot;*.LISP;*.LSP&quot;))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-903097"></A>For a larger quantity of text use <A NAME="marker-903111"></A><CODE CLASS="Code">
+multi-line-text-input-pane</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-29.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-27.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-26.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-memory-check
+</TITLE>
+
+<LINK REL="next" HREF="lw-1431.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1429.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1431.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1429.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1284985"></A><A NAME="85712"></A>set<A NAME="marker-1284984"></A>-memory-check</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1284986"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1284987"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1284988"></A>Sets a memory check in 64-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1284989"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1284990"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1284991"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1284992"></A>set-memory-check <EM CLASS="Variable">
+size</EM>
+ <EM CLASS="Variable">
+function</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1284993"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1286514"></A><EM CLASS="Variable">
+size</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1286548"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1284999"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1286932"></A>The function <CODE CLASS="Code">
+set-memory-check</CODE>
+ sets a memory check.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1286933"></A><EM CLASS="Variable">
+size</EM>
+ must be an integer. It specifies the total size in bytes of the mapped areas of Lisp at which the check is triggered.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1286934"></A><EM CLASS="Variable">
+function</EM>
+ is a function of no arguments.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1286935"></A>After each automatic garbage collection (GC) the system checks whether the mapped area (excluding stacks) is larger than <EM CLASS="Variable">
+size</EM>
+. If it is larger, <EM CLASS="Variable">
+function</EM>
+ is called with no arguments.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1286936"></A>Inside the dynamic scope of the call, the check is disabled. There are no restrictions or special considerations on what the function <EM CLASS="Variable">
+function</EM>
+ does.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1286937"></A>The current mapped area can be found by the <CODE CLASS="Code">
+:total-size</CODE>
+ value returned by <A HREF="lw-1419.htm#46961" CLASS="XRef">room-values</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1285007"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1657634"></A><CODE CLASS="Code">
+set-memory-check</CODE>
+ is implemented only in 64-bit LispWorks. It is not relevant to the Memory Management API in 32-bit implementations.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1285008"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1285012"></A><A HREF="lw-1431.htm#79452" CLASS="XRef">set-memory-exhausted-callback</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1431.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1429.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

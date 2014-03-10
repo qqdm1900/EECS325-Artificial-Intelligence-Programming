@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ commit
+</TITLE>
+
+<LINK REL="next" HREF="lw-1161.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1159.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1161.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1159.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-985904"></A><A NAME="25697"></A>commit<A NAME="marker-1047118"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-985905"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887963"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887964"></A>Commits changes made to a database.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887965"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-887966"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887967"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-887968"></A>commit &amp;key <EM CLASS="Variable">
+database</EM>
+ =&gt; nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887969"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887970"></A><EM CLASS="Variable">
+database</EM>
+</P>
+<P CLASS="RDescription-C">A database.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887971"></A>Values</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-887972"></A>nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887973"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887974"></A>The function <CODE CLASS="Code">
+commit</CODE>
+ commits changes made to the database specified by <EM CLASS="Variable">
+database</EM>
+, which is <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A> by default.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887975"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887976"></A>This example changes records in a database, and uses <CODE CLASS="Code">
+commit</CODE>
+ to make those changes permanent.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-887978"></A> (insert-records :into [emp]</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887979"></A>                :attributes '(x y z)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887980"></A>                :values '(a b c))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887981"></A> (update-records [emp]</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887982"></A>    :attributes [dept]</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887983"></A>    :values 50</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887984"></A>    :where [= [dept] 40])</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887985"></A> (delete-records :from [emp]</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-887986"></A>    :where [&gt; [salary] 300000])</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-887987"></A> (commit)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887988"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887992"></A><A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A><BR>
+<A HREF="lw-1256.htm#15063" CLASS="XRef">rollback</A><BR>
+<A HREF="lw-1287.htm#32033" CLASS="XRef">with-transaction</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1161.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1159.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

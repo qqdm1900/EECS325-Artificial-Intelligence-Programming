@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.4  An example of dynamic memory allocation
+</TITLE>
+
+<LINK REL="next" HREF="fli-15.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-13.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-4.htm">1 Introduction to the FLI</A><BR><BR>
+</DIV><A HREF="fli-15.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-13.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886921"></A>1.4  <A NAME="26276"></A>An example of dynamic memory allocation</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886923"></A>In the previous <A NAME="marker-886922"></A>example our defined interface function <CODE CLASS="Code">
+get-cursor-position</CODE>
+ used the function <A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A> to allocate memory for an instance of a <CODE CLASS="Code">
+POINT</CODE>
+ structure. This memory is now reserved, with a pointer to its location bound to the variable <CODE CLASS="Code">
+location</CODE>
+. More detailed information on pointers is available in <A HREF="fli-33.htm#10848" CLASS="XRef">FLI Pointers</A>. To free the memory associated with the foreign object requires the use of the function <A HREF="fli-119.htm#14842" CLASS="XRef">free-foreign-object</A>.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886927"></A>(fli:free-foreign-object location)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886928"></A>There are other methods for dealing with the question of memory management. The following example defines a Lisp function that returns the <EM CLASS="Variable">
+x</EM>
+ and <EM CLASS="Variable">
+y</EM>
+ coordinates of the cursor without permanently tying up memory for structures that are only used once.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886929"></A>(defun current-cursor-position ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886930"></A>  (fli:with-dynamic-foreign-objects ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886931"></A>    (let ((lppoint (fli:allocate-dynamic-foreign-object </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886932"></A>                    :pointer-type 'lppoint)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886933"></A>      (if (get-cursor-position lppoint)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886934"></A>        (values t (fli:foreign-slot-value lppoint 'x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886935"></A>                  (fli:foreign-slot-value lppoint 'y))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886936"></A>        (values nil 0 0)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886937"></A>On calling <CODE CLASS="Code">
+current-cursor-position</CODE>
+ the following happens:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-886938"></A>The macro <A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A> is called, which ensures that the lifetime of any allocated objects is within the scope of the code specified in its body.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-886939"></A>The function <A HREF="fli-73.htm#10368" CLASS="XRef">allocate-dynamic-foreign-object</A> is called to create an instance of the relevant data structure required to get the cursor position. Refer to it using the <CODE CLASS="Code">
+lppoint</CODE>
+ pointer.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-886940"></A>The previously defined foreign function <CODE CLASS="Code">
+get-cursor-position</CODE>
+ is called with <CODE CLASS="Code">
+lppoint</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-886941"></A>Provided the call to <CODE CLASS="Code">
+GetCursorPos</CODE>
+ was successful the function <A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A> is called twice, once to return the value in the <CODE CLASS="Code">
+x</CODE>
+ slot and again to return the value in the <CODE CLASS="Code">
+y</CODE>
+ slot. If the call was unsuccessful then <CODE CLASS="Code">
+0 0 nil</CODE>
+ is returned.</LI>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-15.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-13.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

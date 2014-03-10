@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ compile
+</TITLE>
+
+<LINK REL="next" HREF="lw-635.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-633.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-635.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-633.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1039003"></A><A NAME="28197"></A>compile<A NAME="marker-1039002"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1039004"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039005"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039006"></A>Compiles a lambda expression into a compiled function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039007"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039008"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039009"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039010"></A>compile <EM CLASS="Variable">
+name</EM>
+ &amp;optional <EM CLASS="Variable">
+definition</EM>
+ =&gt; <EM CLASS="Variable">
+function</EM>
+, <EM CLASS="Variable">
+warnings-p</EM>
+, <EM CLASS="Variable">
+failure-p</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039011"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1237928"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A function name or <CODE CLASS="Code">
+nil</CODE>
+ or a list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039012"></A><EM CLASS="Variable">
+definition</EM>
+</P>
+<P CLASS="RDescription-C">A lambda expression or a function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039020"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039021"></A><CODE CLASS="Code">
+compile</CODE>
+ calls the compiler to translate a lambda expression into a code vector containing an equivalent sequence of host specific machine code. A compiled function typically runs between 10 and 100 times faster. It is generally worth compiling the most frequently called Lisp functions in a large application during the development phase. The compiler detects a large number of programming errors, and the resulting code runs sufficiently faster to justify the compilation time, even during development.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1153065"></A>Warning messages are printed to <CODE CLASS="Code">
+*error-output*</CODE>
+. Other messages are printed to <CODE CLASS="Code">
+*standard-output*</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1245352"></A><EM CLASS="Variable">
+definition</EM>
+ and the return values are as specified for Common Lisp. Note that <EM CLASS="Variable">
+name</EM>
+ may be a list not of the form <CODE CLASS="Code">
+(setf </CODE>
+<EM CLASS="Variable">
+symbol</EM>
+<CODE CLASS="Code">
+)</CODE>
+, which is an extension to Common Lisp.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1249718"></A><CODE CLASS="Code">
+compile</CODE>
+ also supports a LispWorks-specific extension allowing <CODE CLASS="Code">
+compile</CODE>
+ to compile an arbitrary form. When <EM CLASS="Variable">
+definition</EM>
+ is not supplied and <EM CLASS="Variable">
+name</EM>
+ is a list not of the form <CODE CLASS="Code">
+(setf </CODE>
+<EM CLASS="Variable">
+symbol</EM>
+<CODE CLASS="Code">
+)</CODE>
+, <CODE CLASS="Code">
+compile</CODE>
+ compiles it as if by <A HREF="lw-635.htm#53982" CLASS="XRef">compile-file</A> but without any file related processing and does it in-memory, so it has also the same effect as loading. This has a similar effect to compiling a definition in the LispWorks Editor tool, except that there is no source recording. Multiple forms can be compiled in one call by wrapping them with <CODE CLASS="Code">
+progn</CODE>
+. When <CODE CLASS="Code">
+compile</CODE>
+ is used this way it always returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1256257"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1256258"></A>A compiled function object may be returned. Such compiled function objects are not printable (but see <A HREF="lw-643.htm#30702" CLASS="XRef">disassemble</A>) other than as <CODE CLASS="Code">
+#&lt;Function FOO </CODE>
+<EM CLASS="Variable">
+hex-address</EM>
+<CODE CLASS="Code">
+&gt;</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1152999"></A>Compatibility note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1153000"></A>In LispWorks 5.1 and previous versions, warning messages are printed to <CODE CLASS="Code">
+*standard-output*</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039022"></A>Examples</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1039023"></A>(defun fn (...) ...) ; interpreted definition for fn</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039024"></A>(compile 'fn)        ; replace with compiled </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039025"></A>                     ; definition</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039026"></A>(compile nil '(lambda (x) (* x x))) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039027"></A>                  ; returns compiled squaring function</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039028"></A>(compile 'cube '(lambda (x) (* x x x)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039029"></A>                  ; defun and compile in one</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039030"></A>Notes </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039034"></A>See <A HREF="lw-638.htm#20275" CLASS="XRef">declare</A> for a list of the declarations that alter the behavior of the compiler.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039035"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039039"></A><A HREF="lw-635.htm#53982" CLASS="XRef">compile-file</A><BR>
+<A HREF="lw-643.htm#30702" CLASS="XRef">disassemble</A><BR>
+<A HREF="lw-638.htm#20275" CLASS="XRef">declare</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-635.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-633.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

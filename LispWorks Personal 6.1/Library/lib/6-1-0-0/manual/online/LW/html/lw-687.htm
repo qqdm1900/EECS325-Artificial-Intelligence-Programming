@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *hidden-packages*
+</TITLE>
+
+<LINK REL="next" HREF="lw-688.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-686.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-683.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-683.htm">29 The DBG Package</A><BR><BR>
+</DIV><A HREF="lw-688.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-686.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886261"></A><A NAME="42487"></A><A NAME="marker-887078"></A>*hidden-packages*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886263"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889518"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889526"></A>A list of packages whose symbols should not be displayed in debugger output.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886265"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886266"></A>dbg</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886267"></A>Initial Value</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886268"></A>A list containing the <CODE CLASS="Code">
+dbg</CODE>
+ and <CODE CLASS="Code">
+conditions</CODE>
+ packages.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886269"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886270"></A><CODE CLASS="Code">
+dbg:*hidden-packages*</CODE>
+ is used by the debugger. It should be bound to a list of package specifiers. If a package is included in the list then any symbols in it are not shown by the debugger. Thus during backtraces the call frames corresponding to functions in these packages are not displayed. This can be useful in restricting the debugger to particular areas. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886272"></A>Example </H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-899665"></A>CL-USER 1 &gt; unbound</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899666"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899667"></A>Error: The variable UNBOUND is unbound.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899668"></A>  1 (continue) Try evaluating UNBOUND again.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899669"></A>  2 Return the value of :UNBOUND instead.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899670"></A>  3 Specify a value to use this time instead of evaluating UNBOUND.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899671"></A>  4 Specify a value to set UNBOUND to.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899672"></A>  5 (abort) Return to level 0.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899673"></A>  6 Return to top loop level 0.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899674"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899675"></A>Type :b for backtrace or :c &lt;option number&gt; to proceed.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899676"></A>Type :bug-form &quot;&lt;subject&gt;&quot; for a bug report template or :? for other options.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899677"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899678"></A>CL-USER 2 : 1 &gt; :b 3</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899679"></A>Call to ERROR</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899680"></A>Call to EVAL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899681"></A>Call to CAPI::CAPI-TOP-LEVEL-FUNCTION</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899682"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899683"></A>CL-USER 3 : 1 &gt; (push &quot;COMMON-LISP&quot; dbg:*hidden-packages*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899684"></A>(&quot;COMMON-LISP&quot; #&lt;The COMPILER package, 3131/4096 internal, 41/64 external&gt; #&lt;The SYSTEM package, 6258/8192 internal, 1266/2048 external&gt; &quot;DBG&quot; &quot;CONDITIONS&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899685"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899686"></A>CL-USER 4 : 1 &gt; :b 3</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899687"></A>Call to CAPI::CAPI-TOP-LEVEL-FUNCTION</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899688"></A>Call to CAPI::INTERACTIVE-PANE-TOP-LOOP</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899689"></A>Call to MP::PROCESS-SG-FUNCTION</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899690"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886294"></A>CL-USER 5 : 1 &gt; </PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886295"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886296"></A><CODE CLASS="Code">
+*hidden-packages*</CODE>
+ is an extension to Common Lisp.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-688.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-686.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

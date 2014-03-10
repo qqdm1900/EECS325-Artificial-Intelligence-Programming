@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ora-lob-erase
+</TITLE>
+
+<LINK REL="next" HREF="lw-1217.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1215.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1217.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1215.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1132585"></A><A NAME="53755"></A>ora<A NAME="marker-1132584"></A>-lob-erase</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1132586"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1132587"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1132588"></A>Erases part of an internal LOB.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1132589"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1132590"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1132591"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1132592"></A>ora-lob-erase <EM CLASS="Variable">
+lob-locator</EM>
+ <EM CLASS="Variable">
+offset</EM>
+ <EM CLASS="Variable">
+amount</EM>
+ &amp;key <EM CLASS="Variable">
+errorp</EM>
+ =&gt; <EM CLASS="Variable">
+erased</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1132593"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1132594"></A><EM CLASS="Variable">
+lob-locator</EM>
+</P>
+<P CLASS="RDescription-C">A LOB locator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1133280"></A><EM CLASS="Variable">
+offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1132596"></A><EM CLASS="Variable">
+amount</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1132599"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1133635"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1134128"></A><EM CLASS="Variable">
+erased</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1133751"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1132601"></A>The function <CODE CLASS="Code">
+ora-lob-erase</CODE>
+ erases part of the LOB pointed to by <EM CLASS="Variable">
+lob-locator</EM>
+. That is, it fills part of the LOB with 0 for BLOBs or spaces for CLOBs.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1133833"></A>The operation starts from offset <EM CLASS="Variable">
+offset</EM>
+ into the LOB and erases  <EM CLASS="Variable">
+amount</EM>
+ of data in the LOB, or to the end of the LOB. Note that the offset starts from 1, and that <EM CLASS="Variable">
+offset</EM>
+ and <EM CLASS="Variable">
+amount</EM>
+ are in characters for CLOBs and bytes for BLOB.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1133835"></A>Erasing does not extend beyond the end of the LOB. The return value <EM CLASS="Variable">
+erased</EM>
+ is the number of characters or bytes erased. <EM CLASS="Variable">
+erased</EM>
+ will be smaller than <EM CLASS="Variable">
+amount</EM>
+ if the sum of <EM CLASS="Variable">
+offset</EM>
+ and <EM CLASS="Variable">
+amount</EM>
+ is greater than the length of the LOB.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1134454"></A><CODE CLASS="Code">
+ora-lob-erase</CODE>
+ is applicable to internal LOBs only.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1248631"></A>If an error occurs and <EM CLASS="Variable">
+errorp</EM>
+ is true, an error is signaled. If <EM CLASS="Variable">
+errorp</EM>
+ is false, the function returns an object of type <A HREF="lw-1263.htm#54951" CLASS="XRef">sql-database-error</A>. The default value of <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1134043"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1566884"></A>This is a direct call to OCILobErase.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1132607"></A><CODE CLASS="Code">
+ora-lob-erase</CODE>
+ is available only when the &quot;oracle&quot; module is loaded. See the section <A HREF="lw-424.htm#Oracle LOB interface;Oracle locator objects;Oracle large objects " CLASS="XRef">Oracle LOB interface</A> for more information.</LI>
+</OL>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1217.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1215.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

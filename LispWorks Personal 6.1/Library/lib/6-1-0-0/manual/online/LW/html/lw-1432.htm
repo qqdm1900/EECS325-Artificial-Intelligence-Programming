@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-signal-handler
+</TITLE>
+
+<LINK REL="next" HREF="lw-1433.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1431.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1433.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1431.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1009195"></A><A NAME="marker-1009194"></A>set-signal-handler</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1009196"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009197"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1009198"></A>Installs or removes a handler for a Unix signal.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1022386"></A>Note: applicable only on UNIX/Linux/Mac OS X.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009199"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1009200"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009201"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1009202"></A>set-signal-handler <EM CLASS="Variable">
+signum handler</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009203"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009204"></A><EM CLASS="Variable">
+signum</EM>
+</P>
+<P CLASS="RDescription-C">A Unix signal number.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009205"></A><EM CLASS="Variable">
+handler</EM>
+</P>
+<P CLASS="RDescription-C">A function or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009206"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1009207"></A><CODE CLASS="Code">
+set-signal-handler</CODE>
+ with a function <EM CLASS="Variable">
+handler</EM>
+ configures LispWorks such that <EM CLASS="Variable">
+handler</EM>
+ is called when the Unix signal <EM CLASS="Variable">
+signum</EM>
+ occurs.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1009208"></A>If <EM CLASS="Variable">
+handler</EM>
+ is  <CODE CLASS="Code">
+nil</CODE>
+, any handler for <EM CLASS="Variable">
+signum</EM>
+ is removed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1009209"></A><EM CLASS="Variable">
+handler</EM>
+ should be defined to take an <CODE CLASS="Code">
+&amp;rest</CODE>
+ argument, and ignore it. There are no restrictions on <EM CLASS="Variable">
+handler</EM>
+ other than those applying to any asychronous function call, and that it may be called in any thread. In particular there is no need to handle the signal immediately.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1009210"></A>The configuration established by <CODE CLASS="Code">
+set-signal-handler</CODE>
+ is not persistent over image saving (or application delivery), so it should be called each time the image (or application) is started.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1400574"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1009211"></A>The currently defined signal handlers are shown in the output of the bug report template which can generated via the <CODE CLASS="Code">
+:bug-form</CODE>
+ listener command. For example, there is a <CODE CLASS="Code">
+SIGINT</CODE>
+ handler which calls <CODE CLASS="Code">
+break</CODE>
+. You should consult Lisp Support before overwriting existing signal handlers.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1009212"></A>LispWorks initially has no <CODE CLASS="Code">
+SIGHUP</CODE>
+ handler. <CODE CLASS="Code">
+SIGHUP</CODE>
+ will kill a LispWorks process which does not have a <CODE CLASS="Code">
+SIGHUP</CODE>
+ handler installed. When the LispWorks IDE starts up, a <CODE CLASS="Code">
+SIGHUP</CODE>
+ handler (which attempts to release locks in the environment) is installed. However if you need a <CODE CLASS="Code">
+SIGHUP</CODE>
+ handler in a server application, for example, you should install one using <CODE CLASS="Code">
+set-signal-handler</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009216"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1009217"></A>(defun my-hup-handler (&amp;rest x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009218"></A>  (declare (ignorable x))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009219"></A>  (cerror &quot;Continue&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1009220"></A>   &quot;Got a HUP signal&quot;))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1009221"></A>(sys:set-signal-handler 1 'my-hup-handler)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1009225"></A>Note that the LispWorks IDE overwrites a <CODE CLASS="Code">
+SIGHUP</CODE>
+ handler, so you would need to reinstall it after GUI startup.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1433.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1431.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

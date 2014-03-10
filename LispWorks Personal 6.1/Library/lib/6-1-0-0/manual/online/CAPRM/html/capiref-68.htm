@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-command
+</TITLE>
+
+<LINK REL="next" HREF="capiref-69.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-67.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-69.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-67.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-889765"></A><A NAME="29349"></A>define<A NAME="marker-4012720"></A>-command</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-889958"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889769"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1013305"></A>The <CODE CLASS="Code">
+define-command</CODE>
+ macro defines an alias for a mouse or keyboard gesture that can be used in the input model of an output pane.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4012686"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4012687"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1012874"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889771"></A>define-command <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+gesture</EM>
+ &amp;key <EM CLASS="Variable">
+translator</EM>
+ <EM CLASS="Variable">
+host</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889773"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889775"></A>The macro <CODE CLASS="Code">
+define-command</CODE>
+ defines an alias for a mouse or keyboard gesture that can then be used in <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A>'s input models. The <EM CLASS="Variable">
+name</EM>
+ is the name of the alias and the <EM CLASS="Variable">
+gesture</EM>
+ is one of the gestures accepted by <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A>. The <EM CLASS="Variable">
+translator</EM>
+ is a function that gets passed the arguments that would be passed to the callback, and returns a list of arguments to be passed to the callback along with the output-pane (which will be the first argument). The <EM CLASS="Variable">
+host</EM>
+ indicates which platforms this gesture should apply for (it defaults to all platforms). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-889782"></A>For a full description of the gesture syntax, see <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A>. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889784"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889786"></A>Firstly, here is an example of defining a command which maps onto a gesture. </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-889788"></A>(defun gesture-callback (output-pane x y)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889789"></A>  (capi:display-message </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890003"></A>   &quot;Pressed &#126;S at (&#126;S,&#126;S)&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-889790"></A>   output-pane x y))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-889794"></A>(capi:define-command :select (:button-1 :press))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-889798"></A>(capi:contain (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889800"></A>               'capi:output-pane</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889801"></A>               :input-model '((:select </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1011571"></A>                               gesture-callback))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-889805"></A>Here is a more complicated example demonstrating the use of <EM CLASS="Variable">
+translator</EM>
+ to affect the arguments passed to a callback. </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-889808"></A>(capi:define-command</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889809"></A>  :select-object (:button-1 :press)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889811"></A>  :translator #'(lambda (output-pane x y)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889812"></A>                  (let ((object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889813"></A>                        (capi:pinboard-object-at-position</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889814"></A>                                        output-pane x y)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889815"></A>                                  (when object</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-889816"></A>                                    (list object)))))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-889820"></A>(defun object-select-callback (output-pane</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889821"></A>                               &amp;optional object)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889822"></A>  (when object (capi:display-message </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889949"></A>                &quot;Pressed on &#126;S in &#126;S&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-889824"></A>                object output-pane)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-889828"></A>(setq pinboard</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889829"></A>      (capi:contain (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889831"></A>                    'capi:pinboard-layout</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889832"></A>                    :input-model '((:select-object</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-889833"></A>                               object-select-callback)))))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-889837"></A>(make-instance 'capi:item-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889838"></A>               :text &quot;Press Me!&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889839"></A>               :parent pinboard</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-889840"></A>               :x 10 :y 20)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-3234649"></A>(make-instance 'capi:line-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3234650"></A>               :parent pinboard</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3234651"></A>               :start-x 20 :start-y 50</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-3456278"></A>               :end-x 120 :end-y 150)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-3456279"></A>There is a further example in the file <CODE CLASS="Code">
+capi/output-panes/commands.lisp</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889855"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889857"></A><A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A><BR>
+<A HREF="capiref-203.htm#13371" CLASS="XRef">invoke-command</A><BR>
+<A HREF="capiref-204.htm#36220" CLASS="XRef">invoke-untranslated-command</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-69.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-67.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

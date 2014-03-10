@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 8.5  Examples
+</TITLE>
+
+<LINK REL="next" HREF="lw-104.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-102.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-98.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-98.htm">8 Action Lists</A><BR><BR>
+</DIV><A HREF="lw-104.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-102.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-98.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-889500"></A>8.5  Examples</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889502"></A>This example i<A NAME="marker-890120"></A>llustrates &quot;typical&quot; use of action lists. The <A HREF="lw-898.htm#38571" CLASS="XRef">define-action</A> forms might be scattered across several files (<CODE CLASS="Code">
+mail-utilities.lisp</CODE>
+, <CODE CLASS="Code">
+caffeine.lisp</CODE>
+, and so on). Each of the functions, such as <CODE CLASS="Code">
+read-mail</CODE>
+, <CODE CLASS="Code">
+dont-panic</CODE>
+, and so on, take one argument: <CODE CLASS="Code">
+hassled-p</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-889507"></A>(in-package &quot;CL-USER&quot;)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-889509"></A>(define-action-list &quot;On arrival at office&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889510"></A>    :documentation &quot;Things to do in the morning&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889511"></A>    :dummy-actions '(&quot;Look busy&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889512"></A>    :default-order '(:before &quot;Look busy&quot;))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-889515"></A>(define-action &quot;On arrival at office&quot; &quot;Read mail&quot; 'read-mail)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-889517"></A>(define-action &quot;On arrival at office&quot; &quot;Greet co-workers&quot; </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889766"></A>                 'say-hello)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-889749"></A>(define-action &quot;On arrival at office&quot; &quot;Drink much coffee&quot; </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889750"></A>                 'wake-up:after &quot;Locate coffee machine&quot;)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-889522"></A>(define-action &quot;On arrival at office&quot; &quot;Locate coffee machine&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889768"></A>                 'dont-panic)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-889525"></A>(defun my-morning (hassled-p Monday-p)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889526"></A>   (execute-actions (&quot;On arrival at office&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889767"></A>                     :ignore-errors-p Monday-p)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889527"></A>                 hassled-p)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889528"></A>    &lt;<EM CLASS="Variable">rest of my-morning code goes here</EM>
+&gt;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889532"></A>This example illustrates use of execution-functions and post-processing</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-889533"></A>(in-package &quot;CL-USER&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-889535"></A>Here are the implementation details, which are hidden from the &quot;user&quot;.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889536"></A>(defstruct (thing (:constructor make-thing (name number)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889537"></A>  name</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889538"></A>  number)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-889540"></A>(defvar *things* </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889541"></A>  (make-unregistered-action-list :sort-time :define-action</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889542"></A>         :execution-function 'act-on-things))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-889544"></A>(defun do-things (function &amp;optional post-process)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889545"></A>  (execute-actions (*things* :post-process post-process)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889546"></A>                   function))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-889548"></A>(defun act-on-things (things other-args-list &amp;key post-process)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889549"></A>  (with-action-list-mapping</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889550"></A>   (things ignore thing post-process)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889551"></A>   (destructuring-bind</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889552"></A>    (function) other-args-list</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890462"></A>    (funcall function thing))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-890463"></A>The interface is given below. The internals of the mapping mechanism are hidden.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889556"></A>(defmacro define-thing (name number)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889557"></A>  (with-unique-names (thing)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889558"></A>    `(let ((,thing (make-thing ,name ,number)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889559"></A>       (define-action *things* ',name ,thing))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-889561"></A>(defmacro undefine-thing (name)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889562"></A>  `(undefine-action *things* ,name))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-889564"></A>(defun find-thing (name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889565"></A>  (do-things #'(lambda (thing)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889566"></A>                   (and (equal name (thing-name thing))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889567"></A>                        thing))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889568"></A>               :or))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-889570"></A>(defun add-things ()</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889571"></A>  (reduce '+ (do-things 'thing-number :collect)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-104.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-102.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-98.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

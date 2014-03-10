@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-dynamic-foreign-objects
+</TITLE>
+
+<LINK REL="next" HREF="fli-150.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-148.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-150.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-148.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886126"></A><A NAME="42568"></A>with<A NAME="marker-1273798"></A>-dynamic-foreign-objects</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-896356"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898667"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-936984"></A>Does the equivalent of <CODE CLASS="Code">
+dynamic-extent</CODE>
+ for foreign objects.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-936983"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898668"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886127"></A><A NAME="42119"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-896371"></A>with-dynamic-foreign-objects <EM CLASS="Variable">
+bindings</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+last</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1315117"></A><EM CLASS="Variable">
+bindings</EM>
+ ::= (<EM CLASS="Variable">
+binding</EM>
+*)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1315118"></A><EM CLASS="Variable">
+binding</EM>
+<A NAME="11331"></A>  ::= (<EM CLASS="Variable">
+var</EM>
+ <EM CLASS="Variable">
+foreign-type</EM>
+ &amp;key <EM CLASS="Variable">
+initial-element</EM>
+ <EM CLASS="Variable">
+initial-contents</EM>
+ <EM CLASS="Variable">
+fill</EM>
+ <EM CLASS="Variable">
+nelems</EM>
+ <EM CLASS="Variable">
+size-slot</EM>
+)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-900752"></A><EM CLASS="Variable">
+body</EM>
+ ::= <EM CLASS="Variable">
+form</EM>
+*</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900717"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900763"></A><EM CLASS="Variable">
+var</P>
+<P CLASS="RDescription-C"></EM>
+A symbol to be bound to a foreign type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900768"></A><EM CLASS="Variable">
+foreign-type</P>
+<P CLASS="RDescription-C"></EM>
+A foreign type descriptor to be bound to the variable <EM CLASS="Variable">
+var</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900771"></A><EM CLASS="Variable">
+form</EM>
+</P>
+<P CLASS="RDescription-C">A form to be executed with <EM CLASS="Variable">
+bindings</EM>
+ in effect.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900865"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-900888"></A><EM CLASS="Variable">
+last</P>
+<P CLASS="RDescription-C"></EM>
+The value of the last <EM CLASS="Variable">
+form</EM>
+ in <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900787"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-900789"></A>The macro <CODE CLASS="Code">
+with-dynamic-foreign-objects</CODE>
+ binds variables according to the list <EM CLASS="Variable">
+bindings</EM>
+, and then executes <EM CLASS="Variable">
+body</EM>
+. Each element of <EM CLASS="Variable">
+bindings</EM>
+ is a list which binds a symbol to a pointer which points to a locally allocated instance of a foreign type.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1331103"></A><EM CLASS="Variable">
+initial-element</EM>
+, <EM CLASS="Variable">
+initial-contents</EM>
+, <EM CLASS="Variable">
+fill</EM>
+, <EM CLASS="Variable">
+nelems</EM>
+ and <EM CLASS="Variable">
+size-slot</EM>
+ initialize the allocated instance as if by <A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1331107"></A>The lifetime of the bound foreign objects, and hence the allocation of the memory they take up, is within the scope of the <CODE CLASS="Code">
+with-dynamic-foreign-objects</CODE>
+ function.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-900792"></A>Any object created with <A HREF="fli-73.htm#10368" CLASS="XRef">allocate-dynamic-foreign-object</A> within <EM CLASS="Variable">
+body</EM>
+ will automatically be deallocated once the scope of the <CODE CLASS="Code">
+with-dynamic-foreign-objects</CODE>
+ function has been left.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1352525"></A>Compatibility note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1352526"></A>There is an alternative syntax for <EM CLASS="Variable">
+binding</EM>
+ with an optional <EM CLASS="Variable">
+initial-element</EM>
+ which is the only way to supply an initial element in LispWorks 5.0 and previous versions. Like this:</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1352527"></A><EM CLASS="Variable">
+binding</EM>
+  ::= (<EM CLASS="Variable">
+var</EM>
+ <EM CLASS="Variable">
+foreign-type</EM>
+ &amp;optional <EM CLASS="Variable">
+initial-element</EM>
+)</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1352528"></A>This alternative syntax is deprecated in favor of the keyword syntax for <EM CLASS="Variable">
+binding</EM>
+ defined in <A HREF="fli-149.htm#42119" CLASS="XRef">Signature</A> above which is supported in LispWorks 5.1 and later.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900798"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-900800"></A>This example shows the use of <CODE CLASS="Code">
+with-dynamic-foreign-objects</CODE>
+ with an implicitly created pointer.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1184324"></A>Windows version:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1184359"></A>typedef struct {</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184380"></A> int one;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184381"></A> float two;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184382"></A>} foo ;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184383"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184384"></A>__declspec(dllexport) void __cdecl init_alloc(foo *ptr, int a, float b)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184385"></A>{</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184386"></A> ptr-&gt;one = a;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184387"></A> ptr-&gt;two = b;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1184388"></A>};</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1184341"></A>Unix/Linux/Macintosh version:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1184320"></A>typedef struct  {</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184601"></A> int one;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184602"></A> float two;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184603"></A>} foo ;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184604"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184605"></A>void init_alloc(foo * ptr, int a, float b)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184606"></A>{</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184607"></A> ptr-&gt;one = a;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1184608"></A> ptr-&gt;two = b;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1184609"></A>};</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1184796"></A>Here are the FLI definitions interfacing to the above C code:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1315340"></A>(fli:define-c-typedef (foo (:foreign-name &quot;foo&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1315341"></A>  (:struct (one :int) (two :float)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1315342"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1315343"></A>(fli:define-foreign-function (init-alloc &quot;init_alloc&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1315344"></A>    ((ptr (:pointer foo))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1315345"></A>     (a :int) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1315346"></A>     (b :float))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1315347"></A>  :result-type :void</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1185118"></A>  :calling-convention :cdecl)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1185198"></A>Try this test function which uses <CODE CLASS="Code">
+with-dynamic-foreign-objects</CODE>
+ to create a transient <CODE CLASS="Code">
+foo</CODE>
+ object and pointer:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1185217"></A>(defun test-alloc (int-value float-value &amp;optional (level 0))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185238"></A>  (fli:with-dynamic-foreign-objects ((object foo))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185239"></A>    (init-alloc object int-value float-value)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185240"></A>    (format t &quot;&#126;%Level - &#126;D&#126;&amp;   object : &#126;S&#126;&amp;   slot one : &#126;S&#126;&amp;   slot two : &#126;S&#126;&amp;&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185241"></A>            level object </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185242"></A>            (fli:foreign-slot-value object 'one) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185243"></A>            (fli:foreign-slot-value object 'two))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185244"></A>    (when (&gt; int-value 0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185245"></A>      (test-alloc (1- int-value) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185246"></A>                  (1- float-value) (1+ level)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185247"></A>    (when (&gt; float-value 0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185248"></A>      (test-alloc (1- int-value) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1185249"></A>                  (1- float-value) (1+ level)))))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1185451"></A>(test-alloc 1 2.0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185460"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185461"></A>Level - 0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185462"></A>   object : #&lt;Pointer to type FOO = #x007E6338&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185463"></A>   slot one : 1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185464"></A>   slot two : 2.0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185465"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185466"></A>Level - 1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185467"></A>   object : #&lt;Pointer to type FOO = #x007E6340&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185468"></A>   slot one : 0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185469"></A>   slot two : 1.0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185470"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185471"></A>Level - 2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185472"></A>   object : #&lt;Pointer to type FOO = #x007E6348&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185473"></A>   slot one : -1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185474"></A>   slot two : 0.0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185475"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185476"></A>Level - 1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185477"></A>   object : #&lt;Pointer to type FOO = #x007E6340&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185478"></A>   slot one : 0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185479"></A>   slot two : 1.0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185480"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185481"></A>Level - 2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185482"></A>   object : #&lt;Pointer to type FOO = #x007E6348&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1185483"></A>   slot one : -1</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1185484"></A>   slot two : 0.0</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1184611"></A>A further example using <CODE CLASS="Code">
+with-dynamic-foreign-objects</CODE>
+ and a pointer created explicitly by <A HREF="fli-73.htm#10368" CLASS="XRef">allocate-dynamic-foreign-object</A> is given in <A HREF="fli-14.htm#26276" CLASS="XRef">An example of dynamic memory allocation</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-900802"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-900815"></A><A HREF="fli-73.htm#10368" CLASS="XRef">allocate-dynamic-foreign-object</A><BR>
+<A HREF="fli-119.htm#14842" CLASS="XRef">free-foreign-object</A><BR>
+<A HREF="fli-148.htm#26364" CLASS="XRef">with-coerced-pointer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-150.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-148.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

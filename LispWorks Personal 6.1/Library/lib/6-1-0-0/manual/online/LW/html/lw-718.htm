@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ find-name-locations
+</TITLE>
+
+<LINK REL="next" HREF="lw-719.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-717.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-698.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-698.htm">30 The DSPEC Package</A><BR><BR>
+</DIV><A HREF="lw-719.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-717.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-912785"></A><A NAME="50636"></A>find<A NAME="marker-914020"></A>-name-locations</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-912786"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912787"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-912788"></A>Returns the locations of the definitions of a name.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912789"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-912790"></A>dspec</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912791"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-912792"></A>find-name-locations <EM CLASS="Variable">
+classes</EM>
+ <EM CLASS="Variable">
+name</EM>
+ =&gt; <EM CLASS="Variable">
+locations</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912982"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912983"></A><EM CLASS="Variable">
+classes</P>
+<P CLASS="RDescription-C"></EM>
+A list of dspec class names.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912984"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A name.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912985"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-912986"></A><EM CLASS="Variable">
+locations</EM>
+</P>
+<P CLASS="RDescription-C">A list of pairs (<EM CLASS="Variable">
+recorded-dspec</EM>
+ <EM CLASS="Variable">
+location</EM>
+).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912797"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-912798"></A>The function <CODE CLASS="Code">
+find-name-locations</CODE>
+ returns the locations of the relevant definitions for <EM CLASS="Variable">
+name</EM>
+ in the classes listed in <EM CLASS="Variable">
+classes</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-912799"></A>For each known definition <EM CLASS="Variable">
+recorded-dspec</EM>
+ names the definition that defined <EM CLASS="Variable">
+name</EM>
+ in <EM CLASS="Variable">
+location</EM>
+, and <EM CLASS="Variable">
+location</EM>
+ is a pathname or keyword as described in <A HREF="lw-700.htm#74763" CLASS="XRef">at-location</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-912804"></A>The location information is collected from all finders on <A HREF="lw-699.htm#39188" CLASS="XRef">*active-finders*</A>, that is, the relevant definitions are those known to at least one of these finders.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-912808"></A>If two or more finders return the same pair (<EM CLASS="Variable">
+recorded-dspec</EM>
+ <EM CLASS="Variable">
+location</EM>
+), as compared by <A HREF="lw-711.htm#79302" CLASS="XRef">dspec-equal</A> and location equality, then only the first occurence of the pair (in the order of <A HREF="lw-699.htm#39188" CLASS="XRef">*active-finders*</A>) appears in <EM CLASS="Variable">
+locations</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-912815"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-912819"></A><A HREF="lw-699.htm#39188" CLASS="XRef">*active-finders*</A><BR>
+<A HREF="lw-723.htm#65600" CLASS="XRef">name-definition-locations</A><BR>
+<A HREF="lw-711.htm#79302" CLASS="XRef">dspec-equal</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-719.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-717.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

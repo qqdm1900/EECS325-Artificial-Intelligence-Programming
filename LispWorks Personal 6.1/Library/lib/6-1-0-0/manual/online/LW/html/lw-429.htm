@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.11.2  Retrieving Lob Locators
+</TITLE>
+
+<LINK REL="next" HREF="lw-430.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-428.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-424.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-424.htm">19.11  Oracle LOB interface</A><BR><BR>
+</DIV><A HREF="lw-430.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-428.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-424.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-911177"></A>19.11.2  <A NAME="26438"></A>Retrieving Lob Locators</H3>
+<P CLASS="Body">
+<A NAME="pgfId-911179"></A>When the selections list of a query that is used in <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A>, <A HREF="lw-1253.htm#39816" CLASS="XRef">query</A>, <A NAME="marker-913893"></A><A HREF="lw-1179.htm#26371" CLASS="XRef">do-query</A>, <A NAME="marker-913898"></A><A HREF="lw-1200.htm#17430" CLASS="XRef">map-query</A>, <A NAME="marker-913903"></A><A HREF="lw-1259.htm#54409" CLASS="XRef">simple-do-query</A> or <CODE CLASS="Code">
+loop .... for </CODE>
+<EM CLASS="Variable">
+x</EM>
+<CODE CLASS="Code">
+ being each record</CODE>
+ contains a column of a LOB type, the results are LOB locator objects. For example, if the table definition is:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-911181"></A>   create table mytable {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911182"></A>       name varchar(200),</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911183"></A>       image  blob</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-911184"></A>       }</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-911185"></A>Then doing</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-911186"></A>     (sql:select [image] :from [mytable] :flatp t)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-911187"></A>returns a list of LOB locators.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911189"></A>This example lists the size of the images in the table mytable:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-911191"></A>(dolist (pair (sql:select [name][image] :from [mytable]))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911192"></A>  (format t &quot;&#126;a has an image of size &#126;a&#126;%&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911193"></A>          (first pair) (sql:ora-lob-get-length (second pair)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-911194"></A>  (sql:ora-lob-free (second pair)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-911196"></A>or more efficiently</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-911198"></A>(sql:do-query ((name lob-locator)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911199"></A>               [sql:select [name][image] :from [mytable]])</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911200"></A>              (format t &quot;&#126;a has an image of size &#126;a&#126;%&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-911201"></A>                      name (sql:ora-lob-get-length lob-locator)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-911203"></A><B CLASS="Bold">
+Note:</B>
+ The lifetime of the LOB locator objects differs between the functions that return a list of objects (<A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> and <A HREF="lw-1253.htm#39816" CLASS="XRef">query</A>) and the iterative functions and macros (<A HREF="lw-1179.htm#26371" CLASS="XRef">do-query</A>, <A HREF="lw-1259.htm#54409" CLASS="XRef">simple-do-query</A>, <A HREF="lw-652.htm#60197" CLASS="XRef">loop</A> and <A HREF="lw-1200.htm#17430" CLASS="XRef">map-query</A>). The iteration functions and macros free the LOB locators that they retrieve before proceeding to the next iteration. <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> and <A HREF="lw-1253.htm#39816" CLASS="XRef">query</A> do not free the LOB locators. Each LOB locator stays alive until the application makes an explicit call to <A HREF="lw-1225.htm#10227" CLASS="XRef">ora-lob-free</A>, or until the database is closed by a call to <A HREF="lw-1178.htm#41029" CLASS="XRef">disconnect</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-430.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-428.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-424.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

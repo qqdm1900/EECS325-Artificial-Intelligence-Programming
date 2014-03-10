@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ save-image-with-bundle
+</TITLE>
+
+<LINK REL="next" HREF="lw-829.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-827.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-829.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-827.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1441194"></A><A NAME="62077"></A>save-image<A NAME="marker-1441192"></A>-with-bundle</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1441195"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1441196"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1441197"></A>Saves a LispWorks for Macintosh image with an application bundle, thus allowing it to work properly in the Cocoa windowing system.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1441198"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1441199"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1441200"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1441201"></A>save-image-with-bundle <EM CLASS="Variable">
+bundle-path</EM>
+ &amp;rest <EM CLASS="Variable">
+save-image-args</EM>
+ &amp;key <EM CLASS="Variable">
+bundle-arguments</EM>
+ <EM CLASS="Variable">
+bundle-function</EM>
+ &amp;allow-other-keys</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1441202"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1441203"></A><EM CLASS="Variable">
+bundle-path</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1441204"></A><EM CLASS="Variable">
+save-image-args</EM>
+</P>
+<P CLASS="RDescription-C">Arguments passed to <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1443065"></A><EM CLASS="Variable">
+bundle-arguments</EM>
+</P>
+<P CLASS="RDescription-C">Arguments passed to <EM CLASS="Variable">
+bundle-function</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1443071"></A><EM CLASS="Variable">
+bundle-function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1441207"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1443652"></A>The function <CODE CLASS="Code">
+save-image-with-bundle</CODE>
+ first creates the application bundle using the function <EM CLASS="Variable">
+bundle-function</EM>
+, and then saves the LispWorks image in the bundle.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1444200"></A>The default value of <EM CLASS="Variable">
+bundle-arguments</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1484808"></A>The default value of <EM CLASS="Variable">
+bundle-function</EM>
+ is <A HREF="lw-768.htm#37567" CLASS="XRef">create-macos-application-bundle</A>. You can modify the created bundle by supplying <EM CLASS="Variable">
+bundle-arguments</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1444226"></A>With the default values of <EM CLASS="Variable">
+bundle-function</EM>
+ and <EM CLASS="Variable">
+bundle-arguments</EM>
+, it copies the application bundle of the running image to the bundle path with the minimal necessary modifications, and then saves an image in it. <CODE CLASS="Code">
+save-image-with-bundle</CODE>
+ checks <A HREF="lw-825.htm#61005" CLASS="XRef">save-argument-real-p</A>, so it can be used for saving universals without further checks.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1443653"></A><CODE CLASS="Code">
+save-image-with-bundle</CODE>
+ operates as follows:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1443654"></A>If <A HREF="lw-825.htm#61005" CLASS="XRef">save-argument-real-p</A> returns true, it calls <EM CLASS="Variable">
+bundle-function</EM>
+ with the <EM CLASS="Variable">
+bundle-path</EM>
+ and <EM CLASS="Variable">
+bundle-arguments</EM>
+, and then uses the result as the <EM CLASS="Variable">
+filename</EM>
+ for <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A>. Otherwise the <EM CLASS="Variable">
+filename</EM>
+ for <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> is <CODE CLASS="Code">
+nil</CODE>
+.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1441208"></A>It applies <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> to the path derived in the first step and the remaining arguments passed to <CODE CLASS="Code">
+save-image-with-bundle</CODE>
+ (other than <EM CLASS="Variable">
+bundle-arguments</EM>
+ and <EM CLASS="Variable">
+bundle-function</EM>
+).</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-1486500"></A><CODE CLASS="Code">
+save-image-with-bundle</CODE>
+ is implemented only in LispWorks for Macintosh.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1441222"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1441226"></A><A HREF="lw-768.htm#37567" CLASS="XRef">create-macos-application-bundle</A><BR>
+<A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-829.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-827.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

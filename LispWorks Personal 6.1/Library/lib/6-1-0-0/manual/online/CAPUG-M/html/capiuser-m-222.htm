@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 14.5  Color models
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-223.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-221.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-216.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-216.htm">14 The Color System</A><BR><BR>
+</DIV><A HREF="capiuser-m-223.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-221.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886049"></A>14.5  Color models</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886050"></A>Three color models are defined by default: RGB, HSV and GRAY. RGB and HSV allow specification of any color within conventional color space using three orthogonal coordinate axes, while gray restricts colors to one hue between white and black. All color models contain an optional alpha component, though this is used only on Cocoa and Windows.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886830"></A>&nbsp;</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-886801"></A>Color models defined by default<DIV>
+<IMG SRC="capiuser-m-82.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-886053"></A>Model</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-886055"></A>Name</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-886057"></A>Component: Range</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-886059"></A>RGB</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-886061"></A>Red Green Blue</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-886063"></A>RED   (0.0 to 1.0) </P>
+<P CLASS="CellBody">
+<A NAME="pgfId-886064"></A>GREEN (0.0 to 1.0)</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-886065"></A>BLUE (0.0 to 1.0)</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-889325"></A>ALPHA (0.0 to 1.0)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-886067"></A>HSV</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-886069"></A>Hue Saturation Value</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-886071"></A>HUE   (0.0 to 5.99999)</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-886072"></A>SATURATION (0.0 to 1.0)</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-886073"></A>VALUE (0.0 to 1.0)</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-889334"></A>ALPHA (0.0 to 1.0)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-886075"></A>GRAY</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-886077"></A>Gray</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-886079"></A>GRAY (0.0 to 1.0)</P>
+<P CLASS="CellBody">
+<A NAME="pgfId-889341"></A>ALPHA (0.0 to 1.0)</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-886080"></A>The Hue value in HSV is mathematically in the open interval [0.0 6.0). All values must be specified in floating point values.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886081"></A>You can convert color-specs between models using the available <CODE CLASS="Code">
+ensure-&lt;</CODE>
+<EM CLASS="Variable">
+model</EM>
+<CODE CLASS="Code">
+&gt;</CODE>
+ functions. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886082"></A>(setf green (make-rgb 0.0 1.0 0.0) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886083"></A>    =&gt; #(:RGB 0.0 1.0 0.0))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886084"></A>(eq green (ensure-rgb green)) =&gt; T </PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-886085"></A>(ensure-hsv green) =&gt; #(:HSV 3.0 0.0 1.0)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886086"></A>(eq green (ensure-hsv green) =&gt; NIL</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-886087"></A>(ensure-rgb (ensure-hsv green)) =&gt; #(:RGB 0.0 1.0 0.0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886088"></A>(eq green (ensure-rgb (ensure-hsv green))) =&gt; NIL</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886089"></A>Of course, information can be lost when converting to GRAY:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886090"></A>(make-rgb 0.3 0.4 0.5) =&gt; #(:RGB 0.3 0.4 0.5)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886091"></A>(ensure-gray (make-rgb 0.3 0.4 0.5)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886092"></A>    =&gt; #(:GRAY 0.39999965)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886093"></A>(ensure-rgb (ensure-gray </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886094"></A>             (make-rgb 0.3 0.4 0.5)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886095"></A>       =&gt; #(:RGB 0.39999965 0.39999965 0.39999965)</PRE>
+<P CLASS="Body-Next">
+<A NAME="pgfId-886096"></A>There is also <A NAME="marker-887718"></A><CODE CLASS="Code">
+ensure-color</CODE>
+ which takes two color-spec arguments. It converts if necessary the first argument to the same model as the second. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886098"></A>(ensure-color (make-gray 0.3) green) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886099"></A>     =&gt; #(:RGB 0.3 0.3 0.3)</PRE>
+<P CLASS="Body-Next">
+<A NAME="pgfId-886100"></A><A NAME="marker-887723"></A><CODE CLASS="Code">
+ensure-model-color</CODE>
+ takes a model as the second argument. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886101"></A>(ensure-model-color (make-gray 0.3) :hsv)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886102"></A>     =&gt; #(:HSV 0 1.0 0.3)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886103"></A>The function <A NAME="marker-887744"></A><CODE CLASS="Code">
+colors=</CODE>
+ compares two color-spec objects for color equality. </P>
+<P CLASS="Body">
+<A NAME="pgfId-887740"></A>Conversion to pixel values is done by <A NAME="marker-887749"></A><CODE CLASS="Code">
+convert-color</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-223.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-221.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

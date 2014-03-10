@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ static-layout
+</TITLE>
+
+<LINK REL="next" HREF="capiref-422.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-420.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-422.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-420.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-8064087"></A><A NAME="70578"></A>static<A NAME="marker-8064086"></A>-layout</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-8064088"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8064089"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8064090"></A>A layout that allows its children to be positioned anywhere within itself.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8064094"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-8064095"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8064096"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-8064100"></A><A HREF="capiref-211.htm#12861" CLASS="XRef">layout</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8064104"></A>Subclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-8064108"></A><A HREF="capiref-293.htm#24209" CLASS="XRef">pinboard-layout</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8064109"></A>Initargs</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8064114"></A><CODE CLASS="Code">
+:fit-size-to-children</CODE>
+<A NAME="marker-8064113"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8064115"></A>A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8064116"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8064117"></A>The class <CODE CLASS="Code">
+static-layout</CODE>
+ is a layout that allows its children to be positioned anywhere within itself.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8065379"></A>When a <CODE CLASS="Code">
+static-layout</CODE>
+ lays out its children, it positions them at the <EM CLASS="Variable">
+x</EM>
+ and <EM CLASS="Variable">
+y</EM>
+ specified as hints (using <CODE CLASS="Code">
+:x</CODE>
+ and <CODE CLASS="Code">
+:y</CODE>
+), and sizes them to their minimum size (which can be specified using <CODE CLASS="Code">
+:visible-min-width</CODE>
+ and <CODE CLASS="Code">
+:visible-max-width</CODE>
+). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-8064118"></A>If <EM CLASS="Variable">
+fit-size-to-children</EM>
+ is true, the <CODE CLASS="Code">
+static-layout</CODE>
+ is made sufficiently large to accomodate all of its children, and grows if necessary when a child is added. This is the default behavior. Otherwise the static layout has a minimum size of one pixel by one pixel which is not affected by the size of its children. If you need the sizing capabilities, then use the class <A HREF="capiref-406.htm#10300" CLASS="XRef">simple-layout</A> which surrounds a single child, and adopts the size constraints of that child.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8064157"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8064158"></A>Here is an example of a static layout placing simple panes at arbitrary positions inside itself. </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-8064159"></A>(capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8064160"></A> (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8064161"></A>  'capi:pinboard-layout</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8064162"></A>  :description</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8064163"></A>  (list (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8064164"></A>         'capi:text-input-pane</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8064165"></A>         :x 20</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8064166"></A>         :y 100)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8064167"></A>        (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8064168"></A>         'capi:push-button-panel</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8064169"></A>         :x 30</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8064170"></A>         :y 200</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-8064171"></A>         :items '(1 2 3))))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-8064172"></A> :best-width 300 :best-height 300)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8064200"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8064204"></A><A HREF="capiref-293.htm#24209" CLASS="XRef">pinboard-layout</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-422.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-420.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

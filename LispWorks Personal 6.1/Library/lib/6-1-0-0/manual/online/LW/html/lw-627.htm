@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-noticed-socket-stream
+</TITLE>
+
+<LINK REL="next" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-626.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-579.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-579.htm">26 The COMM Package</A><BR><BR>
+</DIV><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-626.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-907371"></A><A NAME="31793"></A>with<A NAME="marker-907578"></A>-noticed-socket-stream</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-907372"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-907374"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-907375"></A>comm</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-907376"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-907377"></A>with-noticed-socket-stream <EM CLASS="Variable">
+(stream)</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-907378"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-907379"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">A stream created using <A HREF="lw-597.htm#15026" CLASS="XRef">open-tcp-stream</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-907380"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Code to be executed while the stream is &quot;noticed&quot;.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-907381"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-970013"></A>The macro <CODE CLASS="Code">
+with-noticed-socket-stream</CODE>
+ evaluates the <EM CLASS="Variable">
+body</EM>
+ forms with the stream <EM CLASS="Variable">
+stream</EM>
+ &quot;noticed&quot; for input. <EM CLASS="Variable">
+stream</EM>
+ becomes unnoticed afterwards.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-970127"></A>The macro is designed to be used with streams created by <A HREF="lw-597.htm#15026" CLASS="XRef">open-tcp-stream</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-970015"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-970043"></A>You do not normally need to use this macro, because all of the standard functions that read from socket streams (<CODE CLASS="Code">
+read-char</CODE>
+ and so on) will do this automatically when necessary. However, if you call <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> yourself with a <EM CLASS="Variable">
+wait-function</EM>
+ that detects new input from a socket stream, then this macro is necessary to cause LispWorks to evaluate the <EM CLASS="Variable">
+wait-function</EM>
+ when there is input on the underlying socket. Without that, there might be a delay before the thread responds to the input.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-907382"></A><CODE CLASS="Code">
+with-noticed-socket-stream</CODE>
+ is not implemented on the Windows platform.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-907388"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-907392"></A><A HREF="lw-597.htm#15026" CLASS="XRef">open-tcp-stream</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-626.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

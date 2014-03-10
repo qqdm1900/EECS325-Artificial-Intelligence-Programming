@@ -1,0 +1,65 @@
+
+;;;ex 2-4
+(defun greater (x y)
+  (if  (> x y) x y))
+
+;;;ex 2-7
+(defun has-list-p (lst)
+   (if (null lst)
+       nil
+       (if (listp (car lst))
+           t
+           (has-list-p (cdr lst)))))
+
+;;;ex 2-8 (a) Iteration
+(defun print-dots (int)
+  (do ((i int (- i 1)))
+      ((= i 0) 'done)
+    (format t ".")))
+
+
+;;;ex 2-8 (a) Recursion
+(defun print-dots (int)
+  (if (= int 0)
+      'done
+      (progn
+        (format t ".")
+        (print-dots (- int 1)))))
+
+;;;ex 2-8 (b) Iteration
+(defun get-a-count (lst)
+  (let ((count 0))
+    (dolist (x lst)
+      (if (eql 'a x)
+          (setf count (+ count 1))))
+    count))
+
+
+
+;;;ex 2-8 (b) Recursion
+(defun get-a-count (lst)
+  (if (null lst)
+      0
+      (if (eql 'a (car lst))
+          (+ (get-a-count (cdr lst)) 1)
+          (get-a-count (cdr lst)))))
+
+;;;ex 2-9 (a)
+;;;The problem is that the function remove does not really remove the nil elements from the original list. It returns a new list without nil elements, but doesn't make any change to the original list.
+;;;Correct version:
+
+(defun summit (lst)
+  (setf lst (remove nil lst))
+  (apply #'+ lst))
+
+
+;;;ex 2-9 (b)
+;;;The problem is that there will be no end of this recursion.
+;;;Correct version:
+
+(defun summit (lst)
+  (if (null lst)
+      0
+      (if (null (car lst))
+          (summit (cdr lst))
+          (+ (car lst) (summit (cdr lst))))))

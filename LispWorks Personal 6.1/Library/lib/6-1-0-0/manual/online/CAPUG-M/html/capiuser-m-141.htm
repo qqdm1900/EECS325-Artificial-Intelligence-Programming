@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.5  Controlling the interface title
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-142.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-140.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-134.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-134.htm">10 Defining Interface Classes </A><BR><BR>
+</DIV><A HREF="capiuser-m-142.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-140.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-134.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-893567"></A>10.5  <A NAME="11124"></A>Controlling<A NAME="marker-893657"></A> the interface title</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893576"></A>You can add <A NAME="marker-893665"></A>dynamic control of window titles using the functions illustrated in the section.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893648"></A>Firstly we add a counter to the title of new <CODE CLASS="Code">
+demo</CODE>
+ windows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893598"></A>(defvar *demo-title-counter* 0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893577"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897713"></A>(defmethod capi:interface-extend-title ((self demo) title)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897714"></A>  (let ((counter </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897715"></A>         (or (capi:capi-object-property self 'my-title-counter)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897716"></A>             (setf </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897717"></A>              (capi:capi-object-property self 'my-title-counter)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897718"></A>              (incf *demo-title-counter*)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897719"></A>    (format nil &quot;&#126;A - &#126;D&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897720"></A>            (call-next-method)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897678"></A>            counter)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893633"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893622"></A>(capi:display (make-instance 'demo))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-897727"></A>Then we specify a common prefix for all interface window titles. Note that this will affect all interfaces in the current session:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893588"></A>(capi:set-default-interface-prefix-suffix</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893589"></A> :prefix &quot;My &quot; :suffix nil )</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893590"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893574"></A>(capi:display (make-instance 'demo))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-142.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-140.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-134.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

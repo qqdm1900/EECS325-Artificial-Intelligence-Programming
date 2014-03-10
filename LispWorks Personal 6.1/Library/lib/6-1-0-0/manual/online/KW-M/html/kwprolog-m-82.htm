@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.1.2.1  Examples
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-83.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-81.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-81.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A> &gt; <A HREF="kwprolog-m-75.htm">6.1  Control Flow</A> &gt; <A HREF="kwprolog-m-81.htm">6.1.2  User-definable Conflict Resolution</A><BR><BR>
+</DIV><A HREF="kwprolog-m-83.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-81.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-81.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-891817"></A>6.1.2.1  Examples</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891818"></A>The following tactic prefers instantiations with truck objects to ones without</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891819"></A>(deftactic prefer-trucks :static (inst1 inst2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891820"></A>   (flet ((truck-p (obj) (typep obj 'truck)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891821"></A>        (and (some #'truck-p (inst-token inst1))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891822"></A>             (notany #'truck-p (inst-token inst2)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891823"></A>Note that this tactic would be incorrect if we did not check that the second instantiation does not refer to any trucks (otherwise it would always return <CODE CLASS="Code">
+t</CODE>
+ if both instantiations contain trucks). It can safely be declared as static as it does not look into the slots of the objects which make up the instantiation.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891824"></A>This tactic implements alphabetical ordering on rule names:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891825"></A>(deftactic alphabetical-rulename :static (inst1 inst2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891826"></A>   (string&lt; (symbol-name (inst-rulename inst1))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891827"></A>            (symbol-name (inst-rulename inst2))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891828"></A>This tactic prefers instantiations which bind the variable <CODE CLASS="Code">
+?x</CODE>
+ to zero:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891829"></A>(deftactic prefer-?x=0 :dynamic (inst1 inst2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891830"></A>   (flet ((fetch-?x (inst)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891831"></A>            (cdr (assoc '?x (inst-bindings inst)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891832"></A>         (and (eql 0 (fetch-?x inst1))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891833"></A>              (not (eql 0 (fetch-?x inst2))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891834"></A>Note that again we must not forget to check that <CODE CLASS="Code">
+?x</CODE>
+ is not zero in the second instantiation. This tactic must be declared dynamic as <CODE CLASS="Code">
+?x</CODE>
+ must have been instantiated from the slots of one of the matched objects.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891836"></A>The final tactic is for the example of <A NAME="marker-891835"></A>uncertain reasoning and implements a method of preferring &quot;more certain&quot; instantiations:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891837"></A>(deftactic certainty :dynamic (inst1 inst2)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891838"></A>   (&gt; (inst-c-factor inst1) (inst-c-factor inst2)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891839"></A>This tactic must be dynamic if the certainty factors of objects can be modified after creation. If this is forbidden the tactic could be defined as static. Then the context defined by</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891840"></A>(defcontext my-context :strategy (priority certainty))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891841"></A>will prefer instantiations of rules with higher priority or, if this does not discriminate sufficiently, instantiations which are &quot;more certain&quot;.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-83.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-81.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-81.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

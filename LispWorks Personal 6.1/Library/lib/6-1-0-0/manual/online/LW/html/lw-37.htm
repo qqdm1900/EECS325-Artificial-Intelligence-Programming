@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.3  Inspection modes
+</TITLE>
+
+<LINK REL="next" HREF="lw-38.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-36.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-34.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-34.htm">4 The REPL Inspector</A><BR><BR>
+</DIV><A HREF="lw-38.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-36.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886392"></A>4.3  <A NAME="86903"></A>Inspection modes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886393"></A>The <CODE CLASS="Code">
+:m</CODE>
+<A NAME="marker-889961"></A> command displays and changes the current inspection mode for an inspected value. The session below demonstrates how it works:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889410"></A>CL-USER 128 &gt; (inspect &quot;a</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889411"></A>string with</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889412"></A>newlines in it&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889413"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889414"></A>&quot;a</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889415"></A>string with</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889416"></A>newlines in it&quot; is a SIMPLE-BASE-STRING</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889417"></A>0       #&#92;a</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889418"></A>1       #&#92;Newline</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889419"></A>2       #&#92;s</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889420"></A>3       #&#92;t</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889421"></A>4       #&#92;r</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889422"></A>5       #&#92;i</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889423"></A>6       #&#92;n</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889424"></A>7       #&#92;g</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889425"></A>8       #&#92;Space</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889426"></A>9       #&#92;w</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889427"></A>10      #&#92;i</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889428"></A>11      #&#92;t</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889429"></A>12      #&#92;h</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889430"></A>13      #&#92;Newline</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889431"></A>14      #&#92;n</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889432"></A>15      #&#92;e</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889433"></A>16      #&#92;w</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889434"></A>17      #&#92;l</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889435"></A>18      #&#92;i</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889436"></A>19      #&#92;n ........ (:dm or :dr for more)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889437"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889438"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889439"></A>CL-USER 129 : Inspect 1 &gt; :m</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889440"></A>* 1. SIMPLE-STRING</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889441"></A>  2. LINES</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889464"></A>The <CODE CLASS="Code">
+:m</CODE>
+ produces an enumerated list of inspection modes for this value. </P>
+<P CLASS="Body">
+<A NAME="pgfId-886411"></A>The asterisk next to </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-889505"></A>* 1. SIMPLE-STRING</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886413"></A>means that SIMPLE-STRING is the current inspection mode. </P>
+<P CLASS="Body">
+<A NAME="pgfId-886414"></A>You can change mode by typing <CODE CLASS="Code">
+:m</CODE>
+ followed by the name or number of another mode. To change to LINES mode:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889475"></A>CL-USER 130 : Inspect 1 &gt; :m 2</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889476"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889477"></A>&quot;a</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889478"></A>string with</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889479"></A>newlines in it&quot; is a SIMPLE-BASE-STRING</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889480"></A>0      a</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889491"></A>1      string with</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889492"></A>2      newlines in it</PRE>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="lw-38.htm#pgfId-889493" CLASS="Hypertext">4.3.1  Hash table inspection modes</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-38.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-36.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

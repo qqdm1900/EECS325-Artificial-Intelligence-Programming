@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ execute-actions
+</TITLE>
+
+<LINK REL="next" HREF="lw-919.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-917.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-919.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-917.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1129384"></A><A NAME="19789"></A>execute<A NAME="marker-1136322"></A>-actions</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1130073"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1130112"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1130146"></A>Executes in sequence the actions on a given list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1130152"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1130162"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1130164"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1129385"></A>execute-actions <EM CLASS="Variable">
+name-or-list</EM>
+ &amp;rest <EM CLASS="Variable">
+keyword-value-pairs</EM>
+ &amp;rest <EM CLASS="Variable">
+other-args</EM>
+ =&gt;</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1133125"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1133127"></A><EM CLASS="Variable">
+name-or-list</EM>
+</P>
+<P CLASS="RDescription-C">An action list</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1142281"></A><EM CLASS="Variable">
+keyword-value-pairs</EM>
+ </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1142740"></A>See description.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1142282"></A><EM CLASS="Variable">
+other-args</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1133129"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1129388"></A>The <CODE CLASS="Code">
+execute-actions</CODE>
+ macro executes, in sequence, the actions on the specified list. If the action-list specified by <EM CLASS="Variable">
+name-or-list</EM>
+ does not exist, then this is handled according to the value of <A HREF="lw-935.htm#14762" CLASS="XRef">*handle-missing-action-list*</A>. Note that <EM CLASS="Variable">
+name-or-list</EM>
+ is evaluated.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1129390"></A>If a user-defined execution function was specified when the action list was defined, then it should accept the following arguments:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1129392"></A>(<EM CLASS="Variable">
+action-list</EM>
+ <EM CLASS="Variable">
+other-args</EM>
+ &amp;rest <EM CLASS="Variable">
+keyword-value-pairs</EM>
+)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1129394"></A>Note that <EM CLASS="Variable">
+other-args</EM>
+ is passed as a single list.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1129396"></A>If a user-defined execution function was not specified when the action list was defined, then the following default mapping occurs.   Each action's data is invoked via apply on other-args:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1129398"></A>(<EM CLASS="Variable">
+apply</EM>
+ <EM CLASS="Variable">
+data</EM>
+ <EM CLASS="Variable">
+other-args</EM>
+)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1129400"></A>This behavior is modified by the keyword-value-pairs, thus:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1129401"></A>If the keyword parameter <CODE CLASS="Code">
+:ignore-errors-p</CODE>
+ is non-nil, any otherwise-unhandled errors signalled inside the execution of that function will be trapped, and a warning issued. Execution continues with the next action-item. If <CODE CLASS="Code">
+:ignore-errors-p</CODE>
+ is <CODE CLASS="Code">
+nil</CODE>
+ (or not specified), then the error is not trapped. </LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1129402"></A>If the keyword parameter <CODE CLASS="Code">
+:post-process</CODE>
+ is non-nil, the first value returned by each action is handled, according to <CODE CLASS="Code">
+:post-process</CODE>
+, thus:</LI>
+</UL>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1129404"></A><CODE CLASS="Code">
+:collect</CODE>
+</P>
+<P CLASS="RDescription-C">collect values into list</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1129405"></A><CODE CLASS="Code">
+:and</CODE>
+</P>
+<P CLASS="RDescription-C">return <CODE CLASS="Code">
+t</CODE>
+ only if all values are <CODE CLASS="Code">
+t</CODE>
+. Return <CODE CLASS="Code">
+nil</CODE>
+ immediately if any value is <CODE CLASS="Code">
+nil</CODE>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1129406"></A><CODE CLASS="Code">
+:or</CODE>
+</P>
+<P CLASS="RDescription-C">return first non-nil value</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1142745"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1142755"></A><A HREF="lw-898.htm#38571" CLASS="XRef">define-action</A><BR>
+<A HREF="lw-1000.htm#33626" CLASS="XRef">with-action-list-mapping</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-919.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-917.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

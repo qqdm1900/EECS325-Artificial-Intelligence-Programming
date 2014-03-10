@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.24.1  Major modes
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-75.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-73.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-73.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A> &gt <A HREF="eduser-m-73.htm">3.24  Modes</A><BR><BR>
+</DIV><A HREF="eduser-m-75.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-73.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-73.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-885398"></A>3.24.1  <A NAME="marker-885396"></A><A NAME="76088"></A>Major modes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-885399"></A>The major modes govern how certain commands behave and how text is displayed. Major modes adapt a few editor commands so that their use is more appropriate to the text being edited. Some movement commands are affected by the major mode, as word, sentence, and paragraph delimiters vary with the mode. Indentation commands are very much affected by the major mode <A HREF="eduser-m-60.htm#10755" CLASS="XRef">Indentation</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885403"></A>Major modes available in the LispWorks editor are as follows:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-885405"></A><I CLASS="Italic">
+Fundamental mode</I>
+<A NAME="marker-885404"></A>. Commands behave in their most general manner, default values being used throughout where appropriate.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-885407"></A><I CLASS="Italic">
+Text mode</I>
+<A NAME="marker-885406"></A>. Used for editing straight text and is automatically loaded if the file name ends in <CODE CLASS="Code">
+.txt</CODE>
+, <CODE CLASS="Code">
+.text</CODE>
+ or <CODE CLASS="Code">
+.tx</CODE>
+.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-885409"></A><I CLASS="Italic">
+Lisp mode</I>
+<A NAME="marker-885408"></A>. Used for editing Lisp programs and is automatically loaded if the file name ends in <CODE CLASS="Code">
+.lisp</CODE>
+, <CODE CLASS="Code">
+.lsp</CODE>
+, <CODE CLASS="Code">
+.lispworks</CODE>
+, <CODE CLASS="Code">
+.slisp</CODE>
+, <CODE CLASS="Code">
+.l</CODE>
+, <CODE CLASS="Code">
+.mcl</CODE>
+ or <CODE CLASS="Code">
+.cl</CODE>
+.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-912535"></A><I CLASS="Italic">
+Shell mode</I>
+<A NAME="marker-912534"></A>. Used for running interactive shells.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-885413"></A>The major mode of most buffers may be altered explicitly by using the commands described below. </P>
+<P CLASS="Body">
+<A NAME="pgfId-907577"></A>By default, Lisp mode is the major mode whenever you edit a file with type <CODE CLASS="Code">
+lisp</CODE>
+ (as with several other file types). If you have Lisp source code in files with another file type <CODE CLASS="Code">
+foo</CODE>
+, put a form like this in your <CODE CLASS="Code">
+.lispworks</CODE>
+ file, adding your file extension to the default set:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-907578"></A>(editor:define-file-type-hook </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907579"></A>	(&quot;lispworks&quot; &quot;lisp&quot; &quot;slisp&quot; &quot;l&quot; &quot;lsp&quot; &quot;mcl&quot; &quot;cl&quot; &quot;foo&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885417"></A>	(buffer type)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885418"></A>	(declare (ignore type))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885419"></A>	(setf (editor:buffer-major-mode buffer) &quot;Lisp&quot;))</PRE>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885422"></A><A NAME="marker-885421"></A>Fundamental Mode</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885423"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885424"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885425"></A>Puts the current buffer into Fundamental mode.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885427"></A><A NAME="marker-885426"></A>Text Mode</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885428"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885429"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885430"></A>Puts the current buffer into Text mode.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885432"></A><A NAME="marker-885431"></A><A NAME="64776"></A>Lisp Mode</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-885433"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885434"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885435"></A>Puts the current buffer into Lisp mode. Notice how syntax coloring is used for Lisp symbols. Also the balanced parentheses delimiting a Lisp form at or immediately preceding the cursor are highlighted, by default in green.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-75.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-73.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-73.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

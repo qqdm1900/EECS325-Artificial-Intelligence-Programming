@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.3.1.2  Example of subclassing
+</TITLE>
+
+<LINK REL="next" HREF="lw-76.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-74.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-73.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-68.htm">7 Dspecs: Tools for Handling Definitions</A> &gt; <A HREF="lw-72.htm">7.3  Dspec namespaces</A> &gt; <A HREF="lw-73.htm">7.3.1  Dspec classes</A><BR><BR>
+</DIV><A HREF="lw-76.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-74.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-73.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-896251"></A>7.3.1.2  Example of subclassing</H3>
+<P CLASS="Body">
+<A NAME="pgfId-896252"></A>This example is based on that in <A HREF="lw-74.htm#27983" CLASS="XRef">Complete example of a top-level dspec class</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-896253"></A>Define a <CODE CLASS="Code">
+computed-saved-value</CODE>
+ object has a function to compute the value the first time:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896255"></A>(defstruct (computed-saved-value (:include saved-value))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896256"></A>  function)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896258"></A><CODE CLASS="Code">
+saved-value</CODE>
+ objects are defined using def-computed-saved-value and stored on the plist of their name:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896260"></A>(defmacro def-computed-saved-value (name function)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896261"></A>  `(dspec:def (def-computed-saved-value ,name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896262"></A>     (when (record-definition `(def-computed-saved-value ,',name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896263"></A>                               (dspec:location))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896264"></A>       (setf (get ',name 'saved-value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896265"></A>             (make-computed-saved-value :name ',name</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896266"></A>                                        :function ,function))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896267"></A>       ',name)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896269"></A>Define a function to compute a <CODE CLASS="Code">
+computed-saved-value</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896694"></A>(defun ensure-saved-value-computed (name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896695"></A>  (let ((saved-value (find-saved-value name)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896696"></A>    (or (saved-value-value saved-value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896697"></A>        (setf (saved-value-value saved-value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896698"></A>              (funcall </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896275"></A>               (computed-saved-value-function saved-value))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896276"></A>Define a macro to access a <CODE CLASS="Code">
+computed-saved-value</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896277"></A>(defmacro computed-saved-value (name)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896278"></A>  `(ensure-saved-value-computed ',name))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896280"></A>Define a dspec class for <CODE CLASS="Code">
+def-computed-saved-value</CODE>
+ dspecs:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896730"></A>(dspec:define-dspec-class def-computed-saved-value def-saved-value</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896731"></A>  &quot;Defined computed saved values&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896732"></A>  :definedp </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896733"></A>  #'(lambda (name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896734"></A>      ;; Find any object that def-computed-saved-value recorded</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896735"></A>      (computed-saved-value-p (find-saved-value name)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896736"></A>  ;; The :undefiner is inherited from the superspace.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896737"></A>  :object-dspec </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896738"></A>  #'(lambda (obj)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896739"></A>      ;; Given a computed-saved-value object,  we can reconstruct its dspec</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896740"></A>      (and (computed-saved-value-p obj)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896292"></A>           `(def-computed-saved-value ,(saved-value-name obj)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896293"></A>For completeness, define a form parser that generates dspecs from forms:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896766"></A>(dspec:define-form-parser </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896767"></A>    (def-computed-saved-value</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896187"></A>     (:parser dspec:single-form-form-parser)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896787"></A><B CLASS="Bold">
+Note:</B>
+ this form parser for <CODE CLASS="Code">
+def-computed-saved-value</CODE>
+ is not strictly necessary, because the implicit form parser will recognize definitions beginning with &quot;def&quot;.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-76.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-74.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-73.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

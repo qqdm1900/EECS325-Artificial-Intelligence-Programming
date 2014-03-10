@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.9.2  Ensuring that symbols are kept 
+</TITLE>
+
+<LINK REL="next" HREF="delivery-247.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-245.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-244.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-211.htm">9 Delivery and Internal Systems</A> &gt; <A HREF="delivery-244.htm">9.9  Keeping packages and symbols in the application</A><BR><BR>
+</DIV><A HREF="delivery-247.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-245.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-244.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-855705"></A>9.9.2  <A NAME="42139"></A>Ensuring that <A NAME="marker-855704"></A>symbols are kept </H3>
+<P CLASS="Body">
+<A NAME="pgfId-855706"></A>Internal symbols in packages you have kept may still be shaken out. If any such symbol must be kept in the application, retain it force in one of the following four ways: </P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-857089"></A>With the <CODE CLASS="Code">
+:keep-symbols</CODE>
+<A NAME="marker-857088"></A> keyword. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-857096"></A>This is the recommended solution. See <A HREF="delivery-129.htm#40294" CLASS="XRef">:keep-symbols</A>. </P>
+<LI CLASS="Step">
+<A NAME="pgfId-857113"></A>With the <CODE CLASS="Code">
+:never-shake-packages</CODE>
+<A NAME="marker-857112"></A> keyword. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-857114"></A>This solution is suitable when all the symbols to keep are in one package, <CODE CLASS="Code">
+FOO-PKG</CODE>
+ say.  Pass <CODE CLASS="Code">
+:never-shake-packages</CODE>
+ <CODE CLASS="Code">
+(list &quot;FOO-PKG&quot;)</CODE>
+. See <A HREF="delivery-140.htm#68641" CLASS="XRef">:never-shake-packages</A>.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-855716"></A>Export the symbol from the package.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-855717"></A>External symbols are <I CLASS="Italic">
+always</I>
+ shaken during delivery.</P>
+<P CLASS="Step-C">
+<A NAME="pgfId-862154"></A>You can override this behavior by passing <CODE CLASS="Code">
+:</CODE>
+<A NAME="marker-862170"></A><CODE CLASS="Code">
+shake-externals</CODE>
+ <CODE CLASS="Code">
+nil</CODE>
+ to <CODE CLASS="Code">
+deliver</CODE>
+. See <A HREF="delivery-162.htm#20937" CLASS="XRef">:shake-externals</A>.</P>
+<P CLASS="Step-C">
+<A NAME="pgfId-862182"></A>You can also specify <A HREF="delivery-148.htm#86741" CLASS="XRef">:packages-to-shake-externals</A> and <A HREF="delivery-145.htm#84646" CLASS="XRef">:packages-to-keep-externals</A>.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-855732"></A>Make explicit reference to the symbol with another object that you know will not be deleted. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-855733"></A>A reference from the object to the symbol ensures that the garbage collector passes over it during delivery.</P>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-855737"></A>See also <A HREF="delivery-247.htm#95851" CLASS="XRef">Coping with intern and find-symbol at runtime</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-247.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-245.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-244.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

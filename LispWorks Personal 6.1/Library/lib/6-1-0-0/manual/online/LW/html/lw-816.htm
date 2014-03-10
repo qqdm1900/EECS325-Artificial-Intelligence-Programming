@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ profile
+</TITLE>
+
+<LINK REL="next" HREF="lw-817.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-815.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-817.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-815.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-889518"></A><A NAME="marker-889516"></A><A NAME="18999"></A>profile</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-889519"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889520"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889521"></A>Runs the specified forms, and prints a performance profile.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889522"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889523"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889524"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889525"></A>profile &amp;body <EM CLASS="Variable">
+forms</EM>
+ =&gt; <EM CLASS="Variable">
+final</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889526"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889527"></A><EM CLASS="Variable">
+forms</EM>
+</P>
+<P CLASS="RDescription-C">The forms making up the program being profiled.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889528"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889529"></A><EM CLASS="Variable">
+final</EM>
+</P>
+<P CLASS="RDescription-C">The result of evaluating the final form.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889530"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889531"></A>This macro starts up the LispWorks program profiler. This tool is useful for determining the time critical elements of a program.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-889532"></A>At a regular time interval the Lisp process is halted and the execution stack is scanned for the presence of any symbols in the list <A HREF="lw-818.htm#18560" CLASS="XRef">*profile-symbol-list*</A>. Counters are maintained for the number of calls to each symbol, the total number of times the symbol is found on the stack, and the number of times the profiler finds the symbol on the top of the stack.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-889533"></A>This information is then presented as absolute numbers and as a percentage of the total number of calls to the profiler. These figures taken together give useful information about which functions the program spends most of its time executing.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889534"></A>Examples</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1687486"></A>(set-up-profiler </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687487"></A> :symbols '(* sqrt floor))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687488"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687489"></A>20</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687490"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687491"></A>(profile</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687492"></A>  (let ((x 1))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687493"></A>    (loop for a from 1 to 500000</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687494"></A>          do (setq x (floor (* a (sqrt x))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687495"></A>          finally (return (integer-length x)))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687496"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687497"></A>profile-stacks called 401 times</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687498"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687499"></A>Call tree</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687500"></A>Symbol                                          seen   (%)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687501"></A>    1: &quot;CAPI Execution Listener 1&quot;               401 (100)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687502"></A>     2: *                                          5 (  1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687503"></A>     2: SQRT                                       4 (  1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687504"></A>     2: FLOOR                                      1 (  0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687505"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687506"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687507"></A>Cumulative profile summary</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687508"></A>Symbol                called  profile   (%)      top   (%)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687509"></A>*                          0        5 (  1)        0 (  0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687510"></A>SQRT                       0        4 (  1)        1 (  0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687511"></A>FLOOR                      0        1 (  0)        0 (  0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687512"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687513"></A>On average   1.0 stacks profiled each profiler invocation</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1687514"></A>Top of stack not monitored 100% of the time</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1684199"></A>38</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889552"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1041438"></A><A HREF="lw-814.htm#46635" CLASS="XRef">print-profile-list</A><BR>
+<A HREF="lw-818.htm#18560" CLASS="XRef">*profile-symbol-list*</A><BR>
+<A HREF="lw-840.htm#73344" CLASS="XRef">set-up-profiler</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-817.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-815.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.3.2  Allocation of objects 
+</TITLE>
+
+<LINK REL="next" HREF="lw-138.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-136.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-135.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-128.htm">10 Storage Management</A> &gt; <A HREF="lw-135.htm">10.3  Memory Management in 32-bit LispWorks</A><BR><BR>
+</DIV><A HREF="lw-138.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-136.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-135.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-887988"></A>10.3.2  Allocation of objects </H3>
+<P CLASS="Body">
+<A NAME="pgfId-887989"></A>Normal allocation is done from a buffer, called the small objects buffer. The GC maintains a pointer to the beginning and end of the buffer, and allocates from it by moving one of the boundaries. When the buffer becomes too small the GC finds another free block and makes that the buffer.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894624"></A>In non-SMP LispWorks there is only one global small objects buffer. In SMP LispWorks, each process may have its own &quot;local&quot; small objects buffer (in addition to the global one). The system decides dynamically which process should have a local buffer and which not. In general processes that do any significant amount of work have a local buffer, and most of their allocation would be from local buffers.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894657"></A>The minimum and maximum size of free block that the GC uses for the small objects buffer can be set by <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-891263"></A><A HREF="lw-833.htm#87315" CLASS="XRef">set-gc-parameters</A>, using the keywords <CODE CLASS="Code">
+:minimum-buffer-size</CODE>
+<A NAME="marker-891264"></A> and<A NAME="marker-891265"></A> <CODE CLASS="Code">
+:maximum-buffer-size</CODE>
+. Currently, there is no way to control the behavior of local buffers. Since most of the allocation is from them, these settings are not really significant in SMP LispWorks. If the minimum size is too small, the system allocates buffers more frequently, thus slowing the program. Making the minimum too big causes more fragmentation, because small free blocks are not used. There is no easy way to determine the optimal values for the small objects buffer, except by experiment.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887996"></A>When there is an overflow the small object buffer is allocated in the big-chunk area, and then a bigger buffer is allocated (see below).</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-138.htm#pgfId-887997" CLASS="Hypertext">10.3.2.1  Allocation of static objects </A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-139.htm#pgfId-886659" CLASS="Hypertext">10.3.2.2  Allocation in different generations </A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-138.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-136.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-135.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

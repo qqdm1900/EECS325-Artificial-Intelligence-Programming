@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-geometry
+</TITLE>
+
+<LINK REL="next" HREF="capiref-486.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-484.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-486.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-484.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3858640"></A><A NAME="37784"></A>with<A NAME="marker-4235998"></A>-geometry</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-921179"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920856"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1173207"></A>The <CODE CLASS="Code">
+with-geometry</CODE>
+ macro is used for defining layouts and for creating new <A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A> subclasses, by binding a set of variables to a pane's geometry.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4235973"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4235974"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1173198"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-920858"></A>with-geometry <EM CLASS="Variable">
+pane</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920860"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920862"></A>The main uses of the macro <CODE CLASS="Code">
+with-geometry</CODE>
+ are defining layouts and for creating new <A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A> subclasses.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3297732"></A><CODE CLASS="Code">
+with-geometry</CODE>
+ binds the following variables across the forms in <EM CLASS="Variable">
+body</EM>
+ to slots in the pane's geometry in much the same way as the Common Lisp macro <CODE CLASS="Code">
+with-slots</CODE>
+. Except the special cases which are mentioned below, these variables are read-only and should not be set.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-10074200"></A>Four variables define the geometry of the pane. If you define define your own <A HREF="capiref-25.htm#18012" CLASS="XRef">calculate-layout</A> method, it can set these variables:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-10637878"></A><A NAME="marker-3837420"></A><CODE CLASS="Code">
+%x%</CODE>
+</P>
+<P CLASS="RDescription-C">An integer specifying the x position of the pane in pixels relative to its parent.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920867"></A><A NAME="marker-3837425"></A><CODE CLASS="Code">
+%y%</P>
+<P CLASS="RDescription-C"></CODE>
+An integer specifying the y position of the pane in pixels relative to its parent.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-10074276"></A><CODE CLASS="Code">
+%width%</CODE>
+</P>
+<P CLASS="RDescription-C">An integer specifying the width in pixels of the pane.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-10074887"></A><A NAME="marker-10074886"></A><CODE CLASS="Code">
+%height%</P>
+<P CLASS="RDescription-C"></CODE>
+An integer specifying the height in pixels of the pane.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-10637974"></A>Four variables specify constraints on the pane. If you define your own <A HREF="capiref-24.htm#34336" CLASS="XRef">calculate-constraints</A> method, it can set these variables:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-10637980"></A><A NAME="marker-10637978"></A><A NAME="marker-10637979"></A><CODE CLASS="Code">
+%min-width%</CODE>
+</P>
+<P CLASS="RDescription-C">A real number specifying the minimum width of the pane.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-10637982"></A><A NAME="marker-10637981"></A><CODE CLASS="Code">
+%min-height%</P>
+<P CLASS="RDescription-C"></CODE>
+A real number specifying the minimum height of the pane.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-10074633"></A><A NAME="marker-10074632"></A><CODE CLASS="Code">
+%max-width%</CODE>
+</P>
+<P CLASS="RDescription-C">A real number specifying the maximum width of the pane.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-10074635"></A><A NAME="marker-10074634"></A><CODE CLASS="Code">
+%max-height%</CODE>
+</P>
+<P CLASS="RDescription-C">A real number specifying the maximum height of the pane.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-10075583"></A>The following variables are also bound but apply only to classes with internal scrolling, such as <A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A>. They can be retrieved by <A HREF="capiref-153.htm#47235" CLASS="XRef">get-horizontal-scroll-parameters</A> and <A HREF="capiref-157.htm#13878" CLASS="XRef">get-vertical-scroll-parameters</A>. They can be set by <A HREF="capiref-390.htm#67792" CLASS="XRef">set-horizontal-scroll-parameters</A> and <A HREF="capiref-402.htm#23862" CLASS="XRef">set-vertical-scroll-parameters</A>.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-10075600"></A><A NAME="marker-10075599"></A><CODE CLASS="Code">
+%scroll-width%</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-10075601"></A>The extent of the horizontal scroll range.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-10075603"></A><A NAME="marker-10075602"></A><CODE CLASS="Code">
+%scroll-height%</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-10075604"></A>The extent of the vertical scroll range.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-10075606"></A><A NAME="marker-10075605"></A><CODE CLASS="Code">
+%scroll-horizontal-page-size%</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-10075607"></A>The horizontal scroll page size.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-10075609"></A><A NAME="marker-10075608"></A><CODE CLASS="Code">
+%scroll-horizontal-slug-size%</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-10075610"></A>The width of the scroll bar slug.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-10075612"></A><A NAME="marker-10075611"></A><CODE CLASS="Code">
+%scroll-horizontal-step-size%</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-10075613"></A>The horizontal scroll step size.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-10075615"></A><A NAME="marker-10075614"></A><CODE CLASS="Code">
+%scroll-start-x%</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-10075616"></A>The start of the horizontal scroll range.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-10075618"></A><A NAME="marker-10075617"></A><CODE CLASS="Code">
+%scroll-start-y%</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-10075619"></A>The start of the vertical scroll range.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-10075621"></A><A NAME="marker-10075620"></A><CODE CLASS="Code">
+%scroll-vertical-page-size%</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-10075622"></A>The vertical scroll page size.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-10075624"></A><A NAME="marker-10075623"></A><CODE CLASS="Code">
+%scroll-vertical-slug-size%</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-10075625"></A>The height of the scroll bar slug.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-10075627"></A><A NAME="marker-10075626"></A><CODE CLASS="Code">
+%scroll-vertical-step-size%</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-10075628"></A>The vertical scroll step size.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-10075630"></A><A NAME="marker-10075629"></A><CODE CLASS="Code">
+%scroll-x%</CODE>
+</P>
+<P CLASS="RDescription-C">x coordinate of the current scroll position.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-10075632"></A><A NAME="marker-10075631"></A><CODE CLASS="Code">
+%scroll-y%</P>
+<P CLASS="RDescription-C"></CODE>
+y coordinate of the current scroll position</P>
+<P CLASS="RBody">
+<A NAME="pgfId-10074602"></A>The following two variables access the object for which the representation is:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2094836"></A><A NAME="marker-3837430"></A><CODE CLASS="Code">
+%object%</CODE>
+</P>
+<P CLASS="RDescription-C">The object whose geometry this is.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2094837"></A><A NAME="marker-3837435"></A><CODE CLASS="Code">
+%child%</CODE>
+</P>
+<P CLASS="RDescription-C">The same as <CODE CLASS="Code">
+%object%</CODE>
+ (kept for compatibility with LispWorks 3.1).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920883"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-7956398"></A><A HREF="capiref-24.htm#34336" CLASS="XRef">calculate-constraints</A><BR>
+<A HREF="capiref-25.htm#18012" CLASS="XRef">calculate-layout</A><BR>
+<A HREF="capiref-58.htm#37325" CLASS="XRef">convert-relative-position</A><BR>
+<A HREF="capiref-126.htm#29333" CLASS="XRef">element</A><BR>
+<A HREF="capiref-153.htm#47235" CLASS="XRef">get-horizontal-scroll-parameters</A><BR>
+<A HREF="capiref-157.htm#13878" CLASS="XRef">get-vertical-scroll-parameters</A><BR>
+<A HREF="capiref-371.htm#scroll" CLASS="XRef">scroll</A><BR>
+<A HREF="capiref-390.htm#67792" CLASS="XRef">set-horizontal-scroll-parameters</A><BR>
+<A HREF="capiref-402.htm#23862" CLASS="XRef">set-vertical-scroll-parameters</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-486.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-484.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

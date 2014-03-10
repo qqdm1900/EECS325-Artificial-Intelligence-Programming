@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *trace-print-level*
+</TITLE>
+
+<LINK REL="next" HREF="lw-857.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-855.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-857.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-855.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886416"></A><A NAME="79485"></A>*trace<A NAME="marker-1043662"></A>-print-level*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886417"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886418"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886419"></A>The depth to which nested objects are printed in trace output.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886420"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886421"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886422"></A>Initial value</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886423"></A>5  </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886424"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886425"></A><CODE CLASS="Code">
+*trace-print-level*</CODE>
+ controls the depth to which nested objects are printed during output from tracing. If its value is a positive integer then components at or above that level are suppressed. By definition an object to be printed is considered to be at level 0, its components are at level 1, their subcomponents are at level 2, and so on. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-886426"></A><CODE CLASS="Code">
+*print-level*</CODE>
+ is bound to the value of <CODE CLASS="Code">
+*trace-print-level*</CODE>
+ while printing tracing information. If <CODE CLASS="Code">
+*trace-print-level*</CODE>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then objects are printed without regard to depth.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886427"></A>Examples</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886428"></A>USER 8 &gt; (trace append)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886429"></A>APPEND </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886430"></A>USER 9 &gt; (dotimes (i 10) (setq li (if (zerop i)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886431"></A>                                 nil</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886432"></A>                               (list i li))))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886433"></A>NIL </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886434"></A>USER 10 &gt; (append li '(a b))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886435"></A>0 APPEND &gt; ((9 (8 (7 (6 #)))) (A B)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886436"></A>0 APPEND &lt; ((9 (8 (7 (6 #))) A B)) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886437"></A>(9 (8 (7 (6 (5 (4 (3 (2 (1 NIL)))))))) A B) </PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886438"></A>Notes </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886439"></A><CODE CLASS="Code">
+*trace-print-level*</CODE>
+ is an extension to Common Lisp.   </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886440"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1008176"></A><A HREF="lw-675.htm#58889" CLASS="XRef">trace</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-857.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-855.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

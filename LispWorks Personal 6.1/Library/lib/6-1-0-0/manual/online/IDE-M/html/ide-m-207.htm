@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11.5  An example debugging session
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-208.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-206.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-197.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-197.htm">11 The Debugger Tool</A><BR><BR>
+</DIV><A HREF="ide-m-208.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-206.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-197.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-852855"></A>11.5  An example debugging session</H3>
+<P CLASS="Body">
+<A NAME="pgfId-852856"></A><A NAME="marker-854582"></A>To better understand how you can make use of the debugger, try working through the following example session. In this example, you define the factorial function, save the definition to a file on disk, compile that file and then call the function erroneously.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-855082"></A>Choose <B CLASS="Button">
+File &gt; New</B>
+ or click on
+<IMG SRC="ide-m-136.gif" ALIGN="ABSBOTTOM">
+.</LI>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-855083"></A>A new file is created and displayed in the Editor. If you have not already invoked the Editor, it is started for you automatically.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-852857"></A>In the new file, define the function <CODE CLASS="Code">
+fac</CODE>
+ to calculate factorial numbers.</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-854310"></A>(defun fac (n)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854311"></A>  (if (= n 1) 1</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-865251"></A>    (* n (fac (- n 1)))))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-865255"></A>Choose <B CLASS="Button">
+File &gt; Save</B>
+ or click on 
+<IMG SRC="ide-m-137.gif" ALIGN="ABSBOTTOM">
+ and enter a filename when prompted.</LI>
+
+<LI CLASS="Step">
+<A NAME="pgfId-855085"></A>Choose <B CLASS="Button">
+File &gt; Compile and Load</B>
+<A NAME="marker-855146"></A><A NAME="marker-855145"></A> to compile the file and load the resulting fasl file. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-856150"></A>The Editor switches to the output view while compilation takes place. When prompted, press <CODE CLASS="Code">
+Space</CODE>
+ to return to the text view. The <CODE CLASS="Code">
+fac</CODE>
+ function is now defined and available for you to use.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-854283"></A>In the Listener, call <CODE CLASS="Code">
+fac</CODE>
+ erroneously with a string argument.</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853964"></A>(fac &quot;turtle&quot;)</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-855028"></A>LispWorks notices the error: The arguments of <CODE CLASS="Code">
+=</CODE>
+ should be numbers, and one of them is not.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-855018"></A>Choose <B CLASS="Button">
+Debug &gt; Start GUI Debugger</B>
+<A NAME="marker-855020"></A><A NAME="marker-855021"></A> or click 
+<IMG SRC="ide-m-138.gif" ALIGN="ABSBOTTOM">
+ to invoke the Debugger tool.</LI>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-855031"></A><A NAME="marker-855035"></A>Take a moment to examine the backtrace that is printed in the Backtrace area.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-855043"></A>Starting from the selected frame, expand or select the next three frames in the Backtrace area in turn to examine the state of the variables which were passed to the functions in each call frame. Pay particular attention to the <CODE CLASS="Code">
+fac</CODE>
+ function.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-855044"></A>The error displayed in the Condition box informs you that the <CODE CLASS="Code">
+=</CODE>
+ function is called with two arguments: the integer 1 and the string &quot;turtle&quot;. Clearly, one of the arguments was not the correct type for <CODE CLASS="Code">
+=</CODE>
+, and this has caused entry into the debugger. However, the arguments were passed to <CODE CLASS="Code">
+=</CODE>
+ by <CODE CLASS="Code">
+fac</CODE>
+, and so the real problem lies in the <CODE CLASS="Code">
+fac</CODE>
+ function.</P>
+<P CLASS="Step-C">
+<A NAME="pgfId-855077"></A>In this case, the solution is to ensure that <CODE CLASS="Code">
+fac</CODE>
+ generates an appropriate error if it is given an argument which is not an integer.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-855100"></A>Double-click on the line <CODE CLASS="Code">
+FAC</CODE>
+ in the Backtrace area of the debugger tool. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-855101"></A>The Editor appears. The subform within the definition of <CODE CLASS="Code">
+fac</CODE>
+ which actually caused the error is highlighted. Double-clicking on a line in the Backtrace area is a shortcut for choosing <B CLASS="Button">
+Frame &gt; Find Source</B>
+<A NAME="marker-855935"></A><A NAME="marker-855147"></A> or using the 
+<IMG SRC="ide-m-139.gif" ALIGN="ABSBOTTOM">
+ button. If the Debugger can find the erroneous subform, this is highlighted, otherwise the definition itself is highlighted if it can be found.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-855068"></A>Edit the definition of the <CODE CLASS="Code">
+fac</CODE>
+ function so that an extra <CODE CLASS="Code">
+if</CODE>
+ statement is placed around the main clause of the function. The definition of <CODE CLASS="Code">
+fac</CODE>
+ now reads as follows:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-855070"></A>(defun fac (n) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855072"></A>  (if (integerp n)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855073"></A>      (if (= n 1) 1</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855074"></A>        (* n (fac (- n 1)))) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-855075"></A>    (print &quot;Error: argument must be an integer&quot;)))</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-855124"></A>The function now checks that the argument it has been passed is an integer, before proceeding to evaluate the factorial. If an integer has not been passed, an appropriate error message is generated.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-855114"></A>Choose <B CLASS="Button">
+File &gt; Save</B>
+ and <B CLASS="Button">
+File &gt; Compile and Load</B>
+ again, to save, recompile and load the new definition.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855118"></A>Click on the <B CLASS="Button">
+Abort</B>
+ button in the debugger tool, to destroy the tool and return the Listener to the top level loop.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855115"></A>In the Listener, type another call to <CODE CLASS="Code">
+fac</CODE>
+, once again specifying a string as an argument. Note that the correct error message is generated. You will see it twice, becase <CODE CLASS="Code">
+fac</CODE>
+ prints the message and then the Listener prints the return value of <CODE CLASS="Code">
+fac</CODE>
+.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-864786"></A>This next part of the example shows you how you can use the various restarts which are listed as commands in the <B CLASS="Button">
+Restarts</B>
+ menu.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-864787"></A>Call <CODE CLASS="Code">
+fac</CODE>
+ again with a new argument, but this time type the word <CODE CLASS="Code">
+length</CODE>
+ incorrectly. </LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-864788"></A>(fac (legnth &quot;turtle&quot;))</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-864791"></A>Choose <B CLASS="Button">
+Debug &gt; Start GUI Debugger</B>
+<A NAME="marker-864789"></A> or click 
+<IMG SRC="ide-m-140.gif" ALIGN="ABSBOTTOM">
+ to invoke the debugger tool.</LI>
+<P CLASS="Body">
+<A NAME="pgfId-894399"></A>You can spot immediately what has gone wrong here, so the simplest strategy is to return a value to use.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-894405"></A>Choose <B CLASS="Button">
+Restarts &gt; Return some values from the form (LEGNTH &quot;turtle&quot;)</B>
+.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-894406"></A>You are prompted for a form to be evaluated.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-894407"></A>Enter <CODE CLASS="Code">
+6</CODE>
+ in the dialog and click <B CLASS="Button">
+OK</B>
+. This is the value that would have been returned from the correct call to <CODE CLASS="Code">
+(length &quot;turtle&quot;)</CODE>
+.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-894408"></A>Having returned the correct value from <CODE CLASS="Code">
+(length &quot;turtle&quot;)</CODE>
+, <CODE CLASS="Code">
+fac</CODE>
+ is called with the correct argument and returns the value <CODE CLASS="Code">
+720</CODE>
+.<A NAME="marker-894409"></A></P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-208.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-206.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-197.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

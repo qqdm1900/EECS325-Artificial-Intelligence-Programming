@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.1.2  Loading foreign code
+</TITLE>
+
+<LINK REL="next" HREF="fli-8.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-6.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-5.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-4.htm">1 Introduction to the FLI</A> &gt; <A HREF="fli-5.htm">1.1  An example of interfacing to a foreign function</A><BR><BR>
+</DIV><A HREF="fli-8.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-6.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-5.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886636"></A>1.1.2  <A NAME="22264"></A>Loading foreign code</H3>
+<P CLASS="Body">
+<A NAME="pgfId-887526"></A>Once an interface has been created, the object code defining those functions (and indeed any variables) must be made available to LispWorks.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888063"></A>LispWorks for Windows can load Windows Dynamic Link Libraries (<CODE CLASS="Code">
+.DLL</CODE>
+ files). </P>
+<P CLASS="Body">
+<A NAME="pgfId-888086"></A>LispWorks for Linux and LispWorks for FreeBSD can load shared libraries (typically <CODE CLASS="Code">
+.so</CODE>
+ files). </P>
+<P CLASS="Body">
+<A NAME="pgfId-888087"></A>LispWorks for Macintosh can load Mach-O dynamically-linked shared libraries (typically <CODE CLASS="Code">
+.dylib</CODE>
+ files). </P>
+<P CLASS="Body">
+<A NAME="pgfId-888088"></A>LispWorks for UNIX can either load object files (usually suffixed with &quot;<CODE CLASS="Code">
+.o</CODE>
+&quot;) directly into the Lisp image, extract any required object files from the available archive libraries (usually suffixed with &quot;<CODE CLASS="Code">
+.a</CODE>
+&quot;), or load in shared libraries (usually suffixed with &quot;<CODE CLASS="Code">
+.so</CODE>
+&quot;).</P>
+<P CLASS="Body">
+<A NAME="pgfId-886856"></A>Throughout this manual we shall refer to these dynamic libraries as DLLs.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887546"></A>On all platforms the function <A HREF="fli-140.htm#30636" CLASS="XRef">register-module</A> is the main LispWorks interface to DLL files. It is used to specify which DLLs are looked up when searching for foreign symbols. Here are example forms to register a connection to a DLL.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887487"></A>On Windows:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886857"></A>(fli:register-module &quot;MYDLL.DLL&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887466"></A>On Linux:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887470"></A>(fli:register-module &quot;mylib.so&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887467"></A>On Macintosh:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887477"></A>(fli:register-module &quot;mylib.dylib&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-888068"></A>Note: LispWorks for UNIX also provides the loader function <CODE CLASS="Code">
+link-load:read-foreign-modules</CODE>
+ familiar to users of LispWorks 4.3 and earlier. However, this is now deprecated in favor of <A HREF="fli-140.htm#30636" CLASS="XRef">register-module</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890530"></A>Note: It is also possible to embed a DLL in the Lisp image. See <A HREF="fli-63.htm#87483" CLASS="XRef">Incorporating a foreign module into a LispWorks image</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-8.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-6.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-5.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

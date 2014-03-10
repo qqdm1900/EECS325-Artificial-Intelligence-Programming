@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ sweep-all-objects
+</TITLE>
+
+<LINK REL="next" HREF="lw-846.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-844.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-846.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-844.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-945198"></A><A NAME="sweep-all-objects"></A>sweep<A NAME="marker-1043389"></A>-all-objects</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-945199"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-945200"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-945201"></A>Applies a function to all the live objects in the image.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-945202"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-945203"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-945204"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-945205"></A>sweep-all-objects <EM CLASS="Variable">
+function</EM>
+ &amp;optional <EM CLASS="Variable">
+gen-0</EM>
+<CODE CLASS="Code">
+ =&gt; nil</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-945922"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-945923"></A>function</P>
+<P CLASS="RDescription-C">A function of one argument, the object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-945943"></A>gen-0</P>
+<P CLASS="RDescription-C">A generalized boolean, default value <CODE CLASS="Code">
+nil</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-945924"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-945209"></A><CODE CLASS="Code">
+sweep-all-objects</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-945210"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-945613"></A>Applies function to all the live objects in the image. Normally  it is not useful to sweep objects in generation 0 because they are ephemeral, so by default <CODE CLASS="Code">
+sweep-all-objects</CODE>
+ does not sweep generation 0. This can be changed by passing a non-nil value as gen-0. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-947283"></A>function should take one argument, the object. It can allocate, but if it allocates heavily the sweeping becomes unreliable. Small amounts of allocation will normally happen only in generation 0, and so will not affect sweeping of other generations.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1406869"></A>To call <CODE CLASS="Code">
+sweep-all-objects</CODE>
+ reliably, do it inside <A HREF="lw-1449.htm#71625" CLASS="XRef">with-other-threads-disabled</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1133245"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1406844"></A>In 64-bit LispWorks there is a more specific alternative: function <A HREF="lw-1443.htm#89023" CLASS="XRef">sweep-gen-num-objects</A> can be used to call a function on all live objects in a particular generation.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1133365"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1133397"></A><A HREF="lw-1443.htm#89023" CLASS="XRef">sweep-gen-num-objects</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-846.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-844.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

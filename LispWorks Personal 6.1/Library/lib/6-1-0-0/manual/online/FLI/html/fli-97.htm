@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-foreign-variable
+</TITLE>
+
+<LINK REL="next" HREF="fli-98.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-96.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-98.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-96.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886022"></A><A NAME="17537"></A>define-foreign-variable<A NAME="marker-998712"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886731"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898343"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-981700"></A>Defines a Lisp function to access a variable in foreign code.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-981695"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898344"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886023"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886743"></A>define-foreign-variable <EM CLASS="Variable">
+the-name</EM>
+ &amp;key <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+accessor</EM>
+ <EM CLASS="Variable">
+language no-check</EM>
+ <EM CLASS="Variable">
+module</EM>
+ =&gt; <EM CLASS="Variable">
+lisp-name</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-981715"></A><EM CLASS="Variable">
+the-name</EM>
+ ::= <EM CLASS="Variable">
+lisp-name</EM>
+ | (<EM CLASS="Variable">
+lisp-name</EM>
+ <EM CLASS="Variable">
+foreign-name</EM>
+ [<EM CLASS="Variable">
+encoding</EM>
+])</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-982122"></A><EM CLASS="Variable">
+encoding</EM>
+ ::= :source | :object | :lisp | :dbcs</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-983131"></A><EM CLASS="Variable">
+accessor</EM>
+ ::= :value | :address-of | :read-only | :constant</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1221787"></A><EM CLASS="Variable">
+language</EM>
+ ::= :c | :ansi-c</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918516"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-918517"></A><EM CLASS="Variable">
+the-name</EM>
+</P>
+<P CLASS="RDescription-C">Names the Lisp function which is used to access the foreign variable.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-981798"></A><EM CLASS="Variable">
+lisp-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the Lisp accessor.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-981807"></A><EM CLASS="Variable">
+foreign-name</EM>
+</P>
+<P CLASS="RDescription-C">A string or a symbol specifying the foreign name of the variable.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-982124"></A><EM CLASS="Variable">
+encoding</EM>
+</P>
+<P CLASS="RDescription-C">An option controlling how the Lisp variable name is translated to match the foreign variable name in the foreign DLL. The <EM CLASS="Variable">
+encoding</EM>
+ option can be one of the following: </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1311782"></A><CODE CLASS="Code">
+:source</CODE>
+ tells LispWorks that <EM CLASS="Variable">
+foreign-name</EM>
+ is the name of the variable in the foreign source code. This is the default value of <EM CLASS="Variable">
+encoding </EM>
+when <EM CLASS="Variable">
+foreign-name</EM>
+ is a string.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1311783"></A><CODE CLASS="Code">
+:object</CODE>
+ tells LispWorks that <EM CLASS="Variable">
+foreign-name</EM>
+ is the literal name of the variable in the foreign object code.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1312271"></A><CODE CLASS="Code">
+:lisp</CODE>
+ tells LispWorks that if <EM CLASS="Variable">
+foreign-name</EM>
+ is a Lisp symbol, it must be translated and encoded. This is the default value of <EM CLASS="Variable">
+encoding</EM>
+ if <EM CLASS="Variable">
+foreign-name</EM>
+ is a symbol.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-982128"></A><CODE CLASS="Code">
+:dbcs</CODE>
+ modifies the variable name on Windows, as described for <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-974623"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">The FLI type corresponding to the type of the foreign variable to which Lisp is interfacing.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-974632"></A><EM CLASS="Variable">
+accessor</EM>
+</P>
+<P CLASS="RDescription-C">An option specifying what kind of accessor is generated for the variable. It can be one of the following:</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-982812"></A><CODE CLASS="Code">
+:value</CODE>
+ gets the value of the foreign variable directly. This is the default value when <EM CLASS="Variable">
+type</EM>
+ is a non-aggregate type. (There is no default <EM CLASS="Variable">
+accessor</EM>
+ for aggregate types.)</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-982900"></A><CODE CLASS="Code">
+:address-of</CODE>
+ returns a FLI pointer to the foreign variable.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-982908"></A><CODE CLASS="Code">
+:read-only</CODE>
+ ensures that no <CODE CLASS="Code">
+setf</CODE>
+ method is defined for the variable, which means that its value can be read, but it cannot be set.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1332341"></A><CODE CLASS="Code">
+:constant</CODE>
+ is like <CODE CLASS="Code">
+:read-only</CODE>
+ and will return a constant value.  For example, this is more efficient for a variable that always points to the same string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-983133"></A><EM CLASS="Variable">
+language</EM>
+</P>
+<P CLASS="RDescription-C">The language in which the foreign source code for the variable is written. The default is <CODE CLASS="Code">
+:ansi-c</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-983134"></A><EM CLASS="Variable">
+no-check</EM>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+nil</CODE>
+, the types of the arguments provided when the Lisp function is called are compared with the expected types and an error is raised if they do not match. Setting <EM CLASS="Variable">
+no-check</EM>
+ to <CODE CLASS="Code">
+t</CODE>
+ overrides this check.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-984350"></A><EM CLASS="Variable">
+module</EM>
+</P>
+<P CLASS="RDescription-C">A string or symbol naming the module in which the foreign variable is defined.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918518"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1008200"></A><EM CLASS="Variable">
+lisp-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the Lisp accessor.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918520"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-918521"></A>The macro <CODE CLASS="Code">
+define-foreign-variable</CODE>
+ defines a Lisp accessor which can be used to get and set the value of a variable defined in foreign code.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1427785"></A>If the foreign variable has a type corresponding to an FLI aggregate type, then <EM CLASS="Variable">
+accessor</EM>
+ must be supplied (there is no default). If <EM CLASS="Variable">
+accessor</EM>
+ is <CODE CLASS="Code">
+:value</CODE>
+, then a copy of the object is allocated using <A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A>, and the copy is returned. In general, it is more useful to use <EM CLASS="Variable">
+accessor</EM>
+ <CODE CLASS="Code">
+:address-of</CODE>
+ for aggregate types, to allow the original aggregate to be updated.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1221731"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1431726"></A>If you specify any of the FLI float types <A HREF="fli-168.htm#24602" CLASS="XRef">:float</A>, <A HREF="fli-162.htm#10694" CLASS="XRef">:double</A>, <A HREF="fli-176.htm#24205" CLASS="XRef">:lisp-float</A>, <A HREF="fli-178.htm#28489" CLASS="XRef">:lisp-single-float</A> and so on, then the value of <EM CLASS="Variable">
+language</EM>
+ should be <CODE CLASS="Code">
+:ansi-c</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1233874"></A><EM CLASS="Variable">
+module</EM>
+ is processsed as for <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918522"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-918523"></A>The following example illustrates how to use the FLI to define a foreign variable, given the following C variable in a DLL:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-986080"></A>int num;</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-986935"></A>The first example defines a Lisp variable, <CODE CLASS="Code">
+num1</CODE>
+, to interface with the C variable <CODE CLASS="Code">
+num</CODE>
+.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-986950"></A>(fli:define-foreign-variable (num1 &quot;num&quot;) :type :int)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-984961"></A>The following commands return the value of <CODE CLASS="Code">
+num</CODE>
+, and increase its value by 1:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-986973"></A>(num1)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-984964"></A>(incf (num1))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-984966"></A>In the next example, the Lisp variable <CODE CLASS="Code">
+num2</CODE>
+ interfaces with <CODE CLASS="Code">
+num</CODE>
+ in a read-only manner.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-984967"></A>(fli:define-foreign-variable (num2 &quot;num&quot;)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-987046"></A>  :type :int :accessor :READ-ONLY)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-984970"></A>In this case, the next command still returns the value of <CODE CLASS="Code">
+num</CODE>
+, but the second command raises an error, because <CODE CLASS="Code">
+num2</CODE>
+ is read-only.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-987716"></A>(num2)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-984973"></A>(incf (num2))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-984988"></A>The final example defines a Lisp variable, <CODE CLASS="Code">
+num3</CODE>
+, which accesses <CODE CLASS="Code">
+num</CODE>
+ through pointers.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-991209"></A>(fli:define-foreign-variable (num3 &quot;num&quot;)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-991235"></A>  :type :int :accessor :address-of)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-984991"></A>As a result, the next command returns a pointer to <CODE CLASS="Code">
+num</CODE>
+, and to obtain the actual value stored by <CODE CLASS="Code">
+num</CODE>
+, <CODE CLASS="Code">
+num3</CODE>
+ needs to be dereferenced.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-992058"></A>(num3)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-984994"></A>(fli:dereference (num3))</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918524"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-918525"></A><A HREF="fli-90.htm#25590" CLASS="XRef">define-foreign-callable</A><BR>
+<A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-98.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-96.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

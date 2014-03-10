@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3  The server's perspective
+</TITLE>
+
+<LINK REL="next" HREF="corba-52.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-50.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-48.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-48.htm">6 The Bank Server</A><BR><BR>
+</DIV><A HREF="corba-52.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-50.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-48.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853258"></A>6.3  The server's perspective</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853259"></A>The bank fasl file corresponding to the <CODE CLASS="Code">
+bank.idl</CODE>
+ file (produced when compiling the defsystem) defines a servant class for each of the protocol classes corresponding to an IDL interface. Each of these classes inherits from the abstract class <CODE CLASS="Code">
+PortableServer:ServantBase</CODE>
+, allowing instances of these classes to be registered with a POA. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853260"></A>The user provides an implementation of a servant class by defining a subclass of that class, called an <I CLASS="Italic">
+implementation class</I>
+, and defining methods, specialized on this implementation class, for each of the protocol functions corresponding to an IDL attribute or operation. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853573"></A>The bank fasl file defines a concrete skeleton method, specialized on the appropriate servant class, for each protocol function stemming from an IDL attribute or operation. When the POA receives a request from a client through the ORB it looks up the servant targeted by that request, and invokes the corresponding skeleton method on that servant. The skeleton method performs an upcall to the method that implements the protocol function for the implementation class of the servant. If the upcall succeeds, the skeleton method sends the result to the client. If the method raises a Common Lisp condition corresponding to a CORBA user or system exception, the skeleton method sends the CORBA exception back to client. </P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-52.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-50.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-48.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

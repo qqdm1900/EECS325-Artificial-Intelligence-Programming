@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.2.1.2  Efficient Forward Chaining Rule Preconditions
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-87.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-85.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-84.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A> &gt; <A HREF="kwprolog-m-83.htm">6.2  Optimization</A> &gt; <A HREF="kwprolog-m-84.htm">6.2.1  Forward Chaining</A><BR><BR>
+</DIV><A HREF="kwprolog-m-87.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-85.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-84.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-891874"></A>6.2.1.2  Efficient <A NAME="marker-891873"></A>Forward Chaining Rule Preconditions</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891875"></A>Forward chaining rules are more efficient if the more restrictive preconditions (that is, the ones which will have fewer matches) are written first. Computationally cheap Lisp tests should be used wherever possible as they reduce the search space of the rule interpreter. The Lisp tests should where possible be broken into sufficiently small pieces that they can be applied as early on as possible.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891876"></A>For example, the precondition fragment</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891877"></A>(train ?t position ?p1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891878"></A>(test (&gt; ?p1 5))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891879"></A>(signal ?s position ?p2)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891880"></A>(test (&gt; ?p2 6))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891881"></A>is better than</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891882"></A>(train ?t position ?p1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891883"></A>(signal ?s position ?p2)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891884"></A>(test (and (&gt; ?p1 5) (&gt; ?p2 5)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891885"></A>because in the first example the Lisp tests can be applied directly to the trains and signals respectively before looking at combinations of trains and signals, whereas in the second case all the combinations must be produced before the Lisp test can be applied. Simply  separating the tests is enough for the rule compiler to apply them to the right object base matches -- the precise order of the tests is unimportant.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-87.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-85.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-84.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

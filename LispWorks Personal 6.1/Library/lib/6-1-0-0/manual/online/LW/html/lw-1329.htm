@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-stream-output-buffer
+</TITLE>
+
+<LINK REL="next" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1328.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1288.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1288.htm">39 The STREAM Package</A><BR><BR>
+</DIV><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1328.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-961936"></A><A NAME="53533"></A>with<A NAME="marker-962566"></A>-stream-output-buffer</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-961997"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-961937"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-961938"></A>Allows access to the output buffer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-961939"></A>Package</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-961940"></A><CODE CLASS="Code">
+stream</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-962011"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-961941"></A>with-stream-output-buffer (<EM CLASS="Variable">
+buffer</EM>
+ <EM CLASS="Variable">
+index</EM>
+ <EM CLASS="Variable">
+limit</EM>
+) <EM CLASS="Variable">
+stream</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-961942"></A>Arguments</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-961943"></A><EM CLASS="Variable">
+buffer</EM>
+, <EM CLASS="Variable">
+index</EM>
+, <EM CLASS="Variable">
+limit</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-961944"></A>Variables</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-961945"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">An output stream</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-961947"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Code</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-961949"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-961950"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The value returned by body.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-961952"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-961953"></A>The macro <CODE CLASS="Code">
+with-stream-output-buffer</CODE>
+ allows access to the state of the output buffer for the given buffered stream.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-961954"></A><EM CLASS="Variable">
+stream</EM>
+ should be an instance of a subclass of <A HREF="lw-1289.htm#42777" CLASS="XRef">buffered-stream</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-961955"></A>Within the code <EM CLASS="Variable">
+body</EM>
+, the variable names <EM CLASS="Variable">
+buffer</EM>
+, <EM CLASS="Variable">
+index</EM>
+ and <EM CLASS="Variable">
+limit</EM>
+ are bound to the buffer of <EM CLASS="Variable">
+stream</EM>
+, its current index and the limit of the buffer. Setting <EM CLASS="Variable">
+buffer</EM>
+, <EM CLASS="Variable">
+index</EM>
+ or <EM CLASS="Variable">
+limit</EM>
+ will change the values in the stream <EM CLASS="Variable">
+stream</EM>
+ but note that other changes to these values (for example, by calling other stream functions) will not affect the values bound within the macro. See the example for a typical use which shows how this restriction can be handled.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-961956"></A>The buffers are always of type <CODE CLASS="Code">
+simple-string</CODE>
+. The <A HREF="lw-672.htm#30749" CLASS="XRef">stream-element-type</A> of <EM CLASS="Variable">
+stream</EM>
+ depends on how the stream was constructed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-961957"></A>The index is the position of the next free element in the buffer and the limit is the position of the element after the end of the buffer. Therefore the buffer is full when <EM CLASS="Variable">
+index</EM>
+ is greater than or equal to <EM CLASS="Variable">
+length</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-961958"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-961959"></A>This example function writes a four character string to a buffered stream.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-961960"></A>(defun write-4-chars (stream string)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961961"></A>  (declare (type stream:buffered-stream stream))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961962"></A>  (let ((elt 0))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961963"></A>    ;; Outer loop handles buffer flushing.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961964"></A>    (loop</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961965"></A>     ;; Inner loop handles buffer updating.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961966"></A>     (loop (stream:with-stream-output-buffer (buf ind lim) stream</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961967"></A>             (when (&gt;= ind lim)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961968"></A>               ;; Buffer full: try to flush.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961969"></A>               (return))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961970"></A>             (setf (schar buf ind) (schar string elt))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961971"></A>             (incf elt)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961972"></A>             (incf ind)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961973"></A>             (when (= elt 4)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-961974"></A>               (return-from write-4-chars))))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-961975"></A>     (stream:stream-flush-buffer stream))))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-961976"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-961934"></A><A HREF="lw-1289.htm#42777" CLASS="XRef">buffered-stream</A><BR>
+<A HREF="lw-1328.htm#74875" CLASS="XRef">with-stream-input-buffer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1328.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.2.3.2  Process priorities in non-SMP LispWorks
+</TITLE>
+
+<LINK REL="next" HREF="lw-252.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-250.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-249.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-246.htm">15.2  The process programming interface </A> &gt; <A HREF="lw-249.htm">15.2.3  Process Priorities</A><BR><BR>
+</DIV><A HREF="lw-252.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-250.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-249.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-896881"></A>15.2.3.2  Process priorities in non-SMP LispWorks</H3>
+<P CLASS="Body">
+<A NAME="pgfId-896870"></A>If there is a runnable process with priority P, then no processes with priority less than P will run. When there are runnable processes with equal priority, they will be <A NAME="marker-888900"></A>scheduled in a round-robin manner.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888727"></A>If a process with priority P is running and a blocked process with priority greater than P becomes runnable, the second process will run when the scheduler is next invoked (either explicity or at the next preemption tick).</P>
+<P CLASS="Body">
+<A NAME="pgfId-891653"></A>To find the priority of a process, use <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-891649"></A><A HREF="lw-1087.htm#30214" CLASS="XRef">process-priority</A>. This can be changed using <A NAME="marker-891654"></A><A HREF="lw-1015.htm#95394" CLASS="XRef">change-process-priority</A>.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891658"></A>(mp:change-process-priority proc-1 10)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-888818"></A>Another way to specify the priority is to create the process with <A HREF="lw-1091.htm#96518" CLASS="XRef">process-run-function</A>, passing the keyword <CODE CLASS="Code">
+:priority</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888840"></A>(list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888841"></A> (mp:process-run-function </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888842"></A>  &quot;SORTER-DOT&quot; '(:priority 10) #'sorter #&#92;.)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888843"></A> (mp:process-run-function </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888820"></A>  &quot;SORTER-DASH&quot; () #'sorter #&#92;-))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-252.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-250.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-249.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

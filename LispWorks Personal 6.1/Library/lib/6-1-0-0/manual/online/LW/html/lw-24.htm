@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.2  Simple use of the REPL debugger 
+</TITLE>
+
+<LINK REL="next" HREF="lw-25.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-23.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-22.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-22.htm">3 The Debugger</A><BR><BR>
+</DIV><A HREF="lw-25.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-23.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-22.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886005"></A>3.2  Simple use of the REPL debugger </H3>
+<P CLASS="Body">
+<A NAME="pgfId-886006"></A>Upon entering the debugger as a result of an error, a message describing the error is printed and a number of options to continue (called restarts) are presented. Thus:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886007"></A>CL-USER 6 &gt; (/ 3 0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886008"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886009"></A>Error: Division-by-zero caused by / of (3 0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886010"></A>  1 (continue) Return a value to use</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886011"></A>  2 Supply new arguments to use</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886012"></A>  3 (abort) return to level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886013"></A>  4 return to top loop level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886014"></A>  5 Destroy process.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886015"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886016"></A>Type :c followed by a number to proceed</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886017"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886018"></A>CL-USER 7 : 1 &gt; </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886019"></A>To select one of these restarts, enter <CODE CLASS="Code">
+:c</CODE>
+ (continue) followed by the number of the restart. So in the above example you could continue as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886020"></A>CL-USER 7 : 1 &gt; :c 2</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886021"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886022"></A>Supply first number: 33</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886023"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886024"></A>Supply second number: 11</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886025"></A>3</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886026"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886027"></A>CL-USER 8 &gt; </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886031"></A>There are two special <A NAME="marker-886028"></A>restarts, a <A NAME="marker-886029"></A>continue restart and an <A NAME="marker-886030"></A>abort restart. These are indicated by the bracketed word continue or abort at their start. The continue restart can be invoked by typing <CODE CLASS="Code">
+:c</CODE>
+ alone. Similarly, the abort restart can be invoked by entering <CODE CLASS="Code">
+:a</CODE>
+. So an alternative continuation of the division example would be:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886032"></A>CL-USER 7 : 1 &gt; :c</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886033"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886034"></A>Supply a form to be evaluated and used: (+ 4 5)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886035"></A>9</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-25.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-23.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-22.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

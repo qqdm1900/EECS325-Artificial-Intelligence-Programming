@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ load-system
+</TITLE>
+
+<LINK REL="next" HREF="lw-945.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-943.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-945.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-943.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-938632"></A><A NAME="71519"></A>load<A NAME="marker-1419068"></A>-system</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-938634"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-938635"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-938637"></A>Load each file of a system<A NAME="marker-938636"></A> into the Lisp image if either the file has not been loaded, or the file has been written since it was last loaded.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-938639"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-938640"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-938641"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-938642"></A>load-system <EM CLASS="Variable">
+system-name</EM>
+ &amp;key <EM CLASS="Variable">
+force</EM>
+ <EM CLASS="Variable">
+simulate</EM>
+ <EM CLASS="Variable">
+source-only</EM>
+ <EM CLASS="Variable">
+target-directory</EM>
+ =&gt; nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-938643"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-938644"></A><EM CLASS="Variable">
+system-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol representing the name of the system. The system must have been defined using the <A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A> macro.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-938645"></A><EM CLASS="Variable">
+force</EM>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+t</CODE>
+ then all the files in the system are loaded regardless. (This argument was formerly called <EM CLASS="Variable">
+force-p</EM>
+. The old name is currently still accepted for compatibility.)</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-938646"></A><EM CLASS="Variable">
+simulate</EM>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+nil</CODE>
+ or not present then <CODE CLASS="Code">
+load-system</CODE>
+ works silently. Otherwise a plan of the actions which <CODE CLASS="Code">
+load-system</CODE>
+ intends to carry out is printed. What happens next depends on the value of <EM CLASS="Variable">
+simulate</EM>
+: </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-938647"></A><CODE CLASS="Code">
+t</CODE>
+ -- do nothing. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-938648"></A><CODE CLASS="Code">
+:ask</CODE>
+ -- you are asked, using <CODE CLASS="Code">
+y-or-n-p</CODE>
+, if you want to carry out the plan. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-938649"></A><CODE CLASS="Code">
+:each</CODE>
+ -- <CODE CLASS="Code">
+load-system</CODE>
+ displays each action in the plan one at a time, and asks you if you want to carry out this particular action. The answer executes the rest of the plan without further prompting, <CODE CLASS="Code">
+e</CODE>
+ returns from <CODE CLASS="Code">
+load-system</CODE>
+ without further processing, and<CODE CLASS="Code">
+ y</CODE>
+ and <CODE CLASS="Code">
+n</CODE>
+ work as expected. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-938650"></A><EM CLASS="Variable">
+source-only</EM>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+t</CODE>
+ the source files of the system are loaded. This only applies to file types where it makes sense to load a source file.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-938651"></A><EM CLASS="Variable">
+target-directory</EM>
+</P>
+<P CLASS="RDescription-C">This is the directory to search for the object files. If the object file cannot be found here then the source file from the system's default directory are loaded.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-938654"></A>Examples </H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-938655"></A>(load-system 'blackboard)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-938656"></A>(load-system 'tms :simulate :ask :source-only t)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-938657"></A>Notes </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-938658"></A>For Lisp files <CODE CLASS="Code">
+load-system</CODE>
+ loads the object file (if it exists) into the image, unless over-ridden by the <CODE CLASS="Code">
+:source-only</CODE>
+ keyword argument. This behavior can be changed so that the newest file (whether source or object) is loaded by setting the variable <A NAME="marker-938659"></A><CODE CLASS="Code">
+*load-source-if-newer*</CODE>
+ to <CODE CLASS="Code">
+t</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1203633"></A>C source files, for example <CODE CLASS="Code">
+foo.c</CODE>
+, can be included in a system (see the use of <CODE CLASS="Code">
+:default-type</CODE>
+ and  <CODE CLASS="Code">
+:type</CODE>
+ in <A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A>). The corresponding object file name is <CODE CLASS="Code">
+foo.so</CODE>
+ on Linux, and on Unix it is <CODE CLASS="Code">
+foo</CODE>
+<EM CLASS="Variable">
+n</EM>
+<CODE CLASS="Code">
+.o</CODE>
+ where <EM CLASS="Variable">
+n</EM>
+ is a platform-specific integer. On Windows the object file name is <CODE CLASS="Code">
+foo.dll</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-938660"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1186864"></A><A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A><BR>
+<A HREF="lw-891.htm#11892" CLASS="XRef">compile-system</A><BR>
+<A HREF="lw-892.htm#96138" CLASS="XRef">concatenate-system</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-945.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-943.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

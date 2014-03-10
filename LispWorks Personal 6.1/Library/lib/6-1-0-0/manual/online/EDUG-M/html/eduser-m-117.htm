@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.9.4  Compilation commands
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-118.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-116.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-113.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-93.htm">4 Editing Lisp Programs</A> &gt <A HREF="eduser-m-113.htm">4.9  Evaluation and compilation</A><BR><BR>
+</DIV><A HREF="eduser-m-118.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-116.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-113.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884369"></A>4.9.4  <A NAME="marker-884367"></A>Compilation commands</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884371"></A><A NAME="marker-884370"></A><A NAME="58819"></A>Compile Defun</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884372"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884373"></A>Argument: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+Shift+C</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884374"></A>Compiles the current top-level form. If the current point is between two forms, the previous form is evaluated.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-908459"></A>If the form is a <CODE CLASS="Code">
+defvar</CODE>
+ form, then the command may first make the variable unbound, according to the value of <A HREF="eduser-m-115.htm#87520" CLASS="XRef">evaluate-defvar-action</A>, and hence assign the new value.This is useful because, whilst <CODE CLASS="Code">
+defvar</CODE>
+ does not reassign the value of a bound variable, when editing a program it is likely that you do want the new value.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884376"></A><A NAME="marker-884375"></A>Compile Region</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884377"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884378"></A>Argument: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+Shift+R</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884379"></A>Compiles the Lisp forms in the region between the current point and the mark.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884381"></A><A NAME="marker-884380"></A><A NAME="20553"></A>Compile File</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884382"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884383"></A>Argument: <EM CLASS="Variable">
+file<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-951323"></A>Compiles <EM CLASS="Variable">
+file</EM>
+ unconditionally, with <CODE CLASS="Code">
+cl:compile-file</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884385"></A>No checking is done on write dates for the source and binary files, to see if the file needs to be compiled. Also, no checking is done to see if there is a buffer for the file that should first be saved.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884387"></A><A NAME="marker-884386"></A>Compile Buffer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884388"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-906020"></A>Argument: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+Shift+B</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-906021"></A>Reads, compiles and then executes in turn each of the Lisp forms in the current buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884393"></A><A NAME="marker-884391"></A><A NAME="60178"></A>Compile Buffer File</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884394"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884395"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-951360"></A>Compiles the source file in the current buffer as if by <A HREF="eduser-m-117.htm#20553" CLASS="XRef">Compile File</A>, but checks the file first. If its associated binary (fasl) file is older than the source file or does not exist then the file is compiled. If the binary file is up to date, the user is asked whether the file should be compiled anyway. When <A HREF="eduser-m-117.htm#18969" CLASS="XRef">compile-buffer-file-confirm</A> is true, the user is always asked for confirmation, even when the date of the source file is later than that of the binary file.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-951358"></A>A prefix argument causes the file to be compiled without checking the date or existence of the binary file.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884401"></A><A NAME="marker-884399"></A><A NAME="18969"></A>compile-buffer-file-confirm</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884402"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884403"></A>Default value: <CODE CLASS="Code">
+t</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884405"></A>Determines whether<CODE CLASS="Code">
+ </CODE>
+<A HREF="eduser-m-117.htm#60178" CLASS="XRef">Compile Buffer File</A> should prompt for a compilation to proceed. If the value is true, the user is always prompted for confirmation.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884408"></A><A NAME="marker-884406"></A><A NAME="97839"></A>Compile Buffer Changed Definitions</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884409"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884410"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-951394"></A>Compiles definitions that have been changed in the current buffer during the current LispWorks session (use <A HREF="eduser-m-102.htm#Buffer Changed Definitions" CLASS="XRef">Buffer Changed Definitions</A> to see which definitions have changed). A prefix argument equal to the value of <A HREF="eduser-m-39.htm#90873" CLASS="XRef">prefix-argument-default</A> causes compilation of definitions changed since last compiled. A prefix argument of 1 causes compilation of definitions changed since last saved.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884418"></A><A NAME="marker-884417"></A>Compile Changed Definitions</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884419"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884420"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884421"></A>Compiles definitions in all Lisp buffers that have been changed during the current LispWorks session. The effect of prefixes is the same as for <A HREF="eduser-m-117.htm#97839" CLASS="XRef">Compile Buffer Changed Definitions</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884424"></A><A NAME="marker-884423"></A>Compile System</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884425"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-951424"></A>Argument: <EM CLASS="Variable">
+system<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-951435"></A>Compiles all files in the system <EM CLASS="Variable">
+system</EM>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-951459"></A>If ASDF is loaded and the LispWorks tools are configured to use it, then this command works with ASDF systems as well as those defined by <CODE CLASS="Code">
+lispworks:defsystem</CODE>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-951427"></A><A NAME="marker-951426"></A>Compile System Changed Definitions</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884430"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884431"></A>Argument: <EM CLASS="Variable">
+system<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884432"></A>Compiles definitions that have been changed in <EM CLASS="Variable">
+system</EM>
+ during the current LispWorks session.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884434"></A><A NAME="marker-884433"></A>Disassemble Definition</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884435"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884436"></A>Argument: <EM CLASS="Variable">
+definition<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907609"></A>Outputs assembly code for <EM CLASS="Variable">
+definition</EM>
+ to the Output window, compiling it first if necessary. The name of the current top-level definition is offered as a default value for <EM CLASS="Variable">
+definition</EM>
+<I CLASS="Italic">
+.</I>
+</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-943013"></A><A NAME="marker-943012"></A>Edit Recognized Source</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-943014"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-943015"></A>Argument: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X ,</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-943016"></A>Edit the source of the next compiler message, warning or error. It should be used while viewing the Output window. Without a prefix argument, it searches forwards in the Output window until it finds text which it recognizes as a compiler message, warning or error, and then shows the source code associated with that message. With a prefix argument, it searches backwards.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-118.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-116.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-113.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

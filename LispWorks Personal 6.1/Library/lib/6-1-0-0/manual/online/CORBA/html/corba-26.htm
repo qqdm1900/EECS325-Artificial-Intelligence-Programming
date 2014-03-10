@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.3  Building the bank client and server
+</TITLE>
+
+<LINK REL="next" HREF="corba-27.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-25.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-23.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-23.htm">3 Setting up the Bank Example</A><BR><BR>
+</DIV><A HREF="corba-27.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-25.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-23.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853233"></A>3.3  <A NAME="marker-855916"></A>Building the bank client and server</H3>
+<P CLASS="Body">
+<A NAME="pgfId-855478"></A>We can now build the client and server applications for the demo. The client and server implementations are available in the respective examples subdirectories.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855479"></A>In your Common Lisp environment, </P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-855484"></A>Build the client by running:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-853234"></A>(load (example-file &quot;corba/bank/client/defsys&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-856312"></A>(compile-system &quot;bank-client&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-856313"></A>                :t-dir (get-temp-directory)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-856314"></A>                :force t</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853235"></A>                :load t)</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-853236"></A>Build the server by running:</LI>
+</OL>
+<PRE CLASS="Code-first"><A NAME="pgfId-853237"></A>(load (example-file &quot;corba/bank/server/defsys&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-856300"></A>(compile-system &quot;bank-server&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-856301"></A>                :t-dir (get-temp-directory)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-856302"></A>                :force t</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-856303"></A>                :load t)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-854353"></A>The defsystem automatically invokes the IDL compiler on the file <CODE CLASS="Code">
+bank.idl</CODE>
+ to generate the source code for the skeletons and stubs, which are compiled and stored in the bank fasl file.</P>
+<P CLASS="Body">
+<A NAME="pgfId-856227"></A>When compiling to a fixed directory, following the standard defsystem rules, the IDL will only be recompiled if the fasl file is out of date. (<CODE CLASS="Code">
+bank.idl</CODE>
+ will always be recompiled by the example form above, because it specifies a temporary output directory, in order to avoid writing to a location which may not be writable.)</P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-27.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-25.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-23.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

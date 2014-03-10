@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.2.3.1  Pattern Matching 
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-92.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-90.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-90.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A> &gt; <A HREF="kwprolog-m-83.htm">6.2  Optimization</A> &gt; <A HREF="kwprolog-m-90.htm">6.2.3  Backward Chaining</A><BR><BR>
+</DIV><A HREF="kwprolog-m-92.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-90.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-90.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-891910"></A>6.2.3.1  <A NAME="marker-891909"></A>Pattern Matching </H3>
+<P CLASS="Body">
+<A NAME="pgfId-891911"></A>The KnowledgeWorks Backward Chainer indexes clauses for a backward rule based on the first argument. If the first arguments to backward rule clauses are distinct non-variables, the backward chainer can pre-select possible matching clauses for a call. </P>
+<P CLASS="Body">
+<A NAME="pgfId-891912"></A>For example, in the following rule:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891914"></A>(<A NAME="marker-891913"></A>defrule age-of :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891915"></A>                ((age-of charlie 30) &lt;--)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891916"></A>                ((age-of william 25) &lt;--)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891917"></A>                ((age-of james 28) &lt;--))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891918"></A>The call: <CODE CLASS="Code">
+(age-of james ?x)</CODE>
+ would jump directly to the third clause and bind <CODE CLASS="Code">
+?x</CODE>
+ to 28 without trying the other two.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891919"></A>The call: <CODE CLASS="Code">
+(age-of tom ?x)</CODE>
+ would fail immediately without doing any pattern matching.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891920"></A>Clauses are distinguished first by the types and then the values of their first arguments.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-92.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-90.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-90.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

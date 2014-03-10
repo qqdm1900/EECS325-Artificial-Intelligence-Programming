@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.2.3  The complete source code for the file transfer of the IOR
+</TITLE>
+
+<LINK REL="next" HREF="corba-21.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-19.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-17.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-9.htm">2 Quick Start Tutorial</A> &gt <A HREF="corba-17.htm">2.2  Complete source code for the Hello World example</A><BR><BR>
+</DIV><A HREF="corba-21.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-19.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-17.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-855070"></A>2.2.3  <A NAME="marker-855069"></A>The complete source code for the file transfer of the IOR</H3>
+<P CLASS="Body">
+<A NAME="pgfId-855071"></A>The complete code for the Interoperable Object Reference (IOR) file transfer (the <CODE CLASS="Code">
+shared.lisp</CODE>
+ file) is:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853275"></A>(in-package &quot;CL-USER&quot;)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-853276"></A>(defparameter *hello-world-ior-file* </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853382"></A>  #+mswindows &quot;c:/temp/hello.ior&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853384"></A>  #-mswindows &quot;/tmp/hello.ior&quot;)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-853277"></A>(defun object-to-file (orb object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853505"></A>  (with-open-file (st *hello-world-ior-file* :direction :output</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853506"></A>                                          :if-exists :supersede)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853507"></A>    (prin1 (op:object_to_string orb object) st)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-853278"></A>(defun file-to-object (orb)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853394"></A>  (with-open-file (st *hello-world-ior-file*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853396"></A>    (op:string_to_object orb (read st))))</PRE>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-21.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-19.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-17.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

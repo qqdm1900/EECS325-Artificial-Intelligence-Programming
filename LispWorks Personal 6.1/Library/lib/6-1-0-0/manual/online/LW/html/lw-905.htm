@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *describe-level*
+</TITLE>
+
+<LINK REL="next" HREF="lw-906.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-904.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-906.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-904.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1363969"></A><A NAME="42504"></A>*describe<A NAME="marker-1365392"></A>-level*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1363970"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1363973"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1363974"></A>Controls the depth to which <A HREF="lw-641.htm#57917" CLASS="XRef">describe</A> describes arrays, structures and conses.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1536019"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1536020"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1363978"></A>Initial Value</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1363980"></A>1</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1363981"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1369194"></A>The variable <CODE CLASS="Code">
+*describe-level*</CODE>
+ controls the depth to which the function <A HREF="lw-641.htm#57917" CLASS="XRef">describe</A> describes arrays, structures and conses.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1370137"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1842548"></A>The <A HREF="lw-641.htm#57917" CLASS="XRef">describe</A> functionality is load-on-demand in the LispWorks image as shipped. Therefore if you have not do <CODE CLASS="Code">
+(require &quot;describe&quot;)</CODE>
+ or called <A HREF="lw-641.htm#57917" CLASS="XRef">describe</A>, <CODE CLASS="Code">
+*describe-level*</CODE>
+ may be unbound.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1370082"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1370278"></A>CL-USER 23 &gt; (describe 1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370285"></A>[... load output not shown ...]</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370286"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370287"></A>1 is a BIT</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370288"></A>DECIMAL      1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370289"></A>HEX          1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370290"></A>OCTAL        1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370291"></A>BINARY       1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370292"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370293"></A>CL-USER 24 &gt; *describe-level*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370294"></A>1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370295"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370296"></A>CL-USER 25 &gt; (defstruct foo a s d)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370297"></A>FOO</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370298"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370299"></A>CL-USER 26 &gt; (defmethod describe-object ((f foo) (s stream))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370300"></A>                (format s &quot;FOO &#126;S&#126;%&quot; f)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370301"></A>                (describe (foo-a f) s))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370302"></A>#&lt;STANDARD-METHOD DESCRIBE-OBJECT NIL (FOO STREAM) 2068295C&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370303"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370304"></A>CL-USER 27 &gt; (describe (make-foo :a (vector 1 2 3) :s 42))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370305"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370306"></A>FOO #S(FOO A #(1 2 3) S 42 D NIL)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1370307"></A>#(1 2 3)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1370308"></A>To make <A HREF="lw-641.htm#57917" CLASS="XRef">describe</A> operate on objects inside the structure instance, increase the value of <CODE CLASS="Code">
+*describe-level*</CODE>
+:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1370309"></A>CL-USER 28 &gt; (setf *describe-level* 2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370310"></A>2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370311"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370312"></A>CL-USER 29 &gt; (describe (make-foo :a (vector 1 2 3) :s 42))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370313"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370314"></A>FOO #S(FOO A #(1 2 3) S 42 D NIL)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370315"></A>#(1 2 3) is a SIMPLE-VECTOR</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370316"></A>     0      1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1370317"></A>     1      2</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1370318"></A>     2      3</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1363997"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1364001"></A><A HREF="lw-641.htm#57917" CLASS="XRef">describe</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-906.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-904.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

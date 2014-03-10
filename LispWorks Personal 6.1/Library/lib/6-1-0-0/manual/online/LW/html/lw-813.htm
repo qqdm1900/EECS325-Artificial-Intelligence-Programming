@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ parse-float
+</TITLE>
+
+<LINK REL="next" HREF="lw-814.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-812.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-814.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-812.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1344703"></A><A NAME="79358"></A>parse<A NAME="marker-1344701"></A>-float</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1344704"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1344705"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1344706"></A>Parses a float from a string and returns it as float.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1344707"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1344708"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1344709"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1344710"></A>parse-float <EM CLASS="Variable">
+string</EM>
+ &amp;key <EM CLASS="Variable">
+start</EM>
+ <EM CLASS="Variable">
+end</EM>
+ <EM CLASS="Variable">
+default-format</EM>
+ =&gt; <EM CLASS="Variable">
+float</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1344711"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1348766"></A><EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="RDescription-C">A string</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1348767"></A><EM CLASS="Variable">
+start, end</EM>
+</P>
+<P CLASS="RDescription-C">Bounding index designators for <EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1348768"></A><EM CLASS="Variable">
+default-format</EM>
+</P>
+<P CLASS="RDescription-C">One of the atomic type specifiers <A HREF="lw-665.htm#15222" CLASS="XRef">short-float</A>, <A HREF="lw-668.htm#48112" CLASS="XRef">single-float</A>, <A HREF="lw-645.htm#53455" CLASS="XRef">double-float</A>, or <A HREF="lw-650.htm#83142" CLASS="XRef">long-float</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1344714"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1344715"></A><EM CLASS="Variable">
+float</EM>
+</P>
+<P CLASS="RDescription-C">A float</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1344716"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1348937"></A>The function <CODE CLASS="Code">
+parse-float</CODE>
+ parses a float from the substring of <EM CLASS="Variable">
+string</EM>
+ delimited by <EM CLASS="Variable">
+start</EM>
+ and <EM CLASS="Variable">
+end</EM>
+ and returns it as <EM CLASS="Variable">
+float</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1348938"></A>If the substring represents an integer or the exponent marker is E or is omitted, then <EM CLASS="Variable">
+float</EM>
+ will be of type <EM CLASS="Variable">
+default-format</EM>
+, which defaults to the value of <CODE CLASS="Code">
+*read-default-float-format*</CODE>
+.  Otherwise, its type will match the exponent marker as specified by 2.3.2.2 &quot;Syntax of a Float&quot; in the Common Lisp standard.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1344723"></A>If the substring does not represent an integer or a float, then an error of type <CODE CLASS="Code">
+parse-error</CODE>
+ is signalled.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1349733"></A>Examples</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1349734"></A>(parse-float &quot;10&quot;) =&gt; 10.0f0</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1349735"></A>(parse-float &quot;10&quot; :default-format 'double-float) =&gt; 10.0d0</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1349736"></A>(parse-float &quot;10d0&quot;) =&gt; 10.0d0</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1349737"></A>(parse-float &quot;10.5&quot;) =&gt; 10.5f0</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1349723"></A>(parse-float &quot;10.5d0&quot;) =&gt; 10.5d0</CODE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-814.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-812.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

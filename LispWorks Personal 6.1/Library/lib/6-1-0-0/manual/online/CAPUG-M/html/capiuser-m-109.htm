@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 8.1  Initialization
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-110.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-108.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-108.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-108.htm">8 Modifying CAPI Windows</A><BR><BR>
+</DIV><A HREF="capiuser-m-110.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-108.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-108.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-889005"></A>8.1  Initialization</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890793"></A>If necessary you can run code just before or just after your interface's windows are displayed on screen.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889009"></A>You can do this by defining a <CODE CLASS="Code">
+:before</CODE>
+ or <CODE CLASS="Code">
+:after</CODE>
+ method on the generic function <A NAME="marker-890772"></A><CODE CLASS="Code">
+interface-display. </CODE>
+Your method will run just before or just after your interface is displayed on screen. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-890746"></A>(defun make-text (self createdp)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890747"></A>  (multiple-value-bind (s m h dd mm yy)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890748"></A>      (decode-universal-time (get-universal-time))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890749"></A>    (format nil &quot;Window &#126;S &#126;:[displayed&#126;;created&#126;] at &#126;2,'0D:&#126;2,'0D:&#126;2,'0D&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890750"></A>            self createdp h m s)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890751"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890752"></A>(capi:define-interface dd () () (:panes (dp capi:display-pane)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890753"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890754"></A>(defmethod capi:interface-display :before ((self dd))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890755"></A>  (with-slots (dp) self</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890756"></A>    (setf (capi:display-pane-text dp)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890757"></A>          (make-text self t))))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890758"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889030"></A>(capi:contain (make-instance 'dd))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-890782"></A>Sometimes initialization code can be put in the  <A NAME="marker-890784"></A><EM CLASS="Variable">
+create-callback</EM>
+ of your interface, though adding it in suitable methods for <CODE CLASS="Code">
+initialize-instance</CODE>
+ or <CODE CLASS="Code">
+interface-display</CODE>
+ is usually better.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-110.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-108.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-108.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

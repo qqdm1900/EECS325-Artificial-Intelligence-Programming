@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-automatic-gc-callback
+</TITLE>
+
+<LINK REL="next" HREF="lw-1423.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1421.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1423.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1421.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1177257"></A><A NAME="14543"></A>set<A NAME="marker-1177515"></A>-automatic-gc-callback</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1177258"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177259"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1193715"></A>Sets a function or functions to call after an automatic GC in 64-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177261"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1177262"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177263"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1193152"></A>set-automatic-gc-callback <EM CLASS="Variable">
+blocking-gen-num-func</EM>
+ &amp;optional <EM CLASS="Variable">
+other-func</EM>
+ =&gt; <EM CLASS="Variable">
+other-func</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177265"></A>Arguments</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-1194204"></A><EM CLASS="Variable">
+blocking-gen-num-func</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1194282"></A>A function designator for a function of two arguments, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1194205"></A><EM CLASS="Variable">
+other-func</EM>
+</P>
+<P CLASS="RDescription-C">A function designator for a function of one argument, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177267"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1194768"></A><EM CLASS="Variable">
+other-func</EM>
+</P>
+<P CLASS="RDescription-C">A function designator for a function of one argument, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177269"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1192929"></A>The function <CODE CLASS="Code">
+set-automatic-gc-callback</CODE>
+ sets a function or functions to call after an automatic garbage collection (GC).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1192930"></A>If <EM CLASS="Variable">
+blocking-gen-num-func</EM>
+ is a function designator it should take two arguments: the generation number and, if <EM CLASS="Variable">
+do-gc</EM>
+ in the last call to <A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A> was a number, the number of copied segments. It is called whenever the blocking generation is GCed automatically. If <EM CLASS="Variable">
+blocking-gen-num-func</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then this callback is switched off.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1192931"></A>If <EM CLASS="Variable">
+other-func</EM>
+ is a function designator it should take one argument, the generation number that was GCed. It is called whenever an automatic GC occurred and <EM CLASS="Variable">
+blocking-gen-num-func</EM>
+ was not called, either because the blocking generation was not GCed, or because <EM CLASS="Variable">
+blocking-gen-num-func</EM>
+ was passed as <CODE CLASS="Code">
+nil</CODE>
+. If <EM CLASS="Variable">
+other-func</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ (the default) then this callback is switched off.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1177270"></A>The calls occur after the GC has finished and there is no restriction on what they can do. If the call ends up allocating enough to trigger another automatic GC, they enter again recursively.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1192882"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1656548"></A><CODE CLASS="Code">
+set-automatic-gc-callback</CODE>
+ is implemented only in 64-bit LispWorks. It is not relevant to the Memory Management API in 32-bit implementations.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177271"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1177272"></A><A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1423.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1421.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

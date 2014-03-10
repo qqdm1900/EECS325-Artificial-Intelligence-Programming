@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.9.6.1  Fetching multiple records
+</TITLE>
+
+<LINK REL="next" HREF="lw-416.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-414.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-414.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-408.htm">19.9  Using MySQL</A> &gt; <A HREF="lw-414.htm">19.9.6  Special considerations for iteration functions and macros</A><BR><BR>
+</DIV><A HREF="lw-416.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-414.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-414.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-908541"></A>19.9.6.1  Fetching multiple records</H3>
+<P CLASS="Body">
+<A NAME="pgfId-909139"></A>The function <A HREF="lw-1200.htm#17430" CLASS="XRef">map-query</A> and the macros <A HREF="lw-1179.htm#26371" CLASS="XRef">do-query</A>, <A HREF="lw-1259.htm#54409" CLASS="XRef">simple-do-query</A> and <A HREF="lw-652.htm#60197" CLASS="XRef">loop</A> with <CODE CLASS="Code">
+each record</CODE>
+ use internally <CODE CLASS="Code">
+mysql-use-query</CODE>
+, which means that the underlying MySQL code brings the data from the server one record at a time. With a small number of records, it may be preferable to bring all the data immediately instead. This can be done by passing the argument <EM CLASS="Variable">
+get-all</EM>
+, as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-909155"></A>(sql:map-query nil 'print</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909156"></A>               &quot;select forname,surname from people&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909157"></A>               :get-all t)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909158"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909159"></A>(sql:do-query</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909160"></A> ((forname surname) &quot;select forname,surname from people&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909161"></A>  :get-all t) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909162"></A> <EM CLASS="Variable">body</EM>
+)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909163"></A>    </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909164"></A>(sql:simple-do-query </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909165"></A> (list &quot;select forname,surname from people&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909166"></A>       :get-all t)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909167"></A> <EM CLASS="Variable">body</EM>
+)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909168"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909169"></A>(loop for (forname surname) being each record </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909170"></A>      &quot;select forname,surname from people&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-909171"></A>      get-all t</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-909140"></A>      <EM CLASS="Variable">body</EM>
+)</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-416.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-414.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-414.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-dde-dispatch-topic
+</TITLE>
+
+<LINK REL="next" HREF="lw-1516.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1514.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1507.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1507.htm">44 The DDE server interface</A><BR><BR>
+</DIV><A HREF="lw-1516.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1514.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1507.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-906685"></A><A NAME="36921"></A>define<A NAME="marker-937366"></A>-dde-dispatch-topic</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-906686"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906689"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-906691"></A>Defines a dispatch topic.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906693"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-906695"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906697"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886310"></A>define-dde-dispatch-topic <EM CLASS="Variable">
+name</EM>
+ &amp;key <EM CLASS="Variable">
+server</EM>
+ <EM CLASS="Variable">
+topic-name</EM>
+ =&gt; <EM CLASS="Variable">
+name</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906716"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-906719"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-906733"></A><EM CLASS="Variable">
+server</EM>
+</P>
+<P CLASS="RDescription-C">A server class.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-906738"></A><EM CLASS="Variable">
+topic-name</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906743"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-906754"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906765"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-910271"></A>The macro <CODE CLASS="Code">
+define-dde-dispatch-topic</CODE>
+ defines a dispatching topic. A dispatching topic is a topic which has a fixed name and always exists. Dispatching topics provide dispatching capabilities, whereby appropriate application-supplied code is executed for each supported transaction. Note that the server implementation also provides some dispatching capabilities.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-910265"></A>The name of the dispatching topic object is specified by <EM CLASS="Variable">
+name</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886313"></A>The topic is identified by the string <EM CLASS="Variable">
+topic-name</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-906676"></A>The class of the server to attach the topic to is given by <EM CLASS="Variable">
+server</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-912423"></A>The macro <CODE CLASS="Code">
+define-dde-dispatch-topic</CODE>
+ returns the name of the dispatching topic, <EM CLASS="Variable">
+name</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-929475"></A>Use <CODE CLASS="Code">
+define-dde-server-function</CODE>
+ with the <CODE CLASS="Code">
+:topic</CODE>
+ option to define items for a dispatch topic.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-929477"></A>Example</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-929478"></A>(define-dde-dispatch-topic topic1 :server demo-server)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-929479"></A>(define-dde-server-function (item1 :topic topic1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-929480"></A>    :request</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-929481"></A>    ()</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-929468"></A>  ..handle topic1.item1 request..)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906784"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-906798"></A><A HREF="lw-1510.htm#22701" CLASS="XRef">dde-server-topic</A><BR>
+<A HREF="lw-1511.htm#22836" CLASS="XRef">dde-server-topics</A><BR>
+<A HREF="lw-1517.htm#32469" CLASS="XRef">define-dde-server-function</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1516.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1514.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1507.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

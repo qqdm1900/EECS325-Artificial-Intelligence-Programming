@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.5.4  Synchronization
+</TITLE>
+
+<LINK REL="next" HREF="lw-286.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-284.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-281.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-281.htm">15.5  Process Waiting</A><BR><BR>
+</DIV><A HREF="lw-286.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-284.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-281.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-894720"></A>15.5.4  Synchronization</H3>
+<P CLASS="Body">
+<A NAME="pgfId-894722"></A>Synchronization can be achieved by the various <CODE CLASS="Code">
+process-wait*</CODE>
+ functions with the appropriate <EM CLASS="Variable">
+wait-function</EM>
+ argument, but for simple cases of synchronization it is better to use the synchronization objects: condition variables or barriers. These synchronization objects are simple, efficient, deal with all thread safety issues, and ensure that the processes that are ready to run will run immediately, rather than the next time that the wait function is called.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894723"></A>Condition variables are used when one or more processes have the knowledge to control when another process(es) runs. The &quot;ignorant&quot; process(es) use <A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A> to wait until they can continue. The &quot;knowledgable&quot; process(es) use <A HREF="lw-1017.htm#35505" CLASS="XRef">condition-variable-signal</A> and <A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A> to tell the &quot;ignorant&quot; processes when they can run. Because the communication is via the condition variable, the processes do not need to know explicitly about each other. For more details, see <A HREF="lw-287.htm#75086" CLASS="XRef">Condition variables</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894724"></A>Barriers are used (mainly) for symmetric synchronization, when a group of processes needs to ensure that none of them goes too far ahead of the rest. The processes call <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> when they want to synchronize, and <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> waits until the other process arrive too (that is, they call <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A>). Barriers have additional features that allow more complex synchronization. For more details, see <A HREF="lw-288.htm#82662" CLASS="XRef">Synchronization barriers</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-286.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-284.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-281.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ get-folder-path
+</TITLE>
+
+<LINK REL="next" HREF="lw-1383.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1381.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1383.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1381.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1001771"></A><A NAME="11402"></A>get<A NAME="marker-1026801"></A>-folder-path</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1001868"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001887"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1001901"></A>Gets the path of a special folder on a Microsoft Windows or Mac OS X machine.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001915"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1001955"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001960"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1002055"></A>get-folder-path <EM CLASS="Variable">
+what</EM>
+ &amp;key <EM CLASS="Variable">
+create</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1002197"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1002222"></A><EM CLASS="Variable">
+what</EM>
+</P>
+<P CLASS="RDescription-C">A keyword.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1002278"></A><EM CLASS="Variable">
+create</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1002302"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1002319"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A directory pathname naming the path, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1002330"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1002400"></A>The function <CODE CLASS="Code">
+get-folder-path</CODE>
+ obtains the current value for various special folders often used by applications. It is useful because these paths may differ between versions of the operating system. <CODE CLASS="Code">
+get-folder-path</CODE>
+ is implemented only on Microsoft Windows and Mac OS X.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1142537"></A><EM CLASS="Variable">
+what</EM>
+ indicates the purpose of the special folder. For instance, <CODE CLASS="Code">
+:common-appdata</CODE>
+ means the folder containing application data for all users. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1147413"></A>The following values of <EM CLASS="Variable">
+what</EM>
+ are recognized on Microsoft Windows and Mac OS X:</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1147236"></A><CODE CLASS="Code">
+:appdata</CODE>
+, <CODE CLASS="Code">
+:documents</CODE>
+, <CODE CLASS="Code">
+:my-documents</CODE>
+, <CODE CLASS="Code">
+:common-appdata</CODE>
+, <CODE CLASS="Code">
+:common-documents</CODE>
+ and <CODE CLASS="Code">
+:local-appdata</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1152226"></A><CODE CLASS="Code">
+:documents</CODE>
+  is an alias for <CODE CLASS="Code">
+:my-documents</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1622000"></A><A NAME="marker-1622863"></A>T<A NAME="marker-1626821"></A>h<A NAME="marker-1626834"></A>e following values are recognized on Microsoft Windows only:  <CODE CLASS="Code">
+:program-files</CODE>
+, <CODE CLASS="Code">
+:programs</CODE>
+ and <CODE CLASS="Code">
+:common-programs</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1146924"></A>The following values are recognized on Mac OS X only:</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1146543"></A><CODE CLASS="Code">
+:my-library</CODE>
+, <CODE CLASS="Code">
+:my-appsupport</CODE>
+, <CODE CLASS="Code">
+:my-preferences</CODE>
+, <CODE CLASS="Code">
+:my-caches</CODE>
+, <CODE CLASS="Code">
+:my-logs</CODE>
+, <CODE CLASS="Code">
+:common-library</CODE>
+, <CODE CLASS="Code">
+:common-appsupport</CODE>
+, <CODE CLASS="Code">
+:common-preferences</CODE>
+, <CODE CLASS="Code">
+:common-caches</CODE>
+, <CODE CLASS="Code">
+:common-logs</CODE>
+, <CODE CLASS="Code">
+:system-library</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1152283"></A>On Mac OS X, <CODE CLASS="Code">
+:appdata</CODE>
+ is an alias for <CODE CLASS="Code">
+:my-appsupport</CODE>
+, <CODE CLASS="Code">
+:common-appdata</CODE>
+ is an alias for <CODE CLASS="Code">
+:common-appsupport</CODE>
+, and <CODE CLASS="Code">
+:local-appdata</CODE>
+ is an alias for  <CODE CLASS="Code">
+:common-appsupport</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1142539"></A>If the folder does not exist and <EM CLASS="Variable">
+create</EM>
+ is true, the folder is created. The default value of <EM CLASS="Variable">
+create</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1002436"></A>If the folder does exist, <EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1333266"></A>Compatibility note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1333587"></A>In LispWorks 5.0 and previous versions, <CODE CLASS="Code">
+get-folder-path</CODE>
+ returns a string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1335088"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1335127"></A>This form constructs a pathname to a file <CODE CLASS="Code">
+foo.lisp</CODE>
+ in the user's documents directory:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1335779"></A>(make-pathname </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1335780"></A> :name &quot;foo&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1335781"></A> :type &quot;lisp&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1335782"></A> :defaults</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1335119"></A> (sys:get-folder-path :my-documents))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1003168"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1003245"></A><A HREF="lw-1383.htm#79098" CLASS="XRef">get-user-profile-directory</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1383.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1381.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

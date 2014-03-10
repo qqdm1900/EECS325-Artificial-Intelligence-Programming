@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ split-sequence
+</TITLE>
+
+<LINK REL="next" HREF="lw-974.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-972.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-974.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-972.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1647027"></A><A NAME="56258"></A>split<A NAME="marker-1647025"></A>-sequence</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1647028"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1647029"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1652114"></A>Returns a list of subsequences of a sequence, split at specified separator elements.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1647031"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1647032"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1647033"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1651615"></A>split-sequence <EM CLASS="Variable">
+separator-bag</EM>
+ <EM CLASS="Variable">
+sequence</EM>
+ &amp;key <EM CLASS="Variable">
+start</EM>
+ <EM CLASS="Variable">
+end</EM>
+ <EM CLASS="Variable">
+test</EM>
+ <EM CLASS="Variable">
+key</EM>
+ <EM CLASS="Variable">
+coalesce-separators</EM>
+ =&gt; <EM CLASS="Variable">
+sequences</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1647035"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1651040"></A><EM CLASS="Variable">
+separator-bag</EM>
+</P>
+<P CLASS="RDescription-C">A sequence.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1651041"></A><EM CLASS="Variable">
+sequence</EM>
+</P>
+<P CLASS="RDescription-C">A sequence.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1651042"></A><EM CLASS="Variable">
+start, end</EM>
+</P>
+<P CLASS="RDescription-C">Bounding index designators for <EM CLASS="Variable">
+sequence</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1651043"></A><EM CLASS="Variable">
+test</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1651044"></A><EM CLASS="Variable">
+key</EM>
+</P>
+<P CLASS="RDescription-C">A function designator or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1651045"></A><EM CLASS="Variable">
+coalesce-separators</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1653448"></A>A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1647037"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1650207"></A><EM CLASS="Variable">
+sequences</EM>
+</P>
+<P CLASS="RDescription-C">A list of sequences.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1647039"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1648818"></A>The function <CODE CLASS="Code">
+split-sequence</CODE>
+ returns a list of subsequences of <EM CLASS="Variable">
+sequence</EM>
+ (between start and end), split when an element in the sequence <EM CLASS="Variable">
+separator-bag</EM>
+ is found.  The structure of <EM CLASS="Variable">
+sequence</EM>
+ is not changed and the elements matching <EM CLASS="Variable">
+separator-bag</EM>
+ are not included in the resulting sequences.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1648819"></A>The function <EM CLASS="Variable">
+test</EM>
+, which defaults to <CODE CLASS="Code">
+eql</CODE>
+, is used to compare the elements of <EM CLASS="Variable">
+sequence</EM>
+ and the elements of <EM CLASS="Variable">
+separator-bag</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1648820"></A>If true, the function <EM CLASS="Variable">
+key</EM>
+, is applied to the elements of <EM CLASS="Variable">
+sequence</EM>
+ before <EM CLASS="Variable">
+test</EM>
+ is called.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1648821"></A>If <EM CLASS="Variable">
+coalesce-separators</EM>
+ is true, then empty sequences are removed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1647045"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1647046"></A><A HREF="lw-974.htm#67001" CLASS="XRef">split-sequence-if</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-974.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-972.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

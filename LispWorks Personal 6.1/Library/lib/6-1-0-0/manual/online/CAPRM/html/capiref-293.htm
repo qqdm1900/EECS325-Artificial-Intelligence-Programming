@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ pinboard-layout
+</TITLE>
+
+<LINK REL="next" HREF="capiref-294.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-292.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-294.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-292.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-903781"></A><A NAME="24209"></A>pinboard<A NAME="marker-4186182"></A>-layout</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-903892"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903786"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-903787"></A>The class <CODE CLASS="Code">
+pinboard-layout</CODE>
+ provides two very useful pieces of functionality for displaying CAPI windows. Firstly it is a subclass of <A HREF="capiref-421.htm#70578" CLASS="XRef">static-layout</A> and so it allows its children to be positioned anywhere within itself (like a pinboard). Secondly it supports <A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A>s which are rectangular areas within the layout which have size and drawing functionality.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4186171"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4186172"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903792"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-903794"></A><A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A><BR>
+<A HREF="capiref-421.htm#70578" CLASS="XRef">static-layout</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903797"></A>Subclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-903799"></A><A HREF="capiref-413.htm#14273" CLASS="XRef">simple-pinboard-layout</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6859336"></A>Initargs</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6859338"></A><CODE CLASS="Code">
+:highlight-style</CODE>
+<A NAME="marker-6859337"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-6859339"></A>A keyword.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903801"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-903803"></A>When a <CODE CLASS="Code">
+pinboard-layout</CODE>
+ lays out its children, it positions them at the <EM CLASS="Variable">
+x</EM>
+ and <EM CLASS="Variable">
+y</EM>
+ specified as hints (using <CODE CLASS="Code">
+:x</CODE>
+ and <CODE CLASS="Code">
+:y</CODE>
+), and sizes them to their minimum size (which can be specified using <CODE CLASS="Code">
+:visible-min-width</CODE>
+ and <CODE CLASS="Code">
+:visible-max-width</CODE>
+). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-7888056"></A>By default, the <CODE CLASS="Code">
+pinboard-layout</CODE>
+ is made sufficiently large to accomodate all of its children, as specified by <EM CLASS="Variable">
+fit-size-to-children</EM>
+ in the superclass <A HREF="capiref-421.htm#70578" CLASS="XRef">static-layout</A>. Note that results in the pinboard resizing itself automatically when objects are added, moved or removed. If you need the sizing capabilities, then use the class <A HREF="capiref-413.htm#14273" CLASS="XRef">simple-pinboard-layout</A> which surrounds a single child, and adopts the size constraints of that child.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-903809"></A>The pinboard layout handles the display of pinboard objects itself by calculating which objects are visible in the region that needs redrawing, and then by calling the generic function <A HREF="capiref-99.htm#11889" CLASS="XRef">draw-pinboard-object</A> on these objects in the order that they are specified in the layout description. This means that if two pinboard objects overlap, the later one in the layout description will be on top of the other one. In other words, the description defines the <A NAME="marker-5897190"></A>Z-order for objects of type <A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A>. For information about controlling this order, see <A HREF="capiref-211.htm#12861" CLASS="XRef">layout</A> and <A HREF="capiref-239.htm#60474" CLASS="XRef">manipulate-pinboard</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7834201"></A><B CLASS="Bold">
+Note:</B>
+ objects of type <A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A> are drawn directly by the windowing system and cannot be clipped relative to <A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A>s, which are drawn by CAPI. Therefore <A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A>s always appear on top in a pinboard, and their position in the description does not affect the Z-order.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6859632"></A>Highlighting of the layout's children by <A HREF="capiref-176.htm#19374" CLASS="XRef">highlight-pinboard-object</A> is controlled by the value of <EM CLASS="Variable">
+highlight-style</EM>
+, as follows:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6859760"></A><CODE CLASS="Code">
+:invert</CODE>
+</P>
+<P CLASS="RDescription-C">Swaps the foreground and background colors.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6859773"></A><CODE CLASS="Code">
+:standard</CODE>
+</P>
+<P CLASS="RDescription-C">Uses system colors.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6859774"></A><CODE CLASS="Code">
+:default</CODE>
+</P>
+<P CLASS="RDescription-C">Calls <A HREF="capiref-100.htm#20095" CLASS="XRef">draw-pinboard-object-highlighted</A>.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-6859782"></A>The default value of <EM CLASS="Variable">
+highlight-style</EM>
+ is <CODE CLASS="Code">
+:default</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8482177"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-10065719"></A><EM CLASS="Variable">
+</EM>
+<A NAME="marker-10340709"></A>The <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A> initarg <CODE CLASS="Code">
+:drawing-mode</CODE>
+<A NAME="marker-10065718"></A> controls quality of drawing in a <CODE CLASS="Code">
+pinboard-layout</CODE>
+, including anti-aliasing of any text displayed on Microsoft Windows and GTK+.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-8482269"></A>If redrawing flickers on Microsoft Windows or Motif, perhaps because there are many pinboard objects, you can pass the <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A> initarg <CODE CLASS="Code">
+:draw-with-buffer t</CODE>
+, which uses a pixmap to buffer the output before drawing it to the screen. See <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A> for more information.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903814"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-903836"></A>Here are some examples of the use of pinboard objects with pinboard layouts. </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1745394"></A>(capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1745395"></A> (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1745396"></A>  'capi:pinboard-layout</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1745397"></A>  :description </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1745398"></A>  (list</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1745399"></A>   (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1745400"></A>    'capi:image-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1745401"></A>    :image </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1745402"></A>    (sys:lispworks-file </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1745403"></A>     &quot;examples/capi/graphics/Setup.bmp&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1745404"></A>    :x 20 :y 20)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1747768"></A> :best-width 540 :best-height 415)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1752290"></A>(capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1752291"></A> (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1752292"></A>  'capi:pinboard-layout</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1752293"></A>  :description (list</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1752294"></A>                (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1752295"></A>                 'capi:item-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1752296"></A>                 :text &quot;Hello&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1752297"></A>                 :x 40 :y 10)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1752298"></A>                (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1752299"></A>                 'capi:line-pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1752300"></A>                 :x 10 :y 30</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1752301"></A>                 :visible-min-width 100)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1747780"></A>                :best-width 200 :best-height 200)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-10268397"></A>There are further examples in the directories <CODE CLASS="Code">
+examples/capi/applications/</CODE>
+ and <CODE CLASS="Code">
+examples/capi/graphics/</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-10268398"></A>This example illustrates use of <EM CLASS="Variable">
+draw-with-buffer</EM>
+ <CODE CLASS="Code">
+t</CODE>
+:</P>
+<P CLASS="RBody">
+<A NAME="pgfId-10268399"></A><CODE CLASS="Code">
+examples/capi/graphics/compositing-mode.lisp</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903870"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-903872"></A><A HREF="capiref-239.htm#60474" CLASS="XRef">manipulate-pinboard</A><BR>
+<A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A><BR>
+<A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A><BR>
+<A HREF="capiref-348.htm#16140" CLASS="XRef">redraw-pinboard-object</A><BR>
+<A HREF="capiref-421.htm#70578" CLASS="XRef">static-layout</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-294.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-292.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

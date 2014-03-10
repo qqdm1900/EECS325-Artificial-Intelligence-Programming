@@ -1,0 +1,10 @@
+(defun bin-search (obj vec &key (key #'identity) (start 0) (end (length vec)))
+  (let* ((mid (+ start (floor (- end start) 2)))
+         (obj2 (if (< mid end) 
+                   (funcall key (aref vec mid)) 
+                 nil)))
+    (cond
+     ((>= start end) nil)
+     ((< obj obj2) (bin-search obj vec :key key :start start :end mid))
+     ((> obj obj2) (bin-search obj vec :key key :start (1+ mid) :end end))
+     (t (aref vec mid)))))

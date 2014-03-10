@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.2.9  Tracing functions from inside other functions
+</TITLE>
+
+<LINK REL="next" HREF="lw-51.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-49.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-41.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-39.htm">5 The Trace Facility</A> &gt; <A HREF="lw-41.htm">5.2  Tracing options</A><BR><BR>
+</DIV><A HREF="lw-51.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-49.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886357"></A>5.2.9  Tracing functions from inside other functions</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886640"></A><A NAME="marker-886705"></A><A NAME="99487"></A>:inside</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886643"></A>Trace keyword</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886359"></A><A NAME="marker-886358"></A>:inside<EM CLASS="Variable">
+ list-of-functions</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886362"></A><A NAME="marker-886360"></A><A NAME="marker-886361"></A>The functions given in the argument to <CODE CLASS="Code">
+:inside</CODE>
+ should reference the traced function in their implementation. The traced function is then only traced in calls to any function in the list of functions, rather than in direct calls to itself.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886654"></A>For example:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-886363"></A>Define the function <CODE CLASS="Code">
+fac2</CODE>
+, which calls <CODE CLASS="Code">
+fac</CODE>
+, as follows:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-886364"></A>(defun fac2 (x)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886365"></A>   (fac x))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-886366"></A>For the <CODE CLASS="Code">
+fac</CODE>
+ function, set the value of <CODE CLASS="Code">
+:inside</CODE>
+ to <CODE CLASS="Code">
+fac2</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-886367"></A>Call <CODE CLASS="Code">
+fac</CODE>
+, and notice that no tracing information is produced.</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-886368"></A>CL-USER 154 &gt; (fac 3)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886369"></A>6</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-886370"></A>Call <CODE CLASS="Code">
+fac2</CODE>
+, and notice the tracing information.</LI>
+</OL>
+<PRE CLASS="Code-first"><A NAME="pgfId-886371"></A>CL-USER 155 &gt; (fac2 3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886372"></A>0 FAC &gt; (3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886373"></A>  1 FAC &gt; (2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886374"></A>    2 FAC &gt; (1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886375"></A>    2 FAC &lt; (1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886376"></A>  1 FAC &lt; (2)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886378"></A>0 FAC &lt; (6)<A NAME="marker-886377"></A></PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-51.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-49.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

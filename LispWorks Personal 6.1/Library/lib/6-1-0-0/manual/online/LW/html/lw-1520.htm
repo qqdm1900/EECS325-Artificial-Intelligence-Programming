@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ InitLispWorks
+</TITLE>
+
+<LINK REL="next" HREF="lw-1521.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1519.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1519.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1519.htm">45 Dynamic library C functions</A><BR><BR>
+</DIV><A HREF="lw-1521.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1519.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1519.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-977314"></A><A NAME="65792"></A>InitLispWorks<A NAME="marker-977313"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-977315"></A>C function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-977316"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-977317"></A>Provides control over the initialization of a LispWorks dynamic library.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-977318"></A>Signature</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-977319"></A>On Windows:</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-977698"></A>int __stdcall InitLispWorks (int <EM CLASS="Variable">
+MilliTimeOut</EM>
+, void *<EM CLASS="Variable">
+BaseAddress</EM>
+, size_t <EM CLASS="Variable">
+ReserveSize</EM>
+)</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977321"></A>On Linux, Macintosh, x86/x64 Solaris and FreeBSD:</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-977675"></A>int InitLispWorks (int <EM CLASS="Variable">
+MilliTimeOut</EM>
+, void *<EM CLASS="Variable">
+BaseAddress</EM>
+, size_t <EM CLASS="Variable">
+ReserveSize</EM>
+)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-977323"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-978957"></A>The C function <CODE CLASS="Code">
+InitLispWorks</CODE>
+ allows you to relocate a LispWorks dynamic library if this is necessary, and offers control of the initialization process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-979093"></A>A LispWorks dynamic library is automatically initialized by any call to its exported symbols, so in most cases there is no need to call <CODE CLASS="Code">
+InitLispWorks</CODE>
+. It is however necessary when you need to relocate LispWorks or when you need finer control over the initialization process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-979903"></A>For more information about relocating a LispWorks dynamic library, see <A HREF="lw-522.htm#37447" CLASS="XRef">Startup relocation</A>)</P>
+<P CLASS="RBody">
+<A NAME="pgfId-978960"></A><EM CLASS="Variable">
+MilliTimeOut</EM>
+ specifies the time in milliseconds to wait for LispWorks to finish initializing before returning. <CODE CLASS="Code">
+InitLispWorks</CODE>
+ checks whether the library was initialized and if not initiates initialization. It then waits at most <EM CLASS="Variable">
+MilliTimeOut</EM>
+ milliseconds before returning.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-978961"></A><EM CLASS="Variable">
+BaseAddress</EM>
+ specifies the base address for relocation. Can be 0.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-978962"></A><EM CLASS="Variable">
+ReserveSize</EM>
+ specifies the reserve size for relocation. Can be 0.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-980028"></A><EM CLASS="Variable">
+BaseAddress</EM>
+ and <EM CLASS="Variable">
+ReserveSize</EM>
+ are interpreted as described in <A HREF="lw-522.htm#37447" CLASS="XRef">Startup relocation</A>. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-978964"></A>Non-negative return values indicate success:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-979543"></A>1</P>
+<P CLASS="RDescription-C">LispWorks was already initialized or in the process of initializing, and finished initializing by the time <CODE CLASS="Code">
+InitLispWorks</CODE>
+ returned.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978966"></A>0</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+InitLispWorks</CODE>
+ initialized LispWorks and the initialization finished successfully.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-979628"></A>Values in the inclusive range [-1, -99] indicate a timeout:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978968"></A>-1</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+InitLispWorks</CODE>
+ started initialization and timed out before LispWorks finished mapping itself from the file.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978969"></A>-2</P>
+<P CLASS="RDescription-C">LispWorks already started initialization, and <CODE CLASS="Code">
+InitLispWorks</CODE>
+ timed out before LispWorks finished mapping itself from the file.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978970"></A>-3</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+InitLispWorks</CODE>
+ started initialization and timed out after LispWorks mapped itself from the file, but before the initialization was complete.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978971"></A>-4</P>
+<P CLASS="RDescription-C">LispWorks already started initialization, and <CODE CLASS="Code">
+InitLispWorks</CODE>
+ timed out before after LispWorks mapped itself from the file, but before the initialization was complete.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-979694"></A>After <CODE CLASS="Code">
+InitLispWorks</CODE>
+ times out, the state of LispWorks can be queried by <A HREF="lw-1522.htm#64548" CLASS="XRef">LispWorksState</A>.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-979655"></A>Lower values indicate failure, as follows:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978972"></A>-1000</P>
+<P CLASS="RDescription-C">Failure to start a thread to do the initialization.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978974"></A>-1401</P>
+<P CLASS="RDescription-C">The file seems to be corrupted.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978975"></A>-1402</P>
+<P CLASS="RDescription-C">Failure to map into memory.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978976"></A>-1403</P>
+<P CLASS="RDescription-C">Failure to read the LispWorks header from the file.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978977"></A>-1406</P>
+<P CLASS="RDescription-C">Bad base address.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-979416"></A>Additionally, a value <EM CLASS="Variable">
+value</EM>
+ in the inclusive range [-1400, -1001] on Linux, Macintosh, FreeBSD and x86/x64 Solaris platforms indicates an error in a system call. Calculate the errno number by -1001 - <EM CLASS="Variable">
+value</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-978980"></A><B CLASS="Bold">
+Note:</B>
+ If LispWorks is already initialized or in the process of being initialized, <CODE CLASS="Code">
+InitLispWorks</CODE>
+ does not initiate the process of initialization. Therefore the arguments to <CODE CLASS="Code">
+InitLispWorks</CODE>
+ have no effect if LispWorks was already initialized when it is called. On Microsoft Windows, the default behavior is to initialize a LispWorks dynamic library automatically during loading, so this needs to be disabled to use <CODE CLASS="Code">
+InitLispWorks</CODE>
+ effectively. Disable automatic initialization of a library as described for <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> and <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-978981"></A><B CLASS="Bold">
+Note:</B>
+ Once <A HREF="lw-1524.htm#98485" CLASS="XRef">QuitLispWorks</A> has returned 0, LispWorks can be initialized again. It is possible to quit and restart LispWorks several times, at the same address or at a different address.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-978982"></A><B CLASS="Bold">
+Note:</B>
+ On Linux, Macintosh, FreeBSD and x86/x64 Solaris you can create wrappers to the C functions described in this chapter from your application by writing them in C and adding them to the dynamic library using <EM CLASS="Variable">
+dll-added-files</EM>
+ in <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> and <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A><EM CLASS="Variable">
+ </EM>
+. Such wrappers can be used to add calls to <CODE CLASS="Code">
+InitLispWorks</CODE>
+ before actually calling into Lisp.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977337"></A><CODE CLASS="Code">
+InitLispWorks</CODE>
+ is defined in each LispWorks dynamic library. For information about creating a LispWorks dynamic library, see <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> and <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A>. For an overview of LispWorks as a dynamic library, see <A HREF="lw-216.htm#48126" CLASS="XRef">LispWorks as a dynamic library</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-977347"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-977351"></A><A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A><BR>
+<A HREF="lw-1522.htm#64548" CLASS="XRef">LispWorksState</A><BR>
+<A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A><BR>
+<A HREF="lw-1524.htm#98485" CLASS="XRef">QuitLispWorks</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1521.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1519.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1519.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.4  Logical Dependencies and Truth Maintenance
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-97.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-95.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-74.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A><BR><BR>
+</DIV><A HREF="kwprolog-m-97.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-95.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-74.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-895820"></A>6.4  <A NAME="21448"></A>Logical Dependencies and <A NAME="marker-895949"></A>Truth Maintenance</H3>
+<P CLASS="Body">
+<A NAME="pgfId-895824"></A>When a rule creates an object that depends on a specific set of preconditions, it is sometimes necessary to erase that object when those preconditions no longer hold. This is an example of <I CLASS="Italic">
+truth maintainence</I>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895826"></A>KnowledgeWorks provides a mechanism to track logical dependencies between objects and preconditions which cause any dependent objects to be erased automatically. This is achieved using a <CODE CLASS="Code">
+logical</CODE>
+<A NAME="marker-895843"></A> clause in a forward chaining rule, with a precondition of the form</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-895811"></A>(logical &lt;forward-condition&gt;+)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-895853"></A>The enclosed forward conditions in this clause are matched as normal, but if the rule fires and creates new objects (by <CODE CLASS="Code">
+assert</CODE>
+<A NAME="marker-895798"></A> or <A NAME="marker-895799"></A><CODE CLASS="Code">
+make-instance</CODE>
+) then these objects are associated with the enclosed conditions. If the conditions are found to be false in the future, then the created objects are erased automatically (see <A HREF="kwprolog-m-122.htm#29022" CLASS="XRef">erase</A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-895944"></A>NB: There can be at most one <CODE CLASS="Code">
+logical</CODE>
+ clause in a rule (though it can contain multiple subclauses) and it must be the first clause in the rule. Other clauses can follow the logical clause, but they are not part of the logical dependency.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="kwprolog-m-97.htm#pgfId-895952" CLASS="Hypertext">6.4.1  Example</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-97.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-95.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-74.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

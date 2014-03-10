@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.6  Avoid referencing type names
+</TITLE>
+
+<LINK REL="next" HREF="delivery-289.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-287.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-282.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-282.htm">13 Efficiency considerations when coding for delivery</A><BR><BR>
+</DIV><A HREF="delivery-289.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-287.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-282.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-858643"></A>13.6  <A NAME="29114"></A>Avoid referencing type names</H3>
+<P CLASS="Body">
+<A NAME="pgfId-864909"></A>Referencing the name of a type (that is, a symbol) in code means that delivery cannot remove that type even if it is not used anywhere else. This is often seen in code using <CODE CLASS="Code">
+typep</CODE>
+, <CODE CLASS="Code">
+typecase</CODE>
+ or <CODE CLASS="Code">
+subtypep</CODE>
+ to discriminate between types.</P>
+<P CLASS="Body">
+<A NAME="pgfId-864910"></A>For example, if you have code like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-864911"></A>(defun foo (x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864912"></A>  (cond ((typep x 'class1) ...)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864913"></A>        ((typep x 'class2) ...)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864914"></A>        ...</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-864915"></A>        ((subtypep x 'class1000) ...)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-864916"></A>then delivery would keep all of the classes <CODE CLASS="Code">
+class1</CODE>
+,<CODE CLASS="Code">
+...</CODE>
+,<CODE CLASS="Code">
+class1000</CODE>
+ even if nothing else references these classes.</P>
+<P CLASS="Body">
+<A NAME="pgfId-864917"></A>Possible solutions are described in <A HREF="delivery-289.htm#76293" CLASS="XRef">Referencing types via methods</A> and <A HREF="delivery-290.htm#99660" CLASS="XRef">Referencing types via predicates</A>.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="delivery-289.htm#pgfId-865061" CLASS="Hypertext">13.6.1  Referencing types via methods</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="delivery-290.htm#pgfId-865068" CLASS="Hypertext">13.6.2  Referencing types via predicates</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-289.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-287.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-282.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

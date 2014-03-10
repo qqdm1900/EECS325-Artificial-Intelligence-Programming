@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.2.9  Stopping and unstopping processes
+</TITLE>
+
+<LINK REL="next" HREF="lw-269.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-267.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-246.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-246.htm">15.2  The process programming interface </A><BR><BR>
+</DIV><A HREF="lw-269.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-267.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-246.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-890558"></A>15.2.9  <A NAME="10573"></A>Stopping and unstopping processes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890559"></A>This section describes a typical way of using <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-890649"></A><A HREF="lw-1097.htm#48925" CLASS="XRef">process-stop</A> and <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-890654"></A><A HREF="lw-1100.htm#39078" CLASS="XRef">process-unstop</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890560"></A>Suppose a pool of &quot;worker&quot; processes is managed by a &quot;manager&quot; process. A process in the worker pool marks itself as available for work, and then calls <A HREF="lw-1097.htm#48925" CLASS="XRef">process-stop</A>. The manager process later finds a worker process that is marked as available for work, puts the work in a place known to the worker process, and then calls <A HREF="lw-1100.htm#39078" CLASS="XRef">process-unstop</A> on the worker process.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890645"></A>For this scheme to work properly, the check of whether the worker is available needs to include a call to <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-890659"></A><A HREF="lw-1098.htm#17325" CLASS="XRef">process-stopped-p</A>. Otherwise, it is possible for the following sequence of events to occur:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-890561"></A>A worker marks itself as available.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-890562"></A>The manager process finds the worker and gives it the work.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-890563"></A>The manager process calls <A HREF="lw-1100.htm#39078" CLASS="XRef">process-unstop</A> on the worker.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-890564"></A>The worker process proceeds and calls <A HREF="lw-1097.htm#48925" CLASS="XRef">process-stop</A>, and never wakes up.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-890565"></A>To guard against this possibility, then the manager should call <A HREF="lw-1098.htm#17325" CLASS="XRef">process-stopped-p</A> when finding the worker in the second step above. Alternatively, it could check the result of <A HREF="lw-1100.htm#39078" CLASS="XRef">process-unstop</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-269.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-267.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-246.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

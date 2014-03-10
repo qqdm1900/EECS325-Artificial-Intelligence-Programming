@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ condition-variable-wait
+</TITLE>
+
+<LINK REL="next" HREF="lw-1019.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1017.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1019.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1017.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1330658"></A><A NAME="26705"></A>condition<A NAME="marker-1332096"></A>-variable-wait</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1330660"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330661"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1330662"></A>Waits for a given condition variable to be signalled.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330663"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1330664"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330665"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1330666"></A>condition-variable-wait <EM CLASS="Variable">
+condvar</EM>
+ <EM CLASS="Variable">
+lock</EM>
+ &amp;key <EM CLASS="Variable">
+timeout</EM>
+ <EM CLASS="Variable">
+wait-reason</EM>
+ =&gt; <EM CLASS="Variable">
+wakep</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330667"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1330668"></A><EM CLASS="Variable">
+condvar</EM>
+</P>
+<P CLASS="RDescription-C">A condition variable</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1330669"></A><EM CLASS="Variable">
+lock</EM>
+</P>
+<P CLASS="RDescription-C">A <CODE CLASS="Code">
+mp:lock</CODE>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1330670"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+ or a positive real</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1330671"></A><EM CLASS="Variable">
+wait-reason</EM>
+</P>
+<P CLASS="RDescription-C">A string</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330672"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1330673"></A><EM CLASS="Variable">
+wakep</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330674"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1330675"></A>The function <CODE CLASS="Code">
+condition-variable-wait</CODE>
+ waits at most <EM CLASS="Variable">
+timeout</EM>
+ seconds for the condition variable <EM CLASS="Variable">
+condvar</EM>
+ to be signalled. The lock <EM CLASS="Variable">
+lock</EM>
+ is released while waiting and claimed again before returning. The caller must be holding the lock <EM CLASS="Variable">
+lock</EM>
+ before calling this function.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1337612"></A>The return value <EM CLASS="Variable">
+wakep</EM>
+ is non-nil if the signal was received or <CODE CLASS="Code">
+nil</CODE>
+ if there was a timeout. If <EM CLASS="Variable">
+timeout</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+condition-variable-wait</CODE>
+ waits indefinitely.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1337629"></A>If <EM CLASS="Variable">
+wait-reason</EM>
+ is non-nil, it is used as the <EM CLASS="Variable">
+wait-reason</EM>
+ while waiting for the signal.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1669279"></A>It is recommended that you use <A HREF="lw-1039.htm#85947" CLASS="XRef">lock-and-condition-variable-wait</A> or <A HREF="lw-1127.htm#49462" CLASS="XRef">simple-lock-and-condition-variable-wait</A> instead of <CODE CLASS="Code">
+condition-variable-wait</CODE>
+. The locking functions make it easier to avoid mistakes, and can be more efficient.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330676"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1337692"></A><EM CLASS="Variable">
+timeout</EM>
+ controls how long to wait for the signal: before returning, the function waits to claim the lock, possibly indefinitely.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330678"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1669352"></A><A HREF="lw-1019.htm#32684" CLASS="XRef">condition-variable-wait-count</A><BR>
+<A HREF="lw-1056.htm#99681" CLASS="XRef">make-condition-variable</A><BR>
+<A HREF="lw-1039.htm#85947" CLASS="XRef">lock-and-condition-variable-wait</A><BR>
+<A HREF="lw-1127.htm#49462" CLASS="XRef">simple-lock-and-condition-variable-wait</A><BR>
+<A HREF="lw-1038.htm#96844" CLASS="XRef">lock-and-condition-variable-signal</A><BR>
+<A HREF="lw-1037.htm#54717" CLASS="XRef">lock-and-condition-variable-broadcast</A><BR>
+<A HREF="lw-1017.htm#35505" CLASS="XRef">condition-variable-signal</A><BR>
+<A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1019.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1017.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

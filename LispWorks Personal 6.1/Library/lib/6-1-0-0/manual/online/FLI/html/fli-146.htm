@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ size-of
+</TITLE>
+
+<LINK REL="next" HREF="fli-147.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-145.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-147.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-145.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1048063"></A><A NAME="38066"></A>size-of<A NAME="marker-1048062"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-897810"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898657"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-928372"></A>Returns the size in bytes of a foreign type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-928360"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898658"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897811"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897812"></A>size-of <EM CLASS="Variable">
+type-name</EM>
+ =&gt; <EM CLASS="Variable">
+size</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-928343"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-928344"></A><EM CLASS="Variable">
+type-name</P>
+<P CLASS="RDescription-C"></EM>
+A foreign type whose size is to be determined.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-928345"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920258"></A><EM CLASS="Variable">
+size</EM>
+</P>
+<P CLASS="RDescription-C">The size of the foreign type <EM CLASS="Variable">
+type-name</EM>
+ in bytes.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920259"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920260"></A>The function <CODE CLASS="Code">
+size-of</CODE>
+ returns the size in bytes of the foreign language type named by <EM CLASS="Variable">
+type-name</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920261"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920262"></A>This example returns the size of the C integer type (usually 4 bytes on supported platforms):</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-928516"></A>(fli:size-of :int)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1218055"></A>This example returns the size of a C array of 10 integers:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-928525"></A>(fli:size-of '(:c-array :int 10))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-928534"></A>The function <CODE CLASS="Code">
+size-of</CODE>
+ can also be used to determine the size of a structure:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-928575"></A>(fli:define-c-struct POS</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-928576"></A>  (x :int)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-928577"></A>  (y :int)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-928578"></A>  (z :int))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-928560"></A>(fli:size-of 'POS)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920263"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920264"></A><A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A><BR>
+<A HREF="fli-119.htm#14842" CLASS="XRef">free-foreign-object</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-147.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-145.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

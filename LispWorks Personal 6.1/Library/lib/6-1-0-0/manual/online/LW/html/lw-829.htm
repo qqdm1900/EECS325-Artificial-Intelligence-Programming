@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ save-universal-from-script
+</TITLE>
+
+<LINK REL="next" HREF="lw-830.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-828.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-830.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-828.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1214010"></A><A NAME="75131"></A>save<A NAME="marker-1214009"></A>-universal<A NAME="marker-1214019"></A>-from-script</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1214011"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1214012"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1194746"></A>Saves a universal binary LispWorks image using a script designed for saving a mono-architecture image.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1194747"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1194748"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1194749"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1194750"></A>save-universal-from-script <EM CLASS="Variable">
+target-image</EM>
+ <EM CLASS="Variable">
+script-name</EM>
+ &amp;key <EM CLASS="Variable">
+output-stream</EM>
+ =&gt; <EM CLASS="Variable">
+target-image</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1194751"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1194752"></A><EM CLASS="Variable">
+target-image</P>
+<P CLASS="RDescription-C"></EM>
+A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1194753"></A><EM CLASS="Variable">
+script-name</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1195422"></A><EM CLASS="Variable">
+output-stream</EM>
+</P>
+<P CLASS="RDescription-C">A stream or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1195425"></A><EM CLASS="Variable">
+</EM>
+Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1194756"></A><EM CLASS="Variable">
+target-image</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1194757"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1196212"></A>The function <CODE CLASS="Code">
+save-universal-from-script</CODE>
+ provides a convenient way to create a universal binary on an Intel Macintosh, using a script designed for saving a mono-architecture image.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1198801"></A>The <EM CLASS="Variable">
+script-name</EM>
+ is the name of a Common Lisp build script for saving or delivering an image, as would be used to create a mono-architecture image. It should load the application and then call either <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> or <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> as appropriate.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1198802"></A>The function <CODE CLASS="Code">
+save-universal-from-script</CODE>
+ runs the current LispWorks image in two subprocesses, once for the PowerPC architecture (under Rosetta) and once for the native Intel architecture, passing <CODE CLASS="Code">
+-build</CODE>
+ <EM CLASS="Variable">
+script-name</EM>
+ on the command line. The script is evaluated as normal, except that the filename that is passed to any call to <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> or <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> is ignored and a temporary filename is used instead. If these two subprocesses are successful, then the temporary images are combined to make a universal binary <EM CLASS="Variable">
+target-name</EM>
+ in the same way as <A HREF="lw-770.htm#48399" CLASS="XRef">create-universal-binary</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1213861"></A>The command line arguments of the images run by the subprocesses will include the command line arguments that were passed to the current image. In addition, various  undocumented command line arguments will be prepended, which control how <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> or <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> work in the script.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1198806"></A>Any output generated by the subprocesses is written to <EM CLASS="Variable">
+output-stream</EM>
+. If this is <CODE CLASS="Code">
+nil</CODE>
+, then the output is discarded. If this is <CODE CLASS="Code">
+t</CODE>
+ (the default), then the output is written to the standard output.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1196219"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1637012"></A>The function <CODE CLASS="Code">
+save-universal-from-script</CODE>
+ can only be called from a LispWorks for Macintosh image that is itself a universal binary, such as the distributed image.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1194765"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1202291"></A>Suppose the file <CODE CLASS="Code">
+my-build-script.lisp</CODE>
+ contains</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1202292"></A>(load-all-patches)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1202293"></A>(load &quot;my-application-defsys&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1202192"></A>(compile-system 'my-application-system :load t)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1202209"></A>(deliver 'my-application-function &quot;my-application&quot; 5)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1202225"></A>Then, the following call creates a universal binary <CODE CLASS="Code">
+my-application</CODE>
+ using this script:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1194767"></A>(save-universal-from-script &quot;my-application&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1194769"></A>                            &quot;my-build-script.lisp&quot;)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1202388"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1202392"></A><A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A><BR>
+<A HREF="lw-770.htm#48399" CLASS="XRef">create-universal-binary</A><BR>
+<A HREF="lw-756.htm#50341" CLASS="XRef">building-universal-intermediate-p</A><BR>
+<A HREF="lw-825.htm#61005" CLASS="XRef">save-argument-real-p</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-830.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-828.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

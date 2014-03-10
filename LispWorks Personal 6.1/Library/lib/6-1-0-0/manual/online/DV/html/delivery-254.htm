@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.5  Failed to reserve... error in compacted image
+</TITLE>
+
+<LINK REL="next" HREF="delivery-255.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-253.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-249.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-249.htm">10 Troubleshooting</A><BR><BR>
+</DIV><A HREF="delivery-255.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-253.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-249.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-857493"></A>10.5  <A NAME="marker-857614"></A>Failed to reserve... error in compacted image</H3>
+<P CLASS="Body">
+<A NAME="pgfId-857546"></A>Loading a compacted LispWorks (32-bit) for Windows DLL might result in an error message like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-857547"></A>Failed to reserve 14024705 bytes of memory (preferred address 0x20000000)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-857520"></A>Error 487: Attempt to access invalid address.</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-857511"></A>LispWorks normally relocates its heap if the default address 0x20000000 is already in use (for example, by another DLL) but this is not possible if the DLL is compacted.</P>
+<P CLASS="Body">
+<A NAME="pgfId-857621"></A>The solution is to build a non-compacted DLL:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-857626"></A><CODE CLASS="Code">
+(deliver nil  &quot;foo&quot; 5 :dll-exports '(&quot;Foo&quot;) :compact nil)</CODE>
+</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-255.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-253.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-249.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

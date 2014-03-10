@@ -1,0 +1,218 @@
+;;;     (INIT-KB *GENERAL-PLANNING-KB* *ROOM-KB* *SHAKEY-1-KB*)
+;;;     (RUN-TESTS SHAKEY-1)
+(in-package #:shakey-tests)
+
+(defparameter *general-planning-kb*
+  '(
+    ;; No action needed if start = goal
+    (plan-for ?goal ?goal nil)
+    (<- (plan-for ?state1 ?goal (cons ?action ?actions))
+        (action-for ?state1 ?goal ?action)
+        (results ?state1 ?state2 ?action)
+        (plan-for ?state2 ?goal ?actions))
+    ))
+
+;;; Variable naming conventions:
+;;;   sloc - shakey-1 location
+;;;   bloc - box location
+;;;   gloc - goal (destination)
+
+(defparameter *shakey-1-kb*
+  '(
+    ;; ACTION RESULT RULES
+   
+    ;; push-box changes the location of shakey-1 and the box.
+    ;; Shakey-1 has to be at the box.
+    (results (v1-state ?box-loc-1 ?box-loc-1)
+             (v1-state ?box-loc-2 ?box-loc-2)
+             (push-box ?box-loc-1 ?box-loc-2))
+        
+    ;; move-to changes the location of shakey-1.
+    (results (v1-state ?robot-loc-1 ?box-loc)
+             (v1-state ?robot-loc-2 ?box-loc)
+             (move-to ?robot-loc-2))
+    
+    ;; ACTION SELECTION RULES
+
+    ;; push-box to the room through hall if box not in the final destination
+    (<- (action-for (v1-state ?box-loc ?box-loc)
+                    (v1-state ?robot-loc ?goal-loc)
+                    (push-box ?box-loc ?goal-loc))
+        (different ?box-loc ?goal-loc)
+        (connect ?box-loc ?goal-loc))
+   
+    ;; push-box to hall if box at a room other than he destination
+    (<- (action-for (v1-state ?box-loc ?box-loc)
+                    (v1-state ?robot-loc ?goal-loc)
+                    (push-box ?box-loc hall))
+        (different ?box-loc ?goal-loc)
+        (not (connect ?box-loc ?goal-loc)))
+
+    ;; move-to another room if not at box location
+    ;; shakey at hall
+    (<- (action-for (v1-state ?robot-loc ?box-loc);sloc
+                    (v1-state ?robot-loc-2 ?goal-loc) ; 2 bloc
+                    (move-to ?box-loc))
+        (different ?robot-loc ?box-loc)
+        (connect ?robot-loc ?box-loc))
+
+    ;; move-to hall if not at box location 
+    ;; shakey at room 
+    (<- (action-for (v1-state ?robot-loc ?box-loc)
+                    (v1-state ?robot-loc-2 ?goal-loc)
+                    (move-to hall))
+        (different ?robot-loc ?box-loc)
+        (not (connect ?robot-loc ?box-loc)))
+    ))
+
+
+;; 4 locations, 3 rooms and 1 hall
+
+
+
+
+
+(defparameter *all-different-kb*
+  '((-> (all-different (cons ?l3 (cons ?l2 ?l1)))
+        (all-different (cons ?l2 ?l1))
+        (all-different (cons ?l3 ?l1))
+        (different ?l3 ?l2))
+    (-> (different ?x ?y) (different ?y ?x))
+
+    (all-different room1 room2 room3 room4)
+
+
+
+AAAAAAAAAAAAAAAAAAAAAAAAA
+
+(defparameter *general-planning-kb*
+  '(
+    (plan-for ?goal ?goal nil)
+    
+    (<- (plan-for ?state1 ?goal (cons ?action ?actions))
+        (action-for ?state1 ?goal ?action)
+        (results ?state1 ?state2 ?action)
+        (plan-for ?state2 ?goal ?actions))
+    ))
+    
+(defparameter *room-kb*
+  '(
+    (-> (all-different (cons ?l3 (cons ?l2 ?l1)))
+        (all-different (cons ?l2 ?l1))
+        (all-different (cons ?l3 ?l1))
+        (different ?l3 ?l2))
+    (-> (different ?x ?y) (different ?y ?x))
+
+    (all-different room1 room2 room3 hall)
+    
+    (-> (connect ?x ?y) (connect ?y ?x))
+
+    (connect room1 hall)
+    (connect room2 hall)
+    (connect room3 hall)
+   ))
+
+
+
+(defparameter *shakey-1-kb*
+  '(
+    (results (v1-state ?box-loc-1 ?box-loc-1)
+             (v1-state ?box-loc-2 ?box-loc-2)
+             (push-box ?box-loc-1 ?box-loc-2))
+        
+    (results (v1-state ?robot-loc-1 ?box-loc)
+             (v1-state ?robot-loc-2 ?box-loc)
+             (move-to ?robot-loc-2))
+
+    (<- (action-for (v1-state ?box-loc ?box-loc)
+                    (v1-state ?robot-loc ?goal-loc)
+                    (push-box ?box-loc ?goal-loc))
+        (different ?box-loc ?goal-loc)
+        (connect ?box-loc ?goal-loc))
+
+    (<- (action-for (v1-state ?box-loc ?box-loc)
+                    (v1-state ?robot-loc ?goal-loc)
+                    (push-box ?box-loc hall))
+        (different ?box-loc ?goal-loc)
+        (not (connect ?box-loc ?goal-loc)))
+
+    (<- (action-for (v1-state ?robot-loc-1 ?box-loc)
+                    (v1-state ?robot-loc-2 ?goal-loc)
+                    (move-to ?box-loc))
+        (different ?robot-loc ?box-loc)
+        (connect ?robot-loc ?box-loc))
+
+    (<- (action-for (v1-state ?robot-loc-1 ?box-loc)
+                    (v1-state ?robot-loc-2 ?goal-loc)
+                    (move-to hall))
+        (different ?robot-loc ?box-loc)
+        (not (connect ?robot-loc ?box-loc)))
+    ))
+
+
+
+BBBBBBBBBBBBaaaaaaaaaaaaaaab
+
+(defparameter *general-planning-kb*
+  '(
+    ;; No action needed if start = goal
+    (plan-for ?goal ?goal nil)
+    (<- (plan-for ?state1 ?goal (cons ?action ?actions))
+        (action-for ?state1 ?goal ?action)
+        (results ?state1 ?state2 ?action)
+        (plan-for ?state2 ?goal ?actions))
+    ))
+
+;;; Variable naming conventions:
+;;;   sloc - shakey-1 location
+;;;   bloc - box location
+;;;   gloc - goal (destination)
+
+(defparameter *shakey-1-kb*
+  '(
+    ;; ACTION RESULT RULES
+   
+    ;; push-box changes the location of shakey-1 and the box.
+    ;; Shakey-1 has to be at the box.
+    (results (v1-state ?box-loc-1 ?box-loc-1)
+             (v1-state ?box-loc-2 ?box-loc-2)
+             (push-box ?box-loc-1 ?box-loc-2))
+        
+    ;; move-to changes the location of shakey-1.
+    (results (v1-state ?robot-loc-1 ?box-loc)
+             (v1-state ?robot-loc-2 ?box-loc)
+             (move-to ?robot-loc-2))
+    
+    ;; ACTION SELECTION RULES
+
+    ;; push-box to the room through hall if box not in the final destination
+    (<- (action-for (v1-state ?box-loc ?box-loc)
+                    (v1-state ?robot-loc ?goal-loc)
+                    (push-box ?box-loc ?goal-loc))
+        (different ?box-loc ?goal-loc)
+        (connect ?box-loc ?goal-loc))
+   
+    ;; push-box to hall if box at a room other than he destination
+    (<- (action-for (v1-state ?box-loc ?box-loc)
+                    (v1-state ?robot-loc ?goal-loc)
+                    (push-box ?box-loc hall))
+        (different ?box-loc ?goal-loc)
+        (not (connect ?box-loc ?goal-loc)))
+
+    ;; move-to another room if not at box location
+    ;; shakey at hall
+    (<- (action-for (v1-state ?robot-loc ?box-loc);sloc
+                    (v1-state ?robot-loc-2 ?goal-loc) ; 2 bloc
+                    (move-to ?box-loc))
+        (different ?robot-loc ?box-loc)
+        (connect ?robot-loc ?box-loc))
+
+    ;; move-to hall if not at box location 
+    ;; shakey at room 
+    (<- (action-for (v1-state ?robot-loc ?box-loc)
+                    (v1-state ?robot-loc-2 ?goal-loc)
+                    (move-to hall))
+        (different ?robot-loc ?box-loc)
+        (not (connect ?robot-loc ?box-loc)))
+    ))
+

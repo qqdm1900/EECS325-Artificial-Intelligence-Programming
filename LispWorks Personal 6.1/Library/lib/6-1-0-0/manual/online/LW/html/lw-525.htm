@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 23.6.2.1  Linux
+</TITLE>
+
+<LINK REL="next" HREF="lw-526.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-524.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-524.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-512.htm">23 LispWorks' Operating Environment</A> &gt; <A HREF="lw-522.htm">23.6  Startup relocation</A> &gt; <A HREF="lw-524.htm">23.6.2  Startup relocation of 32-bit LispWorks</A><BR><BR>
+</DIV><A HREF="lw-526.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-524.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-524.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-895412"></A>23.6.2.1  Linux</H3>
+<P CLASS="Body">
+<A NAME="pgfId-895639"></A>On Linux, the default initial heap is mapped at address <CODE CLASS="Code">
+#x20000000</CODE>
+ (0.5GB). LispWorks then tries to locate the location of dynamic libraries, and marks a region around these libraries that should not be used (by default 64MB from the bottom). In most cases this suffices to avoid clashes.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895414"></A>Problems can arise if the memory at <CODE CLASS="Code">
+#x20000000</CODE>
+ or above is already used by another part of the software. If that memory gets used before LispWorks is mapped, LispWorks must be relocated elsewhere, typically to a higher address.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895415"></A>If the memory above LispWorks gets used by other parts of the software after LispWorks was mapped, it may be possible to avoid the problem by reserving some memory above LispWorks by supplying <EM CLASS="Variable">
+ReserveSize</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895416"></A>The location of dynamic libraries differs between Linux configurations, and that needs to be taken into account. For most cases, including the cases where the libraries are mapped at <CODE CLASS="Code">
+#x40000000</CODE>
+ or somewhere above <CODE CLASS="Code">
+#x28000000</CODE>
+, the mechanism for detecting libraries works and no action is required.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895981"></A>In principle LispWorks (32-bit) for Linux can grow up to some distance below <CODE CLASS="Code">
+#xBF000000</CODE>
+ (almost 2.5GB), though this depends on the OS kernel allowing this size.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895417"></A><B CLASS="Bold">
+Note:</B>
+ In LispWorks 5.0 and previous, we told some customers to relocate above the libraries, for example at <CODE CLASS="Code">
+#x50000000</CODE>
+ or <CODE CLASS="Code">
+#x48000000</CODE>
+, but this should not be needed in LispWorks 6.1.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-526.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-524.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-524.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

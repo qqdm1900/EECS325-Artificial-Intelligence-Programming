@@ -1,0 +1,278 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.2  Inspect
+</TITLE>
+
+<LINK REL="next" HREF="lw-37.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-35.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-34.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-34.htm">4 The REPL Inspector</A><BR><BR>
+</DIV><A HREF="lw-37.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-35.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-890355"></A>4.2  Inspect</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890360"></A>The function <CODE CLASS="Code">
+inspect</CODE>
+<A NAME="marker-890356"></A> is an interactive version of <A HREF="lw-641.htm#57917" CLASS="XRef">describe</A>. It displays objects in a similar way to <A HREF="lw-641.htm#57917" CLASS="XRef">describe</A>. Entering the inspector causes a new level of the top loop to be entered with a special prompt indicating that the inspector has been entered and showing the current inspector level.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886345"></A>In the modified top loop, if you enter a slot name, that slot is inspected and the current object is pushed onto an internal stack of previously inspected objects. The special variables <CODE CLASS="Code">
+$</CODE>
+<A NAME="marker-887045"></A>,<CODE CLASS="Code">
+</CODE>
+<A NAME="marker-887047"></A> <CODE CLASS="Code">
+$$</CODE>
+, and <CODE CLASS="Code">
+$$$</CODE>
+<A NAME="marker-887050"></A> are bound to the top three objects on the inspector stack. </P>
+<P CLASS="Body">
+<A NAME="pgfId-887992"></A>The following keywords are treated specially as comands by the inspector.</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-890117"></A>Inspector commands<DIV>
+<IMG SRC="lw-8.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-890121"></A>Command</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-890123"></A>Meaning</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890178"></A><CODE CLASS="Code">
+:</CODE>
+<A NAME="marker-890177"></A><CODE CLASS="Code">
+cv</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890180"></A>Display current values of control variables.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890183"></A><CODE CLASS="Code">
+:</CODE>
+<A NAME="marker-890182"></A><CODE CLASS="Code">
+d</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890185"></A>Display current object.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890188"></A><CODE CLASS="Code">
+:</CODE>
+<A NAME="marker-890187"></A><CODE CLASS="Code">
+dm</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890190"></A>Display more of current object.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890193"></A><CODE CLASS="Code">
+:</CODE>
+<A NAME="marker-890192"></A><CODE CLASS="Code">
+dr</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890195"></A>Display rest of current object.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890198"></A><CODE CLASS="Code">
+:</CODE>
+<A NAME="marker-890197"></A><CODE CLASS="Code">
+h</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890200"></A>Display help on inspector commands.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890203"></A><CODE CLASS="Code">
+:</CODE>
+<A NAME="marker-890202"></A><CODE CLASS="Code">
+i</CODE>
+ <EM CLASS="Variable">
+m</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890205"></A>Recursively invoke a new inspector. <EM CLASS="Variable">
+m</EM>
+ is an object to inspect.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890208"></A><CODE CLASS="Code">
+:</CODE>
+<A NAME="marker-890207"></A><CODE CLASS="Code">
+m</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890213"></A>Change the inspection mode -- see <A HREF="lw-37.htm#86903" CLASS="XRef">Inspection modes</A>.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890216"></A><CODE CLASS="Code">
+:</CODE>
+<A NAME="marker-890215"></A><CODE CLASS="Code">
+q</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890218"></A>Quit current inspector.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890221"></A><CODE CLASS="Code">
+:</CODE>
+<A NAME="marker-890220"></A><CODE CLASS="Code">
+s</CODE>
+ <EM CLASS="Variable">
+n v</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890223"></A>Sets slot <EM CLASS="Variable">
+n</EM>
+ to value <EM CLASS="Variable">
+v.</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890226"></A><CODE CLASS="Code">
+:</CODE>
+<A NAME="marker-890225"></A><CODE CLASS="Code">
+sh</CODE>
+ </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890228"></A>Show inspector stack.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890231"></A><CODE CLASS="Code">
+:u</CODE>
+<A NAME="marker-890230"></A> <EM CLASS="Variable">
+int</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890233"></A>Undo last inspection. If you supply an optional integer argument, <EM CLASS="Variable">
+int</EM>
+, then the last <EM CLASS="Variable">
+int</EM>
+ inspections are undone.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890236"></A><CODE CLASS="Code">
+:ud</CODE>
+<A NAME="marker-890235"></A> </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-890238"></A>Undo last inspection and redisplay current object.</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-890386"></A>You can get brief help listing these commands by entering <CODE CLASS="Code">
+:?</CODE>
+ at the inspector prompt.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890389"></A>The control variables <CODE CLASS="Code">
+*inspect-print-level*</CODE>
+<A NAME="marker-890387"></A> and <CODE CLASS="Code">
+*inspect-print-length*</CODE>
+<A NAME="marker-890388"></A> are similar to <A HREF="lw-907.htm#56013" CLASS="XRef">*describe-print-level*</A> and <A HREF="lw-906.htm#84626" CLASS="XRef">*describe-print-length*</A> (see above).</P>
+<P CLASS="Body">
+<A NAME="pgfId-886388"></A><CODE CLASS="Code">
+:dm</CODE>
+<A NAME="marker-889989"></A> displays more slots of the current object. If the object has more than <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-887070"></A><A HREF="lw-904.htm#28529" CLASS="XRef">*describe-length*</A> slots, then the first <A HREF="lw-904.htm#28529" CLASS="XRef">*describe-length*</A> will be printed, followed by an ellipsis and then </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886389"></A>(:dm or :dr for more)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886390"></A>If you enter the command <CODE CLASS="Code">
+:dm</CODE>
+ at the prompt it displays the next <A HREF="lw-904.htm#28529" CLASS="XRef">*describe-length*</A> slots, and if you enter <CODE CLASS="Code">
+:dr</CODE>
+ it displays all the remaining slots. This only works on the last inspected object, so if you recursively inspect a slot and come back, <CODE CLASS="Code">
+:dm</CODE>
+ does not do anything useful. Typing <CODE CLASS="Code">
+:d</CODE>
+ lets you view the object again.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886391"></A><CODE CLASS="Code">
+:ud</CODE>
+<A NAME="marker-889969"></A> is equivalent to typing <CODE CLASS="Code">
+:u</CODE>
+ followed by <CODE CLASS="Code">
+:d</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-37.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-35.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

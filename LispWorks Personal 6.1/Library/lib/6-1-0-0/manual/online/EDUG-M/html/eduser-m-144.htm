@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.6  Editor errors
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-145.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-143.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-136.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A> &gt <A HREF="eduser-m-136.htm">6.3  Programming the editor</A><BR><BR>
+</DIV><A HREF="eduser-m-145.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-143.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-883976"></A>6.3.6  <A NAME="marker-883975"></A>Editor errors</H3>
+<P CLASS="Body">
+<A NAME="pgfId-883977"></A>Many editor commands and functions signal an error on failure (using <CODE CLASS="Code">
+editor:editor-error</CODE>
+ as described below). This causes the current operation to be aborted.</P>
+<P CLASS="Body">
+<A NAME="pgfId-883979"></A>In many cases, the user will not want the operation to abort completely if one of the editor commands it uses is not successful. For example, the operation may involve a search, but some aspects of the operation should continue even if the search is not successful. To achieve this, the user can catch the <CODE CLASS="Code">
+editor:editor-error</CODE>
+ using a macro such as <CODE CLASS="Code">
+handler-case</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-883980"></A>For example, one part of an application might involve moving forward 5 forms. If the current point cannot be moved forward five forms, generally the Editor would signal an error. However, this error can be caught. The following trivial example shows how a new message could be printed in this situation, replacing the system message.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-883982"></A>(editor:defcommand &quot;Five Forms&quot; (p)  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-883983"></A>   &quot;Tries to move the current point forward five forms,
+    printing out an appropriate message on failure.&quot;  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-883984"></A>   &quot;Tries to move the current point forward five forms.&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-883985"></A>   (handler-case</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-883986"></A>      (editor:forward-form-command 5)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-883987"></A>      (editor:editor-error (condition)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-883988"></A>         (editor:message &quot;could not move forward five&quot;))))</PRE>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-883991"></A><A NAME="52016"></A>editor:<A NAME="marker-883989"></A>editor-error </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-883992"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884806"></A>editor:editor-error <EM CLASS="Variable">
+string</EM>
+ &amp;rest <EM CLASS="Variable">
+args</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883993"></A>By default this prints a message in the Echo Area, sounds a beep, and exits to the top level of LispWorks, aborting the current operation. The argument <EM CLASS="Variable">
+string</EM>
+ must be a string, which is interpreted as a control string by <CODE CLASS="Code">
+format</CODE>
+. As with <A HREF="eduser-m-143.htm#80748" CLASS="XRef">editor:message</A>, <EM CLASS="Variable">
+args </EM>
+can consist of arguments to be processed within the control string.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903612"></A>The behavior is affected by <A HREF="eduser-m-92.htm#99831" CLASS="XRef">break-on-editor-error</A>.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-145.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-143.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

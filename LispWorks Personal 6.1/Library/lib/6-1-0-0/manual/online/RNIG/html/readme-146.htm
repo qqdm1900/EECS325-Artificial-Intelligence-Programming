@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="readme.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.5.1  Saving a configured image
+</TITLE>
+
+<LINK REL="next" HREF="readme-147.htm" TYPE="text/html">
+<LINK REL="prev" HREF="readme-145.htm" TYPE="text/html">
+<LINK REL="up" HREF="readme-145.htm" TYPE="text/html">
+<LINK REL="top" HREF="readme.htm" TYPE="text/html">
+<LINK REL="contents" HREF="readme-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="readme-485.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="readme.htm">LispWorks Release Notes and Installation Guide</A> &gt; <A HREF="readme-135.htm">7 Installation on UNIX</A> &gt; <A HREF="readme-145.htm">7.5  Configuring the LispWorks image</A><BR><BR>
+</DIV><A HREF="readme-147.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-145.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-145.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-897968"></A>7.5.1  <A NAME="32852"></A>Saving a configured image</H3>
+<P CLASS="Body">
+<A NAME="pgfId-897969"></A>Make a copy of <CODE CLASS="Code">
+config/configure.lisp</CODE>
+ called <CODE CLASS="Code">
+/tmp/my-configuration.lisp</CODE>
+. When you have made any desired changes in <CODE CLASS="Code">
+my-configuration.lisp</CODE>
+ you can save a new LispWorks image, creating a local version. </P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-897970"></A>Create a configuration and saving script <CODE CLASS="Code">
+/tmp/config.lisp</CODE>
+, containing:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-897971"></A>(load-all-patches)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897972"></A>(load &quot;/tmp/my-configuration.lisp&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-897973"></A>(save-image &quot;/usr/local/bin/lispworks&quot;)</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-897975"></A>Change directory to the top-level of the LispWorks installation directory, for example:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-897976"></A>% cd /usr/lib/lispworks</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-897977"></A>Start the supplied image using the configuration script as the build file. For example:</LI>
+</OL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-897978"></A>% lispworks-<EM CLASS="Literal">
+6-1-0</EM>
+-sparc-solaris -build /tmp/config.lisp</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-897979"></A>If the image will not run at this stage, it is probably not finding a valid key. See <A HREF="readme-141.htm#43789" CLASS="XRef">Obtaining and Installing your license keys</A></P>
+<P CLASS="Body">
+<A NAME="pgfId-897980"></A>The <CODE CLASS="Code">
+siteinit.lisp</CODE>
+ is also suppressed because this will be loaded automatically when you start the configured image. Saving the image takes some time.</P>
+<P CLASS="Body">
+<A NAME="pgfId-897981"></A>You can now use the new image by starting it just as you did the supplied image. Saving a new image over the old one is not recommended. Use a unique name.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Release Notes and Installation Guide - 23 Dec 2011</I></P>
+<P><A HREF="readme-147.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-145.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-145.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

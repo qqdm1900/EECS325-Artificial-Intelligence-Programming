@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.1  Creating a menu
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-123.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-121.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-121.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-121.htm">9 Creating Menus </A><BR><BR>
+</DIV><A HREF="capiuser-m-123.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-121.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-121.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884173"></A>9.1  Creating a menu</H3>
+<P CLASS="Body-Next">
+<A NAME="pgfId-884174"></A>A menu can be created in much the same way as any of the CAPI classes you have already met. </P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-884175"></A>Enter the following into a Listener:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-884178"></A>(make-instance '<A NAME="marker-884177"></A>menu</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884179"></A>    :title &quot;Foo&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884181"></A>    :<A NAME="marker-884180"></A>items '(&quot;One&quot; &quot;Two&quot; &quot;Three&quot; &quot;Four&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884182"></A>    :callback 'test-callback)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884185"></A>(make-instance 'interface</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884187"></A>    :<A NAME="marker-884186"></A>menu-bar-items (list *))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884190"></A>(display *)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-884192"></A>This creates a CAPI interface with a menu, <B CLASS="Button">
+Foo</B>
+, which contains four items. Choosing any of these items displays its arguments. Each item has the callback specified by the <CODE CLASS="Code">
+:callback</CODE>
+ keyword.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884194"></A>A <A NAME="marker-884193"></A>submenu can be created simply by specifying a menu as one of the items of the top-level menu.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-884195"></A>Enter the following into a Listener:</LI>
+</OL>
+<PRE CLASS="Code-first"><A NAME="pgfId-884197"></A>(make-instance 'menu</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884198"></A>    :title &quot;Bar&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884199"></A>    :items '(&quot;One&quot; &quot;Two&quot; &quot;Three&quot; &quot;Four&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884200"></A>    :callback 'test-callback)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884203"></A>(make-instance 'menu</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884204"></A>    :title &quot;Baz&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884205"></A>    :items (list 1 2 * 4 5)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884206"></A>    :callback 'test-callback)</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884209"></A>(contain *)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-884210"></A>This creates an interface which has a menu, called <B CLASS="Button">
+Baz</B>
+, which itself contains five items. The third item is another menu, <B CLASS="Button">
+Bar</B>
+, which contains four items. Once again, selecting any item returns its arguments.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884211"></A>Menus<A NAME="marker-884781"></A> can be nested as deeply as required using this method.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-123.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-121.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-121.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

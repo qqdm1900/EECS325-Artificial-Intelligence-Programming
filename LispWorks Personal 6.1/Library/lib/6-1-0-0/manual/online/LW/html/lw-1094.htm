@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-send
+</TITLE>
+
+<LINK REL="next" HREF="lw-1095.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1093.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1095.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1093.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-971388"></A><A NAME="17963"></A>process<A NAME="marker-1059557"></A>-send</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-971534"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-971549"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-971765"></A>Sends an object to the mailbox of a given process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-971807"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-971833"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-971843"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-971853"></A>process-send <EM CLASS="Variable">
+process</EM>
+ <EM CLASS="Variable">
+object</EM>
+ &amp;key <EM CLASS="Variable">
+change-priority</EM>
+ =&gt;</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-971863"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-972008"></A><EM CLASS="Variable">
+process</EM>
+</P>
+<P CLASS="RDescription-C">A process</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-972105"></A><EM CLASS="Variable">
+object</EM>
+</P>
+<P CLASS="RDescription-C">An object</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-972126"></A><EM CLASS="Variable">
+change-priority</EM>
+</P>
+<P CLASS="RDescription-C">A fixnum, <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+t</CODE>
+, or <CODE CLASS="Code">
+:default</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-972147"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-972164"></A>None.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-972166"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-972274"></A>The function <CODE CLASS="Code">
+process-send</CODE>
+ queues <EM CLASS="Variable">
+object</EM>
+ in the mailbox of the given process. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1521678"></A><EM CLASS="Variable">
+object</EM>
+ can any kind of Lisp object, and it is up to the receiving process to interpret it.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1525125"></A><CODE CLASS="Code">
+process-send</CODE>
+ only sends the event: it is the responsibility of the receiving process to actually read the event and then interpret it. Reading is typically done by calling <A HREF="lw-1102.htm#24216" CLASS="XRef">process-wait-for-event</A>. Interpreting the event is up the caller of <A HREF="lw-1102.htm#24216" CLASS="XRef">process-wait-for-event</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1526546"></A><CODE CLASS="Code">
+process-send</CODE>
+ actually uses the <A HREF="lw-1082.htm#45113" CLASS="XRef">process-mailbox</A> of <EM CLASS="Variable">
+process</EM>
+, creating a mailbox for <EM CLASS="Variable">
+process</EM>
+ if it does not already have one. In principle <EM CLASS="Variable">
+object</EM>
+ can be read by another process, by calling <A HREF="lw-1050.htm#21302" CLASS="XRef">mailbox-read</A> (or <A HREF="lw-1102.htm#24216" CLASS="XRef">process-wait-for-event</A>) on the mailbox.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1106183"></A>If <EM CLASS="Variable">
+change-priority</EM>
+, which has a default value of <CODE CLASS="Code">
+:default</CODE>
+, is non-nil, it controls how the priority of that process is calculated as follows:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-972324"></A><CODE CLASS="Code">
+fixnum</CODE>
+ -- use the value of <EM CLASS="Variable">
+change-priority</EM>
+ as the new priority.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-972351"></A><CODE CLASS="Code">
+t</CODE>
+ -- set the priority to the interactive priority.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-972584"></A><CODE CLASS="Code">
+:default</CODE>
+ -- set the priority to the normal running priority.</LI>
+</UL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-972618"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1158811"></A><A HREF="lw-1052.htm#37933" CLASS="XRef">mailbox-send</A><BR>
+<A HREF="lw-1102.htm#24216" CLASS="XRef">process-wait-for-event</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1095.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1093.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

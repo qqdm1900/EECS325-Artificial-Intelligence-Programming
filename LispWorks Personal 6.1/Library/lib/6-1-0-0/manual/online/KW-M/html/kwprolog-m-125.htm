@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ findall
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-126.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-124.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-104.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-104.htm">7 Reference Guide</A><BR><BR>
+</DIV><A HREF="kwprolog-m-126.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-124.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-891985"></A><A NAME="marker-891984"></A><A NAME="28635"></A>findall</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-891987"></A><A NAME="findall"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1014919"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1014920"></A>Return all matches of a backward chaining goal.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891988"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-891989"></A>findall <EM CLASS="Variable">
+pattern-to-instantiate</EM>
+ <EM CLASS="Variable">
+goal-to-prove</EM>
+ =&gt; <EM CLASS="Variable">
+list</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891990"></A>Arguments</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-891991"></A><EM CLASS="Variable">
+pattern-to-instantiate</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-960438"></A>A list or symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-960440"></A><EM CLASS="Variable">
+goal-to-prove</EM>
+</P>
+<P CLASS="RDescription-C">Any backward chaining goal.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-960236"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-960237"></A><EM CLASS="Variable">
+list</EM>
+</P>
+<P CLASS="RDescription-C">A list</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891992"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-891993"></A>The backward chaining inference engine is started to look for all sets of bindings which satisfy <EM CLASS="Variable">
+goal-to-prove</EM>
+. For each of those bindings, <EM CLASS="Variable">
+pattern-to-instantiate</EM>
+ is instantiated and collected to return a list. The value is nil if nothing <EM CLASS="Variable">
+goal-to-prove</EM>
+ cannot be satisfied.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1022194"></A>Any subgoals that match the object base will only find objects from the current inferencing state.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891996"></A>Examples</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-891997"></A>(findall '(?x is in (1 2 3)) '(member ?x (1 2 3)))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-891998"></A>returns </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-891999"></A>((1 IS IN (1 2 3))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892000"></A> (2 IS IN (1 2 3))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-892001"></A> (3 IS IN (1 2 3)))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-892002"></A>(findall '(?truck is a truck) '(truck ?truck))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-892003"></A>returns </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-892004"></A>((#&lt;TRUCK TRUCK1&gt; IS A TRUCK)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-892005"></A> (#&lt;TRUCK TRUCK2&gt; IS A TRUCK))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892006"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892008"></A><A HREF="kwprolog-m-106.htm#39551" CLASS="XRef">any</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-126.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-124.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

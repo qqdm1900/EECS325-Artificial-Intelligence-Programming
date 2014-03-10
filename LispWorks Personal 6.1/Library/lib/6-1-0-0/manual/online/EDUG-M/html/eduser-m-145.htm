@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.7  Files
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-146.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-144.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-136.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A> &gt <A HREF="eduser-m-136.htm">6.3  Programming the editor</A><BR><BR>
+</DIV><A HREF="eduser-m-146.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-144.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-883994"></A>6.3.7  Files</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-883996"></A>editor:<A NAME="marker-883995"></A>find-file-buffer </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-883997"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884811"></A>editor:find-file-buffer <EM CLASS="Variable">
+pathname</EM>
+ &amp;optional <EM CLASS="Variable">
+check-function</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883998"></A>Returns a buffer associated with the file <EM CLASS="Variable">
+pathname</EM>
+, reading the file into a new buffer if necessary. The second value returned is <CODE CLASS="Code">
+T</CODE>
+ if a new buffer is created, and <CODE CLASS="Code">
+nil</CODE>
+ otherwise. If the file already exists in a buffer, its consistency is first checked by means of <EM CLASS="Variable">
+check-function</EM>
+. If no value is supplied for <EM CLASS="Variable">
+check-function</EM>
+, <A HREF="eduser-m-145.htm#88829" CLASS="XRef">editor:check-disk-version-consistent</A> is used.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884001"></A>editor:<A NAME="marker-884000"></A>fast-save-all-buffers</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884002"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884820"></A>editor:fast-save-all-buffers &amp;optional <EM CLASS="Variable">
+ask</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884003"></A>Saves all modified buffers which are associated with a file. If <EM CLASS="Variable">
+ask</EM>
+ is non-nil then confirmation is asked for before saving each buffer. If <EM CLASS="Variable">
+ask</EM>
+ is not set, all buffers are saved without further prompting.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884005"></A>Unlike the editor command <A HREF="eduser-m-42.htm#71626" CLASS="XRef">Save All Files</A> this function can be run without any window interaction. It is thus suitable for use in code which does not intend to allow the user to leave any buffers unsaved, and from the console if it is necessary to save buffers without re-entering the full window system.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884008"></A><A NAME="88829"></A>editor:<A NAME="marker-884006"></A>check-disk-version-consistent </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884009"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884826"></A>editor:check-disk-version-consistent <EM CLASS="Variable">
+pathname buffer</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884010"></A>Checks that the date of the file <EM CLASS="Variable">
+pathname</EM>
+ is not more recent than the last time <EM CLASS="Variable">
+buffer</EM>
+ was saved. If <EM CLASS="Variable">
+pathname</EM>
+ is more recent, the user is prompted on how to proceed. Returns <CODE CLASS="Code">
+t</CODE>
+ if there is no need to read the file from disk and <CODE CLASS="Code">
+nil</CODE>
+ if it should be read from disk.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884012"></A>editor:<A NAME="marker-884011"></A>buffer-pathname</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884013"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884890"></A>editor:buffer-pathname <EM CLASS="Variable">
+buffer</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884014"></A>Returns the pathname of the file associated with <EM CLASS="Variable">
+buffer</EM>
+. If no file is associated with <EM CLASS="Variable">
+buffer</EM>
+, <CODE CLASS="Code">
+nil</CODE>
+ is returned.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="eduser-m-146.htm#pgfId-899271" CLASS="Hypertext">6.3.7.1  File encodings in the editor</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="eduser-m-147.htm#pgfId-899281" CLASS="Hypertext">6.3.7.2  Non base-char errors</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="eduser-m-148.htm#pgfId-899284" CLASS="Hypertext">6.3.7.3  Choosing the encoding to use</A></H4>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-146.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-144.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

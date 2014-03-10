@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.2.2  Modifying a string in a C function
+</TITLE>
+
+<LINK REL="next" HREF="fli-48.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-46.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-45.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A> &gt; <A HREF="fli-45.htm">4.2  Modifying, passing and returning strings</A><BR><BR>
+</DIV><A HREF="fli-48.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-46.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888817"></A>4.2.2  <A NAME="73135"></A>Modifying a string<A NAME="marker-888816"></A> in a C function</H3>
+<P CLASS="Body">
+<A NAME="pgfId-887290"></A>Here is the C code for the example.  On return, the argument string has been modified (the code assumes there is enough space after the string for the extra characters).</P>
+<P CLASS="Body">
+<A NAME="pgfId-887294"></A>Windows version:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891788"></A>#include &lt;stdio.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891786"></A>#include &lt;string.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891802"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887296"></A>__declspec(dllexport) void __cdecl modify(char *string) {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887297"></A>  char temp[256];</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887298"></A>  sprintf(temp, &quot;'%s' modified in a C function&quot;, string);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887299"></A>  strcpy(string, temp);</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887300"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891809"></A>Linux/Unix/Macintosh version:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891815"></A>#include &lt;stdio.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891816"></A>#include &lt;string.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891817"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891810"></A>void modify(char *string) {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891811"></A>  char temp[256];</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887307"></A>  sprintf(temp, &quot;'%s' modified in a C function&quot;, string);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887308"></A>  strcpy(string, temp);</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887309"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887312"></A>Here are three approaches to calling <CODE CLASS="Code">
+modify</CODE>
+ from Lisp:</P>
+<P CLASS="Body">
+<A NAME="pgfId-891338"></A>1. Use a fixed size buffer in <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>.  This uses the <A HREF="fli-185.htm#26451" CLASS="XRef">:reference</A> type, which automatically allocates a temporary foreign object, fills it with data converted from the Lisp object, passes a pointer to C and converts the data in the foreign object back into a new Lisp object on return. Note that the Lisp object passed to the function is not modified. This is the neatest way, provided you can bound the size of the result string at compile-time.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887478"></A>(fli:define-foreign-function (dff-modify &quot;modify&quot; :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887479"></A>    ((string (:reference (:ef-mb-string :limit 256))))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887318"></A>  :calling-convention :cdecl)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-887320"></A>(dff-modify &quot;Lisp String&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887464"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887465"></A>&quot;'Lisp String' modified in a C function&quot;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887325"></A>2. Use a fixed size buffer from <A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A>.  In this case, we do most of the conversion explicitly and define the foreign function as taking a <CODE CLASS="Code">
+:pointer</CODE>
+ argument.  This is a good approach if you don't know the maximum length when the function is defined, but will know it at compile-time for each call to the function.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887327"></A>(fli:define-foreign-function (wdfo-modify &quot;modify&quot; :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887328"></A>    ((string :pointer))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891744"></A>  :calling-convention :cdecl)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891753"></A>(fli:with-dynamic-foreign-objects </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891754"></A>    ((c-string (:ef-mb-string :limit 256)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891755"></A>               :initial-element &quot;Lisp String&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891756"></A>  (wdfo-modify c-string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891748"></A>  (fli:convert-from-foreign-string c-string))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891749"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887451"></A>&quot;'Lisp String' modified in a C function&quot;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887336"></A>3. With a variable size buffer from <A HREF="fli-73.htm#10368" CLASS="XRef">allocate-dynamic-foreign-object</A>.  In this case, we do all of the conversion explicitly because we need to make an array of the right size, which is only known after the foreign string has been created (the extra 100 bytes are to allow for what the C function inserts into the string).  Note that, in order to support arbitrary external formats, the code makes no assumptions about the length of the temporary array being the same as the length of the Lisp string: it does the conversion first using <A HREF="fli-153.htm#28931" CLASS="XRef">with-foreign-string</A>, which works out the required number of bytes.  The use of <CODE CLASS="Code">
+</CODE>
+<A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A> provides a dynamic scope for call to <CODE CLASS="Code">
+</CODE>
+<A HREF="fli-73.htm#10368" CLASS="XRef">allocate-dynamic-foreign-object</A> - on exit, the foreign object will be freed automatically.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887338"></A>(fli:with-foreign-string (temp element-count byte-count)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887339"></A>    &quot;Lisp String&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887340"></A>  (fli:with-dynamic-foreign-objects ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887341"></A>    (let ((c-string (fli:allocate-dynamic-foreign-object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887342"></A>                     :type '(:unsigned :byte)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887343"></A>                     :nelems (+ byte-count 100))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887344"></A>      (fli:replace-foreign-object c-string temp :nelems byte-count)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887345"></A>      (wdfo-modify c-string)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887346"></A>      (fli:convert-from-foreign-string c-string))))	</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-48.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-46.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

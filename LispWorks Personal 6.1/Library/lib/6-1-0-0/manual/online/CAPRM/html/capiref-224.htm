@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ load-sound
+</TITLE>
+
+<LINK REL="next" HREF="capiref-225.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-223.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-225.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-223.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-6396113"></A><A NAME="58162"></A>load<A NAME="marker-6396112"></A>-sound</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-6396114"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6396115"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6396116"></A>Converts data to a loaded sound object on Microsoft Windows and Cocoa.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6396117"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-6396118"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6396119"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-6396120"></A>load-sound <EM CLASS="Variable">
+source</EM>
+ &amp;key <EM CLASS="Variable">
+owner</EM>
+ =&gt; <EM CLASS="Variable">
+sound</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6396121"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6396122"></A><EM CLASS="Variable">
+source</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator or an array returned by <A HREF="capiref-342.htm#11480" CLASS="XRef">read-sound-file</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6396547"></A><EM CLASS="Variable">
+owner</EM>
+</P>
+<P CLASS="RDescription-C">A CAPI <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A>, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6396123"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6396124"></A><EM CLASS="Variable">
+sound</EM>
+</P>
+<P CLASS="RDescription-C">An array of element type <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6396125"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6396582"></A>The function <CODE CLASS="Code">
+load-sound</CODE>
+ converts <EM CLASS="Variable">
+source</EM>
+ into a loaded sound which can be played by <A HREF="capiref-292.htm#13446" CLASS="XRef">play-sound</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6396806"></A><EM CLASS="Variable">
+source </EM>
+can be a pathname designator or an array returned by <A HREF="capiref-342.htm#11480" CLASS="XRef">read-sound-file</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6396864"></A><EM CLASS="Variable">
+owner</EM>
+ should be a CAPI <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A> object, or <CODE CLASS="Code">
+nil</CODE>
+ which means that the sound's owner is the current top level interface.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6396126"></A>The loaded sound <EM CLASS="Variable">
+sound</EM>
+ will be unloaded (freed) automatically when its owner is destroyed. To create a sound that is never unloaded, pass the <A HREF="capiref-363.htm#41931" CLASS="XRef">screen</A> as the argument <EM CLASS="Variable">
+owner</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9138795"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-9161446"></A>The array <EM CLASS="Variable">
+sound</EM>
+ contains the contents of the file. Its bytes are interpreted by the OS functions, so the format can be whatever they can deal with, for example <A NAME="marker-9161524"></A>WAV on Microsoft Windows. The fact that this date is represented as an <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+ array in Lisp does not constrain the output size.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-10621095"></A><CODE CLASS="Code">
+load-sound</CODE>
+ is not implemented on GTK+ and Motif.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6396127"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6396128"></A><A HREF="capiref-150.htm#48879" CLASS="XRef">free-sound</A><BR>
+<A HREF="capiref-292.htm#13446" CLASS="XRef">play-sound</A><BR>
+<A HREF="capiref-342.htm#11480" CLASS="XRef">read-sound-file</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-225.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-223.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

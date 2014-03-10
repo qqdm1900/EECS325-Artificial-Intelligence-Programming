@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ foreign-aref
+</TITLE>
+
+<LINK REL="next" HREF="fli-104.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-102.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-104.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-102.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1099464"></A><A NAME="24571"></A>foreign-aref<A NAME="marker-1099463"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1099465"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898393"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-957367"></A>Accesses and returns the value at a specified point in an array.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-957327"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898394"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896224"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-896225"></A>foreign-aref <EM CLASS="Variable">
+array</EM>
+ &amp;rest <EM CLASS="Variable">
+subscripts</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1115197"></A>(setf foreign-aref) <EM CLASS="Variable">
+value</EM>
+ <EM CLASS="Variable">
+array</EM>
+ &amp;rest <EM CLASS="Variable">
+subscripts</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918631"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-918632"></A><EM CLASS="Variable">
+array</EM>
+</P>
+<P CLASS="RDescription-C">A FLI array or a pointer to a FLI array.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-945201"></A><EM CLASS="Variable">
+subscripts</EM>
+</P>
+<P CLASS="RDescription-C">A list of valid array indices for <EM CLASS="Variable">
+array</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918633"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-918634"></A><EM CLASS="Variable">
+value</P>
+<P CLASS="RDescription-C"></EM>
+An element of <EM CLASS="Variable">
+array</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918635"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-918636"></A>The function <CODE CLASS="Code">
+foreign-aref</CODE>
+ accesses a specified element in an array and returns its value if the element is an immediate type. If it is an aggregate type, such as a <A HREF="fli-192.htm#46166" CLASS="XRef">:struct</A>, <A HREF="fli-195.htm#36875" CLASS="XRef">:union</A>, or <A HREF="fli-159.htm#10956" CLASS="XRef">:c-array</A>, an error is signaled.  The function <A HREF="fli-106.htm#20729" CLASS="XRef">foreign-array-pointer</A> should be used to access such embedded aggregate data.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-965618"></A>The value of an element in an array can be changed using <CODE CLASS="Code">
+(setf foreign-aref)</CODE>
+. See the examples section for an example of this.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918637"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-918638"></A>In the first example, a 3 by 3 integer array is created, and <CODE CLASS="Code">
+(setf foreign-aref)</CODE>
+ is used to set all the elements to 42.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-965953"></A>(setq array1 (fli:allocate-foreign-object</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-966104"></A>              :type '(:c-array :int 3 3)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-966105"></A>(dotimes (x 3)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-966251"></A>         (dotimes (y 3)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-966292"></A>                  (setf (fli:foreign-aref array1 x y)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-966318"></A>                        42)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-966335"></A>Next, <CODE CLASS="Code">
+foreign-aref</CODE>
+ is used to dereference the value at position <CODE CLASS="Code">
+2 2</CODE>
+ in <CODE CLASS="Code">
+array1</CODE>
+. Remember that the count for the indices of an array start at <CODE CLASS="Code">
+0</CODE>
+.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-966348"></A>(fli:foreign-aref array1 2 2)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-966567"></A>In the following example, an array of arrays of integers is created. When an element is dereferenced, a copy of an array of integers is returned.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-966721"></A>(setq array2 (fli:allocate-foreign-object</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-966732"></A>              :type '(:c-array (:c-array :int 3) 3)))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-966788"></A>(fli:foreign-array-pointer array2 2)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-967819"></A>The array returned can be bound to the variable <CODE CLASS="Code">
+array3</CODE>
+, and accessed using <CODE CLASS="Code">
+foreign-aref</CODE>
+ again. This time an integer is returned.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-967573"></A>(setq array3 *)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1091377"></A>(fli:foreign-aref array3 1)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1091378"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1091382"></A><A HREF="fli-104.htm#17738" CLASS="XRef">foreign-array-dimensions</A><BR>
+<A HREF="fli-105.htm#23768" CLASS="XRef">foreign-array-element-type</A><BR>
+<A HREF="fli-106.htm#20729" CLASS="XRef">foreign-array-pointer</A><BR>
+<A HREF="fli-116.htm#86338" CLASS="XRef">foreign-typed-aref</A><BR>
+<A HREF="fli-16.htm#40862" CLASS="XRef">FLI Types</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-104.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-102.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

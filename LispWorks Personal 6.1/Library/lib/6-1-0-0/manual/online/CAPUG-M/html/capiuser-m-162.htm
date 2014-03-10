@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11.5.2  Using popup-confirmer
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-163.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-161.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-160.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-144.htm">11 Prompting for Input</A> &gt <A HREF="capiuser-m-160.htm">11.5  Creating your own dialogs</A><BR><BR>
+</DIV><A HREF="capiuser-m-163.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-161.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-160.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884428"></A>11.5.2  Using popup-confirmer</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884429"></A>The function <CODE CLASS="Code">
+popup-confirmer</CODE>
+ is a higher level function provided to add the standard buttons to user dialogs, and it is nearly always used in preference to <A NAME="marker-884430"></A><CODE CLASS="Code">
+display-dialog</CODE>
+. In order to create a dialog using <CODE CLASS="Code">
+popup-confirmer</CODE>
+<A NAME="marker-884431"></A>, all you need to do is to supply a pane to be placed inside the dialog along with the buttons and the title. The function also expects a title, like all of the prompter functions described earlier.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884433"></A>(popup-confirmer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884434"></A> (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884435"></A>  'text-input-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884436"></A>  :callback-type :data</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884437"></A>  :callback 'exit-dialog)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884438"></A> &quot;Enter a string&quot;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884441"></A>A common thing to want to do with a dialog is to get the return value from some state in the pane specified. For instance, in order to create a dialog that prompts for an integer the string entered into the text-input-pane would need to be converted into an integer. It is possible to do this once the dialog has returned, but <CODE CLASS="Code">
+popup-confirmer</CODE>
+ has a more convenient mechanism. The function provides a keyword argument, <CODE CLASS="Code">
+:value-function</CODE>
+<A NAME="marker-884442"></A>, which gets passed the pane, and this function should return the value to return from the dialog. It can also indicate that the dialog cannot return by returning a second value which is non-nil.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884444"></A>In order to do this conversion, <A NAME="marker-884443"></A><CODE CLASS="Code">
+popup-confirmer</CODE>
+ provides an alternative exit function to the usual <A NAME="marker-884445"></A><CODE CLASS="Code">
+exit-dialog</CODE>
+. This is called <CODE CLASS="Code">
+exit-confirmer</CODE>
+<A NAME="marker-884446"></A>, and it does all of the necessary work on exiting.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884448"></A>You now have enough information to write a primitive version of <CODE CLASS="Code">
+prompt-for-integer</CODE>
+<A NAME="marker-884447"></A>.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884450"></A>(defun text-input-pane-integer (pane)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884451"></A> (let* ((text</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884452"></A>         (text-input-pane-text pane))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884453"></A>        (integer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884454"></A>         (parse-integer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884455"></A>          text</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884456"></A>          :junk-allowed t)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884457"></A>   (or (and (integerp integer) integer)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884877"></A>       (values nil t))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884881"></A>(popup-confirmer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884882"></A>  (make-instance </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884886"></A>   'text-input-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884883"></A>   :callback 'exit-confirmer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884884"></A>  &quot;Enter an integer:&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-892835"></A>  :value-function 'text-input-pane-integer)</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-892845"></A>Figure 11.10  A example using <CODE CLASS="Code">
+popup-confirmer</CODE>
+<DIV>
+<IMG SRC="capiuser-m-57.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-66.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-892846"></A>Note that the dialog's <B CLASS="Button">
+OK</B>
+ button never becomes activated, yet pressing <CODE CLASS="Code">
+Return</CODE>
+ once you have entered a valid integer <I CLASS="Italic">
+will</I>
+ return the correct value. This is because the <B CLASS="Button">
+OK</B>
+ button is not being dynamically updated on each keystroke in the text-input-pane so that it activates when the text-input-pane contains a valid integer. The activation of the <B CLASS="Button">
+OK</B>
+ button is recalculated by the function <A NAME="marker-892847"></A><CODE CLASS="Code">
+redisplay-interface</CODE>
+, and the CAPI provides a standard callback, <CODE CLASS="Code">
+:redisplay-interface</CODE>
+, which calls this as appropriate.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884472"></A>Thus, to have an <B CLASS="Button">
+OK</B>
+ button that becomes activated and deactivated dynamically, you need to specify the change-callback for the text-input-pane to be <CODE CLASS="Code">
+:redisplay-interface</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884474"></A>(popup-confirmer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884475"></A> (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884476"></A>  'text-input-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884477"></A>   :change-callback :redisplay-interface</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884478"></A>  :callback 'exit-confirmer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884479"></A> &quot;Enter an integer:&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884480"></A> :value-function 'text-input-pane-integer)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884483"></A>Note that the <B CLASS="Button">
+OK</B>
+ button now changes dynamically so that it is only ever active when the text in the text-input-pane is a valid integer.</P>
+<P CLASS="Body">
+<A NAME="pgfId-909353"></A>Note that the <CODE CLASS="Code">
+Escape</CODE>
+ key activates the <B CLASS="Button">
+Cancel</B>
+ button - this too was set up by <CODE CLASS="Code">
+popup-confirmer</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884484"></A>The next thing that you might want to do with your integer prompter is to make it accept only certain values. For instance, you may only want to accept negative numbers. This can be specified to popup-confirmer by providing a validation function with the keyword argument <CODE CLASS="Code">
+:ok-check</CODE>
+. This function receives the potential return value (the value returned by the value function) and it must return non-nil if that value is valid. Thus to accept only negative numbers we could pass <CODE CLASS="Code">
+minusp</CODE>
+ as the <CODE CLASS="Code">
+:ok-check</CODE>
+<A NAME="marker-884485"></A>.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884487"></A>(popup-confirmer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884488"></A> (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884489"></A>  'text-input-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884490"></A>  :change-callback :redisplay-interface</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884491"></A>  :callback 'exit-confirmer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884492"></A> &quot;Enter an integer:&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884493"></A> :value-function 'text-input-pane-integer</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884494"></A> :ok-check 'minusp)<A NAME="marker-884892"></A><A NAME="marker-884893"></A><A NAME="marker-912946"></A></PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-163.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-161.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-160.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

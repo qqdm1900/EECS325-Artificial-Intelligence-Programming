@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.8.5  When to delete and smash packages 
+</TITLE>
+
+<LINK REL="next" HREF="delivery-244.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-242.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-238.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-211.htm">9 Delivery and Internal Systems</A> &gt; <A HREF="delivery-238.htm">9.8  Throwing symbols and packages out of the application</A><BR><BR>
+</DIV><A HREF="delivery-244.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-242.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-238.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-855650"></A>9.8.5  <A NAME="22225"></A>When to <A NAME="marker-855648"></A>delete and <A NAME="marker-855649"></A>smash packages </H3>
+<P CLASS="Body">
+<A NAME="pgfId-855651"></A><B CLASS="Bold">
+Note:</B>
+ In general, you are advised against deleting or smashing packages unless it is absolutely necessary. Always try to reduce the image size as much as possible by treeshaking first.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855652"></A>If an application does one of the following things, packages are involved and you must consider keeping them in the application:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-855653"></A>Makes an explicit reference to a package by some of the package functions, for example, <CODE CLASS="Code">
+intern</CODE>
+, <CODE CLASS="Code">
+find-symbol</CODE>
+ and so on.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855654"></A>Uses the reader, with <CODE CLASS="Code">
+read</CODE>
+ or any of the other reader functions. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-855655"></A>These functions make reference to a package (either <CODE CLASS="Code">
+*package*</CODE>
+ or one given explicitly) whenever they read a symbol.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-855656"></A>Printing a symbol with the <CODE CLASS="Code">
+format</CODE>
+ directive <CODE CLASS="Code">
+&#126;S</CODE>
+.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-855657"></A>The <CODE CLASS="Code">
+format</CODE>
+ function prints the symbol with a package prefix if the symbol is part of a package. </P>
+<LI CLASS="Step">
+<A NAME="pgfId-855658"></A>Loading a file, whether compiled or interpreted.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855659"></A>Using the function <CODE CLASS="Code">
+symbol-package</CODE>
+.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-855660"></A>Fortunately, most applications are unlikely to do these things to more than a small number of packages. You should, therefore, be able to delete most packages without breaking the application. When you know that none of the symbols belonging to a package are used, you can go one step further and smash it. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855661"></A>Smashing a package guarantees space savings where deleting it would not. Even in a case where a symbol is referenced but unused, because it has been smashed you still regain space taken up by objects hanging from slots for function definition, value, property list and so on. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855662"></A>You do not usually gain much by smashing your own packages that you would not gain by just deleting them -- you are after all unlikely to have included an entire package of symbols in your final application if you know it is not going to use them. The real benefits of smashing can be seen when it is performed on the <I CLASS="Italic">
+system's</I>
+ packages, some of which may be entirely irrelevant to your application. In addition, you are unlikely to gain very much by deleting a package that you would not gain by treeshaking. In general, you should try to avoid either deleting or smashing packages explicitly.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855663"></A>However, if symbols in your packages are referenced through complex data structures, making it difficult to track references down, smashing may still prove useful.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-244.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-242.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-238.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

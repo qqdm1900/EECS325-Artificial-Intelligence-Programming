@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.11  Symbol-name comparison
+</TITLE>
+
+<LINK REL="next" HREF="delivery-249.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-247.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-211.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-211.htm">9 Delivery and Internal Systems</A><BR><BR>
+</DIV><A HREF="delivery-249.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-247.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-211.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-855588"></A>9.11  Symbol-name comparison</H3>
+<P CLASS="Body">
+<A NAME="pgfId-856091"></A>In a non-delivered LispWorks image, the form</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-856101"></A>(eq (symbol-name 'foo) (symbol-name 'foo))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-856110"></A>evaluates to <CODE CLASS="Code">
+t</CODE>
+. This behaviour is due to the way symbol names are cached. There is no requirement or guarantee that the results of successive calls to <CODE CLASS="Code">
+symbol-name</CODE>
+ be the same (<CODE CLASS="Code">
+eq</CODE>
+) object.</P>
+<P CLASS="Body">
+<A NAME="pgfId-856092"></A>After delivery, LispWorks symbol names are implemented differently such that the <CODE CLASS="Code">
+eq</CODE>
+ test above fails. Take care that your application does not rely on identity of symbol names.</P>
+<P CLASS="Body">
+<A NAME="pgfId-856095"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+eq</CODE>
+ is not a reliable comparison of strings in general.  Use <CODE CLASS="Code">
+equal</CODE>
+ for reliable string comparison.</P>
+<P CLASS="Body">
+<A NAME="pgfId-856085"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-249.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-247.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-211.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

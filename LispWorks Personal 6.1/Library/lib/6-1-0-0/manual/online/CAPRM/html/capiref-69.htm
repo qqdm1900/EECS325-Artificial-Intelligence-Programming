@@ -1,0 +1,438 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-interface
+</TITLE>
+
+<LINK REL="next" HREF="capiref-70.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-68.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-70.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-68.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-890476"></A><A NAME="25433"></A><A NAME="29738"></A>define<A NAME="marker-4012981"></A>-interface</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-890850"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890480"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1014560"></A>The <CODE CLASS="Code">
+define-interface</CODE>
+ macro defines subclasses of <CODE CLASS="Code">
+</CODE>
+<A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4012726"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4012727"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1014559"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-890482"></A>define-interface <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+superclasses</EM>
+ <EM CLASS="Variable">
+slots</EM>
+ &amp;rest <EM CLASS="Variable">
+options</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890484"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890486"></A>The macro <CODE CLASS="Code">
+define-interface</CODE>
+ is used to define subclasses of <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A>, which when created with <CODE CLASS="Code">
+make-instance</CODE>
+ has the specified panes, layouts and menus created automatically. The slots and superclasses are used to describe the slots and superclasses of <EM CLASS="Variable">
+name</EM>
+ as in the <CODE CLASS="Code">
+defclass</CODE>
+ macro, except that if <EM CLASS="Variable">
+superclasses</EM>
+ is non-nil it must include <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A> or a subclass of it. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-9323390"></A><CODE CLASS="Code">
+define-interface</CODE>
+ accepts the same options as <CODE CLASS="Code">
+defclass</CODE>
+, plus the following extra options:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890490"></A><CODE CLASS="Code">
+:panes</CODE>
+<A NAME="marker-7834644"></A></P>
+<P CLASS="RDescription-C">Descriptions of the interface's panes.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890491"></A><CODE CLASS="Code">
+:layouts</CODE>
+<A NAME="marker-7834649"></A></P>
+<P CLASS="RDescription-C">Descriptions of the interface's layouts.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890492"></A><CODE CLASS="Code">
+:menus</CODE>
+<A NAME="marker-7834654"></A></P>
+<P CLASS="RDescription-C">Descriptions of the interface's menus.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890493"></A><CODE CLASS="Code">
+:menu-bar</CODE>
+<A NAME="marker-7834659"></A></P>
+<P CLASS="RDescription-C">A list of menus for the interface's menu bar.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890494"></A><CODE CLASS="Code">
+:definition</CODE>
+<A NAME="marker-7834664"></A></P>
+<P CLASS="RDescription-C">Options to alter <CODE CLASS="Code">
+define-interface</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-890496"></A>The class options <CODE CLASS="Code">
+:panes</CODE>
+, <CODE CLASS="Code">
+:layouts</CODE>
+ and <CODE CLASS="Code">
+:menus</CODE>
+ add extra slots to the class that will contain the CAPI object described in their description. Within the scope of the extra options, the slots themselves are available by referencing the name of the slot, and the interface itself is available with the variable <CODE CLASS="Code">
+capi:interface</CODE>
+. Each of the slots can be made to have readers, writers, accessors or <A NAME="marker-9281939"></A>documentation by passing the appropriate <CODE CLASS="Code">
+defclass</CODE>
+ keyword as one of the optional arguments in the description. Therefore, if you need to  <A NAME="marker-5047130"></A><A NAME="marker-5047131"></A><A NAME="marker-5047132"></A>find a pane within an interface instance, you can provide an <A NAME="marker-5047143"></A><A NAME="marker-5047144"></A><A NAME="marker-5047145"></A>accessor, or simply use <CODE CLASS="Code">
+with-slots</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-890502"></A>The <CODE CLASS="Code">
+:panes</CODE>
+ option is a list of pane descriptions of the following form</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1014567"></A>(:panes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1014993"></A>  (<EM CLASS="Variable">slot-name</EM>
+ <EM CLASS="Variable">pane-class</EM>
+ <EM CLASS="Variable">initargs</EM>
+)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1014994"></A>  ...</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1014997"></A>  (<EM CLASS="Variable">slot-name</EM>
+ <EM CLASS="Variable">pane-class</EM>
+ <EM CLASS="Variable">initargs</EM>
+)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1014995"></A>)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1014998"></A>where <EM CLASS="Variable">
+slot-name</EM>
+ is a name for the slot, <EM CLASS="Variable">
+pane-class </EM>
+is the class of the pane being included in the interface, and <EM CLASS="Variable">
+initargs</EM>
+ are the initialization arguments for the pane - the allowed forms are described below.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-890505"></A>The <CODE CLASS="Code">
+:layouts</CODE>
+ option is a list of layout descriptions of the following form</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1015004"></A>(:layouts</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1015005"></A>  (<EM CLASS="Variable">slot-name</EM>
+ <EM CLASS="Variable">layout-class</EM>
+ <EM CLASS="Variable">children</EM>
+ <EM CLASS="Variable">initargs</EM>
+)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1015006"></A>  ...</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1015007"></A>  (<EM CLASS="Variable">slot-name</EM>
+ <EM CLASS="Variable">layout-class</EM>
+ <EM CLASS="Variable">children</EM>
+ <EM CLASS="Variable">initargs</EM>
+)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1015008"></A>)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1015002"></A>where <EM CLASS="Variable">
+slot-name</EM>
+ is a name for the slot, <EM CLASS="Variable">
+layout-class</EM>
+ specifies the type of layout, <EM CLASS="Variable">
+children</EM>
+ is a list of children for the layout, and <EM CLASS="Variable">
+initargs</EM>
+ are the initialization arguments for the layout - the allowed forms are described below. The primary layout for the interface defaults to the first layout described, but can be specified as the <CODE CLASS="Code">
+:layout</CODE>
+ initarg to the interface. If no layouts are specified, then the CAPI will place all of the defined panes into a column layout and make that the primary layout.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-890511"></A>The <CODE CLASS="Code">
+:menus</CODE>
+ option is a list of menu and menu component descriptions of the following form</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1015014"></A>(:menus</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1015015"></A>  (<EM CLASS="Variable">slot-name</EM>
+ <EM CLASS="Variable">title</EM>
+ <EM CLASS="Variable">descriptions</EM>
+ <EM CLASS="Variable">initargs</EM>
+)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1015016"></A>  ...</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1015017"></A>  (<EM CLASS="Variable">slot-name</EM>
+ <EM CLASS="Variable">title</EM>
+ <EM CLASS="Variable">descriptions</EM>
+ <EM CLASS="Variable">initargs</EM>
+)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1015018"></A>)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1015011"></A><EM CLASS="Variable">
+slot-name</EM>
+ is the slot name for each menu or menu component.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4947459"></A><EM CLASS="Variable">
+title</EM>
+ is the menu's title, the keyword <CODE CLASS="Code">
+:menu</CODE>
+, or the keyword <CODE CLASS="Code">
+:component</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4947469"></A><EM CLASS="Variable">
+descriptions</EM>
+ is a list of menu item descriptions. Each menu item description is either a title, a slot name for a menu, or a list of items containing a title, descriptions, and a list of initialization arguments for the menu item.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4947464"></A><EM CLASS="Variable">
+initargs</EM>
+ are the initialization arguments for the menu.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6999793"></A>The values given in <EM CLASS="Variable">
+initargs</EM>
+ under <CODE CLASS="Code">
+:panes</CODE>
+, <CODE CLASS="Code">
+:layouts</CODE>
+ and <CODE CLASS="Code">
+:menus</CODE>
+ can be lists of the form</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-6999794"></A>(:initarg <EM CLASS="Variable">keyword-name</EM>
+)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6999795"></A>(:initarg <EM CLASS="Variable">key-spec</EM>
+)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6999796"></A>(:initarg <EM CLASS="Variable">key-spec</EM>
+ <EM CLASS="Variable">initarg-value</EM>
+)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6999797"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6999798"></A><EM CLASS="Variable">key-spec</EM>
+ := <EM CLASS="Variable">var</EM>
+ | (<EM CLASS="Variable">var</EM>
+) | (<EM CLASS="Variable">var</EM>
+ <EM CLASS="Variable">initform</EM>
+) | ((<EM CLASS="Variable">keyword-name</EM>
+ <EM CLASS="Variable">var</EM>
+)) | ((<EM CLASS="Variable">keyword-name</EM>
+ <EM CLASS="Variable">var</EM>
+) <EM CLASS="Variable">initform</EM>
+)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6999799"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-6999800"></A><EM CLASS="Variable">keyword-name</EM>
+ := any keyword</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-6999801"></A><EM CLASS="Variable">
+key-spec</EM>
+ is interpreted as in the <CODE CLASS="Code">
+&amp;key</CODE>
+ symbol of ordinary Common Lisp lambda lists. When this form of value is used, the specified <EM CLASS="Variable">
+keyword-name</EM>
+ is added as an extra initarg to the class defined by the <CODE CLASS="Code">
+define-interface</CODE>
+ form.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6999802"></A>If <EM CLASS="Variable">
+key-spec</EM>
+ is followed by <EM CLASS="Variable">
+initarg-value</EM>
+, then its value is used as the initarg of the pane. Otherwise the value from <EM CLASS="Variable">
+key-spec</EM>
+ is used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6999818"></A>Additionally <EM CLASS="Variable">
+initargs</EM>
+ may contain the keyword argument <CODE CLASS="Code">
+:make-instance-extra-apply-args</CODE>
+ which is useful when you want to supply initargs to the pane <EM CLASS="Variable">
+slot-name</EM>
+ when the interface is initialized. The value <EM CLASS="Variable">
+make-instance-extra-apply-args</EM>
+ should be a keyword which becomes an extra initarg to the interface class <EM CLASS="Variable">
+name</EM>
+. The value of that initarg should be a list of pane initargs and values which is passed when the pane is initialized. For an example, see <CODE CLASS="Code">
+examples/capi/applications/argument-passing.lisp</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-890517"></A>The <CODE CLASS="Code">
+:menu-bar</CODE>
+ option is a list of slot names, where each slot referred to contains a menu that should appear on the menu bar. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-890520"></A>The <CODE CLASS="Code">
+:definition</CODE>
+ option is a property list of arguments which <CODE CLASS="Code">
+define-interface</CODE>
+ uses to change the way that it behaves. Currently there is only one definition option: </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890523"></A><CODE CLASS="Code">
+:interface-variable</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-890857"></A>The name of the variable containing the interface.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890531"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890533"></A>Firstly, a couple of pane examples:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-890535"></A>(capi:define-interface test1 ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890536"></A>  ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890537"></A>  (:panes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890538"></A>    (text capi:text-input-pane))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890540"></A>  (:default-initargs :title &quot;Test1&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890544"></A>(capi:display (make-instance 'test1))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5042532"></A>(capi:define-interface test2 ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5042533"></A>  ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5042534"></A>  (:panes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5042535"></A>    (text capi:text-input-pane)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5042536"></A>    (buttons capi:button-panel :items '(1 2 3)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5042537"></A>             :reader test2-buttons))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5042538"></A>  (:layouts</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5042539"></A>    (main-layout capi:column-layout '(text buttons)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5042540"></A>  (:default-initargs :title &quot;Test2&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5042541"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5042542"></A>(test2-buttons</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-5042543"></A> (capi:display (make-instance 'test2)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-890568"></A>Here are a couple of menu examples:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-890570"></A>(capi:define-interface test3 ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890571"></A>  ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890572"></A>  (:menus</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890573"></A>    (color-menu &quot;Colors&quot; (:red :green :blue)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890576"></A>       :print-function 'string-capitalize))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890577"></A>  (:menu-bar color-menu)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-890578"></A>  (:default-initargs :title &quot;Test3&quot;))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-2092596"></A>(capi:display (make-instance 'test3))</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-5018661"></A>(capi:define-interface test4 ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018662"></A>  ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018663"></A>  (:menus</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018664"></A>   (colors-menu &quot;Colors&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018665"></A>                ((:component</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018666"></A>                  (:red :green :blue)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018667"></A>                  :interaction :single-selection</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018668"></A>                  :print-function </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018669"></A>                  'string-capitalize)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018670"></A>                 more-colors-menu))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018671"></A>   (more-colors-menu &quot;More Colors&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018672"></A>                     (:pink :yellow :cyan)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018673"></A>                     :print-function </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018674"></A>                     'string-capitalize))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018675"></A>  (:menu-bar colors-menu)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-2092606"></A>  (:default-initargs :title &quot;Test4&quot;))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-2092607"></A>(capi:display (make-instance 'test4))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-2092667"></A>This example demonstrates inheritance amongst subclasses of <CODE CLASS="Code">
+interface</CODE>
+:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-2092685"></A>(capi:define-interface test5 (test4 test1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2092686"></A>  ()</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-2092687"></A>  (:default-initargs :title &quot;Test5&quot;))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-3456732"></A>(capi:display (make-instance 'test5))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-7027084"></A>The next three examples illustrate the use of <CODE CLASS="Code">
+:initarg</CODE>
+ in initarg specifications for <CODE CLASS="Code">
+:panes</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7061723"></A>Here we initialize the <CODE CLASS="Code">
+:selected-items</CODE>
+ initarg of the pane <CODE CLASS="Code">
+foo</CODE>
+ to the value passed by <CODE CLASS="Code">
+:select</CODE>
+ when making the interface object, or <CODE CLASS="Code">
+nil</CODE>
+ otherwise:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-7059563"></A>(capi:define-interface init1 () ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7059564"></A>  (:panes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7059565"></A>   (foo</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7059566"></A>    capi:list-panel</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7059567"></A>    :items '(0 1 2 3 4)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7059568"></A>    :visible-min-height '(:character 5)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7059569"></A>    :interaction :multiple-selection</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7059570"></A>    :selected-items (:initarg select))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7059572"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7060294"></A>(capi:contain (make-instance 'init1 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7059895"></A>                             :select '(1 3)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7059840"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-7059573"></A>(capi:contain (make-instance 'init1))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-7027088"></A>Here we  initialize the <CODE CLASS="Code">
+:selected-items</CODE>
+  initarg of pane <CODE CLASS="Code">
+foo</CODE>
+ to the value passed by <CODE CLASS="Code">
+:select</CODE>
+ initarg when making the interface object, or <CODE CLASS="Code">
+(1 3)</CODE>
+ otherwise:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-7060299"></A>(capi:define-interface init2 () ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7060300"></A>  (:panes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7060301"></A>   (foo</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7060302"></A>    capi:list-panel</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7060303"></A>    :items '(0 1 2 3 4)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7060304"></A>    :visible-min-height '(:character 5)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7060305"></A>    :interaction :multiple-selection</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7060306"></A>    :selected-items </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7059919"></A>    (:initarg (select '(1 3))))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7059920"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-7060320"></A>(capi:contain (make-instance 'init2))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-7060321"></A>Here we increment the indices passed in the interface's <CODE CLASS="Code">
+:select</CODE>
+ initarg before passing them in the <CODE CLASS="Code">
+:selected-items</CODE>
+ initarg of pane <CODE CLASS="Code">
+foo</CODE>
+:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-7061030"></A>(capi:define-interface init3 () ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7061031"></A>  (:panes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7061032"></A>   (foo</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7061033"></A>    capi:list-panel</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7061034"></A>    :items '(0 1 2 3 4)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7061035"></A>    :visible-min-height '(:character 5)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7061036"></A>    :interaction :multiple-selection</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7061037"></A>    :selected-items </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7061038"></A>    (:initarg select </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7061039"></A>     (mapcar '1+ select)))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7061040"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7061041"></A>(capi:contain (make-instance 'init3 </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-7027094"></A>                             :select '(1 3)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-3457216"></A>There are many more examples in the directory <CODE CLASS="Code">
+examples/capi/</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3456735"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-7264041"></A><A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A><BR>
+<A HREF="capiref-211.htm#12861" CLASS="XRef">layout</A><BR>
+<A HREF="capiref-245.htm#19220" CLASS="XRef">menu</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-70.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-68.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

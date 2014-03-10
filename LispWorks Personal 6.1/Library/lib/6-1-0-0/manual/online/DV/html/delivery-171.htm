@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :versioninfo
+</TITLE>
+
+<LINK REL="next" HREF="delivery-172.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-170.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-55.htm">5 Keywords to the Delivery Function</A> &gt; <A HREF="delivery-70.htm">5.2  Alphabetical list of deliver keywords </A><BR><BR>
+</DIV><A HREF="delivery-172.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-170.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="Interface">
+<A NAME="pgfId-109734"></A><A NAME="marker-106392"></A><A NAME="40663"></A>:versioninfo</H3>
+<P CLASS="Interface-type">
+<A NAME="pgfId-109735"></A>Keyword</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-109736"></A>Default value: <CODE CLASS="Code">
+nil</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-109737"></A>Windows only. The keyword <CODE CLASS="Code">
+:default</CODE>
+ or a plist containing containing version information to be placed in the delivered file.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-116957"></A>If <CODE CLASS="Code">
+:versioninfo</CODE>
+ is <CODE CLASS="Code">
+nil</CODE>
+, no version information is supplied. If <CODE CLASS="Code">
+:versioninfo</CODE>
+ is <CODE CLASS="Code">
+:default</CODE>
+, then the version information in the <A HREF="delivery-94.htm#70102" CLASS="XRef">:exe-file</A> is retained (by default, there is no version info). Otherwise <CODE CLASS="Code">
+:versioninfo</CODE>
+ should be a plist of the following keywords. All strings should be in a form suitable for presentation to the user. Some of the keywords discussed below are mandatory, and some are optional.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-109738"></A><B CLASS="Bold">
+Mandatory keywords:</B>
+ </P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109739"></A><CODE CLASS="Code">
+:binary-version :binary-file-version :binary-product-version</CODE>
+ </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109740"></A>You <I CLASS="Italic">
+must</I>
+ specify <I CLASS="Italic">
+either</I>
+ <CODE CLASS="Code">
+:binary-version</CODE>
+ <I CLASS="Italic">
+or</I>
+ both <CODE CLASS="Code">
+:binary-file-version</CODE>
+ and <CODE CLASS="Code">
+:binary-product-version</CODE>
+.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109741"></A>The file version relates to this file only; the product version relates to the product of which this file forms a part.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109742"></A>If <CODE CLASS="Code">
+:binary-version</CODE>
+ is specified, it is used as both the file and product version.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109743"></A>The binary version numbers are 64-bit integers; conventionally, this quantity is split into 16-bit subfields, denoting, for example, major version, minor version and build number. For example, version 1.10 build 15 might be denoted <CODE CLASS="Code">
+#x0001000A0000000F</CODE>
+.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109744"></A><B CLASS="Bold">
+Note:</B>
+ There is no requirement to follow this convention; the only requirement is that later versions have larger binary version values.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109745"></A><CODE CLASS="Code">
+:version-string :file-version-string :product-version-string</CODE>
+ </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109746"></A>You must specify <I CLASS="Italic">
+either</I>
+ <CODE CLASS="Code">
+:version-string</CODE>
+ <I CLASS="Italic">
+or</I>
+ both <CODE CLASS="Code">
+:file-version-string</CODE>
+ and <CODE CLASS="Code">
+:product-version-string</CODE>
+.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109747"></A>The file version relates to this file only; the product version relates to the product of which this file forms a part.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109748"></A>If <CODE CLASS="Code">
+:version-string</CODE>
+ is specified, it is used as both the file and product version.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109749"></A>The version strings specify the file and product versions as strings, suitable for presentation to the user. There are no restrictions on the format.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109750"></A><CODE CLASS="Code">
+:company-name</CODE>
+</P>
+<P CLASS="Description-C">The name of the company producing the product.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109751"></A><CODE CLASS="Code">
+:product-name</CODE>
+</P>
+<P CLASS="Description-C">The name of the product of which this file forms a part.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109752"></A><CODE CLASS="Code">
+:file-description</CODE>
+ </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109753"></A>A (brief) description of this file.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-109754"></A><B CLASS="Bold">
+Optional keywords:</B>
+ </P>
+<P CLASS="Description">
+<A NAME="pgfId-109755"></A><CODE CLASS="Code">
+:private-build</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206305"></A>Indicates that this is a private build. The value should be a string identifying the private build (for example, who the build was produced for). </P>
+<P CLASS="Description">
+<A NAME="pgfId-109756"></A><CODE CLASS="Code">
+:special-build</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206309"></A>Indicates that this is a special build, and the file is a variation of the normal build with the same version number. The value should be a string identifying how this build differs from the standard build. </P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109757"></A><CODE CLASS="Code">
+:debugp</CODE>
+</P>
+<P CLASS="Description-C">A non-nil value indicates that this is a debugging version.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109758"></A><CODE CLASS="Code">
+:patchedp</CODE>
+</P>
+<P CLASS="Description-C">A non-nil value indicates that this file has been patched; that is, it is not identical to the original version with the same version number. It should normally be <CODE CLASS="Code">
+nil</CODE>
+ for original files.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109759"></A><CODE CLASS="Code">
+:prereleasep</CODE>
+</P>
+<P CLASS="Description-C">A non-nil value indicates that this is a prerelease version.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109760"></A><CODE CLASS="Code">
+:file-os</CODE>
+</P>
+<P CLASS="Description-C">Indicates the OS for which this file is intended. The default value is<CODE CLASS="Code">
+ :windows32</CODE>
+. <CODE CLASS="Code">
+(:nt :windows32)</CODE>
+ may be specified instead, to indicate that this application is intended for Windows NT.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109761"></A><CODE CLASS="Code">
+:comments</CODE>
+</P>
+<P CLASS="Description-C">A string value, which allows additional comments to be specified, in a form suitable to presentation to the user.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109762"></A><CODE CLASS="Code">
+:original-filename</CODE>
+ </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109763"></A>This specifies the filename (excluding drive and directory) of this file. Normally it is defaulted based on the filename argument to <CODE CLASS="Code">
+deliver</CODE>
+.</P>
+<P CLASS="Description">
+<A NAME="pgfId-109764"></A><CODE CLASS="Code">
+:internal-name</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206313"></A>This the internal name of this file. Normally it is defaulted to the value of <CODE CLASS="Code">
+:original-filename</CODE>
+, with the extension stripped.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109765"></A><CODE CLASS="Code">
+:legal-copyright</CODE>
+ </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109766"></A>A string containing copyright messages.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109767"></A><CODE CLASS="Code">
+:legal-trademarks</CODE>
+ </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109768"></A>A string containing trademark information.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-109769"></A><CODE CLASS="Code">
+:language</CODE>
+</P>
+<P CLASS="Description-C">The language for which this version of the file is intended.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-109770"></A>This can be either a numeric Windows language identifier, or one of the keywords listed below. The default is <CODE CLASS="Code">
+:us-english</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-109771"></A>:arabic :bulgarian :catalan :traditional-chinese :czech :danish :german :greek :us-english :castilian-spanish :finish :french :hebrew :hungarian :icelandic :italian :japanese :korean :dutch :norwegian-bokmal :polish :bralilian-portuguese :rhaeto-romanic :romanian :russian :croatio-serbian-latin :slovak :albanian :swedish :thai :turkish :urdu :bahasa :simplified-chinese :swiss-german :uk-english :mexican-spanish :belgian-french :swiss-italian :belgian-dutch :norwegian-nynorsk :portuguese :serbo-croatian-cyrillic :canadian-french :swiss-french</CODE>
+<P CLASS="Description-Item">
+<A NAME="pgfId-206057"></A><CODE CLASS="Code">
+:character-set</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206106"></A>Specifies the character set to use. Acceptable values  are either the numeric ID of a character set, or one of keywords listed below</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-206107"></A>:ascii :windows-japan :windows-korea :windows-taiwan :unicode :windows-latin-2 :windows-cyrillic :windows-multilingual :windows-greek :windows-turkish :windows-hebrew :windows-arabic</CODE>
+<P CLASS="Description-Item">
+<A NAME="pgfId-206136"></A><A NAME="marker-206296"></A><CODE CLASS="Code">
+:additional-pairs</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206137"></A>Allows adding arbitrary string-name/value pairs to the main <CODE CLASS="Code">
+StringTable</CODE>
+ (Block in the resource definition)  in the <CODE CLASS="Code">
+StringFileInfo</CODE>
+ structure (StringFileInfo in the resource definition).</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206141"></A>The argument is a plist whose elements are all strings. Each two strings constitute a string-name/value pair, which are added to the main <CODE CLASS="Code">
+StringTable</CODE>
+.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206190"></A>The string-name in a pair can be also one of the recognized keywords.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206148"></A>Example:</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206656"></A><CODE CLASS="Code">
+:additional-pairs '(&quot;MIMEType&quot;</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206651"></A><CODE CLASS="Code">
+                    &quot;application/basic-plugin&quot;)</CODE>
+</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-206217"></A><A NAME="marker-206301"></A><CODE CLASS="Code">
+:string-file-info</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206218"></A>Adds a <CODE CLASS="Code">
+StringTable</CODE>
+ (block in the resource definition) to the <CODE CLASS="Code">
+StringFileInfo</CODE>
+ structure.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206221"></A>The argument has to be a plist. Each two items in the list constitute a pair of string-name/value, which are added to the block. The special keywords <CODE CLASS="Code">
+:language</CODE>
+ and <CODE CLASS="Code">
+:character-set</CODE>
+ are exceptions: they specify the &quot;lang-charset&quot; value of the block. They have the same syntax as these keywords when they appear in the top list.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-206228"></A>To be useful, the plist must include either<CODE CLASS="Code">
+:character-set</CODE>
+ or <CODE CLASS="Code">
+:language</CODE>
+, because applications that read the version info will normally expect one block for the lang-charset combination.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-172.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-170.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

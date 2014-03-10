@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.3.1.1  Complete example of a top-level dspec class
+</TITLE>
+
+<LINK REL="next" HREF="lw-75.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-73.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-73.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-68.htm">7 Dspecs: Tools for Handling Definitions</A> &gt; <A HREF="lw-72.htm">7.3  Dspec namespaces</A> &gt; <A HREF="lw-73.htm">7.3.1  Dspec classes</A><BR><BR>
+</DIV><A HREF="lw-75.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-73.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-73.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-896204"></A>7.3.1.1  <A NAME="27983"></A>Complete example of a top-level dspec class</H3>
+<P CLASS="Body">
+<A NAME="pgfId-896206"></A>Define a <CODE CLASS="Code">
+saved-value</CODE>
+ object which has a name and a value:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896207"></A>(defstruct saved-value</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896208"></A>  name</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896209"></A>  value)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896211"></A>The objects are defined using <CODE CLASS="Code">
+def-saved-value</CODE>
+ and stored on the plist of their name:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896213"></A>(defmacro def-saved-value (name value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896214"></A>  `(dspec:def (def-saved-value ,name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896215"></A>     (when (record-definition `(def-saved-value ,',name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896216"></A>                               (dspec:location))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896217"></A>       (setf (get ',name 'saved-value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896218"></A>             (make-saved-value :name ',name</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896219"></A>                            :value ,value))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896220"></A>       ',name)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896222"></A>Define a function to retrieve the <CODE CLASS="Code">
+saved-value</CODE>
+ object:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896223"></A>(defun find-saved-value (name)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896224"></A>  (get name 'saved-value))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896226"></A>Define a macro to access a <CODE CLASS="Code">
+saved-value</CODE>
+ object:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896227"></A>(defmacro saved-value (name)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896228"></A>  `(saved-value-value (find-saved-value ',name)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896553"></A>Define a dspec class for <CODE CLASS="Code">
+def-saved-value</CODE>
+ dspecs:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896588"></A>(dspec:define-dspec-class def-saved-value nil </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896589"></A>  &quot;Defined saved values&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896590"></A>  :definedp </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896591"></A>  #'(lambda (name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896592"></A>      ;; Find any object that def-saved-value recorded</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896593"></A>      (not (null (find-saved-value name))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896594"></A>  :undefiner</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896595"></A>  #'(lambda (dspec)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896596"></A>      ;; Remove what def-saved-value recorded</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896597"></A>      `(remprop ,(dspec:dspec-name dspec) 'saved-value))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896598"></A>  :object-dspec</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896599"></A>  #'(lambda (obj)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896600"></A>      ;; Given a saved-value object, we can reconstruct its dspec</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896601"></A>      (and (saved-value-p obj)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896565"></A>           `(def-saved-value ,(saved-value-name obj)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896244"></A>For completeness, define a form parser that generates dspecs from forms:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896624"></A>(dspec:define-form-parser </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896625"></A>    (def-saved-value</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896248"></A>     (:parser dspec:single-form-form-parser)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896796"></A><B CLASS="Bold">
+Note:</B>
+ this form parser for <CODE CLASS="Code">
+def-saved-value</CODE>
+ is not strictly necessary, because the system provides an implicit form parser which recognizes definitions beginning with &quot;def&quot;.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-75.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-73.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-73.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

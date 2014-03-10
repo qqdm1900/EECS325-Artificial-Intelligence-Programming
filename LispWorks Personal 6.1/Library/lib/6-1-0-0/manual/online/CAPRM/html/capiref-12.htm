@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ apply-in-pane-process
+</TITLE>
+
+<LINK REL="next" HREF="capiref-13.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-11.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-13.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-11.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-2230922"></A><A NAME="92272"></A>apply<A NAME="marker-3944125"></A>-in-pane-process</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1885402"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1885403"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1885404"></A>Applies a function in the process associated with a pane.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3937060"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3937061"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1852321"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1852322"></A>apply-in-pane-process <EM CLASS="Variable">
+pane</EM>
+ <EM CLASS="Variable">
+function</EM>
+ &amp;rest <EM CLASS="Variable">
+args</EM>
+ =&gt; nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1852353"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1854146"></A>The function <CODE CLASS="Code">
+apply-in-pane-process</CODE>
+ applies <EM CLASS="Variable">
+function</EM>
+ to <EM CLASS="Variable">
+args</EM>
+ in the process that is associated with <EM CLASS="Variable">
+pane</EM>
+. This is required when <EM CLASS="Variable">
+function</EM>
+ modifies <EM CLASS="Variable">
+pane</EM>
+ or changes how it is displayed. If <EM CLASS="Variable">
+pane</EM>
+ has not been displayed yet, then <EM CLASS="Variable">
+function</EM>
+ is called immediately.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5926529"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-8934115"></A>All accesses (reads as well as writes) on a pane should be performed in the pane's process. Within a callback on the pane's interface this happens automatically, but <CODE CLASS="Code">
+apply-in-pane-process</CODE>
+ is a useful utility in other circumstances.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-8927336"></A><CODE CLASS="Code">
+apply-in-pane-process</CODE>
+ calls <EM CLASS="Variable">
+function</EM>
+ on the current process if the pane's interface does not have a process.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-9131780"></A>If the pane's process is no longer active then <CODE CLASS="Code">
+apply-in-pane-process</CODE>
+ applies <EM CLASS="Variable">
+function</EM>
+ directly.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-9980015"></A><A HREF="capiref-13.htm#95274" CLASS="XRef">apply-in-pane-process-if-alive</A>  is another way to call <EM CLASS="Variable">
+function</EM>
+ in the CAPI process appropriate for <EM CLASS="Variable">
+pane. </EM>
+However it only does this if <EM CLASS="Variable">
+pane</EM>
+ is alive so in particular, if <EM CLASS="Variable">
+pane</EM>
+ does not have a process, it does not call <EM CLASS="Variable">
+function</EM>
+.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1854865"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1854870"></A>Editor commands must be called in the correct process:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1854226"></A>(setq editor </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1854227"></A>      (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1854228"></A>       (make-instance 'capi:editor-pane</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1854760"></A>                      :text &quot;Once upon a time...&quot;)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1854812"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1854830"></A> editor 'capi:call-editor editor &quot;End Of Buffer&quot;)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1854831"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1854832"></A> editor 'capi:call-editor editor &quot;Beginning Of Buffer&quot;)</PRE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-13.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-11.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

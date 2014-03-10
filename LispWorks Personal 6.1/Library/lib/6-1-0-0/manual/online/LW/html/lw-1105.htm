@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-wait-local-with-periodic-checks
+</TITLE>
+
+<LINK REL="next" HREF="lw-1106.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1104.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1106.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1104.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1411233"></A><A NAME="28878"></A>process<A NAME="marker-1418095"></A>-wait-local-with-periodic-checks</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1411235"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1411236"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1411237"></A>Like <A HREF="lw-1104.htm#39610" CLASS="XRef">process-wait-local</A>, but also calls the wait function periodically.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1411238"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1411239"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1739233"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1739234"></A>process-wait-local-with-periodic-checks <EM CLASS="Variable">
+wait-reason</EM>
+ <EM CLASS="Variable">
+period</EM>
+ <EM CLASS="Variable">
+function</EM>
+ &amp;rest <EM CLASS="Variable">
+args</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1411242"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1411243"></A><EM CLASS="Variable">
+wait-reason</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1411244"></A><EM CLASS="Variable">
+period</EM>
+</P>
+<P CLASS="RDescription-C">A positive real number.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1411245"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1411246"></A><EM CLASS="Variable">
+args</EM>
+</P>
+<P CLASS="RDescription-C">Arguments passed to <EM CLASS="Variable">
+function</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1411248"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1411249"></A>The function <CODE CLASS="Code">
+process-wait-local-with-periodic-checks</CODE>
+ is like <A HREF="lw-1104.htm#39610" CLASS="XRef">process-wait-local</A>, but also calls the wait function periodically.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1411250"></A>The <EM CLASS="Variable">
+period</EM>
+ is in seconds.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1411251"></A>After each call to the function <EM CLASS="Variable">
+wait-function</EM>
+, the process sleeps at most <EM CLASS="Variable">
+period</EM>
+ seconds, and then checks the wait function. If the process is poked while sleeping, it wakes up, checks the wait function, and then (if the wait function returns <CODE CLASS="Code">
+nil</CODE>
+), sleeps again for at most <EM CLASS="Variable">
+period</EM>
+ seconds.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1411252"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1411253"></A>The resolution of the period is dependent on the underlying operating system. Many systems give time-slices of few milliseconds, so the actual period may be out by a few milliseconds. In general, periods of 0.1 seconds or more are reasonably reliable, though not exact. Shorter periods become less and less reliable.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1411254"></A>If the period is short, the wait function is called frequently, and hence there is more overhead for the system. With a reasonable wait function and a period of 0.1 or more, this overhead is probably insignificant. If you use shorter periods, or an expensive wait function, you may want to check what the overhead is. The easiest way to check is to make sure your system is such that the wait function returns <CODE CLASS="Code">
+nil</CODE>
+, then run</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1411255"></A>(ignore-errors ; just in case</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1411256"></A>  (sys:with-other-threads-disabled</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1411257"></A>   (time (mp:process-wait-local-with-timeout-and-periodic-checks</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1411258"></A>          &quot;Timing&quot; 5 <EM CLASS="Variable">period</EM>
+ <EM CLASS="Variable">function</EM>
+ <EM CLASS="Variable">args</EM>
+))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1411259"></A>When this form returns, compare the user and system times (which is what it actually used) to the elapsed time (which should be approximately 5 seconds). That will tell you what fraction of a &quot;CPU&quot; is used by the call. If the user and system time are less than 0.01 seconds, you may want to increase the time to get a more accurate number.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1411260"></A>Warning: inside the scope of <A HREF="lw-1449.htm#71625" CLASS="XRef">with-other-threads-disabled</A>, the rest of the threads are disabled. So if your wait function ends up waiting for something that has to happen on another thread, your system will be deadlocked.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1411261"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1411262"></A><A HREF="lw-1104.htm#39610" CLASS="XRef">process-wait-local</A><BR>
+<A HREF="lw-1107.htm#88331" CLASS="XRef">process-wait-local-with-timeout-and-periodic-checks</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1106.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1104.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

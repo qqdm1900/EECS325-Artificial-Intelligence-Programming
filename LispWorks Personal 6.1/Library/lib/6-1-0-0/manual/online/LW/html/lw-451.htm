@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 20.2.1  Defining a new stream class
+</TITLE>
+
+<LINK REL="next" HREF="lw-452.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-450.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-450.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-448.htm">20 User Defined Streams</A> &gt; <A HREF="lw-450.htm">20.2  An illustrative example of user defined streams</A><BR><BR>
+</DIV><A HREF="lw-452.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-450.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888043"></A>20.2.1  <A NAME="marker-888749"></A><A NAME="45300"></A>Defining a new stream <A NAME="marker-888753"></A>class</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888050"></A>Streams can be capable of input or output (or both), and may deal with characters or with binary elements. The <CODE CLASS="Code">
+stream</CODE>
+ package provides a number of stream classes with different capabilities from which user defined streams can inherit. In our example the stream must be capable of input and output, and must read characters. The following code defines our stream class appropriately:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888044"></A>(defclass unicode-ls-stream </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888045"></A>          (stream:fundamental-character-input-stream</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888046"></A>           stream:fundamental-character-output-stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888047"></A>  ((file-stream :initform nil </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888048"></A>                :initarg :file-stream</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888049"></A>                :accessor ls-stream-file-stream)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888066"></A>The new class, <CODE CLASS="Code">
+unicode-ls-stream</CODE>
+, has <A NAME="marker-891142"></A><A HREF="lw-1293.htm#36260" CLASS="XRef">fundamental-character-input-stream</A> and <A NAME="marker-891152"></A><A HREF="lw-1294.htm#29092" CLASS="XRef">fundamental-character-output-stream</A> as its superclasses, which means it inherits the relevant default character I/O methods. We shall be overriding some of these with more relevant and efficient implementations later.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888186"></A>Note that we have also provided a <EM CLASS="Variable">
+file-stream</EM>
+ slot. When making an instance of <CODE CLASS="Code">
+unicode-ls-stream</CODE>
+ we can create an instance of a Common Lisp file stream in this slot. This allows us to use the Common Lisp file stream functionality for reading from and writing to a file.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-452.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-450.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ get-file-stat
+</TITLE>
+
+<LINK REL="next" HREF="lw-1382.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1380.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1382.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1380.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1045991"></A>get<A NAME="marker-1045990"></A>-file-stat<A NAME="marker-1667143"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1009134"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009135"></A>Summary</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-1009136"></A>Provides read access to the C stat structure which describes files.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1022372"></A>Note: not applicable on Microsoft Windows.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009137"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1009138"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009139"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1009140"></A>get-file-stat <EM CLASS="Variable">
+filename-or-fd</EM>
+ =&gt; <EM CLASS="Variable">
+file-stat (,errno)</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009141"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009142"></A><EM CLASS="Variable">
+filename-or-fd</EM>
+</P>
+<P CLASS="RDescription-C">A string denoting a file, or a file descriptor.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009143"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009144"></A><EM CLASS="Variable">
+file-stat</EM>
+</P>
+<P CLASS="RDescription-C">On success, an object representing the stat values. On failure, <CODE CLASS="Code">
+nil</CODE>
+ is returned together with a second value.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009145"></A><EM CLASS="Variable">
+errno</EM>
+</P>
+<P CLASS="RDescription-C">Indicates the errno value returned by the system call. This second value is returned only in the case of failure.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009146"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1009147"></A><EM CLASS="Variable">
+file-stat</EM>
+ is an object representing the stat values, as would be returned by the system call <CODE CLASS="Code">
+stat</CODE>
+ (for a filename) or the system call <CODE CLASS="Code">
+fstat</CODE>
+ (for an fd). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1009148"></A>The values in <EM CLASS="Variable">
+file-stat</EM>
+ are the raw data, and it is the responsibility of the user to interpret them when needed.  See the UNIX manual entry for <CODE CLASS="Code">
+stat</CODE>
+ for details.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1009149"></A>The values can be read from <EM CLASS="Variable">
+file-stat</EM>
+ by these readers:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009151"></A><CODE CLASS="Code">
+sys:file-stat-inode</CODE>
+<A NAME="marker-1009150"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1340333"></A>The inode of the file.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009153"></A><CODE CLASS="Code">
+sys:file-stat-device</CODE>
+<A NAME="marker-1009152"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1340340"></A>The id of the device where the file is.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009155"></A><CODE CLASS="Code">
+sys:file-stat-owner-id</CODE>
+<A NAME="marker-1009154"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1340347"></A>The user id of the owner of the file.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009157"></A><CODE CLASS="Code">
+sys:file-stat-group-id</CODE>
+<A NAME="marker-1009156"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1340354"></A>The group id of the file's group.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009159"></A><CODE CLASS="Code">
+sys:file-stat-size</CODE>
+<A NAME="marker-1009158"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1340429"></A>The size of the file in bytes.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009161"></A><CODE CLASS="Code">
+sys:file-stat-blocks</CODE>
+<A NAME="marker-1009160"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1340498"></A>The number of 512-bytes blocks used by the file.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009163"></A><CODE CLASS="Code">
+sys:file-stat-mode</CODE>
+<A NAME="marker-1009162"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1340499"></A>The protection value of the file.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009165"></A><CODE CLASS="Code">
+sys:file-stat-last-access</CODE>
+<A NAME="marker-1009164"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1340666"></A>The time of the last access to the file in seconds from 1 January 1970.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009167"></A><CODE CLASS="Code">
+sys:file-stat-last-change</CODE>
+<A NAME="marker-1009166"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1341251"></A>The time of the last change in the data of the file in seconds from 1 January 1970.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009169"></A><CODE CLASS="Code">
+sys:file-stat-last-modify</CODE>
+<A NAME="marker-1009168"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1341615"></A>The time of the last modification of the file status in seconds from 1 January 1970.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009171"></A><CODE CLASS="Code">
+sys:file-stat-links</CODE>
+<A NAME="marker-1009170"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1341844"></A>The number of hard links to the file.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009173"></A><CODE CLASS="Code">
+sys:file-stat-device-type</CODE>
+<A NAME="marker-1009172"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1341863"></A>The device type (sometimes called Rdev).</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1382.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1380.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.5  Foreign callables and foreign functions
+</TITLE>
+
+<LINK REL="next" HREF="fli-58.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-56.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-43.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A><BR><BR>
+</DIV><A HREF="fli-58.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-56.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-43.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886382"></A>4.5  <A NAME="marker-891694"></A><A NAME="56244"></A>Foreign callables and foreign functions</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886396"></A>The two main macros for interfacing LispWorks with a foreign language are <A NAME="marker-891299"></A><A HREF="fli-90.htm#25590" CLASS="XRef">define-foreign-callable</A> which defines Lisp functions that can be called from the foreign language, and <A NAME="marker-891307"></A><A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A> which defines a short linking function that can call functions in a foreign language.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886785"></A>In <A HREF="fli-4.htm#29615" CLASS="XRef">Introduction to the FLI</A> we defined a foreign function for calling the Win32 function <CODE CLASS="Code">
+SetCursorPos</CODE>
+. The code for this example is repeated here.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886775"></A>(fli:define-foreign-function (set-cursor-position &quot;SetCursorPos&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886776"></A>    ((x :long)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886777"></A>     (y :long))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886778"></A>  :result-type :boolean)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886767"></A><A HREF="fli-57.htm#13505" CLASS="XRef">A FLI foreign function calling some C code.</A> is an illustration of <CODE CLASS="Code">
+set-cursor-position</CODE>
+, represented by a square, calling the C code which constitutes <CODE CLASS="Code">
+SetCursorPos</CODE>
+.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-890895"></A>Figure 4.1  <A NAME="13505"></A>A FLI foreign function calling some C code.<DIV>
+<IMG SRC="fli-9.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="fli-8.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-890888"></A>The next diagram, <A HREF="fli-57.htm#25458" CLASS="XRef">C calling a callable function in Lisp.</A>, illustrates a callable function. Whereas a foreign function consists of a Lisp function name calling some code in C, a callable function consists of Lisp code, represented by an oval in the diagram, which can be called from C.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-890908"></A>Figure 4.2  <A NAME="25458"></A>C calling a callable function in Lisp.<DIV>
+<IMG SRC="fli-9.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="fli-10.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-891936"></A>Callable functions are defined using <CODE CLASS="Code">
+fli:define-foreign-callable</CODE>
+, which takes as its arguments, amongst other things, the name of the C function that will call Lisp, the arguments for the callable function, and a body of code which makes up the callable function. </P>
+<P CLASS="Body">
+<A NAME="pgfId-891946"></A><A NAME="marker-891985"></A>To call a Lisp function from C or C++ you need to define it using <CODE CLASS="Code">
+fli:define-foreign-callable</CODE>
+.  Then call <CODE CLASS="Code">
+fli:make-pointer</CODE>
+ with the <CODE CLASS="Code">
+:symbol-name</CODE>
+ argument and pass the result to C or C++ as a function pointer.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891937"></A>For the purpose of creating a self-contained illustration in Lisp, the following Lisp code defines a foreign callable function that takes the place of the Windows function <CODE CLASS="Code">
+SetCursorPos</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886397"></A>(fli:define-foreign-callable (&quot;SetCursorPos&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886409"></A>                              :result-type :boolean)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886399"></A>  ((x :long) (y :long))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886400"></A>  (capi:display-message </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886830"></A>     &quot;The cursor position can no longer be set&quot;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891838"></A>Supposing you had the above foreign callable defined in a real application, you would use</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891865"></A>(make-pointer :symbol-name &quot;SetCursorPos&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891866"></A>to create a foreign pointer which you pass to foreign code so that it can call the Lisp definition of <CODE CLASS="Code">
+SetCursorPos</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886528"></A><A HREF="fli-57.htm#16643" CLASS="XRef">A FLI foreign function calling a callable function.</A> illustrates what happens when <CODE CLASS="Code">
+set-cursor-position</CODE>
+ is called. The foreign function <CODE CLASS="Code">
+set-cursor-position</CODE>
+ (represented by the square) calls what it believes to be the Windows function <CODE CLASS="Code">
+SetCursorPos</CODE>
+, but the callable function (represented by the oval), also called <CODE CLASS="Code">
+SetCursorPos</CODE>
+, is called instead. It pops up a CAPI pane displaying the message &quot;The cursor position can no longer be set&quot;.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-899594"></A>Figure 4.3  <A NAME="16643"></A>A FLI foreign function calling a callable function.<DIV>
+<IMG SRC="fli-9.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="fli-11.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-899604"></A>For more information on calling foreign code see <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899614"></A>For more information on defining foreign callable functions see <A HREF="fli-58.htm#37071" CLASS="XRef">Strings and foreign callables</A> and <A HREF="fli-90.htm#25590" CLASS="XRef">define-foreign-callable</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899627"></A>For information on how to create a LispWorks DLL, see &quot;Creating a dynamic library&quot; in the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899631"></A>For some complete examples of building a LispWorks DLL, then loading and calling it from foreign code, see &quot;Delivering a dynamic library&quot; in the <I CLASS="Italic">
+LispWorks Delivery User Guide</I>
+.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="fli-58.htm#pgfId-891400" CLASS="Hypertext">4.5.1  Strings and foreign callables</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-58.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-56.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-43.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

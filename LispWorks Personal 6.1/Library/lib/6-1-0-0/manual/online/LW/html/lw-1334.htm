@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ atomic-fixnum-decf
+</TITLE>
+
+<LINK REL="next" HREF="lw-1335.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1333.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1335.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1333.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1360788"></A><A NAME="42128"></A>atomic<A NAME="marker-1381268"></A>-fixnum-decf</H4>
+<P CLASS="REntry2">
+<A NAME="pgfId-1424794"></A><A NAME="23044"></A>atomic<A NAME="marker-1424792"></A>-fixnum-incf</P>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1360789"></A>Macros</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1360790"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1360791"></A>Like <CODE CLASS="Code">
+decf</CODE>
+ and <CODE CLASS="Code">
+incf</CODE>
+, but does the operation atomically.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1360792"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1360793"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1360794"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1360795"></A>atomic-fixnum-decf <EM CLASS="Variable">
+place</EM>
+ &amp;optional <EM CLASS="Variable">
+fixnum-delta</EM>
+ =&gt; <EM CLASS="Variable">
+new-value</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1425014"></A>atomic-fixnum-incf <EM CLASS="Variable">
+place</EM>
+ &amp;optional <EM CLASS="Variable">
+fixnum-delta</EM>
+ =&gt; <EM CLASS="Variable">
+new-value</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1360796"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1360797"></A><EM CLASS="Variable">
+place</EM>
+</P>
+<P CLASS="RDescription-C">One of the specific set of places defined for low level atomic operations.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1360798"></A><EM CLASS="Variable">
+fixnum-delta</EM>
+</P>
+<P CLASS="RDescription-C">A fixnum, default value 1</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1360799"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1360800"></A><EM CLASS="Variable">
+new-value</EM>
+</P>
+<P CLASS="RDescription-C">A fixnum.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1360801"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1360802"></A>The macro <CODE CLASS="Code">
+atomic-fixnum-decf</CODE>
+ is like <CODE CLASS="Code">
+decf</CODE>
+ (for fixnums only) and <CODE CLASS="Code">
+atomic-fixnum-incf</CODE>
+ is like <CODE CLASS="Code">
+incf</CODE>
+ (for fixnums only), except that they are guaranteed atomic for a suitable place.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1360803"></A><EM CLASS="Variable">
+place</EM>
+ must be one of the places described in <A HREF="lw-298.htm#72244" CLASS="XRef">Low level atomic operations</A>, or expand to one of them.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1360804"></A>Both the value in the <EM CLASS="Variable">
+place</EM>
+ and <EM CLASS="Variable">
+fixnum-delta</EM>
+ must be fixnums. The arithmetic is done without checking for overflow.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1360806"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1360808"></A><A HREF="lw-1332.htm#10326" CLASS="XRef">atomic-decf</A><BR>
+<A HREF="lw-1332.htm#18429" CLASS="XRef">atomic-incf</A><BR>
+<A HREF="lw-1401.htm#43111" CLASS="XRef">low-level-atomic-place-p</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1335.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1333.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

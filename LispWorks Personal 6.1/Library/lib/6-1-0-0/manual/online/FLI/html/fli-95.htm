@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-foreign-pointer
+</TITLE>
+
+<LINK REL="next" HREF="fli-96.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-94.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-96.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-94.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1115435"></A>define-foreign-pointer<A NAME="marker-1115434"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1115436"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1115437"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1115438"></A>Defines a new FLI pointer type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1115439"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1115440"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1115441"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1115442"></A>define-foreign-pointer <EM CLASS="Variable">
+name-and-options points-to-type</EM>
+ &amp;rest <EM CLASS="Variable">
+slots</EM>
+  =&gt; <EM CLASS="Variable">
+type-name</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1116053"></A><EM CLASS="Variable">
+name-and-options</EM>
+ ::= <EM CLASS="Variable">
+type-name</EM>
+ | (<EM CLASS="Variable">
+type-name</EM>
+ (<EM CLASS="Variable">
+option</EM>
+*))</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1116343"></A><EM CLASS="Variable">
+option</EM>
+ ::= (<EM CLASS="Variable">
+option-name</EM>
+ <EM CLASS="Variable">
+option-value</EM>
+)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1115443"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1120731"></A><EM CLASS="Variable">
+type-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the new FLI type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1120732"></A><EM CLASS="Variable">
+option-name</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+:allow-null</CODE>
+ or a <CODE CLASS="Code">
+defstruct</CODE>
+ option.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1120744"></A><EM CLASS="Variable">
+option-value</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1116396"></A><EM CLASS="Variable">
+points-to-type</P>
+<P CLASS="RDescription-C"></EM>
+A foreign type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1115446"></A><EM CLASS="Variable">
+slots</EM>
+</P>
+<P CLASS="RDescription-C">Slots of the new type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1115447"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1115448"></A><EM CLASS="Variable">
+type-name</EM>
+</P>
+<P CLASS="RDescription-C">The name of the new FLI pointer type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1115449"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1120885"></A>The macro <CODE CLASS="Code">
+define-foreign-pointer</CODE>
+ defines a new FLI pointer type called <EM CLASS="Variable">
+type-name</EM>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1122169"></A><EM CLASS="Variable">
+type-name</EM>
+ is a subtype of <CODE CLASS="Code">
+pointer</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1120895"></A>The option <CODE CLASS="Code">
+:allow-null</CODE>
+ takes an <EM CLASS="Variable">
+option-value</EM>
+ of either <CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+, defaulting to <CODE CLASS="Code">
+nil</CODE>
+. It controls whether the type  <EM CLASS="Variable">
+type-name</EM>
+ accepts <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1121131"></A>The other allowed options are the <CODE CLASS="Code">
+defstruct</CODE>
+ options <CODE CLASS="Code">
+:conc-name</CODE>
+, <CODE CLASS="Code">
+:constructor</CODE>
+, <CODE CLASS="Code">
+:predicate</CODE>
+, <CODE CLASS="Code">
+:print-object</CODE>
+, <CODE CLASS="Code">
+:print-function</CODE>
+. In each case the symbol supplied as <EM CLASS="Variable">
+option-value</EM>
+ provides the corresponding operator for <EM CLASS="Variable">
+type-name</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1566319"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1566331"></A><A HREF="fli-35.htm#27534" CLASS="XRef">Creating pointers</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-96.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-94.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

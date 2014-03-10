@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ impersonating-named-pipe-client
+</TITLE>
+
+<LINK REL="next" HREF="lw-1455.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1453.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1450.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1450.htm">41 Miscellaneous WIN32 symbols</A><BR><BR>
+</DIV><A HREF="lw-1455.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1453.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1038918"></A><A NAME="92905"></A>impersonating<A NAME="marker-1040679"></A>-named-pipe-<A NAME="marker-1040505"></A>client</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1038919"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038920"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1038921"></A>Executes code while impersonating the client of the named pipe.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038922"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1038923"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038924"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1038925"></A>impersonating-named-pipe-client (<EM CLASS="Variable">
+named-pipe-stream</EM>
+ &amp;key <EM CLASS="Variable">
+fail-form</EM>
+ <EM CLASS="Variable">
+fail-no-read-form</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040761"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040762"></A><EM CLASS="Variable">
+named-pipe-stream</EM>
+</P>
+<P CLASS="RDescription-C">A named pipe stream.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040819"></A><EM CLASS="Variable">
+fail-form</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp form.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040961"></A><EM CLASS="Variable">
+fail-no-read-form</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp form.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1041136"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Lisp forms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038926"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1038927"></A>The macro <CODE CLASS="Code">
+impersonating-named-pipe-client</CODE>
+ executes the code of <EM CLASS="Variable">
+body</EM>
+ while impersonating the client of the named pipe.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1038928"></A><EM CLASS="Variable">
+named-pipe-stream</EM>
+ must be the result of <A HREF="lw-1461.htm#10506" CLASS="XRef">open-named-pipe-stream</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1038929"></A>For the impersonation to work, some input must have already been read from the pipe. If impersonation is used on a named pipe from which nothing was read, it calls <CODE CLASS="Code">
+error</CODE>
+ unless <EM CLASS="Variable">
+fail-no-read-form</EM>
+ is supplied, in which case it executes this form. For all other kinds of failure <EM CLASS="Variable">
+fail-form</EM>
+ is executed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1038930"></A>Apart from mechanism used to find the user to impersonate, <CODE CLASS="Code">
+impersonating-named-pipe-client</CODE>
+ behaves identically to <A HREF="lw-1455.htm#44892" CLASS="XRef">impersonating-user</A>. See <A HREF="lw-1455.htm#44892" CLASS="XRef">impersonating-user</A> for further details.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038931"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1038932"></A>The limitation that some input must have been read is an undocumented restriction in the underlying Microsoft Windows functions.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1038933"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1038934"></A><A HREF="lw-1455.htm#44892" CLASS="XRef">impersonating-user</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1455.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1453.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

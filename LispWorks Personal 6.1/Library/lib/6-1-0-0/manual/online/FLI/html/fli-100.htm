@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ disconnect-module
+</TITLE>
+
+<LINK REL="next" HREF="fli-101.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-99.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-101.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-99.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1015053"></A><A NAME="80215"></A>disconnect-module<A NAME="marker-1096370"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1016754"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1016773"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1016779"></A>Disconnects the DLL associated with a registered module.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1016785"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1016935"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1016937"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1016956"></A>disconnect-module <EM CLASS="Variable">
+name</EM>
+ &amp;key <EM CLASS="Variable">
+verbose</EM>
+ <EM CLASS="Variable">
+remove</EM>
+ =&gt; </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1016998"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1017036"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1017070"></A><EM CLASS="Variable">
+verbose</EM>
+</P>
+<P CLASS="RDescription-C">Either <CODE CLASS="Code">
+nil</CODE>
+ or a stream. Default value: <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1017087"></A><EM CLASS="Variable">
+remove</EM>
+</P>
+<P CLASS="RDescription-C">A boolean. Default value: <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1017293"></A>Values</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-1017295"></A>None.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1017297"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1017318"></A>The function <CODE CLASS="Code">
+disconnect-module</CODE>
+ disconnects the DLL associated with a registered module specified by <EM CLASS="Variable">
+name</EM>
+ and registered with <A HREF="fli-140.htm#30636" CLASS="XRef">register-module</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1017822"></A>When disconnecting, if <EM CLASS="Variable">
+verbose</EM>
+ is set to a recognized stream, then <CODE CLASS="Code">
+disconnect-module</CODE>
+ with send disconnection information to that stream.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1017575"></A>If <EM CLASS="Variable">
+remove</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then after disconnection the module will be in the same state as it was when first registered by <A HREF="fli-140.htm#30636" CLASS="XRef">register-module</A>, that is, lookups for foreign symbols can still automatically reconnect the DLL. If <EM CLASS="Variable">
+remove</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ then <EM CLASS="Variable">
+name</EM>
+ is removed from the list of registered modules. Any foreign symbols which refer to the module will then be reset as unresolved symbols.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1017320"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1017954"></A><A HREF="fli-140.htm#30636" CLASS="XRef">register-module</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-101.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-99.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

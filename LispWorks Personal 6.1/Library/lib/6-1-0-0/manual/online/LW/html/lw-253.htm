@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.2.5  Blocking interrupts
+</TITLE>
+
+<LINK REL="next" HREF="lw-254.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-252.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-246.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-246.htm">15.2  The process programming interface </A><BR><BR>
+</DIV><A HREF="lw-254.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-252.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-246.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-891062"></A>15.2.5  <A NAME="37895"></A>Blocking interrupts</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891063"></A>The purpose of blocking interrupts is to prevent a process aborting in the middle of an operation that needs to be completed. A typical example is the cleanup forms of an <CODE CLASS="Code">
+unwind-protect</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891064"></A>Blocking interrupts does not provide atomicity. Other processes may continue to execute.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891065"></A>Blocking interrupts limits the control that LispWorks has over the processes, so interrupts should not be blocked except when necessary. However, apart from blocking interrupts in a process it does not affect the behavior of the system.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893281"></A>The following macros and functions allow control over blocking interrupts: <A NAME="marker-893322"></A><A HREF="lw-1003.htm#64599" CLASS="XRef">allowing-block-interrupts</A>, <A NAME="marker-893327"></A><A HREF="lw-1135.htm#43645" CLASS="XRef">with-interrupts-blocked</A>, <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-893332"></A><A HREF="lw-1024.htm#86857" CLASS="XRef">current-process-unblock-interrupts</A> and <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-893337"></A><A HREF="lw-1021.htm#98454" CLASS="XRef">current-process-block-interrupts</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893295"></A>Addtionally the macros <A NAME="marker-893304"></A><A HREF="lw-861.htm#25724" CLASS="XRef">unwind-protect-blocking-interrupts</A> and <A NAME="marker-893314"></A><A HREF="lw-862.htm#95356" CLASS="XRef">unwind-protect-blocking-interrupts-in-cleanups</A> allow your program to prevent interrupts from stopping cleanup forms from completing.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891068"></A>Compatibility note: In LispWorks 5.1 and previous versions, <CODE CLASS="Code">
+mp:without-preemption</CODE>
+<A NAME="marker-891104"></A> and <CODE CLASS="Code">
+mp:without-interrupts</CODE>
+<A NAME="marker-891528"></A> are sometimes used to block interrupts, but they also provide atomicity. In many cases (probably most), they are used to provide atomicity, and in these cases they cannot be replaced by blocking interrupts. To get atomicity in LispWorks 6.0 and later you need to use locks or atomic operations. To get atomicity while debugging, you can also use <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-894448"></A><A HREF="lw-1449.htm#71625" CLASS="XRef">with-other-threads-disabled</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-254.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-252.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-246.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

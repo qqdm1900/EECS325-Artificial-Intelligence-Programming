@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ fill-foreign-object
+</TITLE>
+
+<LINK REL="next" HREF="fli-103.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-101.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-103.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-101.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1124032"></A><A NAME="98933"></A>fill-<A NAME="marker-1273775"></A>foreign-object</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1099226"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1099461"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1099928"></A>Fills a foreign object, given a pointer to it.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1100089"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1100161"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1100561"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1100562"></A>fill-foreign-object <EM CLASS="Variable">
+pointer</EM>
+ &amp;key <EM CLASS="Variable">
+nelems</EM>
+ <EM CLASS="Variable">
+byte</EM>
+ =&gt; <EM CLASS="Variable">
+pointer</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1100569"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1100575"></A><EM CLASS="Variable">
+pointer</EM>
+</P>
+<P CLASS="RDescription-C">A foreign pointer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1100563"></A><EM CLASS="Variable">
+nelems</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer. The default is <CODE CLASS="Code">
+1</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1100589"></A><EM CLASS="Variable">
+byte</EM>
+</P>
+<P CLASS="RDescription-C">An integer. The default is <CODE CLASS="Code">
+0</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1100820"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1100860"></A><EM CLASS="Variable">
+pointer</EM>
+</P>
+<P CLASS="RDescription-C">The foreign pointer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1100582"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1100645"></A>The function <CODE CLASS="Code">
+fill-foreign-object</CODE>
+ fills the pointer <EM CLASS="Variable">
+pointer</EM>
+ with the value <EM CLASS="Variable">
+byte</EM>
+. If <EM CLASS="Variable">
+nelems</EM>
+ is greater than 1, an array of objects starting at <EM CLASS="Variable">
+pointer</EM>
+ is filled.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1102583"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1103452"></A>(fli:with-dynamic-foreign-objects ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1103453"></A>  (let ((pp (fli:allocate-dynamic-foreign-object </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1103454"></A>             :type :char </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1103455"></A>             :initial-element 66</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1103456"></A>             :nelems 6)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1103457"></A>    (fli:fill-foreign-object pp :nelems 3 :byte 65)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1103458"></A>    (loop for i below 6 collect </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1102636"></A>          (fli:dereference pp :type :char :index i))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1102637"></A>=&gt; </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1102624"></A>(#&#92;A #&#92;A #&#92;A #&#92;B #&#92;B #&#92;B)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1103348"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1103380"></A><A HREF="fli-142.htm#13343" CLASS="XRef">replace-foreign-object</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-103.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-101.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

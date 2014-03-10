@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-foreign-string
+</TITLE>
+
+<LINK REL="next" HREF="fli-154.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-152.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-154.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-152.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1114320"></A><A NAME="28931"></A>with-foreign-string<A NAME="marker-1114319"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-897373"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898672"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-950915"></A>Converts a Lisp string to a foreign string, binds variables to a pointer to the foreign string, the number of elements in the string, and the number of bytes taken up by the string, then executes a list of forms, and finally de-allocates the foreign string and pointer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-950914"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898673"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1034536"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1034537"></A>with-foreign-string (<EM CLASS="Variable">
+pointer</EM>
+ <EM CLASS="Variable">
+element-count</EM>
+ <EM CLASS="Variable">
+byte-count </EM>
+&amp;key <EM CLASS="Variable">
+external-format</EM>
+ <EM CLASS="Variable">
+null-terminated-p allow-null</EM>
+) <EM CLASS="Variable">
+ string</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+last</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-971553"></A><EM CLASS="Variable">
+body</EM>
+::= <EM CLASS="Variable">
+form</EM>
+*</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920317"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920318"></A><EM CLASS="Variable">
+pointer</EM>
+</P>
+<P CLASS="RDescription-C">A symbol bound to a pointer to the foreign string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-971547"></A><EM CLASS="Variable">
+element-count</EM>
+</P>
+<P CLASS="RDescription-C">A symbol bound to the number of elements in the foreign string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-971548"></A><EM CLASS="Variable">
+byte-count</EM>
+</P>
+<P CLASS="RDescription-C">A symbol bound to the number of bytes occupied by the foreign string. If the element size of the string is equal to one byte, then <EM CLASS="Variable">
+byte-count</EM>
+ will be the same as <EM CLASS="Variable">
+element-count</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-971549"></A><EM CLASS="Variable">
+external-format</EM>
+</P>
+<P CLASS="RDescription-C">An external format specification.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-971550"></A><EM CLASS="Variable">
+null-terminated-p</EM>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+t</CODE>
+, the foreign string is terminated by a null character. The null character is included in the <EM CLASS="Variable">
+element-count</EM>
+ of the string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1034553"></A><EM CLASS="Variable">
+allow-null</EM>
+</P>
+<P CLASS="RDescription-C">A boolean. The default is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-971551"></A><EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="RDescription-C">The Lisp string to convert.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-971552"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">A list of forms to be executed.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-971554"></A><EM CLASS="Variable">
+form</EM>
+</P>
+<P CLASS="RDescription-C">A form to be executed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920319"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920320"></A><EM CLASS="Variable">
+last</P>
+<P CLASS="RDescription-C"></EM>
+The value of the last <EM CLASS="Variable">
+form</EM>
+ in <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920321"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920322"></A>The macro <CODE CLASS="Code">
+with-foreign-string</CODE>
+ is used to dynamically convert a Lisp string to a foreign string and execute a list of forms using the foreign string. The macro first converts <EM CLASS="Variable">
+string</EM>
+, a Lisp string, into a foreign string. The symbol <EM CLASS="Variable">
+pointer</EM>
+ is bound to a pointer to the start of the string, the symbol <EM CLASS="Variable">
+element-count</EM>
+ is set equal to the number of elements in the string, and the symbol <EM CLASS="Variable">
+byte-count</EM>
+ is set equal to the number of bytes the string occupies. Then the list of forms specified by <EM CLASS="Variable">
+body</EM>
+ is executed. Finally, the memory allocated for the foreign string and pointer is de-allocated.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-971738"></A>The <EM CLASS="Variable">
+external-format</EM>
+ argument is used to specify the encoding of the foreign string. It defaults to a format appropriate for C string of type <CODE CLASS="Code">
+char*</CODE>
+. For Unicode encoded strings, specify <CODE CLASS="Code">
+:unicode</CODE>
+. If you want to pass a string to the Win32 API, known as <CODE CLASS="Code">
+STR</CODE>
+ in the Win32 API terminology, specify<CODE CLASS="Code">
+ *multibyte-code-page-ef*</CODE>
+, which is a variable holding the external format corresponding to the current Windows multi-byte code page. To change the default, call <A HREF="fli-143.htm#33536" CLASS="XRef">set-locale</A> or <A HREF="fli-144.htm#75458" CLASS="XRef">set-locale-encodings</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-971747"></A>The <EM CLASS="Variable">
+null-terminated-p</EM>
+ keyword specifies whether the foreign string is terminated with a null character. It defaults to <CODE CLASS="Code">
+t</CODE>
+. If the string terminates in a null character, it is included in the <EM CLASS="Variable">
+element-count</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1042494"></A>If <EM CLASS="Variable">
+allow-null</EM>
+ is non-nil, then if <EM CLASS="Variable">
+string</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ a null pointer is passed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920323"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920324"></A>See <A HREF="fli-44.htm#28337" CLASS="XRef">Passing a string to a Windows function</A> and <A HREF="fli-47.htm#73135" CLASS="XRef">Modifying a string in a C function</A> for examples of the use of <A HREF="fli-153.htm#28931" CLASS="XRef">with-foreign-string</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920325"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920326"></A><A HREF="fli-80.htm#90659" CLASS="XRef">convert-to-foreign-string</A><BR>
+<A HREF="fli-143.htm#33536" CLASS="XRef">set-locale</A><BR>
+<A HREF="fli-144.htm#75458" CLASS="XRef">set-locale-encodings</A><BR>
+<A HREF="fli-149.htm#42568" CLASS="XRef">with-dynamic-foreign-objects</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-154.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-152.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.4.2  Deleting of condition classes
+</TITLE>
+
+<LINK REL="next" HREF="delivery-233.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-231.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-227.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-211.htm">9 Delivery and Internal Systems</A> &gt; <A HREF="delivery-227.htm">9.4  Error handling in delivered applications</A><BR><BR>
+</DIV><A HREF="delivery-233.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-231.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-227.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-855366"></A>9.4.2  <A NAME="12259"></A>Deleting of condition classes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-855367"></A>Condition types are classes like any other class, so may be shaken out. However the code may contain many references to condition types through error calls that are never going to happen in the application. Therefore, there is a special deletion action for conditions, which is controlled by the <CODE CLASS="Code">
+deliver</CODE>
+ keywords <A HREF="delivery-82.htm#43961" CLASS="XRef">:condition-deletion-action</A>, <A HREF="delivery-110.htm#86061" CLASS="XRef">:keep-conditions</A> and <A HREF="delivery-147.htm#62229" CLASS="XRef">:packages-to-remove-conditions</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855387"></A>When a condition is deleted (that is when <CODE CLASS="Code">
+:condition-deletion-action </CODE>
+is <CODE CLASS="Code">
+:delete</CODE>
+), trying to signal it returns a <CODE CLASS="Code">
+simple-error</CODE>
+, which means that it got the wrong type. On the other hand, it has all the information in the <CODE CLASS="Code">
+format-arguments</CODE>
+ slot. If the conditions are redirected  (that is, when <CODE CLASS="Code">
+:condition-deletion-action</CODE>
+ is <CODE CLASS="Code">
+:redirect</CODE>
+), a stricter type is returned, but some of the information may be lost, because the condition that it redirects to has fewer slots.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855388"></A>User defined conditions are kept, unless:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-855389"></A>You add packages to <CODE CLASS="Code">
+:packages-to-remove-conditions</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855390"></A>You set <CODE CLASS="Code">
+:keep-conditions</CODE>
+ to <CODE CLASS="Code">
+:none</CODE>
+, in which case all the  conditions are eliminated, or <CODE CLASS="Code">
+:minimal</CODE>
+, in which case all the user conditions are deleted.</LI>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-233.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-231.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-227.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

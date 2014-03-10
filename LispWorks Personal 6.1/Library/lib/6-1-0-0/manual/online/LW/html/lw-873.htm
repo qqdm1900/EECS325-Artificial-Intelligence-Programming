@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ foreign-symbol-address
+</TITLE>
+
+<LINK REL="next" HREF="lw-874.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-872.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-871.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-871.htm">33 The LINK-LOAD Package</A><BR><BR>
+</DIV><A HREF="lw-874.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-872.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-871.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-890257"></A><A NAME="marker-890256"></A><A NAME="32900"></A>foreign-symbol-address</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-890259"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890261"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-890262"></A>link-load</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890263"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-890264"></A>foreign-symbol-address<EM CLASS="Variable">
+ name</EM>
+ &amp;key <EM CLASS="Variable">
+errorp</EM>
+ <EM CLASS="Variable">
+functionp</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890266"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890267"></A><EM CLASS="Variable">
+name</EM>
+ </P>
+<P CLASS="RDescription-C">The name of a foreign symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890403"></A><EM CLASS="Variable">
+errorp</P>
+<P CLASS="RDescription-C"></EM>
+A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890412"></A><EM CLASS="Variable">
+functionp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890521"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890522"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The address of <EM CLASS="Variable">
+name</EM>
+ or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890268"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890834"></A>The <CODE CLASS="Code">
+foreign-symbol-address</CODE>
+ function is used to find out whether a foreign symbol is defined, by looking for it in the foreign-symbol table. If its associated object code has been loaded into the image, its address is returned. Otherwise nil is returned, unless <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-890270"></A>The <EM CLASS="Variable">
+errorp</EM>
+ keyword defines the behavior of the function when a symbol has not been defined. If it is non-nil (which is the default value), then an error will be signalled. If it is <CODE CLASS="Code">
+nil</CODE>
+, no error will be reported, and the function will return <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-890271"></A>The <EM CLASS="Variable">
+functionp</EM>
+ keyword is used to specify the kind of symbol sought. If it is <CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+foreign-symbol-address</CODE>
+ will assume that <EM CLASS="Variable">
+name</EM>
+ is the name of a function. If it is <CODE CLASS="Code">
+nil</CODE>
+ it will assume that <EM CLASS="Variable">
+name</EM>
+ is the name of a variable. The default value is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890274"></A>Example </H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-890275"></A>(foreign-symbol-address 'chmod)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890276"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890143"></A><A HREF="lw-874.htm#38792" CLASS="XRef">get-foreign-symbol</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-874.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-872.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-871.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

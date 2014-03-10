@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="readme.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.3.2  Configuration files available
+</TITLE>
+
+<LINK REL="next" HREF="readme-198.htm" TYPE="text/html">
+<LINK REL="prev" HREF="readme-196.htm" TYPE="text/html">
+<LINK REL="up" HREF="readme-195.htm" TYPE="text/html">
+<LINK REL="top" HREF="readme.htm" TYPE="text/html">
+<LINK REL="contents" HREF="readme-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="readme-485.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="readme.htm">LispWorks Release Notes and Installation Guide</A> &gt; <A HREF="readme-192.htm">10 Configuration on Linux, x86/x64 Solaris &amp; FreeBSD</A> &gt; <A HREF="readme-195.htm">10.3  Configuring your LispWorks installation</A><BR><BR>
+</DIV><A HREF="readme-198.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-196.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-195.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889656"></A>10.3.2  Configuration files available</H3>
+<P CLASS="Body">
+<A NAME="pgfId-903271"></A>There are four sample configuration files in LispWorks library containing settings you can change in order to configure images:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-903272"></A><CODE CLASS="Code">
+config/configure.lisp</CODE>
+</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-903273"></A><CODE CLASS="Code">
+config/siteinit.lisp</CODE>
+</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-903274"></A><CODE CLASS="Code">
+private-patches/load.lisp</CODE>
+</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-903275"></A><CODE CLASS="Code">
+config/a-dot-lispworks.lisp</CODE>
+</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-903276"></A><CODE CLASS="Code">
+config/configure.lisp</CODE>
+ is preloaded into the image before it is shipped. It contains settings governing fundamental issues like where to find the LispWorks runtime folder structure, and so on. You can override these settings in your saved image or in your initialization file. You should read through <CODE CLASS="Code">
+configure.lisp</CODE>
+ . </P>
+<P CLASS="Body">
+<A NAME="pgfId-903277"></A><CODE CLASS="Code">
+config/siteinit.lisp</CODE>
+ contains any forms that are appropriate to the whole site but which are to be loaded afresh each time the image is started. The sample <CODE CLASS="Code">
+siteinit.lisp</CODE>
+ file distributed with LispWorks contains only the form:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-903278"></A>(load-all-patches)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-903279"></A>On startup, the image loads <CODE CLASS="Code">
+siteinit.lisp</CODE>
+ and your initialization file, in that order. The command line options <CODE CLASS="Code">
+-siteinit</CODE>
+<A NAME="marker-908332"></A> and <CODE CLASS="Code">
+-init</CODE>
+<A NAME="marker-908297"></A> can be used to specify loading of different files or to suppress them altogether. See the example in <A HREF="readme-198.htm#61626" CLASS="XRef">Saving and testing the configured image</A>, below, and <A HREF="readme-203.htm#84644" CLASS="XRef">Initializing LispWorks</A> for further details.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903286"></A><CODE CLASS="Code">
+private-patches/load.lisp</CODE>
+ is loaded by <CODE CLASS="Code">
+load-all-patches</CODE>
+, and should contain forms to load any private (named) patches that Lisp Support might send you.</P>
+<P CLASS="Body">
+<A NAME="pgfId-903287"></A><CODE CLASS="Code">
+config/a-dot-lispworks.lisp</CODE>
+ is a sample personal initialization file. You might like to copy this into a file <CODE CLASS="Code">
+&#126;/.lispworks</CODE>
+ in your home directory and edit it to create your own initialization file. </P>
+<P CLASS="Body">
+<A NAME="pgfId-891709"></A>Both <CODE CLASS="Code">
+configure.lisp</CODE>
+ and <CODE CLASS="Code">
+a-dot-lispworks.lisp</CODE>
+ are preloaded into the image before it is shipped, so if you are happy with the settings in these files, you need not change them. See the example in <A HREF="readme-198.htm#61626" CLASS="XRef">Saving and testing the configured image</A>, below, and <A HREF="readme-203.htm#84644" CLASS="XRef">Initializing LispWorks</A> for further details.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Release Notes and Installation Guide - 23 Dec 2011</I></P>
+<P><A HREF="readme-198.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-196.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-195.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.4  Connecting an interface to an application
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-141.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-139.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-134.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-134.htm">10 Defining Interface Classes </A><BR><BR>
+</DIV><A HREF="capiuser-m-141.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-139.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-134.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884357"></A>10.4  <A NAME="46636"></A>Connecting an interface to an application</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884358"></A>Having defined an interface in this way, you can connect it up to your program using <A NAME="marker-884359"></A>callbacks, as described in earlier chapters. Here we define some functions to perform the operations we required for the buttons and menus, and then hook them up to the buttons and menus as callbacks. </P>
+<P CLASS="Body-Next">
+<A NAME="pgfId-884360"></A>The functions to perform the page scrolling operations are given below:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884362"></A>(defun scroll-up (data interface)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884363"></A> (call-editor (viewer-pane interface) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884364"></A>              &quot;Scroll Window Up&quot;))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884367"></A>(defun scroll-down (data interface)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884368"></A> (call-editor (viewer-pane interface) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884369"></A>              &quot;Scroll Window Down&quot;)) </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884371"></A>The functions use the generic function <A NAME="marker-884370"></A><CODE CLASS="Code">
+call-editor</CODE>
+ which calls an editor command (given as a string) on an instance of an <A NAME="marker-884372"></A><CODE CLASS="Code">
+editor-pane</CODE>
+. The editor commands <B CLASS="Button">
+Scroll Window Up</B>
+ and <B CLASS="Button">
+Scroll Window Down</B>
+ perform the necessary operations for <B CLASS="Button">
+Page Up</B>
+ and <B CLASS="Button">
+Page Down</B>
+ respectively.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884373"></A>The function to perform the file-opening operation is given below:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-894349"></A>(defun file-choice (data interface)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894350"></A>  (let ((file (prompt-for-file &quot;Select A File:&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894351"></A>    (when file</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894352"></A>      (setf (titled-object-title (viewer-pane interface)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894353"></A>            (format nil &quot;File: &#126;S&quot; file))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894354"></A>      (setf (editor-pane-text (viewer-pane interface))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894355"></A>            (with-open-file (stream file)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894356"></A>              (let ((buffer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894357"></A>                     (make-array 1024</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894358"></A>                                 :element-type</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894359"></A>                                 (stream-element-type stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894360"></A>                                 :adjustable t</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894361"></A>                                 :fill-pointer 0)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894362"></A>                (do ((char (read-char stream nil nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894363"></A>                           (read-char stream nil nil)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894364"></A>                    ((null char))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894365"></A>                  (vector-push-extend char buffer))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885311"></A>                (subseq buffer 0)))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884385"></A>This function prompts for a filename and then displays the file in the editor pane.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884386"></A>The function first produces a file prompter through which a file may be selected. Then, the selected file name is shown in the title of the editor pane (using <A NAME="marker-884387"></A><CODE CLASS="Code">
+titled-object-title</CODE>
+). Finally, the file name is used to get the contents of the file and display them in the editor pane (using <CODE CLASS="Code">
+editor-pane-text</CODE>
+<A NAME="marker-884388"></A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-884389"></A>The correct callback information for the buttons is specified as shown below:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884390"></A> (:panes</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884391"></A>   (page-up push-button </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884392"></A>            :text &quot;Page Up&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884394"></A>            :<A NAME="marker-884393"></A>selection-callback 'scroll-up)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884395"></A>   (page-down push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884396"></A>              :text &quot;Page Down&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884397"></A>              :selection-callback 'scroll-down)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884398"></A>   (open-file push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884399"></A>              :text &quot;Open File&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884400"></A>              :selection-callback 'file-choice)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884401"></A>   (viewer editor-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884993"></A>           :title &quot;File:&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885712"></A>           :text &quot;No file selected.&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884994"></A>           :visible-min-height '(:character 8)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884995"></A>           :reader viewer-pane))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884405"></A>All the buttons and menu items operate on the editor pane <CODE CLASS="Code">
+viewer</CODE>
+. A reader is set up to allow access to it.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884406"></A>The correct callback information for the menus is specified as shown below:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884407"></A> (:menus </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884408"></A>   (file-menu &quot;File&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884409"></A>              ((&quot;Open&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884410"></A>              :selection-callback 'file-choice)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884411"></A>   (page-menu &quot;Page&quot;                       </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884412"></A>              ((&quot;Page Up&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884413"></A>                :selection-callback 'scroll-up)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884414"></A>               (&quot;Page Down&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884415"></A>                :selection-callback 'scroll-down)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884416"></A>In this case, each item in the menu has a different callback.  The complete code for the interface is listed below -- try it out.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884423"></A>(define-interface demo ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884712"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884673"></A>  (:panes</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884674"></A>      (page-up push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884675"></A>               :text &quot;Page Up&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884676"></A>               :selection-callback 'scroll-up)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884677"></A>      (page-down push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884678"></A>                 :text &quot;Page Down&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884679"></A>                 :selection-callback 'scroll-down)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884682"></A>      (open-file push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884683"></A>                 :text &quot;Open File&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884684"></A>                 :selection-callback 'file-choice)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884685"></A>      (viewer editor-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884990"></A>              :title &quot;File:&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885718"></A>              :text &quot;No file selected.&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884991"></A>              :visible-min-height '(:character 8)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884992"></A>              :reader viewer-pane))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884700"></A>   (:layouts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884701"></A>     (main-layout column-layout </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884703"></A>                  '(row-of-buttons row-with-editor-pane))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884704"></A>     (row-of-buttons row-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884706"></A>                     '(page-up page-down open-file))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884707"></A>     (row-with-editor-pane row-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884709"></A>                           '(viewer)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884716"></A>   (:menus </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884717"></A>     (file-menu &quot;File&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884718"></A>                ((&quot;Open&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884719"></A>                :selection-callback 'file-choice)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884720"></A>     (page-menu &quot;Page&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884721"></A>                ((&quot;Page Up&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884722"></A>                  :selection-callback 'scroll-up)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884723"></A>                 (&quot;Page Down&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884724"></A>                  :selection-callback 'scroll-down))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884725"></A>   (:menu-bar file-menu page-menu)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884729"></A>   (:default-initargs :title &quot;Demo&quot;))<A NAME="marker-884771"></A><A NAME="marker-884766"></A></PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-141.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-139.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-134.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

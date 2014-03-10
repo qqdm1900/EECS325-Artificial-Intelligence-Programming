@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.2  Grouping menu items together
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-124.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-122.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-121.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-121.htm">9 Creating Menus </A><BR><BR>
+</DIV><A HREF="capiuser-m-124.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-122.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-121.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884213"></A>9.2  <A NAME="53969"></A>Grouping menu items together</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884216"></A>The <A NAME="marker-884214"></A><CODE CLASS="Code">
+menu-component</CODE>
+ class lets you group related items together in a <A NAME="marker-884215"></A>menu. This allows similar menu items to share properties, such as callbacks, and to be visually separated from other items in the menus. Menu components are actually choices.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884217"></A>Here is a simple example of a menu component. This creates a menu called <B CLASS="Button">
+Items</B>
+, which has four items. <B CLASS="Button">
+Menu 1</B>
+ and <B CLASS="Button">
+Menu 2</B>
+ are ordinary menu items, but <B CLASS="Button">
+Item 1</B>
+ and <B CLASS="Button">
+Item 2</B>
+ are created from a menu component, and are therefore grouped together in the menu.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884219"></A> (setq component (make-instance 'menu-component</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884220"></A>                     :items '(&quot;item 1&quot; &quot;item2&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884221"></A>                     :print-function 'string-capitalize</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884222"></A>                     :callback 'test-callback))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-906846"></A>(contain (make-instance 'menu</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-906847"></A>                        :title &quot;Items&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-906848"></A>                        :items </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-906849"></A>                        (list &quot;menu 1&quot; component &quot;menu 2&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-906850"></A>                        :print-function 'string-capitalize</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-906851"></A>                        :callback 'hello)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-906852"></A>         :width 150</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884234"></A>         :height 0)</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884419"></A>Figure 9.1  A menu<DIV>
+<IMG SRC="capiuser-m-43.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-42.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884237"></A>Menu components allow you to specify, via the <CODE CLASS="Code">
+:interaction</CODE>
+<A NAME="marker-884236"></A> keyword, selectable menu items -- either as multiple-selection or single-selection items. This is like having radio buttons or check boxes as items in a menu, and is a popular technique among many GUI-based applications.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884238"></A>The following example shows you how to include a panel of radio buttons in a menu. </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884240"></A>(setq radio (make-instance 'menu-component </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884242"></A>                :interaction :<A NAME="marker-884241"></A>single-selection </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884243"></A>                :items '(&quot;This&quot; &quot;That&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884244"></A>                :callback 'hello))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884246"></A>(setq commands (make-instance 'menu </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884247"></A>                :title &quot;Commands&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884248"></A>                :items </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884249"></A>                 (list &quot;Command 1&quot; radio &quot;Command 2&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884250"></A>                :callback 'test-callback))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884257"></A>(contain commands)</CODE>
+<P CLASS="Figure">
+<A NAME="pgfId-884437"></A>Figure 9.2  Radio buttons included in a menu<DIV>
+<IMG SRC="capiuser-m-43.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-44.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884259"></A>The menu items <B CLASS="Button">
+This</B>
+ and <B CLASS="Button">
+That</B>
+ are radio buttons, only one of which may be selected at a time. The other menu items are just ordinary commands, as you saw in the previous examples. Note that the CAPI automatically groups the items which are parts of a menu component so that they are separated from other items in the menu.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884260"></A>This example also illustrates the use of more than one callback in a menu, which of course is the usual case when you are developing real applications. Choosing either of the radio buttons displays one message on the screen, and choosing either <B CLASS="Button">
+Command1</B>
+ or <B CLASS="Button">
+Command2</B>
+ returns the arguments of the callback.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884261"></A>Checked menu items can be created by specifying <CODE CLASS="Code">
+:multiple-selection</CODE>
+ to the <CODE CLASS="Code">
+:interaction</CODE>
+ keyword, as illustrated below.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884263"></A>(setq letters (make-instance 'menu-component</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884265"></A>                  :interaction :<A NAME="marker-884264"></A>multiple-selection</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884266"></A>                  :items (list &quot;Alpha&quot; &quot;Beta&quot;)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884268"></A>(contain (make-instance 'menu</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884269"></A>                  :title &quot;Greek&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884270"></A>                  :items (list letters)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884276"></A>                  :callback 'test-callback))</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884445"></A>Figure 9.3  An example of checked menu items<DIV>
+<IMG SRC="capiuser-m-43.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-45.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884278"></A>Note how the items in the menu component inherit the callback given to the parent, eliminating the need to specify a separate callback for each item or component in the menu.</P>
+<P CLASS="Body">
+<A NAME="pgfId-906300"></A>Within a menu or component, you can specify alternatives for a main menu item that are invoked by modifer keys. See <A HREF="capiuser-m-127.htm#59632" CLASS="XRef">Alternative menu items</A> for more information<A NAME="marker-884279"></A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-124.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-122.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-121.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

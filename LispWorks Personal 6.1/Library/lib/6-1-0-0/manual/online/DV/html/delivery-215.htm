@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.1.2.1  Finding the necessary templates
+</TITLE>
+
+<LINK REL="next" HREF="delivery-216.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-214.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-214.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-211.htm">9 Delivery and Internal Systems</A> &gt; <A HREF="delivery-212.htm">9.1  Delivery and CLOS</A> &gt; <A HREF="delivery-214.htm">9.1.2  Special dispatch functions and templates for them</A><BR><BR>
+</DIV><A HREF="delivery-216.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-214.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-214.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-857563"></A>9.1.2.1  <A NAME="53454"></A>Finding the necessary templates</H3>
+<P CLASS="Body">
+<A NAME="pgfId-857564"></A>Even though it cannot compile the functions at runtime, delivery can generate the forms for them. The necessary method combination templates can be found by using the keyword <CODE CLASS="Code">
+:warn-on-missing-templates</CODE>
+. This defaults to <CODE CLASS="Code">
+nil</CODE>
+. If this keyword is non-nil, a warning is issued whenever a missing template is detected.  The value of this keyword can be either a string or a pathname, in which case it is a file to put the warning in, or <CODE CLASS="Code">
+t,</CODE>
+ in which case the warning goes to <CODE CLASS="Code">
+*terminal-io*</CODE>
+. The warning takes this form:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-857565"></A>;*****</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857566"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857567"></A>;&gt;&gt;&gt; Add this combination to the template file &lt;&lt;&lt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857568"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857569"></A>(CLOS::PRE-COMPILE-COMBINED-METHODS</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857570"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857571"></A>  ((1 COMMON-LISP:NIL) COMMON-LISP:NIL (CLOS::_CALL-METHOD_)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-857572"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-857573"></A>; *****</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-857574"></A>You can take this template, place it in an ordinary lisp file, return to LispWorks, and compile it. This compiled file should be loaded into the image before delivery. See <A HREF="delivery-216.htm#41731" CLASS="XRef">Incorporating the templates into the application</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-857579"></A>Most missing templates can be found statically, and if <CODE CLASS="Code">
+:warn-on-missing-templates</CODE>
+<A NAME="marker-857578"></A> has been set, they are output at the time of saving the delivery image. An attempt is made to find all missing templates. However, because method combinations are dependent on the actual arguments to generic functions, it is not always possible to find every missing template. The application must be run to be sure of finding all the missing templates.</P>
+<P CLASS="Body">
+<A NAME="pgfId-857580"></A><B CLASS="Bold">
+Note:</B>
+ Valid combinations may be generated or seen in warnings even if they are never used. Delivery can only tell you what combinations the application could potentially use. </P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-216.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-214.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-214.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

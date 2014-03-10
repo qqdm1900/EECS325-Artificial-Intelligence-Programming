@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-foreign-funcallable
+</TITLE>
+
+<LINK REL="next" HREF="fli-94.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-92.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-94.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-92.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886003"></A><A NAME="40564"></A>define-foreign-funcallable<A NAME="marker-1076625"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1068193"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1068196"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1068681"></A>Defines a Lisp function which, when passed a pointer to a foreign function, calls it.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1068683"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1068693"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1068698"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1068786"></A>define-foreign-funcallable <EM CLASS="Variable">
+the-name</EM>
+ <EM CLASS="Variable">
+args</EM>
+ &amp;key <EM CLASS="Variable">
+lambda-list</EM>
+ <EM CLASS="Variable">
+documentation</EM>
+ <EM CLASS="Variable">
+result-type</EM>
+ <EM CLASS="Variable">
+language</EM>
+ <EM CLASS="Variable">
+no-check</EM>
+ <EM CLASS="Variable">
+calling-convention</EM>
+ =&gt; <EM CLASS="Variable">
+the-name</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1090567"></A><EM CLASS="Variable">
+args</EM>
+ ::= ({<EM CLASS="Variable">
+arg</EM>
+}*)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1075972"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1076021"></A><EM CLASS="Variable">
+the-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the Lisp function. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1076027"></A>The other arguments are interpreted as by <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1068800"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1068820"></A>This is like <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>, but creates a function with an extra argument at the start of the argument list for the address to call.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1070255"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1073894"></A>Define a caller for this shape:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1073896"></A>(fli:define-foreign-funcallable </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1073897"></A> call-with-string-and-int</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1073898"></A> ((string (:reference-pass :ef-mb-string))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1073899"></A>  (value :int)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1073901"></A>printf is defined here:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1073902"></A>(fli:register-module &quot;msvcrt&quot;)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1073904"></A>Call printf. Note that the output goes to console output which is hidden by default:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1075760"></A>(let ((printf-func </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1075761"></A>       (fli:make-pointer :symbol-name &quot;printf&quot;)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1075762"></A>  (call-with-string-and-int</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1070269"></A>   printf-func &quot;printf called with %d&quot; 1234))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1076107"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1076595"></A><A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-94.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-92.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

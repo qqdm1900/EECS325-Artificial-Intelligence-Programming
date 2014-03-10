@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.2.3.2  Tail Recursion
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-93.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-91.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-90.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A> &gt; <A HREF="kwprolog-m-83.htm">6.2  Optimization</A> &gt; <A HREF="kwprolog-m-90.htm">6.2.3  Backward Chaining</A><BR><BR>
+</DIV><A HREF="kwprolog-m-93.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-91.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-90.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-891922"></A>6.2.3.2  <A NAME="marker-891921"></A>Tail Recursion</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891923"></A>The KnowledgeWorks Backward Chainer supports the transformation of &quot;tail-recursive&quot; calls into jumps. Thus, stack overflow can be avoided without resorting to &quot;repeat, fail&quot; loops in most cases. For example, given the definition:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891925"></A>(<A NAME="marker-891924"></A>defrule run-forever :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891926"></A>                    ((run-forever)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891927"></A>                    &lt;--</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891928"></A>                     (run-forever)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891929"></A>the call: <CODE CLASS="Code">
+(run-forever)</CODE>
+ will run forever without generating a stack overflow.   Note that this optimization is not limited to recursive calls to the same rule. The last call of any rule will be compiled as a jump, drastically reducing stack usage.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-93.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-91.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-90.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

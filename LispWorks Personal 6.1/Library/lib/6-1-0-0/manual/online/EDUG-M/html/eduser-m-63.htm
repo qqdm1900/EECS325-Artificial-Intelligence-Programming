@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.17.2  Auto-fill mode
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-64.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-62.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-61.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A> &gt <A HREF="eduser-m-61.htm">3.17  Filling</A><BR><BR>
+</DIV><A HREF="eduser-m-64.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-62.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-61.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884969"></A>3.17.2  <A NAME="marker-884967"></A>Auto-fill mode</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884970"></A>In the default mode of operation, no filling of text takes place unless specified by using one of the commands described above. A result of this is that the user has to press <CODE CLASS="Code">
+Return</CODE>
+ at the end of each line typed to simulate filling. In Auto-Fill mode lines are broken between words at the right margin automatically as the text is being typed. Each line is broken when a space is inserted, and the text that extends past the right margin is put on the next line. The right hand margin is determined by the editor variable <A HREF="eduser-m-62.htm#20219" CLASS="XRef">fill-column</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884974"></A><A NAME="marker-884973"></A>Auto Fill Mode</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884975"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884976"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884977"></A>Switches auto-fill mode on if it is currently off, and off if it is currently on. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884978"></A>With a positive prefix argument, auto-fill mode is switched on. With a negative or zero prefix argument, it is switched off. Using prefix arguments with <CODE CLASS="Code">
+Auto Fill Mode</CODE>
+ disregards the current state of the mode.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884981"></A><A NAME="marker-884979"></A><A NAME="13643"></A>Auto Fill Space</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884982"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884983"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Space<BR>
+</CODE>
+Mode: Auto-Fill</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884984"></A>Inserts a space and breaks the line between two words if the line extends beyond the right margin. A fill prefix is automatically added at the beginning of the new line if the value of <A HREF="eduser-m-62.htm#46529" CLASS="XRef">fill-prefix</A> is non-nil.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884986"></A>When <CODE CLASS="Code">
+Space</CODE>
+ is bound to this command in Auto-Fill mode, this key no longer invokes <A HREF="eduser-m-54.htm#32250" CLASS="XRef">Self Insert</A>.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884988"></A>A positive prefix argument causes the required number of spaces to be inserted but no line break. A prefix argument of zero causes a line break, if necessary, but no spaces are inserted.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884990"></A><A NAME="marker-884989"></A>Auto Fill Linefeed</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884991"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884992"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Linefeed<BR>
+</CODE>
+Mode: Auto-Fill</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884994"></A>Inserts a <CODE CLASS="Code">
+Linefeed</CODE>
+ and a <A HREF="eduser-m-62.htm#46529" CLASS="XRef">fill-prefix</A> (if one exists).</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884996"></A><A NAME="marker-884995"></A>Auto Fill Return</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884997"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884998"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Return<BR>
+</CODE>
+Mode: Auto-Fill</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884999"></A>The current line is broken, between two words if necessary, with no Space being inserted. This is equivalent to <A HREF="eduser-m-63.htm#13643" CLASS="XRef">Auto Fill Space</A> with a zero prefix argument, but followed by a newline.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1021215"></A><A NAME="marker-1021249"></A>auto-fill-space-indent</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1021227"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1021216"></A>Default value: <CODE CLASS="Code">
+nil</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1021178"></A>When true, Auto-fill commands use <A HREF="eduser-m-110.htm#72086" CLASS="XRef">Indent New Comment Line</A> to break lines instead of <A HREF="eduser-m-54.htm#64486" CLASS="XRef">New Line</A>.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-64.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-62.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-61.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

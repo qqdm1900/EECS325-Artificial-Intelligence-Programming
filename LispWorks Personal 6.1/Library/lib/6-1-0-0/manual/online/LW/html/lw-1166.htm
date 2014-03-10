@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ create-view
+</TITLE>
+
+<LINK REL="next" HREF="lw-1167.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1165.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1167.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1165.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-888163"></A><A NAME="30781"></A>create<A NAME="marker-1046992"></A>-view</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888164"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888165"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888166"></A>Creates a view using a specified query.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888167"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888168"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888169"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888170"></A>create-view <EM CLASS="Variable">
+name</EM>
+ &amp;key <EM CLASS="Variable">
+as</EM>
+ <EM CLASS="Variable">
+column-list</EM>
+ <EM CLASS="Variable">
+with-check-option</EM>
+ <EM CLASS="Variable">
+database</EM>
+ =&gt;</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888171"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888172"></A><EM CLASS="Variable">
+name</EM>
+ </P>
+<P CLASS="RDescription-C">The view to be created.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888174"></A><EM CLASS="Variable">
+as</P>
+<P CLASS="RDescription-C"></EM>
+A SQL query statement.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888175"></A><EM CLASS="Variable">
+column-list</P>
+<P CLASS="RDescription-C"></EM>
+A list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888176"></A><EM CLASS="Variable">
+with-check-option</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-903277"></A>A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-894533"></A><EM CLASS="Variable">
+database</EM>
+</P>
+<P CLASS="RDescription-C">A database.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888177"></A>Values</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-888178"></A>None.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888179"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888180"></A>The function <CODE CLASS="Code">
+create-view</CODE>
+ creates a view called <EM CLASS="Variable">
+name</EM>
+ using the <EM CLASS="Variable">
+as</EM>
+ query and the optional <EM CLASS="Variable">
+column-list</EM>
+ and <EM CLASS="Variable">
+with-check-option</EM>
+. The <EM CLASS="Variable">
+column-list</EM>
+ argument is a list of columns to add to the view. The <EM CLASS="Variable">
+with-check-option</EM>
+ adds <CODE CLASS="Code">
+WITH CHECK OPTION</CODE>
+ to the resulting SQL.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-888181"></A>The default value of <EM CLASS="Variable">
+with-check-option</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+. The default value of <EM CLASS="Variable">
+database</EM>
+ is <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888182"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888183"></A>This example creates the view <CODE CLASS="Code">
+manager</CODE>
+ with the records in the employee table whose department is 50.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888184"></A>(create-view [manager] :as [select [*]</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904380"></A>                            :from [emp]</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-904413"></A>                            :where [= [dept] 50]])</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888186"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888190"></A><A HREF="lw-1164.htm#15495" CLASS="XRef">create-index</A><BR>
+<A HREF="lw-1165.htm#41485" CLASS="XRef">create-table</A><BR>
+<A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A><BR>
+<A HREF="lw-1182.htm#15675" CLASS="XRef">drop-view</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1167.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1165.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

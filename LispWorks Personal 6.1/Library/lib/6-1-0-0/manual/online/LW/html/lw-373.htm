@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.3.1.5  Iteration
+</TITLE>
+
+<LINK REL="next" HREF="lw-374.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-372.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-368.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-367.htm">19.3  Functional interface</A> &gt; <A HREF="lw-368.htm">19.3.1  Functional Data Manipulation Language (FDML)</A><BR><BR>
+</DIV><A HREF="lw-374.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-372.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-368.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-902317"></A>19.3.1.5  <A NAME="17516"></A>Iteration</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886282"></A>Common SQL has three iteration constructs: a <CODE CLASS="Code">
+do</CODE>
+ loop, a mapping function, and an extension to the Common Lisp <A NAME="marker-918559"></A><A HREF="lw-652.htm#60197" CLASS="XRef">loop</A> macro.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892107"></A>The macros <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-886283"></A><A HREF="lw-1179.htm#26371" CLASS="XRef">do-query</A> and <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-911011"></A><A HREF="lw-1259.htm#54409" CLASS="XRef">simple-do-query</A> repeatedly execute a piece of code within the scope of variables bound to the attributes of each record resulting from a query.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902350"></A>The function <A NAME="marker-892713"></A><A HREF="lw-1200.htm#17430" CLASS="XRef">map-query</A> maps a function across the results of a query and returns its result in a sequence of a specified type, like the Common Lisp <CODE CLASS="Code">
+map</CODE>
+ function.</P>
+<P CLASS="Body">
+<A NAME="pgfId-902369"></A>Common SQL provides an extension to the <A NAME="marker-911018"></A>ANSI Common Lisp macro <CODE CLASS="Code">
+loop</CODE>
+ which is a clause for iterating over query results. The syntax of the clause is:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886292"></A>{for|as} <EM CLASS="Variable">var</EM>
+ [type-spec] being</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886293"></A>             {the|each}{tuples|tuple}</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-924112"></A>             {in|of} <EM CLASS="Variable">query-expression</EM>
+</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-924113"></A><EM CLASS="Variable">
+query-expression</EM>
+ can be a string, a SQL expression (a result of the [..] syntax) or a prepared statement (a result of <A HREF="lw-1251.htm#97309" CLASS="XRef">prepare-statement</A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-924083"></A>The more general word <CODE CLASS="Code">
+tuple</CODE>
+ is used so that it can also be applied to the object-oriented case. In the functional case, <CODE CLASS="Code">
+tuple</CODE>
+ is synonymous with <CODE CLASS="Code">
+record</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886296"></A>Each iteration of the loop assigns the next record of the table to the variable <EM CLASS="Variable">
+var</EM>
+. The record is represented in Lisp as a list. Destructuring can be used in <EM CLASS="Variable">
+var</EM>
+ to bind variables to specific attributes of the records resulting from <EM CLASS="Variable">
+query-expression</EM>
+. In conjunction with the panoply of existing clauses available from the <A NAME="marker-886297"></A><CODE CLASS="Code">
+loop</CODE>
+ macro, the new iteration clause provides an integrated report generation facility.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886299"></A>Suppose the name of everyone in an employee table is required. This simple query is shown below using the different iteration method. The function <A HREF="lw-1200.htm#17430" CLASS="XRef">map-query</A> requires <EM CLASS="Variable">
+flatp</EM>
+ to be specified; otherwise each name would be wrapped in a list.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886300"></A>(do-query ((name)[select [ename] :from [emp]])</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886301"></A>          (print name))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-886302"></A>(map-query</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886303"></A>     nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886304"></A>     #'(lambda (name) (print name))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886305"></A>     [select [ename] :from [emp] :flatp t])</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-886306"></A>(loop for (name) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886307"></A>          being each tuple in </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886308"></A>             [select [ename] :from [emp]] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886309"></A>          do</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886310"></A>(print name))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886311"></A>The following extended <A HREF="lw-652.htm#60197" CLASS="XRef">loop</A> example binds, on each record returned as a result of the query, <CODE CLASS="Code">
+name</CODE>
+ and <CODE CLASS="Code">
+salary</CODE>
+, accumulates the salary, and for salaries greater than 2750 increments a count, and prints the details. Finally, the average salary is printed.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886312"></A>(loop for (name salary) being each record in</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886313"></A>   [select [ename] [sal] :from [emp]]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886314"></A>   initially (format t &quot;&#126;&amp;&#126;20A&#126;10D&quot; 'name 'salary)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886315"></A>   when (and salary (&gt; salary 2750))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886316"></A>     count salary into salaries</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886317"></A>     and sum salary into total</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886318"></A>     and do (format t &quot;&#126;&amp;&#126;20A&#126;10D&quot; name salary)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886319"></A>   else</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886320"></A>     do (format t &quot;&#126;&amp;&#126;20A&#126;10D&quot; name &quot;N/A&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886321"></A>   finally</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886322"></A>   (format t &quot;&#126;2&amp;Av Salary:  &#126;10D&quot; (/ total salaries)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-374.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-372.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-368.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

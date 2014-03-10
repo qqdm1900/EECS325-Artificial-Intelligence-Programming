@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ screen-internal-geometry
+</TITLE>
+
+<LINK REL="next" HREF="capiref-370.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-368.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-370.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-368.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-5630535"></A><A NAME="51362"></A>screen<A NAME="marker-5631448"></A><A NAME="marker-5630534"></A>-internal-geometry</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-5630536"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5630537"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5630538"></A>Returns the geometry of the unobscured region of a screen or document container.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5630539"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-5630540"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5630541"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-5630542"></A><CODE CLASS="Code">
+screen-internal-geometry</CODE>
+ <EM CLASS="Variable">
+screen</EM>
+ =&gt; <EM CLASS="Variable">
+x</EM>
+, <EM CLASS="Variable">
+y</EM>
+, <EM CLASS="Variable">
+width</EM>
+, <EM CLASS="Variable">
+height</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5630543"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5630544"></A><EM CLASS="Variable">
+screen</EM>
+</P>
+<P CLASS="RDescription-C">A <A HREF="capiref-363.htm#41931" CLASS="XRef">screen</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5630545"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5630546"></A><EM CLASS="Variable">
+x</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5631245"></A><EM CLASS="Variable">
+y</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5631344"></A><EM CLASS="Variable">
+width</EM>
+</P>
+<P CLASS="RDescription-C">A positive integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5631324"></A><EM CLASS="Variable">
+height</EM>
+</P>
+<P CLASS="RDescription-C">A positive integer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5630547"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5630548"></A>The function <CODE CLASS="Code">
+screen-internal-geometry</CODE>
+ returns the geometry (as multiple values representing a screen rectangle) of the region of the screen that can be used to display windows without obstruction. This region excludes &quot;system areas&quot; like menubar and taskbar and so on. Examples of these include the Windows taskbar, the Mac OS X menu bar and the Mac OS X dock.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-10173557"></A><EM CLASS="Variable">
+x</EM>
+ and <EM CLASS="Variable">
+y</EM>
+ are the screen rectangle's coordinates as offsets from the top-left of the primary monitor, and <EM CLASS="Variable">
+width</EM>
+ and <EM CLASS="Variable">
+height</EM>
+ are its dimensions. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-7288437"></A>On Microsoft Windows <CODE CLASS="Code">
+screen-internal-geometry</CODE>
+ works with <A HREF="capiref-91.htm#35734" CLASS="XRef">document-container</A>, returning the current size of the container (which may vary over time).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-10172652"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-10176204"></A>The internal geometry is a snapshot of the unobscured region of a screen. If a system area moves or changes size, then the screen rectangle returned by <CODE CLASS="Code">
+screen-internal-geometry</CODE>
+ changes.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-10177075"></A>It may be possible to display a CAPI window outside the screen's internal geometry, for example under the Mac OS X dock, but it will be obscured.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-10177200"></A>The primary monitor is that represented by the first screen rectangle in the list returned by <A HREF="capiref-367.htm#79267" CLASS="XRef">screen-internal-geometries</A>.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5630549"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5630553"></A><A HREF="capiref-91.htm#35734" CLASS="XRef">document-container</A><BR>
+<A HREF="capiref-287.htm#59309" CLASS="XRef">pane-screen-internal-geometry</A><BR>
+<A HREF="capiref-363.htm#41931" CLASS="XRef">screen</A><BR>
+<A HREF="capiref-367.htm#79267" CLASS="XRef">screen-internal-geometries</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-370.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-368.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

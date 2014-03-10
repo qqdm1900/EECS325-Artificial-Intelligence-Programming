@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.11.1.3  Inserting empty LOBs
+</TITLE>
+
+<LINK REL="next" HREF="lw-429.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-427.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-425.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-424.htm">19.11  Oracle LOB interface</A> &gt; <A HREF="lw-425.htm">19.11.1  Introduction</A><BR><BR>
+</DIV><A HREF="lw-429.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-427.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-425.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-911167"></A>19.11.1.3  <A NAME="30994"></A>Inserting empty LOBs</H3>
+<P CLASS="Body">
+<A NAME="pgfId-911169"></A>To add a new LOB object to the database, you must insert an empty LOB. The preferred way of doing this is to use the Oracle SQL functions EMPTY_BLOB and EMPTY_CLOB, which can called by using the pseudo operator <CODE CLASS="Code">
+sql-function</CODE>
+, like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-912169"></A>(sql:insert-records :into [mytable]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912170"></A>                    :values </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-911172"></A>                    (list &quot;name&quot; [sql-function 'empty_blob]))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-911174"></A>This code inserts a record with &quot;name&quot; and an empty BLOB. It is also possible to make an empty LOB by calling <A NAME="marker-913878"></A><A HREF="lw-1210.htm#62317" CLASS="XRef">ora-lob-create-empty</A>, and passing the empty LOB as a value to <A NAME="marker-913883"></A><A HREF="lw-1189.htm#37250" CLASS="XRef">insert-records</A> or <A NAME="marker-913888"></A><A HREF="lw-1283.htm#30156" CLASS="XRef">update-records</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-429.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-427.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-425.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

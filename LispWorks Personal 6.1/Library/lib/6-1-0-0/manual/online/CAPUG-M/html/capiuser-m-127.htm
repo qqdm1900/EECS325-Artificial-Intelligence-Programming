@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.6  Alternative menu items
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-128.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-126.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-121.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-121.htm">9 Creating Menus </A><BR><BR>
+</DIV><A HREF="capiuser-m-128.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-126.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-121.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-905948"></A>9.6  <A NAME="marker-906065"></A><A NAME="59632"></A>Alternative menu items</H3>
+<P CLASS="Body">
+<A NAME="pgfId-906048"></A>Menus can include &quot;alternative&quot; items, which are invoked if some modifiers are held while selecting the &quot;main&quot; item.  The modifiers are defined by the <CODE CLASS="Code">
+:accelerator</CODE>
+<A NAME="marker-906052"></A> initarg of the item, which also allows the item to be invoked by a keyboard accelerator key if specified.  On Cocoa, the title and accelerator of the alternative item appear when the appropriate modifier(s) are pressed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-905952"></A>A menu item becomes an alternative to an immediately previous item when it is made with initarg <CODE CLASS="Code">
+:alternative t</CODE>
+<A NAME="marker-906060"></A>. Each alternative item must have the same parent as its previous item. That is, they are within the same menu and menu component, as described in <A HREF="capiuser-m-123.htm#53969" CLASS="XRef">Grouping menu items together</A>. More than one alternative item can be supplied for a given main item by putting them consecutively in the menu. The main item is the item preceding the first alternative item.</P>
+<P CLASS="Body">
+<A NAME="pgfId-905953"></A>The main item and its alternative items forms a group of items. The accelerators of all items in the group must consist of the same key, but with different modifiers. If there is no need for an accelerator key, the main item should not have no accelerator and the alternative items should have accelerators with <CODE CLASS="Code">
+Null</CODE>
+ as the key, for example <CODE CLASS="Code">
+&quot;Shift-Null&quot;</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-905954"></A>When the menu is displayed, only one item from the group will be shown. On Windows, GTK+ and Motif the main item is always displayed. Cocoa displays the item with the least number of modifiers initially, so to get a consistent cross-platform behavior, the main item should have the least number of modifiers. On Cocoa, pressing modifier keys that match alternative items changes the title and accelerators displayed for the item.</P>
+<P CLASS="Body">
+<A NAME="pgfId-905955"></A>When the user selects an item with the modifiers pressed, the appropriate alternative item is selected.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884359"></A>To make a <CODE CLASS="Code">
+menu-item</CODE>
+ an alternative item, pass the initarg <CODE CLASS="Code">
+:alternative t</CODE>
+ and a suitable value for the initarg <CODE CLASS="Code">
+:accelerator</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-906308"></A>There is an example illustrating alternative menu items in</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-906316"></A>examples/capi/elements/accelerators.lisp</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-907145"></A>Note: Accelerators of alternative items do not work on Motif.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-128.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-126.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-121.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

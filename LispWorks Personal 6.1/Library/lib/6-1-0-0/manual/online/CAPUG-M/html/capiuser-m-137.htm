@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.2.1  How the example works
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-138.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-136.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-136.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-134.htm">10 Defining Interface Classes </A> &gt <A HREF="capiuser-m-136.htm">10.2  An example interface </A><BR><BR>
+</DIV><A HREF="capiuser-m-138.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-136.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884221"></A>10.2.1  How the example works</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884223"></A>Examine the <A NAME="marker-884222"></A><CODE CLASS="Code">
+define-interface</CODE>
+ call to see how this interface was built. The first part of the call to define interface is shown below:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884225"></A>(define-interface demo ()</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884226"></A>   ()</PRE>
+<P CLASS="Body-Next">
+<A NAME="pgfId-884228"></A>This part of the macro is identical to <A NAME="marker-884227"></A><CODE CLASS="Code">
+defclass</CODE>
+ -- you provide:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-884229"></A>The name of the interface class being defined</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-884230"></A>The superclasses of the interface (defaulting to <CODE CLASS="Code">
+interface</CODE>
+) </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-884231"></A>The slot descriptions </LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-884232"></A>The interesting part of the <CODE CLASS="Code">
+define-interface</CODE>
+ call occurs after these <CODE CLASS="Code">
+defclass</CODE>
+-like preliminaries. The remainder of a <CODE CLASS="Code">
+define-interface</CODE>
+ call lists all elements that define the interface's appearance. <A NAME="marker-884234"></A>Here is the <CODE CLASS="Code">
+:panes</CODE>
+ part of the definition:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884236"></A>  (:panes</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884237"></A>   (page-up push-button </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884239"></A>            :text &quot;Page Up&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884240"></A>   (page-down push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884242"></A>              :text &quot;Page Down&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884243"></A>   (open-file push-button</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884245"></A>              :text &quot;Open File&quot;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884246"></A>Two arguments -- the name and the class -- are required to produce a pane. You can supply slot values as you would for any pane.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884248"></A><A NAME="marker-884247"></A>Here is the <CODE CLASS="Code">
+:layouts</CODE>
+ part of the definition:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884249"></A>  (:layouts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884250"></A>   (row-of-buttons row-layout</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884252"></A>                   '(page-up page-down open-file)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884253"></A>Three arguments -- the name, the class, and any child layouts -- are required to produce a layout. Notice how the children of the layout are specified by using their component names. </P>
+<P CLASS="Body">
+<A NAME="pgfId-884254"></A>The interface information given so far is a series of specifications for panes and layouts. It could also specify menus and a menu bar. In this case, three buttons are defined. The layout chosen is a row layout, which displays the three buttons side by side at the top of the pane.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-138.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-136.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

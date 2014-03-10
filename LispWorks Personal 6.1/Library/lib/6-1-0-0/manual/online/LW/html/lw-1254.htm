@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ reconnect
+</TITLE>
+
+<LINK REL="next" HREF="lw-1255.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1253.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1255.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1253.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-940018"></A><A NAME="65419"></A>reconnect<A NAME="marker-1047578"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-940019"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-940021"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-940022"></A>Reconnects a database to its underlying RDBMS.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-940023"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-940024"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-940345"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-940346"></A>reconnect &amp;key <EM CLASS="Variable">
+database</EM>
+ <EM CLASS="Variable">
+error</EM>
+ <EM CLASS="Variable">
+force</EM>
+ =&gt; <EM CLASS="Variable">
+success</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-940027"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-940629"></A><EM CLASS="Variable">
+database</P>
+<P CLASS="RDescription-C"></EM>
+The database to be reconnected.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-940630"></A><EM CLASS="Variable">
+error</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-940631"></A><EM CLASS="Variable">
+force</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-940031"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-940032"></A><EM CLASS="Variable">
+success</P>
+<P CLASS="RDescription-C"></EM>
+A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-940033"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-940034"></A>The function <CODE CLASS="Code">
+reconnect</CODE>
+ reconnects <EM CLASS="Variable">
+database</EM>
+ to its underlying RDBMS. If successful, <EM CLASS="Variable">
+success</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ and the variable <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A> is set to the newly reconnected database.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-940687"></A>The default value for <EM CLASS="Variable">
+database</EM>
+ is <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A>. If <EM CLASS="Variable">
+database</EM>
+ is a database object, then it is used directly. Otherwise, the list of connected databases is searched to find one with database as its connection specifications (see <A HREF="lw-1161.htm#38900" CLASS="XRef">connect</A>). If no such database is found, then if <EM CLASS="Variable">
+error </EM>
+and <EM CLASS="Variable">
+database</EM>
+ are both non-nil an error is signaled, otherwise <CODE CLASS="Code">
+reconnect</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-947062"></A><EM CLASS="Variable">
+force</EM>
+ controls whether an error should be signaled if the existing database connection cannot be closed. When non-nil (this is the default value) the connection is closed without error checking. When <EM CLASS="Variable">
+force</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, an error is signaled if the database connection has been lost. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-947063"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1588913"></A><EM CLASS="Variable">
+force</EM>
+ non-nil might result in a memory leak if the database driver fails to release its memory (some drivers do not allow the connection to be closed if the underlying RDBMS is not responding). </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-940050"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-940054"></A><A HREF="lw-1161.htm#38900" CLASS="XRef">connect</A><BR>
+<A HREF="lw-1163.htm#18962" CLASS="XRef">connected-databases</A><BR>
+<A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1255.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1253.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.5.4  Backing-up files on saving
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-45.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-43.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-40.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A> &gt <A HREF="eduser-m-40.htm">3.5  File handling</A><BR><BR>
+</DIV><A HREF="eduser-m-45.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-43.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884234"></A>3.5.4  <A NAME="marker-884232"></A>Backing-up files on saving</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884235"></A>When a file is explicitly saved in the editor, a backup is automatically made by writing the old contents of the file to a backup before saving the new version of the file. The backup file appears in the same directory as the original file. By default its name is the same as the original file followed by a <CODE CLASS="Code">
+&#126;</CODE>
+ character.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884237"></A><A NAME="marker-884236"></A>backups-wanted</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884238"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884239"></A>Default value: <CODE CLASS="Code">
+t</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1022171"></A>Controls whether to make a backup copy of a file the first time it is modified. If the value is <CODE CLASS="Code">
+t</CODE>
+, a backups is automatically made on first saving. If the value is <CODE CLASS="Code">
+nil</CODE>
+, no backup is made.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884241"></A><A NAME="marker-890763"></A>backup-filename-suffix</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884242"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884243"></A>Default value: <EM CLASS="Variable">
+#&#92;&#126;</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884244"></A>This variable contains the character used as a suffix for backup files. By default, this is the tilde (&#126;) character.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884245"></A><A NAME="marker-890764"></A>backup-filename-pattern</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884246"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884247"></A>Default value: <EM CLASS="Variable">
+&quot;&#126;A&#126;A&#126;A&quot;</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884248"></A>This control string is used with the Common Lisp <CODE CLASS="Code">
+format</CODE>
+ function to create the filename of the backup file. <CODE CLASS="Code">
+format</CODE>
+ is called with three arguments, the first being the directory name-string and the second being the file name-string of the pathname associated with the buffer. The third is the value of the editor variable <EM CLASS="Variable">
+backup-filename-suffix</EM>
+. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884249"></A>The backup file is created in the same directory as the file for which it is a backup, and it has the same name, followed by the <EM CLASS="Variable">
+backup-filename-suffix</EM>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-891459"></A>Note that the backup-suffix can be changed functionally as well as by interactive means. For example, the following code changes the suffix to the <CODE CLASS="Code">
+@</CODE>
+ character:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891460"></A>(setf (editor:variable-value `editor:backup-filename-suffix</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891462"></A>         :current nil) #&#92;@)</PRE>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-45.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-43.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

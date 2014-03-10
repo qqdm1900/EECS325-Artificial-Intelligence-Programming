@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.10  Popup menus for panes
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-133.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-131.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-121.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-121.htm">9 Creating Menus </A><BR><BR>
+</DIV><A HREF="capiuser-m-133.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-131.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-121.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886932"></A>9.10  Popup menus for panes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-887115"></A>The CAPI tries to display a popup menu for a pane when the <CODE CLASS="Code">
+:post-menu</CODE>
+ gesture is entered by the user (mouse-right-click or <CODE CLASS="Code">
+Shift+F10</CODE>
+ on Microsoft Windows, GTK+ or Motif, control-click on Cocoa). See below for the special case of <A NAME="marker-887120"></A><CODE CLASS="Code">
+output-pane</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-887116"></A>It first tries to get a menu for the pane. There are two mechanisms by which it can get a menu: which is tried depends on the value of <EM CLASS="Variable">
+pane-menu</EM>
+.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-886990"></A>If the pane's initarg <EM CLASS="Variable">
+pane-menu</EM>
+ is not <CODE CLASS="Code">
+:default</CODE>
+ in the call to <CODE CLASS="Code">
+make-instance</CODE>
+, then its value is used. If the value is a function or a fbound symbol, it is called with four arguments: the pane, data (this is the selected object if there is a selection), x, y. It should return a menu. If it is not a function or a fbound symbol, it should be a menu, which is used directly. The <CODE CLASS="Code">
+:pane-menu</CODE>
+<A NAME="marker-887226"></A> mechanism is useful when the menu needs to be dependent on the location of the mouse inside the pane, or when each pane requires a unique menu. In other cases, the other mechanism is more useful.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-886991"></A>If <EM CLASS="Variable">
+pane-menu</EM>
+ is <CODE CLASS="Code">
+:default</CODE>
+ (this the default value), CAPI calls the generic function <A NAME="marker-887130"></A><CODE CLASS="Code">
+make-pane-popup-menu</CODE>
+ with two arguments: the pane and its interface. The result should be a menu.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-886942"></A>If the chosen mechanism does not produce a menu, the CAPI does not do anything in response to <CODE CLASS="Code">
+:post-menu</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886944"></A>The system definition of <CODE CLASS="Code">
+make-pane-popup-menu</CODE>
+ calls <A NAME="marker-887135"></A><CODE CLASS="Code">
+pane-popup-menu-items</CODE>
+ with the pane and the interface, and if this returns non-nil list, it calls <A NAME="marker-887140"></A><CODE CLASS="Code">
+make-menu-for-pane</CODE>
+ to make the menu. You can define <CODE CLASS="Code">
+make-pane-popup-menu</CODE>
+ methods that specialize on your pane or interface classes, but in most cases it is more useful to add methods to <CODE CLASS="Code">
+pane-popup-menu-items</CODE>
+. <CODE CLASS="Code">
+make-menu-for-pane</CODE>
+ is used to generate the menu, and it makes the menu such that by default all setup callbacks are done on the pane itself, rather than on the interface. <CODE CLASS="Code">
+make-pane-popup-menu</CODE>
+ is useful when the application needs a menu with the same items as the items on the popup menu, typically to add it to the menu bar.</P>
+<P CLASS="Body">
+<A NAME="pgfId-913617"></A>In <CODE CLASS="Code">
+output-pane</CODE>
+, you control the input behavior using the <EM CLASS="Variable">
+input-model</EM>
+. By default, the system assigns <CODE CLASS="Code">
+:post-menu</CODE>
+ and <CODE CLASS="Code">
+:keyboard-post-menu</CODE>
+ (<CODE CLASS="Code">
+Shift+F10</CODE>
+) to a callback that raises a menu as described above, but your code can override this in the <EM CLASS="Variable">
+input-model</EM>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-133.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-131.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-121.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

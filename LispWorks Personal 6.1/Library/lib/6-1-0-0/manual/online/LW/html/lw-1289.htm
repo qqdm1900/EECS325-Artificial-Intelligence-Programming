@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ buffered-stream
+</TITLE>
+
+<LINK REL="next" HREF="lw-1290.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1288.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1288.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1288.htm">39 The STREAM Package</A><BR><BR>
+</DIV><A HREF="lw-1290.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-954603"></A><A NAME="42777"></A>buffered<A NAME="marker-957131"></A>-stream</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-954604"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954605"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-954606"></A>A stream class giving access to stream buffers.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954607"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-954608"></A>stream</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954609"></A>Superclasses</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-954610"></A><A HREF="lw-1298.htm#42659" CLASS="XRef">fundamental-stream</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954611"></A>Subclasses</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-954612"></A><A HREF="lw-1196.htm#28604" CLASS="XRef">lob-stream</A><BR>
+<CODE CLASS="Code">
+string-stream<BR>
+</CODE>
+<A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-957199"></A>Initargs</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-957200"></A><CODE CLASS="Code">
+:direction</CODE>
+<A NAME="marker-960452"></A></P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+:input</CODE>
+, <CODE CLASS="Code">
+:output</CODE>
+ or <CODE CLASS="Code">
+:io</CODE>
+. This argument is required.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-957202"></A><CODE CLASS="Code">
+:element-type</CODE>
+<A NAME="marker-960457"></A></P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+base-char</CODE>
+, <CODE CLASS="Code">
+simple-char</CODE>
+ or <CODE CLASS="Code">
+character</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954613"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-959324"></A>The class <CODE CLASS="Code">
+buffered-stream</CODE>
+ provides default methods for the majority of the functions in the User Defined Streams protocol.  The default methods implement buffered I/O, requiring the user to define only the methods <A HREF="lw-1313.htm#88342" CLASS="XRef">stream-read-buffer</A>, <A HREF="lw-1323.htm#30962" CLASS="XRef">stream-write-buffer</A> and <A HREF="lw-672.htm#30749" CLASS="XRef">stream-element-type</A> for each subclass of <CODE CLASS="Code">
+buffered-stream</CODE>
+. You are at liberty to redefine other methods in subclasses as long as they obey the rules outlined here. For example it is usually desirable to implement methods on <A HREF="lw-1310.htm#21867" CLASS="XRef">stream-listen</A>, <A HREF="lw-1300.htm#14492" CLASS="XRef">stream-check-eof-no-hang</A> and <A HREF="lw-632.htm#13838" CLASS="XRef">close</A> as well.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-959334"></A>The initargs are handled by the method <CODE CLASS="Code">
+(method initialize-instance :after (buffered-stream))</CODE>
+ as follows:</P>
+<P CLASS="RBody">
+<A NAME="pgfId-958937"></A>Input and/or output buffers are created based on the value <EM CLASS="Variable">
+direction</EM>
+.  There is no default value, and you must supply a value.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-958938"></A><EM CLASS="Variable">
+element-type</EM>
+ determines the <A HREF="lw-672.htm#30749" CLASS="XRef">stream-element-type</A> of the stream. The default is <CODE CLASS="Code">
+base-char</CODE>
+. For binary streams, use <CODE CLASS="Code">
+base-char</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-958939"></A>All the methods in the User Defined Streams protocol are defined for <CODE CLASS="Code">
+buffered-stream</CODE>
+ as follows:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-958940"></A>The methods on <A HREF="lw-1315.htm#19679" CLASS="XRef">stream-read-char</A>, <A HREF="lw-1317.htm#11978" CLASS="XRef">stream-read-line</A>, <A HREF="lw-1318.htm#37340" CLASS="XRef">stream-read-sequence</A>, <A HREF="lw-1322.htm#30446" CLASS="XRef">stream-unread-char</A>, <A HREF="lw-1316.htm#29689" CLASS="XRef">stream-read-char-no-hang</A>, <A HREF="lw-1301.htm#33230" CLASS="XRef">stream-clear-input</A> handle input from the buffer. They each call <A HREF="lw-1304.htm#20778" CLASS="XRef">stream-fill-buffer</A> to fill the empty buffer as required.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-958941"></A>The methods on <A HREF="lw-1325.htm#24631" CLASS="XRef">stream-write-char</A>, <A HREF="lw-1327.htm#29575" CLASS="XRef">stream-write-string</A>, <A HREF="lw-1326.htm#19237" CLASS="XRef">stream-write-sequence</A>, <A HREF="lw-1302.htm#42637" CLASS="XRef">stream-clear-output</A>, <A HREF="lw-1305.htm#25423" CLASS="XRef">stream-finish-output</A>, <A HREF="lw-1307.htm#28071" CLASS="XRef">stream-force-output</A> and <A HREF="lw-1309.htm#10148" CLASS="XRef">stream-line-column</A> handle output to the buffer. They each call <A HREF="lw-1306.htm#59474" CLASS="XRef">stream-flush-buffer</A> to make the buffer empty as required.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-958942"></A>There are <CODE CLASS="Code">
+:around</CODE>
+ methods on <A HREF="lw-1310.htm#21867" CLASS="XRef">stream-listen</A> and <A HREF="lw-632.htm#13838" CLASS="XRef">close</A> which handle the buffer.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-958943"></A>The methods on <A HREF="lw-647.htm#37610" CLASS="XRef">input-stream-p</A>, <A HREF="lw-661.htm#40134" CLASS="XRef">output-stream-p</A> return the appropriate values based on the value of the <CODE CLASS="Code">
+:direction</CODE>
+ initarg.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-954614"></A>The <A HREF="lw-660.htm#20893" CLASS="XRef">open-stream-p</A> method returns true if <A HREF="lw-632.htm#13838" CLASS="XRef">close</A> has not been called.</LI>
+</UL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-960693"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-960619"></A>See the extended example in <CODE CLASS="Code">
+examples/streams/buffered-stream.lisp</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954615"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-954619"></A><A HREF="lw-632.htm#13838" CLASS="XRef">close</A><BR>
+<A HREF="lw-1306.htm#59474" CLASS="XRef">stream-flush-buffer</A><BR>
+<A HREF="lw-1304.htm#20778" CLASS="XRef">stream-fill-buffer</A><BR>
+<A HREF="lw-1310.htm#21867" CLASS="XRef">stream-listen</A><BR>
+<A HREF="lw-1313.htm#88342" CLASS="XRef">stream-read-buffer</A><BR>
+<A HREF="lw-1323.htm#30962" CLASS="XRef">stream-write-buffer</A><BR>
+<A HREF="lw-1328.htm#74875" CLASS="XRef">with-stream-input-buffer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1290.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

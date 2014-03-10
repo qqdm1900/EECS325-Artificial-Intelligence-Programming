@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-registry-value
+</TITLE>
+
+<LINK REL="next" HREF="lw-1484.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1482.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1471.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1471.htm">42 The Windows registry API</A><BR><BR>
+</DIV><A HREF="lw-1484.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1482.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1023433"></A><A NAME="38406"></A>set-<A NAME="marker-1025452"></A>registry-value</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1023434"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1023435"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1023436"></A>Stores a value in the registry.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1043007"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1043008"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1023437"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1023438"></A>set-registry-value <EM CLASS="Variable">
+data</EM>
+ <EM CLASS="Variable">
+subkey</EM>
+ <EM CLASS="Variable">
+name</EM>
+ &amp;key <EM CLASS="Variable">
+root</EM>
+ <EM CLASS="Variable">
+expected-type</EM>
+ <EM CLASS="Variable">
+errorp</EM>
+ =&gt; <EM CLASS="Variable">
+error-code</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1023439"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1023440"></A><EM CLASS="Variable">
+data</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1023441"></A><EM CLASS="Variable">
+subkey</EM>
+</P>
+<P CLASS="RDescription-C">A string specifying the name of the key.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1023442"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A string specifying the name of the value.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1023443"></A><EM CLASS="Variable">
+root</EM>
+</P>
+<P CLASS="RDescription-C">A keyword or handle.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1023444"></A><EM CLASS="Variable">
+expected-type</EM>
+</P>
+<P CLASS="RDescription-C">A keyword or t.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1023445"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1023446"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1023447"></A><EM CLASS="Variable">
+error-code</EM>
+</P>
+<P CLASS="RDescription-C">An integer error code or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1023448"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1023449"></A>The function <CODE CLASS="Code">
+set-registry-value</CODE>
+ sets the value associated with <EM CLASS="Variable">
+name</EM>
+ in <EM CLASS="Variable">
+subkey</EM>
+ under the key <EM CLASS="Variable">
+root</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1027062"></A><EM CLASS="Variable">
+subkey</EM>
+ and <EM CLASS="Variable">
+root</EM>
+ are interpreted as described for <A HREF="lw-1475.htm#44547" CLASS="XRef">create-registry-key</A>. The default value of <EM CLASS="Variable">
+root</EM>
+ is <CODE CLASS="Code">
+:user</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1023451"></A>The stored value is derived from <EM CLASS="Variable">
+data</EM>
+, converted according to <EM CLASS="Variable">
+expected-type</EM>
+ as follows:</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-1027704"></A>Conversion of Lisp objects to registry values<DIV>
+<IMG SRC="lw-54.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1027710"></A>Lisp data</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1027712"></A><EM CLASS="Variable">
+expected-type</EM>
+</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1027714"></A>Registry type</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027716"></A>A string</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027718"></A><CODE CLASS="Code">
+:string</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027720"></A><CODE CLASS="Code">
+REG_SZ</CODE>
+ exactly as in <EM CLASS="Variable">
+data</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027722"></A>Lisp value</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027724"></A><CODE CLASS="Code">
+:lisp-object</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027726"></A><CODE CLASS="Code">
+REG_SZ</CODE>
+ made with <CODE CLASS="Code">
+prin1-to-string</CODE>
+ of <EM CLASS="Variable">
+data</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027728"></A>An integer</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027730"></A><CODE CLASS="Code">
+:integer</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027732"></A><CODE CLASS="Code">
+REG_DWORD</CODE>
+ containing <EM CLASS="Variable">
+data</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027734"></A>A foreign pointer</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027736"></A><CODE CLASS="Code">
+:binary</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027738"></A><CODE CLASS="Code">
+REG_BINARY</CODE>
+ containing bytes of one element at the pointer</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027740"></A>An array</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027742"></A><CODE CLASS="Code">
+:binary</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1027744"></A><CODE CLASS="Code">
+REG_BINARY</CODE>
+ containing bytes from the array</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="RBody">
+<A NAME="pgfId-1023458"></A>The default value of <EM CLASS="Variable">
+expected-type</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1023459"></A>If an error occurs and <EM CLASS="Variable">
+errorp</EM>
+ is true then an error is signalled. The default value of <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1023460"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1029741"></A><A HREF="lw-1475.htm#44547" CLASS="XRef">create-registry-key</A><BR>
+<A HREF="lw-1482.htm#65835" CLASS="XRef">registry-value</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1484.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1482.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

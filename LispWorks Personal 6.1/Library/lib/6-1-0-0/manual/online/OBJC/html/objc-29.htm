@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.4.6  Abstract classes
+</TITLE>
+
+<LINK REL="next" HREF="objc-30.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-28.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-21.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-3.htm">1 Introduction to the Objective-C Interface</A> &gt; <A HREF="objc-21.htm">1.4  Defining Objective-C classes and methods</A><BR><BR>
+</DIV><A HREF="objc-30.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-28.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-21.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-891606"></A>1.4.6  <A NAME="38169"></A>Abstract classes<A NAME="marker-892578"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-891660"></A>An abstract class is a normal Lisp class without an associated Objective-C class. As well as defining named Objective-C classes, <A NAME="marker-892457"></A><A HREF="objc-40.htm#90461" CLASS="XRef">define-objc-class</A> can be used to define abstract classes by omitting the <CODE CLASS="Code">
+:objc-class-name</CODE>
+ class option.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891684"></A>The main purpose of abstract classes is to simulate <A NAME="marker-892582"></A>multiple inheritance (Objective-C only supports single inheritance): when a Lisp class inherits from an abstract class, all the methods defined in the abstract class become methods in the inheriting class.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891773"></A>For example, the method <CODE CLASS="Code">
+&quot;size&quot;</CODE>
+ exists in both the Objective-C classes <CODE CLASS="Code">
+MyData</CODE>
+ and <CODE CLASS="Code">
+MyOtherData</CODE>
+ because the Lisp classes inherit it from the abstract class <CODE CLASS="Code">
+my-size-mixin</CODE>
+, even though there is no common Objective-C ancestor class:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891776"></A>(define-objc-class my-size-mixin ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891777"></A>  ())</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891778"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891779"></A>(define-objc-method (&quot;size&quot; (:unsigned :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891840"></A>    ((self my-size-mixin))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891834"></A>  42)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891835"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891836"></A>(define-objc-class my-data (my-size-mixin)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891784"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891785"></A>  (:objc-class-name &quot;MyData&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891786"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891787"></A>(define-objc-class my-other-data (my-size-mixin)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891788"></A>  ()</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891789"></A>  (:objc-class-name &quot;MyOtherData&quot;))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-30.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-28.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-21.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

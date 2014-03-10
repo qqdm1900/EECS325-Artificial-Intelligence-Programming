@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 17.6  Example
+</TITLE>
+
+<LINK REL="next" HREF="lw-323.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-321.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-314.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-314.htm">17 The Parser Generator</A><BR><BR>
+</DIV><A HREF="lw-323.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-321.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-314.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886053"></A>17.6  Example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886054"></A>The following example shows a simple grammar for a very small subset of English.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886055"></A>(defpackage &quot;ENGLISH-PARSER&quot;) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886056"></A>(in-package &quot;ENGLISH-PARSER&quot;) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886057"></A>(use-package '(parsergen))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886058"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886059"></A>;;; Define the parser itself.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886060"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886061"></A>(defparser english-parser  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886062"></A>  ((bs s) $1) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886590"></A>  ((s np vp)   </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886591"></A>   `(,$1 ,$2))  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886592"></A>  ((bnp :adj bnp)     </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886066"></A>   `(,$1 ,$2))  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886067"></A>  ((bnp bnp relp)   </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886068"></A>   `(,$1 ,$2)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886069"></A>  ((bnp :noun) $1)  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886070"></A>  ((relp :rel vp)   </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886071"></A>   `(,$1 ,$2))  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886072"></A>  ((vp :verb np locp)  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886073"></A>   `(,$1 ,$2 ,$3))  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886074"></A>  ((vp :verb locp)  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886075"></A>   `(,$1 ,$2))  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886076"></A>  ((vp :verb np) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886077"></A>   `(,$1 ,$2)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886078"></A>  ((vp :verb)  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886079"></A>   $1)  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886080"></A>  ((np :art bnp locp) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886081"></A>   `(,$1 ,$2 ,$3)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886082"></A>  ((np :art bnp) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886083"></A>   `(,$1 ,$2))  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886084"></A>  ((np bnp) $1) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886085"></A>  ((locp :loc np) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886086"></A>   `(,$1 ,$2)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886087"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886088"></A>;;; The lexer function.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886089"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886090"></A>;;; The basic lexing function</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886091"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886092"></A>(defvar *input*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886093"></A>(defun lex-english () </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886094"></A>  (let ((symbol (pop *input*))) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886095"></A>    (if symbol (get-lex-class symbol)   </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886096"></A>      nil)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886097"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886098"></A>;;; Getting syntactic categories.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886099"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886100"></A>(defparameter *words* </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886101"></A> '((the :art)(a :art)(some :art)(ate :verb)(hit :verb)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886102"></A>(cat :noun)(rat :noun)(mat :noun)(which :rel)(that :rel)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886103"></A>(who :rel)(man :noun)(big :adj)(small :adj)(brown :adj)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886104"></A>(dog :noun)(on :loc)(with :loc)(behind :loc)(door :noun)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886105"></A>(sat :verb)(floor :noun)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886106"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886107"></A>(defun get-lex-class (word)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886108"></A>   (values</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886109"></A>    (or (cadr (assoc word *words*))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886110"></A>        :unknown)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886111"></A>    word))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886112"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886113"></A>;;; The main function -- note bindings of globals (these</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886749"></A>;;; are exported from the parsergen package).</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886114"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886115"></A>(defun parse-english (input)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886116"></A>   (let ((*input* input))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886117"></A>     (english-parser #'lex-english)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886118"></A>The following example session shows the parsing of some sentences.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886119"></A>ENGLISH-PARSER 34 &gt; (parse-english '(the cat sat on the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886120"></A>                       mat)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886121"></A>((THE CAT) (SAT (ON (THE MAT))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886122"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886123"></A>ENGLISH-PARSER 35 &gt; (parse-english '(the big brown dog</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886124"></A>                        behind the door ate the cat</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886125"></A>                        which sat on the floor)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886126"></A>((THE (BIG (BROWN DOG)) (BEHIND (THE DOOR))) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886127"></A> (ATE (THE (CAT (WHICH (SAT (ON (THE FLOOR))))))))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-323.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-321.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-314.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

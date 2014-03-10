@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ hardcopy-system
+</TITLE>
+
+<LINK REL="next" HREF="lw-939.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-937.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-939.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-937.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1173278"></A><A NAME="hardcopy-system"></A>hardcopy<A NAME="marker-1418986"></A>-system</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-936338"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-936339"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-936341"></A>Print each file of a system<A NAME="marker-936340"></A> to a printer. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-936343"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-936344"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-936345"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-936346"></A>hardcopy-system <EM CLASS="Variable">
+system-name</EM>
+ &amp;key <EM CLASS="Variable">
+command</EM>
+ <EM CLASS="Variable">
+simulate</EM>
+ =&gt; nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-936347"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-936348"></A><EM CLASS="Variable">
+system-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol representing the name of the system. The system must have been defined using the <A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A> macro.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-936349"></A><EM CLASS="Variable">
+simulate</EM>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+nil</CODE>
+ or not present then <CODE CLASS="Code">
+hardcopy-system</CODE>
+ works silently. Otherwise a plan of the actions which <CODE CLASS="Code">
+hardcopy-system</CODE>
+ intends to carry out is printed. What happens next depends on the value of <EM CLASS="Variable">
+simulate</EM>
+:    </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-936350"></A><CODE CLASS="Code">
+t</CODE>
+ -- do nothing.   </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-936351"></A><CODE CLASS="Code">
+:ask</CODE>
+ -- you are asked, using <CODE CLASS="Code">
+y-or-n-p</CODE>
+, if you want the plan to be carried out.    </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-936352"></A><CODE CLASS="Code">
+:each</CODE>
+ -- <CODE CLASS="Code">
+hardcopy-system</CODE>
+ displays each action in the plan one at a time, and asks you if you want to carry out this particular action. The answer executes the rest of the plan without further prompting, <CODE CLASS="Code">
+e</CODE>
+ returns from <CODE CLASS="Code">
+hardcopy-system</CODE>
+ without further processing, and<CODE CLASS="Code">
+ y</CODE>
+ and <CODE CLASS="Code">
+n</CODE>
+ work as expected. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-936353"></A>Values </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-936354"></A><CODE CLASS="Code">
+hardcopy-system</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-936355"></A>Examples </H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-936356"></A>(hardcopy-system 'blackboard)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-936357"></A>(hardcopy-system 'tms :simulate :ask :command &quot;lpr&quot;)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-936358"></A>Notes </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-936359"></A>By default, <CODE CLASS="Code">
+hardcopy-system</CODE>
+ uses <CODE CLASS="Code">
+*print-command*</CODE>
+ as the command sent to the shell. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-936360"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-936364"></A><A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A><BR>
+<A HREF="lw-955.htm#13106" CLASS="XRef">*print-command*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-939.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-937.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

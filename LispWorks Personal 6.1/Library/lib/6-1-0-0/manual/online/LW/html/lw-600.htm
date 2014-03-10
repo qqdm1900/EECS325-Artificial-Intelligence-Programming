@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ pem-read
+</TITLE>
+
+<LINK REL="next" HREF="lw-601.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-599.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-579.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-579.htm">26 The COMM Package</A><BR><BR>
+</DIV><A HREF="lw-601.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-599.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-920964"></A><A NAME="60294"></A>pem<A NAME="marker-921376"></A>-read</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-919821"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-919822"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-919823"></A>An interface to the SSL <CODE CLASS="Code">
+PEM_read_bio_*</CODE>
+ functions.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-919824"></A>Package</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-919825"></A><CODE CLASS="Code">
+comm</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-919826"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-919827"></A>pem-read <EM CLASS="Variable">
+thing-to-read</EM>
+ <EM CLASS="Variable">
+filename</EM>
+ &amp;key <EM CLASS="Variable">
+pass-phrase</EM>
+ <EM CLASS="Variable">
+callback</EM>
+ <EM CLASS="Variable">
+errorp</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-919828"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-919829"></A><EM CLASS="Variable">
+thing-to-read</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-919830"></A><EM CLASS="Variable">
+filename</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-921750"></A><EM CLASS="Variable">
+pass-phrase</EM>
+</P>
+<P CLASS="RDescription-C">A string, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-921759"></A><EM CLASS="Variable">
+callback</EM>
+</P>
+<P CLASS="RDescription-C">A function designator, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-921764"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-919831"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-919832"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A foreign pointer or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-919833"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-921490"></A>The function <CODE CLASS="Code">
+pem-read</CODE>
+ is an interface to the <CODE CLASS="Code">
+PEM_read_bio_*</CODE>
+ set of functions. See the manual entry for <CODE CLASS="Code">
+pem</CODE>
+ for specifications of these functions.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-921492"></A><EM CLASS="Variable">
+thing-to-read</EM>
+ defines which function is required. <CODE CLASS="Code">
+pem-read</CODE>
+ concatenates <EM CLASS="Variable">
+thing-to-read</EM>
+ with the string &quot; PEM_read_bio_&quot; to form the name of the <CODE CLASS="Code">
+pem</CODE>
+ function to call.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-921493"></A><EM CLASS="Variable">
+filename</EM>
+ specifies the file to load.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-921494"></A>If <EM CLASS="Variable">
+pass-phrase</EM>
+ is non-nil, it must be a string, which is passed to the <CODE CLASS="Code">
+pem</CODE>
+ function. The default value of <EM CLASS="Variable">
+pass-phrase</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-921495"></A>If <EM CLASS="Variable">
+callback</EM>
+ is non-nil, it must be a function with signature:</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-921496"></A>callback <EM CLASS="Variable">
+maximum-length</EM>
+ <EM CLASS="Variable">
+rwflag</EM>
+ =&gt; <EM CLASS="Variable">
+pass-phrase</EM>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-921497"></A>where <EM CLASS="Variable">
+maximum-length</EM>
+ is an integer, <EM CLASS="Variable">
+rwflag</EM>
+ is a boolean and <EM CLASS="Variable">
+pass-phrase</EM>
+ is the pass-phrase to use. The default value of <EM CLASS="Variable">
+callback</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, but you cannot pass non-nil values for both <EM CLASS="Variable">
+pass-phrase</EM>
+ and <EM CLASS="Variable">
+callback</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-919837"></A>If it succeeds, <CODE CLASS="Code">
+pem-read</CODE>
+ returns a foreign pointer to the structure that was returned by the <CODE CLASS="Code">
+pem</CODE>
+ function. If <CODE CLASS="Code">
+pem-read</CODE>
+ fails, if <EM CLASS="Variable">
+errorp</EM>
+ is non-nil it signals an error, otherwise it returns <CODE CLASS="Code">
+nil</CODE>
+. The default value of <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-601.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-599.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

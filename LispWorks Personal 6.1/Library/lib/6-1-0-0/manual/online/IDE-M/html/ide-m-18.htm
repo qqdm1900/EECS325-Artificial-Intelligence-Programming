@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.6  Examining classes in the Class Browser
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-19.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-17.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-12.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-12.htm">2 A Short Tutorial</A><BR><BR>
+</DIV><A HREF="ide-m-19.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-17.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-12.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853256"></A>2.6  Examining classes in the Class Browser</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853257"></A>This section shows you how to use the Class Browser tool to examine information about the Common Lisp class of any given object. The examples given use the text input pane object that you created earlier, and show you how you can change the values of a slot programmatically.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-853258"></A>In the Listener, type <CODE CLASS="Code">
+*</CODE>
+ once again.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-853355"></A>Notice that the <CODE CLASS="Code">
+*</CODE>
+ variable still contains the value of the text input pane object. This means that it is easy to perform several actions on that object. Notice further that the environment is aware that the object has been changed: the value returned by <CODE CLASS="Code">
+*</CODE>
+ reflects the change to the text slot that you made in the last section.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-853357"></A>From the Listener, choose <B CLASS="Button">
+Values &gt; Class</B>
+<A NAME="marker-853849"></A><A NAME="marker-853356"></A>.</LI>
+
+<P CLASS="Body-Indent">
+<A NAME="pgfId-856314"></A>This creates a Class Browser, shown in <A HREF="ide-m-18.htm#61493" CLASS="XRef">Examining the class of an object using the Class Browser</A>, which allows you to examine the class of the object contained in <CODE CLASS="Code">
+*</CODE>
+.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-936451"></A>Figure 2.6  <A NAME="61493"></A>Examining the class of an object using the Class Browser<DIV>
+<IMG SRC="ide-m-9.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="ide-m-16.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-936472"></A>Ensure that the <B CLASS="Button">
+Slots</B>
+ tab is selected, as in the illustration. In the <B CLASS="Button">
+Class:</B>
+ box, the name of the current Common Lisp class is printed. The list below the <B CLASS="Button">
+Filter</B>
+ box displays the slots available to the current class, and list labeled <B CLASS="Button">
+Description:</B>
+ displays the description of any selected slot. The filter works in the same way as the Inspector's filter. There is also a checkbox labeled <B CLASS="Button">
+Include Inherited Slots</B>
+<A NAME="marker-936473"></A>. Selecting this checkbox lets you switch between displaying all the slots defined on the current class and all its superclasses, and only those slots defined directly on the current class. By default, slots defined on any superclasses (inherited slots) are shown in the main area.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-853278"></A>Filter the display as you did for the Inspector; click in the Filter box, and this time type the word <CODE CLASS="Code">
+foreground</CODE>
+.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-853281"></A>Only those slots with the string &quot;foreground&quot; in their names are displayed. </P>
+<LI CLASS="Step">
+<A NAME="pgfId-853282"></A>Select the <CODE CLASS="Code">
+CAPI::FOREGROUND</CODE>
+ slot from the list. A description of the slot appears in the description area, including information such as the initargs, readers, and writers of the slot.</LI>
+
+<P CLASS="Body">
+<A NAME="pgfId-853285"></A>Notice that the class text input pane has both a reader, <CODE CLASS="Code">
+capi:simple-pane-foreground</CODE>
+<A NAME="marker-853941"></A>, and a writer, <CODE CLASS="Code">
+(setf capi:simple-pane-foreground)</CODE>
+. We can use this information to programmatically change the text shown in the text input pane.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-853288"></A>Type this form into the Listener:</LI>
+</OL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853293"></A>(setf (capi:simple-pane-foreground *) :red)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-853295"></A>The text displayed in the text input pane is displayed in red to reflect the new value you have specified. Notice how you were able to use the <CODE CLASS="Code">
+*</CODE>
+<A NAME="marker-853569"></A><A NAME="marker-853578"></A> variable to refer directly to the text input pane object itself.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-19.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-17.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-12.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

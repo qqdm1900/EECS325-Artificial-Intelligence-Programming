@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.6.2  Shaking the image
+</TITLE>
+
+<LINK REL="next" HREF="delivery-55.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-53.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-52.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-36.htm">4 Delivering your Application</A> &gt; <A HREF="delivery-52.htm">4.6  How Delivery makes an image smaller </A><BR><BR>
+</DIV><A HREF="delivery-55.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-53.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-52.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-855338"></A>4.6.2  <I CLASS="Italic">
+</I>
+<A NAME="marker-859848"></A><A NAME="25980"></A>Shaking the image</H3>
+<P CLASS="Body">
+<A NAME="pgfId-855356"></A>From delivery level 2 upward, the image is &quot;<A NAME="marker-860442"></A>shaken&quot; by default during delivery with the <A NAME="marker-859852"></A>treeshaker. You can also invoke the treeshaker directly with the <CODE CLASS="Code">
+deliver</CODE>
+ keyword <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-861577"></A><A HREF="delivery-163.htm#73312" CLASS="XRef">:shake-shake-shake</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855354"></A>As discussed above, the garbage collector does not delete any <A NAME="marker-860734"></A>interned <A NAME="marker-859862"></A>symbols, <A NAME="marker-859855"></A>class definitions, or <A NAME="marker-859856"></A>methods discriminating on classes from the image, even when they are unused. This is because it is designed to keep any object for which a reference exists. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855397"></A>There are always references to interned symbols, class definitions, and methods discriminating on classes. Interned symbols, naturally, are referred to by their package. Class definitions are always pointed to by their superclasses (the root class, <CODE CLASS="Code">
+t</CODE>
+, has no superclass but is protected from garbage collection), and a method discriminating on a class is always pointed to by the class.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855676"></A>Thus we have a special class of objects that cannot be removed under the normal <A NAME="marker-859863"></A>garbage collection scheme. Using the treeshaker, however, we can do so. The <A NAME="marker-859860"></A>treeshaker does the following to overcome the default links between these objects:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-855734"></A>Record the default links.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855737"></A><A NAME="55570"></A>Break the links.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855746"></A>Garbage collect the image.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-855747"></A>Reinstate the links.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-855748"></A>Step <A HREF="delivery-54.htm#55570" CLASS="XRef">Break the links.</A> renders the objects the same as all others in the image. They are now only protected from garbage collection if there are links to them elsewhere in the image -- that is, if they are actually used in the application. </P>
+<P CLASS="Body">
+<A NAME="pgfId-860600"></A>The term &quot;<A NAME="marker-860599"></A>treeshaker&quot; is derived from the notion that the routine picks up, by its root, a tree comprising the objects in the image and the links between them, and then shakes it until everything that is not somehow connected to the root falls off, and only the important objects remain. (An image would usually be better characterized as a directed graph than a tree, but the metaphor has persisted in the Lisp community.)</P>
+<P CLASS="Body">
+<A NAME="pgfId-851407"></A><A NAME="marker-859774"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-55.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-53.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-52.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

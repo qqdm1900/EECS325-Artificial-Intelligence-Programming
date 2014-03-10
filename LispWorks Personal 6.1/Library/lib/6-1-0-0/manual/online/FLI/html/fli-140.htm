@@ -1,0 +1,420 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ register-module
+</TITLE>
+
+<LINK REL="next" HREF="fli-141.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-139.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-141.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-139.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1058728"></A><A NAME="30636"></A>register-module<A NAME="marker-1058727"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-914890"></A>Function </H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-914812"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-928631"></A>Informs LispWorks of the presence of a dynamic library.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1555039"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1555040"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-928594"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-914906"></A>register-module <EM CLASS="Variable">
+name</EM>
+ &amp;key <EM CLASS="Variable">
+connection-style</EM>
+ <EM CLASS="Variable">
+lifetime</EM>
+ <EM CLASS="Variable">
+real-name</EM>
+ <EM CLASS="Variable">
+dlopen-flags</EM>
+ =&gt; <EM CLASS="Variable">
+name</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-914970"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-914816"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or string specifying the Lisp name the module will be registered under.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1058864"></A><EM CLASS="Variable">
+connection-style</P>
+<P CLASS="RDescription-C"></EM>
+A keyword determining when the connection to the dynamic library is made. One of <CODE CLASS="Code">
+:automatic</CODE>
+ , <CODE CLASS="Code">
+:manual</CODE>
+ or <CODE CLASS="Code">
+:immediate</CODE>
+. The default value is <CODE CLASS="Code">
+:automatic</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1206291"></A><EM CLASS="Variable">
+lifetime</EM>
+</P>
+<P CLASS="RDescription-C">A keyword specifying the lifetime of the connection. One of <CODE CLASS="Code">
+:indefinite</CODE>
+ or <CODE CLASS="Code">
+:session</CODE>
+. The default value is <CODE CLASS="Code">
+:indefinite.</CODE>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-915111"></A><EM CLASS="Variable">
+real-name</EM>
+</P>
+<P CLASS="RDescription-C">Overrides the <EM CLASS="Variable">
+name</EM>
+ for identifying the actual dynamic library to connect to.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1334083"></A><EM CLASS="Variable">
+dlopen-flags</EM>
+</P>
+<P CLASS="RDescription-C">Controls use of <CODE CLASS="Code">
+dlopen</CODE>
+ on Unix-based systems. One of <CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+:local-now</CODE>
+, <CODE CLASS="Code">
+:global-now</CODE>
+, <CODE CLASS="Code">
+:global-lazy</CODE>
+, <CODE CLASS="Code">
+:local-lazy</CODE>
+, or a fixnum. The default value is <CODE CLASS="Code">
+nil</CODE>
+ on Darwin, and <CODE CLASS="Code">
+t</CODE>
+ on other platforms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-914830"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-915218"></A><EM CLASS="Variable">
+name</P>
+<P CLASS="RDescription-C"></EM>
+The <EM CLASS="Variable">
+name</EM>
+ argument.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915339"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-915368"></A>The function <CODE CLASS="Code">
+register-module</CODE>
+ explicitly informs LispWorks of the presence of a DLL or shared object file, referred to here as a dynamic library. Functions such as <A HREF="fli-126.htm#29578" CLASS="XRef">make-pointer</A> and <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A> have a <EM CLASS="Variable">
+module</EM>
+ keyword which can be used to specify which module the function refers to.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-938438"></A>The main use of modules is to overcome ambiguities that can arise when two different dynamic libraries have functions with the same name.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1408362"></A>If an application is delivered after calling <CODE CLASS="Code">
+register-module</CODE>
+, then the application attempts to reload the module on startup but does not report any errors. Therefore it is strongly recommended that you call <CODE CLASS="Code">
+register-module</CODE>
+ during initialization of your application, rather than at compile time or build time. Loading the module at run time allows you to:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1408363"></A>report loading errors to the user or application error log</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1408364"></A>compute the path (as described below), if needed</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1408365"></A>make the loading conditional, if needed</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-1334328"></A>You should compute and supply the appropriate full path if possible.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1014543"></A><EM CLASS="Variable">
+name</EM>
+ is used for explicit look up from the <CODE CLASS="Code">
+:module</CODE>
+ keyword of functions such as <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>. If <EM CLASS="Variable">
+name</EM>
+ is a symbol, then <EM CLASS="Variable">
+real-name</EM>
+ should also be passed to provide a filename. If <EM CLASS="Variable">
+real-name</EM>
+ is not specified then <EM CLASS="Variable">
+name</EM>
+ must be a string and specifies the actual name of the dynamic library to connect to.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1059274"></A>The naming convention for the module <EM CLASS="Variable">
+name</EM>
+ can contain the full pathname for the dynamic library. For example, a pathname such as</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1014895"></A>#p&quot;C:/MYPRODUCT/LIBS/MYLIBRARY.DLL&quot;</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1014896"></A>is specified as </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1014935"></A>&quot;C:&#92;&#92;MYPRODUCT&#92;&#92;LIBS&#92;&#92;MYLIBRARY.DLL&quot;</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1014947"></A>On Windows, if the module is declared without an extension, &quot;<CODE CLASS="Code">
+.DLL</CODE>
+&quot; is automatically appended to the name. To declare a name without an extension it must end with the period character (&quot;<CODE CLASS="Code">
+.</CODE>
+&quot;). On other platforms, you should provide the extension, since there is more than one library format. Typical would be <CODE CLASS="Code">
+.so</CODE>
+ on Linux or FreeBSD and <CODE CLASS="Code">
+.dylib</CODE>
+ on Macintosh.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1014894"></A>If a full pathname is not specified for the module, then it is searched for.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1057029"></A>On Windows the following directories (in the given order) are searched:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1014547"></A>The directory of the executable.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1014558"></A>The current directory. This step can be switched off on Windows XP/Vista/7. </LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1014672"></A>The Windows system directory (as specified by <CODE CLASS="Code">
+GetSystemDirectory</CODE>
+). For XP/Vista/7 the 16-bit system directory (<CODE CLASS="Code">
+SYSTEM</CODE>
+) is also searched.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1014634"></A>The Windows directory (as specified by <CODE CLASS="Code">
+GetWindowsDirectory</CODE>
+)</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1014657"></A>Directories specified by the <CODE CLASS="Code">
+PATH</CODE>
+ variable.</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-1250196"></A>The simplest approach is usually to place the DLL in the same directory as the LispWorks executable or application. However if you really need different directories then be sure to call <CODE CLASS="Code">
+register-module</CODE>
+ at run time with the appropriate pathname.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1057426"></A>On Linux, the search is conducted in this order:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1057427"></A>Directories on the user's <CODE CLASS="Code">
+LD_LIBRARY</CODE>
+ path environment variable.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1057487"></A>The list of libraries specified in <CODE CLASS="Code">
+/etc/ld.so.cache</CODE>
+.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1057498"></A><CODE CLASS="Code">
+/usr/lib</CODE>
+, followed by <CODE CLASS="Code">
+/lib</CODE>
+.</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-1059435"></A>If <EM CLASS="Variable">
+connection-style</EM>
+ is <CODE CLASS="Code">
+:automatic</CODE>
+ then the system automatically connects to a dynamic library when it needs to resolve currently undefined foreign symbols.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1059436"></A>If <EM CLASS="Variable">
+connection-style</EM>
+ is <CODE CLASS="Code">
+:manual</CODE>
+ then the system only connects to the dynamic library if the symbol to resolve is explicitly marked as coming from this module via the <CODE CLASS="Code">
+:module</CODE>
+ keyword of functions such as <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1217775"></A>Note: on LispWorks for UNIX only (not LispWorks for Linux, FreeBSD, or x86/x64 Solaris) this value <CODE CLASS="Code">
+:manual</CODE>
+ for <EM CLASS="Variable">
+connection-style</EM>
+ is not supported.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1059437"></A>If <EM CLASS="Variable">
+connection-style</EM>
+ is <CODE CLASS="Code">
+:immediate</CODE>
+ then the connection to the dynamic library is made immediately. This checks that the library can actually be loaded before its symbols are actually needed: an error is signalled if loading fails.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1206396"></A>If <EM CLASS="Variable">
+lifetime</EM>
+ is <CODE CLASS="Code">
+:session</CODE>
+ then the module is disconnected when Lisp starts up. The only supported value of <EM CLASS="Variable">
+lifetime</EM>
+ in LispWorks for UNIX is <CODE CLASS="Code">
+:indefinite</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1256800"></A>You should load only libraries of the correct architecture into LispWorks. You will need to obtain a 32-bit dynamic library for use with 32-bit LispWorks and similarly you need a 64-bit dynamic library for use with 64-bit LispWorks. (If you build the dynamic library, pass <CODE CLASS="Code">
+-m32</CODE>
+ or <CODE CLASS="Code">
+-m64</CODE>
+ as appropriate to <CODE CLASS="Code">
+cc</CODE>
+.) You can conditionalize the argument to <CODE CLASS="Code">
+register-module</CODE>
+ as in the example below.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1256796"></A>Note: On Linux, you may see a spurious &quot;No such file or directory&quot; error message when loading a dynamic library of the wrong architecture. The spurious message might be localized.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1136604"></A>Note: In LispWorks for UNIX the loader function <CODE CLASS="Code">
+link-load:read-foreign-modules</CODE>
+ is now deprecated in favor of <CODE CLASS="Code">
+register-module</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1136297"></A>Note: static libraries are not supported except on UNIX. For example, on Linux evaluating this form:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1543369"></A>(fli:register-module &quot;libc.a&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1543370"></A>                     :real-name &quot;/usr/lib/libc.a&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1543371"></A>                     :connection-style :immediate)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1543662"></A>results in an error:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1137320"></A>Could not register handle for external module &quot;libc&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1136725"></A>/usr/lib/libc.a : invalid ELF header</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1137422"></A>The problem is that <CODE CLASS="Code">
+libc.a</CODE>
+ is a static library. Instead, do:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1543941"></A>(fli:register-module &quot;libc.so&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1543942"></A>                     :real-name &quot;libc.so.6&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1543943"></A>                     :connection-style :immediate)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1137438"></A>Note that <CODE CLASS="Code">
+:real-name</CODE>
+ is given a relative path in this case, because <CODE CLASS="Code">
+libc</CODE>
+ is a standard library on Linux and it is best to let the operating system locate it.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1333922"></A><EM CLASS="Variable">
+dlopen-flags</EM>
+ has an effect only on Unix-based systems. It controls the value that is passed to <CODE CLASS="Code">
+dlopen</CODE>
+ as second argument when the module is connected, and on Darwin it also controls whether <CODE CLASS="Code">
+dlopen</CODE>
+ is used at all.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1333924"></A>The keyword values of <EM CLASS="Variable">
+dlopen-flags </EM>
+correspond to combinations of <CODE CLASS="Code">
+RTLD_*</CODE>
+ constants (see <CODE CLASS="Code">
+/usr/include/dlfcn.h</CODE>
+). The value <CODE CLASS="Code">
+t</CODE>
+ means the same as <CODE CLASS="Code">
+:local-lazy</CODE>
+. The value <CODE CLASS="Code">
+nil</CODE>
+ means the same as <CODE CLASS="Code">
+t</CODE>
+ except on Darwin. On Darwin the value <CODE CLASS="Code">
+nil</CODE>
+ means do not use <CODE CLASS="Code">
+dlopen</CODE>
+, and use the older interfaces instead.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1333925"></A>A fixnum value means pass this value <EM CLASS="Variable">
+dlopen-flags</EM>
+ to <CODE CLASS="Code">
+dlopen</CODE>
+ without checking. It is the responsibility of the caller to get it right in this case.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1333926"></A>The default value of <EM CLASS="Variable">
+dlopen-flags</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ on Darwin, because it seems <CODE CLASS="Code">
+dlopen</CODE>
+ does not work properly on this platform.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1408843"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1408905"></A>It is strongly recommended that you call <CODE CLASS="Code">
+register-module</CODE>
+ during initialization of your application, rather than at compile time or build time.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1446227"></A>When developing with foreign code in LispWorks, the utilities provided in the Editor are useful - see <A HREF="fli-208.htm#83197" CLASS="XRef">Compiling and Loading Foreign Code with the Editor</A></LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1056899"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-915408"></A>In the following example on Windows, the <CODE CLASS="Code">
+user32</CODE>
+ DLL is registered, and then a foreign function called <CODE CLASS="Code">
+set-cursor-pos</CODE>
+ is defined to explicitly reference the <CODE CLASS="Code">
+SetCursorPos</CODE>
+ function in the <CODE CLASS="Code">
+user32</CODE>
+ DLL.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1049872"></A>(fli:register-module :user-dll :real-name &quot;user32&quot;)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1049980"></A>(fli:define-foreign-function (set-cursor-pos </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1049981"></A>                              &quot;SetCursorPos&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1049982"></A>    ((x :long)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1049983"></A>     (y :long)) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1049876"></A>  :module :user-dll)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1059631"></A>This example on Linux loads the shared library even though its symbols are not yet needed. An error is signalled if loading fails:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1059721"></A>(fli:register-module &quot;libX11.so&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1059657"></A>                     :connection-style :immediate)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1408973"></A>This example loads a module from the same directory as the Lisp executable, by executing this code at runtime:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1409044"></A>(fli:register-module</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1409045"></A> <EM CLASS="Variable">modulename</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1409046"></A> :file-name</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1409047"></A> (merge-pathnames &quot;modulefilename.dylib&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1408971"></A>                  (lisp-image-name)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1257563"></A>In this last example a program which runs in both 32-bit LispWorks and 64-bit LispWorks loads the correct library for each architecture:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1257754"></A>(fli:register-module #+:lispworks-32bit &quot;mylib32&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1257710"></A>                     #+:lispworks-64bit &quot;mylib64&quot;)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1049877"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-915444"></A><A HREF="fli-77.htm#14516" CLASS="XRef">connected-module-pathname</A><BR>
+<A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A><BR>
+<A HREF="fli-126.htm#29578" CLASS="XRef">make-pointer</A><BR>
+<A HREF="fli-128.htm#20942" CLASS="XRef">module-unresolved-symbols</A><BR>
+<A HREF="fli-139.htm#49470" CLASS="XRef">print-foreign-modules</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-141.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-139.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

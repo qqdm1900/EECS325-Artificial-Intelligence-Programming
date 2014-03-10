@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ interface-keys-style
+</TITLE>
+
+<LINK REL="next" HREF="capiref-194.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-192.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-194.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-192.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-2777537"></A><A NAME="72958"></A>interface<A NAME="marker-4143785"></A>-keys-style</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-2777538"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2777539"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2777540"></A>Determines the emulation for an interface.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4142653"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4142654"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2777542"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-2777543"></A>interface-keys-style <EM CLASS="Variable">
+interface</EM>
+ =&gt; <EM CLASS="Variable">
+keys-style</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2777544"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2777548"></A><EM CLASS="Variable">
+interface</EM>
+</P>
+<P CLASS="RDescription-C">An instance of a subclass of <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2777549"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2777553"></A><EM CLASS="Variable">
+keys-style</EM>
+</P>
+<P CLASS="RDescription-C">A keyword, <CODE CLASS="Code">
+:pc</CODE>
+, <CODE CLASS="Code">
+:emacs</CODE>
+ or <CODE CLASS="Code">
+:mac</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9060661"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9060662"></A>The generic function <CODE CLASS="Code">
+interface-keys-style</CODE>
+ returns a keyword indicating a keys style, or emulation. It is called when <EM CLASS="Variable">
+interface</EM>
+ starts running in a new process, and <EM CLASS="Variable">
+keys-style</EM>
+ determines how user input is interpreted by output panes (including <A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A>) in <EM CLASS="Variable">
+interface</EM>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-2779230"></A>The editor (that is, instances of <A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A> and its subclasses) responds to user input gestures according to one of three basic models.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4143793"></A>When <EM CLASS="Variable">
+keys-style</EM>
+ is <CODE CLASS="Code">
+:emacs</CODE>
+, the editor emulates GNU Emacs. This value is allowed on all platforms.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4143794"></A>When <EM CLASS="Variable">
+keys-style</EM>
+ is <CODE CLASS="Code">
+:pc</CODE>
+, the editor emulates standard Microsoft Windows keys on Windows, and KDE/Gnome keys on GTK+ and Motif. This value is allowed in the Windows, GTK+ and X11/Motif implementations.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4144089"></A>When <EM CLASS="Variable">
+keys-style</EM>
+ is <CODE CLASS="Code">
+:mac</CODE>
+, the editor emulates Mac OS X editor keys. This value is allowed only in the Mac OS X Cocoa implementation.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2777562"></A>The most important differences between the styles are in the handling of the <CODE CLASS="Code">
+Alt</CODE>
+ key on Microsoft Windows, selected text, and <A NAME="marker-3657137"></A>accelerators:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5352562"></A><CODE CLASS="Code">
+:emacs</CODE>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+Alt</CODE>
+ is interpreted on Microsoft Windows as the Meta key (used to access many Emacs commands). </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-5352571"></A>The <CODE CLASS="Code">
+:meta</CODE>
+ modifier is used in an <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A> <EM CLASS="Variable">
+input-model</EM>
+ gesture specification.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-2783765"></A>Control characters such as <CODE CLASS="Code">
+Ctrl+S</CODE>
+ are not interpreted as accelerators.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-4145686"></A>The selection is not deleted on input.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2783339"></A><CODE CLASS="Code">
+:pc</CODE>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+Alt</CODE>
+ is interpreted as <CODE CLASS="Code">
+Alt</CODE>
+ on Microsoft Windows and can be used for shortcuts.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-5352585"></A>The <CODE CLASS="Code">
+:meta</CODE>
+ modifier is not used in an <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A> <EM CLASS="Variable">
+input-model</EM>
+ gesture specification.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-3627732"></A><CODE CLASS="Code">
+Control</CODE>
+ keystrokes are interpreted as accelerators. Standard accelerators are added for standard menu commands, for example <CODE CLASS="Code">
+Ctrl+S</CODE>
+ for <B CLASS="Button">
+File &gt; Save</B>
+.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-4145770"></A>The selection is deleted on input, and movement keys behave like a typical Microsoft Windows or KDE/Gnome editor.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-4144788"></A><CODE CLASS="Code">
+:mac</CODE>
+</P>
+<P CLASS="RDescription-C">Emacs <CODE CLASS="Code">
+Control</CODE>
+ keys are available, since they do not clash with the Macintosh <CODE CLASS="Code">
+Command</CODE>
+ key.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-4145794"></A>The selection is deleted on input, and movement keys behave like a typical Mac OS X editor.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3627733"></A>By default <EM CLASS="Variable">
+keys-style</EM>
+ is <CODE CLASS="Code">
+:pc</CODE>
+ on Microsoft Windows platforms and <CODE CLASS="Code">
+:emacs</CODE>
+ on Unix/Linux and Mac OS X platforms. You can supply methods for <CODE CLASS="Code">
+interface-keys-style</CODE>
+ on your own interface classes that override the default methods.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-4161294"></A>In the Cocoa implementation, <CODE CLASS="Code">
+Command</CODE>
+ keystrokes such as <CODE CLASS="Code">
+Command+X</CODE>
+ are available if there is a suitable <B CLASS="Button">
+Edit</B>
+ menu, regardless of the Editor emulation.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2784790"></A>See the chapter &quot;Emulation&quot; in the <I CLASS="Italic">
+LispWorks Editor User Guide</I>
+ for more detail about the different styles.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8121014"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8121178"></A>On Motif the code to implement accelerators and mnemonics clashes with the LispWorks meta key support. Therefore the  keyboard must be configured so that none of the keysyms connected to mod1 (see xmodmap) are listed in the variable <CODE CLASS="Code">
+capi-motif-library:*meta-keysym-search-list*</CODE>
+, which must be also be non-nil. Note also that Motif requires Alt to be on mod1.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2777563"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2777535"></A><A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-194.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-192.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

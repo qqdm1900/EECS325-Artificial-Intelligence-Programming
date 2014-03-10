@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :quit-when-no-windows
+</TITLE>
+
+<LINK REL="next" HREF="delivery-154.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-152.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-55.htm">5 Keywords to the Delivery Function</A> &gt; <A HREF="delivery-70.htm">5.2  Alphabetical list of deliver keywords </A><BR><BR>
+</DIV><A HREF="delivery-154.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-152.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="Interface">
+<A NAME="pgfId-852451"></A><A NAME="marker-203119"></A><A NAME="65502"></A>:quit-when-no-windows</H3>
+<P CLASS="Interface-type">
+<A NAME="pgfId-870263"></A><I CLASS="Italic">
+Keyword</I>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-862489"></A>Default value: <CODE CLASS="Code">
+t</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-95007"></A><A NAME="marker-95006"></A>If <CODE CLASS="Code">
+t</CODE>
+, then after the application has opened at least one CAPI window, whenever the application is waiting for input, a routine is run to check whether any of its CAPI windows are still open. If there are no open windows, the application exits.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-205936"></A>On Microsoft Windows, if the application is an automation server, the checking routine also checks the server. If the application uses <A NAME="marker-205997"></A><CODE CLASS="Code">
+com:automation-server-top-loop</CODE>
+ (maybe indirectly via <A NAME="marker-205992"></A><CODE CLASS="Code">
+com:automation-server-main</CODE>
+), the checking routine does not cause exit until <CODE CLASS="Code">
+com:automation-server-top-loop</CODE>
+ exits. Otherwise the checking routine does not cause exit as long as the server is used. After the server is not used, the exit is further delayed by the <EM CLASS="Variable">
+exit-delay</EM>
+ (default 5 second, see documentation for <A NAME="marker-206002"></A><CODE CLASS="Code">
+com:automation-server-exit-delay</CODE>
+).</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-206322"></A>The function <A NAME="marker-206335"></A><CODE CLASS="Code">
+set-quit-when-no-windows</CODE>
+ can be used to turn checking on and off dynamically at run time regardless of the value of the <CODE CLASS="Code">
+:quit-when-no-windows</CODE>
+ keyword.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-163614"></A><B CLASS="Bold">
+Note:</B>
+ a multiprocessing LispWorks executable will stop multiprocessing when there is no process other than the Idle Process. So if your application simply displays a window, which is closed, then multiprocessing will stop. This is independent of <EM CLASS="Variable">
+quit-when-no-windows</EM>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-154.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-152.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

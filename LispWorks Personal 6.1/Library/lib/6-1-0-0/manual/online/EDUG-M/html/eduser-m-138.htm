@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.2  Defining commands
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-139.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-137.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-136.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A> &gt <A HREF="eduser-m-136.htm">6.3  Programming the editor</A><BR><BR>
+</DIV><A HREF="eduser-m-139.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-137.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-883907"></A>6.3.2  Defining commands</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-885761"></A><A NAME="marker-885760"></A><A NAME="26922"></A>editor:defcommand</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-907013"></A>Macro</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885768"></A>defcommand <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+lambda-list</EM>
+ <EM CLASS="Variable">
+command-doc</EM>
+ <EM CLASS="Variable">
+function-doc</EM>
+ &amp;body <EM CLASS="Variable">
+forms</EM>
+ =&gt; <EM CLASS="Variable">
+command-function</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-906491"></A>Defines a new editor command. <EM CLASS="Variable">
+name</EM>
+ is a usually string naming the new editor command which can invoked in the editor via <A HREF="eduser-m-35.htm#79836" CLASS="XRef">Extended Command</A>, and <EM CLASS="Variable">
+command-function</EM>
+ is a symbol naming the new command function which can be called programmatically. The <EM CLASS="Variable">
+command-function</EM>
+ symbol is interned in the current package.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-906386"></A><EM CLASS="Variable">
+lambda-list</EM>
+ is the lambda list of the new command, which must have at least one argument which is usually denoted <EM CLASS="Variable">
+p</EM>
+, the prefix argument.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885772"></A><EM CLASS="Variable">
+command-doc</EM>
+ and <EM CLASS="Variable">
+function-doc</EM>
+ should be strings giving detailed and brief descriptions of the new command respectively.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885774"></A><EM CLASS="Variable">
+forms</EM>
+ is the Lisp code for the command.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885779"></A>The name of the command must be a string, while the name of the associated command function must be a symbol. There are two ways in which <EM CLASS="Variable">
+name</EM>
+ can be supplied. Most simply, <EM CLASS="Variable">
+name</EM>
+ is given as a string, and the string is taken to be the name of the editor command. The symbol naming the command function is computed from that string: spaces are replaced with hyphens and alphabetic characters are uppercased, but otherwise the symbol name contains the same characters as the string with <CODE CLASS="Code">
+-COMMAND</CODE>
+ appended.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885780"></A>If a specific function name, different to the one <CODE CLASS="Code">
+defcommand</CODE>
+ derives itself, is required, then this can be supplied explicitly. To do this, <EM CLASS="Variable">
+name</EM>
+ should be a list: its first element is the string used as the name of the command, while its second and last element is the symbol used to name the Lisp command function.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885821"></A>For example the following code defines an editor command, <CODE CLASS="Code">
+Move Five</CODE>
+, which moves the cursor forward in an editor buffer by five characters. </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-885784"></A>(editor:defcommand &quot;Move Five&quot; (p)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885785"></A>   &quot;Moves the current point forward five characters.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885786"></A>    Any prefix argument is ignored.&quot;      </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885787"></A>   &quot;Moves five characters forward.&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885788"></A>   (editor:forward-character-command 5))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886637"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886638"></A>MOVE-FIVE-COMMAND</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-885790"></A>The prefix argument <EM CLASS="Variable">
+p</EM>
+ is not used, and is there simply because the <EM CLASS="Variable">
+lambda-list</EM>
+ must have at least one element. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886652"></A>Use <CODE CLASS="Code">
+Meta+X Move Five</CODE>
+ to invoke the command.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-888641"></A>As another example this command changes all the text in a writable buffer to be uppercase:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888620"></A>(editor:defcommand &quot;Uppercase Buffer&quot; (p) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888621"></A>     &quot;Uppercase the buffer contents&quot; &quot;&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888622"></A>  (declare (ignore p))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888623"></A>  (let* ((buffer (editor:current-buffer))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888624"></A>         (point (editor:buffer-point buffer))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888625"></A>         (start (editor:buffers-start buffer))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888626"></A>         (end (editor:buffers-end buffer)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888627"></A>    (editor:set-current-mark start)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888628"></A>    (editor:move-point point end)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888618"></A>    (editor:uppercase-region-command nil)))</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-906970"></A>Having defined your new command, you can invoke it immediately by <CODE CLASS="Code">
+Meta+X Uppercase Buffer</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907027"></A>You could also call it programmatically:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-906971"></A>(uppercase-buffer-command nil)</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-906918"></A>If you anticipate frequent interactive use of <CODE CLASS="Code">
+Uppercase Buffer</CODE>
+ you will want to bind it to a key. You can do this interactively for the current session using <A HREF="eduser-m-87.htm#56026" CLASS="XRef">Bind Key</A>. Also you can put something like this in your initialization file to establish the key binding for each new session:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-906919"></A>(editor:bind-key &quot;Uppercase Buffer&quot; #(&quot;Control-x&quot; &quot;Meta-u&quot;))</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-906964"></A>Then, entering <CODE CLASS="Code">
+Ctrl+X Meta+U</CODE>
+ will invoke the command.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-139.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-137.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

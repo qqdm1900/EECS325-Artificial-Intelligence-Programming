@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.4.1  Initializing and exiting account frames
+</TITLE>
+
+<LINK REL="next" HREF="corba-46.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-44.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-44.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-40.htm">5 The Bank Client</A> &gt <A HREF="corba-44.htm">5.4  Defining the interfaces</A><BR><BR>
+</DIV><A HREF="corba-46.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-44.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-44.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-853281"></A>5.4.1  <A NAME="marker-853921"></A><A NAME="marker-853919"></A><A NAME="marker-853917"></A>Initializing and exiting account frames</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853282"></A>Each time we make a new account interface we want to ensure two things:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853283"></A>The account interface is registered in the bank interface that spawned it</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853284"></A>Its balance pane displays the correct value</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-853285"></A>An easy way to do this is to add an <CODE CLASS="Code">
+initialize-instance</CODE>
+ after method specialized on <CODE CLASS="Code">
+account-interface</CODE>
+. (In Common Lisp, each call to make an instance of a given class is automatically followed by a call to initialize that instance; you are free to specialize the <CODE CLASS="Code">
+initialize-instance</CODE>
+ generic function on particular classes.) </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853286"></A>(defmethod initialize-instance :after ((self account-interface)     &amp;key)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853287"></A>  (with-slots (account-ref balance-field) self</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853288"></A>    (when account-ref</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853289"></A>      (setf (capi:display-pane-text balance-field)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853290"></A>            (format nil &quot;&#126;A&quot; (op:balance account-ref))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853291"></A>Here, we encounter our first example of invoking a CORBA operation on a CORBA object. The Common Lisp variable <CODE CLASS="Code">
+account-ref</CODE>
+, of class <CODE CLASS="Code">
+BankingDemo:account</CODE>
+, contains a proxy for a CORBA <CODE CLASS="Code">
+account</CODE>
+ object on the server. The application <CODE CLASS="Code">
+(op:balance account-ref)</CODE>
+ invokes a stub method specialized on the proxy's class. The stub method forwards the request across the ORB to the actual object on the server. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853623"></A>The request is executed on the object in the server and the result passed back across the ORB to the stub method, which returns the value to the client as a <CODE CLASS="Code">
+corba:long</CODE>
+. This value is then used to set the initial value of the <CODE CLASS="Code">
+balance</CODE>
+ field. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853292"></A>We can initialize the interface for a checking account in a similar way: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853293"></A>(defmethod initialize-instance :after (</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853294"></A>     (self checking-account-interface)  &amp;key)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853295"></A>  (with-slots (account-ref limit-field) self</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853296"></A>    (when account-ref</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853297"></A>      (setf (capi:display-pane-text limit-field)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853298"></A>            (format nil &quot;&#126;A&quot; (op:limit account-ref))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853299"></A>Inheritance ensures that the method on <CODE CLASS="Code">
+account-interface</CODE>
+ is called which registers the interface and sets up its <CODE CLASS="Code">
+balance</CODE>
+ field; a call to the <CODE CLASS="Code">
+op:limit</CODE>
+ stub determines the initial value of its <CODE CLASS="Code">
+limit</CODE>
+ field. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853300"></A>For convenience, we define a generic function <CODE CLASS="Code">
+make-account-frame</CODE>
+ that makes the correct class of frame for a given <CODE CLASS="Code">
+account</CODE>
+ object reference: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853301"></A>(defmethod make-account-frame ((self BankingDemo:account) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853302"></A>                                &amp;key bank-interface title)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853303"></A>  (push-new-item bank-interface</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853304"></A>                 title</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853305"></A>                 (make-instance 'account-interface </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853306"></A>                                :account-ref self</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853307"></A>                                :account-name title</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853308"></A>                                :owner bank-interface)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853309"></A>(defmethod make-account-frame ((self BankingDemo:checkingAccount)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853310"></A>                                &amp;key bank-interface title)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853311"></A>  (push-new-item bank-interface</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853312"></A>                 title</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853313"></A>                 (make-instance 'checking-account-interface </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853314"></A>                                :account-ref self</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853315"></A>                                :account-name title</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853316"></A>                                :owner bank-interface)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853317"></A>These methods simply dispatch on the class of the object reference to make an <CODE CLASS="Code">
+account-interface</CODE>
+ or <CODE CLASS="Code">
+checkingAccount-interface</CODE>
+ as appropriate.</P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-46.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-44.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-44.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

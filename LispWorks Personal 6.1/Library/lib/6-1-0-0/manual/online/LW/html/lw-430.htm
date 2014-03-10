@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.11.3  Locking
+</TITLE>
+
+<LINK REL="next" HREF="lw-431.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-429.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-424.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-424.htm">19.11  Oracle LOB interface</A><BR><BR>
+</DIV><A HREF="lw-431.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-429.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-424.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-911206"></A>19.11.3  <A NAME="68143"></A>Locking</H3>
+<P CLASS="Body">
+<A NAME="pgfId-911208"></A>When the LOB or its contents need to modified, the corresponding record must be locked (Oracle enforces this). The best way to lock a record is to pass <CODE CLASS="Code">
+:for-update</CODE>
+ when calling <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A>. See <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> for details. For example, writing a line in the end of the log file of station number 573:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-911210"></A>create table logfiles (stationid integer, logiles clob)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-911211"></A>  .. insert records ..</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-911213"></A>(sql:do-query ((log-stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911214"></A>               [select [log :output-stream] :from [logfiles]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911215"></A>               :where [= [stationid]  573] :for-update t])</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911216"></A>              (file-position log-stream :end)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911217"></A>              (write-line &quot;Add this line to the log&quot; log-stream)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911218"></A>              (close log-stream)   ; forces the output</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911219"></A>              )</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-911220"></A>(sql:commit)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-911222"></A>Note that any call to <A NAME="marker-913913"></A><A HREF="lw-1160.htm#25697" CLASS="XRef">commit</A> or <A NAME="marker-913918"></A><A HREF="lw-1256.htm#15063" CLASS="XRef">rollback</A> on the same connection removes the lock. If you want to modify the LOB later, you must lock it again. An efficient way to achieve this is to use the special token ROWID, which returns the ROWID in the database, because this does not involve searching on the server side. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-912211"></A>(let ((lobs-list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912212"></A>       (sql:select [lob-field][rowid] ; get pairs of LOB</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912213"></A>                   :from  [mytable]   ;  locators and ROWIDs</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912214"></A>                   :where [some-condition])))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912215"></A>  ... do something ...</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912216"></A>  ... reach a point when we want to modify one</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912217"></A>  ... of the LOBS above and have bound one of the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912218"></A>  ... pairs in the variable <EM CLASS="Variable">pair</EM>
+.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912219"></A>  (sql:select [1] </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912220"></A>              :from [mytable]            ; retrieve a constant</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912221"></A>              :where </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912222"></A>              [= [rowid] (second <EM CLASS="Variable">pair</EM>
+)]  ; get the right record</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912223"></A>              :for-update t)             ; lock it</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912224"></A>  (sql:ora-lob-write-buffer (car <EM CLASS="Variable">pair</EM>
+)   ; modify the lob</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912225"></A>                            <EM CLASS="Variable">offset</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912226"></A>                            <EM CLASS="Variable">amount</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912227"></A>                            <EM CLASS="Variable">buffer</EM>
+)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912228"></A>  (sql:commit)                           ; also unlock everything</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-911236"></A>  )</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-431.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-429.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-424.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.9.2  Killing text
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-54.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-52.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-51.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A> &gt <A HREF="eduser-m-51.htm">3.9  Deleting and killing text</A><BR><BR>
+</DIV><A HREF="eduser-m-54.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-52.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-51.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884616"></A>3.9.2  <A NAME="19221"></A>K<A NAME="marker-884614"></A>illing text</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884617"></A>Most of these commands result in text being pushed onto the kill ring so that it can be recovered. There is only one kill ring for all buffers so that text can be copied from one buffer to another.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884618"></A>Normally each kill command pushes a new block of text onto the kill ring. However, if more than one kill command is issued sequentially, and the text being killed was next to the previously killed text, they form a single entry in the kill ring (exceptions being <A HREF="eduser-m-53.htm#42873" CLASS="XRef">Kill Region</A> and <A HREF="eduser-m-53.htm#50035" CLASS="XRef">Save Region</A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-979608"></A><A HREF="eduser-m-53.htm#62627" CLASS="XRef">Append Next Kill</A> is different in that affects where a subsequent killed text is stored in the kill ring, but does not itself modify the kill ring.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884622"></A>Kill Next <A NAME="marker-1055103"></A>Word</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884623"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884625"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+D</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884626"></A>Kills the rest of the word after the current point. If the current point is between two words, then the next word is killed. </P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884628"></A>Kill Pr<A NAME="marker-1055125"></A>evious Word</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884629"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884630"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+Backspace</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884631"></A>Kills the rest of the word before the current point. If the current point is between two words, then the previous word is killed. </P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884633"></A><A NAME="marker-884632"></A>Kill Line</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884634"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884636"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+K</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884637"></A>Kills the characters from the current point up to the end of the current line. If the line is empty then the line is deleted.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884639"></A><A NAME="marker-884638"></A>Backward Kill Line</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884640"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884641"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884642"></A>Kills the characters from the current point to the beginning of the line. If the current point is already at the beginning of the line, the current line is joined to the previous line, with any trailing space on the previous line killed.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884644"></A>Forward Kill <A NAME="marker-1055147"></A>Sentence</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884645"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884646"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+K</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884647"></A>Kills the text starting from the current point up to the end of the sentence. If the current point is between two sentences, then the whole of the next sentence is killed.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884649"></A><A NAME="marker-884648"></A>Backward Kill Sentence</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884650"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884651"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X Backspace</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884652"></A>Kills the text starting from the current point up to the beginning of the sentence. If the current point is between two sentences, then the whole of the previous sentence is killed.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884655"></A><A NAME="marker-884653"></A><A NAME="42873"></A>Kill Region</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884656"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884658"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+W</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884659"></A>Kills the region between the current point and the mark.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884661"></A><A NAME="50035"></A>Save Re<A NAME="marker-1055169"></A>gion</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884662"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884664"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+W</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884665"></A>Pushes the region between the current point and the mark onto the kill ring without deleting it from the buffer. Text saved in this way can therefore be inserted elsewhere without first being killed.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-979552"></A><A NAME="62627"></A>Append Next<A NAME="marker-1055191"></A> Kill</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-979553"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-979554"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+Ctrl+W</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-979555"></A>If the next command entered kills any text then this text will be appended to the existing kill text instead of being pushed separately onto the kill ring.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1047377"></A>Zap To <A NAME="marker-1055213"></A>Ch<A NAME="marker-1047461"></A>ar</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1047378"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1047379"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+Z</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1047380"></A>Prompts for a character and kills text from the current point to the next occurrence of that character in the current buffer. If a prefix argument <EM CLASS="Variable">
+p</EM>
+ is used, then it kills to the <EM CLASS="Variable">
+p</EM>
+'th occurrence. If <EM CLASS="Variable">
+p</EM>
+ is negative, then it kills backwards.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1047459"></A>An editor error is signaled if the character cannot be found in the buffer.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-54.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-52.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-51.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

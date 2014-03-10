@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *print-handler-frames*
+</TITLE>
+
+<LINK REL="next" HREF="lw-694.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-692.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-683.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-683.htm">29 The DBG Package</A><BR><BR>
+</DIV><A HREF="lw-694.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-692.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886415"></A><A NAME="marker-887081"></A>*print-handler-frames*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886417"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889568"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890181"></A>Controls whether handler frames are printed in debugger output.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886419"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886420"></A>dbg</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886421"></A>Initial Value</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886422"></A>nil</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886423"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886424"></A>This variable is used by the debugger when it displays the stack frames. Handler frames are created by error handlers (see <A HREF="lw-25.htm#86196" CLASS="XRef">The stack in the debugger</A>), and are normally not shown by the debugger. However if <CODE CLASS="Code">
+*print-handler-frames*</CODE>
+ is set to <CODE CLASS="Code">
+t</CODE>
+ then the handler frames are displayed. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886428"></A>Example</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886429"></A>USER 162 &gt; (setq lw:*print-handler-frames* t)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886431"></A>T </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886432"></A>USER 163 &gt; (defun test (n)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886433"></A>   (handler-case (fn-to-use n)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886434"></A>(type-error () (format t &quot;&#126;%Type error&#126;%&quot;) 0)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886436"></A>TEST </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886437"></A>USER 164 &gt; (test #C(1 1))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886439"></A>Error: Undefined function: FN-TO-USE, with args</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886440"></A>  (#C(1 1)) </PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886442"></A>1 (continue) Call FN-TO-USE again</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886443"></A>  2 (abort) return to top loop level 0.</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886445"></A>Type :c followed by a number to proceed</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-889281"></A>USER 165 : 1 &gt; :b 10 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886448"></A>Catch frame: (NIL) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886449"></A>Catch frame: #:|block-catcher-1854| </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886450"></A>Call to *%UNDEFINED-FUNCTION-FUNCTION  : </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886451"></A>Call to %EVAL  : </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886452"></A>Call to RETURN-FROM  : </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886453"></A>Call to %EVAL  : </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886454"></A>Call to EVAL-AS-PROGN  : </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886455"></A>Handler frame: ((TYPE-ERROR %LEXICAL-CLOSURE%   </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886456"></A> (LAMBDA </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886457"></A>  (CONDITIONS::TEMP)  </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886458"></A>  (GO #:|lambda-633|)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886459"></A> ((#:|lambda-632|) (N . #)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886460"></A> NIL ((#:|lambda-631|) (TEST)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886461"></A> ((#:|lambda-633| # #)))) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886462"></A>Catch frame: &quot;&lt;* Catch All Object *&gt;&quot; </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886463"></A>Call to LET  :</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886465"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886466"></A><CODE CLASS="Code">
+*print-handler-frames*</CODE>
+ is an extension to Common Lisp.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-694.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-692.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

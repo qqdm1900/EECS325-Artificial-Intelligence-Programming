@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-wait-local
+</TITLE>
+
+<LINK REL="next" HREF="lw-1105.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1103.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1105.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1103.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1411202"></A><A NAME="39610"></A>process<A NAME="marker-1418104"></A>-wait-local</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1411204"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1411205"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1411206"></A>Has the same semantics as <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A>, but does not interact with the scheduler.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1411207"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1411208"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1411209"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1411210"></A>process-wait-local <EM CLASS="Variable">
+wait-reason</EM>
+ <EM CLASS="Variable">
+function</EM>
+ &amp;rest <EM CLASS="Variable">
+args</EM>
+ =&gt; t</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1411211"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1411212"></A><EM CLASS="Variable">
+wait-reason</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1411213"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1411214"></A><EM CLASS="Variable">
+args</EM>
+</P>
+<P CLASS="RDescription-C">Arguments passed to function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1411215"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1411216"></A>The function <CODE CLASS="Code">
+process-wait-local</CODE>
+ has same semantics as <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A>, but is &quot;local&quot;, which here means that it does not interact with the scheduler. The scheduler does not call the wait function and hence never wakes the waiting process</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1413338"></A>The wait function is called only by the calling process, before going to sleep, and whenever it is &quot;poked&quot;. A process is typically &quot;poked&quot; by calling <A HREF="lw-1086.htm#16739" CLASS="XRef">process-poke</A>, but all the other process managing functions (<A HREF="lw-1100.htm#39078" CLASS="XRef">process-unstop</A>, <A HREF="lw-1078.htm#62800" CLASS="XRef">process-interrupt</A>, <A HREF="lw-1080.htm#65256" CLASS="XRef">process-kill</A>) also &quot;poke&quot; the process. Returning from any of the generic Process Waiting functions (see <A HREF="lw-283.htm#61346" CLASS="XRef">Generic Process Wait functions</A>) or <CODE CLASS="Code">
+cl:sleep</CODE>
+ also implicitly pokes the process. A process may be also poked internally.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1411218"></A>Because the wait function is checked only when the process is poked, it is the responsibility of the application to poke the process when it should check the wait function. This is the disadvantage of <CODE CLASS="Code">
+process-wait-local</CODE>
+ and <A HREF="lw-1106.htm#75128" CLASS="XRef">process-wait-local-with-timeout</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1411219"></A><B CLASS="Bold">
+Note:</B>
+ See <A HREF="lw-1105.htm#28878" CLASS="XRef">process-wait-local-with-periodic-checks</A> and <A HREF="lw-1107.htm#88331" CLASS="XRef">process-wait-local-with-timeout-and-periodic-checks</A> for functions that periodically check the wait functions.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1411220"></A>One advantage of using the &quot;local&quot; waiters is that the wait function is called only by the waiting process. This means that the wait function does not have any of the restrictions that the wait function of <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> has. In particular:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1411221"></A>It does not matter if the wait function is not very fast. Note however, that it may be called several times, and not always in a predictable way, so it is better not to make it too slow or allocate much. You also cannot rely on any side effect that is cumulative inside the wait function, except in the call that returns <CODE CLASS="Code">
+t</CODE>
+ (because this happens at most once).</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1411222"></A>If there is an unhandled error in the wait function it enters the debugger like normal Lisp code, so it is easier to debug.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1411223"></A>The wait function is in the dynamic scope of the calling process, and so it sees all the dynamic bindings and can throw to all the catchers. That also means that all the handlers and restarts of the calling process are applicable in the wait function.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1411224"></A>The wait function can itself call Process Waiting functions or <CODE CLASS="Code">
+cl:sleep</CODE>
+, with a small caveat: since these functions may implictly &quot;poke&quot; the process, if the wait function calls any of them and then returns <CODE CLASS="Code">
+nil</CODE>
+, it may be immediately called again (if it returns <CODE CLASS="Code">
+t</CODE>
+ then <CODE CLASS="Code">
+process-wait-local</CODE>
+ itself returns). Normally this is not a problem, because it is still waiting, but it does mean that the wait function is called more times than expected. </LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1411225"></A>The wait function, because it can call Process Waiting functions, can use locks without causing errors. Note, however, that if the lock is held, it will cause an internal call to a Process Waiting function, which will &quot;poke&quot; the process and hence cause another call of the wait function (unless it returns <CODE CLASS="Code">
+t</CODE>
+).</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1411226"></A>The wait function is visible in the output of the profiler.</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-1411227"></A>Another advantage of the &quot;local&quot; functions is that they do not interact with the scheduler and so they reduce the overhead of the scheduler.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1411228"></A><CODE CLASS="Code">
+process-wait-local</CODE>
+ always returns <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1411229"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1411232"></A><A HREF="lw-1105.htm#28878" CLASS="XRef">process-wait-local-with-periodic-checks</A><BR>
+<A HREF="lw-1106.htm#75128" CLASS="XRef">process-wait-local-with-timeout</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1105.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1103.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

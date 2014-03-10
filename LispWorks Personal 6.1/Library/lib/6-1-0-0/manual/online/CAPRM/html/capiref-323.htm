@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ prompt-for-form
+</TITLE>
+
+<LINK REL="next" HREF="capiref-324.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-322.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-324.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-322.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3084942"></A><A NAME="11514"></A>prompt<A NAME="marker-4209230"></A>-for-form</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-907186"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-905056"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1146498"></A>Displays a text input pane and prompts the user for a form.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4209147"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4209148"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3663956"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3664011"></A>prompt-for-form <EM CLASS="Variable">
+message</EM>
+ &amp;key <EM CLASS="Variable">
+package</EM>
+ <EM CLASS="Variable">
+initial-value</EM>
+ <EM CLASS="Variable">
+evaluate</EM>
+ <EM CLASS="Variable">
+quotify</EM>
+ <EM CLASS="Variable">
+ok-check</EM>
+ <EM CLASS="Variable">
+value-function</EM>
+ <EM CLASS="Variable">
+pane-args</EM>
+ <EM CLASS="Variable">
+popup-args</EM>
+ <EM CLASS="Variable">
+continuation</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+, <EM CLASS="Variable">
+okp</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-905065"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-905067"></A>The function <CODE CLASS="Code">
+prompt-for-form</CODE>
+ prompts the user for a form by providing a text input pane that the form can be typed into.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-905068"></A>The form is read in the <EM CLASS="Variable">
+package</EM>
+ if specified or <CODE CLASS="Code">
+*package*</CODE>
+ if not. If <EM CLASS="Variable">
+evaluate</EM>
+ is non-nil then the result is the evaluation of the form, otherwise it is just the form itself. The printed version of <EM CLASS="Variable">
+initial-value</EM>
+ will be placed into the text input pane as a default, unless <EM CLASS="Variable">
+quotify</EM>
+, which defaults to <EM CLASS="Variable">
+evaluate</EM>
+, specifies otherwise. If <EM CLASS="Variable">
+value-function</EM>
+ is provided it overrides the default value function which reads the form and evaluates it when required. If the <EM CLASS="Variable">
+ok-check</EM>
+ is provided it will be passed the entered form and should return <CODE CLASS="Code">
+t</CODE>
+ if the form is a valid result. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-6665164"></A>If <A NAME="marker-6691306"></A><EM CLASS="Variable">
+continuation</EM>
+ is non-nil, then it must be a function with a lambda list that accepts two arguments. The <EM CLASS="Variable">
+continuation</EM>
+ function is called with the values that would normally be returned by <CODE CLASS="Code">
+prompt-for-form</CODE>
+. On Cocoa, passing <EM CLASS="Variable">
+continuation</EM>
+ causes the dialog to be made as a window-modal sheet and <CODE CLASS="Code">
+prompt-for-form</CODE>
+ returns immediately, leaving the dialog on the screen. The <A HREF="capiref-482.htm#92889" CLASS="XRef">with-dialog-results</A> macro provides a convenient way to create a <EM CLASS="Variable">
+continuation</EM>
+ function.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6622045"></A>The prompter is created by calling <A HREF="capiref-328.htm#27550" CLASS="XRef">prompt-for-string</A>. Arguments can be passed to the <CODE CLASS="Code">
+make-instance</CODE>
+ of the pane and the call to <CODE CLASS="Code">
+</CODE>
+<A HREF="capiref-300.htm#12695" CLASS="XRef">popup-confirmer</A> using <EM CLASS="Variable">
+pane-args</EM>
+ and <EM CLASS="Variable">
+popup-args</EM>
+ respectively, and an input history can be implemented by supplying a <EM CLASS="Variable">
+history-function</EM>
+ or <EM CLASS="Variable">
+history-symbol</EM>
+ in <EM CLASS="Variable">
+popup-args</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-905078"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-905080"></A>Try the following examples, and each time enter <CODE CLASS="Code">
+(+ 1 2)</CODE>
+ into the input pane. </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-905082"></A>(capi:prompt-for-form &quot;Enter a form:&quot;)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-905087"></A>(capi:prompt-for-form &quot;Enter a form:&quot; :evaluate nil)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-905093"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-905095"></A><A HREF="capiref-324.htm#35368" CLASS="XRef">prompt-for-forms</A> <BR>
+<A HREF="capiref-328.htm#27550" CLASS="XRef">prompt-for-string</A> <BR>
+<A HREF="capiref-300.htm#12695" CLASS="XRef">popup-confirmer</A> <BR>
+<A HREF="capiref-430.htm#26824" CLASS="XRef">text-input-pane</A> </P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-324.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-322.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

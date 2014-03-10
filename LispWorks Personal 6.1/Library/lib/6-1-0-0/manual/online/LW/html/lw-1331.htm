@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ apply-with-allocation-in-gen-num
+</TITLE>
+
+<LINK REL="next" HREF="lw-1332.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1332.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1177521"></A><A NAME="68519"></A>apply<A NAME="marker-1177520"></A>-with-allocation-in-gen-num</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1177522"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177523"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1177524"></A>Allows control over which generation objects are allocated in, in 64-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177525"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1177526"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177527"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1177528"></A>apply-with-allocation-in-gen-num <EM CLASS="Variable">
+what</EM>
+ <EM CLASS="Variable">
+gen-num</EM>
+ <EM CLASS="Variable">
+func</EM>
+ &amp;rest <EM CLASS="Variable">
+args</EM>
+ =&gt; <EM CLASS="Variable">
+results</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177529"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1197679"></A><EM CLASS="Variable">
+what</EM>
+</P>
+<P CLASS="RDescription-C">One of the keywords <CODE CLASS="Code">
+:cons</CODE>
+, <CODE CLASS="Code">
+:symbol</CODE>
+, <CODE CLASS="Code">
+:function</CODE>
+, <CODE CLASS="Code">
+:non-pointer</CODE>
+ and <CODE CLASS="Code">
+:other</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1197680"></A><EM CLASS="Variable">
+gen-num</EM>
+</P>
+<P CLASS="RDescription-C">An integer in the inclusive range [0,7], or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1197681"></A><EM CLASS="Variable">
+func</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1198159"></A><EM CLASS="Variable">
+args</EM>
+</P>
+<P CLASS="RDescription-C">The arguments passed to <EM CLASS="Variable">
+func</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177531"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1177532"></A><EM CLASS="Variable">
+results</EM>
+</P>
+<P CLASS="RDescription-C">The values returned from the call to <EM CLASS="Variable">
+func</EM>
+ with <EM CLASS="Variable">
+args</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177533"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1195278"></A>The function <CODE CLASS="Code">
+apply-with-allocation-in-gen-num</CODE>
+ applies the function <EM CLASS="Variable">
+func</EM>
+ to <EM CLASS="Variable">
+args</EM>
+ such that objects of allocation type <EM CLASS="Variable">
+what</EM>
+ are allocated in generation <EM CLASS="Variable">
+gen-num</EM>
+, in 64-bit LispWorks.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1195279"></A>See also the keyword <CODE CLASS="Code">
+:allocation</CODE>
+ to <A HREF="lw-653.htm#34584" CLASS="XRef">make-array</A>, which  catches the most common cases.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1195280"></A>It is probably quite rare that it is useful to use this function, unless the function allocates a lot, and you are certain that every object that is allocated of the allocation type is long-lived, which is normally difficult to tell.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1654734"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1210466"></A>Allocation of interned symbols is controlled separately by <A HREF="lw-847.htm#54108" CLASS="XRef">*symbol-alloc-gen-num*</A>.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1654653"></A>In 32-bit LispWorks the argument <EM CLASS="Variable">
+what</EM>
+ is ignored and the effect is like that of the macro <A HREF="lw-747.htm#24777" CLASS="XRef">allocation-in-gen-num</A>.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1177535"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1177536"></A><A HREF="lw-747.htm#24777" CLASS="XRef">allocation-in-gen-num</A><BR>
+<A HREF="lw-653.htm#34584" CLASS="XRef">make-array</A><BR>
+<A HREF="lw-847.htm#54108" CLASS="XRef">*symbol-alloc-gen-num*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1332.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

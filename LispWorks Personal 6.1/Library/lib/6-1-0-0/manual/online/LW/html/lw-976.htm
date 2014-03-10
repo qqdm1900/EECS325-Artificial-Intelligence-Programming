@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ start-tty-listener
+</TITLE>
+
+<LINK REL="next" HREF="lw-977.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-975.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-977.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-975.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1399987"></A><A NAME="90353"></A>start<A NAME="marker-1400244"></A>-tty-listener</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1399988"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1399989"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1399990"></A>Starts a listener in the startup shell.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1399991"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1399992"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1399993"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1399994"></A>start-tty-listener <EM CLASS="Variable">
+force</EM>
+ =&gt; <EM CLASS="Variable">
+process</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1399995"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1399996"></A><EM CLASS="Variable">
+force</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1401078"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1401159"></A><EM CLASS="Variable">
+process</EM>
+</P>
+<P CLASS="RDescription-C">A listener process, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1399999"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1400000"></A>The function <CODE CLASS="Code">
+start-tty-listener</CODE>
+ returns a process that runs a listener <A NAME="marker-1401067"></A><A NAME="marker-1401068"></A><A NAME="marker-1401069"></A>read-eval-print loop connected to <CODE CLASS="Code">
+*terminal-io*</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1400306"></A>If <EM CLASS="Variable">
+force</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then  <CODE CLASS="Code">
+start-tty-listener</CODE>
+ checks if the default listener process is alive or if there is a live process with name &quot;TTY Listener&quot;. If such a process exists, <CODE CLASS="Code">
+start-tty-listener</CODE>
+ simply returns <CODE CLASS="Code">
+nil</CODE>
+ and does not start a new process. If no such process exists, or if <EM CLASS="Variable">
+force</EM>
+ was <CODE CLASS="Code">
+t</CODE>
+, then <CODE CLASS="Code">
+start-tty-listener</CODE>
+ starts a new listener process named &quot;TTY  Listener&quot;, and returns it.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1592065"></A>If a REPL with I/O through <CODE CLASS="Code">
+*terminal-io*</CODE>
+ (such as a REPL started by <CODE CLASS="Code">
+start-tty-listener</CODE>
+) is in the debugger, then by default it blocks multiprocessing. This behavior is controlled by the value of <A HREF="lw-696.htm#37475" CLASS="XRef">*terminal-debugger-block-multiprocessing*</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1591664"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1591909"></A><A HREF="lw-696.htm#37475" CLASS="XRef">*terminal-debugger-block-multiprocessing*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-977.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-975.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

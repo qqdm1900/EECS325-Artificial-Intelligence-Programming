@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ create-table
+</TITLE>
+
+<LINK REL="next" HREF="lw-1166.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1164.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1166.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1164.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-888133"></A><A NAME="41485"></A>create<A NAME="marker-1047015"></A>-table</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888134"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888135"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888136"></A>Creates a table.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888137"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888138"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888139"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888140"></A>create-table <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+description</EM>
+ &amp;key <EM CLASS="Variable">
+database</EM>
+ <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+extra-options</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888141"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888142"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">The name of the table.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888143"></A><EM CLASS="Variable">
+description</P>
+<P CLASS="RDescription-C"></EM>
+The table properties.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888144"></A><EM CLASS="Variable">
+database</P>
+<P CLASS="RDescription-C"></EM>
+A database.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1334008"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">A string or the keyword <CODE CLASS="Code">
+:support-transactions</CODE>
+, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1334009"></A><EM CLASS="Variable">
+extra-options</EM>
+</P>
+<P CLASS="RDescription-C">A string or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888145"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888146"></A>None.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888147"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888148"></A>The function <CODE CLASS="Code">
+create-table</CODE>
+ creates a table called <EM CLASS="Variable">
+name</EM>
+ and defines its columns and other properties with <EM CLASS="Variable">
+description</EM>
+. The argument <EM CLASS="Variable">
+description</EM>
+ is a list containing lists of attribute-name and type information pairs.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-888149"></A>The default value of <EM CLASS="Variable">
+database</EM>
+ is <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1334672"></A><EM CLASS="Variable">
+type</EM>
+ and <EM CLASS="Variable">
+extra-options </EM>
+are treated in a <EM CLASS="Variable">
+database-type</EM>
+ specific way. Currently only <EM CLASS="Variable">
+database-type</EM>
+ <CODE CLASS="Code">
+:mysql</CODE>
+ uses these options, as follows.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1379654"></A>If <EM CLASS="Variable">
+type</EM>
+ is not supplied, it defaults to the value (if any) of <EM CLASS="Variable">
+default-table-type</EM>
+ that was supplied to <A HREF="lw-1161.htm#38900" CLASS="XRef">connect</A>. If <EM CLASS="Variable">
+extra-options</EM>
+ is not supplied, it defaults to the value (if any) of <EM CLASS="Variable">
+default-table-extra-options</EM>
+ that was supplied to <A HREF="lw-1161.htm#38900" CLASS="XRef">connect</A>. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1345902"></A><EM CLASS="Variable">
+type</EM>
+, if non-nil, is used as argument to TYPE in the SQL statement:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1334676"></A>create table MyTable (<EM CLASS="Variable">
+column-specs</EM>
+) TYPE = <EM CLASS="Variable">
+type</EM>
+</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1345725"></A>except that if <EM CLASS="Variable">
+type</EM>
+ is <CODE CLASS="Code">
+:support-transactions</CODE>
+ then <CODE CLASS="Code">
+create-table</CODE>
+ will attempt to make tables that support transactions, by using the type <CODE CLASS="Code">
+innodb</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1379480"></A><EM CLASS="Variable">
+extra-options</EM>
+ (if non-nil) is appended in the end of this SQL statement.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1379661"></A>When <EM CLASS="Variable">
+database-type</EM>
+ is not <CODE CLASS="Code">
+:mysql</CODE>
+, <EM CLASS="Variable">
+type</EM>
+ and <EM CLASS="Variable">
+extra-options</EM>
+ are ignored.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888150"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888151"></A>The following code:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888152"></A>(create-table [manager]</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888153"></A>  '(([id] (char 10) not-null)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-918870"></A>    ([salary] (number 8 2))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-888154"></A>is equivalent to the following SQL:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888155"></A>CREATE TABLE MANAGER</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-888156"></A>   (ID CHAR(10) NOT NULL,SALARY NUMBER(8,2))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888157"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888161"></A><A HREF="lw-1161.htm#38900" CLASS="XRef">connect</A><BR>
+<A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A><BR>
+<A HREF="lw-1181.htm#25162" CLASS="XRef">drop-table</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1166.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1164.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

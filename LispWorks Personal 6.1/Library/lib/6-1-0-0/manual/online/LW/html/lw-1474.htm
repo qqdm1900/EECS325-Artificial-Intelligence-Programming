@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ collect-registry-values
+</TITLE>
+
+<LINK REL="next" HREF="lw-1475.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1473.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1471.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1471.htm">42 The Windows registry API</A><BR><BR>
+</DIV><A HREF="lw-1475.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1473.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1011917"></A><A NAME="24391"></A>collect-<A NAME="marker-1025361"></A>registry-values</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1011918"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011919"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1011920"></A>Returns the values of a registry key.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1042657"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1042658"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011921"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1011922"></A>collect-registry-values <EM CLASS="Variable">
+subkey</EM>
+ &amp;key <EM CLASS="Variable">
+root</EM>
+ <EM CLASS="Variable">
+max-name-size</EM>
+ <EM CLASS="Variable">
+max-buffer-size</EM>
+ <EM CLASS="Variable">
+expected-type</EM>
+ <EM CLASS="Variable">
+errorp</EM>
+ <EM CLASS="Variable">
+value-function</EM>
+ =&gt; <EM CLASS="Variable">
+values-alist</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011923"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1011924"></A><EM CLASS="Variable">
+subkey</EM>
+</P>
+<P CLASS="RDescription-C">A string specifying the name of the key.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1011925"></A><EM CLASS="Variable">
+root</EM>
+</P>
+<P CLASS="RDescription-C">A keyword or handle.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1011926"></A><EM CLASS="Variable">
+max-name-size</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1011927"></A><EM CLASS="Variable">
+max-buffer-size</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1011928"></A><EM CLASS="Variable">
+expected-type</EM>
+</P>
+<P CLASS="RDescription-C">A keyword or <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1011929"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1011930"></A><EM CLASS="Variable">
+value-function</EM>
+</P>
+<P CLASS="RDescription-C">A function or symbol.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011931"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1011932"></A><EM CLASS="Variable">
+values-alist</EM>
+</P>
+<P CLASS="RDescription-C">An alist.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011933"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1011934"></A>The function <CODE CLASS="Code">
+collect-registry-values</CODE>
+ returns an alist of all of the values of <EM CLASS="Variable">
+subkey</EM>
+ under the key <EM CLASS="Variable">
+root</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1020060"></A><EM CLASS="Variable">
+subkey</EM>
+ and <EM CLASS="Variable">
+root</EM>
+ are interpreted as described for <A HREF="lw-1475.htm#44547" CLASS="XRef">create-registry-key</A>.  The default value of <EM CLASS="Variable">
+root</EM>
+ is <CODE CLASS="Code">
+:user</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1011936"></A><EM CLASS="Variable">
+max-name-size</EM>
+ specifies the maximum length of the returned name.  If the name is longer than this, an error is signalled. The default value of <EM CLASS="Variable">
+max-name-size</EM>
+ is 256.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1011937"></A><EM CLASS="Variable">
+max-buffer-size</EM>
+ specifies the maximum length in bytes of the data.  If the data is longer than this, an error is signalled. The default value of <EM CLASS="Variable">
+max-buffer-size</EM>
+ is 1024.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1011938"></A>If <EM CLASS="Variable">
+value-function</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, the returned <EM CLASS="Variable">
+values-alist</EM>
+ is an association list containing pairs <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+name</EM>
+<CODE CLASS="Code">
+ . </CODE>
+<EM CLASS="Variable">
+data</EM>
+<CODE CLASS="Code">
+)</CODE>
+ consisting of the names and data of the values of <EM CLASS="Variable">
+subkey</EM>
+.  <EM CLASS="Variable">
+expected-type</EM>
+ controls how certain types are converted to Lisp objects as described for <A HREF="lw-1477.htm#61524" CLASS="XRef">enum-registry-value</A>. The default value of <EM CLASS="Variable">
+expected-type</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1030007"></A>If <EM CLASS="Variable">
+value-function</EM>
+ is non-nil, it should be a function with signature</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1030008"></A>value-function <EM CLASS="Variable">
+handle</EM>
+ <EM CLASS="Variable">
+subsubkey-name-and-value</EM>
+ =&gt; <EM CLASS="Variable">
+name-and-value</EM>
+, <EM CLASS="Variable">
+collectp</EM>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1030009"></A><EM CLASS="Variable">
+value-function</EM>
+ is funcalled for each subsubkey with the handle of <EM CLASS="Variable">
+subkey</EM>
+ and a cons of the name and value of the subsubkey. If <EM CLASS="Variable">
+collectp</EM>
+ is non-nil then <EM CLASS="Variable">
+name-and-value</EM>
+ is collected into the alist <EM CLASS="Variable">
+values-alist</EM>
+ to return from <CODE CLASS="Code">
+collect-registry-values</CODE>
+.  Otherwise <EM CLASS="Variable">
+name-and-value</EM>
+ is ignored.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1011939"></A>If an error occurs and <EM CLASS="Variable">
+errorp</EM>
+ is true, then an error is signalled.  Otherwise, <EM CLASS="Variable">
+values-alist</EM>
+ is returned as <CODE CLASS="Code">
+nil</CODE>
+ if <EM CLASS="Variable">
+subkey</EM>
+ could not be opened at all or contains <CODE CLASS="Code">
+nil</CODE>
+ for the data of any particular pair that cannot be read. The default value of <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011940"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1020166"></A><A HREF="lw-1473.htm#44730" CLASS="XRef">collect-registry-subkeys</A><BR>
+<A HREF="lw-1475.htm#44547" CLASS="XRef">create-registry-key</A><BR>
+<A HREF="lw-1477.htm#61524" CLASS="XRef">enum-registry-value</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1475.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1473.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

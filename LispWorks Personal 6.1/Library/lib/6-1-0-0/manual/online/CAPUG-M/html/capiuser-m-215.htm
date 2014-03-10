@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.9.9  Creating external images from Graphics Ports operations
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-216.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-214.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-204.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-181.htm">13 Graphics Ports</A> &gt <A HREF="capiuser-m-204.htm">13.9  Working with images</A><BR><BR>
+</DIV><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-214.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-204.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-908589"></A>13.9.9  <A NAME="marker-908676"></A>Creating external images from Graphics Ports operations</H3>
+<P CLASS="Body">
+<A NAME="pgfId-908590"></A>To create an <CODE CLASS="Code">
+external-image</CODE>
+ object from an on-screen window, use <A NAME="marker-908671"></A><CODE CLASS="Code">
+with-pixmap-graphics-port</CODE>
+ as in this example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-908591"></A>(defun record-picture (output-pane)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908592"></A>  (gp:with-pixmap-graphics-port</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908593"></A>      (port output-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908594"></A>            400 400</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908595"></A>            :clear t</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908596"></A>            :background :red)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908597"></A>    (gp:draw-rectangle port 0 0 200 200</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908598"></A>                       :filled t</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908599"></A>                       :foreground :blue)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908600"></A>    (let ((image (gp:make-image-from-port port)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-908601"></A>      (gp:externalize-image port image))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-908602"></A>Here <EM CLASS="Variable">
+output-pane</EM>
+ must be a displayed instance of <CODE CLASS="Code">
+capi:output-pane</CODE>
+ (or a subclass). The code does not affect the displayed pane.</P>
+<P CLASS="Body">
+<A NAME="pgfId-908603"></A>If you do not already display a suitable output pane, you can create an invisible one like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-908604"></A>(defun record-picture-1 ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908605"></A>  (let* ((pl (make-instance 'capi:pinboard-layout))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908606"></A>         (win (capi:display</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908607"></A>               (make-instance 'capi:interface</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908608"></A>                              :display-state :hidden</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908609"></A>                              :layout pl))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-908610"></A>    (prog1 (record-picture pl)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-908611"></A>      (capi:destroy win))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-908585"></A>Note: There is no reason to create and destroy the invisible interface each time a new picture is recorded, so for efficiency you could cache the interface object and use it repeatedly.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-214.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-204.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

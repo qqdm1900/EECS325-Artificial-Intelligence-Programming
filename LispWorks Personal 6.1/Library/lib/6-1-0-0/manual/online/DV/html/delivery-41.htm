@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.3  Delivering a standalone application executable
+</TITLE>
+
+<LINK REL="next" HREF="delivery-42.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-40.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-36.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-36.htm">4 Delivering your Application</A><BR><BR>
+</DIV><A HREF="delivery-42.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-40.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-36.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853657"></A>4.3  <A NAME="19871"></A><A NAME="marker-859797"></A>Delivering a standalone application executable</H3>
+<P CLASS="Body">
+<A NAME="pgfId-861809"></A>There are usually two considerations when delivering an application. </P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-861810"></A>Making the application run standalone. That is, turn the application into a single file that needs no assistance from LispWorks in order to run.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-861812"></A>Make the application smaller. That is, make the application smaller than the development environment plus application code.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-861814"></A>We recommend delivering a standalone executable application first, with no attempt to make the image smaller. Do this by delivering at delivery level 0, which removes very little from the image. You can then look into making the image smaller if you need to.</P>
+<P CLASS="Body">
+<A NAME="pgfId-861815"></A>If you try to do both of these in the first attempt and the delivered application does not work, it is not clear whether the wrong thing was removed from the image, or the application would not have delivered properly even if no image reduction work was done. </P>
+<P CLASS="Body">
+<A NAME="pgfId-861870"></A>Once you have developed and compiled your application, you are ready to deliver it as a standalone application. Delivering a standalone version is done by calling <CODE CLASS="Code">
+deliver</CODE>
+ with level 0, which does not try to make the image smaller, but does remove the LispWorks development tools as described in <A HREF="delivery-7.htm#93445" CLASS="XRef">Functionality removed by delivery</A>. To do this modify your <CODE CLASS="Code">
+deliver.lisp</CODE>
+ script from <A HREF="delivery-28.htm#75420" CLASS="XRef">Delivering the program</A> as appropriate to your application:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-862465"></A>(load-all-patches)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861874"></A>(load-my-application) 	</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861875"></A>;;; unless you have it already loaded as suggested in </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861832"></A>;;;<A HREF="delivery-39.htm#16876" CLASS="XRef">Saving the image before attempting delivery</A></PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-861833"></A>(deliver 'my-function &quot;my-program&quot; 0 :interface :capi)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-861835"></A>This is assuming your application uses CAPI. If it does not, you can eliminate <CODE CLASS="Code">
+:interface</CODE>
+ <CODE CLASS="Code">
+:capi</CODE>
+. In this case, if your application requires multiprocessing, you to need to pass <CODE CLASS="Code">
+:multiprocessing t</CODE>
+:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-861918"></A>(deliver `my-function &quot;my-program&quot; 0 :multiprocessing t)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-861919"></A>Then run LispWorks with <CODE CLASS="Code">
+deliver.lisp</CODE>
+ as a build script. You can do this using the graphical Application Builder tool (see <A HREF="delivery-29.htm#72727" CLASS="XRef">Delivering the program using the LispWorks IDE</A>) or in a command window, like this:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-861920"></A>On Microsoft Windows, open a DOS window and enter:</LI>
+</UL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-861921"></A>MS-DOS&gt; lispworks-6-1-0-x86-win32.exe -build deliver.lisp</CODE>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-861922"></A>On UNIX, Linux and FreeBSD systems, enter a command line like this in a shell:</LI>
+</UL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-861923"></A>% lispworks-6-1-0-x86-linux -build deliver.lisp</CODE>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-864391"></A><B CLASS="Bold">
+Note:</B>
+ the image name varies between the supported platforms.</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-862778"></A>On Mac OS X, use Terminal.app:</LI>
+</UL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-862784"></A>% ./lispworks-6-1-0-macos-universal -build deliver.lisp</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-861839"></A>This creates an executable in <CODE CLASS="Code">
+my-program.exe</CODE>
+ on Microsoft Windows, or <CODE CLASS="Code">
+my-program</CODE>
+ on UNIX/Linux/FreeBSD/Mac OS X. When this executable starts, it calls <CODE CLASS="Code">
+my-function</CODE>
+ without arguments.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-42.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-40.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-36.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

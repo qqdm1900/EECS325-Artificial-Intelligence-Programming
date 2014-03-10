@@ -1,0 +1,384 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ declare
+</TITLE>
+
+<LINK REL="next" HREF="lw-639.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-637.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-639.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-637.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1039186"></A><A NAME="20275"></A>dec<A NAME="marker-1139136"></A>la<A NAME="marker-1139137"></A>r<A NAME="marker-1165491"></A>e<A NAME="marker-1039185"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1039187"></A>Special Form</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039188"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039189"></A>Declares a variable as special, provides advice to the Common Lisp system, or helps the programmer to optimize code.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039190"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039191"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039192"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039193"></A>declare <EM CLASS="Variable">
+declaration</EM>
+* </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039194"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039195"></A><EM CLASS="Variable">
+declaration</EM>
+</P>
+<P CLASS="RDescription-C">A declaration specifier, not evaluated.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039196"></A>Values </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039197"></A>The special form <CODE CLASS="Code">
+declare</CODE>
+ behaves computationally as if it is not present (other than to affect the semantics), and is only allowed in certain contexts, such as after the variable list in a <CODE CLASS="Code">
+let</CODE>
+, <CODE CLASS="Code">
+do</CODE>
+, <CODE CLASS="Code">
+defun</CODE>
+ and so on.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039198"></A>(Consult the syntax definition of each special form to see if it takes <CODE CLASS="Code">
+declare</CODE>
+ forms and/or documentation strings.)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039199"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039200"></A>There are three distinct uses of <CODE CLASS="Code">
+declare</CODE>
+: one is to declare Lisp variables as &quot;special&quot; (this affects the semantics of the appropriate bindings of the variables), the second is to provide advice to help the Common Lisp system (in reality the compiler) run your Lisp code faster or with more sophisticated debugging options, and the third (using the <CODE CLASS="Code">
+:explain</CODE>
+ declaration) is to help you optimize your code.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1131700"></A>If you use <CODE CLASS="Code">
+declare</CODE>
+ to specify types (and so eliminate type-checking for the specified symbols) and then supply the wrong type, you may obtain a &quot;Segmentation Violation&quot;. You can check this by interpreting the code (rather than compiling it).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039202"></A>The following are extensions to the Common Lisp definition of <CODE CLASS="Code">
+declare</CODE>
+:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1164603"></A><CODE CLASS="Code">
+hcl:special-global</CODE>
+ declares that the symbol is never bound.</LI>
+<P CLASS="RBullet-C">
+<A NAME="pgfId-1164605"></A>In SMP LispWorks the compiler signals error if it detects that a symbol declared as <CODE CLASS="Code">
+hcl:special-global</CODE>
+ is bound, and at runtime it also signals an error.</P>
+<P CLASS="RBullet-C">
+<A NAME="pgfId-1164606"></A>In non-SMP LispWorks the compiler gives an error, but there is no runtime check. The runtime behavior is the same as <CODE CLASS="Code">
+cl:special</CODE>
+, with all accesses to the symbol in low safety.</P>
+<P CLASS="RBullet-C">
+<A NAME="pgfId-1164607"></A><CODE CLASS="Code">
+hcl:special-global</CODE>
+ is very useful, and because of the checks it is reasonably safe. It is useful not only for speed, but also to guard against unintentionally binding variables that should not be bound.</P>
+<P CLASS="RBullet-C">
+<A NAME="pgfId-1164608"></A>See also <A HREF="lw-778.htm#48964" CLASS="XRef">defglobal-parameter</A>.</P>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1164610"></A><CODE CLASS="Code">
+hcl:special-dynamic</CODE>
+ declares that the symbol is never accessed outside the dynamic scope of the binding.</LI>
+<P CLASS="RBullet-C">
+<A NAME="pgfId-1164612"></A>In high safety code accessing the symbol outside the scope of binding signals an error. In low safety code it may result in unpredictable behavior.</P>
+<P CLASS="RBullet-C">
+<A NAME="pgfId-1164613"></A>In non-SMP LispWorks the only effect of this declaration is to make all access to the variable low safety.  </P>
+<P CLASS="RBullet-C">
+<A NAME="pgfId-1164614"></A><CODE CLASS="Code">
+hcl:special-dynamic</CODE>
+ is useful, but because it can lead to unpredictable behavior you need to ensure that you test your program in high safety when you use it.</P>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1164616"></A><CODE CLASS="Code">
+hcl:special-fast-access</CODE>
+ declares that a symbol should be &quot;fast access&quot;.</LI>
+<P CLASS="RBullet-C">
+<A NAME="pgfId-1164618"></A>The semantics of the declaration is the same as <CODE CLASS="Code">
+cl:special</CODE>
+, except that access to the variable is low safety. In addition, the compiler compiles access to the symbol in a way that speeds up the access, but also introduces a tiny reduction in the speed of the whole system. The balance between these effects is not obvious.</P>
+<P CLASS="RBullet-C">
+<A NAME="pgfId-1164619"></A>It is not obvious where <CODE CLASS="Code">
+hcl:special-fast-access</CODE>
+ is useful. If you can ensure that the symbol is always bound or never bound then <CODE CLASS="Code">
+hcl:special-dynamic</CODE>
+ or <CODE CLASS="Code">
+hcl:special-global</CODE>
+ are certainly better.</P>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1039203"></A><CODE CLASS="Code">
+hcl:lambda-list</CODE>
+ specifies the value to be returned when a programmer asks for the arglist of a function.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1039204"></A><CODE CLASS="Code">
+values</CODE>
+ specifies the value to be returned when you ask for a description of the results of a function.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1039205"></A><CODE CLASS="Code">
+hcl:invisible-frame</CODE>
+ specifies that calls to this function should not appear in a debugger backtrace.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1039206"></A><CODE CLASS="Code">
+hcl:alias</CODE>
+ specifies that calls to this function should be displayed as calls to an alternative function in a debugger backtrace.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1131738"></A><CODE CLASS="Code">
+:explain</CODE>
+ controls messages printed by the compiler while it is processing forms.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-1131754"></A>The remainder of this description documents the syntax and use of <CODE CLASS="Code">
+:explain</CODE>
+ declarations.</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1131843"></A><EM CLASS="Variable">
+declaration</EM>
+ ::= (:explain <EM CLASS="Variable">
+option</EM>
+*)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1131844"></A><EM CLASS="Variable">
+option</EM>
+ ::= <EM CLASS="Variable">
+optionkey</EM>
+ | (<EM CLASS="Variable">
+optionkey</EM>
+ <EM CLASS="Variable">
+optionvalue</EM>
+)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1131845"></A><EM CLASS="Variable">
+optionkey</EM>
+ ::= :none | :variables | :types | :floats | :non-floats | :all-calls | :all-calls-with-arg-types | :calls | :boxing | :print-original-form | :print-expanded-form | :print-length | :print-level</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1131850"></A>The <CODE CLASS="Code">
+:explain</CODE>
+ declaration controls messages printed by the compiler while it is processing forms.  The declaration can be used with <A HREF="lw-662.htm#19061" CLASS="XRef">proclaim</A> or <A HREF="lw-637.htm#27351" CLASS="XRef">declaim</A> as a top level form to give it global or file scope.  It can also be used at the start of a <CODE CLASS="Code">
+#'lambda</CODE>
+ form or function body to give it the scope of that function. The declaration has unspecified effect when used in other contexts, for example in the body of a <CODE CLASS="Code">
+let</CODE>
+ form.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1132904"></A>An <CODE CLASS="Code">
+:explain</CODE>
+ declaration consists of a set of options of the form <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+optionkey</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+optionvalue</EM>
+<CODE CLASS="Code">
+)</CODE>
+ which associates <EM CLASS="Variable">
+optionvalue</EM>
+ with <EM CLASS="Variable">
+optionkey</EM>
+ or <EM CLASS="Variable">
+optionkey</EM>
+ which associates <CODE CLASS="Code">
+t</CODE>
+ with <EM CLASS="Variable">
+optionkey</EM>
+.  By default, all of the <EM CLASS="Variable">
+optionkey</EM>
+s have an associated value <CODE CLASS="Code">
+nil</CODE>
+.  All <EM CLASS="Variable">
+optionkey</EM>
+s not specified by a declaration remain unchanged (except for the special action of the <CODE CLASS="Code">
+:none</CODE>
+ <EM CLASS="Variable">
+optionkey</EM>
+ described below).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1131852"></A>The <EM CLASS="Variable">
+optionkey</EM>
+ should be one of the following:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1131853"></A><CODE CLASS="Code">
+:none</CODE>
+</P>
+<P CLASS="RDescription-C">Set value associated with all <EM CLASS="Variable">
+optionkey</EM>
+s to <CODE CLASS="Code">
+nil</CODE>
+. This turns off all explanations.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1131855"></A><CODE CLASS="Code">
+:variables</CODE>
+</P>
+<P CLASS="RDescription-C">If <EM CLASS="Variable">
+optionvalue</EM>
+ is non-nil, list all the variables of each function, specifying whether they are floating point or not.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1131857"></A><CODE CLASS="Code">
+:types</CODE>
+</P>
+<P CLASS="RDescription-C">If <EM CLASS="Variable">
+optionvalue</EM>
+ is non-nil, print information about compiler transformations that depend on declared or deduced type information.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1131859"></A><CODE CLASS="Code">
+:floats</CODE>
+</P>
+<P CLASS="RDescription-C">If <EM CLASS="Variable">
+optionvalue</EM>
+ is non-nil, print information about calls to functions that may allocate floats.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1131861"></A><CODE CLASS="Code">
+:non-floats</CODE>
+</P>
+<P CLASS="RDescription-C">If <EM CLASS="Variable">
+optionvalue</EM>
+ is non-nil, print information about calls to functions that may allocate non-float numbers, for example bignums.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1131863"></A><CODE CLASS="Code">
+:all-calls</CODE>
+</P>
+<P CLASS="RDescription-C">If <EM CLASS="Variable">
+optionvalue</EM>
+ is non-nil, print information about calls to normal functions.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1131865"></A><CODE CLASS="Code">
+:all-calls-with-arg-types</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1131866"></A>If <EM CLASS="Variable">
+optionvalue</EM>
+ is non-nil, print the argument types for calls to normal functions. Must be combined with <CODE CLASS="Code">
+:all-calls</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1131867"></A><CODE CLASS="Code">
+:calls</CODE>
+</P>
+<P CLASS="RDescription-C">A synonym for <CODE CLASS="Code">
+:all-calls</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1131869"></A><CODE CLASS="Code">
+:boxing</CODE>
+</P>
+<P CLASS="RDescription-C">If <EM CLASS="Variable">
+optionvalue</EM>
+ is non-nil, print information about calls to functions that may allocate numbers, for example floats or bignums.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1131871"></A><CODE CLASS="Code">
+:print-original-form</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1131872"></A>If <EM CLASS="Variable">
+optionvalue</EM>
+ is non-nil, modifies the <CODE CLASS="Code">
+:all-calls</CODE>
+, <CODE CLASS="Code">
+:floats</CODE>
+ and <CODE CLASS="Code">
+:non-floats</CODE>
+ explanations to include the original source code form that contains the call.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1131873"></A><CODE CLASS="Code">
+:print-expanded-form</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1131874"></A>If <EM CLASS="Variable">
+optionvalue</EM>
+ is non-nil, modifies the <CODE CLASS="Code">
+:all-calls</CODE>
+, <CODE CLASS="Code">
+:floats</CODE>
+ and <CODE CLASS="Code">
+:non-floats</CODE>
+ explanations to include the macroexpanded source code form that contains the call.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1131875"></A><CODE CLASS="Code">
+:print-length</CODE>
+</P>
+<P CLASS="RDescription-C">Use the <EM CLASS="Variable">
+optionvalue</EM>
+ as the value of <CODE CLASS="Code">
+*print-length*</CODE>
+ for <CODE CLASS="Code">
+:all-calls</CODE>
+, <CODE CLASS="Code">
+:floats</CODE>
+ and <CODE CLASS="Code">
+:non-floats</CODE>
+ explanations.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1131877"></A><CODE CLASS="Code">
+:print-level</CODE>
+</P>
+<P CLASS="RDescription-C">Use the <EM CLASS="Variable">
+optionvalue</EM>
+ as the value of <CODE CLASS="Code">
+*print-level*</CODE>
+ for <CODE CLASS="Code">
+:all-calls</CODE>
+, <CODE CLASS="Code">
+:floats</CODE>
+ and <CODE CLASS="Code">
+:non-floats</CODE>
+ explanations.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1131880"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1131881"></A>(defun foo (arg)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1131882"></A>  (declare</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1131883"></A>	(:explain :variables)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1131884"></A>	(optimize (float 0)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1131885"></A>  (let* ((double-arg (coerce arg 'double-float))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1131886"></A>         (next (+ double-arg 1d0))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1131887"></A>         (other (* double-arg 1/2)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1131888"></A>    (values next other)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1131889"></A>;;- Variables with non-floating point types:</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1131890"></A>;;-  ARG OTHER</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1131891"></A>;;- Variables with floating point types:</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1131829"></A>;;-  DOUBLE-ARG NEXT</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039208"></A>See also </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039212"></A><A HREF="lw-634.htm#28197" CLASS="XRef">compile</A><BR>
+<A HREF="lw-635.htm#53982" CLASS="XRef">compile-file</A><BR>
+<A HREF="lw-662.htm#19061" CLASS="XRef">proclaim</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-639.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-637.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ loop
+</TITLE>
+
+<LINK REL="next" HREF="lw-653.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-651.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-653.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-651.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1039710"></A><A NAME="60197"></A>loop<A NAME="marker-1039709"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1039711"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039712"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039713"></A>A macro that performs iteration.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039714"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039715"></A>cl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039716"></A>Signature</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039717"></A>loop {for|as} <EM CLASS="Variable">var</EM>
+ [type-spec] </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039718"></A>     being {the|each}{records|record}</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039719"></A>     {in|of} <EM CLASS="Variable">query-expression</EM>
+ =&gt; <EM CLASS="Variable">result</EM>
+</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039720"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039721"></A><EM CLASS="Variable">
+var</EM>
+</P>
+<P CLASS="RDescription-C">A variable. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039722"></A><EM CLASS="Variable">
+query-expression</EM>
+</P>
+<P CLASS="RDescription-C">A SQL query-statement</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039723"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039724"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">An object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039725"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039726"></A>The Common Lisp <CODE CLASS="Code">
+loop</CODE>
+ macro has been extended with a clause for iterating over query results. This extension is available only when the SQL interface has been loaded. See <A HREF="lw-1155.htm#13331" CLASS="XRef">The SQL Package</A>. For a full description of the rest of the Common Lisp <CODE CLASS="Code">
+loop</CODE>
+ facility, see the Common Lisp Hyperspec.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039733"></A>Each iteration of the loop assigns the next record of the table to the variable <EM CLASS="Variable">
+var</EM>
+. The record is represented in Lisp as a list. Destructuring can be used in <EM CLASS="Variable">
+var</EM>
+ to bind variables to specific attributes of the records resulting from <EM CLASS="Variable">
+query-expression</EM>
+. In conjunction with the panoply of existing clauses available from the loop macro, the new iteration clause provides an integrated report generation facility.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039734"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039735"></A>This extended <CODE CLASS="Code">
+loop</CODE>
+ example, on each record returned as a result of the query, binds <CODE CLASS="Code">
+name</CODE>
+, finds the salary (if any) from an associated hash-table, and for salaries greater than 20000: increments a count, accumulates the salary, and prints the details. Finally, the average salary is printed.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039736"></A>(loop</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039737"></A>  for (name) being each record in</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039738"></A>  [select [ename] :from [emp]]</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039739"></A>  as salary = (gethash name *salary-table*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039740"></A>  initially (format t &quot;&#126;&amp;&#126;20A&#126;10D&quot; 'name 'salary)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039741"></A>  when (and salary (&gt; salary 20000))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039742"></A>   count salary into salaries</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039743"></A>   and sum salary into total</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039744"></A>   and do (format t &quot;&#126;&amp;&#126;20A&#126;10D&quot; name salary)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039745"></A>  else</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039746"></A>   do (format t &quot;&#126;&amp;&#126;20A&#126;10A&quot; name &quot;N/A&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039747"></A>  finally</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039748"></A>   (format t &quot;&#126;2&amp;Av Salary: &#126;10D&quot; (/ total salaries)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039749"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039753"></A><A HREF="lw-1179.htm#26371" CLASS="XRef">do-query</A><BR>
+<A HREF="lw-1200.htm#17430" CLASS="XRef">map-query</A><BR>
+<A HREF="lw-1253.htm#39816" CLASS="XRef">query</A><BR>
+<A HREF="lw-1257.htm#30104" CLASS="XRef">select</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-653.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-651.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

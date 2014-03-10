@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ensure-gdiplus
+</TITLE>
+
+<LINK REL="next" HREF="capiref-537.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-535.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-495.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-495.htm">2 GP Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-537.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-535.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1167259"></A><A NAME="marker-1167258"></A>ensure-gdiplus</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1167260"></A><EM CLASS="Variable">
+Function</EM>
+</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167261"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1188649"></A>Ensures GDI+ is present and running, or shuts it down. Needed only when writing FLI graphics code on Windows. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167263"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1167264"></A><CODE CLASS="Code">
+graphics-ports</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167265"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1167266"></A>ensure-gdiplus &amp;key <EM CLASS="Variable">
+event-func</EM>
+ <EM CLASS="Variable">
+force</EM>
+ <EM CLASS="Variable">
+shutdown</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167267"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1167268"></A><EM CLASS="Variable">
+event-func</P>
+<P CLASS="RDescription-C"></EM>
+A function, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1167913"></A><EM CLASS="Variable">
+force</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1167922"></A><EM CLASS="Variable">
+shutdown</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167269"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1175917"></A><EM CLASS="Variable">
+result</P>
+<P CLASS="RDescription-C"></EM>
+A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1175918"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1176510"></A>The function <CODE CLASS="Code">
+ensure-gdiplus</CODE>
+ checks that the GDI+ module <CODE CLASS="Code">
+gdiplus.dll</CODE>
+ is loaded and that <CODE CLASS="Code">
+GdiplusStartup</CODE>
+ has been called, or shuts down GDI+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1200764"></A>Most users will not need to call <CODE CLASS="Code">
+ensure-gdiplus</CODE>
+. This is because when LispWorks itself uses GDI+, for instance via <A HREF="capiref-616.htm#53822" CLASS="XRef">read-external-image</A>, it calls <CODE CLASS="Code">
+ensure-gdiplus</CODE>
+ automatically, and never shuts GDI+ down. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1203111"></A>However, if your code uses GDI+ directly (by calling it through the Foreign Language Interface), then you should call <CODE CLASS="Code">
+ensure-gdiplus</CODE>
+ instead of using <CODE CLASS="Code">
+GdiplusStartup</CODE>
+ directly. Then, LispWorks will know that GDI+ has already started. This is the only circumstance in which you need to call <CODE CLASS="Code">
+ensure-gdiplus</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1203031"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+ensure-gdiplus</CODE>
+ is implemented only in LispWorks for Windows.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1176517"></A>If <EM CLASS="Variable">
+shutdown</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+ensure-gdiplus</CODE>
+ ensures GDI+ is started, by the following steps:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1176519"></A>Load the GDI+ module <CODE CLASS="Code">
+gdiplus.dll</CODE>
+, if it is not already loaded.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1176520"></A>If <BR>
+a) GDI+ was already started by a previous call to <CODE CLASS="Code">
+ensure-gdiplus</CODE>
+, and<BR>
+b) <EM CLASS="Variable">
+force</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, and<BR>
+c) <EM CLASS="Variable">
+event-func</EM>
+ was either not passed or is <CODE CLASS="Code">
+eq</CODE>
+ to the value that was passed for point a)</LI>
+<P CLASS="RStep-C">
+<A NAME="pgfId-1196923"></A>then <CODE CLASS="Code">
+ensure-gdiplus</CODE>
+ simply returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<LI CLASS="RStep">
+<A NAME="pgfId-1176524"></A>If GDI+ was already started, shut it down.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1176525"></A>Start GDI+, and return the result of <CODE CLASS="Code">
+GdiplusStartup</CODE>
+. This is 0 for success. For he meaning of other values, see the documentation of <CODE CLASS="Code">
+gpStatus</CODE>
+ in the MSDN.</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-1176527"></A>If <EM CLASS="Variable">
+shutdown</EM>
+ is true, then if GDI+ was started <CODE CLASS="Code">
+ensure-gdiplus</CODE>
+ shuts it down, and returns <CODE CLASS="Code">
+t</CODE>
+, otherwise <CODE CLASS="Code">
+ensure-gdiplus </CODE>
+returns <CODE CLASS="Code">
+nil</CODE>
+. The default value of <EM CLASS="Variable">
+shutdown</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1203163"></A>The default value of both <EM CLASS="Variable">
+event-func</EM>
+ and <EM CLASS="Variable">
+force</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1176459"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1203135"></A><A HREF="capiref-616.htm#53822" CLASS="XRef">read-external-image</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-537.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-535.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

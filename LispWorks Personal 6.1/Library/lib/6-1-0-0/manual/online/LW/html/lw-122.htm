@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.7.5  Usage of special variables
+</TITLE>
+
+<LINK REL="next" HREF="lw-123.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-121.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-114.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-105.htm">9 The Compiler</A> &gt; <A HREF="lw-114.htm">9.7  Optimizing your code</A><BR><BR>
+</DIV><A HREF="lw-123.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-121.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-114.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-890750"></A>9.7.5  <A NAME="marker-890854"></A><A NAME="77542"></A>Usage of special variables</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890758"></A>The declaration <CODE CLASS="Code">
+cl:special</CODE>
+ specifies that a variable is special, that is it does not have lexical scope. This covers two cases: if the variable is bound in the dynamic environment (for example by <CODE CLASS="Code">
+let</CODE>
+ or <CODE CLASS="Code">
+let*</CODE>
+), then the value of that binding is used; otherwise the value in the global environment is used, if any. An error is signaled in safe code if there is no value in either environment. When <CODE CLASS="Code">
+setq</CODE>
+ is used with a variable, the value in the dynamic environment is modified if the variable is bound in the dynamic environment, otherwise the value in the global environment is modified. Dynamic variables can have a different value in each thread because each thread has is own dynamic environment. The global environment is shared between all threads.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891701"></A>In SMP LispWorks access to special variables (excluding constants) is a little slower than in non-SMP LispWorks. It can be speeded up by declarations of the symbol, normally by using by <A HREF="lw-662.htm#19061" CLASS="XRef">proclaim</A> or <A HREF="lw-637.htm#27351" CLASS="XRef">declaim</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890759"></A>The speedup will be pretty small overall in most cases, because access to specials is usually a small part of a program. However, if the Profiler identifies some piece of code as a bottleneck, you will want to optimize it, and your optimizations may include proclamation of some variable as global or dynamic.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890760"></A>The three declarations described in this section are extensions to Common Lisp. All declare the symbol to be <CODE CLASS="Code">
+cl:special</CODE>
+, along with other information. These three declarations are mutually exclusive between themselves and <CODE CLASS="Code">
+cl:special</CODE>
+. That is, declaring a symbol with any of these declarations eliminates the other declaration:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891733"></A><CODE CLASS="Code">
+hcl:special-global</CODE>
+ declares that the symbol is never bound in the dynamic environment.</LI>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-891734"></A>In SMP LispWorks the compiler signals error if it detects that a symbol declared as <CODE CLASS="Code">
+hcl:special-global</CODE>
+ will be bound in the dynamic environment, and at runtime it also signals an error.</P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-891735"></A>In non-SMP LispWorks the compiler gives an error, but there is no runtime check. The runtime behavior is the same as <CODE CLASS="Code">
+cl:special</CODE>
+, with all accesses to the symbol in low safety.</P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-890831"></A><CODE CLASS="Code">
+hcl:special-global</CODE>
+ is very useful, and because of the checks it is reasonably safe. It is useful not only for speed, but also to guard against unintentionally binding variables that should not be bound.</P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-890835"></A>See also <A HREF="lw-778.htm#48964" CLASS="XRef">defglobal-parameter</A>.</P>
+<LI CLASS="Bullet">
+<A NAME="pgfId-890836"></A><CODE CLASS="Code">
+hcl:special-dynamic</CODE>
+ declares that the symbol is always bound in the dynamic environment when it is accessed.</LI>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-890837"></A>In high safety code accessing the symbol when it is not bound in the dynamic environment signals an error. In low safety code it may result in unpredictable behavior.</P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-890838"></A>In non-SMP LispWorks the only effect of this declaration is to make all access to the variable low safety.  </P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-890839"></A><CODE CLASS="Code">
+hcl:special-dynamic</CODE>
+ is useful, but because it can lead to unpredictable behavior you need to ensure that you test your program in high safety when you use it.</P>
+<LI CLASS="Bullet">
+<A NAME="pgfId-890888"></A><CODE CLASS="Code">
+hcl:special-fast-access</CODE>
+ declares that a symbol should be &quot;fast access&quot;.</LI>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-890889"></A>The semantics of the declaration is the same as <CODE CLASS="Code">
+cl:special</CODE>
+, except that access to the variable is low safety. In addition, the compiler compiles access to the symbol in a way that speeds up the access, but also introduces a tiny reduction in the speed of the whole system. The balance between these effects is not obvious.</P>
+<P CLASS="Bullet-C">
+<A NAME="pgfId-890890"></A>It is not obvious where <CODE CLASS="Code">
+hcl:special-fast-access</CODE>
+ is useful. If you can ensure that the symbol is always bound or never bound then <CODE CLASS="Code">
+hcl:special-dynamic</CODE>
+ or <CODE CLASS="Code">
+hcl:special-global</CODE>
+ are certainly better.</P>
+</UL>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-123.htm#pgfId-890929" CLASS="Hypertext">9.7.5.1  Finding symbols to declare</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-124.htm#pgfId-891682" CLASS="Hypertext">9.7.5.2  Coalesce multiple special bindings</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-123.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-121.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-114.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

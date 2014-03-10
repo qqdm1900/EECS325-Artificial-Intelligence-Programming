@@ -1,0 +1,438 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ socket-stream
+</TITLE>
+
+<LINK REL="next" HREF="lw-610.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-608.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-579.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-579.htm">26 The COMM Package</A><BR><BR>
+</DIV><A HREF="lw-610.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-608.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-933949"></A><A NAME="32260"></A>socket<A NAME="marker-933948"></A>-stream</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-933950"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933951"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-933952"></A>The socket stream class.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1003951"></A>Package</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1003952"></A><CODE CLASS="Code">
+comm</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933953"></A>Superclasses</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-933954"></A><A HREF="lw-1289.htm#42777" CLASS="XRef">buffered-stream</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933955"></A>Initargs</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933957"></A><CODE CLASS="Code">
+:socket</P>
+<P CLASS="RDescription-C"></CODE>
+<A NAME="marker-933956"></A>A socket handle.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933959"></A><CODE CLASS="Code">
+:direction</CODE>
+<A NAME="marker-933958"></A></P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+:input</CODE>
+, <CODE CLASS="Code">
+:output</CODE>
+, or <CODE CLASS="Code">
+:io</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933961"></A><CODE CLASS="Code">
+:element-type</P>
+<P CLASS="RDescription-C"></CODE>
+<A NAME="marker-933960"></A>An element type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933963"></A><CODE CLASS="Code">
+:read-timeout</CODE>
+<A NAME="marker-933962"></A></P>
+<P CLASS="RDescription-C">A positive number or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-942272"></A><CODE CLASS="Code">
+:write-timeout</CODE>
+<A NAME="marker-942271"></A></P>
+<P CLASS="RDescription-C">A positive number or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933965"></A><CODE CLASS="Code">
+:ssl-ctx</CODE>
+<A NAME="marker-933964"></A></P>
+<P CLASS="RDescription-C">A keyword, <CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+, or a foreign pointer of type <A HREF="lw-618.htm#89480" CLASS="XRef">ssl-ctx-pointer</A> or <A HREF="lw-622.htm#94102" CLASS="XRef">ssl-pointer</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933973"></A><CODE CLASS="Code">
+:ssl-side</CODE>
+<A NAME="marker-933972"></A></P>
+<P CLASS="RDescription-C">One of the keywords <CODE CLASS="Code">
+:client</CODE>
+, <CODE CLASS="Code">
+:server</CODE>
+ or <CODE CLASS="Code">
+:both</CODE>
+. The default value is <CODE CLASS="Code">
+:server</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933975"></A><CODE CLASS="Code">
+:ctx-configure-callback</CODE>
+<A NAME="marker-933974"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-933976"></A>A function designator or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933978"></A><CODE CLASS="Code">
+:ssl-configure-callback</CODE>
+<A NAME="marker-933977"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-933979"></A>A function designator or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933980"></A>Accessors</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-970537"></A><CODE CLASS="Code">
+socket-stream-socket<BR>
+stream:stream-read-timeout<BR>
+stream:stream-write-timeout</CODE>
+<A NAME="marker-970536"></A><A NAME="marker-1001112"></A><A NAME="marker-970547"></A><A NAME="marker-970538"></A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933984"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-933985"></A>The class <CODE CLASS="Code">
+socket-stream</CODE>
+ implements a buffered stream connected to a socket. The socket handle, specified by <CODE CLASS="Code">
+:socket</CODE>
+, and the direction, specified by <CODE CLASS="Code">
+:direction</CODE>
+, must be passed for a meaningful stream to be constructed. Common Lisp input functions such as <CODE CLASS="Code">
+read-char</CODE>
+ will see <CODE CLASS="Code">
+end-of-file</CODE>
+ if the other end of the socket is closed. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-933986"></A>The <CODE CLASS="Code">
+:element-type</CODE>
+ keyword determines the expected element type of the stream traffic.  However, stream input and output functions for character and binary data generally work in the obvious way on a <CODE CLASS="Code">
+socket-stream</CODE>
+ with <EM CLASS="Variable">
+element-type</EM>
+ <CODE CLASS="Code">
+base-char</CODE>
+, <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+ or <CODE CLASS="Code">
+(signed-byte 8)</CODE>
+. For example, <CODE CLASS="Code">
+read-sequence</CODE>
+ can be called with a string buffer and a binary <CODE CLASS="Code">
+socket-stream</CODE>
+: the character data is constructed from the input as if by <CODE CLASS="Code">
+code-char</CODE>
+. Similarly <CODE CLASS="Code">
+write-sequence</CODE>
+ can be called with a string buffer and a binary <CODE CLASS="Code">
+socket-stream</CODE>
+: the output is converted from the character data as if by <CODE CLASS="Code">
+char-code</CODE>
+. Also, 8-bit binary data can be read and written to a <CODE CLASS="Code">
+base-char</CODE>
+ <CODE CLASS="Code">
+socket-stream</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-933987"></A>All standard stream I/O functions except for <CODE CLASS="Code">
+write-byte</CODE>
+ and <CODE CLASS="Code">
+read-byte</CODE>
+ have this flexibility.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-933988"></A>The <CODE CLASS="Code">
+:read-timeout</CODE>
+ initarg specifies the read timeout in seconds, or is <CODE CLASS="Code">
+nil</CODE>
+, meaning there are no timeouts during reads (this is the default).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-933989"></A>The <EM CLASS="Variable">
+read-timeout</EM>
+ property is intended for use when a socket connection might hang during a call to any Common Lisp input function. The <EM CLASS="Variable">
+read-timeout</EM>
+ can be set by <A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A> or by <A HREF="lw-597.htm#15026" CLASS="XRef">open-tcp-stream</A>. It can also be modified by<CODE CLASS="Code">
+ (setf stream:stream-read-timeout)</CODE>
+. When <EM CLASS="Variable">
+read-timeout</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, there is no timeout during reads and the call may hang. When <EM CLASS="Variable">
+read-timeout</EM>
+ is not <CODE CLASS="Code">
+nil</CODE>
+, and there is no input from the socket for more than <EM CLASS="Variable">
+read-timeout</EM>
+ seconds, any reading function returns <CODE CLASS="Code">
+end-of-file</CODE>
+. The <EM CLASS="Variable">
+read-timeout</EM>
+ does not limit the time inside <CODE CLASS="Code">
+read</CODE>
+, but the time between successful extractions of data from the socket. Therefore, if the reading needs several rounds it may take longer than <EM CLASS="Variable">
+read-timeout</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-933996"></A>Using <CODE CLASS="Code">
+(setf stream:stream-read-timeout)</CODE>
+ on the stream while it is inside a read function has undefined effects. However, the setf function can be used between calls to read functions. The <EM CLASS="Variable">
+read-timeout</EM>
+ property of a stream can be read by <CODE CLASS="Code">
+(stream:stream-read-timeout stream)</CODE>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-942468"></A>The <CODE CLASS="Code">
+:write-timeout</CODE>
+ initarg specifies the write timeout in seconds, or is <CODE CLASS="Code">
+nil</CODE>
+, meaning that there are no timeouts during writes (this is the default).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-942478"></A>The <EM CLASS="Variable">
+write-timeout</EM>
+ property is similar to <EM CLASS="Variable">
+read-timeout</EM>
+, but for write operations. If flushing the stream buffer takes too long then <CODE CLASS="Code">
+error</CODE>
+ is called.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-933997"></A>The keyword arguments <CODE CLASS="Code">
+:ssl-ctx</CODE>
+, <CODE CLASS="Code">
+:ssl-side</CODE>
+, <CODE CLASS="Code">
+:ctx-configure-callback</CODE>
+ and <CODE CLASS="Code">
+:ssl-configure-callback</CODE>
+ can be be passed to create and configure socket streams with SSL processing.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-933998"></A><EM CLASS="Variable">
+ssl-ctx</EM>
+, if non-nil, specifies that the stream uses SSL and further specifies the <CODE CLASS="Code">
+SSL_CTX</CODE>
+ object to use. The value of <EM CLASS="Variable">
+ssl-ctx</EM>
+ can be a symbol which, together with <EM CLASS="Variable">
+ssl-side</EM>
+, specifies which protocol to use. The value <CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+:default</CODE>
+ means use the default, which is currently the same as <CODE CLASS="Code">
+:v23</CODE>
+. The values <CODE CLASS="Code">
+:v2</CODE>
+, <CODE CLASS="Code">
+:v3</CODE>
+, <CODE CLASS="Code">
+:v23</CODE>
+ and <CODE CLASS="Code">
+:tls-v1</CODE>
+ are mapped to the <CODE CLASS="Code">
+SSLv2_*</CODE>
+, <CODE CLASS="Code">
+SSLv3_*</CODE>
+, <CODE CLASS="Code">
+SSLv23_*</CODE>
+ and <CODE CLASS="Code">
+TLSv1_*</CODE>
+ methods respectively. With these symbol values of <EM CLASS="Variable">
+ssl-ctx</EM>
+, LispWorks makes a new <CODE CLASS="Code">
+SSL_CTX</CODE>
+ object and uses it and frees it when the stream is closed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-933999"></A>The value of <EM CLASS="Variable">
+ssl-ctx</EM>
+ can also be a foreign pointer of type <A HREF="lw-618.htm#89480" CLASS="XRef">ssl-ctx-pointer</A> (which corresponds to the C type <CODE CLASS="Code">
+SSL_CTX*</CODE>
+). This is used and is not freed when the stream is closed.  Also an SSL object is made and used, and this object is freed when the stream is closed. The foreign pointer may be a result of a call to <A HREF="lw-596.htm#88348" CLASS="XRef">make-ssl-ctx</A>, but it can also a result of user code, provided that it points to a valid <CODE CLASS="Code">
+SSL_CTX</CODE>
+ and has the type <A HREF="lw-618.htm#89480" CLASS="XRef">ssl-ctx-pointer</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-934003"></A>The value of <EM CLASS="Variable">
+ssl-ctx</EM>
+ can also be a foreign pointer of type <A HREF="lw-622.htm#94102" CLASS="XRef">ssl-pointer</A> (which corresponds to the C type <CODE CLASS="Code">
+SSL*</CODE>
+). This specifies the SSL to use. This maybe a result of a call to <A HREF="lw-621.htm#27721" CLASS="XRef">ssl-new</A> but can also be the result of user code, provided that it points to a valid SSL object and has the type <A HREF="lw-622.htm#94102" CLASS="XRef">ssl-pointer</A>. The SSL is used and is not freed when the stream is closed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-934004"></A>When you pass a <A HREF="lw-618.htm#89480" CLASS="XRef">ssl-ctx-pointer</A> or a <A HREF="lw-622.htm#94102" CLASS="XRef">ssl-pointer</A> foreign pointer as the <EM CLASS="Variable">
+ssl-ctx</EM>
+ argument, it must have already been set up correctly.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-934005"></A><EM CLASS="Variable">
+ssl-side</EM>
+ specifies which side the socket stream is. The value of <EM CLASS="Variable">
+ssl-side</EM>
+ is used in two cases:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-934006"></A>When a new <CODE CLASS="Code">
+SSL_CTX</CODE>
+ object is created, it is used to select the method:<BR>
+<CODE CLASS="Code">
+:client =&gt; *_client_method<BR>
+:server =&gt; *_server_method<BR>
+:both   =&gt; *_method</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-934007"></A>When a new SSL object is created, when <EM CLASS="Variable">
+ssl-side</EM>
+ is either <CODE CLASS="Code">
+:client</CODE>
+ or <CODE CLASS="Code">
+:server</CODE>
+, LispWorks calls <CODE CLASS="Code">
+SSL_set_connect_state</CODE>
+ or <CODE CLASS="Code">
+SSL_set_accept_state</CODE>
+ respectively.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-934008"></A>If the value of <EM CLASS="Variable">
+ssl-ctx</EM>
+ is a <A HREF="lw-622.htm#94102" CLASS="XRef">ssl-pointer</A>, <EM CLASS="Variable">
+ssl-side</EM>
+ is ignored.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-934009"></A><EM CLASS="Variable">
+ctx-configure-callback</EM>
+ specifies a callback, a function which taks a foreign pointer of type <A HREF="lw-618.htm#89480" CLASS="XRef">ssl-ctx-pointer</A>. This is called immediately after a new <CODE CLASS="Code">
+SSL_CTX</CODE>
+ is created. If the value of <EM CLASS="Variable">
+ssl-ctx</EM>
+ is not a symbol, <EM CLASS="Variable">
+ctx-configure-callback</EM>
+ is ignored.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-934010"></A><EM CLASS="Variable">
+ssl-configure-callback</EM>
+ specifies a callback, a function which taks a foreign pointer of type <A HREF="lw-622.htm#94102" CLASS="XRef">ssl-pointer</A>. This is called immediately after a new SSL is created. If the value of <EM CLASS="Variable">
+ssl-ctx</EM>
+ is a <A HREF="lw-622.htm#94102" CLASS="XRef">ssl-pointer</A>, <EM CLASS="Variable">
+ssl-configure-callback</EM>
+ is ignored.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-998461"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-998517"></A>The function <A HREF="lw-1445.htm#71910" CLASS="XRef">wait-for-input-streams</A> and <A HREF="lw-1446.htm#83310" CLASS="XRef">wait-for-input-streams-returning-first</A> are a convenient interface for waiting for input from socket streams. The standard I/O functions (<CODE CLASS="Code">
+cl:read</CODE>
+, <CODE CLASS="Code">
+cl:read-char</CODE>
+ and so on) can also wait properly. You can also use <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> and similar functions with <CODE CLASS="Code">
+cl:listen</CODE>
+ in the <EM CLASS="Variable">
+wait-function</EM>
+, but you will need to use <A HREF="lw-627.htm#31793" CLASS="XRef">with-noticed-socket-stream</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-934011"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-934012"></A>The following makes a bidirectional stream connected to a socket specified by <EM CLASS="Variable">
+handle</EM>
+.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-934013"></A>(make-instance 'comm:socket-stream</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934014"></A>               :socket <EM CLASS="Variable">handle</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934015"></A>               :direction :io</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-934016"></A>               :element-type 'base-char)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-934017"></A>This example creates a socket stream with a read-timeout:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-934018"></A>(make-instance 'comm:socket-stream</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934019"></A>               :handle <EM CLASS="Variable">handle</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934020"></A>               :direction :input</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-934021"></A>               :read-timeout 42)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-934022"></A>The following form illustrates character I/O in a binary <CODE CLASS="Code">
+socket-stream</CODE>
+:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-934023"></A>(with-open-stream (x </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934024"></A>                   (comm:open-tcp-stream </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934025"></A>                    &quot;localhost&quot; 80</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934026"></A>                    :element-type '(unsigned-byte 8)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934027"></A>  (write-sequence (format nil &quot;GET / HTTP/1.0&#126;%&#126;%&quot;) x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934028"></A>  (force-output x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934029"></A>  (let ((res (make-array 20 :element-type 'base-char)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-934030"></A>    (values (read-sequence res x) res)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-934031"></A>The following form illustrates binary I/O in a <CODE CLASS="Code">
+base-char</CODE>
+ <CODE CLASS="Code">
+socket-stream</CODE>
+:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-934032"></A>(with-open-stream (x </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934033"></A>                   (comm:open-tcp-stream </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934034"></A>                    &quot;localhost&quot; 80</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934035"></A>                    :element-type 'base-char))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934036"></A>  (write-sequence </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934037"></A>   (map '(simple-array (unsigned-byte 8) 1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934038"></A>        'char-code</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934039"></A>        (format nil &quot;GET / HTTP/1.0&#126;%&#126;%&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934040"></A>   x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934041"></A>  (force-output x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934042"></A>  (let ((res (make-array 20 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934043"></A>                         :element-type </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934044"></A>                         '(unsigned-byte 8))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-934045"></A>    (values (read-sequence res x) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-934046"></A>            (map 'string 'code-char res))))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-934047"></A> See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-934051"></A><A HREF="lw-581.htm#46900" CLASS="XRef">connect-to-tcp-server</A><BR>
+<A HREF="lw-597.htm#15026" CLASS="XRef">open-tcp-stream</A><BR>
+<A HREF="lw-624.htm#14172" CLASS="XRef">start-up-server</A><BR>
+<A HREF="lw-1319.htm#stream-read-timeout" CLASS="XRef">stream-read-timeout</A><BR>
+<A HREF="lw-1445.htm#71910" CLASS="XRef">wait-for-input-streams</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-610.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-608.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

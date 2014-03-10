@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ scroll-if-not-visible-p
+</TITLE>
+
+<LINK REL="next" HREF="capiref-374.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-372.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-374.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-372.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-8643942"></A><A NAME="22996"></A>scroll<A NAME="marker-8645977"></A>-if-not-visible-p</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-8643943"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8643944"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8645883"></A>Accesses the <EM CLASS="Variable">
+scroll-if-not-visible-p</EM>
+ attribute of a pane.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8643945"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-8643946"></A>scroll-if-not-visible-p <EM CLASS="Variable">
+pane</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-8643947"></A>(setf scroll-if-not-visible-p) <EM CLASS="Variable">
+value</EM>
+ <EM CLASS="Variable">
+pane</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8643948"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8643949"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+nil</CODE>
+ or <CODE CLASS="Code">
+:non-mouse</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8643950"></A>Method Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-8643951"></A>scroll-if-not-visible-p <A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A></P>
+<P CLASS="RSignature">
+<A NAME="pgfId-8643952"></A>(setf scroll-if-not-visible-p) <EM CLASS="Variable">
+value</EM>
+ <A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8643953"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8643954"></A>The generic function <CODE CLASS="Code">
+scroll-if-not-visible-p</CODE>
+ accesses the <EM CLASS="Variable">
+scroll-if-not-visible-p</EM>
+ attribute of a pane.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8643955"></A>The value of this attribute has these meanings:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8643956"></A><CODE CLASS="Code">
+t</CODE>
+</P>
+<P CLASS="RDescription-C">When <EM CLASS="Variable">
+pane</EM>
+ is given the input focus, and it is not fully visible, and its parent can be scrolled to make the pane visible, then the parent is scrolled automatically. This is the default value.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8643957"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+<P CLASS="RDescription-C">Never scroll the parent to make a pane visible.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8643958"></A><CODE CLASS="Code">
+:non-mouse</CODE>
+</P>
+<P CLASS="RDescription-C">Like <CODE CLASS="Code">
+t</CODE>
+, except that it does not scroll when the focus is given as a result of a mouse click in <EM CLASS="Variable">
+pane</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8643959"></A><CODE CLASS="Code">
+scroll-if-not-visible-p</CODE>
+ is called by CAPI each time it may need to scroll the parent. The method on <A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A> returns a value that is kept internally, and can be set by the default setf method.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8643960"></A>You can specialize <CODE CLASS="Code">
+scroll-if-not-visible-p</CODE>
+ on your classes, but note that it is called often when the user clicks on any pane, so it must be reasonably fast.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8643961"></A>The setter sets the <EM CLASS="Variable">
+scroll-if-not-visible-p</EM>
+ attribute. It is called when the initarg <CODE CLASS="Code">
+:scroll-if-not-visible-p</CODE>
+ is used in making a <A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A> (or a subclass) instance, and can be called by your program. <EM CLASS="Variable">
+value</EM>
+ must be <CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+nil</CODE>
+ or <CODE CLASS="Code">
+:non-mouse</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8643962"></A>The method on <A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A> sets the internal value that is used by <CODE CLASS="Code">
+scroll-if-not-visible-p</CODE>
+ on <A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8643908"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8645684"></A><A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-374.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-372.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

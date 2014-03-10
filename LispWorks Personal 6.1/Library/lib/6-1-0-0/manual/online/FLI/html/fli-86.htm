@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-c-typedef
+</TITLE>
+
+<LINK REL="next" HREF="fli-87.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-85.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-87.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-85.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-896121"></A><A NAME="41629"></A>define-c-typedef<A NAME="marker-998707"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-896122"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-944853"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-944854"></A>Defines FLI type specifiers corresponding to type specifiers defined using the C <CODE CLASS="Code">
+typedef</CODE>
+ command.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898199"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898200"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896123"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1315754"></A>define-c-typedef <EM CLASS="Variable">
+name-and-options</EM>
+ <EM CLASS="Variable">
+type-description</EM>
+ =&gt; <EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1315795"></A><EM CLASS="Variable">
+name-and-options</EM>
+ ::=  <EM CLASS="Variable">
+name</EM>
+ | (<EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+option</EM>
+*)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1317331"></A><EM CLASS="Variable">
+option</EM>
+ ::= (:foreign-name <EM CLASS="Variable">
+string</EM>
+)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1315797"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-917964"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the new FLI type</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1317342"></A><EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="RDescription-C">A string specifying the foreign name of the type</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-949323"></A><EM CLASS="Variable">
+type-description</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or list defining the new type</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-917965"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1008056"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">The name of the new FLI type</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-917967"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-958699"></A>The <CODE CLASS="Code">
+define-c-typedef</CODE>
+ macro is used to define FLI type specifiers, which corresponds to those defined using the C function <CODE CLASS="Code">
+typedef</CODE>
+. It is a convenience function, as types can also be defined using <A HREF="fli-96.htm#39541" CLASS="XRef">define-foreign-type</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-917969"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-917970"></A>In the following example three types are defined using the FLI function <CODE CLASS="Code">
+define-c-typedef</CODE>
+, and the corresponding C definitions are then given.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-959802"></A>(fli:define-c-typedef intptr (:pointer :int))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-960073"></A>(fli:define-c-typedef bar (:struct (one :int)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-960256"></A>These are the corresponding C <CODE CLASS="Code">
+typedef</CODE>
+ definitions:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-960555"></A>typedef int *intptr;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-960277"></A>typedef struct (int one;) bar;</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-917971"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-944513"></A><A HREF="fli-84.htm#37299" CLASS="XRef">define-c-enum</A><BR>
+<A HREF="fli-85.htm#26956" CLASS="XRef">define-c-struct</A><BR>
+<A HREF="fli-87.htm#30845" CLASS="XRef">define-c-union</A><BR>
+<A HREF="fli-96.htm#39541" CLASS="XRef">define-foreign-type</A><BR>
+<A HREF="fli-16.htm#40862" CLASS="XRef">FLI Types</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-87.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-85.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

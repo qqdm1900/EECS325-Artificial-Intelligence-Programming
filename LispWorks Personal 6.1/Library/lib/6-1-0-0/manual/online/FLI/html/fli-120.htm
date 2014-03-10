@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ get-embedded-module
+</TITLE>
+
+<LINK REL="next" HREF="fli-121.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-119.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-121.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-119.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1555527"></A><A NAME="67963"></A>get<A NAME="marker-1565254"></A>-embedded-<A NAME="marker-1565298"></A>module</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1555528"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1555529"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1555530"></A>Gets a foreign module from a file and sets up an embedded dynamic module.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1555531"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1555532"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1555533"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1555534"></A>get-embedded-module <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+filename</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1555535"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1555536"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1555537"></A><EM CLASS="Variable">
+filename</EM>
+</P>
+<P CLASS="RDescription-C">A pathname specifier for a file containing a dynamic foreign module.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1555538"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1555539"></A>The function <CODE CLASS="Code">
+get-embedded-module</CODE>
+ gets the foreign module in <EM CLASS="Variable">
+filename</EM>
+ and sets up an embedded dynamic module named <EM CLASS="Variable">
+name</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1555540"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1555541"></A><CODE CLASS="Code">
+get-embedded-module</CODE>
+ is called at load time and has no effect except to set up the embedded module. To actually use the code in the module, you need to call <A HREF="fli-123.htm#41990" CLASS="XRef">install-embedded-module</A> at run time.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1555542"></A>The effect of <CODE CLASS="Code">
+get-embedded-module</CODE>
+ persists after <CODE CLASS="Code">
+save-image</CODE>
+ and <CODE CLASS="Code">
+deliver</CODE>
+. </LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1555543"></A>The module should not have dependencies on other non-standard modules, otherwise <A HREF="fli-123.htm#41990" CLASS="XRef">install-embedded-module</A> may fail to install it.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1555544"></A>To incorporate an embedded module into a fasl file (that is, to load it at compile time) you need to use both <A HREF="fli-121.htm#53708" CLASS="XRef">get-embedded-module-data</A> (at compile time) and <A HREF="fli-145.htm#34484" CLASS="XRef">setup-embedded-module</A> (at load time), instead of <CODE CLASS="Code">
+get-embedded-module</CODE>
+.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1555545"></A><CODE CLASS="Code">
+get-embedded-module</CODE>
+ does not return a useful value.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1555546"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1555547"></A><A HREF="fli-123.htm#41990" CLASS="XRef">install-embedded-module</A><BR>
+<A HREF="fli-121.htm#53708" CLASS="XRef">get-embedded-module-data</A><BR>
+<A HREF="fli-145.htm#34484" CLASS="XRef">setup-embedded-module</A><BR>
+<A HREF="fli-63.htm#87483" CLASS="XRef">Incorporating a foreign module into a LispWorks image</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-121.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-119.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

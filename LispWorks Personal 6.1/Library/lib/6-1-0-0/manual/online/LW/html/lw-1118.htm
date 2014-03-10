@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ schedule-timer
+</TITLE>
+
+<LINK REL="next" HREF="lw-1119.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1117.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1119.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1117.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-923817"></A><A NAME="15778"></A><A NAME="10391"></A>schedule<A NAME="marker-1058235"></A>-timer</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-923818"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-923819"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-923820"></A>Schedules a timer to expire at a given time after the start of the program.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1801849"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1801850"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-923821"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-923822"></A>schedule-timer <EM CLASS="Variable">
+timer</EM>
+ <EM CLASS="Variable">
+absolute-expiration-time</EM>
+ &amp;optional <EM CLASS="Variable">
+repeat-time</EM>
+ =&gt; <EM CLASS="Variable">
+timer</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-923826"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-923827"></A><EM CLASS="Variable">
+timer</EM>
+</P>
+<P CLASS="RDescription-C">A timer</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-923828"></A><EM CLASS="Variable">
+absolute-expiration-time</EM>
+ </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-923829"></A>A non-negative real</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-923830"></A><EM CLASS="Variable">
+repeat-time</EM>
+</P>
+<P CLASS="RDescription-C"> A non-negative real</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-923831"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-923832"></A><EM CLASS="Variable">
+timer</EM>
+</P>
+<P CLASS="RDescription-C">A timer</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-923833"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-923834"></A>The function <CODE CLASS="Code">
+schedule-timer</CODE>
+ schedules a timer to expire at a given time after the start of the program. The <EM CLASS="Variable">
+timer</EM>
+ argument is a timer, returned by <A HREF="lw-1061.htm#14810" CLASS="XRef">make-timer</A> or <A HREF="lw-1059.htm#22839" CLASS="XRef">make-named-timer</A>. The <EM CLASS="Variable">
+absolute-expiration-time</EM>
+ argument is a non-negative real number of seconds since the start of the program at which the timer is to expire. If <EM CLASS="Variable">
+repeat-time</EM>
+ is specified, it is a non-negative real number of seconds that specifies a repeat interval. Each time the timer expires, it is rescheduled to expire after this repeat interval.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-923841"></A>If the timer is already scheduled to expire at the time this function is called, it is rescheduled to expire at the time specified by the <EM CLASS="Variable">
+absolute-expiration-time</EM>
+ argument. If that argument is <CODE CLASS="Code">
+nil</CODE>
+, the timer is not rescheduled, but the repeat interval is set to the interval specified by the <EM CLASS="Variable">
+repeat-time</EM>
+ argument.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-923842"></A>The function <A HREF="lw-1120.htm#16690" CLASS="XRef">schedule-timer-relative</A> schedules a timer to expire at a time relative to the call to that function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-923843"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-923844"></A>The following example schedules a timer to expire 15 minutes after the start of the program and every 5 minutes thereafter.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-923845"></A>(setq timer</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-923846"></A>      (mp:make-timer 'print 10 *standard-output*))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-923847"></A>#&lt;Time Event : PRINT&gt;</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-923848"></A>(mp:schedule-timer timer 900 300)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-923849"></A>#&lt;Time Event : PRINT&gt;</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-923850"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-923859"></A><A HREF="lw-1059.htm#22839" CLASS="XRef">make-named-timer</A><BR>
+<A HREF="lw-1061.htm#14810" CLASS="XRef">make-timer</A><BR>
+<A HREF="lw-1119.htm#11284" CLASS="XRef">schedule-timer-milliseconds</A><BR>
+<A HREF="lw-1120.htm#16690" CLASS="XRef">schedule-timer-relative</A><BR>
+<A HREF="lw-1121.htm#26885" CLASS="XRef">schedule-timer-relative-milliseconds</A><BR>
+<A HREF="lw-1129.htm#18761" CLASS="XRef">timer-expired-p</A><BR>
+<A HREF="lw-1130.htm#11110" CLASS="XRef">timer-name</A><BR>
+<A HREF="lw-1132.htm#28452" CLASS="XRef">unschedule-timer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1119.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1117.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

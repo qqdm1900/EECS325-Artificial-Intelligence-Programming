@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.4  An example of dynamic pointer allocation
+</TITLE>
+
+<LINK REL="next" HREF="fli-41.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-39.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-33.htm">3 FLI Pointers</A><BR><BR>
+</DIV><A HREF="fli-41.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-39.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886101"></A>3.4  <A NAME="45686"></A>An example of dynamic pointer allocation</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886574"></A>When a pointer<A NAME="marker-886705"></A> is created, using <A HREF="fli-126.htm#29578" CLASS="XRef">make-pointer</A>, or due to the allocation of a foreign object, memory is put aside to store the details of the pointer. However, if a pointer is only needed within the scope of a particular section of code, there is a FLI macro, <A HREF="fli-148.htm#26364" CLASS="XRef">with-coerced-pointer</A>, which can be used to create a temporary pointer which is automatically deallocated at the end of the code. The next example illustrates the use of this macro.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886579"></A>To start with, we need an object to use the temporary pointer on. The following code allocates ten consecutive integers, and sets their initial values.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886577"></A>(setf array-obj</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886553"></A>      (fli:allocate-foreign-object :type :int</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886554"></A>                  :nelems 10</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886555"></A>                  :initial-contents </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886556"></A>                  '(0 1 2 3 4 5 6 7 8 9)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886592"></A>When the ten integers are created, <A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A> returns a pointer to the first one. The next piece of code uses <A HREF="fli-148.htm#26364" CLASS="XRef">with-coerced-pointer</A> to create a copy of the pointer, which is then used to print out the contents of the ten integers. At the end of the printing, the temporary pointer is automatically deallocated.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886557"></A>(fli:with-coerced-pointer (temp) array-obj</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886558"></A>  (dotimes (x 10)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886559"></A>    (print (fli:dereference temp))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886560"></A>    (fli:incf-pointer temp)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886550"></A>The above example also illustrates the use of the <A HREF="fli-122.htm#29128" CLASS="XRef">incf-pointer</A>, which increases the address stored in a pointer by the size of the object pointed to. There is a similar function called <A HREF="fli-83.htm#28974" CLASS="XRef">decf-pointer</A>, which decreases the address held by a pointer in a similar fashion.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-41.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-39.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

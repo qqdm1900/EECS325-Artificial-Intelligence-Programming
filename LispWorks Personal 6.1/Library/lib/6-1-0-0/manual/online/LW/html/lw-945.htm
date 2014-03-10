@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ make-unregistered-action-list
+</TITLE>
+
+<LINK REL="next" HREF="lw-946.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-944.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-946.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-944.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1186869"></A><A NAME="93711"></A>make-<A NAME="marker-1186868"></A>unregistered-action-list</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1120465"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1120472"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1120728"></A>Makes an unregistered action list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1121336"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1121553"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1121561"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1120316"></A>make-unregistered-action-list &amp;key <EM CLASS="Variable">
+documentation</EM>
+ <EM CLASS="Variable">
+sort-time</EM>
+ <EM CLASS="Variable">
+dummy-actions</EM>
+ <EM CLASS="Variable">
+default-order</EM>
+ <EM CLASS="Variable">
+execution-function</EM>
+ =&gt;</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1127653"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1127655"></A><EM CLASS="Variable">
+documentation</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1127656"></A><EM CLASS="Variable">
+sort-time</EM>
+</P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+:execute</CODE>
+ or <CODE CLASS="Code">
+:define-action</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1127657"></A><EM CLASS="Variable">
+dummy-actions</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1127658"></A><EM CLASS="Variable">
+default-order</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1127659"></A><EM CLASS="Variable">
+execution-function</EM>
+</P>
+<P CLASS="RDescription-C">A function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1120319"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1120320"></A>Return an action-list not registered in the global registry of lists. The keyword arguments are as for <A HREF="lw-899.htm#29824" CLASS="XRef">define-action-list</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1123254"></A>The <EM CLASS="Variable">
+documentation</EM>
+ string allows you to provide documentation for the action list. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1123255"></A><EM CLASS="Variable">
+sort-time</EM>
+ is a keyword specifying when added actions are sorted for the given list -- either <CODE CLASS="Code">
+:execute</CODE>
+ or <CODE CLASS="Code">
+:define-action</CODE>
+ (see <A HREF="lw-896.htm#19772" CLASS="XRef">*default-action-list-sort-time*</A>). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1123259"></A><EM CLASS="Variable">
+dummy-actions</EM>
+ is a list of action-names that specify placeholding actions; they cannot be executed and are constrained to the order specified in this list, for example </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1123260"></A>'(:beginning :middle :end)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1123261"></A><EM CLASS="Variable">
+default-order</EM>
+ specifies default ordering constraints for subsequently defined action-items where no explicit ordering constraints are specified. An example is</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1123262"></A>'(:after :beginning :before :end)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1123263"></A><EM CLASS="Variable">
+execution-function</EM>
+ specifies a user-defined function accepting arguments of the form:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1123264"></A>(<EM CLASS="Variable">
+the-action-list</EM>
+ <EM CLASS="Variable">
+other-args-list</EM>
+ &amp;rest <EM CLASS="Variable">
+keyword-value-pairs</EM>
+)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1123265"></A>where the two required arguments are the action-list and a list of additional arguments passed to <A HREF="lw-918.htm#19789" CLASS="XRef">execute-actions</A>, respectively. The remaining arguments are any number of keyword-value pairs that may be specified in the call to <A HREF="lw-918.htm#19789" CLASS="XRef">execute-actions</A>. If no execution function is specified, then the default execution function will be used to execute the action-list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1120321"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1123033"></A><A HREF="lw-899.htm#29824" CLASS="XRef">define-action-list</A><BR>
+<A HREF="lw-937.htm#11346" CLASS="XRef">*handle-warn-on-redefinition*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-946.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-944.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

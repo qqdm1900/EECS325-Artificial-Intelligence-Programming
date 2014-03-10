@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ load-cursor
+</TITLE>
+
+<LINK REL="next" HREF="capiref-224.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-222.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-224.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-222.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-6302576"></A><A NAME="28057"></A>load<A NAME="marker-6302575"></A>-cursor</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-6302577"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6302578"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6302579"></A>Loads a cursor.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6302580"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-6302581"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6302582"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-6302583"></A>load-cursor <EM CLASS="Variable">
+filename-or-list</EM>
+ =&gt; <EM CLASS="Variable">
+cursor</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6302584"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6302585"></A><EM CLASS="Variable">
+filename-or-list</EM>
+</P>
+<P CLASS="RDescription-C">A string or a list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6302586"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6302587"></A><EM CLASS="Variable">
+cursor</EM>
+</P>
+<P CLASS="RDescription-C">A cursor object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6302588"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6302589"></A><A NAME="marker-10620957"></A>The function <CODE CLASS="Code">
+load-cursor</CODE>
+ loads a cursor from your cursor file, or loads a built-in cursor. It returns a cursor object which can be supplied as the value of the <A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A> <CODE CLASS="Code">
+:cursor</CODE>
+ initarg.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6387657"></A>The cursor object can also be set with <CODE CLASS="Code">
+(setf simple-pane-cursor)</CODE>
+ to change a pane's cursor. This must be done in the process of the pane's interface.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6318479"></A>If <EM CLASS="Variable">
+filename-or-list</EM>
+ is a string, then it names a file which should be in a suitable format for the platform, as follows:</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-8517162"></A>Microsoft Windows</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8517174"></A><CODE CLASS="Code">
+.cur</CODE>
+ or <CODE CLASS="Code">
+.ani</CODE>
+ format.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8517167"></A>Cocoa</P>
+<P CLASS="RDescription-C">TIFF format.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-8517184"></A>GTK+</P>
+<P CLASS="RDescription-C">Any image format that <A HREF="capiref-592.htm#43526" CLASS="XRef">load-image</A> supports.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-8517317"></A><B CLASS="Bold">
+Note:</B>
+ The image can be of any dimension, but it will be clipped to what the server thinks is an appropriate size, 32x32 or 16x16. Using large images would waste space, because the image would still be in memory.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8517170"></A>The file is loaded at the time <CODE CLASS="Code">
+load-cursor</CODE>
+ is called, so the cursor object does not require the file at the time the cursor is displayed. The cursor object survives saving and delivering the image.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6318480"></A>If <EM CLASS="Variable">
+filename-or-list</EM>
+ is a list then it names a file or a built-in cursor to be loaded for a particular library, optionally together with arguments to be passed to the library. It should be of the form:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-6338776"></A>((<EM CLASS="Variable">libname_1</EM>
+ <EM CLASS="Variable">filename_1</EM>
+ <EM CLASS="Variable">arg_1a</EM>
+ <EM CLASS="Variable">arg_1b</EM>
+ ...)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6338777"></A> (<EM CLASS="Variable">libname_2</EM>
+ <EM CLASS="Variable">filename_2</EM>
+ <EM CLASS="Variable">arg_2a</EM>
+ <EM CLASS="Variable">arg_2b</EM>
+ ...)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6338778"></A> ...</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-6318484"></A> )</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-8520975"></A>where <EM CLASS="Variable">
+libname_n</EM>
+ is a keyword naming a supported library such as <CODE CLASS="Code">
+:cocoa</CODE>
+, <CODE CLASS="Code">
+:win32</CODE>
+ or <CODE CLASS="Code">
+:gtk</CODE>
+  (see <A HREF="capiref-67.htm#82941" CLASS="XRef">default-library</A> for  the values) and <EM CLASS="Variable">
+filename_n</EM>
+ is either a string naming the cursor file to load for this library or a keyword naming one of the built-in cursors. <EM CLASS="Variable">
+arg_na</EM>
+, <EM CLASS="Variable">
+arg_nb</EM>
+ and so on are library specific arguments. Currently these are not used on Microsoft Windows. Hotspot keyword arguments <CODE CLASS="Code">
+:x-hot</CODE>
+ and <CODE CLASS="Code">
+:y-hot</CODE>
+ are supported on Cocoa and GTK+ as in the example below. They specify the hotspot of the cursor. The values must be integers inside the image dimensions, that is they satisfy:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-8521009"></A><CODE CLASS="Code">(and (&gt; </CODE>
+<EM CLASS="Variable">image-width</EM>
+<CODE CLASS="Code"> </CODE>
+<EM CLASS="Variable">x-hot</EM>
+<CODE CLASS="Code"> -1)</CODE>
+</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-8517354"></A><CODE CLASS="Code">     (&gt; </CODE>
+<EM CLASS="Variable">image-height</EM>
+<CODE CLASS="Code"> </CODE>
+<EM CLASS="Variable">y-hot</EM>
+<CODE CLASS="Code"> -1))</CODE>
+</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-8521004"></A>On GTK+ the library specific arguments also include the keywords <CODE CLASS="Code">
+:transparent-color-index</CODE>
+ and <CODE CLASS="Code">
+:type</CODE>
+, which are passed to <A HREF="capiref-616.htm#53822" CLASS="XRef">read-external-image</A>. Note that supplying the <EM CLASS="Variable">
+transparent-color-index</EM>
+ allows making a useful cursor with a simple format image file which does not have transparency.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6318486"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6318487"></A>This example loads a standard Microsoft Windows cursor file:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-6318488"></A>(setq cur1 (capi:load-cursor &quot;arrow_l&quot;))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-6318489"></A>This example loads a standard Windows cursor file, and on Motif uses one of the built-in cursors:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-6318490"></A>(setq cur2 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6318491"></A>      (capi:load-cursor '((:win32 &quot;3dwns&quot;)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-6318492"></A>                          (:motif :v-double-arrow))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-6318493"></A>This example loads a horizontal double-arrow on Windows, and a vertical double-arrow on Motif:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-6355823"></A>(setq cur3 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6355824"></A>      (capi:load-cursor '((:win32 :h-double-arrow)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-6355795"></A>                          (:motif :v-double-arrow))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-6318497"></A>This example loads a custom .cur file:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-6355928"></A>(setq cur4 </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-6318498"></A>      (capi:load-cursor &quot;C:/Temp/Animated_Cursors/1a.cur&quot;))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-6318500"></A>In this extended example, firstly we load a custom cursor for two platforms:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-6318501"></A>(setq cur </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6318502"></A>      (capi:load-cursor</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6318503"></A>       '((:win32</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6318504"></A>          &quot;c:/WINNT40/Cursors/O_CROSS.CUR&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6318505"></A>         (:cocoa</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6318506"></A>          &quot;/Applications/iPhoto.app/Contents/Resources/retouch-cursor.tif&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6318507"></A>          :x-hot 2</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-6318508"></A>          :y-hot 2))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-6318509"></A>Now we display a pane with the custom cursor loaded above:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-6368758"></A>(setq oo </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368759"></A>      (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368760"></A>       (make-instance </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368761"></A>        'capi:output-pane</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368762"></A>        :cursor cur</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368763"></A>        :input-model</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368764"></A>        `(((:button-1 :press)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368765"></A>           ,(lambda (&amp;rest x) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-6318516"></A>              (print x)))))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-6318517"></A>We can remove the custom cursor:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-6368855"></A>(capi:apply-in-pane-process</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368856"></A> oo</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368857"></A> (lambda () </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368858"></A>   (setf (capi:simple-pane-cursor oo) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-6368859"></A>         :default)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-6368860"></A>And we can restore the custom cursor:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-6368861"></A>(capi:apply-in-pane-process</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368862"></A> oo</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368863"></A> (lambda ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-6368864"></A>   (setf (capi:simple-pane-cursor oo)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-6318465"></A>         cur)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6302591"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6302595"></A><A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-224.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-222.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.4.3  Simple Windows example
+</TITLE>
+
+<LINK REL="next" HREF="delivery-46.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-44.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-42.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-36.htm">4 Delivering your Application</A> &gt; <A HREF="delivery-42.htm">4.4  Delivering a dynamic library</A><BR><BR>
+</DIV><A HREF="delivery-46.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-44.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-42.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-865549"></A>4.4.3  Simple Windows example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-865550"></A>The script below creates <CODE CLASS="Code">
+hello.dll</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-865558"></A>-------------------- hello.lisp -------------------------</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865655"></A>(in-package &quot;CL-USER&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865656"></A>(load-all-patches)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865657"></A>;; The signature of this function is suitable for use with</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865658"></A>;; rundll32.exe.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865659"></A>(fli:define-foreign-callable (&quot;Hello&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865660"></A>                              :calling-convention :stdcall)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865661"></A>    ((hwnd w:hwnd)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865662"></A>     (hinst w:hinstance)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865663"></A>     (string :pointer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865664"></A>     (cmd-show :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865665"></A>  (capi:display-message &quot;Hello world&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865666"></A>  ;; quit when library's job is done</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865667"></A>  (dll-quit))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865668"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865669"></A>(deliver nil &quot;hello&quot; 0 :dll-exports '(&quot;Hello&quot;) :interface :capi)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-865575"></A>---------------------------------------------------------</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-865581"></A>You can build the DLL with this command line:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-865585"></A>lispworks-6-1-0-x86-win32.exe -build hello.lisp</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-865586"></A>and you can test it with this command line:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-865937"></A>rundll32 hello.dll,Hello</CODE>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="delivery-46.htm#pgfId-865938" CLASS="Hypertext">4.4.3.1  Using the Application Builder</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-46.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-44.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-42.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

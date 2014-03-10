@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.6.2  Synchronization barriers
+</TITLE>
+
+<LINK REL="next" HREF="lw-289.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-287.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-286.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-286.htm">15.6  Synchronization between threads </A><BR><BR>
+</DIV><A HREF="lw-289.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-287.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-286.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-894007"></A>15.6.2  <A NAME="82662"></A><A NAME="marker-894194"></A>Synchronization barriers</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893871"></A>Barriers are objects that are used to synchronize multiple threads. A barrier has a <EM CLASS="Variable">
+count</EM>
+ that determines how many &quot;arrivals&quot; (calls to <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-894332"></A><A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A>) have to occur before these calls return.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893872"></A>The main usage of barriers is to ensure that a group of threads have all finished some stage of an algorithm before any of them proceeds.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893873"></A>The typical way of using a barrier is to make one with a <EM CLASS="Variable">
+count</EM>
+ that is the same as the number of threads that are going to work in parallel and then create the threads to do the work.  When each thread has done its work, it synchronizes with the others by calling <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A>. In most cases <A HREF="lw-1014.htm#72003" CLASS="XRef">barrier-wait</A> is the only barrier API that is used.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893874"></A>For example, assume you have a task that be broken into two stages, where each stage can be done in parallel by several threads, but the first stage must be completely finished before any processing of the second stage can start. <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-894488"></A>Then the code will do:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893876"></A>(let ((barrier (mp:make-barrier num-of-processes)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893877"></A>  (dotimes (p num-of-processes)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893878"></A>    (mp:process-run-function (format nil &quot;Task worker &#126;d&quot; p)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893879"></A>                             ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893880"></A>                             #'(lambda (process-number barrier)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893881"></A>                                 (do-first-stage process-number)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893882"></A>                                 (mp:barrier-wait barrier)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893883"></A>                                 (do-second-stage process-number))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893884"></A>                             p</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893885"></A>                             barrier)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-893886"></A>It is also possible to use the barrier to block an indefinite number (up to <CODE CLASS="Code">
+most-positive-fixnum</CODE>
+) of processes, until another process decides that they can go. For this the barrier is made with <EM CLASS="Variable">
+count</EM>
+ t (or <CODE CLASS="Code">
+most-positive-fixnum</CODE>
+). The other process then uses <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-894337"></A><A HREF="lw-1009.htm#63062" CLASS="XRef">barrier-disable</A> to &quot;open&quot; the barrier. If required, the barrier can be enabled again by <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-894342"></A><A HREF="lw-1010.htm#92294" CLASS="XRef">barrier-enable</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-898333"></A>See also <A HREF="lw-1006.htm#90936" CLASS="XRef">barrier-block-and-wait</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-289.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-287.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-286.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

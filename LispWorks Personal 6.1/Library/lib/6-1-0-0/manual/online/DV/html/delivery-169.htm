@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :symbol-names-action
+</TITLE>
+
+<LINK REL="next" HREF="delivery-170.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-168.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-55.htm">5 Keywords to the Delivery Function</A> &gt; <A HREF="delivery-70.htm">5.2  Alphabetical list of deliver keywords </A><BR><BR>
+</DIV><A HREF="delivery-170.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-168.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="Interface">
+<A NAME="pgfId-107436"></A><A NAME="49575"></A>:<A NAME="marker-110960"></A>symbol-names-action</H3>
+<P CLASS="Interface-type">
+<A NAME="pgfId-107437"></A>Keyword</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-107438"></A>Default value: <CODE CLASS="Code">
+(&gt;= *delivery-level* 5)</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-110258"></A>Defines what to with symbol names. When it is <CODE CLASS="Code">
+nil</CODE>
+, or when <A HREF="delivery-146.htm#46118" CLASS="XRef">:packages-to-keep-symbol-names</A> is <CODE CLASS="Code">
+:all</CODE>
+, all symbol names are kept. When it is <CODE CLASS="Code">
+t</CODE>
+, symbol names (except those which are kept by <A HREF="delivery-128.htm#85754" CLASS="XRef">:keep-symbol-names</A>, <A HREF="delivery-119.htm#54702" CLASS="XRef">:keep-keyword-names</A> or <A HREF="delivery-146.htm#46118" CLASS="XRef">:packages-to-keep-symbol-names</A>) are changed to the same string <CODE CLASS="Code">
+&quot;Dummy Symbol Name&quot;</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-154369"></A><B CLASS="Bold">
+Compatibility Note:</B>
+ in LispWorks 4.4 and previous on Windows and Linux platforms, <CODE CLASS="Code">
+:symbol-names-action t</CODE>
+ shortens symbol names to a three-character unique code. This has changed, as described above, in LispWorks 5.0 and later.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-157957"></A>Removing symbol names makes it very difficult to debug the application, and it is assumed that it is done after the application is essentially error free. However, some applications may make use of symbol names as strings, which may cause errors to appear only when the symbol names are removed. In some cases the easiest solution is to retain symbol names. This will result in a larger executable, though the size increase is usually small.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-157962"></A>If you do want to remove symbol names and need to debug your application, <CODE CLASS="Code">
+:symbol-names-action</CODE>
+ takes these other values <CODE CLASS="Code">
+:spell-error</CODE>
+, <CODE CLASS="Code">
+:reverse</CODE>
+, <CODE CLASS="Code">
+:invert</CODE>
+ and <CODE CLASS="Code">
+:plist</CODE>
+. In the case of <CODE CLASS="Code">
+:spell-error</CODE>
+ (which is probably the most useful), the last alphabetic characters in the first 6 characters of the symbol name are rotated by one, that is, A becomes B, g becomes h, and Z becomes A. This leaves the symbol names quite readable, but any function that relies on symbol names fails. A more drastic effect is achieved by the value <CODE CLASS="Code">
+:reverse</CODE>
+, which reverses the symbol name. The value <CODE CLASS="Code">
+:invert </CODE>
+just changes the case of every alphabetic character to the other case. This is more readable than <CODE CLASS="Code">
+:spell-error</CODE>
+, but if the application relies on symbol names but does not care about case, the errors do not appear. The value <CODE CLASS="Code">
+:plist</CODE>
+ causes the symbol names to be set to the dummy name, but the old string is being put on the <CODE CLASS="Code">
+plist</CODE>
+ of the symbol <CODE CLASS="Code">
+(get symbol `sys::real-symbol-name)</CODE>
+. The simple backtracer uses the property when it exists to get the symbol name.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-158019"></A>If the debugging shows that some symbols must retain their symbol name for the application to work, this must be flagged to <CODE CLASS="Code">
+deliver</CODE>
+ by either <A HREF="delivery-128.htm#85754" CLASS="XRef">:keep-symbol-names</A> or <A HREF="delivery-146.htm#46118" CLASS="XRef">:packages-to-keep-symbol-names</A>. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-111030"></A>After debugging your delivered application using <CODE CLASS="Code">
+:spell-error</CODE>
+, <CODE CLASS="Code">
+:reverse</CODE>
+, <CODE CLASS="Code">
+:invert</CODE>
+ or <CODE CLASS="Code">
+:plist</CODE>
+, you may want the production build to be done with <CODE CLASS="Code">
+:symbol-names-action t</CODE>
+ to remove symbol names and achieve a small reduction in size.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-158034"></A><B CLASS="Bold">
+Compatibility Note:</B>
+ in LispWorks 4.4 and previous on Windows and Linux platforms,  <CODE CLASS="Code">
+:symbol-names-action</CODE>
+ allows the value <CODE CLASS="Code">
+:dump</CODE>
+. This is no longer supported.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-170.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-168.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

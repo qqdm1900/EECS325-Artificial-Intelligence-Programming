@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ get-scroll-position
+</TITLE>
+
+<LINK REL="next" HREF="capiref-157.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-155.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-157.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-155.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-6402515"></A><A NAME="55069"></A>get<A NAME="marker-6402514"></A>-scroll<A NAME="marker-6427850"></A>-position</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-6402516"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6402517"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6402518"></A>Returns the current scroll position of a pane such as <CODE CLASS="Code">
+list-panel</CODE>
+, <CODE CLASS="Code">
+display-pane</CODE>
+ or <CODE CLASS="Code">
+tree-view</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6402519"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-6402520"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6402521"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-6402522"></A>get-scroll-position <EM CLASS="Variable">
+pane</EM>
+ <EM CLASS="Variable">
+dimension</EM>
+ =&gt; <EM CLASS="Variable">
+position</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6422498"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6422607"></A><EM CLASS="Variable">
+pane</EM>
+</P>
+<P CLASS="RDescription-C">A pane with built-in scrolling.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6422608"></A><EM CLASS="Variable">
+dimension</EM>
+</P>
+<P CLASS="RDescription-C">A keyword, either <CODE CLASS="Code">
+:horizonta</CODE>
+l or <CODE CLASS="Code">
+:vertical</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6426442"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-6422609"></A><EM CLASS="Variable">
+position</EM>
+</P>
+<P CLASS="RDescription-C">An integer or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6402523"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6426650"></A>The function <CODE CLASS="Code">
+get-scroll-position</CODE>
+ returns the scroll position of the pane <EM CLASS="Variable">
+pane</EM>
+ in the given <EM CLASS="Variable">
+dimension</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6426763"></A><EM CLASS="Variable">
+pane</EM>
+ should be an instance of a pane class that has built-in scrolling. That is, the scrolling is implemented by the underlying widget. Examples include <A HREF="capiref-214.htm#30299" CLASS="XRef">list-panel</A>, <A HREF="capiref-81.htm#33757" CLASS="XRef">display-pane</A> and <A HREF="capiref-462.htm#81588" CLASS="XRef">tree-view</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6426710"></A>In general, the units in the returned value <EM CLASS="Variable">
+position</EM>
+ are unspecified, but they can be passed to the generic function <A HREF="capiref-371.htm#scroll" CLASS="XRef">scroll</A> with <EM CLASS="Variable">
+operation</EM>
+ <CODE CLASS="Code">
+:move</CODE>
+  to restore the position.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6426714"></A>For a <A HREF="capiref-214.htm#30299" CLASS="XRef">list-panel</A>, the vertical units are items.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9138249"></A><EM CLASS="Variable">
+position</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ if <EM CLASS="Variable">
+pane</EM>
+ is not displayed on the screen, for example if <CODE CLASS="Code">
+get-scroll-position</CODE>
+ is called after <EM CLASS="Variable">
+pane</EM>
+ is destroyed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6402532"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-6402536"></A><A HREF="capiref-153.htm#47235" CLASS="XRef">get-horizontal-scroll-parameters</A><BR>
+<A HREF="capiref-157.htm#13878" CLASS="XRef">get-vertical-scroll-parameters</A><BR>
+<A HREF="capiref-371.htm#scroll" CLASS="XRef">scroll</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-157.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-155.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ make-image-access
+</TITLE>
+
+<LINK REL="next" HREF="capiref-598.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-596.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-495.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-495.htm">2 GP Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-598.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-596.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1117290"></A><A NAME="99246"></A>make<A NAME="marker-1117289"></A>-image-access</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1117291"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1117292"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1112042"></A>Creates an Image Access object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1112043"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1112044"></A><CODE CLASS="Code">
+graphics-ports</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1112045"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1112046"></A>make-image-access <EM CLASS="Variable">
+port</EM>
+ <EM CLASS="Variable">
+image</EM>
+ =&gt; <EM CLASS="Variable">
+image-access</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1112047"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1112048"></A><EM CLASS="Variable">
+port</P>
+<P CLASS="RDescription-C"></EM>
+A graphics port.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1228983"></A><EM CLASS="Variable">
+image</EM>
+</P>
+<P CLASS="RDescription-C">An <A HREF="capiref-574.htm#77313" CLASS="XRef">image</A> object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1112049"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1112050"></A><EM CLASS="Variable">
+image-access</P>
+<P CLASS="RDescription-C"></EM>
+An Image Access object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1112054"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1112055"></A>The generic function <CODE CLASS="Code">
+make-image-access</CODE>
+ returns an Image Access object for the given <A HREF="capiref-574.htm#77313" CLASS="XRef">image</A> image.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1115695"></A><EM CLASS="Variable">
+image</EM>
+ can be any <A HREF="capiref-574.htm#77313" CLASS="XRef">image</A> object returned by <A HREF="capiref-598.htm#10786" CLASS="XRef">make-image-from-port</A>. An <EM CLASS="Variable">
+<A HREF="capiref-574.htm#77313" CLASS="XRef">image</A></EM>
+ object returned by <EM CLASS="Variable">
+<A HREF="capiref-592.htm#43526" CLASS="XRef">load-image</A></EM>
+ is also suitable, but only if it is a Plain Image (see below).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1161690"></A><EM CLASS="Variable">
+image-access</EM>
+ is used when reading and writing the pixel values of the image. For an overview of using Image Access objects, see the Graphics Ports chapter in the <I CLASS="Italic">
+CAPI User Guide</I>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1161034"></A><B CLASS="Bold">
+Note:</B>
+ on some platforms (currently Windows) not every <A HREF="capiref-574.htm#77313" CLASS="XRef">image</A> object is a Plain Image. If needed, forcibly create a Plain Image suitable for passing to <CODE CLASS="Code">
+make-image-access</CODE>
+ as described in <A HREF="capiref-592.htm#43526" CLASS="XRef">load-image</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1116097"></A><B CLASS="Bold">
+Note:</B>
+ ensure that you eventually discard <EM CLASS="Variable">
+image-access</EM>
+, using <A HREF="capiref-556.htm#88506" CLASS="XRef">free-image-access</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1151733"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1151734"></A>See the file<BR>
+<CODE CLASS="Code">
+examples/capi/graphics/image-access.lisp</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1116237"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1116363"></A><A HREF="capiref-556.htm#88506" CLASS="XRef">free-image-access</A><BR>
+<A HREF="capiref-579.htm#73498" CLASS="XRef">image-access-transfer-from-image</A><BR>
+<A HREF="capiref-580.htm#79949" CLASS="XRef">image-access-transfer-to-image</A><BR>
+<A HREF="capiref-575.htm#32128" CLASS="XRef">image-access-height</A><BR>
+<A HREF="capiref-576.htm#82243" CLASS="XRef">image-access-pixel</A><BR>
+<A HREF="capiref-592.htm#43526" CLASS="XRef">load-image</A><BR>
+<A HREF="capiref-596.htm#38942" CLASS="XRef">make-image</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-598.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-596.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.4  Graph panes
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-80.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-78.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-63.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-63.htm">6 Choices</A><BR><BR>
+</DIV><A HREF="capiuser-m-80.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-78.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-63.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884297"></A>6.4  Graph <A NAME="marker-884656"></A>panes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884299"></A>Another kind of choice is the <A NAME="marker-884298"></A><CODE CLASS="Code">
+graph-pane</CODE>
+. This is a special pane that can draw graphs, whose nodes and edges can be selected, and for which callbacks can be specified, as usual. </P>
+<P CLASS="Body">
+<A NAME="pgfId-884300"></A>Here is a simple example of a graph pane. It draws a small rooted tree:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884302"></A>(contain </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884303"></A> (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884304"></A>  'graph-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884305"></A>  :roots '(1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884307"></A>  :<A NAME="marker-884306"></A>children-function </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884308"></A>  #'(lambda (x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884309"></A>      (when (&lt; x 8)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884310"></A>       (list (* 2 x) (1+ (* 2 x))))))) </PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884526"></A>Figure 6.7  A graph pane<DIV>
+<IMG SRC="capiuser-m-23.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-29.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-888608"></A>The graph pane is supplied with a <CODE CLASS="Code">
+:children-function</CODE>
+<A NAME="marker-888607"></A> which it uses to calculate the children of the root node, and from those children it continues to calculate more children until the termination condition is reached. For more details of this, see the <I CLASS="Italic">
+LispWorks CAPI Reference Manual</I>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888612"></A><CODE CLASS="Code">
+graph-pane</CODE>
+ provides a gesture which expands or collapses a node, depending on it current state. Click on the circle alongside the node to expand or collapse it.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888627"></A>You can associate selection, retraction, extension, and action callbacks with any or all elements of a graph. Here is a simple graph pane that has an action callback on its nodes.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885365"></A>First we need a pane which will display the callback messages. Executing the following form to create this pane:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-885366"></A>(defvar *the-collector*</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885367"></A>   (contain (make-instance 'collector-pane)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884323"></A>Then, define the following four callback functions:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884325"></A><A NAME="marker-884667"></A>(defun test-action-callback (&amp;rest args)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884621"></A>            (format (collector-pane-stream </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885370"></A>                     *the-collector*) &quot;Action&quot;))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884623"></A>(defun test-selection-callback (&amp;rest args)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884624"></A>            (format (collector-pane-stream *the-collector*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885373"></A>                    &quot;Selection&quot;))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884626"></A>(defun test-extend-callback (&amp;rest args)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884333"></A>            (format (collector-pane-stream *the-collector*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885374"></A>                    &quot;Extend&quot;))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884335"></A>(defun test-retract-callback (&amp;rest args)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884336"></A>            (format (collector-pane-stream *the-collector*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885379"></A>                    &quot;Retract&quot;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884337"></A>Now create an extended selection graph pane which uses each of these callbacks, the callback used depending on the action taken:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884339"></A>(contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884340"></A>   (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884341"></A>      'graph-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884342"></A>      :interaction :extended-selection</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884343"></A>      :roots '(1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884344"></A>      :children-function</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884345"></A>       #'(lambda (x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884346"></A>            (when (&lt; x 8)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884347"></A>                  (list (* 2 x) (1+ (* 2 x)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884349"></A>      :<A NAME="marker-884348"></A>action-callback 'test-action-callback</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884351"></A>      :<A NAME="marker-884350"></A>selection-callback 'test-selection-callback</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884353"></A>      :<A NAME="marker-884352"></A>extend-callback 'test-extend-callback</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884355"></A>      :<A NAME="marker-884354"></A>retract-callback 'test-retract-callback))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884356"></A>The selection callback function is called whenever any node in the graph is selected. </P>
+<P CLASS="Body">
+<A NAME="pgfId-884357"></A>The extension callback function is called when the selection is extended by middle clicking on another node (thus selecting it too). </P>
+<P CLASS="Body">
+<A NAME="pgfId-884358"></A>The retract callback function is called whenever an already selected node is deselected. </P>
+<P CLASS="Body">
+<A NAME="pgfId-888526"></A>The action callback function is called whenever an action is performed on a node (that is, whenever it gets a double-click, or <CODE CLASS="Code">
+Return</CODE>
+ is pressed while the node is selected).</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-80.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-78.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-63.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

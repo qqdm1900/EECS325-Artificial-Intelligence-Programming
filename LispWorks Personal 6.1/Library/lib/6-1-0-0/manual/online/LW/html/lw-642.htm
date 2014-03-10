@@ -1,0 +1,339 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ directory
+</TITLE>
+
+<LINK REL="next" HREF="lw-643.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-641.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-643.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-641.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1039412"></A><A NAME="44660"></A>directory<A NAME="marker-1039411"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1039413"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039414"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039415"></A>Determines which files on the system have names matching a given pathname.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039416"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039417"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039418"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039419"></A>directory <EM CLASS="Variable">
+pathname</EM>
+ &amp;key <EM CLASS="Variable">
+test</EM>
+ <EM CLASS="Variable">
+directories</EM>
+ <EM CLASS="Variable">
+flat-file-namestring</EM>
+ <EM CLASS="Variable">
+link-transparency</EM>
+ <EM CLASS="Variable">
+non-existent-link-destinations</EM>
+ =&gt; <EM CLASS="Variable">
+pathnames</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039420"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039421"></A><EM CLASS="Variable">
+pathname</EM>
+ </P>
+<P CLASS="RDescription-C">A pathname, string, or file-stream.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039422"></A><EM CLASS="Variable">
+test</EM>
+ </P>
+<P CLASS="RDescription-C">Filtering test (only pathnames matching the test are collected).</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039423"></A><EM CLASS="Variable">
+directories</EM>
+</P>
+<P CLASS="RDescription-C">A boolean controlling whether non-matching directories are included in the result.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1126588"></A><EM CLASS="Variable">
+flat-file-namestring</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1126605"></A>A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039424"></A><EM CLASS="Variable">
+link-transparency</EM>
+ </P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+nil</CODE>
+, then symbolic links are not followed. This means that returned names are not necessarily truenames, but has the useful feature that the <CODE CLASS="Code">
+pathname-directory</CODE>
+ of each pathname returned is the directory supplied as argument. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1039425"></A>The default value of <EM CLASS="Variable">
+link-transparency</EM>
+ is given by the special variable, <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-1111875"></A><A HREF="lw-1357.htm#45791" CLASS="XRef">*directory-link-transparency*</A>, which has initial value <CODE CLASS="Code">
+t</CODE>
+ on UNIX/Linux/Mac OS X. By setting this variable to <CODE CLASS="Code">
+nil</CODE>
+, you can get the old behavior of <CODE CLASS="Code">
+directory</CODE>
+. On Windows, where the file system does not normally support symbolic links, this variable is initially <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039427"></A><EM CLASS="Variable">
+non-existent-link-destinations</EM>
+ </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1039428"></A>If this is non-nil, then the pathname pointed to by a symbolic link appears in the output whether or not this file actually exists. If <CODE CLASS="Code">
+:link-transparency</CODE>
+ is non-nil and <CODE CLASS="Code">
+:non-existent-link-destinations</CODE>
+ is <CODE CLASS="Code">
+nil</CODE>
+ (this is the default on UNIX/Linux/Mac OS X), then symbolic links to nonexistent files do not appear. </P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1039429"></A>The default value is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039430"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039431"></A><EM CLASS="Variable">
+pathnames</EM>
+</P>
+<P CLASS="RDescription-C">A list of physical pathnames.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039432"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039433"></A><CODE CLASS="Code">
+directory</CODE>
+ collects all the pathnames matching the given pathname.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039434"></A><CODE CLASS="Code">
+directory</CODE>
+ returns truenames, conforming to the ANSI specification for Common Lisp. Some programs may depend on the old behavior, however (and <CODE CLASS="Code">
+directory</CODE>
+ is slower if it has to find the truename for every file in the directory), and so two keyword arguments are available so that the old behavior can still be used: <EM CLASS="Variable">
+link-transparency </EM>
+and <EM CLASS="Variable">
+non-existent-link-destinations</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039435"></A>Because truenames are now returned, the entries <CODE CLASS="Code">
+.</CODE>
+ and <CODE CLASS="Code">
+..</CODE>
+ no longer show up in the output of <CODE CLASS="Code">
+directory</CODE>
+. This means, for instance, that </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1039436"></A>(directory #P&quot;/usr/users/&quot;) </CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1039437"></A>does not include <CODE CLASS="Code">
+#P&quot;/usr&quot;</CODE>
+, which is the truename of <CODE CLASS="Code">
+#P&quot;/usr/users/..&quot;</CODE>
+ </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039438"></A>The specification is unclear as to the appropriate behavior of <CODE CLASS="Code">
+directory</CODE>
+ in the presence of links to non-existent files or directories. For example, if the directory contains <CODE CLASS="Code">
+foo</CODE>
+, which is a symbolic link to <CODE CLASS="Code">
+bar</CODE>
+, and there is no file named <CODE CLASS="Code">
+bar</CODE>
+, should <CODE CLASS="Code">
+bar</CODE>
+ show up in the directory listing? A keyword argument has been added which lets you control this behavior.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1068550"></A><CODE CLASS="Code">
+directory</CODE>
+ returns a single pathname if called with a non-wild (fully-specified) <EM CLASS="Variable">
+pathname</EM>
+. LispWorks <A HREF="lw-676.htm#92554" CLASS="XRef">truename</A>s are fully-specified, so this affects recursive calls to <CODE CLASS="Code">
+directory</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039439"></A><EM CLASS="Variable">
+directories</EM>
+, if non-nil, causes paths of directories that are sub-directories of the directory of the argument <EM CLASS="Variable">
+pathname </EM>
+to be included in the result, even if they do not match <EM CLASS="Variable">
+pathname</EM>
+ in the name, type or version components.<EM CLASS="Variable">
+ </EM>
+The default value of <EM CLASS="Variable">
+directories</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1126488"></A>When <EM CLASS="Variable">
+flat-file-namestring</EM>
+ is non-nil, <CODE CLASS="Code">
+directory</CODE>
+ matches the <CODE CLASS="Code">
+file-namestring</CODE>
+ of <EM CLASS="Variable">
+pathname</EM>
+ as a flat string, rather than a pathname name and pathname type. The default value of <EM CLASS="Variable">
+flat-file-namestring</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1125949"></A><B CLASS="Bold">
+Note:</B>
+ The Search files tool in the LispWorks IDE uses this option when the <B CLASS="Button">
+Match flat file-namestring</B>
+ option is selected. See the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+ for more information about the Search Files tool.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039440"></A><B CLASS="Bold">
+Note:</B>
+ File names containing the character <CODE CLASS="Code">
+*</CODE>
+ cannot be handled by LispWorks. This is because LispWorks uses <CODE CLASS="Code">
+*</CODE>
+ as a wildcard, so there can be confusion if a file name containing <CODE CLASS="Code">
+*</CODE>
+ is created, for example in the <EM CLASS="Variable">
+pathnames</EM>
+ returned by <CODE CLASS="Code">
+directory</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039441"></A>Compatibility Note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039442"></A>The <CODE CLASS="Code">
+:check-for-subs</CODE>
+ argument, implemented in LispWorks 4.0.1 and previous versions, has been removed. This argument controlled whether directories in the result have null name components. This option is no longer valid since ANSI Common Lisp specifies that <CODE CLASS="Code">
+directory</CODE>
+ returns truenames.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039443"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1216471"></A>CL-USER 1 &gt; (pprint (directory &quot;.&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1216472"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1216473"></A>(#P&quot;C:/Program Files/LispWorks/readme-6-1.txt&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1216474"></A> #P&quot;C:/Program Files/LispWorks/lispworks-6-1-0-x86-win32.exe&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1216475"></A> #P&quot;C:/Program Files/LispWorks/license-6-1.txt&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1216476"></A> #P&quot;C:/Program Files/LispWorks/lib/&quot;)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1039452"></A>This session illustrates the effect of the <EM CLASS="Variable">
+directories</EM>
+ argument:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039453"></A>CL-USER 5 &gt; (pprint (directory &quot;/tmp/t*&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039454"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039455"></A>(#P&quot;/tmp/test.lisp&quot; #P&quot;/tmp/test2/&quot; #P&quot;/tmp/test1/&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039456"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039457"></A>CL-USER 6 &gt; (pprint (directory &quot;/tmp/t*&quot; :directories t))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039458"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039459"></A>(#P&quot;/tmp/patches/&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039460"></A> #P&quot;/tmp/test.lisp&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039461"></A> #P&quot;/tmp/test2/&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039462"></A> #P&quot;/tmp/opengl/&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039463"></A> #P&quot;/tmp/test1/&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039464"></A> #P&quot;/tmp/mnt/&quot;)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1070670"></A>This example illustrates directory returning a single pathname in its result when given a full-specified pathname:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1070676"></A>CL-USER 1 &gt; (directory </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1070677"></A>             (make-pathname :host &quot;H&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1070678"></A>                            :device :unspecific </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1070679"></A>                            :directory (list :absolute </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1070680"></A>                                             &quot;tmp&quot;) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1070681"></A>                            :name :unspecific </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1070682"></A>                            :type :unspecific </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1070683"></A>                            :version :unspecific))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1068586"></A>(#P&quot;H:/tmp/&quot;)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1127477"></A>The next two examples illustrate the effect of <EM CLASS="Variable">
+flat-file-namestring</EM>
+. Suppose the directory <EM CLASS="Variable">
+dir</EM>
+ contains files <CODE CLASS="Code">
+interp.exe</CODE>
+ and <CODE CLASS="Code">
+file.lisp</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1127479"></A>This call matches <CODE CLASS="Code">
+interp.exe</CODE>
+, where the name <CODE CLASS="Code">
+interp</CODE>
+ ends with <CODE CLASS="Code">
+p</CODE>
+, but does not match <CODE CLASS="Code">
+file.lisp</CODE>
+, where the name <CODE CLASS="Code">
+file</CODE>
+ ends with <CODE CLASS="Code">
+e</CODE>
+:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1127480"></A>(directory &quot;<EM CLASS="Variable">
+dir</EM>
+/*p&quot;)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1127481"></A>The next call matches <CODE CLASS="Code">
+file.lisp</CODE>
+, where the namestring <CODE CLASS="Code">
+file.lisp</CODE>
+ ends with <CODE CLASS="Code">
+p</CODE>
+, but does not match <CODE CLASS="Code">
+interp.exe</CODE>
+, where the namestring <CODE CLASS="Code">
+interp.exe</CODE>
+ ends with <CODE CLASS="Code">
+e</CODE>
+:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1127482"></A>(directory &quot;<EM CLASS="Variable">
+dir</EM>
+/*p&quot; :flat-file-namestring t)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1070703"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1070732"></A><A HREF="lw-676.htm#92554" CLASS="XRef">truename</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-643.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-641.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

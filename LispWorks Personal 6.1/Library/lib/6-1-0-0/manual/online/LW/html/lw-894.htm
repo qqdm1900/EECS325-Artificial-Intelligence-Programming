@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ current-pathname
+</TITLE>
+
+<LINK REL="next" HREF="lw-895.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-893.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-895.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-893.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1188380"></A><A NAME="marker-1192725"></A><A NAME="current-pathname"></A>current-pathname</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1188381"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1188382"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1200712"></A>Computes a pathname relative to the current path.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1200707"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1188383"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1188384"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1188385"></A>current-pathname &amp;optional <EM CLASS="Variable">
+relative-pathname type =&gt; pathname</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1202035"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1202055"></A><EM CLASS="Variable">
+relative-pathname</EM>
+</P>
+<P CLASS="RDescription-C"> A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1202072"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">A string or <CODE CLASS="Code">
+nil</CODE>
+. The default is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1202459"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1202478"></A><EM CLASS="Variable">
+pathname</EM>
+</P>
+<P CLASS="RDescription-C">A pathname.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1188397"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1198637"></A>The function <CODE CLASS="Code">
+current-pathname</CODE>
+ is useful for loading other files relative to a file.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1200722"></A><CODE CLASS="Code">
+current-pathname </CODE>
+computes a pathname from the current operation as follows:</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1200914"></A>When loading a file</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1219655"></A>Uses <CODE CLASS="Code">
+*load-pathname*</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1200921"></A>When compiling a file</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1201190"></A>Uses <CODE CLASS="Code">
+*compile-file-pathname*</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1201249"></A>When evaluating or compiling an Editor buffer</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1201265"></A>Uses the pathname of the buffer, if available, otherwise uses the current working directory.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1201269"></A>Otherwise</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1201278"></A>Uses the current working directory.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1202006"></A>The pathname computed above is then translated to a physical pathname, and the argument <EM CLASS="Variable">
+relative-pathname</EM>
+ is merged with this physical pathname. The <CODE CLASS="Code">
+pathname-type</CODE>
+ of the result <EM CLASS="Variable">
+pathname</EM>
+ is set to <EM CLASS="Variable">
+type</EM>
+ if supplied, the <CODE CLASS="Code">
+pathname-version</CODE>
+ is set to <CODE CLASS="Code">
+:newest</CODE>
+, and <EM CLASS="Variable">
+pathname</EM>
+ is returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1202650"></A>A useful value for <EM CLASS="Variable">
+type</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, which can be used to allow <CODE CLASS="Code">
+load</CODE>
+ to choose between lisp or fasl regardless of the type of the current pathname.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1202996"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1842208"></A><A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A> uses <CODE CLASS="Code">
+current-pathname</CODE>
+ with its <CODE CLASS="Code">
+:default-host</CODE>
+ argument.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1202506"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1430713"></A>Suppose you want the file <CODE CLASS="Code">
+foo</CODE>
+ to load the file <CODE CLASS="Code">
+bar</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1430904"></A>While loading the source file <CODE CLASS="Code">
+foo.lisp</CODE>
+:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1430714"></A>(current-pathname &quot;bar&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1430715"></A>=&gt;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1430716"></A>#P&quot;C:/temp/bar.lisp&quot;</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1430723"></A>While loading the binary file <CODE CLASS="Code">
+foo.ofasl</CODE>
+:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1430724"></A>(current-pathname &quot;bar&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1430725"></A>=&gt;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1430726"></A>#P&quot;C:/temp/bar.ofasl&quot;</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1631201"></A>To load <CODE CLASS="Code">
+bar.lisp</CODE>
+ or <CODE CLASS="Code">
+bar.ofasl</CODE>
+ according to the value of <CODE CLASS="Code">
+*load-fasl-or-lisp-file*</CODE>
+, regardless of whether <CODE CLASS="Code">
+foo.lisp</CODE>
+ or <CODE CLASS="Code">
+foo.ofasl</CODE>
+ is being loaded, specify <EM CLASS="Variable">
+type</EM>
+ <CODE CLASS="Code">
+nil</CODE>
+:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1631202"></A>(load (current-pathname &quot;bar&quot; nil))</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1631203"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1203021"></A><A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A><BR>
+<A HREF="lw-951.htm#29524" CLASS="XRef">pathname-location</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-895.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-893.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

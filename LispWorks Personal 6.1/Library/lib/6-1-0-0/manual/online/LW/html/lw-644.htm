@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ documentation
+</TITLE>
+
+<LINK REL="next" HREF="lw-645.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-643.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-645.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-643.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1039497"></A><A NAME="38950"></A>documentation<A NAME="marker-1039496"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1039498"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039499"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039500"></A>Returns the documention string if available.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039501"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039502"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039503"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039504"></A>documentation <EM CLASS="Variable">
+x</EM>
+ <EM CLASS="Variable">
+doc-type</EM>
+ =&gt; <EM CLASS="Variable">
+documentation</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039505"></A>(setf documentation) <EM CLASS="Variable">
+new-value</EM>
+ <EM CLASS="Variable">
+x</EM>
+ <EM CLASS="Variable">
+doc-type</EM>
+ =&gt; <EM CLASS="Variable">
+new-value</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039506"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039507"></A>The generic function documentation operates as specified in the ANSI Common Lisp standard. Additional methods with signatures:</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039508"></A>documentation (<EM CLASS="Variable">
+dspec</EM>
+ t) (<EM CLASS="Variable">
+doc-type</EM>
+ (eql 'dspec:dspec))</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039509"></A>(setf documentation) <EM CLASS="Variable">
+new-value</EM>
+ (<EM CLASS="Variable">
+dspec</EM>
+ t) (<EM CLASS="Variable">
+doc-type</EM>
+ (eql 'dspec:dspec))</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039510"></A>are provided.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039511"></A>This method allows finding or setting the documentation string when you know the dspec. See <A HREF="lw-68.htm#41682" CLASS="XRef">Dspecs: Tools for Handling Definitions</A> for information about dspecs.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039515"></A><EM CLASS="Variable">
+dspec</EM>
+ must be a dspec, but it can be non-canonical. This method canonicalizes <EM CLASS="Variable">
+dspec</EM>
+ and then calls documentation with the name as the first argument and the appropriate dspec class name as the second, thereby calling a standard <CODE CLASS="Code">
+documentation</CODE>
+ method.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1108736"></A>If you define your own type of definitions (<CODE CLASS="Code">
+def-saved-value</CODE>
+ for example) with <A HREF="lw-704.htm#64832" CLASS="XRef">define-dspec-class</A> you can add methods on <CODE CLASS="Code">
+documentation</CODE>
+ for your dspec class:</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1109059"></A>(documentation (<EM CLASS="Variable">
+dspec</EM>
+ t) (<EM CLASS="Variable">
+doc-type</EM>
+ (eql 'def-saved-value))</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1109045"></A>This allows LispWorks IDE commands such as <B CLASS="Button">
+Expression &gt; Documentation</B>
+ to display the documentation.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-645.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-643.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,400 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ trace
+</TITLE>
+
+<LINK REL="next" HREF="lw-676.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-674.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-676.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-674.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1040564"></A><A NAME="58889"></A>trace<A NAME="marker-1040563"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1040565"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040566"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040567"></A>Invoke the Common Lisp tracing facility on the named functions.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040568"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040569"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040570"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040571"></A>trace {<EM CLASS="Variable">
+function-name</EM>
+|<EM CLASS="Variable">
+tracing-desc</EM>
+}*  =&gt; <EM CLASS="Variable">
+trace-result</EM>
+</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1040572"></A><EM CLASS="Variable">
+tracing-desc</EM>
+ ::= (<EM CLASS="Variable">
+dspec</EM>
+ {<EM CLASS="Variable">
+keyword</EM>
+ <EM CLASS="Variable">
+form</EM>
+}*)  </CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040573"></A><EM CLASS="Variable">dspec</EM>
+    ::= <EM CLASS="Variable">function-name</EM>
+ | </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040574"></A>            (method<EM CLASS="Variable"> generic-function-name</EM>
+ [<EM CLASS="Variable">qualifier</EM>
+] (<EM CLASS="Variable">class*</EM>
+))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040575"></A><EM CLASS="Variable">keyword</EM>
+ ::= :after| :allocation | :before | :backtrace | </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040576"></A>            :eval-after | :eval-before | :break |</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040577"></A>            :break-on-exit | :entrycond | :exitcond |</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040578"></A>            :inside | :process | :trace-output | :step |</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040579"></A>            :when </PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1040580"></A><EM CLASS="Variable">
+qualifier</EM>
+ ::= :after | :before | :around</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1040581"></A><EM CLASS="Variable">
+function-name</EM>
+ ::= <EM CLASS="Variable">
+symbol</EM>
+ | (setf <EM CLASS="Variable">
+symbol</EM>
+)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040582"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040583"></A><EM CLASS="Variable">
+function-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol whose symbol-function is to be traced, or a setf function name. Functions, macros and generic functions may be specified this way.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040584"></A><EM CLASS="Variable">
+dspec</P>
+<P CLASS="RDescription-C"></EM>
+Specifies the functional definition which is to be traced. This either has the same form as above, or specifies a method by the name of its generic function and by a list of classes to specialize the arguments to the method. In this latter case the list of classes must correspond exactly to the classes of the specialized parameters of an existing method, and then only this method is traced (as opposed to the corresponding generic function).</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040585"></A><EM CLASS="Variable">
+tracing-desc</P>
+<P CLASS="RDescription-C"></EM>
+Specifies the functional definition which is to be traced and specifies any additional options that are required.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040586"></A><CODE CLASS="Code">
+:after</CODE>
+ is followed by a list of forms; these are evaluated upon returning from the function. The values of these forms are also printed out by the tracer. The forms are evaluated after printing out the results of the function call, and if they modify <CODE CLASS="Code">
+hcl:*traced-results*</CODE>
+<A NAME="marker-1040587"></A> then the values received by the caller of the function are correspondingly altered (see also <CODE CLASS="Code">
+hcl:*traced-results*</CODE>
+). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040588"></A><CODE CLASS="Code">
+:allocation</CODE>
+ -- if non-nil, the memory allocation made during a function-call is printed upon exit from the function. This allocation is counted in bytes. If it is any other symbol (except <CODE CLASS="Code">
+nil</CODE>
+), <CODE CLASS="Code">
+trace</CODE>
+ uses the symbol to accumulate the amount of allocation made between entering and exiting the function. Upon exit from the function, the symbol contains the number of bytes allocated during the function-call. For example,</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040589"></A>(trace (print :entrycond nil </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040590"></A>              :exitcond nil </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040591"></A>              :allocation $$print-allocation))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1040592"></A>results in <CODE CLASS="Code">
+$$print-allocation</CODE>
+ containing the sum of the allocation made inside <CODE CLASS="Code">
+print</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040593"></A>Note that if the function is called again, <CODE CLASS="Code">
+trace</CODE>
+ continues to use <CODE CLASS="Code">
+$$print-allocation</CODE>
+ as an accumulator of memory allocation. It adds to the present value rather than re-initializing it each time the function is called.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040594"></A><CODE CLASS="Code">
+:backtrace</CODE>
+ generates a backtrace on each call to the traced function. It is followed by a keyword that can be any of the following values:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040595"></A><CODE CLASS="Code">
+:quick</CODE>
+</P>
+<P CLASS="RDescription-C">Like the <CODE CLASS="Code">
+:bq</CODE>
+ debugger command.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040596"></A><CODE CLASS="Code">
+t</CODE>
+</P>
+<P CLASS="RDescription-C">Like the <CODE CLASS="Code">
+:b</CODE>
+ debugger command.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040597"></A><CODE CLASS="Code">
+:verbose</CODE>
+</P>
+<P CLASS="RDescription-C">Like the <CODE CLASS="Code">
+:b :verbose</CODE>
+ debugger command.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040598"></A><CODE CLASS="Code">
+:bug-form</CODE>
+</P>
+<P CLASS="RDescription-C">Like the <CODE CLASS="Code">
+:bug-form</CODE>
+ debugger command.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040599"></A><CODE CLASS="Code">
+:before</CODE>
+ is followed by a list of forms; these are evaluated upon entering the function and their values are printed out by the tracer. The forms are evaluated after printing out the arguments to the function, and if they alter <A HREF="lw-850.htm#67109" CLASS="XRef">*traced-arglist*</A> then the values received by the body of the function are changed accordingly (see also <A HREF="lw-850.htm#67109" CLASS="XRef">*traced-arglist*</A>).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040606"></A><CODE CLASS="Code">
+:eval-after</CODE>
+ and <CODE CLASS="Code">
+:eval-before</CODE>
+ are similar to <CODE CLASS="Code">
+:after</CODE>
+ and <CODE CLASS="Code">
+:before</CODE>
+, without output.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040607"></A><CODE CLASS="Code">
+:break</CODE>
+ is followed by a form. This is evaluated after printing the standard information caused by entering the function, and after executing any <CODE CLASS="Code">
+:before</CODE>
+ forms; if it returns <CODE CLASS="Code">
+nil</CODE>
+ then tracing continues normally, otherwise <CODE CLASS="Code">
+break</CODE>
+ is called. This provides a way of entering the debugger through the tracer.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040608"></A><CODE CLASS="Code">
+:break-on-exit</CODE>
+ is followed by a form. This is evaluated after printing the standard information caused by returning from the function, and before executing any <CODE CLASS="Code">
+:after</CODE>
+ forms; if it returns <CODE CLASS="Code">
+nil</CODE>
+ then tracing continues normally, otherwise <CODE CLASS="Code">
+break</CODE>
+ is called. This provides a second way of entering the debugger through the tracer.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040609"></A><CODE CLASS="Code">
+:entrycond</CODE>
+ controls the printing of the standard entry message (including the function's arguments). If the form following it evaluates to give a non-nil value when the function is entered, then the entry message is printed (but otherwise it is not). If this option is not present then the standard entry message is always printed upon calling the function. See also the <CODE CLASS="Code">
+:when</CODE>
+ option.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040610"></A><CODE CLASS="Code">
+:exitcond</CODE>
+ controls the printing of the standard exit message (including the function's results). If the form following it evaluates to give a non-nil value when the function is exited, then the exit message is printed (but otherwise it is not). If this option is not present then the standard exit message is always printed upon returning from the function. See also the <CODE CLASS="Code">
+:when</CODE>
+ option.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040611"></A><CODE CLASS="Code">
+:inside</CODE>
+ restricts the tracing to within one of the functions given as an argument. A single symbolic function name is treated as a list of one element. For example, <CODE CLASS="Code">
+:inside format</CODE>
+ is equivalent to <CODE CLASS="Code">
+:inside (format)</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040612"></A><CODE CLASS="Code">
+:process</CODE>
+ may be used to restrict the tracing to a particular process. If it is followed by a process then the function is only traced when it is invoked from within that process. If it is followed by <CODE CLASS="Code">
+t</CODE>
+ then it is traced from all processes -- this is the default. In any other cases the function is not traced at all.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040613"></A><CODE CLASS="Code">
+:trace-output</CODE>
+ should be followed by a stream. All the output from tracing the function is sent to this stream. By default output from the tracer is sent to <CODE CLASS="Code">
+*trace-output*</CODE>
+. Use of this argument allows you to dispatch traced output from different functions to different places.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040614"></A><CODE CLASS="Code">
+:step</CODE>
+, when non-nil, invokes the stepper (for evaluated functions). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040615"></A><CODE CLASS="Code">
+:when</CODE>
+ overrides all other keywords. It is followed by an expression, and tracing only occurs when that expression evaluates to non-nil. It is useful if you want to combine <CODE CLASS="Code">
+:entrycond</CODE>
+ and <CODE CLASS="Code">
+:exitcond</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040616"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040617"></A><EM CLASS="Variable">
+trace-result</EM>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+trace</CODE>
+ is called with no arguments then it returns a list of the names of all the functions currently being traced. When called with one or more arguments, it returns the symbols of the functions specified in those arguments. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040618"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040619"></A><CODE CLASS="Code">
+trace</CODE>
+ is the macro used to invoke the tracing facility. This is a useful debugging tool that enables information about selected calls to be generated by the system. The standard way of invoking <CODE CLASS="Code">
+trace</CODE>
+ is to call it with the names of the functions, macros and methods that are to be monitored in this way. Calls to these produce a record of the function that was called, the arguments it received and the results it produced.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040620"></A>The arguments to <CODE CLASS="Code">
+trace</CODE>
+ each specify a function (or a macro or a method) to be traced. They may also contain further instructions to control how the tracing output is displayed, or to cause particular actions to occur when the functions is called or exited. If <CODE CLASS="Code">
+trace</CODE>
+ is called with a function that is already being traced, then the new tracing specification for that function replaces the old version. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040626"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1208475"></A>For detailed information about the current tracing state, call <A HREF="lw-734.htm#31766" CLASS="XRef">tracing-state</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1208503"></A>For information about problems with tracing and their resolution, see <A HREF="lw-54.htm#60537" CLASS="XRef">Troubleshooting tracing</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040630"></A>Example 1</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040631"></A>USER 1 &gt; (defvar *number-of-calls-to-max* 0) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040632"></A>*NUMBER-OF-CALLS-TO-MAX*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1149604"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040633"></A>USER 2 &gt; (trace (max :after </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040634"></A>                  ((incf *number-of-calls-to-max*))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040635"></A>(MAX)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1149609"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040636"></A>USER 3 &gt; (dotimes (i 2) (max i 1)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040637"></A>0 MAX &gt; (0 1) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040638"></A>0 MAX &lt; (1)  </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040639"></A> 1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040640"></A>0 MAX &gt; (1 1) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040641"></A>0 MAX &lt; (1) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040642"></A> 2 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040643"></A>NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1149625"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040644"></A>USER 4 &gt; *number-of-calls-to-max* </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040645"></A>2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1149630"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040646"></A>USER 5 &gt; (trace (max</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040647"></A>                 :entrycond </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040648"></A>                 (&gt; (length compiler:*traced-arglist*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040649"></A>                    2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040650"></A>                 :exitcond nil)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040651"></A>(MAX)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1149635"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040652"></A>USER 6 &gt; (max 2 3 (max 4 5)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040653"></A>0 MAX &gt; (2 3 5) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040654"></A>5</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040655"></A> Example 2</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040656"></A>This example illustrates the use of <CODE CLASS="Code">
+:inside</CODE>
+.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040657"></A>CL-USER 2 &gt; (defun outer ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040658"></A>             (inner))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040659"></A>OUTER</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1149664"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040660"></A>CL-USER 3 &gt; (defun inner ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040661"></A>             10)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040662"></A>INNER</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1149669"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040663"></A>CL-USER 4 &gt; (trace (inner :inside outer))  </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040664"></A>                   ;; only trace when inside OUTER</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040665"></A>(INNER)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1149670"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040666"></A>CL-USER 5 &gt; (inner)  </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040667"></A>   ;; no tracing occurs since we are not inside OUTER</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040668"></A>10</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1149689"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040669"></A>CL-USER 6 &gt; (outer)  ;; INNER is traced inside OUTER</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040670"></A>0 INNER &gt; NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040671"></A>0 INNER &lt; (10)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040672"></A>10</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1149698"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040673"></A>CL-USER 7 &gt; </PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040674"></A>Example 3</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040675"></A>To trace a method: </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1040676"></A>(defmethod foo (x) x) </CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1040677"></A>(trace ((method foo (t))))</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040678"></A>Example 4</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040679"></A>To trace a setf function:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040680"></A>CL-USER 56 &gt; (defvar *a* 0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040681"></A>*A*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040682"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040683"></A>CL-USER 57 &gt; (defun (setf foo) (x y) (set y x))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040684"></A>(SETF FOO)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040685"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040686"></A>CL-USER 58 &gt; (trace (setf foo))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040687"></A>((SETF FOO))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040688"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040689"></A>CL-USER 59 &gt; (setf (foo '*a*) 42)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040690"></A>0 (SETF FOO) &gt; (42 *A*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040691"></A>  &gt;&gt; X : 42</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040692"></A>  &gt;&gt; Y : *A*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040693"></A>0 (SETF FOO) &lt; (42)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040694"></A>42</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040695"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040699"></A><A HREF="lw-781.htm#87898" CLASS="XRef">*disable-trace*</A><BR>
+<A HREF="lw-809.htm#97748" CLASS="XRef">*max-trace-indent*</A><BR>
+<A HREF="lw-852.htm#20876" CLASS="XRef">*trace-indent-width*</A><BR>
+<A HREF="lw-853.htm#44938" CLASS="XRef">*trace-level*</A><BR>
+<A HREF="lw-573.htm#14685" CLASS="XRef">trace-new-instances-on-access</A><BR>
+<A HREF="lw-574.htm#31743" CLASS="XRef">trace-on-access</A><BR>
+<A HREF="lw-854.htm#29971" CLASS="XRef">*trace-print-circle*</A><BR>
+<A HREF="lw-855.htm#49788" CLASS="XRef">*trace-print-length*</A><BR>
+<A HREF="lw-856.htm#79485" CLASS="XRef">*trace-print-level*</A><BR>
+<A HREF="lw-857.htm#10760" CLASS="XRef">*trace-print-pretty*</A><BR>
+<A HREF="lw-858.htm#50511" CLASS="XRef">*trace-verbose*</A><BR>
+<A HREF="lw-850.htm#67109" CLASS="XRef">*traced-arglist*</A><BR>
+<A HREF="lw-851.htm#76538" CLASS="XRef">*traced-results*</A><BR>
+<A HREF="lw-733.htm#80325" CLASS="XRef">tracing-enabled-p</A><BR>
+<A HREF="lw-734.htm#31766" CLASS="XRef">tracing-state</A><BR>
+<A HREF="lw-677.htm#95514" CLASS="XRef">untrace</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-676.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-674.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

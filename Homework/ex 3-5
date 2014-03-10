@@ -1,0 +1,25 @@
+;;;a-recursion
+(defun position+ (lst &optional (i 0))
+  (when lst
+    (cons (+ i (car lst)) (position+ (cdr lst) (incf i)))))
+
+;;;b-iteration
+(defun position+ (lst)
+  (do ((l lst (cdr l))
+       (i 0 (1+ i))
+       (ls nil (cons (+ i (car l)) ls)))
+      ((null l) (reverse ls))))
+
+;;;c-mapcar
+(defun position+ (lst)
+  (let ((i -1))
+    (mapcar #'(lambda (x) (+ x (incf i))) lst)))
+
+
+;;;Question with iteration version#2: If I use (incf i) instead of (1+ i), why the original value of i should be -1 instead of 1?
+;;;And if I use incf in DO clause, the critique says that "INCF is unnecessary in the increment part of a DO clause. Why? What should you write?" I really don't understand why.
+(defun position+ (lst)
+  (do ((l lst (cdr l))
+       (i -1 (incf i))
+       (ls nil (cons (+ i (car l)) ls)))
+      ((null l) (reverse ls))))

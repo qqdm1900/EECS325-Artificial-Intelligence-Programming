@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :lisp-array
+</TITLE>
+
+<LINK REL="next" HREF="fli-175.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-173.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-156.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-156.htm">6 Type Reference</A><BR><BR>
+</DIV><A HREF="fli-175.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-173.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-921673"></A><A NAME="59006"></A>:lisp-array<A NAME="marker-921804"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-921706"></A>FLI type descriptor</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-921715"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-922049"></A>A foreign type which passes the address of a Lisp array direct to C.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-923048"></A>Syntax</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-923559"></A>:lisp-array &amp;optional <EM CLASS="Variable">
+type</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-923674"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-923675"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">A list. The default is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-921853"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-923816"></A><CODE CLASS="Code">
+:lisp-array</CODE>
+ is a foreign type which accepts a Lisp array and passes a pointer to the first element of that array. The Lisp array may be non-simple.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-923819"></A>It is vital that the garbage collector does not move the Lisp array, hence <CODE CLASS="Code">
+:lisp-array</CODE>
+ checks that the array is statically allocated.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-923822"></A>Note also that the Lisp garbage collector does not know about the array in the C code. Therefore, if the C function retains a pointer to the array, then you must ensure the Lisp object is not collected, for example by retaining a pointer to it in Lisp.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-937268"></A>The argument <EM CLASS="Variable">
+type</EM>
+, if non-nil, is a list <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+element-type</EM>
+<CODE CLASS="Code">
+ &amp;rest </CODE>
+<EM CLASS="Variable">
+dimensions</EM>
+<CODE CLASS="Code">
+)</CODE>
+ and is used to check the element type and dimensions of the Lisp array passed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-937269"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-937173"></A>This C function fills an array of doubles from an array of single floats.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-925855"></A>Windows version:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-925922"></A>__declspec(dllexport) void __cdecl ProcessFloats(int count, float * fvec, double * dvec)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-931587"></A>{</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-931588"></A> for(--count ; count &gt;= 0 ; count--) {</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-931589"></A>   dvec[count] = fvec[count] * fvec[count];</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-925926"></A>  }</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-925888"></A>}</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-926460"></A>Linux/Unix/Macintosh version:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-926573"></A>void ProcessFloats(int count, float * fvec, double * dvec)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-926574"></A>{</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-926575"></A> for(--count ; count &gt;= 0 ; count--) {</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-926576"></A>   dvec[count] = fvec[count] * fvec[count];</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-926577"></A>  }</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-926578"></A>}</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-926563"></A>The following Lisp code demonstrates the use of <CODE CLASS="Code">
+:lisp-array</CODE>
+ in a call to <CODE CLASS="Code">
+ProcessFloats</CODE>
+:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-930168"></A>(fli:define-foreign-function (process-floats </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-930169"></A>                              &quot;ProcessFloats&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-930170"></A>    ((count :int)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-930171"></A>     (fvec :lisp-array)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-930172"></A>     (dvec :lisp-array)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-930173"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952083"></A>(defun test-process-floats (length)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952084"></A>  (let ((f-vector </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952085"></A>         (make-array length</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952086"></A>                     :element-type 'single-float</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952087"></A>                     :initial-contents </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952088"></A>                     (loop for x below</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952089"></A>                           length</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952090"></A>                           collect</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952091"></A>                           (coerce x 'single-float))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952092"></A>                     :allocation :static))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952093"></A>        (d-vector </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952094"></A>         (make-array length</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952095"></A>                     :element-type 'double-float</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952096"></A>                     :initial-element 0.0D0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952097"></A>                     :allocation :static)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952098"></A>    (process-floats length f-vector d-vector)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952099"></A>    (dotimes (x length)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952100"></A>      (format t &quot;f-vector[&#126;D] = &#126;A; d-vector[&#126;D] = &#126;A&#126;%&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-952101"></A>              x (aref f-vector x)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-930193"></A>              x (aref d-vector x)))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-930194"></A>Now</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-930195"></A>(test-process-floats 3)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-930197"></A>prints</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-930199"></A>single-array[0] = 0.0; double-array[0] = 0.0</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-930200"></A>single-array[1] = 1.0; double-array[1] = 1.0</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-930075"></A>single-array[2] = 2.0; double-array[2] = 4.0</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933638"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-933707"></A><A HREF="fli-177.htm#65335" CLASS="XRef">:lisp-simple-1d-array</A><BR>
+<A HREF="fli-150.htm#89393" CLASS="XRef">with-dynamic-lisp-array-pointer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-175.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-173.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-registry-key
+</TITLE>
+
+<LINK REL="next" HREF="lw-1485.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1483.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1471.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1471.htm">42 The Windows registry API</A><BR><BR>
+</DIV><A HREF="lw-1485.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1483.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-968444"></A><A NAME="31521"></A>with-<A NAME="marker-1025457"></A>registry-key</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-968445"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-968446"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-968447"></A>Runs code with an open registry key handle.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1043018"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1043019"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-968448"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-968449"></A>with-registry-key (<EM CLASS="Variable">
+handle</EM>
+ <EM CLASS="Variable">
+subkey</EM>
+ &amp;key <EM CLASS="Variable">
+root</EM>
+ <EM CLASS="Variable">
+access</EM>
+ <EM CLASS="Variable">
+errorp</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+values</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-968450"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-968451"></A><EM CLASS="Variable">
+handle</EM>
+</P>
+<P CLASS="RDescription-C">A variable name.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-968452"></A><EM CLASS="Variable">
+subkey</EM>
+</P>
+<P CLASS="RDescription-C">A string specifying the name of the key.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-968453"></A><EM CLASS="Variable">
+root</EM>
+</P>
+<P CLASS="RDescription-C">A keyword or handle.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-968454"></A><EM CLASS="Variable">
+access</EM>
+</P>
+<P CLASS="RDescription-C">An integer or keyword.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-968455"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-968456"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-968457"></A><EM CLASS="Variable">
+values</EM>
+</P>
+<P CLASS="RDescription-C">The values returned by <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-968458"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-968459"></A>The macro <CODE CLASS="Code">
+with-registry-key</CODE>
+ evaluates <EM CLASS="Variable">
+body</EM>
+ with the variable <EM CLASS="Variable">
+handle</EM>
+ bound to the registry key handle opened as if by calling</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-970360"></A>(open-registry-key <EM CLASS="Variable">subkey</EM>
+ :root <EM CLASS="Variable">root</EM>
+</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-970361"></A>                   :access <EM CLASS="Variable">access</EM>
+</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-968460"></A>                   :errorp <EM CLASS="Variable">errorp</EM>
+)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-968461"></A><EM CLASS="Variable">
+subkey</EM>
+ and <EM CLASS="Variable">
+root</EM>
+ are interpreted as described for <A HREF="lw-1475.htm#44547" CLASS="XRef">create-registry-key</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-968462"></A>If <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ and <EM CLASS="Variable">
+subkey</EM>
+ cannot be opened then <EM CLASS="Variable">
+body</EM>
+ is not evaluated.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-968403"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-970426"></A><A HREF="lw-1475.htm#44547" CLASS="XRef">create-registry-key</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1485.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1483.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

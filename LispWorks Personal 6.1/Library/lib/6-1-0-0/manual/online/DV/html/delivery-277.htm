@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.3.2  Alternative application bundle creation code
+</TITLE>
+
+<LINK REL="next" HREF="delivery-278.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-276.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-275.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-271.htm">12 Example: Delivering CAPI Othello</A> &gt; <A HREF="delivery-275.htm">12.3  Creating a Mac OS X application bundle</A><BR><BR>
+</DIV><A HREF="delivery-278.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-276.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-275.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-860966"></A>12.3.2  <A NAME="76366"></A>Alternative application bundle creation code</H3>
+<P CLASS="Body">
+<A NAME="pgfId-860969"></A>Your LispWorks Library contains example code which constructs a Mac OS X application bundle. It defines <CODE CLASS="Code">
+write-macos-application-bundle</CODE>
+ which is similar to  <A NAME="marker-860997"></A><CODE CLASS="Code">
+hcl:create-macos-application-bundle</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-861118"></A>Previous versions of LispWorks relied on this example code to create Mac OS X application bundles and you may still wish to use it, or a modified version of it, if <A NAME="marker-861122"></A><CODE CLASS="Code">
+hcl:create-macos-application-bundle</CODE>
+ does not meet your needs. Load the example file in your delivery script, before calling <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A>, like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-861015"></A>#+:cocoa</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861016"></A>(compile-file</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861017"></A> (example-file &quot;configuration/macos-application-bundle&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861018"></A> :output-file :temp</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-861019"></A> :load t)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-861302"></A>There is another example in</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-861317"></A>(example-file &quot;configuration/save-macos-application.lisp&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-861318"></A>This code is actually a <CODE CLASS="Code">
+save-image</CODE>
+ script (rather than <CODE CLASS="Code">
+deliver</CODE>
+) but it shows how to avoid writing the application bundle twice when saving a universal binary application.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-278.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-276.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-275.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

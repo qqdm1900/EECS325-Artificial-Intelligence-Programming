@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ update-objects-joins
+</TITLE>
+
+<LINK REL="next" HREF="lw-1283.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1281.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1283.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1281.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1044185"></A><A NAME="17314"></A>update<A NAME="marker-1045514"></A>-objects-joins</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1044253"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1044282"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1045296"></A>Updates the remote join slots.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1044318"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1044476"></A>update-objects-joins <EM CLASS="Variable">
+objects</EM>
+ &amp;key <EM CLASS="Variable">
+slots</EM>
+ <EM CLASS="Variable">
+force-p</EM>
+ <EM CLASS="Variable">
+class-name</EM>
+ <EM CLASS="Variable">
+max-len</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1045008"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1045060"></A><EM CLASS="Variable">
+objects</EM>
+</P>
+<P CLASS="RDescription-C">A list of database objects.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1045065"></A><EM CLASS="Variable">
+slots</EM>
+</P>
+<P CLASS="RDescription-C">A list of slot names, or <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1045113"></A><EM CLASS="Variable">
+force-p</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1045126"></A><EM CLASS="Variable">
+class-name</EM>
+</P>
+<P CLASS="RDescription-C">The class of the objects, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1045167"></A><EM CLASS="Variable">
+max-len</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1045217"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1045238"></A>The function <CODE CLASS="Code">
+update-objects-joins</CODE>
+ updates the remote join slots, that is those slots defined without <CODE CLASS="Code">
+:retrieval</CODE>
+ <CODE CLASS="Code">
+:immediate</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1045571"></A>This is an optimization function which can improve the efficiency of an application by reducing the number of queries of the database. For each slot, it queries the database using the data from all the objects, and then assigns the appropriate value to each object.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1045625"></A><EM CLASS="Variable">
+objects</EM>
+ is a list of database objects. If <EM CLASS="Variable">
+class-name</EM>
+ is non-nil, then all the database objects are of this class. If <EM CLASS="Variable">
+class-name</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then all the database objects are of the class of the first database object in the list <EM CLASS="Variable">
+objects</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1045682"></A>If <EM CLASS="Variable">
+objects</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then <CODE CLASS="Code">
+update-objects-joins</CODE>
+ does nothing.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1045652"></A><EM CLASS="Variable">
+class-name</EM>
+ specifies a class containing all the database objects in the list <EM CLASS="Variable">
+objects</EM>
+. If <EM CLASS="Variable">
+class-name</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ (the default) then the class of the first database object is used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1045752"></A><EM CLASS="Variable">
+slots</EM>
+ provides a list of the names of slots to update. Each of these slots should be a remote join slot (as defined above). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1046021"></A><EM CLASS="Variable">
+slots</EM>
+ can also be <CODE CLASS="Code">
+t</CODE>
+, meaning update all the remote join slots. The default value of <EM CLASS="Variable">
+slots</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1046086"></A><EM CLASS="Variable">
+force-p</EM>
+ controls whether to force the update of all values in the objects. If <EM CLASS="Variable">
+force-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then slots which are already are not updated. The default value of <EM CLASS="Variable">
+force-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1046119"></A><EM CLASS="Variable">
+max-len</EM>
+, if non-nil, is a maximum number of objects from which to use data in a single query. If the length of the list <EM CLASS="Variable">
+objects</EM>
+ is greater than <EM CLASS="Variable">
+max-len</EM>
+ then <CODE CLASS="Code">
+update-objects-joins</CODE>
+ performs multiple queries using the data from no more than <EM CLASS="Variable">
+max-len</EM>
+ objects in each query. This is useful if the DBMS may reject large queries, but it will increase the number of queries and hence reduce overall performance to some extent. The default value of <EM CLASS="Variable">
+max-len</EM>
+ is the value of the variable <A HREF="lw-1171.htm#87721" CLASS="XRef">*default-update-objects-max-len*</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1048044"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1048065"></A><A HREF="lw-1171.htm#87721" CLASS="XRef">*default-update-objects-max-len*</A><BR>
+<A HREF="lw-1172.htm#47877" CLASS="XRef">def-view-class</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1283.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1281.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

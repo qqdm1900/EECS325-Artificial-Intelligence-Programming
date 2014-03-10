@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.10  Inserting text
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-55.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-53.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A><BR><BR>
+</DIV><A HREF="eduser-m-55.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-53.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884669"></A>3.10  <A NAME="57705"></A><A NAME="marker-884667"></A>Inserting text</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884670"></A>This section contains details of commands used to insert text from the kill ring--see <A HREF="eduser-m-51.htm#47005" CLASS="XRef">Deleting and killing text</A>--and various other commands used to insert text and lines into the buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884676"></A><A NAME="marker-884674"></A><A NAME="68096"></A>Un-Kill</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884677"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884679"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+Y</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884680"></A>Selects (yanks) the top item in the kill ring (which represents the last piece of text that was killed with a kill command or saved with <A HREF="eduser-m-53.htm#50035" CLASS="XRef">Save Region</A>) and inserts it before the current point. The current point is left at the end of the inserted text, and the mark is automatically set to the beginning of the inserted text. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884682"></A>A prefix argument (<CODE CLASS="Code">
+Ctrl+U</CODE>
+ <EM CLASS="Variable">
+number</EM>
+) causes the item at position <EM CLASS="Variable">
+number</EM>
+ in the ring to be inserted. The order of items on the ring remains unaltered.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884685"></A><A NAME="32141"></A>Rotate Kill Ring</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884686"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884687"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+Y</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884688"></A>Replaces the text that has just been un-killed with the item that is next on the kill ring. It is therefore possible to recover text other than that which was most recently killed by typing <CODE CLASS="Code">
+Ctrl+Y </CODE>
+followed by <CODE CLASS="Code">
+Meta+Y</CODE>
+ the required number of times. If <A HREF="eduser-m-54.htm#68096" CLASS="XRef">Un-Kill</A> was not the previous command, an error is signalled.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884691"></A>Note that the ring is only <I CLASS="Italic">
+rotated</I>
+ and no items are actually deleted from the ring using this command.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884692"></A>A prefix argument causes the kill ring to be rotated the appropriate number of times before the top item is selected.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884694"></A><A NAME="marker-884693"></A><A NAME="64486"></A>New Line</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884695"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884697"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Return</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884698"></A>Opens a new line before the current point. If the current point is at the start of a line, an empty line is inserted above it. If the current point is in the middle of a line, that line is split. The current point always becomes located on the second of the two lines. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884699"></A>A prefix argument causes the appropriate number of lines to be inserted before the current point.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884701"></A><A NAME="marker-884700"></A>Open Line</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884702"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884703"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+O</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884704"></A>Opens a new line after the current point. If the current point is at the start of a line, an empty line is inserted above it. If the current point is in the middle of a line, that line is split. The current point always becomes located on the first of the two lines.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884705"></A>A prefix argument causes the appropriate number of lines to be inserted after the current point.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884708"></A><A NAME="marker-884706"></A><A NAME="35212"></A>Quoted Insert </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884709"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884710"></A>Arguments: <EM CLASS="Variable">
+args<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+Q</CODE>
+ <CODE CLASS="Code">
+&amp;rest</CODE>
+ <EM CLASS="Variable">
+args</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884711"></A><CODE CLASS="Code">
+Quoted Insert</CODE>
+ is a versatile command allowing you to enter characters which are not accessible directly on your keyboard.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-926892"></A>A single argument <EM CLASS="Variable">
+key</EM>
+ is inserted into the text literally. This can be used to enter control keys (such as <CODE CLASS="Code">
+Ctrl+L)</CODE>
+ into a buffer as a text string. Note that <CODE CLASS="Code">
+Ctrl</CODE>
+ is represented by <CODE CLASS="Code">
+^</CODE>
+ and <CODE CLASS="Code">
+Meta </CODE>
+by <CODE CLASS="Code">
+^]</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-926893"></A>You may input a character by entering its Octal Unicode code: press <CODE CLASS="Code">
+Return</CODE>
+ to indicate the end of the code. For example enter </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-926904"></A>Ctrl+Q 4 3 Return</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-926905"></A>to input <CODE CLASS="Code">
+#</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1055255"></A>If you have specified that <CODE CLASS="Code">
+Alt</CODE>
+ acts as your Meta key, you may find that some useful <CODE CLASS="Code">
+Alt</CODE>
+-modified keys are not available in the usual way from within LispWorks. For example, <CODE CLASS="Code">
+Alt+3</CODE>
+ gets interpreted as <CODE CLASS="Code">
+Meta-3</CODE>
+. As a way around this problem, <CODE CLASS="Code">
+Quoted Insert</CODE>
+ temporarily suspends LispWorks editor processing of <CODE CLASS="Code">
+Alt</CODE>
+ as Meta. For example, you can input <CODE CLASS="Code">
+#</CODE>
+ on a UK Macintosh keyboard by entering</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-1055256"></A>Ctrl+Q Alt+3</CODE>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884714"></A><A NAME="marker-884712"></A><A NAME="32250"></A>Self Insert</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884715"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884716"></A>Arguments: None<BR>
+Key sequence: <EM CLASS="Variable">
+key</EM>
+</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884717"></A>editor:self-insert-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+char</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-888559"></A>This is the basic command used for inserting each character that is typed. The character to be inserted is <EM CLASS="Variable">
+char</EM>
+. There is no need for the user to use this command explicitly.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884720"></A>Dynamic Co<A NAME="marker-1055267"></A>mpletion</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884721"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884722"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+/</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884723"></A>Tries to complete the current word, by looking backwards for a word that starts with the same characters as have already been typed. Repeated use of this command makes the search skip to successively previous instances of words beginning with these characters. A prefix argument causes the search to progress forwards rather than backwards. If the buffer is in Lisp mode then completion occurs for Lisp symbols as well as words.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884725"></A>Expand File<A NAME="marker-1055289"></A> Name</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884726"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884727"></A>Arguments: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+Tab</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884730"></A><A NAME="marker-884728"></A><A NAME="marker-884729"></A>Expands the file name at the current point. Issuing this command twice in succession brings up a list of possible completions in a popup window.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-55.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-53.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

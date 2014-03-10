@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 20.2.6  Instantiating the stream
+</TITLE>
+
+<LINK REL="next" HREF="lw-457.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-455.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-450.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-448.htm">20 User Defined Streams</A> &gt; <A HREF="lw-450.htm">20.2  An illustrative example of user defined streams</A><BR><BR>
+</DIV><A HREF="lw-457.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-455.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888437"></A>20.2.6  Instantiating the stream<A NAME="marker-888758"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-888440"></A>Now that the stream class has been defined, and all the methods relevant to it have been set up, we can create an instance of our user defined stream to test it. The following function takes a filename and optionally a stream direction as its arguments and makes an instance of <CODE CLASS="Code">
+unicode-ls-stream</CODE>
+. It ensures that the <CODE CLASS="Code">
+file-stream</CODE>
+ slot of the stream contains a Common Lisp <CODE CLASS="Code">
+file-stream</CODE>
+ capable of reading from or writing to a file given by the filename argument.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888560"></A>(defun open-unicode-ls-file (filename &amp;key (direction :input))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888441"></A>  (make-instance 'unicode-ls-stream :file-stream </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888561"></A>    (open filename </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888442"></A>          :direction direction </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888481"></A>          :external-format :unicode </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888444"></A>          :element-type 'simple-char)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888562"></A>The following macro uses <CODE CLASS="Code">
+open-unicode-ls-stream</CODE>
+ in a similar manner to the Common Lisp macro <CODE CLASS="Code">
+with-open-file</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888447"></A>(defmacro with-open-unicode-ls-file ((var filename</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888563"></A>                                        &amp;key (direction :input)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888564"></A>                                        &amp;body body)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888448"></A>  `(let ((,var (open-unicode-ls-file ,filename </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888565"></A>                :direction ,direction)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888449"></A>     (unwind-protect</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888504"></A>         (progn ,@body)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888451"></A>       (close ,var)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888586"></A>We now have the required functions and macros to test our user defined stream. The following code uses <CODE CLASS="Code">
+config.sys</CODE>
+ as a source of input to an instance of our stream, and outputs it to the file <CODE CLASS="Code">
+unicode-ls.out</CODE>
+, changing all occurrences of <CODE CLASS="Code">
+#&#92;Newline</CODE>
+ to <CODE CLASS="Code">
+#&#92;Line-Separator</CODE>
+ in the process.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888455"></A>(with-open-unicode-ls-file (ss &quot;C:&#92;&#92;unicode-ls.out&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888587"></A>                              :direction :output)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888456"></A>   (write-line &quot;-*- Encoding: Unicode; -*-&quot; ss)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888457"></A>   (with-open-file (ii &quot;C:&#92;&#92;config.sys&quot;)   ; Don't edit this file!</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888458"></A>     (loop with line = nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888459"></A>           while (setf line (read-line ii nil nil))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888517"></A>           do (write-line line ss))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888588"></A>After running the above code, if your load the file <CODE CLASS="Code">
+C:&#92;unicode-ls.out</CODE>
+ into an editor (for example, a LispWorks editor), you can see the line separator used instead of CR/LF. Most editors do not yet recognize the Unicode Line Separator character yet. In some editors it appears as a blank glyph, whereas in the LispWorks editor it appears as <CODE CLASS="Code">
+&lt;2028&gt;</CODE>
+. In LispWorks you can use <CODE CLASS="Code">
+Alt+X What Cursor Position</CODE>
+ or <CODE CLASS="Code">
+Ctrl+X =</CODE>
+ to identify the unprintable characters.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888589"></A>You can also use the follow code to print out the contents of the new file line by line.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888718"></A>(with-open-unicode-ls-file (ss &quot;C:&#92;&#92;unicode-ls.out&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888720"></A>   (loop while (when-let (line (read-line ss nil nil))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888721"></A>                 (write-line line))))<A NAME="marker-888750"></A></PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888474"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-457.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-455.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

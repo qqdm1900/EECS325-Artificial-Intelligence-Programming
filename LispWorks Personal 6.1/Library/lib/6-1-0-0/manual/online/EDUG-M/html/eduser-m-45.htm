@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.5.5  Miscellaneous file operations
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-46.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-44.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-40.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A> &gt <A HREF="eduser-m-40.htm">3.5  File handling</A><BR><BR>
+</DIV><A HREF="eduser-m-46.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-44.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884256"></A>3.5.5  <A NAME="30951"></A>Miscellaneous file operations</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-905366"></A><A NAME="marker-905365"></A><A NAME="57899"></A>Print File </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-905367"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-905368"></A>Arguments: <EM CLASS="Variable">
+file<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-924465"></A>Prints <EM CLASS="Variable">
+file</EM>
+, using <CODE CLASS="Code">
+capi:print-file</CODE>
+. See the <I CLASS="Italic">
+CAPI Reference Manual</I>
+ for details of this function.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-924468"></A><A NAME="marker-924467"></A><A NAME="63538"></A>Revert Buffer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-924469"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884267"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884268"></A>If the current buffer is associated with a file, its contents revert to the state when it was last saved. If the buffer is not associated with a file, it is not possible for a previous state to be recovered.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884269"></A>If auto-save is on for the current buffer, the version of the file that is recovered is either that derived by means of an automatic save or by means of an explicit save, whichever is the most recent. If auto-save is off, the buffer reverts to its state when last explicitly saved. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884270"></A>If the buffer has been modified and the value of the variable <CODE CLASS="Code">
+<A HREF="eduser-m-45.htm#66156" CLASS="XRef">revert-buffer-confirm</A> </CODE>
+is <CODE CLASS="Code">
+t</CODE>
+ then <CODE CLASS="Code">
+Revert Buffer</CODE>
+ asks for confirmation before reverting to a previous state.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884272"></A>Any prefix argument forces <CODE CLASS="Code">
+Revert Buffer</CODE>
+ to use the last explicitly saved version.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884275"></A><A NAME="marker-884273"></A><A NAME="66156"></A>revert-buffer-confirm</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884276"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884277"></A>Default value: <CODE CLASS="Code">
+t</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884279"></A>When the command <A HREF="eduser-m-45.htm#63538" CLASS="XRef">Revert Buffer</A> is invoked, if the value of this variable is <CODE CLASS="Code">
+t</CODE>
+ and the buffer has been modified then confirmation is requested before the revert operation is performed. If its value is <CODE CLASS="Code">
+nil</CODE>
+, no confirmation is asked for.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884281"></A><A NAME="marker-884280"></A>Process File Options</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884282"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884283"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907794"></A>The attribute line at the top of the file is reprocessed, as if the file had just been read from disk.  If no major mode is specified in the attribute line, the type of the file is used to determine the major mode. See <A HREF="eduser-m-73.htm#92456" CLASS="XRef">Modes</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884289"></A><A NAME="marker-884288"></A>Insert File </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884290"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884291"></A>Arguments: <EM CLASS="Variable">
+pathname<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X I</CODE>
+ <EM CLASS="Variable">
+pathname</EM>
+</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884292"></A>editor:insert-file-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+pathname</EM>
+ <EM CLASS="Variable">
+buffer</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884293"></A>Inserts the file defined by <EM CLASS="Variable">
+pathname</EM>
+ into the current buffer at the current point.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884294"></A>The argument <EM CLASS="Variable">
+buffer</EM>
+ is the buffer in which the file is to be inserted.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884296"></A><A NAME="marker-884295"></A>Delete File</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884297"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884298"></A>Arguments: <EM CLASS="Variable">
+pathname<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884299"></A>Deletes the file defined by <EM CLASS="Variable">
+pathname</EM>
+<I CLASS="Italic">
+. </I>
+The user is asked for confirmation before the file is deleted.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-924304"></A><A NAME="marker-924313"></A>Delete File and Kill Buffer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-924305"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-924306"></A>Arguments: <EM CLASS="Variable">
+buffer<BR>
+</EM>
+Key sequence: None</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-924359"></A>editor:delete-file-and-kill-buffer-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+buffer</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-924360"></A>After confirmation from the user, this deletes the file associated with <EM CLASS="Variable">
+buffer</EM>
+ and then kills the buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884301"></A><A NAME="marker-884300"></A>Rename File</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884302"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884303"></A>Arguments: <EM CLASS="Variable">
+file new-file-name<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884304"></A>Changes the name of <EM CLASS="Variable">
+file</EM>
+<I CLASS="Italic">
+ </I>
+to <EM CLASS="Variable">
+new-file-name</EM>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884305"></A>If you are currently editing the file to be renamed, the buffer remains unaltered, retaining the name associated with the old file even after renaming has taken place. If you then save the current buffer, it is saved to a file with the name of the buffer, that is, to a file with the old name.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-1020832"></A>Make Directory</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-1020833"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020834"></A>Arguments: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020848"></A>Prompts the user for a directory name and makes it in the filesystem.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1020861"></A>The prefix argument is ignored.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-46.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-44.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

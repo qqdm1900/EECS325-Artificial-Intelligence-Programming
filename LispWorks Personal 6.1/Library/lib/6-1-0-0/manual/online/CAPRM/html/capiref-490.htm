@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-print-job
+</TITLE>
+
+<LINK REL="next" HREF="capiref-491.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-489.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-491.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-489.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1286296"></A><A NAME="22681"></A>with<A NAME="marker-4236260"></A>-print-job</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1286302"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1286309"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1286315"></A>Creates a print job that prints to the specified printer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4236235"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4236236"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1286369"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1286379"></A>with-print-job (<EM CLASS="Variable">
+var</EM>
+ &amp;key <EM CLASS="Variable">
+pane</EM>
+ <EM CLASS="Variable">
+jobname</EM>
+ <EM CLASS="Variable">
+printer</EM>
+ <EM CLASS="Variable">
+drawing-mode</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1286389"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1286426"></A>The <CODE CLASS="Code">
+with-print-job</CODE>
+ macro creates a print job which prints to <EM CLASS="Variable">
+printer</EM>
+. If <EM CLASS="Variable">
+printer</EM>
+ is not specified, the default printer is used. The macro binds <EM CLASS="Variable">
+var</EM>
+ to a graphics port object, and printing is performed by using graphics port operations to draw the object.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1286480"></A>If <EM CLASS="Variable">
+pane</EM>
+ is specified it must be an instance of <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A> or a subclass. In this case <EM CLASS="Variable">
+var</EM>
+ is bound to <EM CLASS="Variable">
+pane</EM>
+, and <EM CLASS="Variable">
+pane</EM>
+ is modified within the dynamic extent of the <CODE CLASS="Code">
+with-print-job</CODE>
+ so all drawing operations draw to the printer instead of <EM CLASS="Variable">
+pane</EM>
+. This can be useful when implementing printing by modifying existing redisplay code that is written expecting an <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3432705"></A><EM CLASS="Variable">
+jobname</EM>
+ is the name of the print job. The default value is <CODE CLASS="Code">
+nil</CODE>
+, meaning that the name &quot;Document&quot; is used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-10067146"></A><EM CLASS="Variable">
+</EM>
+<A NAME="marker-10340755"></A><A NAME="marker-10067213"></A><EM CLASS="Variable">
+drawing-mode</EM>
+ should be either <CODE CLASS="Code">
+:compatible</CODE>
+ which causes drawing to be the same as in LispWorks 6.0, or <CODE CLASS="Code">
+:quality</CODE>
+ which causes all the drawing to be transformed properly, and allows control over anti-aliasing on Microsoft Windows and GTK+. The default value of <EM CLASS="Variable">
+drawing-mode</EM>
+ is <CODE CLASS="Code">
+:quality</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-10067147"></A>For more information about <EM CLASS="Variable">
+drawing-mode</EM>
+, see &quot;Drawing mode and anti-aliasing&quot; in the <I CLASS="Italic">
+CAPI User Guide</I>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1286508"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1286529"></A><A HREF="capiref-312.htm#23586" CLASS="XRef">printer-port-handle</A><BR>
+<A HREF="capiref-313.htm#58751" CLASS="XRef">printer-port-supports-p</A><BR>
+<A HREF="capiref-399.htm#set-printer-options" CLASS="XRef">set-printer-options</A><BR>
+<A HREF="capiref-483.htm#40821" CLASS="XRef">with-document-pages</A><BR>
+<A HREF="capiref-488.htm#42744" CLASS="XRef">with-page</A><BR>
+<A HREF="capiref-489.htm#23365" CLASS="XRef">with-page-transform</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-491.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-489.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

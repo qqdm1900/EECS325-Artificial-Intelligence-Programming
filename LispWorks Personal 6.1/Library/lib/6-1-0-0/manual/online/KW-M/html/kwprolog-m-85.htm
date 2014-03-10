@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.2.1.1  KnowledgeWorks Structures
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-86.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-84.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-84.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A> &gt; <A HREF="kwprolog-m-83.htm">6.2  Optimization</A> &gt; <A HREF="kwprolog-m-84.htm">6.2.1  Forward Chaining</A><BR><BR>
+</DIV><A HREF="kwprolog-m-86.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-84.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-84.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-891848"></A>6.2.1.1  <A NAME="marker-891847"></A>KnowledgeWorks Structures</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891849"></A>A CLOS class may be replaced by a structure for increased speed when all the power of <A NAME="marker-891850"></A>CLOS is not needed. Within the rule interpreter the structure behaves like a CLOS class which:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891851"></A>Has an <CODE CLASS="Code">
+initform</CODE>
+ of <CODE CLASS="Code">
+nil</CODE>
+ for each slot</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891852"></A>Has the keyword version of the slot name as initarg for each slot</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891853"></A>Has only single inheritance</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891854"></A>Has no methods defined on it</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891855"></A>Should not be modified from Lisp after its creation.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-891856"></A>A KnowledgeWorks structure is defined by the macro</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891858"></A>(<A NAME="marker-891857"></A>def-kb-struct &lt;class-spec&gt; &lt;slot-spec&gt;*)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891860"></A>where the arguments are the same as for <A NAME="marker-891859"></A><CODE CLASS="Code">
+defstruct</CODE>
+ except that in <CODE CLASS="Code">
+&lt;class-spec&gt;</CODE>
+ only the options <CODE CLASS="Code">
+:include</CODE>
+ and <CODE CLASS="Code">
+:print-function</CODE>
+ are allowed. A structure may only be included in a KnowledgeWorks structure if it too is a KnowledgeWorks structure defined by <CODE CLASS="Code">
+def-kb-struct</CODE>
+. All the functions normally provided by <CODE CLASS="Code">
+defstruct</CODE>
+ (accessors, a predicate etc.) are generated. An instance of the structure class may be created by the generic function</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891862"></A>(<A NAME="marker-891861"></A>make-instance &lt;class-name&gt; </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891863"></A>             {&lt;slot-specifier&gt; &lt;value&gt;}*)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891864"></A>where <CODE CLASS="Code">
+&lt;slot-specifier&gt;</CODE>
+ is the keyword version of the slot name, as with any structures, and <CODE CLASS="Code">
+&lt;value&gt;</CODE>
+ is the value the slot is to take, otherwise defaulting to the value specified in the <CODE CLASS="Code">
+def-kb-struct</CODE>
+ form. If created from Lisp by any means other than <CODE CLASS="Code">
+make-instance</CODE>
+ (for example, by the automatically defined <CODE CLASS="Code">
+make-&lt;structure-name&gt;</CODE>
+ constructor), the inference engine will not know about the structure.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891865"></A>Once created, structures must not be modified directly from Lisp as this will corrupt the state of the forward chaining inference engine. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891867"></A>(<A NAME="marker-891866"></A>def-kb-struct train position speed)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891868"></A>(def-kb-struct signal position colour)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891869"></A>(make-instance 'train :position 0 :speed 80)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891870"></A>(make-instance 'signal :position 10 :colour 'red)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891871"></A>defines KnowledgeWorks structures for trains and signals and makes an instance of each. Note that they are not fully-fledged CLOS objects but are analogous to working memory elements in <A NAME="marker-891872"></A>OPS5.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-86.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-84.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-84.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

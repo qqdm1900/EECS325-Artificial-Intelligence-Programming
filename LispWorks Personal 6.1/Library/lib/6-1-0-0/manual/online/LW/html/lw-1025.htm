@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ debug-other-process
+</TITLE>
+
+<LINK REL="next" HREF="lw-1026.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1024.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1026.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1024.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-996491"></A><A NAME="10079"></A>debug<A NAME="marker-1062283"></A>-other-process</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-996492"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-996493"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-996494"></A>Examine the stack of a process other than the current process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-996495"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-996496"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-996497"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-996498"></A>debug-other-process <EM CLASS="Variable">
+process</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-996499"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-996501"></A><EM CLASS="Variable">
+process</EM>
+</P>
+<P CLASS="RDescription-C">A process or a string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-996504"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1797356"></A>The function <CODE CLASS="Code">
+debug-other-process</CODE>
+ causes the debugger to be entered to examine the stack of another process <EM CLASS="Variable">
+process</EM>
+. The debugger itself continues to run in the current process, and the execution of the other process <EM CLASS="Variable">
+process</EM>
+ is not affected. That means that all debugger commands that try to affect execution (for example <CODE CLASS="Code">
+:a</CODE>
+, <CODE CLASS="Code">
+:c</CODE>
+ , <CODE CLASS="Code">
+:res</CODE>
+, <CODE CLASS="Code">
+:ret</CODE>
+, <CODE CLASS="Code">
+:trap</CODE>
+) do not work as in the normal debugger. <CODE CLASS="Code">
+:a</CODE>
+ is changed instead to exit the debugger.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1800956"></A>Note: if the other process is still active, the stack will change &quot;under the feet&quot; of the debugger, with unpredictable results. Thus <CODE CLASS="Code">
+debug-other-process</CODE>
+ is useful only for debugging purposes, or when you already stopped the other process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1797367"></A>The usual way to enter a debugger on another thread is to use <A HREF="lw-1071.htm#82555" CLASS="XRef">process-break</A>. However, that would fail if the other process hangs for some reason. In this situation, you can use <CODE CLASS="Code">
+debug-other-process</CODE>
+ to try to find out why it hangs.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1797338"></A>If <EM CLASS="Variable">
+process</EM>
+ is a string, the process is found as if by <A HREF="lw-1028.htm#45900" CLASS="XRef">find-process-from-name</A>. The list of process names can be found via <A HREF="lw-1113.htm#43017" CLASS="XRef">ps</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-996514"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-996518"></A><A HREF="lw-1028.htm#45900" CLASS="XRef">find-process-from-name</A><BR>
+<A HREF="lw-1071.htm#82555" CLASS="XRef">process-break</A><BR>
+<A HREF="lw-1113.htm#43017" CLASS="XRef">ps</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1026.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1024.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ top-level-interface-geometry
+</TITLE>
+
+<LINK REL="next" HREF="capiref-458.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-456.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-458.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-456.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1449424"></A><A NAME="top-level-interface-geometry"></A>top<A NAME="marker-4233508"></A>-level-interface-geometry</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1449425"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1449634"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2151571"></A>Returns the geometry of the top level interface.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4233475"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4233476"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2151572"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-2151573"></A>top-level-interface-geometry <EM CLASS="Variable">
+interface</EM>
+ =&gt; <EM CLASS="Variable">
+tx</EM>
+, <EM CLASS="Variable">
+ty</EM>
+, <EM CLASS="Variable">
+twidth</EM>
+, <EM CLASS="Variable">
+theight</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9125197"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-9125232"></A><EM CLASS="Variable">
+interface</EM>
+</P>
+<P CLASS="RDescription-C">An interface.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9125257"></A>Values</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-9125271"></A><EM CLASS="Variable">
+tx, ty, twidth, theight</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-9125289"></A>Integers.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1449430"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1449431"></A>The generic function <CODE CLASS="Code">
+top-level-interface-geometry</CODE>
+ returns the coordinates of the given interface in a form suitable for use as the <CODE CLASS="Code">
+:best-x</CODE>
+, <CODE CLASS="Code">
+:best-y</CODE>
+, <CODE CLASS="Code">
+:best-width</CODE>
+ and <CODE CLASS="Code">
+:best-height</CODE>
+ initargs to <A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A>. The value of <EM CLASS="Variable">
+interface</EM>
+ should be a top level interface.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9902799"></A><EM CLASS="Variable">
+tx</EM>
+ and <EM CLASS="Variable">
+ty</EM>
+ are measured from the top-left of the screen rectangle representing the area of the primary monitor (the primary screen rectangle).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9125177"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9125181"></A>On Cocoa, the result does not account for the size of the interface toolbar, if present in <EM CLASS="Variable">
+interface</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1451001"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1451002"></A>;; Define and display an interface.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1451003"></A>(capi:define-interface test ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1451004"></A> ()</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1451005"></A> (:panes (panel capi:list-panel)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1451006"></A>(setq int (capi:display (make-instance 'test)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1451007"></A>;; Now manually position the interface somewhere.</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1451009"></A>;; Find where the interface is.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1451010"></A>(multiple-value-setq (tx ty twidth theight)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1451011"></A> (capi:top-level-interface-geometry int))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1451012"></A>;; Now manually close the interface.</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1451014"></A>;; Create a new interface in the same place.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4757316"></A>(setq int </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4757317"></A>      (capi:display </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4757318"></A>       (make-instance </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4757319"></A>        'test</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4757320"></A>        :best-x tx</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4757321"></A>        :best-y ty</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4757322"></A>        :best-width twidth</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1450889"></A>        :best-height theight)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1449440"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1449444"></A><A HREF="capiref-459.htm#22896" CLASS="XRef">top-level-interface-p</A><BR>
+<A HREF="capiref-456.htm#top-level-interface-display-state" CLASS="XRef">top-level-interface-display-state</A><BR>
+<A HREF="capiref-401.htm#set-top-level-interface-geometry" CLASS="XRef">set-top-level-interface-geometry</A><BR>
+<A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-458.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-456.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :ef-wc-string
+</TITLE>
+
+<LINK REL="next" HREF="fli-165.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-163.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-156.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-156.htm">6 Type Reference</A><BR><BR>
+</DIV><A HREF="fli-165.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-163.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-890790"></A><A NAME="37040"></A>:ef-wc-string<A NAME="marker-917474"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-890791"></A>FLI type descriptor</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890792"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890793"></A>Converts between a Lisp string and a C wide-character string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890796"></A>Syntax</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-910498"></A>:ef-wc-string &amp;key <EM CLASS="Variable">
+limit</EM>
+ <EM CLASS="Variable">
+external-format</EM>
+ <EM CLASS="Variable">
+null-terminated-p</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890798"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-911404"></A><EM CLASS="Variable">
+limit</EM>
+</P>
+<P CLASS="RDescription-C">The maximum number of characters of the C wide-character string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920230"></A><EM CLASS="Variable">
+external-format</EM>
+</P>
+<P CLASS="RDescription-C">An external format specification.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-911405"></A><EM CLASS="Variable">
+null-terminated-p<BR>
+</EM>
+A boolean controlling the null termination byte.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890800"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-912240"></A>The FLI <CODE CLASS="Code">
+:ef-wc-string</CODE>
+ type converts between a Lisp string and a C wide-character string. The C string may have a maximum length of <EM CLASS="Variable">
+limit</EM>
+ characters. The <EM CLASS="Variable">
+limit</EM>
+ can be omitted in cases where a new foreign string is being allocated.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-920056"></A>The <EM CLASS="Variable">
+external-format</EM>
+ is used to specify the encoding of the foreign string. It defaults to an encoding appropriate for C string of type <CODE CLASS="Code">
+wchar_t*</CODE>
+. For Unicode encoded strings, specify <CODE CLASS="Code">
+:unicode</CODE>
+. If you want to pass a string to the Windows API, known as <CODE CLASS="Code">
+WSTR</CODE>
+ in the Windows API terminology, also specify<CODE CLASS="Code">
+ :unicode. </CODE>
+To change the default, call <A HREF="fli-143.htm#33536" CLASS="XRef">set-locale</A> or <A HREF="fli-144.htm#75458" CLASS="XRef">set-locale-encodings</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-912261"></A>If <EM CLASS="Variable">
+null-terminated-p</EM>
+ is non-nil, a NULL word is added to the end of the string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890804"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890614"></A><A HREF="fli-163.htm#35450" CLASS="XRef">:ef-mb-string</A><BR>
+<A HREF="fli-143.htm#33536" CLASS="XRef">set-locale</A><BR>
+<A HREF="fli-144.htm#75458" CLASS="XRef">set-locale-encodings</A><BR>
+<A HREF="fli-25.htm#74929" CLASS="XRef">Strings</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-165.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-163.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

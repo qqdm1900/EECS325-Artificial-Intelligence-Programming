@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.3.1  Hash table inspection modes
+</TITLE>
+
+<LINK REL="next" HREF="lw-39.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-37.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-37.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-34.htm">4 The REPL Inspector</A> &gt; <A HREF="lw-37.htm">4.3  Inspection modes</A><BR><BR>
+</DIV><A HREF="lw-39.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-37.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-37.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889493"></A>4.3.1  Hash table inspection modes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886444"></A>There are five hash table inspection modes. They can be accessed in either the LispWorks IDE Inspector tool or the REPL inspector.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886445"></A>A brief introduction to the representation of hash tables is necessary so that you can fully understand what you gain from the new modes.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886446"></A>Internally, a hash table is a structure containing, among other things, </P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886447"></A>a big vector</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886448"></A>size and growth information</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886449"></A>accessing functions.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-886450"></A>When keys and values are added to the table, sufficiently similar keys are converted into the same index in the vector. When this happens, the similar keys and values are kept together in a chain that hangs off this place in the vector. </P>
+<P CLASS="Body">
+<A NAME="pgfId-886451"></A>The different inspection modes provide views of different pieces of this structure:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886452"></A><CODE CLASS="Code">
+HASH-TABLE</CODE>
+ </P>
+<P CLASS="Description-C">This mode is the &quot;normal&quot; view of a hash table; as a table of keys and values. When you inspect an item you inspect the value of the item.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889797"></A><CODE CLASS="Code">
+STRUCTURE</CODE>
+ </P>
+<P CLASS="Description-C">This mode provides a raw view of the whole hash table structure. When you inspect an item you are inspecting the value of that slot in the hash table structure.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886454"></A><CODE CLASS="Code">
+ENUMERATED-HASH-TABLE</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-886455"></A>This mode is a variation of the normal view, where a hash table is viewed simply as a list of lists. When you inspect an item you are inspecting a list containing a key and a value.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886456"></A><CODE CLASS="Code">
+HASH-TABLE-STATISTICS</CODE>
+ </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-886457"></A>This mode shows how long the chains in the hash table are, so that you can tell how efficiently it is being used. For example, if all chains contained fewer than two items the hash table would be being used well.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886458"></A><CODE CLASS="Code">
+HASH-TABLE-HISTOGRAM</CODE>
+ </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-886459"></A>This mode shows the statistical information from <CODE CLASS="Code">
+HASH-TABLE-STATISTICS</CODE>
+ as a histogram.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886462"></A>Here is an example of hash table inspection.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889562"></A>CL-USER 1 &gt; (defvar *hash* (make-hash-table))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889563"></A>*HASH*</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889564"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889565"></A>CL-USER 2 &gt; (setf (gethash 'lisp *hash*) 'programming</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889566"></A>                  (gethash 'java *hash*) 'programming</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889567"></A>                  (gethash 'c *hash*) 'programming</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889568"></A>                  (gethash 'c++ *hash*) 'programming</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889569"></A>                  (gethash 'english *hash*) 'natural</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889570"></A>                  (gethash 'german *hash*) 'natural)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889571"></A>NATURAL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889572"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889573"></A>CL-USER 3 &gt; (inspect *hash*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889574"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889575"></A>#&lt;EQL Hash Table{6} 21C15D97&gt; is a HASH-TABLE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889576"></A>C++          PROGRAMMING</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889577"></A>JAVA         PROGRAMMING</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889578"></A>ENGLISH      NATURAL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889579"></A>C            PROGRAMMING</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889580"></A>GERMAN       NATURAL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889581"></A>LISP         PROGRAMMING</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889582"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889583"></A>CL-USER 4 : Inspect 1 &gt; :m</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889584"></A>* 1. HASH-TABLE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889585"></A>  2. STRUCTURE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889586"></A>  3. ENUMERATED-HASH-TABLE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889587"></A>  4. HASH-TABLE-STATISTICS</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889588"></A>  5. HASH-TABLE-HISTOGRAM</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889686"></A><CODE CLASS="Code">
+STRUCTURE</CODE>
+ mode displays the raw representation of the hash table:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889590"></A>CL-USER 5 : Inspect 1 &gt; :m 2</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889591"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889592"></A>#&lt;EQL Hash Table{6} 21C15D97&gt; is a HASH-TABLE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889593"></A>KIND                      EQL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889594"></A>SIZE                      37</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889595"></A>REHASH-SIZE               2.0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889596"></A>REHASH-THRESHOLD          1.0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889597"></A>THRESHOLD                 37</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889598"></A>COUNTER                   525</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889599"></A>NUMBER-ENTRIES            6</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889600"></A>TABLE                     #(#%((LISP . PROGRAMMING) NIL) NIL NIL NIL NIL ...)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889601"></A>NO-DESTRUCT-REHASH        NIL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889602"></A>POWER2                    NIL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889603"></A>HASH-REM                  SYSTEM::DIVIDE-GENERAL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889604"></A>HASH-FN                   SYSTEM::EQL-HASHFN</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889605"></A>GETHASH-FN                SYSTEM::GETHASH-EQL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889606"></A>PUTHASH-FN                SYSTEM::PUTHASH-EQL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889607"></A>REMHASH-FN                SYSTEM::REMHASH-EQL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889608"></A>GET-TLATTER-FN            SYSTEM::GET-TLATTER-EQL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889609"></A>WEAK-KIND                 NIL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889610"></A>USER-STUFF                NIL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889611"></A>MODIFICATION-COUNTER      0</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889612"></A>FAST-LOCK-SLOT            0</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889613"></A>In <CODE CLASS="Code">
+ENUMERATED-HASH-TABLE</CODE>
+ mode you can recursively inspect keys and values by entering the index. This is especially useful in cases where the key or value is unreadable and so cannot be entered into the REPL:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889614"></A>CL-USER 6 : Inspect 1 &gt; :m 3</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889615"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889616"></A>#&lt;EQL Hash Table{6} 21C15D97&gt; is an Enumerated HASH TABLE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889617"></A>0      (C++ PROGRAMMING)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889618"></A>1      (JAVA PROGRAMMING)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889619"></A>2      (ENGLISH NATURAL)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889620"></A>3      (C PROGRAMMING)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889621"></A>4      (GERMAN NATURAL)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889622"></A>5      (LISP PROGRAMMING)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889623"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889624"></A>CL-USER 7 : Inspect 1 &gt; 5</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889625"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889626"></A>(LISP PROGRAMMING) is a LIST</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889627"></A>0      LISP</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889628"></A>1      PROGRAMMING</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889629"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889630"></A>CL-USER 8 : Inspect 2 &gt; :u</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889787"></A>The <CODE CLASS="Code">
+HASH-TABLE-STATISTICS</CODE>
+ mode shows that <CODE CLASS="Code">
+*hash*</CODE>
+ has 31 chains, of which 25 are empty and 6 have one entry::</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889632"></A>CL-USER 9 : Inspect 1 &gt; :m 4</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889633"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889634"></A>#&lt;EQL Hash Table{6} 21C15D97&gt; is a HASH-TABLE (statistical view)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889635"></A>chain of length 0 :      31</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889636"></A>chain of length 1 :      6</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889773"></A>In HASH-TABLE-HISTOGRAM mode the same information is represented as a histogram:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889638"></A>CL-USER 10 : Inspect 1 &gt; :m 5</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889639"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889640"></A>#&lt;EQL Hash Table{6} 21C15D97&gt; is a HASH-TABLE (histogram view)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889641"></A>chain of length 0 :      &quot;*******************************&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889642"></A>chain of length 1 :      &quot;******&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889643"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889644"></A>CL-USER 11 : Inspect 1 &gt; :q</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889645"></A>#&lt;EQL Hash Table{6} 21C15D97&gt;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886531"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-39.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-37.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-37.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

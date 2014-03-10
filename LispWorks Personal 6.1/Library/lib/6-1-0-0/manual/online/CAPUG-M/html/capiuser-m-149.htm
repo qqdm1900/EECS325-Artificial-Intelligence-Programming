@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11.2.3  Prompting for an item in a list
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-150.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-148.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-146.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-144.htm">11 Prompting for Input</A> &gt <A HREF="capiuser-m-146.htm">11.2  Prompting for values</A><BR><BR>
+</DIV><A HREF="capiuser-m-150.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-148.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-146.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884249"></A>11.2.3  Prompting for an item in a list</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884251"></A><A NAME="marker-884250"></A>If you would like the user to select an item from a list of items, the function <CODE CLASS="Code">
+prompt-with-list</CODE>
+<A NAME="marker-884252"></A> should handle the majority of cases. The simplest form just passes a list to the function and expects a single item to be returned.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884254"></A>(prompt-with-list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884255"></A> '(:red :yellow :blue)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884256"></A> &quot;Select a color:&quot;)</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884692"></A>Figure 11.5  A dialog prompting for a selection from a list<DIV>
+<IMG SRC="capiuser-m-57.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-61.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884263"></A>You can also specify the interaction style that you would like for your dialog, which can be any of the interactions accepted by a choice. The specification of the interaction style to this choice is made using the keyword argument <CODE CLASS="Code">
+:interaction</CODE>
+<A NAME="marker-884264"></A>:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884266"></A>(prompt-with-list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884267"></A> '(:red :yellow :blue)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884268"></A> &quot;Select a color:&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884269"></A> :interaction :multiple-selection)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884273"></A><A NAME="marker-884272"></A>By default, the dialog is created using a list-panel to display the items, but the keyword argument <CODE CLASS="Code">
+:choice-class</CODE>
+<A NAME="marker-884274"></A> can be specified with any choice pane. Thus, for instance, you can present a list of buttons.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884276"></A>(prompt-with-list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884277"></A>  '(:red :yellow :blue)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884278"></A>  &quot;Select a color:&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884279"></A>  :interaction :multiple-selection</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884280"></A>   :choice-class 'button-panel)</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884705"></A>Figure 11.6  Selection from a button panel<DIV>
+<IMG SRC="capiuser-m-57.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-62.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884287"></A>Finally, as with any of the prompting functions, you can specify additional arguments to the pane that has been created in the dialog. Thus to create a column of buttons instead of the default row, use:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884289"></A>(prompt-with-list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884290"></A> '(:red :yellow :blue)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884291"></A> &quot;Select a color:&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884292"></A> :interaction :multiple-selection</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884293"></A> :choice-class 'button-panel</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884295"></A> :<A NAME="marker-884294"></A>pane-args</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884296"></A> '(:layout-class column-layout))</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-919159"></A>Figure 11.7  <A NAME="marker-919157"></A><A NAME="marker-919158"></A>Selection from a column of buttons<DIV>
+<IMG SRC="capiuser-m-57.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-63.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-919160"></A>There is a more complex example in</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-919174"></A>examples/capi/choice/prompt-with-buttons.lisp</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-150.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-148.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-146.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

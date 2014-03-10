@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="readme.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.7.6  copy-area added, pixblt deprecated
+</TITLE>
+
+<LINK REL="next" HREF="readme-377.htm" TYPE="text/html">
+<LINK REL="prev" HREF="readme-375.htm" TYPE="text/html">
+<LINK REL="up" HREF="readme-370.htm" TYPE="text/html">
+<LINK REL="top" HREF="readme.htm" TYPE="text/html">
+<LINK REL="contents" HREF="readme-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="readme-485.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="readme.htm">LispWorks Release Notes and Installation Guide</A> &gt; <A HREF="readme-292.htm">13 Release Notes</A> &gt; <A HREF="readme-370.htm">13.7  Other CAPI and Graphics Ports changes</A><BR><BR>
+</DIV><A HREF="readme-377.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-375.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-370.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-953634"></A>13.7.6  <A NAME="18903"></A>copy-area added, pixblt deprecated</H3>
+<P CLASS="Body">
+<A NAME="pgfId-955716"></A>The function <A NAME="marker-953731"></A><CODE CLASS="Code">
+gp:pixblt</CODE>
+ is deprecated. This is because <EM CLASS="Variable">
+drawing-mode</EM>
+ <CODE CLASS="Code">
+:quality</CODE>
+ does not support the <EM CLASS="Variable">
+operation</EM>
+ argument and also because <CODE CLASS="Code">
+gp:pixblt</CODE>
+ ignores transforms which means it does not always work as expected. In particular, it can it can draw to the wrong coordinates inside the <EM CLASS="Variable">
+display-callback</EM>
+ of <A NAME="marker-953814"></A><CODE CLASS="Code">
+capi:output-pane</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-959316"></A>Use instead the new function <A NAME="marker-959342"></A><CODE CLASS="Code">
+gp:copy-area</CODE>
+, which copies a rectangular area from one graphics port to another taking account of the transform.</P>
+<P CLASS="Body">
+<A NAME="pgfId-959357"></A>See also the <CODE CLASS="Code">
+gp:graphics-state</CODE>
+ parameter <EM CLASS="Variable">
+compositing-mode</EM>
+<A NAME="marker-959370"></A> for a way to control how <CODE CLASS="Code">
+gp:copy-area</CODE>
+ blends the source and the target.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Release Notes and Installation Guide - 23 Dec 2011</I></P>
+<P><A HREF="readme-377.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-375.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-370.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

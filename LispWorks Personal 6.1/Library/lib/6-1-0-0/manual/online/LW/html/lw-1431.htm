@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-memory-exhausted-callback
+</TITLE>
+
+<LINK REL="next" HREF="lw-1432.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1430.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1432.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1430.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1286223"></A><A NAME="79452"></A>set<A NAME="marker-1286222"></A>-memory-exhausted-callback</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1286224"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1286225"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1286226"></A>Sets a callback that is called when memory is exhausted in 64-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1286227"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1286228"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1286229"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1286230"></A>set-memory-exhausted-callback <EM CLASS="Variable">
+function</EM>
+ &amp;optional <EM CLASS="Variable">
+where</EM>
+ =&gt; <EM CLASS="Variable">
+callbacks</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1286231"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1287260"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator, the keyword <CODE CLASS="Code">
+:reset</CODE>
+, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1287254"></A><EM CLASS="Variable">
+where</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+:first</CODE>
+, <CODE CLASS="Code">
+:last</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1286232"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1287290"></A><EM CLASS="Variable">
+callbacks</EM>
+</P>
+<P CLASS="RDescription-C">A list of function designators.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1286233"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1287335"></A>The function <CODE CLASS="Code">
+set-memory-exhausted-callback</CODE>
+ adds a callback that is called when memory is exhausted. That is, when the system fails to map memory.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1287336"></A>Note: <A HREF="lw-1430.htm#85712" CLASS="XRef">set-memory-check</A> is a more robust way to protect against memory exhaustion problems.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1287337"></A>If <EM CLASS="Variable">
+function</EM>
+ is a function designator then it should be a function with signature</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1287338"></A>function <EM CLASS="Variable">
+gen-num</EM>
+ <EM CLASS="Variable">
+size</EM>
+ <EM CLASS="Variable">
+type-name</EM>
+ <EM CLASS="Variable">
+static</EM>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1287339"></A><EM CLASS="Variable">
+function</EM>
+ is expected to report what the system was trying to allocate when it failed to map memory. Its arguments are:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1287340"></A><EM CLASS="Variable">
+gen-num</EM>
+</P>
+<P CLASS="RDescription-C">The number of the generation in which it was trying to allocate.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1287341"></A><EM CLASS="Variable">
+size</EM>
+</P>
+<P CLASS="RDescription-C">The size in bytes which it was trying to allocate.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1287342"></A><EM CLASS="Variable">
+type-name</EM>
+</P>
+<P CLASS="RDescription-C">A string naming the allocation type it was trying to allocate.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1287343"></A><EM CLASS="Variable">
+static</EM>
+</P>
+<P CLASS="RDescription-C">A boolean, true if it was trying to allocate a static object, and false otherwise.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1287344"></A><EM CLASS="Variable">
+function</EM>
+ can also have the special value <CODE CLASS="Code">
+:reset</CODE>
+, which resets the callback list to <CODE CLASS="Code">
+nil</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1287345"></A><EM CLASS="Variable">
+function</EM>
+ can also be <CODE CLASS="Code">
+nil</CODE>
+, which means do nothing but simply return the current list of callbacks.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1287346"></A><EM CLASS="Variable">
+where</EM>
+ defines the position in the list that the callback <EM CLASS="Variable">
+function</EM>
+ is placed. Its allowed values are:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1287347"></A><CODE CLASS="Code">
+:first</CODE>
+</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+function</EM>
+ is placed first in the callbacks list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1287737"></A><CODE CLASS="Code">
+:last</CODE>
+</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+function</EM>
+ is placed last in the callbacks list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1287745"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+function</EM>
+ is removed from the callbacks list.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1287350"></A><CODE CLASS="Code">
+set-memory-exhausted-callback</CODE>
+ always first removes <EM CLASS="Variable">
+function</EM>
+ from the callbacks list, and then adds it according to <EM CLASS="Variable">
+where</EM>
+. The default value of <EM CLASS="Variable">
+where</EM>
+ is <CODE CLASS="Code">
+:first</CODE>
+. Functions in the list are compared with <CODE CLASS="Code">
+equalp</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1287351"></A><CODE CLASS="Code">
+set-memory-exhausted-callback</CODE>
+ returns the callback list.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1287352"></A>When a callback is called, Lisp already failed to map memory. This means that you must not rely on the callback to do real work. It should therefore attempt only a minimal amount of work such as clean-ups and generating debug information. It should not try to do real work.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1287353"></A>After all the callbacks are called, the system signals an error of type <A HREF="lw-1442.htm#48152" CLASS="XRef">storage-exhausted</A>. The condition can be accessed using the accessors described for <A HREF="lw-1442.htm#48152" CLASS="XRef">storage-exhausted</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1287502"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1657658"></A><CODE CLASS="Code">
+set-memory-exhausted-callback</CODE>
+ is implemented only in 64-bit LispWorks. It is not relevant to the Memory Management API in 32-bit implementations.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1286235"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1286236"></A><A HREF="lw-1430.htm#85712" CLASS="XRef">set-memory-check</A><BR>
+<A HREF="lw-1442.htm#48152" CLASS="XRef">storage-exhausted</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1432.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1430.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

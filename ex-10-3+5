@@ -1,0 +1,11 @@
+(defmacro nth-expr (n &rest expressions)
+    `(case ,n
+       ,@(loop for e in expressions
+               for n from 1
+               collect `((,n) ,e))))
+
+
+(defmacro n-of (n expr)
+  (let ((gn (gensym)) (gi (gensym)) (gl (gensym)))
+    `(do ((,gn ,n) (,gi 0 (1+ ,gi)) (,gl nil (cons ,expr ,gl)))
+         ((= ,gi ,gn) (nreverse ,gl)))))

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 20.2.3  Stream directionality
+</TITLE>
+
+<LINK REL="next" HREF="lw-454.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-452.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-450.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-448.htm">20 User Defined Streams</A> &gt; <A HREF="lw-450.htm">20.2  An illustrative example of user defined streams</A><BR><BR>
+</DIV><A HREF="lw-454.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-452.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888188"></A>20.2.3  <A NAME="97614"></A>Stream directionality<A NAME="marker-888755"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-888189"></A>Streams can be defined for input only, output only, or both. In our example, the <CODE CLASS="Code">
+unicode-ls-stream</CODE>
+ class needs to be able to read from a file and write to a file, and we therefore defined it to inherit from an input and an output stream class. We could have defined disjoint classes instead, one inheriting from <A HREF="lw-1293.htm#36260" CLASS="XRef">fundamental-character-input-stream</A> and the other from <A HREF="lw-1294.htm#29092" CLASS="XRef">fundamental-character-output-stream</A>. This would have allowed us to rely on the default methods for the direction predicates.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891215"></A>However, given that we have defined one bi-directional stream class, we must define our own methods for the direction predicates. To allow this, the Common Lisp predicates <A HREF="lw-647.htm#37610" CLASS="XRef">input-stream-p</A> and <A HREF="lw-661.htm#40134" CLASS="XRef">output-stream-p</A><CODE CLASS="Code">
+ </CODE>
+are implemented as generic functions.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888085"></A>(defmethod input-stream-p ((stream unicode-ls-stream))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888086"></A>  (input-stream-p (ls-stream-file-stream stream)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-888092"></A>(defmethod output-stream-p ((stream unicode-ls-stream))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888093"></A>  (output-stream-p (ls-stream-file-stream stream)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888196"></A>The above code allows us to &quot;trampoline&quot; the correct direction predicate functionality from <CODE CLASS="Code">
+file-stream</CODE>
+, using the <CODE CLASS="Code">
+ls-stream-file-stream</CODE>
+ accessor we defined previously.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-454.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-452.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

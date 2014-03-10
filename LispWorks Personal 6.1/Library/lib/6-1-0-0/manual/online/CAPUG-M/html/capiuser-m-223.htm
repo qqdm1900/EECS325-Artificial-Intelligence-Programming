@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 14.6  Loading the color database
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-224.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-222.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-216.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-216.htm">14 The Color System</A><BR><BR>
+</DIV><A HREF="capiuser-m-224.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-222.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886109"></A>14.6  Loading the color database</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886110"></A>You can load new color definitions into the color database using <A NAME="marker-887685"></A><CODE CLASS="Code">
+read-color-db</CODE>
+ and <A NAME="marker-887690"></A><CODE CLASS="Code">
+load-color-database</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-887694"></A>Given a color definition file <CODE CLASS="Code">
+my-colors.db</CODE>
+ of lines like these:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886113"></A>#(:RGB 1.0s0 0.980391s0 0.980391s0)     snow</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886114"></A>#(:RGB 0.972548s0 0.972548s0 1.0s0)     GhostWhite</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886118"></A>call</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887705"></A>(load-color-database (read-color-db &quot;my-colors.db&quot;))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886119"></A>To clear the color database use the form:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886125"></A>(setf *color-database* (make-color-db))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886971"></A><B CLASS="Bold">
+Note:</B>
+ You should do this before starting the LispWorks IDE (that is, before <CODE CLASS="Code">
+env:start-environment</CODE>
+ is called) or before your application's GUI starts. Be sure to load new color definitions for all the colors used in the GUI. The initial colors were obtained from the <CODE CLASS="Code">
+config/colors.db</CODE>
+ file.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886126"></A>You can remove a color database entry with <A NAME="marker-887659"></A><CODE CLASS="Code">
+delete-color-translation</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-224.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-222.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

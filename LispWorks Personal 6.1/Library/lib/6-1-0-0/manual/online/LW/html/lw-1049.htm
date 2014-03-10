@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ mailbox-peek
+</TITLE>
+
+<LINK REL="next" HREF="lw-1050.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1048.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1050.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1048.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-938387"></A><A NAME="36380"></A>mailbox-peek</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-938422"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-938437"></A>Summary<A NAME="marker-956868"></A></H5>
+<P CLASS="RBody">
+<A NAME="pgfId-938480"></A>Returns the first object in a mailbox.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-938490"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-938772"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1689931"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1689932"></A>mailbox-peek <EM CLASS="Variable">
+mailbox</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+, <EM CLASS="Variable">
+value-p</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1689933"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-938801"></A><EM CLASS="Variable">
+mailbox</EM>
+</P>
+<P CLASS="RDescription-C">A mailbox.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-938803"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-938809"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">Any object or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1689983"></A><EM CLASS="Variable">
+value-p</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-938811"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-938949"></A>The function <CODE CLASS="Code">
+mailbox-peek</CODE>
+ returns the first object in the mailbox without removing it. If the mailbox is empty, <CODE CLASS="Code">
+nil</CODE>
+ is returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1693548"></A>If the mailbox <EM CLASS="Variable">
+mailbox</EM>
+ is not empty, the function <CODE CLASS="Code">
+mailbox-peek</CODE>
+ returns the first object in the mailbox without removing it. The second returned value <EM CLASS="Variable">
+value-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1693549"></A>If <EM CLASS="Variable">
+mailbox</EM>
+ is empty, both return values <EM CLASS="Variable">
+result</EM>
+ and <EM CLASS="Variable">
+value-p</EM>
+ are <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1693550"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1690007"></A>Since another process may modify the mailbox at any point, the result is not necessarily the next object that the next call to <A HREF="lw-1050.htm#21302" CLASS="XRef">mailbox-read</A> will read, unless no other process is reading from the mailbox.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1690012"></A><CODE CLASS="Code">
+mailbox-peek</CODE>
+ needs to lock the mailbox, which means it is significantly slower than <A HREF="lw-1048.htm#44751" CLASS="XRef">mailbox-not-empty-p</A>, and also may affect other processes. In most of the cases, <A HREF="lw-1048.htm#44751" CLASS="XRef">mailbox-not-empty-p</A> is sufficient and hence is preferable.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-938951"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1693714"></A><A HREF="lw-1047.htm#12623" CLASS="XRef">mailbox-empty-p</A><BR>
+<A HREF="lw-1048.htm#44751" CLASS="XRef">mailbox-not-empty-p</A><BR>
+<A HREF="lw-1052.htm#37933" CLASS="XRef">mailbox-send</A><BR>
+<A HREF="lw-1050.htm#21302" CLASS="XRef">mailbox-read</A><BR>
+<A HREF="lw-1058.htm#37778" CLASS="XRef">make-mailbox</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1050.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1048.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

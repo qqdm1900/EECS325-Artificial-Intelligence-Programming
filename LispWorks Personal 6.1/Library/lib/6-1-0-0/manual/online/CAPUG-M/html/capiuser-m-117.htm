@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 8.6.1  Updating windows in real time
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-118.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-116.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-116.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-108.htm">8 Modifying CAPI Windows</A> &gt <A HREF="capiuser-m-116.htm">8.6  Updating pane contents</A><BR><BR>
+</DIV><A HREF="capiuser-m-118.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-116.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-116.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889992"></A>8.6.1  Updating windows in real time</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890000"></A>If your code needs to cause visible updates whilst continuing to do further computation, then you should run your computation in a separate thread which is not directly associated with the CAPI window. </P>
+<P CLASS="Body">
+<A NAME="pgfId-890385"></A>Consider the following example where real work is represented by calls to <CODE CLASS="Code">
+sleep</CODE>
+:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-890275"></A>Evaluate this code:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-890296"></A>(defun change-text (win text)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890297"></A>  (setf (title-pane-text win)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890298"></A>        text))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890299"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890300"></A>(defun my-callback (win)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890301"></A>  (change-text win &quot;Go&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890302"></A>  (loop</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890303"></A>   for i from 0 to 20 do </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890304"></A>   (change-text win (format nil &quot;&#126;D&quot; i))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890305"></A>   (sleep 0.1)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890306"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890307"></A>(defun test ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890308"></A>  (let* ((p1 (make-instance 'title-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890309"></A>                            :text &quot;init&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890310"></A>         (p2 (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890311"></A>              'button :text &quot;Go&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890312"></A>              :callback-type :none</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890313"></A>              :callback #'(lambda ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890314"></A>                            (my-callback p1)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890315"></A>    (contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890316"></A>     (make-instance 'row-layout :description (list p1 nil p2))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890166"></A>     :width 200 :height 200)))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-890379"></A>Run <CODE CLASS="Code">
+(test)</CODE>
+ and note that the updates do not appear until <CODE CLASS="Code">
+my-callback</CODE>
+ returns. This is because it uses only one thread.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-890209"></A>Now try this modified callback which uses a worker thread to perform the calculations:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-890411"></A>(defun my-work-function ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890412"></A>  (let ((mbox (mp:ensure-process-mailbox)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890413"></A>    ;; This should really have an error handler.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890414"></A>    (loop (let ((event (mp:process-read-event mbox</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890415"></A>                        &quot;Waiting for events&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890416"></A>            (cond ((consp event)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890417"></A>                   (apply (car event) (cdr event)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890418"></A>                  ((functionp event)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890224"></A>                   (funcall event)))))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890225"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890226"></A>(setf *worker*</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890227"></A>      (mp:process-run-function &quot;Worker process&quot; ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890228"></A>                               'my-work-function))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890229"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890433"></A>(defun change-text (win text)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890434"></A>  (apply-in-pane-process win</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890435"></A>                         #'(setf title-pane-text)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890436"></A>                         text win))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890447"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890431"></A>(defun my-callback (win)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890230"></A>  (mp:process-send</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890231"></A>   *worker*</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890232"></A>   #'(lambda ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890233"></A>       (change-text win &quot;Go&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890234"></A>       (loop</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890235"></A>        for i from 0 to 20 do </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890236"></A>        (change-text win (format nil &quot;&#126;D&quot; i))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890212"></A>        (sleep 0.1)))))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-890262"></A>Run <CODE CLASS="Code">
+(test)</CODE>
+ again: you should see the updates appear immediately.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-890336"></A>A real application might also display an <B CLASS="Button">
+Abort</B>
+ button during the computation, with a callback that aborts the worker process.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-118.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-116.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-116.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

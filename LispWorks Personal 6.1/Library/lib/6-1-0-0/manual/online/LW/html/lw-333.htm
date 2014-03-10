@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 18.2.3.1  Example advise loop
+</TITLE>
+
+<LINK REL="next" HREF="lw-334.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-332.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-332.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-323.htm">18 Dynamic Data Exchange</A> &gt; <A HREF="lw-329.htm">18.2  Client interface</A> &gt; <A HREF="lw-332.htm">18.2.3  Advise loops</A><BR><BR>
+</DIV><A HREF="lw-334.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-332.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-332.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-886857"></A>18.2.3.1  Example advise loop</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890999"></A>The example shows you how to set up an advise loop. The code assumes that <CODE CLASS="Code">
+win32</CODE>
+ package symbols are visible.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891000"></A>The first step defines a client conversation class, called <CODE CLASS="Code">
+my-conv</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886750"></A>(defclass my-conv (dde-client-conversation)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886831"></A>  ())</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886950"></A>The macro <A NAME="marker-890992"></A><A HREF="lw-1505.htm#34026" CLASS="XRef">define-dde-client</A> can now be used to define a specific instance of the <CODE CLASS="Code">
+my-conv</CODE>
+ class for referring to a server application that responds to the service name &quot;<CODE CLASS="Code">
+FOO</CODE>
+&quot;.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886834"></A>(define-dde-client :foo :service &quot;FOO&quot; :class my-conv)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886951"></A>The next step defines a method on <A HREF="lw-1490.htm#37300" CLASS="XRef">dde-client-advise-data</A> which returns a string stating that the item has changed.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886836"></A>(defmethod dde-client-advise-data ((self my-conv) item data &amp;key </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886837"></A>&amp;allow-other-keys)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886838"></A>  (format t &quot;&#126;&amp;Item &#126;s changed to &#126;s&#126;%&quot; item data))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886959"></A>Finally, the next command starts the advise loop on the server <CODE CLASS="Code">
+foo</CODE>
+, with the topic name &quot;<CODE CLASS="Code">
+file1</CODE>
+&quot;, to monitor the item &quot;<CODE CLASS="Code">
+slot1</CODE>
+&quot;.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886840"></A>(dde-advise-start* :foo &quot;file1&quot; &quot;slot1&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886962"></A>When the value of the item specified by &quot;<CODE CLASS="Code">
+slot1</CODE>
+&quot;&quot; changes, the server calls <A HREF="lw-1490.htm#37300" CLASS="XRef">dde-client-advise-data</A> which returns a string, as described above.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886829"></A>The <EM CLASS="Variable">
+function</EM>
+ argument of <A HREF="lw-1486.htm#14762" CLASS="XRef">dde-advise-start</A> and <A HREF="lw-1487.htm#30729" CLASS="XRef">dde-advise-start*</A> specifies the function called by the advise loop when it notices a change to the item it is monitoring. The function is <A HREF="lw-1490.htm#37300" CLASS="XRef">dde-client-advise-data</A> by default. A different function can be provided, and should have a lambda list similar to the following:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886758"></A><EM CLASS="Variable">
+key</EM>
+ <EM CLASS="Variable">
+item</EM>
+ <EM CLASS="Variable">
+data</EM>
+ &amp;key <EM CLASS="Variable">
+conversation</EM>
+ &amp;allow-other-keys</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886759"></A>The arguments <EM CLASS="Variable">
+key</EM>
+ and <EM CLASS="Variable">
+item</EM>
+ identify the advise loop, or link. The argument <EM CLASS="Variable">
+data</EM>
+ contains the new data for hot links; for warm links it is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886751"></A>Advise loops are closed using <A NAME="marker-891060"></A><A HREF="lw-1488.htm#10177" CLASS="XRef">dde-advise-stop</A> or <A NAME="marker-891065"></A><A HREF="lw-1489.htm#28358" CLASS="XRef">dde-advise-stop*</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-334.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-332.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-332.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

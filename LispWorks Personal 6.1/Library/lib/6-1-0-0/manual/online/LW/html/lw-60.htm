@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.1  Defining advice
+</TITLE>
+
+<LINK REL="next" HREF="lw-61.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-59.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-59.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-59.htm">6 The Advice Facility</A><BR><BR>
+</DIV><A HREF="lw-61.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-59.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-59.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-887984"></A>6.1  Defining advice</H3>
+<P CLASS="Body">
+<A NAME="pgfId-885981"></A>Each change that is required should be specified using the <A HREF="lw-895.htm#defadvice" CLASS="XRef">defadvice</A> macro. This defines a new body of code to be used when the function is called; this piece of code is called a piece of advice. Consider the following example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888776"></A> (defadvice</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888777"></A>    (capi:prompt-for-file pff-1 :before)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888778"></A>    (message &amp;key &amp;allow-other-keys)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888640"></A>  (format t &quot;&#126;&amp;Prompting for file with message &#126;S&#126;%&quot; message))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-885995"></A>Here <A HREF="lw-895.htm#defadvice" CLASS="XRef">defadvice</A> is given  a description of the function you want to alter, a name for the piece of advice, and the keyword <CODE CLASS="Code">
+:before</CODE>
+ to indicate that you want the code carried out before <CODE CLASS="Code">
+capi:prompt-for-file</CODE>
+ is called. The rest of the call to <A HREF="lw-895.htm#defadvice" CLASS="XRef">defadvice</A> specifies the additional behavior required, and consists of the lambda list for the new piece of advice and its body (the lambda list may specify keyword parameters and so forth). The advice facility arranges that pff-1 is invoked whenever <CODE CLASS="Code">
+capi:prompt-for-file</CODE>
+ is called, and that it receives the arguments to <CODE CLASS="Code">
+capi:prompt-for-file</CODE>
+, and that directly after this the original definition of <CODE CLASS="Code">
+capi:prompt-for-file</CODE>
+ is called.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888682"></A>After executing this advice definition, demonstrate it by selecting the menu command <B CLASS="Button">
+File &gt; Open</B>
+ in the LispWorks IDE. The message appears in the <B CLASS="Button">
+Output</B>
+ tab.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888758"></A>Pieces of advice may be given to be executed after the call by specifying <CODE CLASS="Code">
+:after </CODE>
+instead of <CODE CLASS="Code">
+:before</CODE>
+ in the call to <A HREF="lw-895.htm#defadvice" CLASS="XRef">defadvice</A>. So if you wished to add further code to be performed after <CODE CLASS="Code">
+capi:prompt-for-file</CODE>
+ you could also define:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888791"></A>(defadvice</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888792"></A>    (capi:prompt-for-file pff-2 :after)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888793"></A>    (message &amp;rest args)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888794"></A>  (format t </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888795"></A>          &quot;&#126;&amp;The other arguments to prompt-for-file were: &#126;S&#126;%&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888736"></A>          args))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886011"></A>Note that <CODE CLASS="Code">
+pff-2</CODE>
+ also receives the arguments to <CODE CLASS="Code">
+capi:prompt-for-file</CODE>
+, which are reported by the body.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-61.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-59.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-59.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

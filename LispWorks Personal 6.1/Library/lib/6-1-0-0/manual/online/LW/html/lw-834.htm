@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-hash-table-weak
+</TITLE>
+
+<LINK REL="next" HREF="lw-835.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-833.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-835.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-833.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-949176"></A><A NAME="set-hash-table-weak"></A>set<A NAME="marker-1043113"></A>-hash-table-weak</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-949177"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949178"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-949179"></A>Sets the weakness state of a hash-table.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949180"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-949181"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949182"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-949183"></A>set-hash-table-weak <EM CLASS="Variable">
+hash-table</EM>
+ <EM CLASS="Variable">
+weak</EM>
+ &amp;optional <EM CLASS="Variable">
+free-function</EM>
+ =&gt; <EM CLASS="Variable">
+weakness-state</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949184"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-952605"></A><EM CLASS="Variable">
+hash-table</EM>
+</P>
+<P CLASS="RDescription-C">A hash-table. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-953810"></A><EM CLASS="Variable">
+weak</EM>
+</P>
+<P CLASS="RDescription-C">Sets the weakness state of <EM CLASS="Variable">
+hash-table</EM>
+. Value may be: </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-953811"></A><CODE CLASS="Code">
+</P>
+<P CLASS="RDescription-C">:value</CODE>
+ or <CODE CLASS="Code">
+t</CODE>
+  -- An entry is kept if there is a pointer to the value from another object. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-953866"></A></P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+:key</CODE>
+ -- An entry is kept if there is a pointer to the key from another object. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-953870"></A></P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+:both</CODE>
+ -- An entry is kept if there are pointers to both the key and the value.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-953874"></A></P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+:one</CODE>
+ or <CODE CLASS="Code">
+:either </CODE>
+-- An entry is kept if there is a pointer to either the key or the value. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-953878"></A></P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+ -- Make the hash-table non-weak. All entries are kept.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1513537"></A><EM CLASS="Variable">
+free-function</EM>
+</P>
+<P CLASS="RDescription-C">A designator for a function of two arguments.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949186"></A>Values </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-949187"></A>Returns <EM CLASS="Variable">
+weak, unless</EM>
+ <CODE CLASS="Code">
+t</CODE>
+ was passed, when <CODE CLASS="Code">
+:value</CODE>
+ is returned. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954963"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-955838"></A>By default, hash-tables are not weak, which means that they keep alive all the keys and the values in the table. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-956383"></A>A weak hash-table allows entries to be removed if there are no other pointers to them. The <EM CLASS="Variable">
+weakness-state</EM>
+ tells the system which entries may be removed like this.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-957469"></A>Entries that can be removed are removed after a garbage collector (GC) operation which identifies that they can be removed. This means that if the relevant object(s) (the key or the value) have been  promoted to a higher generation, a garbage collection (GC) of the higher generation is required to remove them from the table. Note that by default the system does not automatically GC the blocking generation or higher.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-956397"></A>The <EM CLASS="Variable">
+weakness-state</EM>
+ of a hash-table can be changed repeatedly, at any time,  at any point using any of the <EM CLASS="Variable">
+weak</EM>
+ values listed above. It can also be set by <A HREF="lw-654.htm#47359" CLASS="XRef">make-hash-table</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1513565"></A><EM CLASS="Variable">
+free-function</EM>
+ can be supplied to specify a free function as described for <A HREF="lw-654.htm#47359" CLASS="XRef">make-hash-table</A>. It has no effect if <EM CLASS="Variable">
+weak-kind</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-949196"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-949200"></A><A HREF="lw-806.htm#83166" CLASS="XRef">hash-table-weak-kind</A><BR>
+<A HREF="lw-654.htm#47359" CLASS="XRef">make-hash-table</A><BR>
+<A HREF="lw-808.htm#11103" CLASS="XRef">mark-and-sweep</A><BR>
+<A HREF="lw-831.htm#15774" CLASS="XRef">set-array-weak</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-835.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-833.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

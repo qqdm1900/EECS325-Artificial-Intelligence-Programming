@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ product-registry-path
+</TITLE>
+
+<LINK REL="next" HREF="lw-1419.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1417.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1419.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1417.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1166686"></A><A NAME="19972"></A>product<A NAME="marker-1166685"></A>-registry-path</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1166687"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009855"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1009856"></A>Gets or sets a registry path for use with your software.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009857"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1009858"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009859"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1009860"></A>product-registry-path <EM CLASS="Variable">
+product</EM>
+ =&gt; <EM CLASS="Variable">
+path-string</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1010344"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1010345"></A>(setf product-registry-path) <EM CLASS="Variable">
+path</EM>
+ <EM CLASS="Variable">
+product</EM>
+ =&gt; <EM CLASS="Variable">
+path</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009861"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009862"></A><EM CLASS="Variable">
+product</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009863"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1009864"></A><EM CLASS="Variable">
+path</EM>
+</P>
+<P CLASS="RDescription-C">The path as a string or a list of strings.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1163574"></A><EM CLASS="Variable">
+path-string</EM>
+</P>
+<P CLASS="RDescription-C">The path as a string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009865"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1009866"></A>The function <CODE CLASS="Code">
+product-registry-path</CODE>
+ returns the registry subpath defined for the product denoted by <EM CLASS="Variable">
+product</EM>
+, as a string.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1010590"></A>The function <CODE CLASS="Code">
+(setf product-registry-path)</CODE>
+ sets the registry subpath for the product denoted by <EM CLASS="Variable">
+product</EM>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1162132"></A>If <EM CLASS="Variable">
+path</EM>
+ is a string it can contain backslash <CODE CLASS="Code">
+&#92;</CODE>
+ or forward slash <CODE CLASS="Code">
+/</CODE>
+ as directory separators - these are translated internally to the separator appropriate for the system. Note that any backslash will need escaping (with another backslash) if you input the string value via the Lisp reader.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1162140"></A>If <EM CLASS="Variable">
+path</EM>
+ is a list of strings, then it is interpreted like the directory component of a pathname.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1010621"></A>This registry subpath is used when reading and storing user preferences with <A HREF="lw-995.htm#94838" CLASS="XRef">user-preference</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1010676"></A>Note that while <EM CLASS="Variable">
+product</EM>
+ can be any Lisp object, values of <EM CLASS="Variable">
+product</EM>
+ are compared by <CODE CLASS="Code">
+eq</CODE>
+, so you should use keywords.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011450"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1656477"></A>To store CAPI window geometries under the registry path for your product, see the entry for <CODE CLASS="Code">
+capi:top-level-interface-geometry-key</CODE>
+. in the <I CLASS="Italic">
+CAPI Reference Manual</I>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1010911"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1163552"></A>(setf (sys:product-registry-path :deep-thought)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1010912"></A>      (list &quot;Deep Thought&quot; &quot;1.0&quot;))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1162693"></A>Then, on Unix/Linux/Mac OS X systems:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1163361"></A>(sys:product-registry-path :deep-thought)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1163362"></A>=&gt;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1163363"></A>&quot;Deep Thought/1.0&quot;</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1163224"></A>And on Microsoft Windows:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1163445"></A>(sys:product-registry-path :deep-thought)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1163446"></A>=&gt;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1163447"></A>&quot;Deep Thought&#92;&#92;1.0&quot;</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1010913"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1009883"></A><A HREF="lw-1347.htm#19960" CLASS="XRef">copy-preferences-from-older-version</A><BR>
+<A HREF="lw-995.htm#94838" CLASS="XRef">user-preference</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1419.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1417.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

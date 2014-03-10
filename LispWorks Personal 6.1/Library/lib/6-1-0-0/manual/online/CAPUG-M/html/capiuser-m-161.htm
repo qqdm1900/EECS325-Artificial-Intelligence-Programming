@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11.5.1  Using display-dialog
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-162.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-160.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-160.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-144.htm">11 Prompting for Input</A> &gt <A HREF="capiuser-m-160.htm">11.5  Creating your own dialogs</A><BR><BR>
+</DIV><A HREF="capiuser-m-162.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-160.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-160.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884376"></A>11.5.1  Using display-dialog</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884377"></A>Here is a very simple example that displays a <B CLASS="Button">
+Cancel</B>
+ button in a dialog, and when that button is pressed the dialog is cancelled. Note that <CODE CLASS="Code">
+display-dialog</CODE>
+<A NAME="marker-884378"></A> must receive an interface, so an interface is created for the button by using the function <A NAME="marker-884379"></A><CODE CLASS="Code">
+make-container</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884381"></A>(display-dialog</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884382"></A> (make-container</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884383"></A>  (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884384"></A>    'push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884385"></A>    :text &quot;Press this button to cancel&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884386"></A>    :callback 'abort-dialog)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884387"></A>   :title &quot;My Dialog&quot;))</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884728"></A>Figure 11.9  A cancel button<DIV>
+<IMG SRC="capiuser-m-57.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-65.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884395"></A>The function <A NAME="marker-884394"></A><CODE CLASS="Code">
+abort-dialog</CODE>
+ cancels the dialog returning the values <CODE CLASS="Code">
+nil</CODE>
+ and <CODE CLASS="Code">
+nil</CODE>
+, which represent a return result of <CODE CLASS="Code">
+nil</CODE>
+ and the fact that the dialog was cancelled, respectively. Note also that <CODE CLASS="Code">
+abort-dialog</CODE>
+ accepts any values and just ignores them.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884396"></A>The next problem is to create a dialog that can return a result. Use the function <A NAME="marker-884397"></A><CODE CLASS="Code">
+exit-dialog</CODE>
+ which returns the value passed to it from the dialog. The example below shows a simple string prompter.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884399"></A>(display-dialog</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884400"></A>  (make-container</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884401"></A>   (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884402"></A>    'text-input-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884404"></A>    :<A NAME="marker-884403"></A>callback-type :data</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884405"></A>    :callback 'exit-dialog)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884406"></A>   :title &quot;Enter a string:&quot;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884409"></A>Both of these examples are very simple, so here is a slightly more complicated one which creates a column containing both a text-input-pane and a <B CLASS="Button">
+Cancel</B>
+ button.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884411"></A>(display-dialog</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884412"></A> (make-container</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884413"></A>  (list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884414"></A>   (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884415"></A>    'text-input-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884416"></A>    :callback-type :data</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884417"></A>    :callback 'exit-dialog)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884418"></A>   (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884419"></A>    'push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884420"></A>    :text &quot;Cancel&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884421"></A>    :callback 'abort-dialog))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884422"></A>  :title &quot;Enter a string:&quot;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884426"></A>Note that this looks very similar to the dialog created by <A NAME="marker-884425"></A><CODE CLASS="Code">
+prompt-for-string</CODE>
+ except for the fact that it does not provide the standard <B CLASS="Button">
+OK</B>
+ button.</P>
+<P CLASS="Body">
+<A NAME="pgfId-909276"></A>It would be simple to add an <B CLASS="Button">
+OK</B>
+ button in the code above, but since almost every dialog needs these standard buttons, the CAPI provides a higher level function called <A NAME="marker-884427"></A><CODE CLASS="Code">
+popup-confirmer</CODE>
+ that adds the standard buttons for you. Also it arranges for the <B CLASS="Button">
+OK</B>
+ and <B CLASS="Button">
+Cancel</B>
+ buttons to respond to the <CODE CLASS="Code">
+Return</CODE>
+ and <CODE CLASS="Code">
+Escape</CODE>
+ keys respectively. <CODE CLASS="Code">
+popup-confirmer</CODE>
+ is discussed in the next section.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-162.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-160.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-160.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

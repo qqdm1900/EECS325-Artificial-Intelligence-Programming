@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.3.5  Invoking a method that returns a structure
+</TITLE>
+
+<LINK REL="next" HREF="objc-16.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-14.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-10.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-3.htm">1 Introduction to the Objective-C Interface</A> &gt; <A HREF="objc-10.htm">1.3  Invoking Objective-C methods</A><BR><BR>
+</DIV><A HREF="objc-16.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-14.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888561"></A>1.3.5  <A NAME="95504"></A>Invoking a method that returns a structure<A NAME="marker-892193"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-888664"></A>As mentioned in <A HREF="objc-13.htm#99180" CLASS="XRef">Special argument and result conversion</A>, when <A NAME="marker-892117"></A><A HREF="objc-47.htm#46194" CLASS="XRef">invoke</A> is used with a method whose return type is one of the structure types listed in <A HREF="objc-13.htm#46894" CLASS="XRef">Special argument and result conversion for invoke</A>, such as <CODE CLASS="Code">
+NSRect</CODE>
+, a vector or cons containing the fields of the structure is returned. For other structure types defined with <A NAME="marker-892198"></A><A HREF="objc-44.htm#38029" CLASS="XRef">define-objc-struct</A>, the function <A NAME="marker-892203"></A><A HREF="objc-49.htm#40401" CLASS="XRef">invoke-into</A> must be used to call the method. This takes the same arguments as <A HREF="objc-47.htm#46194" CLASS="XRef">invoke</A>, except that there is an extra initial argument, <EM CLASS="Variable">
+result</EM>
+, which should be a pointer to a foreign structure of the appropriate type for the method. When the method returns, the value is copied into this structure.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888767"></A>For example, a call in Objective-C such as:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888768"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888769"></A>  NSRect rect = [box frame];</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888770"></A>  ...</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888771"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-892220"></A>could be written using <A HREF="objc-49.htm#40401" CLASS="XRef">invoke-into</A> as:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-892221"></A>(fli:with-dynamic-foreign-objects ((rect <A NAME="marker-892226"></A>cocoa:ns-rect))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-892222"></A>  (objc:invoke-into rect box &quot;frame&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888644"></A>  ...)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888712"></A>In addition, for the structure return types mentioned in <A HREF="objc-13.htm#46894" CLASS="XRef">Special argument and result conversion for invoke</A>, an appropriately sized vector or cons can be passed as <EM CLASS="Variable">
+result</EM>
+ and this is filled with the field values.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888721"></A>For example, the above call could also be written using <A HREF="objc-49.htm#40401" CLASS="XRef">invoke-into</A> as:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888722"></A>(let ((rect (make-array 4)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888723"></A>  (objc:invoke-into rect box &quot;frame&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888724"></A>  ...)</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-16.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-14.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

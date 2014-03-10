@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ open-pipe
+</TITLE>
+
+<LINK REL="next" HREF="lw-1412.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1410.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1412.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1410.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-989388"></A><A NAME="15712"></A>open<A NAME="marker-1039304"></A>-pipe</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-989390"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-989392"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-993269"></A>Runs a command in a subshell.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-993268"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-989393"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-989394"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-989395"></A>open-pipe <EM CLASS="Variable">
+command</EM>
+ &amp;key <EM CLASS="Variable">
+direction</EM>
+ <EM CLASS="Variable">
+element-type</EM>
+ <EM CLASS="Variable">
+interrupt-off</EM>
+ <EM CLASS="Variable">
+shell-type</EM>
+ <A NAME="marker-1659759"></A><EM CLASS="Variable">
+use-pty</EM>
+ =&gt; <EM CLASS="Variable">
+stream</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-990691"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-990692"></A><EM CLASS="Variable">
+command</EM>
+</P>
+<P CLASS="RDescription-C">A string, a list of strings, a simple-vector of strings, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-990693"></A><EM CLASS="Variable">
+direction</P>
+<P CLASS="RDescription-C"></EM>
+<CODE CLASS="Code">
+:input</CODE>
+, <CODE CLASS="Code">
+:output</CODE>
+ or <CODE CLASS="Code">
+:io</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-989405"></A><EM CLASS="Variable">
+element-type</EM>
+</P>
+<P CLASS="RDescription-C">A type specifier.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-989406"></A><EM CLASS="Variable">
+interrupt-off</EM>
+</P>
+<P CLASS="RDescription-C">A boolean. Not implemented on Microsoft Windows.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-989407"></A><EM CLASS="Variable">
+shell-type</P>
+<P CLASS="RDescription-C"></EM>
+A shell type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1659012"></A><EM CLASS="Variable">
+use-pty</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-989408"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-989409"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">A pipe stream. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-989410"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-989411"></A><A NAME="marker-1030245"></A><A NAME="marker-1030246"></A>On Unix/Linux/Mac OS X/FreeBSD the behavior of <CODE CLASS="Code">
+open-pipe</CODE>
+ is analogous to that of <CODE CLASS="Code">
+popen</CODE>
+ in the UNIX library. It creates a  pipe<A NAME="marker-989412"></A> to/from a subprocess and returns a stream. The stream can be read from or written to as appropriate.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-990575"></A>On Microsoft Windows <CODE CLASS="Code">
+open-pipe</CODE>
+ calls <CODE CLASS="Code">
+CreateProcess</CODE>
+ and <CODE CLASS="Code">
+CreatePipe</CODE>
+  and returns a bidirectional stream.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1219796"></A><EM CLASS="Variable">
+command</EM>
+ is interpreted as by <A HREF="lw-1342.htm#20692" CLASS="XRef">call-system-showing-output</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-989414"></A><EM CLASS="Variable">
+direction</EM>
+ is a keyword for the stream direction. The default value is <CODE CLASS="Code">
+:input</CODE>
+. Bidirectional (I/O) pipes may be created by pasing <CODE CLASS="Code">
+:io</CODE>
+. See the example below. This argument is ignored on Microsoft Windows.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001730"></A><EM CLASS="Variable">
+element-type</EM>
+ specifies the type of the stream as with <A HREF="lw-659.htm#39723" CLASS="XRef">open</A>. The default value is <CODE CLASS="Code">
+base-char</CODE>
+. This argument is ignored on Microsoft Windows.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-989416"></A><EM CLASS="Variable">
+interrupt-off</EM>
+, if <CODE CLASS="Code">
+t</CODE>
+, ensures that <CODE CLASS="Code">
+Ctrl+C</CODE>
+ (SIGINT) to the LispWorks image is ignored by the subprocess. This argument is not implemented on Microsoft Windows.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-989417"></A><EM CLASS="Variable">
+shell-type</EM>
+ specifies the type of shell to run.  On Unix-like systems the default value is <CODE CLASS="Code">
+&quot;/bin/sh&quot;</CODE>
+. On Microsoft Windows the default value is <CODE CLASS="Code">
+&quot;cmd&quot;</CODE>
+.  Note that on Windows ME/98/95 you will need to pass <CODE CLASS="Code">
+&quot;command&quot;</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1659031"></A><EM CLASS="Variable">
+use-pty</EM>
+ is useful on Unix-like systems if the sub-process behaves differently when running interactively and non-interactively. When <EM CLASS="Variable">
+use-pty</EM>
+ is non-nil, the input and output of the sub-process are opened using PTY (Pseudo-pty). That means that the sub-process sees its input and output as if they come from an interactive terminal. The PTY also processes special characters such as Ctrl-C the same way that an ordinary TTY does.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1659040"></A><EM CLASS="Variable">
+use-pty</EM>
+ is probably not useful on Microsoft Windows as there is no concept corresponding to the Unix behavior. If <EM CLASS="Variable">
+use-pty</EM>
+ is non-nil then it uses the <CODE CLASS="Code">
+CREATE_NEW_PROCESS_GROUP</CODE>
+ flag when creating the child, but it is not obvious when this might be useful.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1001762"></A><EM CLASS="Variable">
+stream</EM>
+ supports mixed character and binary I/O in the same way as file streams constructed by <A HREF="lw-659.htm#39723" CLASS="XRef">open</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-989418"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-989419"></A>Example on Unix:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-991173"></A>CL-USER 1 &gt; (setf *ls* (sys:open-pipe &quot;ls&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989420"></A>Warning: Setting unbound variable *LS*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989421"></A>#&lt;SYSTEM::PIPE-STREAM &quot;ls&quot;&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989422"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989423"></A>CL-USER 2 &gt; (loop while </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989424"></A>                  (print (read-line *ls* nil nil)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989425"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989426"></A>&quot;hello&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989427"></A>&quot;othello&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989428"></A>NIL </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989429"></A>NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989430"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989431"></A>CL-USER 3 &gt; (close *ls*)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-989432"></A>T</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-989433"></A>The following example shows you how to use bidirectional pipes.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-989434"></A>CL-USER 1 &gt;  (with-open-stream</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989435"></A>                   (s (sys:open-pipe &quot;/bin/csh&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989436"></A>                                     :direction :io))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989437"></A>                 (write-line &quot;whereis ls&quot; s) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989438"></A>                 (force-output s)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989439"></A>                 (read-line s))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-989440"></A>&quot;ls: /sbin/ls /usr/bin/ls /usr/share/man/man1.Z/ls.1&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-991403"></A>NIL</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-992403"></A>Example on Microsoft Windows</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-992865"></A>CL-USER 40 &gt; (setf *ls* (sys:open-pipe &quot;dir&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992866"></A>#&lt;WIN32::TWO-WAY-PIPE-STREAM 205F03F4&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992867"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992868"></A>CL-USER 41 &gt; (loop while </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992869"></A>                   (print (read-line *ls* nil nil)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992870"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992871"></A>&quot; Volume in drive Z is lispsrc&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992872"></A>&quot; Volume Serial Number is 82E3-1342&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992873"></A>&quot;&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992874"></A>&quot; Directory of Z:&#92;&#92;v42&#92;&#92;delivery-tests&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992875"></A>&quot;&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992876"></A>&quot;20/02/02  11:57a        &lt;DIR&gt;          .&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992877"></A>&quot;20/02/02  11:57a        &lt;DIR&gt;          ..&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992878"></A>&quot;14/02/02  07:04p             6,815,772 othello.exe&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992879"></A>&quot;14/02/02  07:07p             6,553,628 hello.exe&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992880"></A>&quot;               4 File(s)     13,369,400 bytes&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992881"></A>&quot;                          3,974,103,040 bytes free&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992882"></A>NIL </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992883"></A>NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992884"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-992885"></A>CL-USER 42 &gt; (close *ls*)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-992424"></A>T</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-992425"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-989446"></A><A HREF="lw-1341.htm#26978" CLASS="XRef">call-system</A><BR>
+<A HREF="lw-1342.htm#20692" CLASS="XRef">call-system-showing-output</A><BR>
+<A HREF="lw-1414.htm#84954" CLASS="XRef">pipe-kill-process</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1412.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1410.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

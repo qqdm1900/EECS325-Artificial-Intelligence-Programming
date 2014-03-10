@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.4  The CAPI menu hierarchy
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-126.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-124.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-121.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-121.htm">9 Creating Menus </A><BR><BR>
+</DIV><A HREF="capiuser-m-126.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-124.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-121.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884305"></A>9.4  The CAPI menu hierarchy</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884309"></A><A NAME="marker-884306"></A><A NAME="marker-884307"></A><A NAME="marker-884308"></A>The combination of menu items, menu components and menus can create a hierarchical structure as shown schematically in <A HREF="capiuser-m-125.htm#88530" CLASS="XRef">A schematic example of a menu hierarchy</A> and graphically in <A HREF="capiuser-m-125.htm#77383" CLASS="XRef">An example of a menu hierarchy</A>. This menu has five elements, one of which is itself a menu (with three menu items) and the remainder are menu components and menu items. Items in a menu inherit values from their parent, allowing similar elements to share relevant properties whenever possible.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-900396"></A>(defun menu-item-name (data)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900397"></A>  (format nil &quot;Menu Item &#126;D&quot; data))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900398"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900399"></A>(defun submenu-item-name (data)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900400"></A>  (format nil &quot;Submenu Item &#126;D&quot; data))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900401"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900402"></A>(contain </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900403"></A> (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900404"></A>  'menu </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900405"></A>  :items </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900406"></A>  (list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900407"></A>   (make-instance 'menu-component</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900408"></A>                  :items '(1 2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900409"></A>                  :print-function 'menu-item-name</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900410"></A>                  )</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900411"></A>   (make-instance 'menu-component</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900412"></A>                  :items </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900413"></A>                  (list 3 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900414"></A>                        (make-instance </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900415"></A>                         'menu</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900416"></A>                         :title &quot;Submenu&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900417"></A>                         :items '(1 2 3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900418"></A>                         :print-function</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900419"></A>                         'submenu-item-name))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900420"></A>                  :print-function 'menu-item-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900421"></A>   (make-instance 'menu-item</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900422"></A>                  :data 42))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-900423"></A>  :print-function 'menu-item-name))</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-900573"></A>Figure 9.5  <A NAME="88530"></A>A schematic example of a menu hierarchy<DIV>
+<IMG SRC="capiuser-m-43.gif">
+</DIV>
+</P>
+<DIV>
+<MAP NAME="capiuser-m-47">
+</MAP>
+<IMG SRC="capiuser-m-47.gif" USEMAP="#capiuser-m-47">
+</DIV>
+<P CLASS="Figure">
+<A NAME="pgfId-901131"></A>Figure 9.6  <A NAME="77383"></A>An example of a menu hierarchy<DIV>
+<IMG SRC="capiuser-m-43.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-48.gif">
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-126.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-124.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-121.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

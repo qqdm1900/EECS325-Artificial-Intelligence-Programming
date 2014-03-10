@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ allowing-block-interrupts
+</TITLE>
+
+<LINK REL="next" HREF="lw-1004.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1004.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1308743"></A><A NAME="64599"></A>allowing<A NAME="marker-1308741"></A>-block-interrupts</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1264377"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1261869"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1261870"></A>Allows control over blocking interrupts.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1803504"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1803505"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1261871"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1261872"></A>allowing-block-interrupts <EM CLASS="Variable">
+start-blocked</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+results</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1261875"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1261876"></A><EM CLASS="Variable">
+start-blocked</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1261877"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Code</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1261878"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1261879"></A><EM CLASS="Variable">
+results</EM>
+</P>
+<P CLASS="RDescription-C">Values returned by evaluating <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1261880"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1261881"></A>The macro <CODE CLASS="Code">
+allowing-block-interrupts</CODE>
+ executes <EM CLASS="Variable">
+body</EM>
+ allowing control over blocking interrupts by <A HREF="lw-1024.htm#86857" CLASS="XRef">current-process-unblock-interrupts</A> and <A HREF="lw-1024.htm#86857" CLASS="XRef">current-process-unblock-interrupts</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1261882"></A>Within the dynamic scope of <CODE CLASS="Code">
+allowing-block-interrupts</CODE>
+, you can switch the blocking of interrupts on and off. Blocking interrupts prevents any interruption of the current process, including <A HREF="lw-1078.htm#62800" CLASS="XRef">process-interrupt</A>, <A HREF="lw-1080.htm#65256" CLASS="XRef">process-kill</A>, <A HREF="lw-1090.htm#51943" CLASS="XRef">process-reset</A>, <A HREF="lw-1071.htm#82555" CLASS="XRef">process-break</A> and <A HREF="lw-1097.htm#48925" CLASS="XRef">process-stop</A>. These interrupts are all queued and processed once interrupts become unblocked.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1261883"></A>Blocking interrupts also blocks interrupts due to UNIX interrupts. Such interrupts are processed either by another Lisp thread, or once interrupts become unblocked.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1261884"></A>If <EM CLASS="Variable">
+start-blocked</EM>
+ is true, <CODE CLASS="Code">
+allowing-block-interrupts</CODE>
+ blocks interrupts on entry. If <EM CLASS="Variable">
+start-blocked</EM>
+ is false, the state does not change on entry. If you want to ensure that the initial forms of <CODE CLASS="Code">
+allowing-block-interrupts</CODE>
+ are interruptible even if it is inside the scope of another <CODE CLASS="Code">
+allowing-block-interrupts</CODE>
+, you need to explicitly call <A HREF="lw-1024.htm#86857" CLASS="XRef">current-process-unblock-interrupts</A> on entry.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1261886"></A><CODE CLASS="Code">
+allowing-block-interrupts</CODE>
+ can be used recursively.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1261887"></A>In compiled code, <CODE CLASS="Code">
+allowing-block-interrupts</CODE>
+ with a true value of the <EM CLASS="Variable">
+start-blocked</EM>
+ argument is guaranteed not to process interrupts before an explicit change to the blocking state (that includes exiting the scope of <CODE CLASS="Code">
+allowing-block-interrupts</CODE>
+). In particular, if the first cleanup form of an <CODE CLASS="Code">
+unwind-protect</CODE>
+ is a call to <CODE CLASS="Code">
+allowing-block-interrupts</CODE>
+, it is guaranteed to execute without interrupts on exit from the protected form. No such guarantee is given in interpreted code.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1281910"></A>On exit from <CODE CLASS="Code">
+allowing-block-interrupts</CODE>
+, the current state of interrupt blocking and whether there is a surrounding use of <CODE CLASS="Code">
+allowing-block-interrupts</CODE>
+ or <A HREF="lw-1135.htm#43645" CLASS="XRef">with-interrupts-blocked</A> is restored to the state that existed on entry.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1261889"></A><CODE CLASS="Code">
+allowing-block-interrupts</CODE>
+ returns the results of <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1261890"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1860663"></A><A HREF="lw-1021.htm#98454" CLASS="XRef">current-process-block-interrupts</A><BR>
+<A HREF="lw-1024.htm#86857" CLASS="XRef">current-process-unblock-interrupts</A><BR>
+<A HREF="lw-1071.htm#82555" CLASS="XRef">process-break</A><BR>
+<A HREF="lw-1078.htm#62800" CLASS="XRef">process-interrupt</A><BR>
+<A HREF="lw-1080.htm#65256" CLASS="XRef">process-kill</A><BR>
+<A HREF="lw-1090.htm#51943" CLASS="XRef">process-reset</A><BR>
+<A HREF="lw-1097.htm#48925" CLASS="XRef">process-stop</A><BR>
+<A HREF="lw-1135.htm#43645" CLASS="XRef">with-interrupts-blocked</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1004.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

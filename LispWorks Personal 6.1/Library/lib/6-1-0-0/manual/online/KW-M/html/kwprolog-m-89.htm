@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.2.2.2  Optimization of the Strategy
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-90.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-88.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-87.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A> &gt; <A HREF="kwprolog-m-83.htm">6.2  Optimization</A> &gt; <A HREF="kwprolog-m-87.htm">6.2.2  Conflict Resolution</A><BR><BR>
+</DIV><A HREF="kwprolog-m-90.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-88.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-87.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-891891"></A>6.2.2.2  Optimization of the Strategy</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891892"></A>A conflict resolution strategy may be optimized by combining the constituent tactics in a more effective manner. There are three different types of <A NAME="marker-891893"></A>conflict resolution tactic:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891895"></A><EM CLASS="Emphasis">
+Rule-defined</EM>
+<A NAME="marker-891894"></A> (meaning the tactic relies only on the rule of the instantiation and on nothing else), including <CODE CLASS="Code">
+priority</CODE>
+, <CODE CLASS="Code">
+-priority</CODE>
+, <CODE CLASS="Code">
+order</CODE>
+, <CODE CLASS="Code">
+-order</CODE>
+, <CODE CLASS="Code">
+specificity</CODE>
+ and <CODE CLASS="Code">
+-specificity</CODE>
+</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891897"></A><EM CLASS="Emphasis">
+Static</EM>
+<A NAME="marker-891896"></A> (meaning the tactic does not look into the slots of the matched objects which make up the instantiation), including <CODE CLASS="Code">
+recency</CODE>
+ and <CODE CLASS="Code">
+-recency</CODE>
+, and</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891899"></A><EM CLASS="Emphasis">
+Dynamic</EM>
+<A NAME="marker-891898"></A> (meaning the tactic may look into the objects making up the instantiation), including <CODE CLASS="Code">
+mea</CODE>
+, <CODE CLASS="Code">
+-mea</CODE>
+, <CODE CLASS="Code">
+lex</CODE>
+ and <CODE CLASS="Code">
+-lex</CODE>
+.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-891900"></A>KnowledgeWorks is best able to optimize rule-defined tactics and least able to optimize dynamic tactics. The optimizations for a particular type of tactic can only be applied if it is preceded only by tactics which can be optimized to the same degree (or better). For example, in the strategy <CODE CLASS="Code">
+(recency priority)</CODE>
+, the tactic <CODE CLASS="Code">
+priority</CODE>
+ would only be optimized as a static tactic. In the strategy <CODE CLASS="Code">
+(priority mea recency)</CODE>
+, <CODE CLASS="Code">
+priority</CODE>
+ can be optimized as a rule-defined tactic but <CODE CLASS="Code">
+recency</CODE>
+ will be treated as a dynamic tactic.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891901"></A>Some final points to bear in mind:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891902"></A>Tactics which tend to prefer existing instantiations over newer ones (for example <A NAME="marker-891903"></A><CODE CLASS="Code">
+-mea</CODE>
+, <A NAME="marker-891904"></A><CODE CLASS="Code">
+-lex</CODE>
+ and<A NAME="marker-891905"></A> <CODE CLASS="Code">
+-recency</CODE>
+) will degrade performance</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891906"></A><CODE CLASS="Code">
+recency</CODE>
+ and <CODE CLASS="Code">
+lex</CODE>
+ have similar functionality but <CODE CLASS="Code">
+recency</CODE>
+ is more efficient.</LI>
+</UL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-90.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-88.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-87.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

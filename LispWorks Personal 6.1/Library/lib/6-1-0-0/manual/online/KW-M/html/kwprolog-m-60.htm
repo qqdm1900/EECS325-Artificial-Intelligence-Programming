@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.2.2  Extended Example
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-61.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-59.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-58.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-53.htm">4 Objects</A> &gt; <A HREF="kwprolog-m-58.htm">4.2   Relational Database Objects</A><BR><BR>
+</DIV><A HREF="kwprolog-m-61.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-59.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-58.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-891686"></A>4.2.2  Extended Example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893328"></A>The following example is a complete segment of code which allocates person objects to vehicle objects. Note how once the class definitions have been made, the rules do not in any way reflect the fact that there is an underlying database. The example output assumes a database initialized by the following SQL statements:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891688"></A>drop table VEHICLE ;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891689"></A>create table VEHICLE </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891690"></A>  (PLATE CHAR(8) NOT NULL, MAKE CHAR(20), </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891691"></A>   PRICE INTEGER, OWNER CHAR(20)  );</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891692"></A>grant all on VEHICLE to public ;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893352"></A>insert into VEHICLE values </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893353"></A>  ('E265 FOO', 'VAUXHALL', 5000, '');</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893354"></A>insert into VEHICLE values </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893355"></A>  ('XDG 792S', 'ROLLS', 50000, '');</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891697"></A>insert into VEHICLE values </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891698"></A>  ('F360 OOL', 'FORD', 4000, 'PERSEPHONE');</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891699"></A>insert into VEHICLE values </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891700"></A>  ('H151 EEE', 'JAGUAR', 15000, '');</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891701"></A>insert into VEHICLE values </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891702"></A>  ('G722 HAD', 'SKODA', 500, '');</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891703"></A>drop table PERSON ;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891704"></A>create table PERSON </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891705"></A>  (NAME CHAR(20) NOT NULL, SALARY INTEGER, VEHICLE CHAR(8),</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891706"></A>   EMPLOYER CHAR(20)  ) ;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891707"></A>insert into PERSON values ('FRED', 10000, '', 'IBM');</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891708"></A>insert into PERSON values ('HARRY', 20000, '', 'FORD');</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891709"></A>insert into PERSON values ('PHOEBE', 5000, '', '' );</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891710"></A>insert into PERSON values ('TOM', 50000, '', 'ACME' );</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891711"></A>insert into PERSON values </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891712"></A>  ('PERSEPHONE', 15000, 'F360 OOL', 'ICL');</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891713"></A>drop table COMPANY ;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891714"></A>create table COMPANY </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891715"></A>  (NAME CHAR (20), PRODUCT CHAR(10) );</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891716"></A>insert into COMPANY values ('IBM', 'COMPUTERS');</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891717"></A>insert into COMPANY values ('FORD', 'CARS');</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891718"></A>insert into COMPANY values ('ICL', 'COMPUTERS');</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891719"></A>insert into COMPANY values ('ACME', 'TEAPOTS');</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-893385"></A>Below is an example rulebase that analyses the database and outputs a suggestion as to which vehicle should be allocated to which person. The full code and the SQL statements to set up the database are included in the examples distributed with KnowledgeWorks.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891721"></A>(in-package &quot;KW-USER&quot;)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891722"></A>;;; the vehicle class maps onto the car table in the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891723"></A>;;; database owner is a join slot which looks up the</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893393"></A>;;; owner person object</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-893394"></A>(sql:def-view-class vehicle </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893395"></A>     (sql:standard-db-object standard-kb-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891727"></A>  ((number-plate :accessor vehicle-number-plate </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891728"></A>                 :type (string 8)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891729"></A>                 :db-kind :key </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891730"></A>                 :column plate)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891731"></A>   (make :accessor vehicle-make </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891732"></A>         :type (string 20)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891733"></A>         :db-kind :base </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891734"></A>         :column make)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891735"></A>   (price :accessor vehicle-price </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891736"></A>          :type integer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891737"></A>          :db-kind :base </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891738"></A>          :column price)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891739"></A>   (owner-name :type (string 20)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891740"></A>               :db-kind :base </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891741"></A>               :column owner)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891742"></A>   (owner :accessor vehicle-owner </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891743"></A>          :db-kind :join</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891744"></A>          :db-info (:home-key owner-name</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891745"></A>                    :foreign-key name</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891746"></A>                    :join-class person</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891747"></A>                    :set nil</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-892057"></A>                    :retrieval :deferred))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891749"></A>;;; the person class maps onto the person table in the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891750"></A>;;; database</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891751"></A>;;; vehicle is a join slot which looks up the owned </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893431"></A>;;; vehicle object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891753"></A>;;; company is a join slot which looks up the company</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891754"></A>;;; object</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891755"></A>(sql:def-view-class person </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891756"></A>     (sql:standard-db-object standard-kb-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891757"></A>  ((name :accessor person-name </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891758"></A>         :type (string 20)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891759"></A>         :db-kind :key </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891760"></A>         :column name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891761"></A>   (salary :accessor person-salary </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891762"></A>           :type integer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891763"></A>           :db-kind :base </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891764"></A>           :column salary)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891765"></A>   (vehicle-number-plate :type (string 8)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891766"></A>                         :db-kind :base </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891767"></A>                         :column vehicle)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891768"></A>   (vehicle :accessor person-vehicle </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891769"></A>        :db-kind :join</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891770"></A>        :db-info (:home-key vehicle-number-plate</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891771"></A>                  :foreign-key number-plate</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891772"></A>                  :join-class vehicle</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891773"></A>                  :set nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891774"></A>                  :retrieval :deferred))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891775"></A>   (employer :type (string 20)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891776"></A>             :db-kind :base </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891777"></A>             :column employer)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891778"></A>   (company :accessor person-company </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891779"></A>            :db-kind :join</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891780"></A>            :db-info (:home-key employer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891781"></A>                      :foreign-key name</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891782"></A>                      :join-class company</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891783"></A>                      :set nil</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891784"></A>                      :retrieval :deferred))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891785"></A>;;; the company class maps onto the company table in</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891786"></A>;;; the database</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891787"></A>(sql:def-view-class company </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891788"></A>       (sql:standard-db-object standard-kb-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891789"></A>  ((name :accessor company-name </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891790"></A>         :type (string 20)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891791"></A>         :db-kind :key </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891792"></A>         :column name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891793"></A>   (product :accessor company-product </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891794"></A>            :type (string 10)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891795"></A>            :db-kind :base </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891796"></A>            :column product)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891797"></A>;;; here we assume we have a database connected with</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891798"></A>;;; the correct data in it - if we do we retrieve all</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891799"></A>;;; the person and vehicle objects but company objects</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891800"></A>;;; will be retrieved only when needed by querying</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891801"></A>;;; the company slot of the person objects</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891802"></A>(if sql:*default-database*</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891803"></A>    (progn (sql:select 'vehicle)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891804"></A>           (sql:select 'person))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891805"></A>    (format t </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891806"></A>            &quot;&#126;%Please connect to a database with</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891807"></A>              contents &#126; created by file data.sql&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891808"></A>;;; to store which vehicles a person can drive</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891809"></A>(def-kb-struct vehicles-for-person person vehicles)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891810"></A>(defcontext database-example :strategy (priority))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891811"></A>;;; for every person initialise the list of vehicles they</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891812"></A>;;; can drive</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-893582"></A>(defrule init-vehicles-for-person :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893583"></A>  :context database-example</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893584"></A>  (person ?person vehicle nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893585"></A>  --&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893586"></A>  (assert (vehicles-for-person ? person ?person vehicles nil)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891819"></A>;;; for every vehicle a person can drive which hasn't yet</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891820"></A>;;; been included in the list, add it to the list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893559"></A>(defrule vehicle-for-person :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893560"></A>  :context database-example</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893561"></A>  (person ?person vehicle nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893562"></A>  (vehicle ?vehicle owner nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893563"></A>  (vehicles-for-person ?c-f-p</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893572"></A>                       person ?person</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893575"></A>                       vehicles ?vehicles)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893564"></A>  (test (not (member ?vehicle ?vehicles)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893576"></A>        ; has it been included?</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893565"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893566"></A>  (vehicle-ok-for-person ?vehicle ?person)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893577"></A>         ; check if ok to drive vehicle</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891821"></A>  (assert (vehicles-for-person ?c-f-p vehicles</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893578"></A>                             (?vehicle . ?vehicles))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891833"></A>;;; rules expressing what vehicles a person can drive:</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891834"></A>;;; if they have no employer they can only drive a</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891835"></A>;;; skoda otherwise they will refuse to drive a skoda.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891836"></A>;;; anyone will drive a rolls or a jag.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891837"></A>;;; they'll only drive a ford or vauxhall if salary is</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891838"></A>;;; less than 40k.</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-893516"></A>(defrule vehicle-ok-for-person :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893517"></A>  ((vehicle-ok-for-person ?vehicle ?person)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893518"></A>   &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893519"></A>   (person ?person company nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893520"></A>   (cut)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893521"></A>   (vehicle ?vehicle make &quot;SKODA&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893522"></A>  ((vehicle-ok-for-person ?vehicle ?person)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893523"></A>   &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893524"></A>   (vehicle ?vehicle make &quot;SKODA&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893525"></A>   (cut)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893526"></A>   (fail))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893527"></A>  ((vehicle-ok-for-person ?vehicle ?person)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893528"></A>   &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893529"></A>   (or (vehicle ?vehicle make &quot;ROLLS&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893530"></A>       (vehicle ?vehicle make &quot;JAGUAR&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893531"></A>   (cut))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893532"></A>  ((vehicle-ok-for-person ?vehicle ?person)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893533"></A>   &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893534"></A>   (or (vehicle ?vehicle make &quot;VAUXHALL&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893535"></A>       (vehicle ?vehicle make &quot;FORD&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893536"></A>   (person ?person salary ?salary)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891839"></A>   (test (&lt; ?salary 40000))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-893555"></A>;;; next to rules are just simple allocation rules,</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891862"></A>;;; trying out each possibility until one fits</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891863"></A>(defrule alloc-vehicles-to-persons :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891864"></A>  ((alloc-vehicles-to-persons ?allocs)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891865"></A>   &lt;--</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891866"></A>   (alloc-internal nil nil nil ?allocs)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891867"></A>(defrule alloc-internal :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891868"></A>  ((alloc-internal ?done-persons ?done-vehicles </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891869"></A>                  ?allocs ?allocs)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891870"></A>   &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891871"></A>   (not (and (vehicles-for-person ? person ?person)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891872"></A>             (not (member ?person ?done-persons))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891873"></A>   (cut))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891874"></A>  ((alloc-internal ?done-persons ?done-vehicles</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891875"></A>                  ?allocs-so-far ?allocs)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891876"></A>   &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891877"></A>   (vehicles-for-person ? person ?person</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893592"></A>                          vehicles ?vehicles)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891878"></A>   (not (member ?person ?done-persons))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891879"></A>   (member ?vehicle ?vehicles)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891880"></A>   (not (member ?vehicle ?done-vehicles))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891881"></A>   (alloc-internal (?person . ?done-persons)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891882"></A>                   (?vehicle . ?done-vehicles)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891883"></A>                   ((?person . ?vehicle) . ?allocs-so-far)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891884"></A>                   ?allocs)))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891885"></A>;;; find a solution and print it out</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891886"></A>(defrule find-solution :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891887"></A>  :context database-example</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891888"></A>  :priority 5</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891889"></A>  (not (not (vehicles-for-person ?)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891890"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891891"></A>  (alloc-vehicles-to-persons ?solution)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891892"></A>  ((dolist (pair ?solution)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891893"></A>     (format t &quot;&#126;%&#126;A drives &#126;A&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891894"></A>            (person-name (car pair))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891895"></A>            (vehicle-number-plate (cdr pair))))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891896"></A>Below is sample output from the rulebase with SQL recording turned on to demonstrate the SQL statements that are automatically passed to the database by manipulating the objects:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891897"></A>KW-USER 53 &gt; (infer :contexts '(database-example))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891898"></A>(SELECT VEHICLE.PLATE,VEHICLE.MAKE,VEHICLE.PRICE,VEHICLE.OWNER FROM VEHICLE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891899"></A> WHERE (VEHICLE.PLATE = 'F360 OOL'))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891900"></A>(SELECT VEHICLE.PLATE,VEHICLE.MAKE,VEHICLE.PRICE,VEHICLE.OWNER FROM VEHICLE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891901"></A> WHERE (VEHICLE.PLATE = ''))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891902"></A>(SELECT VEHICLE.PLATE,VEHICLE.MAKE,VEHICLE.PRICE,VEHICLE.OWNER FROM VEHICLE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891903"></A> WHERE (VEHICLE.PLATE = ''))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891904"></A>(SELECT</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891905"></A> PERSON.NAME,PERSON.SALARY,PERSON.VEHICLE,PERSON.EMPLOYER</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891906"></A> FROM PERSON WHERE (PERSON.NAME = ''))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891907"></A>(SELECT VEHICLE.PLATE,VEHICLE.MAKE,VEHICLE.PRICE,VEHICLE.OWNER FROM VEHICLE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891908"></A> WHERE (VEHICLE.PLATE = ''))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891909"></A>(SELECT</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891910"></A> PERSON.NAME,PERSON.SALARY,PERSON.VEHICLE,PERSON.EMPLOYER</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891911"></A> FROM PERSON WHERE (PERSON.NAME = ''))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891912"></A>(SELECT VEHICLE.PLATE,VEHICLE.MAKE,VEHICLE.PRICE,VEHICLE.OWNER FROM VEHICLE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891913"></A> WHERE (VEHICLE.PLATE = ''))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891914"></A>(SELECT</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891915"></A> PERSON.NAME,PERSON.SALARY,PERSON.VEHICLE,PERSON.EMPLOYER</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891916"></A> FROM PERSON WHERE (PERSON.NAME = ''))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891917"></A>(SELECT</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891918"></A> PERSON.NAME,PERSON.SALARY,PERSON.VEHICLE,PERSON.EMPLOYER</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891919"></A> FROM PERSON WHERE (PERSON.NAME = ''))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891920"></A>(SELECT</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891921"></A> PERSON.NAME,PERSON.SALARY,PERSON.VEHICLE,PERSON.EMPLOYER</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891922"></A> FROM PERSON WHERE (PERSON.NAME = 'PERSEPHONE'))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891923"></A>(SELECT COMPANY.NAME,COMPANY.PRODUCT FROM COMPANY</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891924"></A> WHERE (COMPANY.NAME = 'FORD'))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891925"></A>(SELECT COMPANY.NAME,COMPANY.PRODUCT FROM COMPANY</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891926"></A> WHERE (COMPANY.NAME = 'ACME'))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891927"></A>(SELECT COMPANY.NAME,COMPANY.PRODUCT FROM COMPANY</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891928"></A> WHERE (COMPANY.NAME = 'IBM'))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891929"></A>(SELECT COMPANY.NAME,COMPANY.PRODUCT FROM COMPANY</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891930"></A> WHERE (COMPANY.NAME = ''))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891931"></A>HARRY drives E265 FOO</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891932"></A>TOM drives XDG 792S</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891933"></A>FRED drives H151 EEE</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891934"></A>PHOEBE drives G722 HAD</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891935"></A>26</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-61.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-59.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-58.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

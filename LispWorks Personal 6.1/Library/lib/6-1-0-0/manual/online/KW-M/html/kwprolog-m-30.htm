@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.1.2  Forward Chaining Syntax
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-31.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-29.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-28.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-27.htm">3 Rules</A> &gt; <A HREF="kwprolog-m-28.htm">3.1  Forward chaining</A><BR><BR>
+</DIV><A HREF="kwprolog-m-31.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-29.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-28.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889820"></A>3.1.2  <A NAME="21668"></A><A NAME="marker-889819"></A>Forward Chaining Syntax</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889821"></A>Forward chaining rule bodies are defined by:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889822"></A>&lt;body&gt; ::=</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889823"></A>          [:context &lt;context-name&gt;]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889824"></A>          [:priority &lt;priority-number&gt;]</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889825"></A>          &lt;forward-condition&gt;* --&gt; &lt;expression&gt;*)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889826"></A>where <CODE CLASS="Code">
+&lt;context-name&gt;</CODE>
+ is the name of a context which has already been defined (see <A HREF="kwprolog-m-35.htm#43460" CLASS="XRef">Control Flow</A>) defaulting to <CODE CLASS="Code">
+default-context</CODE>
+, and <CODE CLASS="Code">
+&lt;priority-number&gt;</CODE>
+ is a number (see <EM CLASS="Body">
+<A HREF="kwprolog-m-35.htm#43460" CLASS="XRef">Control Flow</A></EM>
+) defaulting to <CODE CLASS="Code">
+10</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889834"></A>The <A NAME="marker-889833"></A>syntax for forward-conditions is<CODE CLASS="Code">
+:</CODE>
+</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891644"></A>&lt;forward-condition&gt; ::=</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891645"></A>     &lt;object-condition&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891646"></A>     |  (test &lt;lisp-expr&gt;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890990"></A>     |  (not &lt;forward-condition&gt;+)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889837"></A>     |  (logical &lt;forward-condition&gt;+)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891657"></A>&lt;object-condition&gt; ::=</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891658"></A>     (&lt;class-name&gt; &lt;variable&gt; [&lt;object-slot-condition&gt;]*)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-891662"></A>&lt;object-slot-condition&gt; ::=</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891663"></A>     &lt;slot-name&gt; &lt;term&gt;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891655"></A><CODE CLASS="Code">
+&lt;object-condition&gt;</CODE>
+ is an object-base match where the variables (introduced by &quot;?&quot;) in  <CODE CLASS="Code">
+&lt;term&gt;</CODE>
+ are bound (via destructuring) to the corresponding data in the slot named by <CODE CLASS="Code">
+&lt;slot-name&gt;. &lt;variable&gt;</CODE>
+ is a single variable bound to the object matched.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890143"></A><B CLASS="Bold">
+Note:</B>
+ &quot;?&quot; on its own denotes an anonymous variable which always matches.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891691"></A><CODE CLASS="Code">
+(test &lt;lisp-expr&gt;)</CODE>
+ is a <A NAME="marker-891690"></A>Lisp test where <CODE CLASS="Code">
+&lt;lisp-expr&gt;</CODE>
+ is any Lisp expression using the variables bound by other conditions, and which must succeed (return non-nil) for the condition to match. Computationally cheap Lisp tests can frequently be used to reduce the search space created by the object base conditions. Lisp tests, and any functions invoked by them, should not depend on any dynamic global data structures, as changing such structures (and hence the instantiations of the rule) will be invisible to the inference engine. Lisp tests can depend on the values of slots in objects matched by preceding object-base conditions only if the values are bound to variables in the rule using the <CODE CLASS="Code">
+&lt;object-slot-condition&gt;</CODE>
+ syntax. They cannot depend on values obtained by calling <CODE CLASS="Code">
+slot-value</CODE>
+ or a reader function.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891693"></A><CODE CLASS="Code">
+(not &lt;forward-condition&gt;+)</CODE>
+<A NAME="marker-891692"></A> is simply a negated condition. A negated condition never binds any variables outside its scope. Variables not bound before the negation will remain unbound after it.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891054"></A><CODE CLASS="Code">
+(logical &lt;forward-condition&gt;+)</CODE>
+<A NAME="marker-891100"></A> is used to indicate clauses that describe the <I CLASS="Italic">
+logical dependencies</I>
+<A NAME="marker-891498"></A> amongst objects. See <A HREF="kwprolog-m-96.htm#21448" CLASS="XRef">Logical Dependencies and Truth Maintenance</A>for more details.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891045"></A>Note that if a forward chaining rule contains any conditions at all then it must contain at least one object base reference of the form </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-890298"></A>(&lt;class-name&gt; &lt;variable&gt; ...)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-889850"></A>The <A NAME="marker-889849"></A>syntax for expressions is:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889851"></A>&lt;expression&gt; ::=</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889852"></A>       &lt;forward-condition&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889854"></A>         |(<A NAME="marker-889853"></A>erase &lt;variable&gt;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889856"></A>         |(<A NAME="marker-889855"></A>assert (&lt;class-name&gt; &lt;variable&gt; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889857"></A>                   [&lt;slot-name&gt; &lt;term&gt;]*))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889859"></A>         |(<A NAME="marker-889858"></A>context &lt;context-list&gt;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889861"></A>         |(<A NAME="marker-889860"></A>return)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889862"></A>         |(&lt;lisp-expr&gt; &lt;term&gt;*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889863"></A>         |&lt;goal&gt;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889864"></A><CODE CLASS="Code">
+&lt;forward-condition&gt;</CODE>
+ is a forward condition which must succeed for execution of the action part of the rule to continue.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891091"></A><CODE CLASS="Code">
+(erase &lt;variable&gt;)</CODE>
+<A NAME="marker-891090"></A> removes the instance bound to <CODE CLASS="Code">
+&lt;variable&gt;</CODE>
+ from the knowledge base. It is an error if <CODE CLASS="Code">
+&lt;variable&gt;</CODE>
+ is bound to anything but a KnowledgeWorks instance.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891093"></A><CODE CLASS="Code">
+(assert (&lt;class-name&gt; &lt;variable&gt; [&lt;slot-name&gt; &lt;term&gt;]*))</CODE>
+<A NAME="marker-891092"></A> is an <A NAME="marker-891094"></A>assertion which modifies the contents of the object base, where if <CODE CLASS="Code">
+&lt;variable&gt;</CODE>
+ is unbound a new object of the given class with the given slot-values is created, and if it is bound, the object to which it is bound has its slots modified to the given values.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889871"></A><CODE CLASS="Code">
+(context &lt;context-list&gt;)</CODE>
+<A NAME="marker-889870"></A> adds the given list of contexts to the top of agenda (see <A HREF="kwprolog-m-35.htm#43460" CLASS="XRef">Control Flow</A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-889876"></A><CODE CLASS="Code">
+(return)</CODE>
+<A NAME="marker-889875"></A> passes control to the top context on the agenda and removes it from the agenda (see <A HREF="kwprolog-m-35.htm#43460" CLASS="XRef">Control Flow</A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-889880"></A><CODE CLASS="Code">
+(&lt;lisp-expr&gt; &lt;term&gt;*)</CODE>
+ binds the result or results of calling <CODE CLASS="Code">
+&lt;lisp-expr&gt;</CODE>
+ to the <CODE CLASS="Code">
+&lt;term&gt;</CODE>
+s with execution of the rule terminating if any bindings fail (if no <CODE CLASS="Code">
+&lt;term&gt;</CODE>
+s are given execution will always continue).</P>
+<P CLASS="Body">
+<A NAME="pgfId-889881"></A><CODE CLASS="Code">
+&lt;goal&gt;</CODE>
+ may be any backward chaining goal expression (see <A HREF="kwprolog-m-42.htm#88872" CLASS="XRef">Backward Chaining</A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-889885"></A>Note that in the action part of a rule, only backward chaining goals and object base matches invoke the backward chainer.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="kwprolog-m-31.htm#pgfId-889886" CLASS="Hypertext">3.1.2.1  Example</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-31.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-29.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-28.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.1  Simple tracing
+</TITLE>
+
+<LINK REL="next" HREF="lw-41.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-39.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-39.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-39.htm">5 The Trace Facility</A><BR><BR>
+</DIV><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-39.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-39.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886187"></A>5.1  Simple tracing</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886189"></A><A NAME="marker-886188"></A>This section shows you how to perform simple traces.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-886190"></A>Type this definition of the factorial function <CODE CLASS="Code">
+fac</CODE>
+ into the listener:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-886191"></A>(defun fac (n)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886192"></A> (if (= n 1) 1</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886193"></A>   (* n (fac (- n 1)))))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-886194"></A>Now trace the function by typing the following into the listener.</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886806"></A>(trace fac)</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-886195"></A>Call the function <CODE CLASS="Code">
+fac</CODE>
+ as follows:</LI>
+</OL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886196"></A>(fac 3)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886197"></A>The following trace output appears in the listener.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886198"></A>0 FAC &gt; (3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886199"></A>  1 FAC &gt; (2)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886200"></A>    2 FAC &gt; (1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886201"></A>    2 FAC &lt; (1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886202"></A>  1 FAC &lt; (2)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886203"></A>0 FAC &lt; (6)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886205"></A><A NAME="marker-886204"></A>Upon entry to each traced function call, <A HREF="lw-675.htm#58889" CLASS="XRef">trace</A> prints the following information:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886206"></A>The <I CLASS="Italic">
+level</I>
+ of tracing, that is, the number of recursive entries to <A HREF="lw-675.htm#58889" CLASS="XRef">trace</A> (starting at 0).</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886207"></A>The function name.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886208"></A>The argument for the current call. </LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-886209"></A>Each call is indented according to the level of tracing for the call.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886210"></A>Upon exit from each call, the same information is produced: The <CODE CLASS="Code">
+&gt;</CODE>
+ symbol denotes entry to a function, and the <CODE CLASS="Code">
+&lt;</CODE>
+ symbol denotes exit from it.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885999"></A>Output produced in this way is always sent to a special stream, <CODE CLASS="Code">
+*trace-output*</CODE>
+, which is either associated with the listener, or with background output. You can give other expressions to be sent to this stream, in addition to the arguments and results of a function. </P>
+<P CLASS="Body">
+<A NAME="pgfId-886000"></A>Calling <A HREF="lw-675.htm#58889" CLASS="XRef">trace</A> with no arguments produces a list of all the functions currently being traced. In order to cease tracing a function the macro <CODE CLASS="Code">
+untrace</CODE>
+ should be called with commands. All tracing can be removed by calling <CODE CLASS="Code">
+untrace</CODE>
+ with no arguments.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886001"></A>CL-USER 5 &gt; (untrace fac)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886002"></A>NIL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886003"></A>CL-USER 6 &gt; (fac 4)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886004"></A>24</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886005"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886006"></A>CL-USER 7 &gt; </PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-39.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-39.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ QuitLispWorks
+</TITLE>
+
+<LINK REL="next" HREF="lw-1525.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1523.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1519.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1519.htm">45 Dynamic library C functions</A><BR><BR>
+</DIV><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1523.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1519.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-939907"></A><A NAME="98485"></A>QuitLispWorks<A NAME="marker-940556"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-939908"></A>C function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-939909"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-940572"></A>Allows a LispWorks dynamic library to be unloaded.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-977046"></A>Signature</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-977067"></A>On Windows:</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-977068"></A>int __stdcall QuitLispWorks(int <EM CLASS="Variable">
+Force</EM>
+, int <EM CLASS="Variable">
+MilliTimeOut</EM>
+)</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977069"></A>On Linux, Macintosh, FreeBSD and x86/x64 Solaris:</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-977047"></A>int QuitLispWorks(int <EM CLASS="Variable">
+Force</EM>
+, int <EM CLASS="Variable">
+MilliTimeOut</EM>
+)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-939926"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-977103"></A>The C function <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ allows a LispWorks dynamic library to be unloaded. You should make a LispWorks dynamic library 'quit' by calling <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ before unloading the library. This call causes LispWorks to cleanup everything it uses, in particular the memory and threads.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977104"></A>In general, <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ should be called only when the LispWorks dynamic library is idle. That is, when there is no callback into the library that has not returned, and there are no processes that has started by a callback. All callbacks should return, and any processes should be killed before calling <CODE CLASS="Code">
+QuitLispWorks</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977105"></A><EM CLASS="Variable">
+Force</EM>
+ should be 0 or 1. It specifies whether to force quitting even if LispWorks is still executing something.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977106"></A><EM CLASS="Variable">
+MilliTimeOut</EM>
+ specifies how long to wait for LispWorks to complete the cleanup.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977107"></A>If LispWorks is idle, <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ signals it to quit, and waits <EM CLASS="Variable">
+MilliTimeOut</EM>
+ milliseconds for it to finish the cleanup. If LispWorks finished cleanup, <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ return 0 (SUCCESS). If the cleanup is not finished it returns -2 (TIMEOUT).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977108"></A>If LispWorks is not idle, that is there are still some active callbacks or there are processes that have started by a callback (even if they are inside <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A>), <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ checks the value of <EM CLASS="Variable">
+Force</EM>
+. If <EM CLASS="Variable">
+Force</EM>
+ is 0, <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ returns -1 (NOT_IDLE). If <EM CLASS="Variable">
+Force</EM>
+ is 1, <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ signals it to quit and behaves as if LispWorks is idle, described above.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977109"></A><CODE CLASS="Code">
+QuitLispWorks</CODE>
+ can be called repeatedly to check if LispWorks finished the cleanup.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977110"></A>When <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ returns NOT_IDLE, it has done nothing, and the LispWorks dynamic library can be used for further callbacks. Once <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ returns any other value, callbacks into the dynamic library will result in undefined behavior.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977111"></A>Once <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ returns SUCCESS, it is safe to unload the  dynamic library. Unloading it before <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ returns SUCCESS gives undefined results.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977434"></A>Once <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ returns SUCCESS, LispWorks can be initialized again. Calling any exported function (supplied to <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> or <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> in <EM CLASS="Variable">
+dll-exports</EM>
+) or any of <A HREF="lw-1520.htm#65792" CLASS="XRef">InitLispWorks</A>, <A HREF="lw-1523.htm#93073" CLASS="XRef">SimpleInitLispWorks</A> and <A HREF="lw-1521.htm#87348" CLASS="XRef">LispWorksDlsym</A> will cause LispWorks to initialize again.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977435"></A><B CLASS="Bold">
+Note:</B>
+ On Linux, Macintosh, FreeBSDand x86/x64 Solaris it is possible to add calls to <CODE CLASS="Code">
+QuitLispWorks</CODE>
+ at the right places via <EM CLASS="Variable">
+dll-added-files</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-976992"></A><B CLASS="Bold">
+Note:</B>
+ A possible reason for failure to finish the cleanup is that a LispWorks process is stuck inside a foreign call. Dynamic library applications that need to be unloaded should be careful to ensure that they do not get stuck in a foreign function call.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977478"></A><CODE CLASS="Code">
+QuitLispWorks</CODE>
+ is defined in each LispWorks dynamic library. For information about creating a LispWorks dynamic library, see <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> and <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A>. For an overview of LispWorks as a dynamic library, see <A HREF="lw-216.htm#48126" CLASS="XRef">LispWorks as a dynamic library</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-921566"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-929040"></A><A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A><BR>
+<A HREF="lw-908.htm#24466" CLASS="XRef">dll-quit</A><BR>
+<A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1523.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1519.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

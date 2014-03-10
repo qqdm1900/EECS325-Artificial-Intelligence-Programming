@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.2.2  Permanent data
+</TITLE>
+
+<LINK REL="next" HREF="lw-133.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-131.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-130.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-128.htm">10 Storage Management</A> &gt; <A HREF="lw-130.htm">10.2  Guidance for control of the storage management system</A><BR><BR>
+</DIV><A HREF="lw-133.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-131.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-130.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-893228"></A>10.2.2  Permanent data</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893230"></A>Permanently-living data will typically be the actual code of the application, and maybe also data that never goes away.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893232"></A>Because the data never goes away, it is best to put it outside normal garbage collection, which means promoting it to the highest generation. You do this by using <A HREF="lw-761.htm#25516" CLASS="XRef">clean-down</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893234"></A>There are several things that need to be considered when using <A HREF="lw-761.htm#25516" CLASS="XRef">clean-down</A>:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-893236"></A>Saving an image (whether by <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> or <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A>) calls <A HREF="lw-761.htm#25516" CLASS="XRef">clean-down</A> (by default), so there is no need to worry about data in a saved image.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-893238"></A>If the permanent data is only a small amount compared to the long-lived data, it is not obvious that <A HREF="lw-761.htm#25516" CLASS="XRef">clean-down</A> is needed, specially if you use a saved (or delivered) image where the code and maybe some data was already promoted.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-893240"></A><A HREF="lw-761.htm#25516" CLASS="XRef">clean-down</A> promotes all the data that is live (that is, pointed to from some other live object) in the image when it is called. If the image contains data that is live, but later becomes garbage, it will be promoted and hence not collected until another call to <A HREF="lw-761.htm#25516" CLASS="XRef">clean-down</A>, which will make the image unnecessarily larger.  Since this data is not being accessed, the effect on performance is small, but if there is a lot of it the effect may be significant.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-893242"></A><A HREF="lw-761.htm#25516" CLASS="XRef">clean-down</A> needs extra memory to operate, especially in 64-bit LispWorks.  For very large 64-bit LispWorks images <A HREF="lw-761.htm#25516" CLASS="XRef">clean-down</A> may fail due to running out of swap memory.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-893244"></A><A HREF="lw-761.htm#25516" CLASS="XRef">clean-down</A> takes a significant amount of time. If it does not cause paging, it should take seconds, but if it needs to page it may take much longer. You therefore should avoid calling it when you need the application to respond reasonably quickly.</LI>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-133.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-131.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-130.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

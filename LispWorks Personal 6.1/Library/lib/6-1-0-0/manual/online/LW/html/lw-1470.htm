@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ wait-for-connection
+</TITLE>
+
+<LINK REL="next" HREF="lw-1471.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1469.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1450.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1450.htm">41 Miscellaneous WIN32 symbols</A><BR><BR>
+</DIV><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1469.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1051974"></A><A NAME="91769"></A>w<A NAME="marker-1051972"></A>ait-for-<A NAME="marker-1051973"></A>connection</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1051975"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1051976"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1051977"></A>Waits to establish a connection for a stream.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1059630"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1059631"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1051978"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1051979"></A>wait-for-connection <EM CLASS="Variable">
+stream</EM>
+ &amp;key <EM CLASS="Variable">
+timeout</EM>
+ <EM CLASS="Variable">
+wait-reason</EM>
+ <EM CLASS="Variable">
+wait-function</EM>
+ =&gt; <EM CLASS="Variable">
+connectedp</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1051980"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1051981"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">A named pipe stream.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1051982"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative real number, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1051983"></A><EM CLASS="Variable">
+wait-reason</EM>
+</P>
+<P CLASS="RDescription-C">A string, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1051984"></A><EM CLASS="Variable">
+wait-function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1051985"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1051986"></A><EM CLASS="Variable">
+connectedp</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1051987"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1051988"></A>The function <CODE CLASS="Code">
+wait-for-connection</CODE>
+ waits until it succeeds to establish a connection for the stream <EM CLASS="Variable">
+stream</EM>
+, or <EM CLASS="Variable">
+timeout</EM>
+ seconds passed or <EM CLASS="Variable">
+wait-function</EM>
+ returns non-nil, and returns a value indicating whether the connection is established successfully.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1051989"></A><EM CLASS="Variable">
+stream</EM>
+ must be a stream of the right type. Currently the only supported stream is a named pipe stream (the result of <A HREF="lw-1461.htm#10506" CLASS="XRef">open-named-pipe-stream</A>).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1051993"></A><EM CLASS="Variable">
+timeout</EM>
+ can be <CODE CLASS="Code">
+nil</CODE>
+ or a real number specifying the time in seconds before <CODE CLASS="Code">
+wait-for-connection</CODE>
+ returns without establishing a connection.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1051994"></A><EM CLASS="Variable">
+wait-reason</EM>
+, if non-nil, needs to be a string specifying the wait reason. It has the same semantics as the <EM CLASS="Variable">
+wait-reason</EM>
+ argument of <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1051998"></A><EM CLASS="Variable">
+wait-function</EM>
+, if non-nil, must be a function of no arguments. If it returns non-nil, <CODE CLASS="Code">
+wait-for-connection</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1051999"></A><CODE CLASS="Code">
+wait-for-connection</CODE>
+ can be repeatedly called on the same stream. If the stream has already established a connection, it returns true immediately.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1052000"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1052001"></A><EM CLASS="Variable">
+wait-function</EM>
+ has the same limitations as the <EM CLASS="Variable">
+wait-function</EM>
+ of <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1052005"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1052009"></A><A HREF="lw-1461.htm#10506" CLASS="XRef">open-named-pipe-stream</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1469.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

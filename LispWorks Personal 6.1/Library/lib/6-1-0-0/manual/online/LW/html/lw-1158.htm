@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ cache-table-queries
+</TITLE>
+
+<LINK REL="next" HREF="lw-1159.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1157.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1159.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1157.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-969350"></A><A NAME="68230"></A>cache<A NAME="marker-1047144"></A>-table-queries</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-969351"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-969353"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-969354"></A>Controls the caching of attribute type information.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-969355"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-969356"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-969357"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-969358"></A>cache-table-queries <EM CLASS="Variable">
+table</EM>
+ &amp;key <EM CLASS="Variable">
+database</EM>
+ <EM CLASS="Variable">
+action</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-969359"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-978693"></A><EM CLASS="Variable">
+table</EM>
+</P>
+<P CLASS="RDescription-C">A string naming a table, <CODE CLASS="Code">
+:default</CODE>
+ or <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-969362"></A><EM CLASS="Variable">
+database</P>
+<P CLASS="RDescription-C"></EM>
+A database.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-975602"></A><EM CLASS="Variable">
+action</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+nil</CODE>
+ or <CODE CLASS="Code">
+:flush</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-969365"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-969366"></A>The function <CODE CLASS="Code">
+cache-table-queries</CODE>
+ provides per-table control on the caching in a particular database connection of attribute type information using during update operations.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-982679"></A>If <EM CLASS="Variable">
+table</EM>
+ is a string, it is the name of the table for which caching is to be altered. If <EM CLASS="Variable">
+table</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, then the <EM CLASS="Variable">
+action</EM>
+ applies to all tables. If <EM CLASS="Variable">
+table</EM>
+ is <CODE CLASS="Code">
+:default</CODE>
+, then the default caching action is set for those tables which do not have an explicit setting.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-972476"></A><EM CLASS="Variable">
+database</EM>
+ specifies the database connection, its default value is the value of <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-982586"></A><EM CLASS="Variable">
+action</EM>
+ specifies the caching action. The value <CODE CLASS="Code">
+t</CODE>
+ means cache the attribute type information. The value <CODE CLASS="Code">
+nil</CODE>
+ means do not cache the attribute type information. If <EM CLASS="Variable">
+table</EM>
+ is <CODE CLASS="Code">
+:default</CODE>
+, the setting applies to all tables which do not have an explicit setup.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-982740"></A>The value <CODE CLASS="Code">
+:flush</CODE>
+ means remove any existing cache for <EM CLASS="Variable">
+table</EM>
+ in <EM CLASS="Variable">
+database</EM>
+, but continue to cache.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-982628"></A>cache-table-queries should be called with <EM CLASS="Variable">
+action</EM>
+ <CODE CLASS="Code">
+:flush</CODE>
+ when the attribute specifications in <EM CLASS="Variable">
+table</EM>
+ have changed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-972485"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-984174"></A><A HREF="lw-1159.htm#42667" CLASS="XRef">*cache-table-queries-default*</A><BR>
+<A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1159.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1157.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

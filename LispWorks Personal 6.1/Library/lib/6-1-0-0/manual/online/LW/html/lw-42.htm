@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.2.1  Evaluating forms on entry to and exit from a traced function
+</TITLE>
+
+<LINK REL="next" HREF="lw-43.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-41.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-41.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-39.htm">5 The Trace Facility</A> &gt; <A HREF="lw-41.htm">5.2  Tracing options</A><BR><BR>
+</DIV><A HREF="lw-43.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886253"></A>5.2.1  <A NAME="marker-886252"></A>Evaluating forms on entry to and exit from a traced function</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886587"></A><A NAME="marker-886693"></A>:before</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886588"></A>Trace keyword</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886255"></A><A NAME="marker-886254"></A>:before<EM CLASS="Variable">
+ list of forms</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886256"></A>If non-nil, the list of forms is evaluated on entry to the function being traced. The forms are evaluated and the results printed after the arguments to the function.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886260"></A><A NAME="marker-886257"></A>Here is an example of its use. <CODE CLASS="Code">
+*traced-arglist*</CODE>
+<A NAME="marker-886258"></A> is bound to the <A NAME="marker-886259"></A>list of arguments given to the function being traced. In this example, it is used to accumulate a list of all the arguments to <CODE CLASS="Code">
+fac</CODE>
+ across all iterations.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-886261"></A>In the listener, initialize the variable <CODE CLASS="Code">
+args-in-reverse</CODE>
+ as follows:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886262"></A>(setq args-in-reverse ())</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-886263"></A>For the <CODE CLASS="Code">
+fac</CODE>
+ function used earlier, set the value of <CODE CLASS="Code">
+:before</CODE>
+ to the following list:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886264"></A>((push (car *traced-arglist*) args-in-reverse))</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-886265"></A>In the listener, evaluate the following form:</LI>
+</OL>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886266"></A>(fac 3)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886267"></A>After evaluating this form, <CODE CLASS="Code">
+args-in-reverse</CODE>
+ has the value <CODE CLASS="Code">
+(1 2 3)</CODE>
+, that is, it lists the arguments which <CODE CLASS="Code">
+fac</CODE>
+ was called with, in the reverse order they were called in.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886589"></A><A NAME="marker-886694"></A>:after</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886591"></A>Trace keyword</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886269"></A><A NAME="marker-886268"></A>:after<EM CLASS="Variable">
+ list of forms</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886270"></A>If non-nil, this option evaluates a list of forms upon return from the function to be traced. The forms are evaluated and the results printed after the results of a call to the function.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886273"></A><A NAME="marker-886271"></A><A NAME="marker-886272"></A>This option is used in exactly the same way as <CODE CLASS="Code">
+:before</CODE>
+. For instance, using the example for <CODE CLASS="Code">
+:before</CODE>
+ as a basis, create a list called <CODE CLASS="Code">
+results-in-reverse</CODE>
+, and set the value of <CODE CLASS="Code">
+:after</CODE>
+ so that <CODE CLASS="Code">
+(car *traced-results*)</CODE>
+<A NAME="marker-886274"></A> is pushed onto this list. After calling <CODE CLASS="Code">
+fac</CODE>
+, <CODE CLASS="Code">
+results-in-reverse</CODE>
+ contains the results returned from <CODE CLASS="Code">
+fac</CODE>
+, in reverse order.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-886837"></A>Note also that <CODE CLASS="Code">
+*traced-arglist*</CODE>
+<A NAME="marker-886838"></A> is still bound.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-43.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-41.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

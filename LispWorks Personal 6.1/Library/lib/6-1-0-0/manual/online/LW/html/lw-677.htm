@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ untrace
+</TITLE>
+
+<LINK REL="next" HREF="lw-678.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-676.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-678.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-676.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1040747"></A><A NAME="95514"></A>untrace<A NAME="marker-1040746"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1040748"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040749"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040750"></A>Turns off the Common Lisp tracing facility on the named functions.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040751"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040752"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040753"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040754"></A>untrace {<EM CLASS="Variable">
+function-name | method-desc</EM>
+}* =&gt; <EM CLASS="Variable">
+untrace-list</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040755"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040756"></A><EM CLASS="Variable">
+function-name</EM>
+ </P>
+<P CLASS="RDescription-C">A symbol whose symbol-function is no longer to be traced. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040757"></A><EM CLASS="Variable">
+method-desc</EM>
+</P>
+<P CLASS="RDescription-C">A method description, as described in the entry for <A HREF="lw-675.htm#58889" CLASS="XRef">trace</A>. See <A HREF="lw-675.htm#58889" CLASS="XRef">trace</A> for more details.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040758"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040759"></A>When called with no arguments, it returns the symbols of all functions currently being traced. When called with one or more functions as arguments, <CODE CLASS="Code">
+untrace</CODE>
+ returns a list of the symbols of those functions. Thus, in all situations, <CODE CLASS="Code">
+untrace</CODE>
+ returns a list of the symbols of those functions being untraced.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040760"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040761"></A><CODE CLASS="Code">
+untrace</CODE>
+ is used to cease the tracing of functions. If it is called with no arguments then the tracing of all currently traced functions is stopped. If it is called with one or more symbols then the tracing of those functions is stopped. A warning is given if <CODE CLASS="Code">
+untrace</CODE>
+ is called with a function that is not being traced. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040762"></A>Examples</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040763"></A>USER 12 &gt; (progn (untrace) (trace + - / *)) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040764"></A>*</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040765"></A>USER 13 &gt; (+ 2 3) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040766"></A>0 + &gt; (2 3) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040767"></A>0 + &lt; (5) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040768"></A>5</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040769"></A>USER 14 &gt; (untrace + -) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040770"></A>(* |/|)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040771"></A>USER 15 &gt; (+ 2 3) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040772"></A>5</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1040773"></A>To untrace a method: </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1040774"></A>(untrace (clos:method foo (t)))</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040775"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1166792"></A><A HREF="lw-675.htm#58889" CLASS="XRef">trace</A><BR>
+<A HREF="lw-577.htm#98129" CLASS="XRef">untrace-new-instances-on-access</A><BR>
+<A HREF="lw-578.htm#86216" CLASS="XRef">untrace-on-access</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-678.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-676.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

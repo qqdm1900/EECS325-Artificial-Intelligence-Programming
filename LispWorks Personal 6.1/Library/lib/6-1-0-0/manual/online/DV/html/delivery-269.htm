@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11.1  General strategy for reducing the image size
+</TITLE>
+
+<LINK REL="next" HREF="delivery-270.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-268.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-268.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-268.htm">11 User Actions in Delivery</A><BR><BR>
+</DIV><A HREF="delivery-270.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-268.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-268.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853358"></A>11.1  <A NAME="64354"></A>General strategy for reducing the image size</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853359"></A>In many cases, the size of the image can be reduced if part of the user code or data is eliminated, for example, when this code or data is present only for debugging purposes. The system, however, cannot tell which part of the code or data can be eliminated, so you have to do it yourself.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853365"></A>That can be done in either of two ways:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-853366"></A>You can eliminate the code or data explictly before calling <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A>, by using <CODE CLASS="Code">
+fmakunbound</CODE>
+, <CODE CLASS="Code">
+makunbound</CODE>
+, <CODE CLASS="Code">
+remhash</CODE>
+ and so on. The advantage of this approach is that it does not require you to know anything about Delivery. The disadvantage of this is that these calls must be put explicitly in the delivery script.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-853372"></A>The LispWorks image contains an action list called &quot;Delivery actions&quot;, which you can add actions to. See the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ for information about action lists.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-855118"></A>The &quot;Delivery actions&quot; action list is executed when the delivery process starts, before any system action. For example, if <CODE CLASS="Code">
+*my-hash-table*</CODE>
+ contains entries that are not required in the delivered application, then you may write:</P>
+</OL>
+<PRE CLASS="Code-first"><A NAME="pgfId-853378"></A>(defun clear-my-hash-table()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853379"></A>  (maphash #'(lambda (x y) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853380"></A>              (unless (required-in-the-application-p x y) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853381"></A>                (remhash x *my-hash-table*)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853382"></A>         *my-hash-table*))	</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853383"></A>(define-action &quot;delivery actions&quot; &quot;Clear my hash table&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853384"></A>              'clear-my-hash-table)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853386"></A>Using the action list has two advantages:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-853387"></A>It does not have to be part of the <CODE CLASS="Code">
+deliver</CODE>
+ script, so it can be written near the code that uses <CODE CLASS="Code">
+*my-hash-table*</CODE>
+. This makes it easier to maintain that code. </LI>
+<LI CLASS="Step">
+<A NAME="pgfId-853390"></A>It can access the user interface of the delivery process. This is done via the function <A HREF="delivery-270.htm#93062" CLASS="XRef">delivery-value</A> and <CODE CLASS="Code">
+(setf delivery-value)</CODE>
+.</LI>
+</OL>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-270.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-268.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-268.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

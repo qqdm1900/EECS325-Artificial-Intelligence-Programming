@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ block-promotion
+</TITLE>
+
+<LINK REL="next" HREF="lw-756.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-754.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-756.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-754.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-994877"></A><A NAME="block-promotion"></A>block<A NAME="marker-1039369"></A>-promotion</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-994878"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001749"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1001750"></A>Prevents promotion of objects into generation 2 during the execution of <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1001751"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-986086"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-986087"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-986088"></A>block-promotion &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-986089"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-986090"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Forms executed as an implicit <CODE CLASS="Code">
+progn</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-986091"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-986092"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The result of evaluating the final form in <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-986093"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-994948"></A>The macro <CODE CLASS="Code">
+block-promotion</CODE>
+ executes <EM CLASS="Variable">
+body</EM>
+ and prevents promotion of objects into generation 2 during this execution. After <EM CLASS="Variable">
+body</EM>
+ is executed, generations 0 and 1 are collected. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-994950"></A>This is useful when a significant number of transient objects actually survive all the garbage collections on generation 1. These would normally then be promoted and, by default, never get collected. In such a situation, <CODE CLASS="Code">
+(gc-generation t)</CODE>
+ will free a large amount of space in generation 2.  <CODE CLASS="Code">
+block-promotion</CODE>
+ can be thought of as doing <A HREF="lw-838.htm#24466" CLASS="XRef">set-promotion-count</A> on generation 1 with an infinite <EM CLASS="Variable">
+count</EM>
+, for the duration of body.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-994952"></A><CODE CLASS="Code">
+block-promotion</CODE>
+ is suitable only for use in particular operations that are known to create such relatively long-lived, but transient, objects.  In typical uses these are objects that live for a few seconds to several hours. An example usage is LispWorks <A HREF="lw-635.htm#53982" CLASS="XRef">compile-file</A>,  to ensure the transient compile-time data gets collected.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-994954"></A><CODE CLASS="Code">
+block-promotion</CODE>
+ has global scope and hence may not be useful in an application such as a multi-threaded server. During the execution of <EM CLASS="Variable">
+body</EM>
+, generation 1 grows to accomodate all the allocated data, which may have some negative effects on the behavior of the system, in particular on its interactive response.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1018488"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1661430"></A>Symbols and process stacks are allocated in generation 2 or 3 (see <A HREF="lw-847.htm#54108" CLASS="XRef">*symbol-alloc-gen-num*</A>) hence <CODE CLASS="Code">
+block-promotion</CODE>
+ cannot prevent these getting into that generation. <A HREF="lw-747.htm#24777" CLASS="XRef">allocation-in-gen-num</A> can also cause allocation in higher generations.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1090708"></A>In 64-bit LispWorks, <CODE CLASS="Code">
+block-promotion</CODE>
+ is implemented using <A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A>.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-998276"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1211813"></A><A HREF="lw-747.htm#24777" CLASS="XRef">allocation-in-gen-num</A><BR>
+<A HREF="lw-808.htm#11103" CLASS="XRef">mark-and-sweep</A><BR>
+<A HREF="lw-838.htm#24466" CLASS="XRef">set-promotion-count</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-756.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-754.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

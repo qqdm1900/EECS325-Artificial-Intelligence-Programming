@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.1.5.3  Conflict Resolution
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-39.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-37.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-35.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-27.htm">3 Rules</A> &gt; <A HREF="kwprolog-m-28.htm">3.1  Forward chaining</A> &gt; <A HREF="kwprolog-m-35.htm">3.1.5  Control Flow</A><BR><BR>
+</DIV><A HREF="kwprolog-m-39.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-37.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-35.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-889944"></A>3.1.5.3  <A NAME="marker-889943"></A>Conflict Resolution</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889945"></A>Every context has its own conflict resolution strategy, specified in the <CODE CLASS="Code">
+defcontext</CODE>
+<A NAME="marker-889946"></A> form. A conflict resolution strategy is an ordered list of conflict resolution <A NAME="marker-889947"></A>tactics. A conflict resolution tactic may be any of the following:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889949"></A><CODE CLASS="Code">
+priority</CODE>
+<A NAME="marker-889948"></A> <CODE CLASS="Code">
+--</CODE>
+ instantiations of rules with the highest priority are preferred</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889951"></A><CODE CLASS="Code">
+-priority -- </CODE>
+<A NAME="marker-889950"></A>instantiations of rules with the lowest priority are preferred</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889953"></A><CODE CLASS="Code">
+recency</CODE>
+<A NAME="marker-889952"></A> <CODE CLASS="Code">
+--</CODE>
+ the most recently created instantiations are preferred</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889955"></A><CODE CLASS="Code">
+-recency -- </CODE>
+<A NAME="marker-889954"></A>the least recently created instantiations are preferred</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889957"></A><CODE CLASS="Code">
+order</CODE>
+<A NAME="marker-889956"></A> <CODE CLASS="Code">
+--</CODE>
+ instantiations of rules defined/loaded earliest are preferred. This favours the topmost rules in a file.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889959"></A><CODE CLASS="Code">
+-order -- </CODE>
+<A NAME="marker-889958"></A>instantiations of rules defined/loaded latest are preferred</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889961"></A><CODE CLASS="Code">
+specificity -- </CODE>
+<A NAME="marker-889960"></A>the most specific rules are preferred (specificity is a score where a point is awarded for every occurrence of a variable after the first, every Lisp test, and every destructuring expression; the highest score wins)</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889963"></A><CODE CLASS="Code">
+-specificity -- </CODE>
+<A NAME="marker-889962"></A>the least specific rules are preferred</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889965"></A><CODE CLASS="Code">
+mea -- </CODE>
+<A NAME="marker-889964"></A>(stands for Means End Analysis) instantiations are preferred where the object corresponding to the topmost object-matching condition is more recently modified</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889967"></A><CODE CLASS="Code">
+-mea -- </CODE>
+<A NAME="marker-889966"></A>instantiations are preferred where the object corresponding to the topmost object-matching condition is less recently modified</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889969"></A><CODE CLASS="Code">
+lex -- </CODE>
+<A NAME="marker-889968"></A>(stands for LEXicographic) each instantiation is represented by the (in descending order) sorted list of the most recently modified cycle numbers of the objects in the instantiation; these lists are compared place by place with an instantiation being preferred if it first has a larger number in a particular position, or if it runs out first (hence the analogy with lexicographic ordering)</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-889971"></A><CODE CLASS="Code">
+-lex -- </CODE>
+<A NAME="marker-889970"></A>the converse of the above.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-889972"></A>The tactics are applied successively starting with the left-most until only one instantiation is left or until all tactics have been applied when it is unspecified which of the resulting set is chosen. For example, using the strategy <CODE CLASS="Code">
+(priority recency)</CODE>
+ first all the instantiations which are not of the highest priority rule or rules (as given by the rule's priority number) are discarded and then all instantiations which were not created in the same forward chaining cycle as the most recently created instantiation will be discarded. If more than one instantiation is left it is unspecified which will be selected to fire.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889973"></A>Note that the strategy <CODE CLASS="Code">
+(lex specificity)</CODE>
+ is equivalent to the OPS5 strategy LEX and <CODE CLASS="Code">
+(mea lex specificity)</CODE>
+ is equivalent to the OPS5 strategy MEA, hence the borrowing of these terms. For further information on LEX and MEA in OPS5 the reader is referred to <I CLASS="Italic">
+Programming Expert Systems in OPS5</I>
+, by Brownston, Farrel, Kant and Martin (published by Addison-Wesley). However, KnowledgeWorks is not heavily optimized to use the tactics <CODE CLASS="Code">
+mea</CODE>
+, <CODE CLASS="Code">
+-mea</CODE>
+, <CODE CLASS="Code">
+lex</CODE>
+ or <CODE CLASS="Code">
+-lex</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-39.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-37.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-35.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

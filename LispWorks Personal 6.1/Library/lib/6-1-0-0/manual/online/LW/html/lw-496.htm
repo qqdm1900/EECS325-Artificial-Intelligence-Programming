@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 22.4.3  Controlling string construction
+</TITLE>
+
+<LINK REL="next" HREF="lw-497.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-495.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-493.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-484.htm">22 Internationalization</A> &gt; <A HREF="lw-493.htm">22.4  String Construction</A><BR><BR>
+</DIV><A HREF="lw-497.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-495.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-493.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-892025"></A>22.4.3  <A NAME="33416"></A>Controlling string construction</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889491"></A>The initial value of <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-893618"></A><A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A> is <CODE CLASS="Code">
+base-char, </CODE>
+to avoid programs that only require 8-bit strings needlessly creating larger string objects. If your application uses Unicode characters beyond the Latin-1 range (characters of  type <CODE CLASS="Code">
+extended-char</CODE>
+) then you should consider which of the following two approaches to use:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-891151"></A>Ensure that all strings which may hold <CODE CLASS="Code">
+extended-char</CODE>
+s are constructed  explicitly with the appropriate type. This is the conservative approach, allowing you to avoid allocation of 16-bit strings where these are not required. Note that you can use the specialized accessors such as <CODE CLASS="Code">
+stchar</CODE>
+ for strings of type <A HREF="lw-971.htm#58132" CLASS="XRef">simple-text-string</A>.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-896012"></A>Change the default so that by default 16-bit strings are allocated. Do this by:<BR>
+<CODE CLASS="Code">
+(</CODE>
+<A NAME="marker-896071"></A><CODE CLASS="Code">
+set-default-character-element-type 'simple-char)<BR>
+</CODE>
+Bear in mind that this is a global setting which affects default string construction for the entire system. It could be called from a user interface, depending on whether the user needs to handle <CODE CLASS="Code">
+extended-char</CODE>
+s.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-896024"></A><B CLASS="Bold">
+Note:</B>
+ Do not attempt to bind or set directly the variable <A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A>. Instead, call <A HREF="lw-966.htm#30578" CLASS="XRef">set-default-character-element-type</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-497.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-495.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-493.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

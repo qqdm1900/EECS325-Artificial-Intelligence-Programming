@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.4.2  Guarantees and limitations when locking and unlocking
+</TITLE>
+
+<LINK REL="next" HREF="lw-281.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-279.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-276.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-276.htm">15.4  Locks</A><BR><BR>
+</DIV><A HREF="lw-281.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-279.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-276.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-895410"></A>15.4.2  <A NAME="95000"></A>Guarantees and limitations when locking and unlocking</H3>
+<P CLASS="Body">
+<A NAME="pgfId-897175"></A>In compiled code <A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A>, <A HREF="lw-1073.htm#52783" CLASS="XRef">process-exclusive-lock</A> and <A HREF="lw-1095.htm#64466" CLASS="XRef">process-sharing-lock</A> are guaranteed to return if they locked their argument. In other words there will not be any throw between the time they locked the lock and the time they return. That means that in compiled code the next form will at least start executing, and if it is an <CODE CLASS="Code">
+unwind-protect</CODE>
+ the cleanup forms will at least start executing. (If the code is evaluated, this is not guaranteed.) &quot;Locking&quot; here also means incrementing the count of a lock that is already held by the current thread.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895411"></A>However these functions may throw before locking. For example, in the following code <A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A> may throw without locking, for example because something interrupts the process by <A HREF="lw-1078.htm#62800" CLASS="XRef">process-interrupt</A>:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-895412"></A>(unwind-protect</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895413"></A> (progn (mp:process-lock lock)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895414"></A>   (whatever))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-895415"></A> (mp:process-unlock lock))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-895416"></A>If this call to <A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A> does throw without locking, then <A HREF="lw-1099.htm#96257" CLASS="XRef">process-unlock</A> will be called on a lock that is not locked.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895417"></A>The correct code that guarantees (when compiled) that <A HREF="lw-1099.htm#96257" CLASS="XRef">process-unlock</A> is called on exit only when <A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A> did lock is:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-895418"></A>(mp:process-lock lock)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895419"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895420"></A>(unwind-protect</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895421"></A>    (whatever)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-895422"></A>  (mp:process-unlock lock))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-895423"></A>Conversely, <A HREF="lw-1099.htm#96257" CLASS="XRef">process-unlock</A>, <A HREF="lw-1074.htm#80083" CLASS="XRef">process-exclusive-unlock</A> and <A HREF="lw-1096.htm#64071" CLASS="XRef">process-sharing-unlock</A> guarantee to successfully unlock the lock, but are not guaranteed to return.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895424"></A>For example, the following code may fail to call <CODE CLASS="Code">
+another-cleanup</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-895425"></A>(mp:process-lock lock)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895426"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895427"></A>(unwind-protect</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895428"></A>    (whatever)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895429"></A>  (mp:process-unlock lock)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-895430"></A>  (another-cleanup))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-895431"></A>If <CODE CLASS="Code">
+another-cleanup</CODE>
+ is essential to execute in all throws, it needs its own <CODE CLASS="Code">
+unwind-protect</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-895432"></A>(mp:process-lock lock)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895433"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895434"></A>(unwind-protect</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895435"></A>    (whatever)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895436"></A>  (unwind-protect</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895437"></A>      (mp:process-unlock lock)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-895438"></A>    (another-cleanup)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-897159"></A><B CLASS="Bold">
+Note:</B>
+ the guarantees described in this section are relevant only in compiled code.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-281.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-279.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-276.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

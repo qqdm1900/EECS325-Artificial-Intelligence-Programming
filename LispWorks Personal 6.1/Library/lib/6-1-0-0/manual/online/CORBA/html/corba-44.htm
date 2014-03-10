@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.4  Defining the interfaces
+</TITLE>
+
+<LINK REL="next" HREF="corba-45.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-43.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-40.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-40.htm">5 The Bank Client</A><BR><BR>
+</DIV><A HREF="corba-45.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-43.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853222"></A>5.4  <A NAME="marker-853899"></A><A NAME="marker-853909"></A>Defining the interfaces</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853616"></A><B CLASS="Bold">
+Note:</B>
+ This section assumes some basic familiarity with the CAPI library. See the <I CLASS="Italic">
+CAPI Reference Manual</I>
+ for details.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853223"></A>In this section, we define three CAPI interface classes <CODE CLASS="Code">
+account-interface</CODE>
+, <CODE CLASS="Code">
+checkingAccount-interface</CODE>
+, and <CODE CLASS="Code">
+bank-interface</CODE>
+. These classes are used to present graphical interfaces to CORBA objects with the IDL interfaces <CODE CLASS="Code">
+account</CODE>
+, <CODE CLASS="Code">
+checkingAccount</CODE>
+, and <CODE CLASS="Code">
+bank</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853225"></A>We begin by defining the interface class <CODE CLASS="Code">
+account-interface</CODE>
+: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-854016"></A>(capi:define-interface account-interface ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854017"></A>  ((account-ref :initarg :account-ref)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854018"></A>   (account-name :initarg :account-name :accessor account-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854019"></A>   (bank-interface :initarg :owner))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854020"></A>  (:panes</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854021"></A>   (balance-field capi:display-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854022"></A>                  :title (:initarg :account-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854023"></A>                  :visible-min-width '(:character 10)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854024"></A>                  :visible-max-width nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854025"></A>   (button-panel capi:push-button-panel </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854026"></A>                 :callbacks '(credit debit)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854027"></A>                 :items '(&quot;Credit&quot; &quot;Debit&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854028"></A>                 :callback-type :interface))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854029"></A>  (:layouts </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854030"></A>   (account-layout capi:column-layout '(balance-field </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854031"></A>                                        button-panel)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853242"></A>  (:default-initargs :auto-menus nil :max-width t))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853243"></A>This is how we use an instance of class <CODE CLASS="Code">
+account-interface</CODE>
+. We store the name of the customer owning this account in the title of the display pane (using <CODE CLASS="Code">
+initarg :title</CODE>
+).</P>
+<P CLASS="Body">
+<A NAME="pgfId-853244"></A>The <CODE CLASS="Code">
+account-ref</CODE>
+ slot stores a CORBA object reference (of class <CODE CLASS="Code">
+BankingDemo:accoun</CODE>
+t) to the corresponding CORBA <CODE CLASS="Code">
+account</CODE>
+ object on the server. The <CODE CLASS="Code">
+bank-interface</CODE>
+ slot stores a pointer to the <CODE CLASS="Code">
+bank</CODE>
+ interface for this object.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853539"></A>The pane <CODE CLASS="Code">
+balance-field</CODE>
+ reports the state of the CORBA object's balance attribute as a readonly text field. We delegate the initialization of this field value to an <CODE CLASS="Code">
+initialize-instance</CODE>
+ after method specialized on <BR>
+<CODE CLASS="Code">
+account-interface</CODE>
+. The value needs to be updated after each invocation of a CORBA <CODE CLASS="Code">
+debit</CODE>
+ or <CODE CLASS="Code">
+credit</CODE>
+ operation.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853247"></A>The button panel <CODE CLASS="Code">
+button-panel</CODE>
+ defines buttons to activate callbacks <BR>
+<CODE CLASS="Code">
+debit-callback</CODE>
+ and <CODE CLASS="Code">
+credit-callback</CODE>
+. These callbacks prompt the user for amounts and then invoke the corresponding CORBA operations <CODE CLASS="Code">
+debit</CODE>
+ and <CODE CLASS="Code">
+credit</CODE>
+ on the object reference stored in the <CODE CLASS="Code">
+account-ref</CODE>
+ field. We will implement these callbacks in a moment.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853248"></A>The buttons are laid out in a column layout <CODE CLASS="Code">
+account-layout</CODE>
+. Mirroring the fact that the IDL interface <CODE CLASS="Code">
+checkingAccount</CODE>
+ inherits from <CODE CLASS="Code">
+account</CODE>
+, we define the Common Lisp frame class <CODE CLASS="Code">
+checking-account-interface</CODE>
+ as a subclass of <CODE CLASS="Code">
+account-interface</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-854047"></A>(capi:define-interface checking-account-interface </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854048"></A>    (account-interface) ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854049"></A>  (:panes</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854050"></A>   (limit-field capi:display-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854051"></A>                :visible-min-width '(:character 10)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854052"></A>                :visible-max-width nil))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854053"></A>  (:layouts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854054"></A>   (checking-account-layout capi:column-layout </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853257"></A>                            '(account-layout limit-field))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853258"></A>The pane <CODE CLASS="Code">
+limit-field</CODE>
+ reports the state of the CORBA object's <CODE CLASS="Code">
+limit</CODE>
+ attribute as a readonly text field. Again, we can delegate the initialization of this field's value to an <CODE CLASS="Code">
+initialize instance</CODE>
+ after method specialized on <BR>
+<CODE CLASS="Code">
+checking-account-interface</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853259"></A>The layout <CODE CLASS="Code">
+checking-account-layout</CODE>
+ simply lays out the inherited layout <CODE CLASS="Code">
+account-layout</CODE>
+, containing the account's balance, together with the additional <CODE CLASS="Code">
+limit-field</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853260"></A>The definition of <CODE CLASS="Code">
+bank-interface</CODE>
+ class follows the same pattern:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-854072"></A>(capi:define-interface bank-interface ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854073"></A>  ((bank-ref :initarg :bank-ref))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854074"></A>  (:menu-bar open-actions)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854075"></A>  (:menus</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854076"></A>   (open-actions</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854077"></A>    &quot;Action&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854078"></A>    ((&quot;Open Account&quot; :callback 'open-account-callback)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854079"></A>     (&quot;Open Checking Account&quot; :callback </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854080"></A>                              'open-checking-account-callback)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854081"></A>     (&quot;Retrieve Account&quot; :callback 'retrieve-account-callback)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854082"></A>     (&quot;Close Account&quot; :callback 'close-account-callback))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854083"></A>    :callback-type :interface))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854084"></A>  (:layouts </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854085"></A>   (accounts-area capi:row-layout () </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854086"></A>                  :accessor accounts-area</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854087"></A>                  :horizontal-scroll t))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853277"></A>  (:default-initargs :auto-menus nil :best-width 400))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853278"></A>The <CODE CLASS="Code">
+accounts-area</CODE>
+ layout keeps track of the <CODE CLASS="Code">
+account-interfaces</CODE>
+ created by the <CODE CLASS="Code">
+bank</CODE>
+ interface as the result of invoking operations on the CORBA <CODE CLASS="Code">
+bank</CODE>
+ object. This list is maintained to prevent the user from obtaining more than one interface to the same account. We need to update it whenever an account interface is exited.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853279"></A>The interface menu items <B CLASS="Button">
+Open Account</B>
+, <B CLASS="Button">
+Open Checking Account</B>
+, <B CLASS="Button">
+Retrieve Account</B>
+, and <B CLASS="Button">
+Close Account </B>
+activate callbacks <CODE CLASS="Code">
+open-Account-callback</CODE>
+, <BR>
+<CODE CLASS="Code">
+open-Checking-Account-callback</CODE>
+, <CODE CLASS="Code">
+retrieve-Account-callback</CODE>
+, and <CODE CLASS="Code">
+close-Account-callback</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853280"></A>These callbacks prompt the user for appropriate arguments and then invoke the corresponding CORBA operations <CODE CLASS="Code">
+openAccount</CODE>
+, <CODE CLASS="Code">
+openCheckingAccount</CODE>
+, <CODE CLASS="Code">
+retrieveAccount</CODE>
+, and <CODE CLASS="Code">
+closeAccount</CODE>
+ on the object reference stored in the <CODE CLASS="Code">
+bank-ref</CODE>
+ slot. We will see the implementation of these callbacks in a moment.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="corba-45.htm#pgfId-853281" CLASS="Hypertext">5.4.1  Initializing and exiting account frames</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="corba-46.htm#pgfId-853631" CLASS="Hypertext">5.4.2  Defining the callbacks</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="corba-47.htm#pgfId-853411" CLASS="Hypertext">5.4.3  Initializing the ORB and obtaining the first object reference</A></H4>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-45.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-43.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

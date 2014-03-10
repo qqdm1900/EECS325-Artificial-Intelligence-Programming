@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ defclass
+</TITLE>
+
+<LINK REL="next" HREF="lw-640.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-638.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-640.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-638.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1039223"></A><A NAME="55217"></A>defclass<A NAME="marker-1039222"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1039224"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039225"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039226"></A>Remains as defined in ANSI Common Lisp, but extra control over parsing of class options and slot options, optimization of slot access, and checking of initargs, is provided.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039227"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039228"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039229"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039230"></A>The macro <CODE CLASS="Code">
+defclass</CODE>
+ is as defined in the ANSI standard with the following extensions.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039231"></A>For extra class options, you may need to define the way these are parsed at <CODE CLASS="Code">
+defclass</CODE>
+ macroexpansion time. See <A HREF="lw-566.htm#39713" CLASS="XRef">process-a-class-option</A> for details.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039235"></A>For non-standard slot options, you may need to define the way these are parsed at <CODE CLASS="Code">
+defclass</CODE>
+ macroexpansion time. See <A HREF="lw-567.htm#94386" CLASS="XRef">process-a-slot-option</A> for details.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039239"></A>By default, standard slot accessors are optimized such that they do not call <A HREF="lw-572.htm#59914" CLASS="XRef">slot-value-using-class</A>. This optimization can be switched off using the <CODE CLASS="Code">
+:optimize-slot-access</CODE>
+<A NAME="marker-1125644"></A> <CODE CLASS="Code">
+nil</CODE>
+ class option.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1125652"></A>To add valid initialization arguments for the class, use the class option <CODE CLASS="Code">
+:extra-initargs</CODE>
+<A NAME="marker-1125659"></A>. The argument passed via this option is evaluated, and should return a list of extra initialization arguments for the class. <A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A> and other CLOS initializations (see <A HREF="lw-568.htm#61724" CLASS="XRef">set-clos-initarg-checking</A>) will treat these as valid when checking their arguments. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039247"></A>Compatibility Note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039248"></A>When a class is redefined, its extra initargs are always reset.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039249"></A>In early versions of LispWorks 4.3, extra initargs were not reset when a class was redefined without specifying extra initargs. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039250"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039251"></A>This session illustrates the effects of the <CODE CLASS="Code">
+:optimize-slot-access</CODE>
+ class option. When true, slot access is more efficient but note that <A HREF="lw-572.htm#59914" CLASS="XRef">slot-value-using-class</A> is not called.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039255"></A>CL-USER 26 &gt; (compile '(defclass foo () </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039256"></A>                         ((a :type fixnum </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039257"></A>                             :initarg :a </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039258"></A>                             :reader foo-a))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039259"></A>NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039260"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039261"></A>CL-USER 27 &gt; (compile '(defclass bar () </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039262"></A>                         ((a :type fixnum </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039263"></A>                             :initarg :a </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039264"></A>                             :reader bar-a)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039265"></A>                         (:optimize-slot-access nil)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039266"></A>NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039267"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039268"></A>CL-USER 28 &gt; (setf *foo* </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039269"></A>                   (make-instance 'foo :a 42) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039270"></A>                   *bar* (make-instance 'bar :a 99))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039271"></A>#&lt;BAR 21D33D4C&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039272"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039273"></A>CL-USER 29 &gt; (progn </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039274"></A>               (time (dotimes (i 1000000) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039275"></A>                       (foo-a *foo*))) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039276"></A>               (time (dotimes (i 1000000)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039277"></A>                       (bar-a *bar*))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039278"></A>Timing the evaluation of (DOTIMES (I 1000000) (FOO-A *FOO*))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039279"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039280"></A>user time    =      0.328</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039281"></A>system time  =      0.015</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039282"></A>Elapsed time =   0:00:00</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039283"></A>Allocation   = 2280 bytes standard / 11002882 bytes conses</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039284"></A>0 Page faults</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039285"></A>Timing the evaluation of (DOTIMES (I 1000000) (BAR-A *BAR*))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039286"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039287"></A>user time    =      0.406</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039288"></A>system time  =      0.015</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039289"></A>Elapsed time =   0:00:00</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039290"></A>Allocation   = 4304 bytes standard / 11004521 bytes conses</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039291"></A>0 Page faults</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039292"></A>NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039293"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039294"></A>CL-USER 30 &gt; (trace </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039295"></A>              (clos:slot-value-using-class </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039296"></A>               :when </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039297"></A>               (and (member (first *traced-arglist*) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039298"></A>                            (list (find-class 'foo) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039299"></A>                                  (find-class 'bar)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039300"></A>                    (eq (third *traced-arglist*) 'a))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039301"></A>(CLOS:SLOT-VALUE-USING-CLASS)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039302"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039303"></A>CL-USER 31 &gt; (foo-a *foo*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039304"></A>42</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039305"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039306"></A>CL-USER 32 &gt; (bar-a *bar*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039307"></A>0 CLOS:SLOT-VALUE-USING-CLASS &gt; ...</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039308"></A>  &gt;&gt; CLASS           : #&lt;STANDARD-CLASS BAR 214897F4&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039309"></A>  &gt;&gt; CLOS::OBJECT    : #&lt;BAR 2148820C&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039310"></A>  &gt;&gt; CLOS::SLOT-NAME : A</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039311"></A>0 CLOS:SLOT-VALUE-USING-CLASS &lt; ...</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039312"></A>  &lt;&lt; VALUE-0 : 99</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039313"></A>99</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1039314"></A>This session illustrates the <CODE CLASS="Code">
+:extra-initargs</CODE>
+ class option:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039315"></A>CL-USER 46 &gt; (defclass a () ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039316"></A>               (:extra-initargs '(:a-initarg)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039317"></A>#&lt;STANDARD-CLASS A 21C2E4FC&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039318"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039319"></A>CL-USER 47 &gt; (defclass b (a) ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039320"></A>               (:extra-initargs '(:b-initarg)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039321"></A>#&lt;STANDARD-CLASS B 2068573C&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039322"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039323"></A>CL-USER 48 &gt; (defclass c (a) ())</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039324"></A>#&lt;STANDARD-CLASS C 22829D44&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039325"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039326"></A>CL-USER 49 &gt; (make-instance 'b :a-initarg &quot;A&quot; :b-initarg &quot;B&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039327"></A>#&lt;B 2068BCE4&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039328"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039329"></A>CL-USER 50 &gt; (make-instance 'c :a-initarg &quot;A&quot; :b-initarg &quot;B&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039330"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039331"></A>Error: MAKE-INSTANCE is called with unknown keyword :B-INITARG among the arguments (C :A-INITARG &quot;A&quot; :B-INITARG &quot;B&quot;) which is not one of (:A-INITARG).</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039332"></A>  1 (continue) Ignore the keyword :B-INITARG</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039333"></A>  2 (abort) Return to level 0.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039334"></A>  3 Return to top loop level 0.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039335"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039336"></A>Type :b for backtrace, :c &lt;option number&gt; to proceed,  or :? for other options</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039337"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039338"></A>CL-USER 51 : 1 &gt; </PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039339"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039343"></A><A HREF="lw-566.htm#39713" CLASS="XRef">process-a-class-option</A><BR>
+<A HREF="lw-567.htm#94386" CLASS="XRef">process-a-slot-option</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-640.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-638.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

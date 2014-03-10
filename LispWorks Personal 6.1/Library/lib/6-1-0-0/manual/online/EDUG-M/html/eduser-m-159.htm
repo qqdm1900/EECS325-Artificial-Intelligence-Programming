@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.16.2  Example 2
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-160.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-158.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-157.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A> &gt <A HREF="eduser-m-136.htm">6.3  Programming the editor</A> &gt <A HREF="eduser-m-157.htm">6.3.16  Examples</A><BR><BR>
+</DIV><A HREF="eduser-m-160.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-158.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-157.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-884202"></A>6.3.16.2  Example 2</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884203"></A>This example creates a new editor command called <CODE CLASS="Code">
+Goto Line</CODE>
+ which moves the current point to the specified line number.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884205"></A>(editor:defcommand &quot;Goto Line&quot; (p)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884206"></A>   &quot;Moves the current point to a specified line number.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884207"></A>    The number can either be supplied via the prefix</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884208"></A>    argument, or, if this is nil, it is prompted for.&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884209"></A>   &quot;Moves the current point to a specified line number.&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886930"></A>   (let ((line-number  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886931"></A>          (or p (editor:prompt-for-integer  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886932"></A>                 :prompt &quot;Line number: &quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884213"></A>                 :help &quot;Type in the number of the line to</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884214"></A>                  go to&quot;))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884215"></A>        (editor:beginning-of-buffer-command nil)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884216"></A>        (editor:next-line-command line-number)))</PRE>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-160.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-158.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-157.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

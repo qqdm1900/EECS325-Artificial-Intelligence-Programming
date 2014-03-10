@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ abort-dialog
+</TITLE>
+
+<LINK REL="next" HREF="capiref-7.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-5.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-7.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-5.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-884490"></A><A NAME="24290"></A>abort<A NAME="marker-3944196"></A>-dialog</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-884873"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-884875"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-970681"></A>The <CODE CLASS="Code">
+abort-dialog</CODE>
+ function aborts the current dialog.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3936851"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3936852"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-969118"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-884877"></A>abort-dialog &amp;rest <EM CLASS="Variable">
+ignored-args</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-884880"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-884882"></A>This function is used to <A NAME="marker-952783"></A>abort the current dialog. For example, it can be made a selection callback from a <B CLASS="Button">
+Cancel</B>
+ button so that pressing the button aborts the dialog. In a similar manner the complementary function <A HREF="capiref-136.htm#33351" CLASS="XRef">exit-dialog</A> can be used as a callback for an <B CLASS="Button">
+OK</B>
+ button.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-8054498"></A>If there is no current dialog then <CODE CLASS="Code">
+abort-dialog</CODE>
+ does nothing and returns <CODE CLASS="Code">
+nil</CODE>
+. If there is a current dialog then <CODE CLASS="Code">
+abort-dialog</CODE>
+ either returns non-nil or does a non-local exit. Therefore code that depends on <CODE CLASS="Code">
+abort-dialog</CODE>
+ returning must be written carefully. Constructs like this can be useful:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-7878545"></A>(unless (capi:abort-dialog)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-7871908"></A>  (foo))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-7871909"></A>Above, <EM CLASS="Variable">
+foo</EM>
+ will be called only if there is no current dialog.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7878699"></A>It is not useful to do either:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-7878561"></A>(when (capi:abort-dialog)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-7878562"></A>  (foo))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-7878563"></A>or</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-7878658"></A>(progn</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-7878659"></A>  (capi:abort-dialog)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-7871836"></A>  (foo))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-7878576"></A>as in both cases it is not well-defined whether <EM CLASS="Variable">
+foo</EM>
+ will be called if there is a current dialog.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-884901"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-884904"></A>(capi:display-dialog</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-884906"></A>  (capi:make-container</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-962989"></A>    (make-instance 'capi:push-button</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-884908"></A>                   :text &quot;Cancel&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-884909"></A>                   :callback 'capi:abort-dialog)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-884910"></A>                   :title &quot;Test Dialog&quot;))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-3437098"></A>Also see the examples in the directory <CODE CLASS="Code">
+examples/capi/dialogs/</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-884921"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-884924"></A><A HREF="capiref-136.htm#33351" CLASS="XRef">exit-dialog</A><BR>
+<A HREF="capiref-77.htm#34181" CLASS="XRef">display-dialog</A><BR>
+<A HREF="capiref-300.htm#12695" CLASS="XRef">popup-confirmer</A><BR>
+<A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-7.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-5.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

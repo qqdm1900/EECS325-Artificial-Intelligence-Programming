@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.2.1  Canonical dspecs
+</TITLE>
+
+<LINK REL="next" HREF="lw-72.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-70.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-68.htm">7 Dspecs: Tools for Handling Definitions</A> &gt; <A HREF="lw-70.htm">7.2  Forms of dspecs</A><BR><BR>
+</DIV><A HREF="lw-72.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-70.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-887752"></A>7.2.1  <A NAME="marker-892947"></A>Canonical dspecs</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890024"></A>Internally, dspecs are handled in the canonical form:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887753"></A>  (<EM CLASS="Variable">
+dspec-class</EM>
+ <EM CLASS="Variable">
+primary-name</EM>
+ . <EM CLASS="Variable">
+qualifiers</EM>
+)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887754"></A>where <EM CLASS="Variable">
+dspec-class</EM>
+ in the canonical name of the class, and <EM CLASS="Variable">
+qualifiers</EM>
+ is a proper list.  <EM CLASS="Variable">
+primary-name</EM>
+ is typically a symbol, but can be a list (in the case of a <CODE CLASS="Code">
+setf</CODE>
+ function) or a string (in the case of a package).  The equality for canonical dspecs is <CODE CLASS="Code">
+equal</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891419"></A>As an example the general form of a <CODE CLASS="Code">
+defmethod</CODE>
+ dspec is:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891425"></A>(defmethod <EM CLASS="Variable">name</EM>
+ <EM CLASS="Variable">qualifiers</EM>
+ (<EM CLASS="Variable">specializer</EM>
+*))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891426"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891427"></A><EM CLASS="Variable">name</EM>
+       := <EM CLASS="Variable">symbol</EM>
+ | (setf <EM CLASS="Variable">symbol</EM>
+)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891428"></A><EM CLASS="Variable">qualifiers</EM>
+   := <EM CLASS="Variable">qualifier</EM>
+ | (<EM CLASS="Variable">qualifier</EM>
+ <EM CLASS="Variable">qualifier</EM>
+*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891429"></A><EM CLASS="Variable">qualifier</EM>
+    := <EM CLASS="Variable">symbol</EM>
+</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891423"></A><EM CLASS="Variable">specializer</EM>
+  := <EM CLASS="Variable">symbol</EM>
+ | (eql <EM CLASS="Variable">object</EM>
+)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887759"></A>Functions in the dspec API accept non-canonical dspecs.  All dspec functions, except <CODE CLASS="Code">
+dspec:prettify-dspec</CODE>
+, <A HREF="lw-717.htm#58766" CLASS="XRef">find-dspec-locations</A>, <A HREF="lw-723.htm#65600" CLASS="XRef">name-definition-locations</A>, <A HREF="lw-710.htm#12396" CLASS="XRef">dspec-definition-locations</A> and <A HREF="lw-718.htm#50636" CLASS="XRef">find-name-locations</A> return canonical dspecs.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-72.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-70.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

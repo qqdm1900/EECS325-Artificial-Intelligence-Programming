@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *print-catch-frames*
+</TITLE>
+
+<LINK REL="next" HREF="lw-693.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-691.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-683.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-683.htm">29 The DBG Package</A><BR><BR>
+</DIV><A HREF="lw-693.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-691.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886361"></A><A NAME="marker-887080"></A>*print-catch-frames*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886363"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889553"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890099"></A>Controls whether catch frames are printed in debugger output.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886365"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886366"></A>dbg</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886367"></A>Initial Value</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886368"></A>t </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886369"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886370"></A>This variable is used by the debugger when it displays the stack frames. Catch frames are created when the special form <CODE CLASS="Code">
+catch</CODE>
+ is used. They are set up so that throws to the matching tag can be received. By default the debugger displays these frames, but if <CODE CLASS="Code">
+*print-catch-frames*</CODE>
+ is set to <CODE CLASS="Code">
+nil</CODE>
+ then the catch frames are no longer shown. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886371"></A>Examples</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886372"></A>USER 17 &gt; (setq dbg:*print-catch-frames* nil)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886374"></A>NIL </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886375"></A>USER 18 &gt; (defun catch-it ()</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886376"></A>   (catch 'tag (throw-it) (print &quot;Not caught&quot;)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886378"></A>CATCH-IT </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886379"></A>USER 19 &gt; (defun throw-it ()</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886380"></A>              (throw 'tag (break)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886382"></A>THROW-IT </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886383"></A>USER 20 &gt; (catch-it)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886385"></A>break</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886386"></A>   1 (continue) return from break.</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886387"></A>   2 (abort) return to top loop level 0.</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886389"></A>Type :c followed by a number to proceed</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886391"></A>USER 21 : 1 &gt; :b 5 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886392"></A>Interpreted call to (DEFUN THROW-IT): </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886393"></A>Call to *%APPLY-INTERPRETED-FUNCTION  : </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886394"></A>Interpreted call to (DEFUN CATCH-IT): </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886395"></A>Call to *%APPLY-INTERPRETED-FUNCTION  : </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886396"></A>Call to %EVAL  :</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886397"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886398"></A><CODE CLASS="Code">
+*print-catch-frames*</CODE>
+ is an extension to Common Lisp.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-693.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-691.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

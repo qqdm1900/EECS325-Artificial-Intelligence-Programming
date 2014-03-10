@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 25.9.1  Interface to source code managers
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-502.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-500.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-500.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-473.htm">25 The System Browser</A> &gt; <A HREF="ide-m-500.htm">25.9  ASDF Integration</A><BR><BR>
+</DIV><A HREF="ide-m-502.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-500.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-500.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-890016"></A>25.9.1  Interface to source code managers</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890017"></A>The interface comprises a function <CODE CLASS="Code">
+scm:add-system-namespace</CODE>
+ which must be called, and a set of generic functions for which methods need to be defined.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886840"></A><CODE CLASS="Code">
+scm:add-system-namespace</CODE>
+ adds a namespace of &quot;systems&quot;, which:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886928"></A>are objects that may have children</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886929"></A>themselves may be &quot;systems&quot;</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886930"></A>are associated with pathnames</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-886931"></A>have operations <CODE CLASS="Code">
+:load</CODE>
+ and <CODE CLASS="Code">
+:compile</CODE>
+ defined for them</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-886842"></A>LispWorks has its own built-in source code manager (<CODE CLASS="Code">
+lw:defsystem</CODE>
+, <CODE CLASS="Code">
+lw:compile-system</CODE>
+, <CODE CLASS="Code">
+lw:load-system</CODE>
+, <CODE CLASS="Code">
+lw:concatenate-system</CODE>
+ and related functions). A widely-used source code manager is ASDF.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887065"></A>In the LispWorks IDE tools, a system name that contains a colon is interpreted as</P>
+<P CLASS="Body">
+<A NAME="pgfId-887066"></A><EM CLASS="Variable">
+namespace</EM>
+<CODE CLASS="Code">
+:</CODE>
+<EM CLASS="Variable">
+systemname</EM>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-887067"></A>To find the system LispWorks applies the <EM CLASS="Variable">
+finder</EM>
+ specified in <CODE CLASS="Code">
+scm:add-system-namespace</CODE>
+ to the string <EM CLASS="Variable">
+systemname</EM>
+. A system name without a colon is searched (using the <EM CLASS="Variable">
+finder</EM>
+) in all the known namespaces. Note that this means that a system name without a colon may match several systems in different namespaces.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886846"></A>In addition to the integration interface, there are new functions which look at the namespaces and systems.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886850"></A>The most important symbols in the integration interface are described in the remainder of this section. &quot;module&quot; means one of the objects that is returned by the <EM CLASS="Variable">
+finder </EM>
+in <CODE CLASS="Code">
+scm:add-system-namespace</CODE>
+ or by the <EM CLASS="Variable">
+system-lister </EM>
+in <CODE CLASS="Code">
+scm:add-system-namespace</CODE>
+ or by <CODE CLASS="Code">
+scm:module-children</CODE>
+.  A &quot;system&quot; is a module for which <CODE CLASS="Code">
+scm:module-is-system-p</CODE>
+ returns true.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886853"></A><A NAME="marker-887412"></A>scm:add-system-namespace</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886854"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886859"></A>add-system-namespace <EM CLASS="Variable">
+name</EM>
+ &amp;key <EM CLASS="Variable">
+finder</EM>
+ <EM CLASS="Variable">
+system-lister</EM>
+ <EM CLASS="Variable">
+name-lister</EM>
+</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886867"></A>The function <CODE CLASS="Code">
+scm:add-system-namespace</CODE>
+ tells LispWorks about another system namespace.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886868"></A><EM CLASS="Variable">
+name</EM>
+ must be a string. It is compared case-insensitively. The name must be different from <CODE CLASS="Code">
+&quot;LW&quot;</CODE>
+, which is the namespace for the LispWorks built-in <CODE CLASS="Code">
+lw:defsystem</CODE>
+ systems.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886869"></A><EM CLASS="Variable">
+finder</EM>
+ must be supplied as a function or symbol which takes one argument, a string. If there is an exact match (case-insensitive) it returns a module object or a list of module objects. The finder needs to be error-free when called with a string.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886870"></A><EM CLASS="Variable">
+system-lister</EM>
+ must be a designator for a function which takes no argument, and returns a list of the known systems in the namespace.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887228"></A><EM CLASS="Variable">
+name-lister</EM>
+ is optional. If supplied, it must be a designator for a function which takes no argument and returns a list of the names of the systems in the namespace. If it is not supplied, the system uses <EM CLASS="Variable">
+system-lister</EM>
+ and maps <CODE CLASS="Code">
+scm:module-name</CODE>
+ on the result.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-887229"></A><A NAME="marker-887417"></A>scm:module-name</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-887230"></A>Generic Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887231"></A>module <EM CLASS="Variable">
+module</EM>
+ =&gt; <EM CLASS="Variable">
+name</EM>
+</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887316"></A>The function <CODE CLASS="Code">
+scm:module-name </CODE>
+must be defined for any module. It takes a module and returns its name.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-887333"></A><A NAME="marker-887422"></A>scm:module-is-system-p</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-887334"></A>Generic Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887335"></A>scm:module-is-system-p <EM CLASS="Variable">
+module</EM>
+ =&gt; <EM CLASS="Variable">
+boolean</EM>
+</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887336"></A>The generic function <CODE CLASS="Code">
+scm:module-is-system-p</CODE>
+ returns true if the module is a &quot;system&quot;. That is, it has children. The default method returns false.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-887338"></A><A NAME="marker-887427"></A>scm:module-children</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-887339"></A>Generic Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887340"></A>scm:module-children <EM CLASS="Variable">
+module</EM>
+ =&gt; <EM CLASS="Variable">
+list-of-modules</EM>
+</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887328"></A>The generic function <CODE CLASS="Code">
+scm:module-children</CODE>
+ returns the children of the module, if any. The default method returns <CODE CLASS="Code">
+nil</CODE>
+. This generic function is called only on &quot;systems&quot;, that is after checking that <CODE CLASS="Code">
+scm:module-is-system-p</CODE>
+ returned true.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-502.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-500.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-500.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

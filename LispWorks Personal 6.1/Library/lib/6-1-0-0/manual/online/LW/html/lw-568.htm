@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-clos-initarg-checking
+</TITLE>
+
+<LINK REL="next" HREF="lw-569.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-567.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-559.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-559.htm">25 The CLOS Package</A><BR><BR>
+</DIV><A HREF="lw-569.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-567.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-559.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-933568"></A><A NAME="61724"></A>set<A NAME="marker-933567"></A>-clos-initarg<A NAME="marker-934161"></A>-checking</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-933569"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933570"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-933571"></A>Switches initarg checking on or off in <CODE CLASS="Code">
+make-instance</CODE>
+, <CODE CLASS="Code">
+reinitialize-instance</CODE>
+, <CODE CLASS="Code">
+change-class</CODE>
+ and so on.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933572"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-933573"></A>clos</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933574"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-933575"></A>set-clos-initarg-checking <EM CLASS="Variable">
+on</EM>
+ =&gt; <EM CLASS="Variable">
+on</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933576"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933577"></A><EM CLASS="Variable">
+on</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933578"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-933940"></A>The function <CODE CLASS="Code">
+set-clos-initarg-checking</CODE>
+ provides control over whether CLOS checks initialization arguments. Initializations affected include:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-934050"></A>Calls to <A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A></LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-933942"></A>Calls to <CODE CLASS="Code">
+reinitialize-instance</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-933943"></A>Calls to <CODE CLASS="Code">
+change-class</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-933944"></A><CODE CLASS="Code">
+call-next-method</CODE>
+ to <CODE CLASS="Code">
+update-instance-for-redefined-class</CODE>
+ with extra keywords.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-933583"></A>Calling <CODE CLASS="Code">
+set-clos-initarg-checking</CODE>
+ with a true value of <EM CLASS="Variable">
+on</EM>
+ causes the above initializations to check their initargs. This is the initial state of LispWorks.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-933587"></A>Initarg checking is switched off globally and dynamically by</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-934191"></A>(set-clos-initarg-checking nil)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933588"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-933589"></A>The effect of calling <CODE CLASS="Code">
+set-clos-initarg-checking</CODE>
+ can be overridden in a runtime by the <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A> keyword argument <CODE CLASS="Code">
+:clos-initarg-checking</CODE>
+. See the <I CLASS="Italic">
+LispWorks Delivery User Guide</I>
+ for details.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-934171"></A><CODE CLASS="Code">
+set-clos-initarg-checking</CODE>
+ supersedes</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-933596"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-933600"></A><A HREF="lw-562.htm#74710" CLASS="XRef">class-extra-initargs</A><BR>
+<A HREF="lw-563.htm#78568" CLASS="XRef">compute-class-potential-initargs</A><BR>
+<A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A><BR>
+<A HREF="lw-655.htm#39152" CLASS="XRef">make-instance</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-569.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-567.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-559.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.5.3  Communication between processes and synchronization
+</TITLE>
+
+<LINK REL="next" HREF="lw-285.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-283.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-281.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-281.htm">15.5  Process Waiting</A><BR><BR>
+</DIV><A HREF="lw-285.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-283.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-281.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-894714"></A>15.5.3  Communication between processes and synchronization</H3>
+<P CLASS="Body">
+<A NAME="pgfId-895117"></A>The simplest way to pass a specific event between two processes it to use <A HREF="lw-1102.htm#24216" CLASS="XRef">process-wait-for-event</A> on the receiving process, and <A HREF="lw-1094.htm#17963" CLASS="XRef">process-send</A> on the sender side. The &quot;event&quot; that is passed is can be any Lisp object.</P>
+<P CLASS="Body">
+<A NAME="pgfId-895128"></A><A HREF="lw-1094.htm#17963" CLASS="XRef">process-send</A> and <A HREF="lw-1102.htm#24216" CLASS="XRef">process-wait-for-event</A> use a <CODE CLASS="Code">
+mp:mailbox</CODE>
+ to pass the object (the <A HREF="lw-1082.htm#45113" CLASS="XRef">process-mailbox</A> of the receiver). It is possible to use a <CODE CLASS="Code">
+mp:mailbox</CODE>
+ object directly, and to communicate between multiple senders and receivers. Use <A HREF="lw-1058.htm#37778" CLASS="XRef">make-mailbox</A> to make a mailbox, and <A HREF="lw-1052.htm#37933" CLASS="XRef">mailbox-send</A> to put a message in it. The receiver(s) use either <A HREF="lw-1053.htm#22144" CLASS="XRef">mailbox-wait-for-event</A> and <A HREF="lw-1050.htm#21302" CLASS="XRef">mailbox-read</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894718"></A><A HREF="lw-1053.htm#22144" CLASS="XRef">mailbox-wait-for-event</A> should be used on processes that may make windows (including any process associated with a CAPI interface), but can be used elsewhere. <A HREF="lw-1050.htm#21302" CLASS="XRef">mailbox-read</A> is faster, but if it used on a process with a window it may cause hanging.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894719"></A><A HREF="lw-1102.htm#24216" CLASS="XRef">process-wait-for-event</A> and <A HREF="lw-1094.htm#17963" CLASS="XRef">process-send</A> and <CODE CLASS="Code">
+mp:mailbox</CODE>
+ are the primary interface for communication between processes, and should be used unless there is a very good reason to use a different mechanism.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-285.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-283.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-281.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.2.1  Objective-C pointers and pointer types
+</TITLE>
+
+<LINK REL="next" HREF="objc-8.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-6.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-6.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-3.htm">1 Introduction to the Objective-C Interface</A> &gt; <A HREF="objc-6.htm">1.2  Objective-C data types</A><BR><BR>
+</DIV><A HREF="objc-8.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-6.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-6.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-887646"></A>1.2.1  Objective-C pointers and pointer types<A NAME="marker-892020"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-889668"></A>Objective-C defines its own memory management, so most interaction with its objects occurs using foreign pointers with the FLI type descriptor <A NAME="marker-891954"></A><A HREF="objc-60.htm#36910" CLASS="XRef">objc-object-pointer</A>. When an Objective-C object class is implemented in Lisp, there is an additional object of type <A NAME="marker-891974"></A><A HREF="objc-69.htm#32015" CLASS="XRef">standard-objc-object</A> which is associated with the foreign pointer (see <A HREF="objc-21.htm#35600" CLASS="XRef">Defining Objective-C classes and methods</A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-889681"></A>There are a few specific Objective-C pointer types that have a direct translation to FLI types:</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-889687"></A>Pointer types in Objective-C<DIV>
+<IMG SRC="objc-4.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-889694"></A> Objective-C type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-889696"></A>FLI type descriptor</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-889698"></A><CODE CLASS="Code">
+Class</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-889703"></A><A NAME="marker-891989"></A><A HREF="objc-55.htm#54158" CLASS="XRef">objc-class</A></P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-889705"></A><CODE CLASS="Code">
+SEL</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-889710"></A><A NAME="marker-891994"></A><A HREF="objc-67.htm#73578" CLASS="XRef">sel</A></P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-889712"></A><CODE CLASS="Code">
+id</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-889717"></A><A NAME="marker-892004"></A><A HREF="objc-60.htm#36910" CLASS="XRef">objc-object-pointer</A></P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-889719"></A><CODE CLASS="Code">
+char *</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body">
+<A NAME="pgfId-889724"></A><A NAME="marker-892009"></A><A HREF="objc-53.htm#76079" CLASS="XRef">objc-c-string</A></P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-892065"></A>Other pointer types are represented using the <CODE CLASS="Code">
+:pointer</CODE>
+ FLI type descriptor as normal.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894987"></A>When using pointers to struct types, the type must be defined using <A NAME="marker-895005"></A><A HREF="objc-44.htm#38029" CLASS="XRef">define-objc-struct</A> rather than <A NAME="marker-895016"></A><CODE CLASS="Code">
+fli:define-c-struct</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-8.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-6.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-6.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

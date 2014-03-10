@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.1.1  IDL for the account interface
+</TITLE>
+
+<LINK REL="next" HREF="corba-31.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-29.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-29.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-28.htm">4 Writing and Compiling IDL</A> &gt <A HREF="corba-29.htm">4.1  Designing the IDL</A><BR><BR>
+</DIV><A HREF="corba-31.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-29.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-29.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-853257"></A>4.1.1  <A NAME="marker-856047"></A><A NAME="marker-856075"></A>IDL for the account interface</H3>
+<P CLASS="Body">
+<A NAME="pgfId-855613"></A>We begin with the IDL definition of the interface to an <CODE CLASS="Code">
+account</CODE>
+ object.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853258"></A>// in module BankingDemo </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853688"></A>interface account { </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853690"></A>  readonly attribute string name; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855616"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853692"></A>  readonly attribute long balance; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855619"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855620"></A>  void credit (in unsigned long amount);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855622"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855621"></A>  exception refusal {string reason;}; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853698"></A>  void debit (in long amount) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853700"></A>    raises (refusal); </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853702"></A>}; </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853259"></A>The name of an account is recorded in its <CODE CLASS="Code">
+name</CODE>
+ attribute. The state of an account is recorded in its <CODE CLASS="Code">
+balance</CODE>
+ attribute. To keep things simple, we use CORBA <CODE CLASS="Code">
+long</CODE>
+ values to represent monetary amounts. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855626"></A>To prevent clients from directly altering the account's name or balance, these attributes are declared as <CODE CLASS="Code">
+readonly</CODE>
+ attributes. The operations <CODE CLASS="Code">
+credit</CODE>
+ and <CODE CLASS="Code">
+debit</CODE>
+ are provided to allow updates to an account's <CODE CLASS="Code">
+balance</CODE>
+ attribute.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853260"></A>The operation <CODE CLASS="Code">
+credit</CODE>
+ adds a non-negative amount to the current account balance. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853262"></A>Next comes an exception declaration:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-854445"></A>exception refusal {string reason;};</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-854446"></A>This declares a named exception, <CODE CLASS="Code">
+refusal</CODE>
+, that the debit operation uses to signal errors. The <CODE CLASS="Code">
+refusal</CODE>
+ exception is declared to contain a <CODE CLASS="Code">
+reason</CODE>
+ field that documents the reason for failure in the form of a <CODE CLASS="Code">
+string</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853263"></A>The operation <CODE CLASS="Code">
+debit</CODE>
+ subtracts a given amount from the current balance, provided doing so does not make the account balance negative. Qualifying <CODE CLASS="Code">
+debit</CODE>
+ by the phrase</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-854447"></A>raises (refusal)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-854452"></A>declares that invoking this operation may raise the exception <CODE CLASS="Code">
+refusal</CODE>
+. Although a CORBA operation may raise any CORBA system exception, its declaration must specify any additional user-defined CORBA exceptions that it might raise.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855644"></A>This completes the IDL declaration of the <CODE CLASS="Code">
+account</CODE>
+ interface.</P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-31.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-29.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-29.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

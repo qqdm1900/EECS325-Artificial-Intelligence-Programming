@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.3  Linking code into CAPI elements
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-13.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-11.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-9.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-9.htm">2 Getting Started </A><BR><BR>
+</DIV><A HREF="capiuser-m-13.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-11.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-9.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884712"></A>2.3  <A NAME="79822"></A>Linking code into <A NAME="marker-884631"></A>CAPI elements</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884226"></A>Getting a CAPI element to perform an action is done by specifying a <I CLASS="Italic">
+callback</I>
+<A NAME="marker-884225"></A>. This is a function which is performed whenever you change the state of a CAPI element. It calls a piece of code whenever a choice is made in a window.</P>
+<P CLASS="Body-Next">
+<A NAME="pgfId-884227"></A>Note that the result of the callback function is ignored, and that its usefulness is in its side-effects.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-884228"></A>Try the following:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-884230"></A>(make-instance 'push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884231"></A>               :data &quot;Hello&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884232"></A>               :callback </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884233"></A>               #'(lambda (&amp;rest args) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884234"></A>                         (display-message </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884235"></A>                            &quot;Hello World&quot;)))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884238"></A>(contain *)</CODE>
+<P CLASS="Figure">
+<A NAME="pgfId-884590"></A>Figure 2.3  Specifying a callback<DIV>
+<IMG SRC="capiuser-m-6.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-8.gif">
+</DIV>
+
+<LI CLASS="Step">
+<A NAME="pgfId-884244"></A>Click on the <B CLASS="Button">
+Hello</B>
+ button.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-887872"></A>A dialog appears containing the message &quot;Hello World&quot;.</P>
+
+<P CLASS="Figure">
+<A NAME="pgfId-887877"></A>Figure 2.4  A dialog displayed by a callback.<DIV>
+<IMG SRC="capiuser-m-6.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-9.gif">
+</DIV>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-887892"></A>The CAPI provides the function <A NAME="marker-887873"></A><CODE CLASS="Code">
+display-message</CODE>
+ to allow you to pop up a dialog sheet containing a message and a Confirm button. This is one of many pre-defined facilities that the CAPI offers. You can also pop up a dialog window rather than a sheet, using <A NAME="marker-904883"></A><CODE CLASS="Code">
+prompt-with-message</CODE>
+.</P>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-884730"></A>Note: When you develop CAPI applications, your application windows are run in the same Window system event loop as the LispWorks IDE. This - and the fact that in Common Lisp user code exists in the same global namespace as the Common Lisp implementation - means that a CAPI application running in the LispWorks IDE can modify the same values as you can concurrently modify from one of the the LispWorks IDE programming tools. </P>
+<P CLASS="Body">
+<A NAME="pgfId-884746"></A>For example, your CAPI application might have a button that, when pressed, sets a slot in a particular object that you could also set by hand in the Listener. Such introspection can be useful but can also lead to unexpected values and behavior while testing your application code.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884667"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-13.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-11.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-9.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

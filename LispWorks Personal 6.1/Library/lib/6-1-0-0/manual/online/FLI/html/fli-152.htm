@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-foreign-slots
+</TITLE>
+
+<LINK REL="next" HREF="fli-153.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-151.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-153.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-151.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1113564"></A><A NAME="53979"></A>with-foreign-slots<A NAME="marker-1113563"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1113565"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1113566"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1113567"></A>Allows convenient access to the slots of a foreign structure.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1113568"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1113569"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1113570"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1309448"></A>with-foreign-slots <EM CLASS="Variable">
+slots-and-options</EM>
+ <EM CLASS="Variable">
+form</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1309661"></A><EM CLASS="Variable">
+slots-and-options</EM>
+ := (<EM CLASS="Variable">
+slots</EM>
+ &amp;key <EM CLASS="Variable">
+object-type</EM>
+) | <EM CLASS="Variable">
+slots</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1309662"></A><EM CLASS="Variable">
+slots</EM>
+ := (<EM CLASS="Variable">
+slot-spec</EM>
+*)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1309663"></A><EM CLASS="Variable">
+slot-spec</EM>
+ := <EM CLASS="Variable">
+slot-name</EM>
+ | (<EM CLASS="Variable">
+variable-name</EM>
+ <EM CLASS="Variable">
+slot-name</EM>
+ &amp;key <EM CLASS="Variable">
+copy-foreign-object</EM>
+)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1113575"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1309691"></A><EM CLASS="Variable">
+variable-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1113578"></A><EM CLASS="Variable">
+slot-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1329931"></A><EM CLASS="Variable">
+object-type</EM>
+</P>
+<P CLASS="RDescription-C">A FLI structure type</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1310229"></A><EM CLASS="Variable">
+form</EM>
+</P>
+<P CLASS="RDescription-C">A form evaluating to an instance of (or a pointer to) a FLI structure</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1113583"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Forms to be executed</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1113587"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1309909"></A>The macro <CODE CLASS="Code">
+with-foreign-slots</CODE>
+ is analogous to the Common Lisp macro <CODE CLASS="Code">
+with-slots</CODE>
+. Within <EM CLASS="Variable">
+body</EM>
+, each <EM CLASS="Variable">
+slot-name</EM>
+ (or <EM CLASS="Variable">
+variable-name</EM>
+) evaluates to the result of calling <A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A> on <EM CLASS="Variable">
+form</EM>
+ with that slot. <CODE CLASS="Code">
+setf</CODE>
+ can be used to set the foreign slot value.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1309910"></A>If the first syntax of <EM CLASS="Variable">
+slots-and-options</EM>
+ is used, then <EM CLASS="Variable">
+object-type</EM>
+ is passed as the value of the <CODE CLASS="Code">
+:object-type</CODE>
+ keyword argument in all the generated calls to <A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A>.  If the second syntax of <EM CLASS="Variable">
+slots-and-options</EM>
+ is used, no <EM CLASS="Variable">
+object-type</EM>
+ is passed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1309911"></A>Each <EM CLASS="Variable">
+slot-spec</EM>
+ can either be a symbol <EM CLASS="Variable">
+slot-name</EM>
+ naming a slot in the object, which will be also be used in <EM CLASS="Variable">
+body</EM>
+, or a list of <EM CLASS="Variable">
+variable-name</EM>
+, a symbol naming a slot, and a plist of options. In this case the <EM CLASS="Variable">
+copy-foreign-object</EM>
+ option is passed as the value of the <CODE CLASS="Code">
+:copy-foreign-object</CODE>
+ keyword argument in the generated call to <A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A>. The default value of <EM CLASS="Variable">
+copy-foreign-object</EM>
+ is <CODE CLASS="Code">
+:error</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1309833"></A>The <CODE CLASS="Code">
+with-foreign-slots</CODE>
+ form returns the value of the last form in <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1114305"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1114403"></A>(fli:define-c-struct abc </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114404"></A>  (a :int)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114405"></A>  (b :int)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114406"></A>  (c :int))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114407"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114408"></A>(:STRUCT ABC)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114409"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114410"></A>(setf abc (fli:allocate-foreign-object :type 'abc))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114411"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114412"></A>#&lt;Pointer to type (:STRUCT ABC) = #x007F3BE0&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114413"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114414"></A>(fli:with-foreign-slots (a b c) abc</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114415"></A>  (setf a 6 b 7 c (* a b)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114416"></A>=&gt; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114417"></A>42</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114418"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114419"></A>(fli:foreign-slot-value abc 'c)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1114420"></A>=&gt; </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1114316"></A>42</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1114317"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1114470"></A><A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-153.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-151.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

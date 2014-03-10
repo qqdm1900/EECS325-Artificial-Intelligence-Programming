@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.2  Error handling in delivered applications
+</TITLE>
+
+<LINK REL="next" HREF="delivery-35.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-33.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-32.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-32.htm">3 Writing Code Suitable for Delivery</A><BR><BR>
+</DIV><A HREF="delivery-35.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-33.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-32.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-865939"></A>3.2  <A NAME="12625"></A>Error handling in delivered applications</H3>
+<P CLASS="Body">
+<A NAME="pgfId-865940"></A>Normally you do not expect an application user to debug it, so you never want your delivered application to call the debugger. Obviously you try to achieve that by making the application error-free, but it is difficult to guarantee that the application never calls error. You therefore handle errors in the application, such that even if an error occurs it does not enter the debugger.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865941"></A>Error handling can be dynamically-scoped or global.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865942"></A>Dynamically-scoped error handling is done by wrapping <A NAME="marker-866040"></A><A NAME="marker-866045"></A><CODE CLASS="Code">
+cl:handler-bind</CODE>
+ or <A NAME="marker-866053"></A><CODE CLASS="Code">
+cl:handler-case</CODE>
+ around a body of code. This has the advantage that it allows you to tailor the response to errors in specific pieces of code and for specific types of error. It has the disadvantage that it is not global. If you put it in the process function (the function argument to <A NAME="marker-866059"></A><CODE CLASS="Code">
+mp:process-run-function</CODE>
+) it will apply only to the code that is executed in that process, but you still need it in each process.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865943"></A>The global error handling is done by setting <A NAME="marker-866074"></A><CODE CLASS="Code">
+cl:*debugger-hook*</CODE>
+. This applies to anything that tries to enter the debugger, in particular any <A NAME="marker-866079"></A><CODE CLASS="Code">
+cl:error</CODE>
+ call that was not handled otherwise. It has the advantage that it really is global, but the disadvantage that it cannot be tailored locally.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865944"></A>Since the <CODE CLASS="Code">
+cl:*debugger-hook*</CODE>
+ is applied only if the error was not handled, the two mechanisms can be used at the same time and typically they are. The dynamically-scoped ones are used to give the accurate response, while the global one used to catch any error that is not handled for some reason.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865945"></A>In either case, the handling means that some of your code is being executed. Either it is the function is bound to the error type in <CODE CLASS="Code">
+cl:handler-bind</CODE>
+ or set to <CODE CLASS="Code">
+cl:*debugger-hook*</CODE>
+, or the body in the clause in <CODE CLASS="Code">
+cl:handler-case</CODE>
+. This code should the &quot;right thing&quot; to deal with the situation. For unexpected errors, that normally would mean generating some log of the problem, telling the end-user that something went wrong, maybe giving the user some options of actions, and aborting (note that <CODE CLASS="Code">
+cl:handler-case</CODE>
+ already aborted when the code is executed).</P>
+<P CLASS="Body">
+<A NAME="pgfId-865946"></A>The log of the problem would normally be a <EM CLASS="Variable">
+bug form</EM>
+, which you can generate by</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866014"></A>(<A NAME="marker-866084"></A>dbg:output-backtrace :bug-form ...)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866015"></A>If you can obtain the bug form, it will give you (the programmer) a chance to identify the reason for the error. There is also <A NAME="marker-866089"></A><CODE CLASS="Code">
+dbg:log-bug-form</CODE>
+ which writes it to a file. You would not normally show the bug form to the end-user. Instead, in a GUI application you will probably want to display a dialog informing the user that something went wrong and maybe giving them some options. In a console application you probably want to just print a short message.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865947"></A>There is a simple example of using <CODE CLASS="Code">
+cl:*debugger-hook*</CODE>
+ in</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-865948"></A>(sys:example-file &quot;delivery/debugger-hook/&quot;)</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-35.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-33.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-32.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

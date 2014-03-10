@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.7  Using graphs in your programs
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-123.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-121.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-111.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-111.htm">6 Manipulating Graphs</A><BR><BR>
+</DIV><A HREF="ide-m-123.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-121.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-111.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853632"></A>6.7  <A NAME="marker-853063"></A><B CLASS="Button">
+</B>
+<A NAME="marker-853072"></A><A NAME="marker-853092"></A>Using graphs in your programs</H3>
+<P CLASS="Body">
+<A NAME="pgfId-854773"></A>You can read about the CAPI class <CODE CLASS="Code">
+graph-pane</CODE>
+ in the <I CLASS="Italic">
+CAPI Reference Manual</I>
+ for detailed API information for using graphs in your own programs. We will also look at a short example in this section. The following code listing defines a callback function and creates a graph-pane object:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-854782"></A>(defun node-children (node)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854783"></A>  (if (equal node 'pets)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854784"></A>      (list 'dog 'parrot)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854785"></A>    (if (equal node 'dog)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854786"></A>        (list 'Kito 'Otis 'Sammy 'Teddy)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854787"></A>      (if (equal node 'parrot)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854788"></A>          (list 'Brady)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854789"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854790"></A>(setq test-graph</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854791"></A>      (capi:contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854792"></A>       (make-instance 'capi:graph-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854793"></A>                      :roots '(pets)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854794"></A>                      :children-function</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854795"></A>                      'node-children)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854796"></A>       :best-width 300</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-854778"></A>       :best-height 400))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-854779"></A>The children function <CODE CLASS="Code">
+node-children</CODE>
+ should return <CODE CLASS="Code">
+nil</CODE>
+ for a leaf node in the graph or a list of child nodes for a non-leaf node. <A HREF="ide-m-122.htm#55932" CLASS="XRef">Sample Graph from a User Program</A> shows the generated graph-pane.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-854812"></A>Figure 6.12  <A NAME="55932"></A>Sample Graph from a User Program<DIV>
+<IMG SRC="ide-m-61.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="ide-m-72.gif">
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-123.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-121.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-111.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

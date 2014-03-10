@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-unlock
+</TITLE>
+
+<LINK REL="next" HREF="lw-1100.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1098.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1100.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1098.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886790"></A><A NAME="96257"></A>process<A NAME="marker-1058771"></A>-unlock</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886792"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902714"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902763"></A>Relinquishes a lock held by the current process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886794"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886795"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886796"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886797"></A>process-unlock <EM CLASS="Variable">
+lock</EM>
+ &amp;optional <EM CLASS="Variable">
+errorp</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886798"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886799"></A><EM CLASS="Variable">
+lock</EM>
+</P>
+<P CLASS="RDescription-C">The lock to be relinquished.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886800"></A><EM CLASS="Variable">
+errorp</EM>
+ </P>
+<P CLASS="RDescription-C">When this is <CODE CLASS="Code">
+t</CODE>
+, an error is signalled if <A HREF="lw-1020.htm#55304" CLASS="XRef">*current-process*</A> is not the owner of the lock. The default is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-907776"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-907830"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886801"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886802"></A>Attempts to release a lock. If the lock is owned by <A HREF="lw-1020.htm#55304" CLASS="XRef">*current-process*</A>, <CODE CLASS="Code">
+process-unlock</CODE>
+ decrements an internal count. If this lock count is then zero, the lock is released. Note that <CODE CLASS="Code">
+process-unlock</CODE>
+ relates only on Lisp processes.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1196336"></A><EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ if the lock was released, and <CODE CLASS="Code">
+nil</CODE>
+ otherwise.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1460218"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1460219"></A><CODE CLASS="Code">
+process-sharing-unlock</CODE>
+ is guaranteed to successfully unlock the lock, but is not guaranteed to return, as described in <A HREF="lw-280.htm#95000" CLASS="XRef">Guarantees and limitations when locking and unlocking</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886803"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886805"></A><A HREF="lw-1057.htm#93763" CLASS="XRef">make-lock</A><BR>
+<A HREF="lw-1074.htm#80083" CLASS="XRef">process-exclusive-unlock</A><BR>
+<A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A><BR>
+<A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1100.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1098.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

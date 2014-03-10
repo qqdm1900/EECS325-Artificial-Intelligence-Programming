@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ objc-class-method-signature
+</TITLE>
+
+<LINK REL="next" HREF="objc-57.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-55.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-33.htm">2 Objective-C Reference</A><BR><BR>
+</DIV><A HREF="objc-57.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-55.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1216968"></A><A NAME="34384"></A>objc<A NAME="marker-1216966"></A>-class-method-<A NAME="marker-1216967"></A>signature</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1216969"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1216970"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1216971"></A>Tries to find the relevant method, and returns its signature.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1216972"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1216973"></A>objc</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1216974"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1216975"></A>objc-class-method-signature <EM CLASS="Variable">
+class-spec</EM>
+ <EM CLASS="Variable">
+method-name</EM>
+ =&gt; <EM CLASS="Variable">
+arg-types</EM>
+, <EM CLASS="Variable">
+result-type</EM>
+, <EM CLASS="Variable">
+type-encoding</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1216976"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1216980"></A><EM CLASS="Variable">
+class-spec</EM>
+</P>
+<P CLASS="RDescription-C">A string, an <A HREF="objc-60.htm#36910" CLASS="XRef">objc-object-pointer</A> or an <A HREF="objc-55.htm#54158" CLASS="XRef">objc-class</A> pointer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1216984"></A><EM CLASS="Variable">
+method-name</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1216985"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1216986"></A><EM CLASS="Variable">
+arg-types</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1216987"></A><EM CLASS="Variable">
+result-type</EM>
+</P>
+<P CLASS="RDescription-C">A foriegn type descriptor.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1216988"></A><EM CLASS="Variable">
+type-encoding</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1216989"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1216990"></A>The function <CODE CLASS="Code">
+objc-class-method-signature</CODE>
+ tries to find the relevant method, and returns its signature.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1216993"></A><EM CLASS="Variable">
+class-spec</EM>
+ needs to be a string naming a class, an <A HREF="objc-60.htm#36910" CLASS="XRef">objc-object-pointer</A> foreign pointer (which specifies its class), or an <A HREF="objc-55.htm#54158" CLASS="XRef">objc-class</A> pointer.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1216998"></A><EM CLASS="Variable">
+method-name</EM>
+ specifies the method name. It can be either a class method or an instance method.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1216999"></A>The first return value is a list of the argument types (that is, foreign types). Note that the first and second arguments of all Objective-C methods are the object/class and the method selector (name). These are are typed as <A HREF="objc-60.htm#36910" CLASS="XRef">objc-object-pointer</A> and <A HREF="objc-67.htm#73578" CLASS="XRef">sel</A>, so the <EM CLASS="Variable">
+arg-types</EM>
+ list always starts with these two symbols.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1217006"></A>The second return value is the result type of the method.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1217007"></A>The third return value is a string which is the type encoding of the signature of the method, as stored internally by the Objective-C runtime system.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1217008"></A>If <CODE CLASS="Code">
+objc-class-method-signature</CODE>
+ fails to locate the method, it returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1217009"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1217013"></A><A HREF="objc-55.htm#54158" CLASS="XRef">objc-class</A><BR>
+<A HREF="objc-60.htm#36910" CLASS="XRef">objc-object-pointer</A><BR>
+<A HREF="objc-67.htm#73578" CLASS="XRef">sel</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-57.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-55.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

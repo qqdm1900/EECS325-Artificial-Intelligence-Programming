@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.9.2  Evaluation commands
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-116.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-114.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-113.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-93.htm">4 Editing Lisp Programs</A> &gt <A HREF="eduser-m-113.htm">4.9  Evaluation and compilation</A><BR><BR>
+</DIV><A HREF="eduser-m-116.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-114.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-113.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884309"></A>4.9.2  <A NAME="marker-884307"></A>Evaluation commands</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884311"></A><A NAME="55847"></A>Evaluate<A NAME="marker-970769"></A> Defun</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884312"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884313"></A>Argument: None<BR>
+Key sequence: <CODE CLASS="Code">
+Meta+Ctrl+X</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884314"></A>Evaluates the current top-level form. If the current point is between two forms, the previous form is evaluated.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-908300"></A>If the form is a <CODE CLASS="Code">
+defvar</CODE>
+ form, then the command may first make the variable unbound, according to the value of <A HREF="eduser-m-115.htm#87520" CLASS="XRef">evaluate-defvar-action</A>, and hence assign the new value. This is useful because, whilst <CODE CLASS="Code">
+defvar</CODE>
+ does not reassign the value of a bound variable, when editing a program it is likely that you do want the new value.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-908307"></A><A NAME="87520"></A>evaluate<A NAME="marker-952555"></A>-defvar-action</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-908311"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-908312"></A>Default value: <CODE CLASS="Code">
+:reevaluate-and-warn</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-908321"></A>This affects the behavior of <A HREF="eduser-m-115.htm#55847" CLASS="XRef">Evaluate Defun</A> and <A HREF="eduser-m-117.htm#58819" CLASS="XRef">Compile Defun</A> when they are invoked on a <CODE CLASS="Code">
+defvar</CODE>
+ form. The allowed values are:</P>
+<P CLASS="Description">
+<A NAME="pgfId-908383"></A><CODE CLASS="Code">
+:evaluate-and-warn</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-908407"></A>Do not make the variable unbound before evaluating the form, and warn that it was not redefined.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-908408"></A><CODE CLASS="Code">
+:evaluate</P>
+<P CLASS="Description-C"></CODE>
+Do not make the variable unbound before evaluating the form, but do not warn that it was not redefined.</P>
+<P CLASS="Description">
+<A NAME="pgfId-908409"></A><CODE CLASS="Code">
+:reevaluate-and-warn</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-908435"></A>Make the variable unbound before evaluating the form, and warn that it was therefore redefined.</P>
+<P CLASS="Description">
+<A NAME="pgfId-908350"></A><CODE CLASS="Code">
+:reevaluate</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-908446"></A>Make the variable unbound before evaluating the form, but do not warn that it was therefore redefined.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884316"></A><A NAME="marker-884315"></A>Reevaluate Defvar</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884317"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884318"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884319"></A>Evaluates the current top-level form if it is a <CODE CLASS="Code">
+defvar.</CODE>
+ If the current point is between two forms, the previous form is evaluated. The form is treated as if the variable is not bound.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-906083"></A><CODE CLASS="Code">
+Re-evaluate Defvar</CODE>
+<A NAME="marker-906085"></A> is a synonym for <CODE CLASS="Code">
+Reevaluate Defvar</CODE>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884321"></A><A NAME="marker-884320"></A>Evaluate Expression</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884322"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884323"></A>Argument: <EM CLASS="Variable">
+expression<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Esc Esc </CODE>
+<EM CLASS="Variable">
+expression<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Meta+Esc</CODE>
+<EM CLASS="Variable">
+ expression</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884324"></A>Evaluates <EM CLASS="Variable">
+expression</EM>
+. The expression to be evaluated is typed into the Echo Area and the result of the evaluation is displayed there also.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-907670"></A><A NAME="marker-907693"></A><A NAME="20017"></A>Evaluate Last Form</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-907671"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907672"></A>Argument: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X Ctrl+E</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907673"></A>Evaluates the Lisp form preceding the current point.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907702"></A>Without a prefix argument, prints the result in the Echo Area. With a non-nil prefix argument, inserts the result into the current buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884326"></A><A NAME="marker-884325"></A><A NAME="36752"></A>Evaluate Region</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884327"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884328"></A>Argument: None<BR>
+Key sequence: <CODE CLASS="Code">
+Ctrl+Shift+E</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884329"></A>Evaluates the Lisp forms in the region between the current point and the mark.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884331"></A><A NAME="marker-884330"></A>Evaluate Buffer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884332"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884333"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884334"></A>Evaluates the Lisp forms in the current buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884336"></A><A NAME="marker-884335"></A>Load File</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884337"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884338"></A>Argument: <EM CLASS="Variable">
+file<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884339"></A>Loads <EM CLASS="Variable">
+file</EM>
+ into the current eval server, so that all Lisp forms in the file are evaluated.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884341"></A><A NAME="marker-884340"></A>Toggle Error Catch</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884342"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884343"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884344"></A>Toggles error catching for expressions evaluated in the editor. By default, if there is an error in an expression evaluated in the editor, a Notifier window is opened which provides the user with a number of options, including debug, re-evaluation and aborting of the editor command. However, this behavior can be changed by using <CODE CLASS="Code">
+Toggle Error Catch</CODE>
+, so that in the event of an error, the error message is printed in the Echo Area, and the user is given no restart or debug options.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884347"></A><A NAME="marker-884345"></A><A NAME="20895"></A>Evaluate Buffer Changed Definitions</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884348"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884349"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884350"></A>Evaluates definitions that have been changed in the current buffer during the current LispWorks session (use <A HREF="eduser-m-102.htm#Buffer Changed Definitions" CLASS="XRef">Buffer Changed Definitions</A> on <A HREF="eduser-m-102.htm#Buffer Changed Definitions" CLASS="XRef">Buffer Changed Definitions</A> to see which definitions have changed). A prefix argument equal to the value of <A HREF="eduser-m-39.htm#90873" CLASS="XRef">prefix-argument-default</A> causes evaluation of definitions changed since last evaluated. A prefix argument of 1 causes evaluation of definitions changed since last saved.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884357"></A><A NAME="marker-884356"></A>Evaluate Changed Definitions</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884358"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884359"></A>Argument: None<BR>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884360"></A>Evaluates definitions in all Lisp buffers that have been changed during the current LispWorks session. The effect of prefixes is the same as for <A HREF="eduser-m-115.htm#20895" CLASS="XRef">Evaluate Buffer Changed Definitions</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884363"></A><A NAME="marker-884362"></A>Evaluate System Changed Definitions</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884364"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884365"></A>Argument: <EM CLASS="Variable">
+system<BR>
+</EM>
+Key sequence: None</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884366"></A>Evaluates definitions that have been changed in <EM CLASS="Variable">
+system</EM>
+ during the current LispWorks session.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-116.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-114.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-113.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

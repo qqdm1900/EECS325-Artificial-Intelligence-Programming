@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ora-lob-load-from-file
+</TITLE>
+
+<LINK REL="next" HREF="lw-1235.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1233.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1235.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1233.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1119995"></A><A NAME="83786"></A>ora<A NAME="marker-1119994"></A>-lob-load-from-file</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1119996"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1119997"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1119998"></A>Loads data from a file LOB into a LOB.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1119999"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1120000"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1120001"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1120002"></A>ora-lob-load-from-file <EM CLASS="Variable">
+dest-lob-locator</EM>
+ <EM CLASS="Variable">
+src-lob-file</EM>
+ <EM CLASS="Variable">
+amount</EM>
+ &amp;key <EM CLASS="Variable">
+src-offset</EM>
+ <EM CLASS="Variable">
+dest-offset</EM>
+ <EM CLASS="Variable">
+errorp</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1120003"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1120004"></A><EM CLASS="Variable">
+dest-lob-locator</EM>
+</P>
+<P CLASS="RDescription-C">An internal LOB locator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1120005"></A><EM CLASS="Variable">
+src-lob-file</EM>
+</P>
+<P CLASS="RDescription-C">A file LOB locator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1120006"></A><EM CLASS="Variable">
+amount</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1120007"></A><EM CLASS="Variable">
+src-offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1120008"></A><EM CLASS="Variable">
+dest-offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1120009"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1120513"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1127170"></A>The function <CODE CLASS="Code">
+ora-lob-load-from-file</CODE>
+  loads the data from the <EM CLASS="Variable">
+src-lob-file</EM>
+ into the destination LOB pointed to by <EM CLASS="Variable">
+dest-lob-locator</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1127172"></A>The source LOB must be a BFILE and the destination must be an internal LOB.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1130546"></A>The details of the operation are determined by <EM CLASS="Variable">
+amount</EM>
+, <EM CLASS="Variable">
+src-offset</EM>
+ and <EM CLASS="Variable">
+dest-offset</EM>
+. <EM CLASS="Variable">
+amount</EM>
+ and <EM CLASS="Variable">
+dest-offset</EM>
+ are in characters for CLOB/NCLOB and are in bytes for BLOB. <EM CLASS="Variable">
+src-offset</EM>
+ is in bytes. The offsets start from 1. The default value of <EM CLASS="Variable">
+dest-offset</EM>
+ is 1 and the default value of <EM CLASS="Variable">
+src-offset</EM>
+ is 1.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1127174"></A>No conversion is performed by <CODE CLASS="Code">
+ora-lob-load-from-file</CODE>
+, so if the destination is a CLOB/NCLOB, the source must already be in the right format.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1248795"></A>If an error occurs and <EM CLASS="Variable">
+errorp</EM>
+ is true, an error is signaled. If <EM CLASS="Variable">
+errorp</EM>
+ is false, the function returns an object of type <A HREF="lw-1263.htm#54951" CLASS="XRef">sql-database-error</A>. The default value of <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1129395"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1577307"></A>This is a direct call to OCILobLoadFromFile. The Oracle documentation is ambiguous on whether it is mandatory to open the source LOB before calling this function.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1120017"></A><CODE CLASS="Code">
+ora-lob-load-from-file</CODE>
+ is available only when the &quot;oracle&quot; module is loaded. See the section <A HREF="lw-424.htm#Oracle LOB interface;Oracle locator objects;Oracle large objects " CLASS="XRef">Oracle LOB interface</A> for more information.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1129622"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1129632"></A><A HREF="lw-1209.htm#92945" CLASS="XRef">ora-lob-copy</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1235.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1233.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

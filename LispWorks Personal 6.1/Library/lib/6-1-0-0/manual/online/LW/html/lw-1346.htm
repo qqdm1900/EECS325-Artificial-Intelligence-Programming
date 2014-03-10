@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ compare-and-swap
+</TITLE>
+
+<LINK REL="next" HREF="lw-1347.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1345.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1347.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1345.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1373201"></A><A NAME="59556"></A>compare<A NAME="marker-1381319"></A>-and-swap</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1373202"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1373203"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1373204"></A>Performs a conditional store, atomically.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1373205"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1373206"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1373207"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1373208"></A>compare-and-swap <EM CLASS="Variable">
+place</EM>
+ <EM CLASS="Variable">
+compare</EM>
+ <EM CLASS="Variable">
+new-value</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1373209"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1373210"></A><EM CLASS="Variable">
+place</EM>
+</P>
+<P CLASS="RDescription-C">One of the specific set of places defined for low level atomic operations.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1373211"></A><EM CLASS="Variable">
+compare</EM>
+</P>
+<P CLASS="RDescription-C">An object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1373212"></A><EM CLASS="Variable">
+new-value</EM>
+</P>
+<P CLASS="RDescription-C">An object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1373213"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1373214"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1373215"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1373216"></A>The macro <CODE CLASS="Code">
+compare-and-swap</CODE>
+ compares the value in <EM CLASS="Variable">
+place</EM>
+ with <EM CLASS="Variable">
+compare</EM>
+, and if they are the same (by <CODE CLASS="Code">
+eq</CODE>
+), stores the <EM CLASS="Variable">
+new-value</EM>
+ in <EM CLASS="Variable">
+place</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1373217"></A><CODE CLASS="Code">
+compare-and-swap</CODE>
+ returns non-nil if the store occurred, or <CODE CLASS="Code">
+nil</CODE>
+ if the store did not occur.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1373218"></A><EM CLASS="Variable">
+place</EM>
+ must be one of the places described in <A HREF="lw-298.htm#72244" CLASS="XRef">Low level atomic operations</A>, or expand to one of them.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1373219"></A>The operation is guaranteed to be atomic.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1373220"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1373221"></A><A HREF="lw-1333.htm#36022" CLASS="XRef">atomic-exchange</A><BR>
+<A HREF="lw-1401.htm#43111" CLASS="XRef">low-level-atomic-place-p</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1347.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1345.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

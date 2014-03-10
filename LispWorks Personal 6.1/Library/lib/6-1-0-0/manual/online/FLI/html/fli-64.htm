@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.8  Block objects in C (foreign blocks)
+</TITLE>
+
+<LINK REL="next" HREF="fli-65.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-63.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-43.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A><BR><BR>
+</DIV><A HREF="fli-65.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-63.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-43.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-899165"></A>4.8  <A NAME="29000"></A><A NAME="marker-900074"></A>Block <A NAME="marker-900562"></A>objects in C (foreign<A NAME="marker-900115"></A> blocks)</H3>
+<P CLASS="Body">
+<A NAME="pgfId-899238"></A>This section applies to LispWorks for Macintosh, only.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899167"></A>Foreign blocks are objects that correspond to the opaque <A NAME="marker-900076"></A>&quot;Block&quot; object in <A NAME="marker-900077"></A>C and derived languages that are introduced in <A NAME="marker-900075"></A>CLANG and used by Apple Computer, Inc.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899256"></A>A &quot;Block&quot; in C is similar to a closure in Lisp. It encapsulates a piece of code, and potentially some variables (which may be local), and allows invocation of this code.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899168"></A>LispWorks foreign blocks allows your Lisp program to call into and get called by code that uses blocks.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899169"></A>A foreign block is represented in LispWorks by a foreign pointer with pointer type <A NAME="marker-899509"></A><A HREF="fli-170.htm#70852" CLASS="XRef">foreign-block-pointer</A>. Even though these are foreign pointers, these objects should be regarded as opaque, and should not be manipulated or used except as described below.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899170"></A>You use a foreign block by passing it to a foreign function that is defined to take a block as an argument, or by invoking a block that is received from a foreign function. The argument type needs to be specified as <A HREF="fli-170.htm#70852" CLASS="XRef">foreign-block-pointer</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899171"></A>When a foreign function invokes a block which was created in Lisp (or a copy of it), this invocation calls a Lisp function which the programmer supplied to the creating function or macro. When Lisp invokes a block that came from foreign code, it invokes some (unknown) foreign code.</P>
+<P CLASS="Body">
+<A NAME="pgfId-900338"></A><A NAME="marker-900362"></A>Blocks can be used to run code via the Grand Central Dispatch mechanism (GCD) in Mac OS X 10.6 and later (see Apple documentation). There is a simple example in:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-900336"></A>(sys:example-file &quot;misc/grand-central-dispatch.lisp&quot;)</CODE>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="fli-65.htm#pgfId-899174" CLASS="Hypertext">4.8.1  Calling foreign code that receives a block as argument</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="fli-66.htm#pgfId-900402" CLASS="Hypertext">4.8.2  Operations on foreign blocks</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="fli-67.htm#pgfId-899187" CLASS="Hypertext">4.8.3  Scope of invocation</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-65.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-63.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-43.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

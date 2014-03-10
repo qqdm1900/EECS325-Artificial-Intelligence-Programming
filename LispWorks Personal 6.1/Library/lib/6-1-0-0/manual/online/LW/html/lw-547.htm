@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 23.14.2  Special Folders
+</TITLE>
+
+<LINK REL="next" HREF="lw-548.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-546.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-545.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-512.htm">23 LispWorks' Operating Environment</A> &gt; <A HREF="lw-545.htm">23.14  Special locations in the file system</A><BR><BR>
+</DIV><A HREF="lw-548.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-546.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-545.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-901546"></A>23.14.2  Special Folders</H3>
+<P CLASS="Body">
+<A NAME="pgfId-901547"></A>On Microsoft Windows and Mac OS X there are various special folders used for application data and user data. Here are some examples of the folder for application data which is shared between all users.</P>
+<P CLASS="Body">
+<A NAME="pgfId-901548"></A>Windows 7 and Windows Vista:</P>
+<P CLASS="Body">
+<A NAME="pgfId-901549"></A><CODE CLASS="Code">
+C:&#92;ProgramData</CODE>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-901550"></A>Windows XP:</P>
+<P CLASS="Body">
+<A NAME="pgfId-901551"></A><CODE CLASS="Code">
+C:&#92;Documents and Settings&#92;All Users.WINDOWS&#92;Application Data</CODE>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-901552"></A>Mac OS X:</P>
+<P CLASS="Body">
+<A NAME="pgfId-901553"></A><CODE CLASS="Code">
+/Library/Application Support</CODE>
+</P>
+<P CLASS="Body">
+<A NAME="pgfId-901554"></A>The locations and folder names can differ between versions of the operating system, therefore it is useful to have a system-independent way to get the path at runtime. The function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-901555"></A><A HREF="lw-1382.htm#11402" CLASS="XRef">get-folder-path</A> can be used to retrieve the path to special folders. Directory pathnames corresponding to each of the examples above can be obtained by calling:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-901559"></A>(sys:get-folder-path :common-appdata)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-901560"></A>Here is another example of differences between operating systems. On Windows 7 and Windows Vista:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-901561"></A>(sys:get-folder-path :my-documents)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-901562"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-901563"></A>#P&quot;C:/Users/dubya/Documents/&quot;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-901564"></A>On Windows 98 SE:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-901565"></A>(sys:get-folder-path :my-documents)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-901566"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-901567"></A>#P&quot;C:/My Documents/&quot;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-901568"></A>On Mac OS X:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-901569"></A>(sys:get-folder-path :my-documents)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-901570"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-901571"></A>#P&quot;/u/ldisk/dubya/Documents/&quot;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-901575"></A>See <CODE CLASS="Code">
+<A HREF="lw-1382.htm#11402" CLASS="XRef">get-folder-path</A></CODE>
+ for more details.</P>
+<P CLASS="Body">
+<A NAME="pgfId-901576"></A>On Windows NT-based systems there is a profile folder for each user. You can find the profile path for the current user with the function <CODE CLASS="Code">
+<A HREF="lw-1383.htm#79098" CLASS="XRef">get-user-profile-directory</A></CODE>
+<A NAME="marker-901577"></A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-548.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-546.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-545.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ A.9  Defining Definite Clause Grammars
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-196.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-194.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-168.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-168.htm">A Common Prolog</A><BR><BR>
+</DIV><A HREF="kwprolog-m-196.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-194.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-168.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading-App">
+<A NAME="pgfId-869244"></A>A.9  Defining <A NAME="marker-869249"></A>Definite Clause Grammars</H3>
+<P CLASS="Body">
+<A NAME="pgfId-869252"></A>The <A NAME="marker-869298"></A><CODE CLASS="Code">
+defgrammar</CODE>
+ macro can be used to define a definite clause grammar (DCG), which is a relation that determines whether the start of a list of tokens (a <I CLASS="Italic">
+sentence</I>
+) matches a particular grammar. The remaining tokens in the list become the <I CLASS="Italic">
+sentence tail</I>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-869253"></A>The relation has the form</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-869254"></A>(&lt;grammar name&gt; &lt;sentence&gt; &lt;sentence tail&gt; &lt;extra argument&gt;*)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-869255"></A>where the <CODE CLASS="Code">
+&lt;extra argument&gt;</CODE>
+ items are terms defined below.</P>
+<P CLASS="Body">
+<A NAME="pgfId-869256"></A>The syntax of the defgrammar macro is</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-869257"></A>(defgrammar &lt;grammar name&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869327"></A>  &lt;rule&gt;*)</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-869260"></A>&lt;rule&gt; ::= (&lt;lhs&gt; &lt;rhs&gt;*)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-869262"></A>&lt;lhs&gt; ::= &lt;grammar name&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-869263"></A>        | (&lt;grammar name&gt; &lt;term&gt;*)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-869265"></A>&lt;rhs&gt; ::= &lt;atom&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869266"></A>        | &lt;var&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869267"></A>        | (&lt;other grammar name&gt; &lt;term&gt;*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869268"></A>        | &lt;lisp clause&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-869269"></A>        | (call &lt;term&gt;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-869270"></A>        | (cut)</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-869272"></A>&lt;lisp clause&gt; ::= (&lt;non-atomic lisp form&gt; &lt;term&gt;*)</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-869273"></A>&lt;non-atomic lisp form&gt; ::= (&lt;lisp function name&gt; &lt;lisp arg&gt;*)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-869275"></A><CODE CLASS="Code">
+&lt;grammar name&gt;</CODE>
+ is the same symbol as the one naming the defgrammar</P>
+<P CLASS="Body">
+<A NAME="pgfId-869276"></A><CODE CLASS="Code">
+&lt;other grammar name&gt;</CODE>
+ is a symbol naming another defgrammar</P>
+<P CLASS="Body">
+<A NAME="pgfId-869277"></A><CODE CLASS="Code">
+&lt;atom&gt;</CODE>
+ is an atom, which forms the words of the sentence to be matched</P>
+<P CLASS="Body">
+<A NAME="pgfId-869278"></A><CODE CLASS="Code">
+&lt;var&gt;</CODE>
+ is a variable reference</P>
+<P CLASS="Body">
+<A NAME="pgfId-869279"></A><CODE CLASS="Code">
+&lt;term&gt;</CODE>
+ is any Common Prolog logic expression, including a variable</P>
+<P CLASS="Body">
+<A NAME="pgfId-869280"></A><CODE CLASS="Code">
+&lt;lisp function name&gt;</CODE>
+ is a symbol naming a Lisp function</P>
+<P CLASS="Body">
+<A NAME="pgfId-869281"></A><CODE CLASS="Code">
+&lt;lisp arg&gt;</CODE>
+ is any Lisp form, which is evaluated and passed to the function</P>
+<P CLASS="Body">
+<A NAME="pgfId-869283"></A>Within the <CODE CLASS="Code">
+&lt;lhs&gt;</CODE>
+, extra arguments can be added by specifying <CODE CLASS="Code">
+&lt;term&gt;</CODE>
+s. Every <CODE CLASS="Code">
+&lt;rule&gt;</CODE>
+ must specify the same <CODE CLASS="Code">
+&lt;grammar name&gt;</CODE>
+ as the <CODE CLASS="Code">
+defgrammar</CODE>
+ form and have the same number of extra arguments.</P>
+<P CLASS="Body">
+<A NAME="pgfId-869284"></A>The meaning of the various <CODE CLASS="Code">
+&lt;rhs</CODE>
+&gt; items is as follows:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-869285"></A><CODE CLASS="Code">
+&lt;atom&gt;</CODE>
+ matches that atom in the sentence</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-869286"></A><CODE CLASS="Code">
+&lt;var&gt;</CODE>
+ is unified with the next item in the sentence</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-869287"></A><CODE CLASS="Code">
+(&lt;other grammar name&gt; &lt;term&gt;*)</CODE>
+ calls the grammar relation <CODE CLASS="Code">
+&lt;other grammar name&gt;</CODE>
+ on the rest of the sentence. The optional <CODE CLASS="Code">
+&lt;term&gt;</CODE>
+ arguments are passed to the relation as its extra arguments.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-869288"></A><CODE CLASS="Code">
+&lt;lisp clause&gt;</CODE>
+ evaluates the <CODE CLASS="Code">
+&lt;non-atomic lisp form&gt;</CODE>
+ as a Lisp form and unifies the values that it returns with the <CODE CLASS="Code">
+&lt;term&gt;</CODE>
+s that follow it.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-869289"></A><CODE CLASS="Code">
+(call &lt;term&gt;)</CODE>
+ calls <CODE CLASS="Code">
+&lt;term&gt;</CODE>
+ as a normal Prolog relation.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-869250"></A><CODE CLASS="Code">
+(cut)</CODE>
+ calls the normal Prolog cut relation.</LI>
+</UL>
+<H4 CLASS="FM2Heading-AppTOC">
+<A HREF="kwprolog-m-196.htm#pgfId-869331" CLASS="Hypertext">A.9.1  Examples</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-196.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-194.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-168.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

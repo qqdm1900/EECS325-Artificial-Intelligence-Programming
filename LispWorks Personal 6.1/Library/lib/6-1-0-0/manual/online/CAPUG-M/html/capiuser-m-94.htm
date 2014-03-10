@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.3  Combining different layouts
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-95.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-93.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-88.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-88.htm">7 Laying Out CAPI Panes</A><BR><BR>
+</DIV><A HREF="capiuser-m-95.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-93.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-88.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884413"></A>7.3  <A NAME="77930"></A>Combining different layouts</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884415"></A><A NAME="marker-884414"></A>You will not always want to arrange all your elements in a single row or column. You can include other layouts in the list of elements used in any layout, thus enabling you to specify precisely how panes in a window should be arranged.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884416"></A>For instance, suppose you want to arrange the elements in your window as shown in <A HREF="capiuser-m-94.htm#12146" CLASS="XRef">A sample layout</A>. The two buttons are shown on the right, with the text input pane and a message on the left. Immediately below this is the editor pane.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-884443"></A>Figure 7.3  <A NAME="12146"></A>A sample layout<DIV>
+<IMG SRC="capiuser-m-33.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-35.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884865"></A>The layout in <A HREF="capiuser-m-94.htm#12146" CLASS="XRef">A sample layout</A> can be achieved by creating two row layouts: one containing the display pane and a button, and one containing the text input pane and the other button, and then creating a column layout which uses these two row layouts and the editor.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884867"></A>(setq row1 (make-instance 'row-layout</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884868"></A>                  :description (list message button1)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884870"></A>(setq row2 (make-instance 'row-layout</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884450"></A>                  :description (list text button2)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884452"></A><A NAME="listen CAPI (contain (make-instance 'column-layout "></A>(contain (make-instance 'column-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884453"></A>                        :description </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884454"></A>                          (list row1 row2 editor)))</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884458"></A>Figure 7.4  An instantiation of the sample layout<DIV>
+<IMG SRC="capiuser-m-33.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-36.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884460"></A>As you can see, creating a variety of different layouts is simple. This means that it is easy to experiment with different layouts, allowing you to concentrate on the interface design, rather than its code.<A NAME="marker-884461"></A></P>
+<P CLASS="Body">
+<A NAME="pgfId-886213"></A>However, remember than each instance of a CAPI element must not be used in more than one place at the same time.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-95.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-93.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-88.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

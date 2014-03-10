@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ cocoa-view-pane
+</TITLE>
+
+<LINK REL="next" HREF="capiref-43.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-41.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-43.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-41.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-5114214"></A><A NAME="46671"></A>cocoa-view-pane<A NAME="marker-5114213"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-5114215"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5114216"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5114217"></A>A <CODE CLASS="Code">
+cocoa-view-pane</CODE>
+ allows an arbitrary Cocoa view class to be used on the Macintosh.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5114218"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-5114219"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5114220"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-5114224"></A><A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A><BR>
+<A HREF="capiref-449.htm#12473" CLASS="XRef">titled-object</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5114233"></A>Initargs</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5114235"></A><CODE CLASS="Code">
+:view-class</CODE>
+<A NAME="marker-5114234"></A></P>
+<P CLASS="RDescription-C">A string naming the view class to use.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5114237"></A><CODE CLASS="Code">
+:init-function</CODE>
+<A NAME="marker-5114236"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-5114238"></A>A function that initializes the view class.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5114293"></A>Accessors</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-5114295"></A><A NAME="marker-5114294"></A>cocoa-view-pane-view-class<BR>
+<A NAME="marker-5114296"></A>cocoa-view-pane-init-function</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5114304"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5114308"></A>The <CODE CLASS="Code">
+cocoa-view-pane</CODE>
+ class allows an instance of an arbitrary Cocoa view class to be displayed within a CAPI interface. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-5164258"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+cocoa-view-pane</CODE>
+ is implemented only in LispWorks for Macintosh with the Cocoa IDE.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5217655"></A>When the pane becomes visible, the CAPI allocates and initialize a Cocoa view object using the initargs as follows:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-5164259"></A>If <EM CLASS="Variable">
+view-class</EM>
+ is specified, then it should be a string naming the Cocoa view class to allocate.  Otherwise the class <CODE CLASS="Code">
+NSView</CODE>
+ is allocated.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-5164278"></A>If <EM CLASS="Variable">
+init-function</EM>
+ is not <CODE CLASS="Code">
+nil</CODE>
+, then it should be a function which is called with of two arguments, the pane and a foreign pointer to the newly allocated Cocoa view object. The function should initialize the Cocoa view object in whatever way is required, including invoking the appropriate Objective-C initialization method, and return the initialized view. If <EM CLASS="Variable">
+init-function</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then the Objective-C method <CODE CLASS="Code">
+init</CODE>
+ is called and the result is returned.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-5210204"></A>After the Cocoa view has been initialized, the function <A HREF="capiref-43.htm#95960" CLASS="XRef">cocoa-view-pane-view</A> can be used the retrieve it.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5351901"></A>You can use the functions <CODE CLASS="Code">
+(setf cocoa-view-pane-view-class)</CODE>
+ and <CODE CLASS="Code">
+(setf cocoa-view-pane-init-function)</CODE>
+ to modify the <EM CLASS="Variable">
+view-class</EM>
+ and <EM CLASS="Variable">
+init-function</EM>
+, but the values will be ignored if this is done after the pane becomes visible.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5351904"></A>See the <I CLASS="Italic">
+LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</I>
+ for details on using Cocoa.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5351906"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5114323"></A>The following code uses <CODE CLASS="Code">
+cocoa-view-pane</CODE>
+ to display an <CODE CLASS="Code">
+NSMovieView</CODE>
+ displaying an existing movie.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-5169120"></A>(defun show-movie (movie)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5169121"></A>  (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5169122"></A>   (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5169123"></A>    'cocoa-view-pane</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5169124"></A>    :view-class &quot;NSMovieView&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5169125"></A>    :init-function</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5169126"></A>    #'(lambda (pane view)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5190485"></A>        (setq view</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5190486"></A>              (objc:invoke view &quot;init&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5169128"></A>        (objc:invoke view &quot;setMovie:&quot; movie)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-5164287"></A>        view))))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5114357"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5114361"></A><A HREF="capiref-43.htm#95960" CLASS="XRef">cocoa-view-pane-view</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-43.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-41.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

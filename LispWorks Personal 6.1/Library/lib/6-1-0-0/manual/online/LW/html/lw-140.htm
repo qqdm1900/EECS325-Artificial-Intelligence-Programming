@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.3.3  GC operations
+</TITLE>
+
+<LINK REL="next" HREF="lw-141.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-139.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-135.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-128.htm">10 Storage Management</A> &gt; <A HREF="lw-135.htm">10.3  Memory Management in 32-bit LispWorks</A><BR><BR>
+</DIV><A HREF="lw-141.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-139.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-135.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886666"></A>10.3.3  GC operations</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886668"></A><A NAME="marker-886667"></A>Mark and sweep is the basic operation of reclaiming memory, and it is done in two stages:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886669"></A><I CLASS="Italic">
+Mark</I>
+</P>
+<P CLASS="Description-C">All objects that are alive in the generation being garbage collected and in younger generations are marked as alive. (Alive means pointed to by some other live object.)</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-886670"></A><I CLASS="Italic">
+Sweep</I>
+</P>
+<P CLASS="Description-C">All unmarked objects in the generations being garbage collected are added to the free blocks, and all marked objects are unmarked.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886671"></A>A mark and sweep operation is always on all the generations from 0 to a specific number. </P>
+<P CLASS="Body">
+<A NAME="pgfId-886673"></A>A mark and sweep operation can be caused explicitly by calling <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-892987"></A><A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886675"></A><A NAME="marker-892367"></A>Promotion is the process of moving objects from one generation to the next generation. An object is marked for promotion after surviving a specific number of mark and sweep operations, but may be promoted before that. The number of survivals is specific to each segment.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892355"></A>Promotion does not free objects.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-141.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-139.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-135.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

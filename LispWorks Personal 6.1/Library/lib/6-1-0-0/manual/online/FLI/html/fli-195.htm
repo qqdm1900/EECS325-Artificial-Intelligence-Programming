@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :union
+</TITLE>
+
+<LINK REL="next" HREF="fli-196.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-194.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-156.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-156.htm">6 Type Reference</A><BR><BR>
+</DIV><A HREF="fli-196.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-194.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-889036"></A><A NAME="36875"></A>:union<A NAME="marker-917494"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-889037"></A>FLI type descriptor</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889038"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889039"></A>Converts between a FLI union and a C <CODE CLASS="Code">
+union</CODE>
+ type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889042"></A>Syntax</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889043"></A>:union &amp;rest <EM CLASS="Variable">
+slots</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-892910"></A><EM CLASS="Variable">
+slots</EM>
+ ::= {<EM CLASS="Variable">
+symbol</EM>
+ | (<EM CLASS="Variable">
+symbol</EM>
+ <EM CLASS="Variable">
+type</EM>
+)}*</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889044"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889045"></A><EM CLASS="Variable">
+slots</EM>
+</P>
+<P CLASS="RDescription-C">A sequence of one or more slots making up the union.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892911"></A><EM CLASS="Variable">
+symbol</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the slot.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-892921"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">The slot type. If no type is given, it defaults to an <CODE CLASS="Code">
+:int</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889046"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889047"></A>The FLI <CODE CLASS="Code">
+:union</CODE>
+ type is an aggregate type, and converts between a FLI union and a C <CODE CLASS="Code">
+union</CODE>
+ type. The FLI union consists of a collection of one or more slots, only one of which can be active at any one time. The size of the whole union structure is therefore equal to the size of the largest slot. Each slot has a name and a type.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-893145"></A>The <A HREF="fli-109.htm#20235" CLASS="XRef">foreign-slot-names</A>, <A HREF="fli-112.htm#33624" CLASS="XRef">foreign-slot-type</A>, and <A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A> functions can be used to access and change the slots of the union. The convenience FLI function <A HREF="fli-87.htm#30845" CLASS="XRef">define-c-union</A> is provided to simplify the definition of unions.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889048"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889049"></A>In the following example a union type with two slots is defined.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-893279"></A>(fli:define-c-union my-number </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-893314"></A>                    (small :byte) (large :int))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-893374"></A>An instance of the union is allocated and bound to the Lisp variable <CODE CLASS="Code">
+length</CODE>
+.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-893392"></A>(setq length</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-893397"></A>      (fli:allocate-foreign-object :type 'my-number))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-893404"></A>Finally, the <CODE CLASS="Code">
+small</CODE>
+ slot of the union is set equal to <CODE CLASS="Code">
+24</CODE>
+.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-893405"></A>(setf (fli:foreign-slot-value length 'small))</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889050"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-893216"></A><A HREF="fli-87.htm#30845" CLASS="XRef">define-c-union</A><BR>
+<A HREF="fli-109.htm#20235" CLASS="XRef">foreign-slot-names</A><BR>
+<A HREF="fli-110.htm#30205" CLASS="XRef">foreign-slot-offset</A><BR>
+<A HREF="fli-111.htm#29211" CLASS="XRef">foreign-slot-pointer</A><BR>
+<A HREF="fli-112.htm#33624" CLASS="XRef">foreign-slot-type</A><BR>
+<A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A><BR>
+<A HREF="fli-26.htm#96265" CLASS="XRef">Structures and unions</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-196.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-194.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-156.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

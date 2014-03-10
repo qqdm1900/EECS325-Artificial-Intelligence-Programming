@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ collect-registry-subkeys
+</TITLE>
+
+<LINK REL="next" HREF="lw-1474.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1472.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1471.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1471.htm">42 The Windows registry API</A><BR><BR>
+</DIV><A HREF="lw-1474.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1472.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1016490"></A><A NAME="44730"></A>collect-<A NAME="marker-1025356"></A>registry-subkeys</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1016491"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1016492"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1016493"></A>Returns names of the subkeys of a registry key.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1042596"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1042597"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1016494"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1016495"></A>collect-registry-subkeys <EM CLASS="Variable">
+subkey</EM>
+ &amp;key <EM CLASS="Variable">
+root</EM>
+ <EM CLASS="Variable">
+max-name-size</EM>
+ <EM CLASS="Variable">
+max-names</EM>
+ <EM CLASS="Variable">
+errorp</EM>
+ <EM CLASS="Variable">
+value-function</EM>
+ =&gt; <EM CLASS="Variable">
+subsubkeys</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1016496"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1016497"></A><EM CLASS="Variable">
+subkey</EM>
+</P>
+<P CLASS="RDescription-C">A string specifying the name of the key.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1016498"></A><EM CLASS="Variable">
+root</EM>
+</P>
+<P CLASS="RDescription-C">A keyword or handle.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1016499"></A><EM CLASS="Variable">
+max-name-size</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1016500"></A><EM CLASS="Variable">
+max-names</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1016501"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1016502"></A><EM CLASS="Variable">
+value-function</EM>
+</P>
+<P CLASS="RDescription-C">A function designator or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1016503"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1016504"></A><EM CLASS="Variable">
+subsubkeys</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1016505"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1016506"></A>The function <CODE CLASS="Code">
+collect-registry-subkeys</CODE>
+ returns a list of names which are subsubkeys of <EM CLASS="Variable">
+subkey</EM>
+ under the key <EM CLASS="Variable">
+root</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1016507"></A><EM CLASS="Variable">
+subkey</EM>
+ and <EM CLASS="Variable">
+root</EM>
+ are interpreted as described for <A HREF="lw-1475.htm#44547" CLASS="XRef">create-registry-key</A>.  The default value of <EM CLASS="Variable">
+root</EM>
+ is <CODE CLASS="Code">
+:user</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1016508"></A><EM CLASS="Variable">
+max-name-size</EM>
+ specifies the maximum length of the returned name.  If the name is longer than this, an error is signalled. The default value of <EM CLASS="Variable">
+max-name-size</EM>
+ is 256.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1016509"></A><EM CLASS="Variable">
+max-names</EM>
+ specifies the maximum number of names returned.  Names after this number are ignored. The default value of <EM CLASS="Variable">
+max-names</EM>
+ is <CODE CLASS="Code">
+most-positive-fixnum</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1019203"></A>If <EM CLASS="Variable">
+value-function</EM>
+ is non-nil, it should be a function with signature</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1019204"></A>value-function <EM CLASS="Variable">
+handle</EM>
+ <EM CLASS="Variable">
+subsubkey-name</EM>
+ =&gt; <EM CLASS="Variable">
+name</EM>
+, <EM CLASS="Variable">
+collectp</EM>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1019205"></A><EM CLASS="Variable">
+value-function</EM>
+ is funcalled for each subsubkey with the handle of <EM CLASS="Variable">
+subkey</EM>
+ and the name of the subsubkey.  If <EM CLASS="Variable">
+collectp</EM>
+ is non-nil then <EM CLASS="Variable">
+name</EM>
+ is collected into the list <EM CLASS="Variable">
+subsubkeys</EM>
+ to return from <CODE CLASS="Code">
+collect-registry-subkeys</CODE>
+.  Otherwise it is ignored.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1016510"></A>If <EM CLASS="Variable">
+value-function</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then the returned <EM CLASS="Variable">
+subsubkeys</EM>
+ is a list of strings naming all (subject to <EM CLASS="Variable">
+max-names</EM>
+) of the subsubkeys. The default value of <EM CLASS="Variable">
+value-function</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1016512"></A>If an error occurs opening <EM CLASS="Variable">
+subkey</EM>
+ and <EM CLASS="Variable">
+errorp</EM>
+ is true then an error is signalled.  Otherwise, <EM CLASS="Variable">
+subsubkeys</EM>
+ is returned as <CODE CLASS="Code">
+nil</CODE>
+ if <EM CLASS="Variable">
+subkey</EM>
+ could not be opened. The default value of <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1016479"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1019672"></A><A HREF="lw-1474.htm#24391" CLASS="XRef">collect-registry-values</A><BR>
+<A HREF="lw-1475.htm#44547" CLASS="XRef">create-registry-key</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1474.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1472.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ destroy
+</TITLE>
+
+<LINK REL="next" HREF="capiref-74.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-72.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-74.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-72.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-891208"></A><A NAME="10545"></A>destroy<A NAME="marker-4013382"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-891389"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891212"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1016963"></A>Closes a window and calls the <EM CLASS="Variable">
+destroy-callback</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4013275"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4013339"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4013342"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-891317"></A>destroy <EM CLASS="Variable">
+interface</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891216"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-891218"></A>The generic function <CODE CLASS="Code">
+destroy</CODE>
+ closes the window associated with <EM CLASS="Variable">
+interface</EM>
+, and then calls the interface's <EM CLASS="Variable">
+destroy-callback</EM>
+ if it has one. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-3649103"></A>There is a complementary function <A HREF="capiref-336.htm#33241" CLASS="XRef">quit-interface</A> which calls the interface's <EM CLASS="Variable">
+confirm-destroy-function</EM>
+ to confirm that the destroy should be done, and it is advisable to always use this unless you want to make sure that the interface's <EM CLASS="Variable">
+confirm-destroy-function</EM>
+ is ignored.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5417177"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+destroy</CODE>
+ must only be called in the process of <EM CLASS="Variable">
+interface</EM>
+. Menu callbacks on <EM CLASS="Variable">
+interface</EM>
+ will be called in that process, but otherwise you probably need to use <A HREF="capiref-133.htm#execute-with-interface" CLASS="XRef">execute-with-interface</A> or <A HREF="capiref-12.htm#92272" CLASS="XRef">apply-in-pane-process</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891223"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-891225"></A>(setq interface</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891226"></A>      (capi:display (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891228"></A>                     'capi:interface</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891229"></A>                     :title &quot;Test Interface&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891230"></A>                     :destroy-callback</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891231"></A>                       #'(lambda (interface)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891232"></A>                           (capi:display-message</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891233"></A>                             &quot;Quitting &#126;S&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-891234"></A>                              interface)))))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1847486"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-891238"></A> interface 'capi:destroy interface)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891242"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2224824"></A><A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A><BR>
+<A HREF="capiref-336.htm#33241" CLASS="XRef">quit-interface</A><BR>
+<A HREF="capiref-477.htm#36757" CLASS="XRef">*update-screen-interfaces-hooks*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-74.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-72.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

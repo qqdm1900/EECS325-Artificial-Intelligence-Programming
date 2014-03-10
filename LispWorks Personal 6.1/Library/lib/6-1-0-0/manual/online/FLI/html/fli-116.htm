@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ foreign-typed-aref
+</TITLE>
+
+<LINK REL="next" HREF="fli-117.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-115.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-117.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-115.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1149659"></A><A NAME="86338"></A>foreign-typed-aref<A NAME="marker-1149658"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1149660"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1149034"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1149035"></A>Accesses a foreign array and can be compiled to efficient code.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1149036"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1149037"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1149038"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1149039"></A>foreign-typed-aref <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+array</EM>
+ <EM CLASS="Variable">
+index</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1149040"></A>(setf foreign-typed-aref) <EM CLASS="Variable">
+value</EM>
+ <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+array</EM>
+ <EM CLASS="Variable">
+index</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1149041"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1149042"></A><EM CLASS="Variable">
+type</P>
+<P CLASS="RDescription-C"></EM>
+A type specifier.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1153786"></A><EM CLASS="Variable">
+array</EM>
+</P>
+<P CLASS="RDescription-C">A foreign pointer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1149043"></A><EM CLASS="Variable">
+index</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative <CODE CLASS="Code">
+integer</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1149044"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1149045"></A><EM CLASS="Variable">
+value</P>
+<P CLASS="RDescription-C"></EM>
+An element of <EM CLASS="Variable">
+array</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1150100"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1162661"></A>The function <CODE CLASS="Code">
+foreign-typed-aref</CODE>
+ accesses a foreign array and is compiled to efficient code when compiled at safety 0. It corresponds to <CODE CLASS="Code">
+sys:typed-aref</CODE>
+ which accesses Lisp vectors.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1153890"></A><EM CLASS="Variable">
+type</EM>
+ must evaluate to a supported element type for foreign arrays. In 32-bit LispWorks these types are <CODE CLASS="Code">
+double-float</CODE>
+, <CODE CLASS="Code">
+single-float</CODE>
+, <CODE CLASS="Code">
+(unsigned-byte 32)</CODE>
+, <CODE CLASS="Code">
+(signed-byte 32)</CODE>
+, <CODE CLASS="Code">
+(unsigned-byte 16)</CODE>
+, <CODE CLASS="Code">
+(signed-byte 16)</CODE>
+, <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+, <CODE CLASS="Code">
+(signed-byte 8)</CODE>
+ and <CODE CLASS="Code">
+sys:int32</CODE>
+. In 64-bit LispWorks <EM CLASS="Variable">
+type</EM>
+ can also be <CODE CLASS="Code">
+(unsigned-byte 64)</CODE>
+ or <CODE CLASS="Code">
+(signed-byte 64)</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1248716"></A><EM CLASS="Variable">
+array</EM>
+ is a foreign pointer to a FLI array. Memory can be allocated with:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1158170"></A>(fli:allocate-foreign-object </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1158171"></A> :type :double</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1158172"></A> :nelems </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1158173"></A> (ceiling byte-size</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1158122"></A>          (fli:size-of :double)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1157357"></A>to get sufficient alignment for any call to <CODE CLASS="Code">
+foreign-typed-aref</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1151630"></A>In the case the memory is allocated by the operating system the best approach is to reference it from Lisp by a pointer type, to avoid making a <A HREF="fli-159.htm#10956" CLASS="XRef">:c-array</A> foreign type dynamically.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1151634"></A><EM CLASS="Variable">
+index</EM>
+ should be a valid byte index for <EM CLASS="Variable">
+array</EM>
+. If <EM CLASS="Variable">
+index</EM>
+ is declared to be of type <CODE CLASS="Code">
+fixnum</CODE>
+ then the compiler will optimize it slightly better. Some parts of the FLI (for example, <A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A>) assume <CODE CLASS="Code">
+fixnum</CODE>
+ sizes so it is best to use fixnums only.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1202631"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1446018"></A>Efficient access to a Lisp vector object is also available. See <CODE CLASS="Code">
+sys:typed-aref</CODE>
+ in the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1149078"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1149082"></A><A HREF="fli-103.htm#24571" CLASS="XRef">foreign-aref</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-117.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-115.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-exclusive-lock
+</TITLE>
+
+<LINK REL="next" HREF="lw-1135.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1133.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1135.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1133.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1311168"></A><A NAME="24315"></A>with<A NAME="marker-1320435"></A>-exclusive-lock</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1311169"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1311170"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1311171"></A>Holds a sharing lock in exclusive mode while evaluating its body, and then unlocks the lock.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1311172"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1311173"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1311174"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1311175"></A>with-exclusive-lock (<EM CLASS="Variable">
+sharing-lock</EM>
+ &amp;optional <EM CLASS="Variable">
+whostate</EM>
+ <EM CLASS="Variable">
+timeout</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+results</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1311176"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1311177"></A><EM CLASS="Variable">
+sharing-lock</EM>
+</P>
+<P CLASS="RDescription-C">A sharing lock.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1311178"></A><EM CLASS="Variable">
+whostate</EM>
+</P>
+<P CLASS="RDescription-C">The status of the process while the lock is locked, as seen in the Process Browser.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1311179"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A timeout period, in seconds.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1311180"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">The forms to execute</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1311181"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1311182"></A><EM CLASS="Variable">
+results</EM>
+</P>
+<P CLASS="RDescription-C">The values returned from evaluating body.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1311183"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1311184"></A>The macro <CODE CLASS="Code">
+with-exclusive-lock</CODE>
+ is the same as <A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A>, except that the lock must be &quot;sharing&quot;, that is, created with the argument <EM CLASS="Variable">
+sharing</EM>
+ true in <A HREF="lw-1057.htm#93763" CLASS="XRef">make-lock</A>. It waits until <EM CLASS="Variable">
+sharing-lock</EM>
+ is completely free, that is, the lock is not locked in a sharing mode and is not locked in exclusive mode by another thread. It then locks the lock <EM CLASS="Variable">
+sharing-lock </EM>
+in exclusive mode, evaluates <EM CLASS="Variable">
+body</EM>
+ and unlocks the lock.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1311185"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1312431"></A>It is not possible to use an exclusive lock in the scope of a sharing-lock on the same lock, and trying to do it will cause the process to hang. Whether it is possible to use exclusive-lock inside exclusive-lock of the same lock is determined by the <EM CLASS="Variable">
+recursivep</EM>
+ argument in <A HREF="lw-1057.htm#93763" CLASS="XRef">make-lock</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1311187"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1311188"></A><A HREF="lw-1057.htm#93763" CLASS="XRef">make-lock</A><BR>
+<A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1135.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1133.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,895 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ run-shell-command
+</TITLE>
+
+<LINK REL="next" HREF="lw-1421.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1419.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1421.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1419.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1011601"></A><A NAME="31535"></A>run<A NAME="marker-1011983"></A>-shell-command</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1011602"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011603"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1011604"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011605"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1011606"></A>run-shell-command <EM CLASS="Variable">
+command</EM>
+ &amp;key <EM CLASS="Variable">
+input</EM>
+ <EM CLASS="Variable">
+output</EM>
+ <EM CLASS="Variable">
+error-output</EM>
+ <EM CLASS="Variable">
+separate-streams</EM>
+ <EM CLASS="Variable">
+wait</EM>
+ <EM CLASS="Variable">
+if-input-does-not-exist</EM>
+ <EM CLASS="Variable">
+if-output-exists</EM>
+ <EM CLASS="Variable">
+if-error-output-exists</EM>
+ <EM CLASS="Variable">
+show-window</EM>
+ <EM CLASS="Variable">
+environment</EM>
+ <EM CLASS="Variable">
+element-type</EM>
+ <EM CLASS="Variable">
+save-exit-status</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1013309"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1013218"></A>run-shell-command <EM CLASS="Variable">
+command</EM>
+ &amp;key <EM CLASS="Variable">
+input</EM>
+ <EM CLASS="Variable">
+output</EM>
+ <EM CLASS="Variable">
+error-output</EM>
+ <EM CLASS="Variable">
+separate-streams</EM>
+ <EM CLASS="Variable">
+wait</EM>
+ <EM CLASS="Variable">
+if-input-does-not-exist</EM>
+ <EM CLASS="Variable">
+if-output-exists</EM>
+ <EM CLASS="Variable">
+if-error-output-exists</EM>
+ <EM CLASS="Variable">
+show-window</EM>
+ <EM CLASS="Variable">
+environment</EM>
+ <EM CLASS="Variable">
+element-type</EM>
+ <EM CLASS="Variable">
+save-exit-status</EM>
+ =&gt; <EM CLASS="Variable">
+stream</EM>
+, <EM CLASS="Variable">
+error-stream</EM>
+, <EM CLASS="Variable">
+process</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1033097"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1033098"></A><EM CLASS="Variable">
+command</EM>
+</P>
+<P CLASS="RDescription-C">A string, a list of strings, a simple-vector of strings, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1033099"></A><EM CLASS="Variable">
+input</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+:stream</CODE>
+ or a file designator. Default value <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1012679"></A><EM CLASS="Variable">
+output</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+:stream</CODE>
+ or a file designator. Default value <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1012538"></A><EM CLASS="Variable">
+error-output</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+:stream,</CODE>
+ <CODE CLASS="Code">
+:output</CODE>
+ or a file designator. Default value <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1012527"></A><EM CLASS="Variable">
+separate-streams</EM>
+</P>
+<P CLASS="RDescription-C">A boolean. True value not currently supported.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1011611"></A><EM CLASS="Variable">
+wait</EM>
+</P>
+<P CLASS="RDescription-C">A boolean, default value <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1012797"></A><EM CLASS="Variable">
+if-input-does-not-exist</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1012808"></A><CODE CLASS="Code">
+:error</CODE>
+, <CODE CLASS="Code">
+:create</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+. Default value <CODE CLASS="Code">
+:error</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1012834"></A><EM CLASS="Variable">
+if-output-exists</P>
+<P CLASS="RDescription-C"></EM>
+<CODE CLASS="Code">
+:error</CODE>
+, <CODE CLASS="Code">
+:overwrite</CODE>
+, <CODE CLASS="Code">
+:append</CODE>
+, <CODE CLASS="Code">
+:supersede</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+. Default value <CODE CLASS="Code">
+:error</CODE>
+.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1012852"></A><EM CLASS="Variable">
+if-error-output-exists</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1014784"></A><CODE CLASS="Code">
+:error</CODE>
+, <CODE CLASS="Code">
+:overwrite</CODE>
+, <CODE CLASS="Code">
+:append</CODE>
+, <CODE CLASS="Code">
+:supersede</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+. Default value <CODE CLASS="Code">
+:error</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1013152"></A><EM CLASS="Variable">
+show-window</EM>
+</P>
+<P CLASS="RDescription-C">A boolean. True value not currently supported.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1012959"></A><EM CLASS="Variable">
+environment</EM>
+</P>
+<P CLASS="RDescription-C">An alist of strings naming environment variables and values. Default value <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1013008"></A><EM CLASS="Variable">
+element-type</EM>
+</P>
+<P CLASS="RDescription-C">Default value <CODE CLASS="Code">
+base-char</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1013032"></A><EM CLASS="Variable">
+save-exit-status</EM>
+</P>
+<P CLASS="RDescription-C">A boolean, default value <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011612"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1011613"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The exit status of the process running command, or a process ID </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1013395"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">A stream, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1013917"></A><EM CLASS="Variable">
+error-stream</EM>
+</P>
+<P CLASS="RDescription-C">A stream, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1013472"></A><EM CLASS="Variable">
+process</EM>
+</P>
+<P CLASS="RDescription-C">A process ID.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011614"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1011617"></A>The function <CODE CLASS="Code">
+run-shell-command</CODE>
+ allows Unix<A NAME="marker-1011616"></A> shell commands to be called from Lisp code with redirection of the stdout, stdin and stderr to Lisp streams. It creates a subprocess which executes the command <EM CLASS="Variable">
+command</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1019098"></A>The argument <EM CLASS="Variable">
+command </EM>
+is interpreted as by <A HREF="lw-1341.htm#26978" CLASS="XRef">call-system</A>. In the cases where a shell is run, the shell to use is determined by the environment variable SHELL, or defaults to <CODE CLASS="Code">
+/bin/csh</CODE>
+ or <CODE CLASS="Code">
+/bin/sh</CODE>
+ if that does not exist.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1019194"></A>If <EM CLASS="Variable">
+wait</EM>
+ is true, then <CODE CLASS="Code">
+run-shell-command</CODE>
+ executes <EM CLASS="Variable">
+command</EM>
+ and does not return until the process has exited. In this case none of <EM CLASS="Variable">
+input</EM>
+, <EM CLASS="Variable">
+output</EM>
+ or <EM CLASS="Variable">
+error-output</EM>
+ may have the value <CODE CLASS="Code">
+:stream</CODE>
+, and the single value <EM CLASS="Variable">
+result</EM>
+ is the exit status of the process that ran <EM CLASS="Variable">
+command</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1013749"></A>If wait is <CODE CLASS="Code">
+nil</CODE>
+ and none of <EM CLASS="Variable">
+input</EM>
+, <EM CLASS="Variable">
+output</EM>
+ or <EM CLASS="Variable">
+error-output</EM>
+ have the value <CODE CLASS="Code">
+:stream</CODE>
+ then <CODE CLASS="Code">
+run-shell-command</CODE>
+ executes <EM CLASS="Variable">
+command</EM>
+ and returns a single value <EM CLASS="Variable">
+result</EM>
+ which is the process ID of the process running <EM CLASS="Variable">
+command</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1013884"></A>If <EM CLASS="Variable">
+wait</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ and either of <EM CLASS="Variable">
+input</EM>
+ or <EM CLASS="Variable">
+output</EM>
+ have the value <CODE CLASS="Code">
+:stream</CODE>
+ then <CODE CLASS="Code">
+run-shell-command</CODE>
+ executes <EM CLASS="Variable">
+command</EM>
+ and returns three values: <EM CLASS="Variable">
+stream</EM>
+ is a Lisp stream which acts as the stdout of the process if <EM CLASS="Variable">
+output</EM>
+ is <CODE CLASS="Code">
+:stream</CODE>
+, and is the stdin of the process if <EM CLASS="Variable">
+input</EM>
+ is <CODE CLASS="Code">
+:stream</CODE>
+. <EM CLASS="Variable">
+error-stream</EM>
+ is determined by the argument <EM CLASS="Variable">
+error-output</EM>
+ as described below. <EM CLASS="Variable">
+process</EM>
+ is the process ID of the process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1014054"></A>If <EM CLASS="Variable">
+wait</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ and neither of <EM CLASS="Variable">
+input</EM>
+ or <EM CLASS="Variable">
+output</EM>
+ have the value <CODE CLASS="Code">
+:stream</CODE>
+ then the first return value, <EM CLASS="Variable">
+stream</EM>
+, is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1014029"></A>If <EM CLASS="Variable">
+wait</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ and <EM CLASS="Variable">
+error-output</EM>
+ has the value <CODE CLASS="Code">
+:stream</CODE>
+ then <CODE CLASS="Code">
+run-shell-command</CODE>
+ executes <EM CLASS="Variable">
+command</EM>
+ and returns three values. <EM CLASS="Variable">
+stream</EM>
+ is determined by the arguments <EM CLASS="Variable">
+input</EM>
+ and<EM CLASS="Variable">
+ output</EM>
+ as described above. <EM CLASS="Variable">
+error-stream</EM>
+ is a Lisp stream which acts as the stderr of the process. <EM CLASS="Variable">
+process</EM>
+ is the process ID of the process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1014199"></A>If <EM CLASS="Variable">
+wait</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ and <EM CLASS="Variable">
+error-output</EM>
+ is not <CODE CLASS="Code">
+:stream</CODE>
+ then the second return value, <EM CLASS="Variable">
+error-stream</EM>
+, is <CODE CLASS="Code">
+nil</CODE>
+. If <EM CLASS="Variable">
+error-output</EM>
+ is <CODE CLASS="Code">
+:output</CODE>
+, then stderr goes to the same place as stdout.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1014555"></A>If <EM CLASS="Variable">
+input</EM>
+ is a pathname or string, then <A HREF="lw-659.htm#39723" CLASS="XRef">open</A> is called with <CODE CLASS="Code">
+:if-does-not-exist</CODE>
+ <EM CLASS="Variable">
+if-input-does-not-exist</EM>
+. The resulting <CODE CLASS="Code">
+file-stream</CODE>
+ acts as the stdin of the process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1014847"></A>If <EM CLASS="Variable">
+output</EM>
+ is a pathname or string, then <A HREF="lw-659.htm#39723" CLASS="XRef">open</A> is called with <CODE CLASS="Code">
+:if-exists</CODE>
+ <EM CLASS="Variable">
+if-output-exists</EM>
+. The resulting <CODE CLASS="Code">
+file-stream</CODE>
+ acts as the stdout of the process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1014966"></A>If <EM CLASS="Variable">
+error-output</EM>
+ is a pathname or string, then <A HREF="lw-659.htm#39723" CLASS="XRef">open</A> is called with <CODE CLASS="Code">
+:if-exists</CODE>
+ <EM CLASS="Variable">
+if-error-output-exists</EM>
+. The resulting <CODE CLASS="Code">
+file-stream</CODE>
+ acts as the stderr of the process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1342336"></A>This table describes the streams created, for each combination of stream arguments:</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-1342339"></A>The streams created by <CODE CLASS="Code">
+run-shell-command</CODE>
+<DIV>
+<IMG SRC="lw-51.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1342345"></A>Arguments</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1342347"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1342349"></A><EM CLASS="Variable">
+error-stream</EM>
+</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342351"></A><EM CLASS="Variable">
+input</EM>
+ is <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+output</EM>
+ is <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+error-output</EM>
+ is <CODE CLASS="Code">
+:stream</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342353"></A>An I/O stream connected to stdin and stdout</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342355"></A>An input stream connected to stderr</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342357"></A><EM CLASS="Variable">
+input</EM>
+ is not <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+output</EM>
+ is <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+error-output</EM>
+ is <CODE CLASS="Code">
+:stream</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342359"></A>An input stream connected to stdout</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342361"></A>An input stream connected to stderr</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342363"></A><EM CLASS="Variable">
+input</EM>
+ is <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+output</EM>
+ is not <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+error-output</EM>
+ is <CODE CLASS="Code">
+:stream</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342365"></A>An output stream connected to stdin</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342367"></A>An input stream connected to stderr</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342369"></A><EM CLASS="Variable">
+input</EM>
+ is not <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+output</EM>
+ is not <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+error-output</EM>
+ is <CODE CLASS="Code">
+:stream</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342371"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342373"></A>An input stream connected to stderr</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342375"></A><EM CLASS="Variable">
+input</EM>
+ is <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+output</EM>
+ is <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+error-output</EM>
+ is <CODE CLASS="Code">
+:output</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342377"></A>An I/O stream connected to stdin, stdout and stderr</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342379"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342381"></A><EM CLASS="Variable">
+input</EM>
+ is not <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+output</EM>
+ is <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+error-output</EM>
+ is <CODE CLASS="Code">
+:output</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342383"></A>An input stream connected to stdout and stderr</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342385"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342387"></A><EM CLASS="Variable">
+input</EM>
+ is <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+output</EM>
+ is not <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+error-output</EM>
+ is <CODE CLASS="Code">
+:output</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342389"></A>An output stream connected to stdin</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342391"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342393"></A><EM CLASS="Variable">
+input</EM>
+ is not <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+output</EM>
+ is not <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+error-output</EM>
+ is <CODE CLASS="Code">
+:output</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342395"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342397"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342399"></A><EM CLASS="Variable">
+input</EM>
+ is <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+output</EM>
+ is <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+error-output</EM>
+ is not <CODE CLASS="Code">
+:stream</CODE>
+ or <CODE CLASS="Code">
+:output</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342401"></A>An I/O stream connected to stdin and stdout</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342403"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342405"></A><EM CLASS="Variable">
+input</EM>
+ is not <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+output</EM>
+ is <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+error-output</EM>
+ is not <CODE CLASS="Code">
+:stream</CODE>
+ or <CODE CLASS="Code">
+:output</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342407"></A>An input stream connected to stdout</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342409"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342411"></A><EM CLASS="Variable">
+input</EM>
+ is <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+output</EM>
+ is not <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+error-output</EM>
+ is not <CODE CLASS="Code">
+:stream</CODE>
+ or <CODE CLASS="Code">
+:output</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342413"></A>An output stream connected to stdin</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342415"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342417"></A><EM CLASS="Variable">
+input</EM>
+ is not <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+output</EM>
+ is not <CODE CLASS="Code">
+:stream<BR>
+</CODE>
+<EM CLASS="Variable">
+error-output</EM>
+ is not <CODE CLASS="Code">
+:stream</CODE>
+ or <CODE CLASS="Code">
+:output</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342419"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1342421"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="RBody">
+<A NAME="pgfId-1342423"></A>If any of <EM CLASS="Variable">
+input</EM>
+, <EM CLASS="Variable">
+output</EM>
+ or <EM CLASS="Variable">
+error-output</EM>
+ are streams, then they must be <CODE CLASS="Code">
+file-stream</CODE>
+s or <A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A>s capable of acting as the stdin, stdout or stderr of the process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1018111"></A><EM CLASS="Variable">
+environment</EM>
+ should be an alist of strings naming environment variables and their values. The process runs in an enviroment inherited from the Lisp process, augmented by <EM CLASS="Variable">
+ environment</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1019242"></A>If <EM CLASS="Variable">
+save-exit-status</EM>
+ is true, then the system stores the exit status of the process, so that it can be recovered by calling <A HREF="lw-1413.htm#35566" CLASS="XRef">pid-exit-status</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1018682"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1656525"></A><CODE CLASS="Code">
+run-shell-command</CODE>
+ is implemented only for Unix/Linux/Mac OS X.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1132358"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1132390"></A>(multiple-value-bind (out err pid)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1132391"></A>    (sys:run-shell-command &quot;sh -c 'echo foo &gt;&amp;2; echo bar'&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1132392"></A>			   :wait nil</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1132393"></A>			   :output :stream</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1132394"></A>			   :error-output :stream)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1132395"></A>  (with-open-stream (out out)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1132396"></A>    (with-open-stream (err err)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1132397"></A>      (values (read-line out) (read-line err)))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1132398"></A>=&gt; </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1132378"></A>&quot;bar&quot;, &quot;foo&quot;</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1011630"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1011634"></A><A HREF="lw-1341.htm#26978" CLASS="XRef">call-system</A><BR>
+<A HREF="lw-1342.htm#20692" CLASS="XRef">call-system-showing-output</A><BR>
+<A HREF="lw-1411.htm#15712" CLASS="XRef">open-pipe</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1421.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1419.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

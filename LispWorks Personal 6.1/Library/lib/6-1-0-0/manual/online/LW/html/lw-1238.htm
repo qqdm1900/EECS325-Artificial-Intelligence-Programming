@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ora-lob-read-buffer
+</TITLE>
+
+<LINK REL="next" HREF="lw-1239.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1237.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1239.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1237.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1165129"></A><A NAME="19337"></A>ora<A NAME="marker-1165128"></A>-lob-read-buffer</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1165130"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1165131"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1176122"></A>Reads from a LOB into a buffer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1165133"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1165134"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1165135"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1165136"></A>ora-lob-read-buffer <EM CLASS="Variable">
+lob-locator</EM>
+ <EM CLASS="Variable">
+offset</EM>
+ <EM CLASS="Variable">
+amount</EM>
+ <EM CLASS="Variable">
+buffer</EM>
+ &amp;key <EM CLASS="Variable">
+buffer-offset</EM>
+ <EM CLASS="Variable">
+csid</EM>
+ =&gt; <EM CLASS="Variable">
+amount-read</EM>
+, <EM CLASS="Variable">
+eof-or-error-p</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1165137"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1170053"></A><EM CLASS="Variable">
+lob-locator</EM>
+</P>
+<P CLASS="RDescription-C">A LOB locator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1170064"></A><EM CLASS="Variable">
+offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1170069"></A><EM CLASS="Variable">
+amount</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1170220"></A><EM CLASS="Variable">
+buffer</EM>
+</P>
+<P CLASS="RDescription-C">A string, or a vector of element type <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1170123"></A><EM CLASS="Variable">
+buffer-offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1170126"></A><EM CLASS="Variable">
+csid</EM>
+</P>
+<P CLASS="RDescription-C">A.Character Set ID</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1170054"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1192685"></A><EM CLASS="Variable">
+amount-read</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1192686"></A><EM CLASS="Variable">
+eof-or-error-p</EM>
+</P>
+<P CLASS="RDescription-C">A boolean or an error object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1192687"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1165744"></A>The function <CODE CLASS="Code">
+ora-lob-read-buffer</CODE>
+ reads into <EM CLASS="Variable">
+buffer </EM>
+from the LOB pointed to by <EM CLASS="Variable">
+lob-locator</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1165746"></A><EM CLASS="Variable">
+offset</EM>
+ specifies the offset to start reading from. It starts with 1, and specifies characters for CLOB/NCLOB/CFILE and bytes for BLOB/BFILE. If offset is <CODE CLASS="Code">
+nil</CODE>
+ then the offset after the end of the previous read operation is used (write operations are ignored). This is especially useful for reading linearly from the LOB.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1165748"></A><EM CLASS="Variable">
+amount</EM>
+ is the amount to read, in characters for CLOB/NCLOB/CFILE and bytes for BLOB/BFILE.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1165749"></A>The element type of <EM CLASS="Variable">
+buffer</EM>
+ should match the element type of the LOB locator (see <A HREF="lw-1213.htm#62929" CLASS="XRef">ora-lob-element-type</A>). For this comparison <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+ and <CODE CLASS="Code">
+base-char</CODE>
+ are considered as the same.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1165750"></A>If the buffer <EM CLASS="Variable">
+buffer</EM>
+ is not static, there is some additional overhead. For small amounts of data, this is probably insignificant.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1165751"></A><EM CLASS="Variable">
+buffer-offset</EM>
+ specifies where to put the data. It is an offset in bytes from the beginning of the buffer. The default value of <EM CLASS="Variable">
+buffer-offset</EM>
+ is 0.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1165752"></A><EM CLASS="Variable">
+csid</EM>
+ specifies what Character Set ID the data in the target buffer should be. It defaults to the CSID of the LOB pointed to by <EM CLASS="Variable">
+lob-locator</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1165753"></A>The return value <EM CLASS="Variable">
+amount-read</EM>
+ is the number of elements (characters or bytes) that were read.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1170829"></A>If the return value <EM CLASS="Variable">
+eof-or-error-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then there is still more to read. If <EM CLASS="Variable">
+eof-or-error-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ then it read to the end of the LOB. If an error occurred then <EM CLASS="Variable">
+eof-or-error-p</EM>
+ is an error object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1175645"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1583525"></A>This is a direct call to OCILobRead, without callback.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1175646"></A><CODE CLASS="Code">
+ora-lob-read-buffer</CODE>
+ is available only when the &quot;oracle&quot; module is loaded. See the section <A HREF="lw-424.htm#Oracle LOB interface;Oracle locator objects;Oracle large objects " CLASS="XRef">Oracle LOB interface</A> for more information.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1165756"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1171019"></A>This example sequentially reads the LOB data into a string, starting from offset 10000. It calls a processing function on each chunk of data and then reads in the next chunk starting from where the previous read ended.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1172342"></A>(let ((my-buffer (make-string 1000 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1172343"></A>                              :element-type 'base-char))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1172344"></A>      (offset 10000))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1172345"></A>  (loop</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1172346"></A>   (let ((nread </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1172347"></A>          (ora-lob-read-buffer lob-locator</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1172348"></A>                               offset </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1172349"></A>                               1000 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1172350"></A>                               my-buffer)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1172351"></A>     (when (zerop nread) ; end of the LOB </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1172352"></A>       (return))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1172353"></A>     (my-processing-function my-buffer nread))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1172354"></A>   (setq offset nil)))   ; so next time it continues</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1172333"></A>                         ;  from where it finished</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167877"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1168302"></A><A HREF="lw-1213.htm#62929" CLASS="XRef">ora-lob-element-type</A><BR>
+<A HREF="lw-1240.htm#73032" CLASS="XRef">ora-lob-read-foreign-buffer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1239.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1237.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ora-lob-write-buffer
+</TITLE>
+
+<LINK REL="next" HREF="lw-1244.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1242.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1244.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1242.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1180105"></A><A NAME="66066"></A>ora<A NAME="marker-1180104"></A>-lob-write-buffer</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1180106"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180107"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1180108"></A>Writes a buffer to a LOB.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180109"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1180110"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180111"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1180112"></A>ora-lob-write-buffer <EM CLASS="Variable">
+lob-locator</EM>
+ <EM CLASS="Variable">
+offset</EM>
+ <EM CLASS="Variable">
+amount</EM>
+ <EM CLASS="Variable">
+buffer</EM>
+ &amp;key <EM CLASS="Variable">
+buffer-offset</EM>
+ <EM CLASS="Variable">
+csid</EM>
+ =&gt; <EM CLASS="Variable">
+amount-written</EM>
+, <EM CLASS="Variable">
+eof-or-error-p</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180113"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180114"></A><EM CLASS="Variable">
+lob-locator</EM>
+</P>
+<P CLASS="RDescription-C">A LOB locator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180115"></A><EM CLASS="Variable">
+offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180116"></A><EM CLASS="Variable">
+amount</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180117"></A><EM CLASS="Variable">
+buffer</EM>
+</P>
+<P CLASS="RDescription-C">A string, or a vector of element type <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180118"></A><EM CLASS="Variable">
+buffer-offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180119"></A><EM CLASS="Variable">
+csid</EM>
+</P>
+<P CLASS="RDescription-C">A.Character Set ID</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180120"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180121"></A><EM CLASS="Variable">
+amount-written</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180122"></A><EM CLASS="Variable">
+eof-or-error-p</EM>
+</P>
+<P CLASS="RDescription-C">A boolean or an error object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180123"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1180797"></A>The function <CODE CLASS="Code">
+ora-lob-write-buffer</CODE>
+ writes to the LOB pointed to by <EM CLASS="Variable">
+lob-locator </EM>
+from <EM CLASS="Variable">
+buffer</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1180798"></A><EM CLASS="Variable">
+offset</EM>
+ specifies the offset to start writing to. It starts with 1, and specifies characters for CLOB/NCLOB/CFILE and bytes for BLOB/BFILE. If offset is <CODE CLASS="Code">
+nil</CODE>
+ then the offset after the end of the previous write operation is used (read operations are ignored). This is especially useful for writing linearly to the LOB.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1180127"></A><EM CLASS="Variable">
+amount</EM>
+ is the amount to write, in characters for CLOB/NCLOB/CFILE and bytes for BLOB/BFILE.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1180128"></A>The element type of <EM CLASS="Variable">
+buffer</EM>
+ should match the element type of the LOB locator (see <A HREF="lw-1213.htm#62929" CLASS="XRef">ora-lob-element-type</A>). For this comparison <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+ and <CODE CLASS="Code">
+base-char</CODE>
+ are considered as the same.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1180132"></A>If the buffer <EM CLASS="Variable">
+buffer</EM>
+ is not static, there is some additional overhead. For small amounts of data, this is probably insignificant.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1180133"></A><EM CLASS="Variable">
+buffer-offset</EM>
+ specifies where in the buffer to start writing data from. It is an offset in bytes from the beginning of the buffer. The default value of <EM CLASS="Variable">
+buffer-offset</EM>
+ is 0.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1180134"></A><EM CLASS="Variable">
+csid</EM>
+ specifies what Character Set ID the data in the source buffer should be. It defaults to the CSID of the LOB pointed to by <EM CLASS="Variable">
+lob-locator</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1180135"></A>The return value <EM CLASS="Variable">
+amount-written</EM>
+ is the number of elements (characters or bytes) that were written</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1180843"></A>The LOB is extended as required.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1180136"></A>If the return value <EM CLASS="Variable">
+eof-or-error-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then there is still more to write. If <EM CLASS="Variable">
+eof-or-error-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ then it wrote to the end of the LOB. If an error occurred then <EM CLASS="Variable">
+eof-or-error-p</EM>
+ is an error object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180885"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1585920"></A>The record from which the LOB came must be locked. See the section <A HREF="lw-430.htm#68143" CLASS="XRef">Locking</A>.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1180137"></A><CODE CLASS="Code">
+ora-lob-write-buffer</CODE>
+ is a direct call to OCILobWrite, without callback.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1180138"></A><CODE CLASS="Code">
+ora-lob-write-buffer</CODE>
+ is available only when the &quot;oracle&quot; module is loaded. See the section <A HREF="lw-424.htm#Oracle LOB interface;Oracle locator objects;Oracle large objects " CLASS="XRef">Oracle LOB interface</A> for more information.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1180158"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1180162"></A><A HREF="lw-1213.htm#62929" CLASS="XRef">ora-lob-element-type</A><BR>
+<A HREF="lw-1245.htm#72707" CLASS="XRef">ora-lob-write-foreign-buffer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1244.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1242.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

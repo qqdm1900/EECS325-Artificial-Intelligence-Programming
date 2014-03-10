@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.2  An example interface 
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-137.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-135.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-134.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-134.htm">10 Defining Interface Classes </A><BR><BR>
+</DIV><A HREF="capiuser-m-137.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-135.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-134.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884176"></A>10.2  An example interface </H3>
+<P CLASS="Body">
+<A NAME="pgfId-884177"></A>Here is a simple example of interface definition done with <CODE CLASS="Code">
+define-interface</CODE>
+: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884181"></A>(define-interface demo ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884666"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884665"></A>  (:panes</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884182"></A>   (page-up push-button </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884184"></A>            :text &quot;Page Up&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884185"></A>   (page-down push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884187"></A>              :text &quot;Page Down&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884188"></A>   (open-file push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884190"></A>              :text &quot;Open File&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884191"></A>  (:layouts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884192"></A>   (row-of-buttons row-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884194"></A>                   '(page-up page-down open-file)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884521"></A>  (:default-initargs :title &quot;Demo&quot;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884525"></A>An instance of this interface can be displayed as follows:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884203"></A>(make-instance 'demo) </CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884206"></A>(display *) </CODE>
+<P CLASS="Body-Next">
+<A NAME="pgfId-884209"></A>At the moment the buttons do nothing, but they will eventually do the following:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-885942"></A><B CLASS="Button">
+Open File</B>
+ will bring up a file prompter and allow you to select a filename from a directory. Later on, we will add an editor pane to display the chosen file's contents.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-885943"></A><B CLASS="Button">
+Page Down</B>
+ will scroll downwards so that you can view the lower parts of the file that cannot be seen initially.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-884472"></A><B CLASS="Button">
+Page Up</B>
+ will scroll upwards so that you can return to parts of the file seen before.</LI>
+</UL>
+<P CLASS="Figure">
+<A NAME="pgfId-884477"></A>Figure 10.1  A demonstration of a CAPI interface<DIV>
+<IMG SRC="capiuser-m-52.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-51.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884217"></A>Later on, we will specify callbacks for these buttons to provide this functionality. </P>
+<P CLASS="Body">
+<A NAME="pgfId-884220"></A>The<CODE CLASS="Code">
+ (:default-initargs :title &quot;Demo&quot;)</CODE>
+<A NAME="marker-884218"></A><A NAME="marker-884798"></A> <A NAME="marker-884219"></A>part at the end is necessary to give the interface a title. If no title is given, the default name is &quot;Untitled CAPI Interface&quot;.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="capiuser-m-137.htm#pgfId-884221" CLASS="Hypertext">10.2.1  How the example works</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-137.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-135.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-134.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

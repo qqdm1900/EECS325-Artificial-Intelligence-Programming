@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ compile-system
+</TITLE>
+
+<LINK REL="next" HREF="lw-892.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-890.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-892.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-890.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-935728"></A><A NAME="marker-935726"></A><A NAME="11892"></A>compile-system</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-935730"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-935731"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-935732"></A>The function <CODE CLASS="Code">
+compile-system</CODE>
+ compiles all the files in a system<A NAME="marker-1354911"></A> necessary to make a consistent set of object files.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-935734"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-935735"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-935736"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-935737"></A>compile-system <EM CLASS="Variable">
+system-name</EM>
+ &amp;key <EM CLASS="Variable">
+force</EM>
+ <EM CLASS="Variable">
+simulate</EM>
+ <EM CLASS="Variable">
+load</EM>
+ <EM CLASS="Variable">
+args</EM>
+ <EM CLASS="Variable">
+target-directory</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-935738"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-935739"></A><EM CLASS="Variable">
+system-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol representing the name of the system. The system must have been defined already using the <A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A> macro.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-935741"></A><EM CLASS="Variable">
+force</EM>
+ </P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+t</CODE>
+ then all the files in the system are compiled regardless. (This argument was formerly called <EM CLASS="Variable">
+force-p</EM>
+. The old name is currently still accepted for compatibility.)</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-935742"></A><EM CLASS="Variable">
+simulate</P>
+<P CLASS="RDescription-C"></EM>
+If <CODE CLASS="Code">
+nil</CODE>
+ or not present then <CODE CLASS="Code">
+compile-system</CODE>
+ works silently. Otherwise a plan of the actions which <CODE CLASS="Code">
+compile-system</CODE>
+ intends to carry out is printed. What happens next depends on the value of <EM CLASS="Variable">
+simulate</EM>
+:</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-935743"></A><CODE CLASS="Code">
+t</CODE>
+ -- do nothing.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-935744"></A><CODE CLASS="Code">
+:ask</CODE>
+ -- you are asked if you wish the plan to be carried out using <CODE CLASS="Code">
+y-or-n-p</CODE>
+.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-935745"></A><CODE CLASS="Code">
+:each</CODE>
+ -- <CODE CLASS="Code">
+compile-system</CODE>
+ displays each action in the plan one at a time, and asks you whether you want to carry out this particular action. The answer <CODE CLASS="Code">
+c</CODE>
+ executes the rest of the plan without further prompting, returns from compile-system without further processing, and <CODE CLASS="Code">
+y</CODE>
+ and <CODE CLASS="Code">
+n</CODE>
+ work as expected.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-935746"></A><CODE CLASS="Code">
+:simulate</CODE>
+ may be abbreviated as <CODE CLASS="Code">
+:sim</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-935748"></A><EM CLASS="Variable">
+load</EM>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+t</CODE>
+ then <A HREF="lw-944.htm#71519" CLASS="XRef">load-system</A> is called after <CODE CLASS="Code">
+compile-system</CODE>
+ has finished. If <CODE CLASS="Code">
+:no</CODE>
+ then no files are loaded at all. The default is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-935749"></A><EM CLASS="Variable">
+args</EM>
+</P>
+<P CLASS="RDescription-C">Arguments to be passed directly to the compiler.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-935750"></A><EM CLASS="Variable">
+target-directory</EM>
+</P>
+<P CLASS="RDescription-C">This must be a string representing a valid directory. It defaults to the <CODE CLASS="Code">
+:default-pathname</CODE>
+ option to <A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A>. This is the directory where the object files created are put. If the <EM CLASS="Variable">
+target-directory</EM>
+ is given then dependency information expressed in the system rules is ignored. <CODE CLASS="Code">
+:target-directory</CODE>
+ may be abbreviated as <CODE CLASS="Code">
+:t-dir</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-935752"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-935753"></A><CODE CLASS="Code">
+compile-system</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-935754"></A>Examples </H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-935755"></A>(compile-system 'blackboard :simulate :ask)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-935756"></A>(compile-system 'tms :load t)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-935757"></A>(compile-system 'packages :load :no</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-935758"></A>                 :target-directory &quot;/usr/users/386i/&quot;)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-935759"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1378390"></A>If <EM CLASS="Variable">
+load</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ then <A HREF="lw-944.htm#71519" CLASS="XRef">load-system</A> is called after the system has been compiled. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1378392"></A>C source files, for example <CODE CLASS="Code">
+foo.c</CODE>
+, can be included in a system (see the use of <CODE CLASS="Code">
+:default-type</CODE>
+ and  <CODE CLASS="Code">
+:type</CODE>
+ in <A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A>). The corresponding object file name is <CODE CLASS="Code">
+foo.so</CODE>
+ on Linux, and on Unix it is <CODE CLASS="Code">
+foo</CODE>
+<EM CLASS="Variable">
+n</EM>
+<CODE CLASS="Code">
+.o</CODE>
+ where <EM CLASS="Variable">
+n</EM>
+ is a platform-specific integer. On  Mac OS X the object file name is <CODE CLASS="Code">
+foo.dylib</CODE>
+ and on Windows the object file name is <CODE CLASS="Code">
+foo.dll</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1203530"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1203534"></A><A HREF="lw-892.htm#96138" CLASS="XRef">concatenate-system</A><BR>
+<A HREF="lw-900.htm#65987" CLASS="XRef">defsystem</A><BR>
+<A HREF="lw-944.htm#71519" CLASS="XRef">load-system</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-892.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-890.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

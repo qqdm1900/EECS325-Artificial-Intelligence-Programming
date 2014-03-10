@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-maximum-segment-size
+</TITLE>
+
+<LINK REL="next" HREF="lw-1430.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1428.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1430.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1428.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1171705"></A><A NAME="98595"></A>set<A NAME="marker-1171704"></A>-maximum-segment-size</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1171706"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171707"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1171708"></A>Defines the maximum segment size for a generation and allocation type in 64-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171709"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1171710"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171711"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1183177"></A>set-maximum-segment-size <EM CLASS="Variable">
+gen-num</EM>
+ <EM CLASS="Variable">
+allocation-type</EM>
+ <EM CLASS="Variable">
+size-in-mb</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171713"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1183419"></A><EM CLASS="Variable">
+gen-num</EM>
+</P>
+<P CLASS="RDescription-C">An integer between 0 and 7, inclusive.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1183420"></A><EM CLASS="Variable">
+allocation-type</EM>
+</P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+:cons</CODE>
+, <CODE CLASS="Code">
+:symbol</CODE>
+, <CODE CLASS="Code">
+:function</CODE>
+, <CODE CLASS="Code">
+:non-pointer</CODE>
+, <CODE CLASS="Code">
+:other</CODE>
+, <CODE CLASS="Code">
+:mixed</CODE>
+, <CODE CLASS="Code">
+:cons-static</CODE>
+, <CODE CLASS="Code">
+:non-pointer-static</CODE>
+, <CODE CLASS="Code">
+:mixed-static</CODE>
+, <CODE CLASS="Code">
+:weak</CODE>
+, <CODE CLASS="Code">
+:other-big</CODE>
+, and <CODE CLASS="Code">
+:non-pointer-big</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1183411"></A><EM CLASS="Variable">
+size-in-mb</P>
+<P CLASS="RDescription-C"></EM>
+An integer between 1 and 256 inclusive, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1183759"></A>Values</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-1183791"></A><EM CLASS="Variable">
+max-segment-size</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1183812"></A>A number.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171717"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1183607"></A>The function <CODE CLASS="Code">
+set-maximum-segment-size</CODE>
+ sets the maximum segment size for a generation and allocation type in 64-bit LispWorks.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1183629"></A><EM CLASS="Variable">
+allocation-type</EM>
+ can be any of the allocation types. However, if <EM CLASS="Variable">
+allocation-type</EM>
+ is <CODE CLASS="Code">
+:other-big</CODE>
+ or <CODE CLASS="Code">
+:non-pointer-big</CODE>
+, this function has no effect.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1183012"></A><EM CLASS="Variable">
+size-in-mb</EM>
+ is the size in megabytes.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1183013"></A>For the non-ephemeral generations (that is, the blocking generation and above), if the system needs more memory of some allocation type in some generation, its normal operation is to enlarge one of the existing segments in this generation of this allocation type. If it does not find a segment that it can enlarge, it allocates a new segment of the same allocation type in the same generation. Therefore the maximum segment size affects the number of segments that will be used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1183014"></A>There is an overhead to using more segments, so normally having the largest segment size which the implementation allows (256MB) is the best. Reducing the size may be useful when using <A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A> with <EM CLASS="Variable">
+what-to-copy</EM>
+ non-nil or <A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A> with <EM CLASS="Variable">
+do-gc</EM>
+ a number to prevent fragmentation in the blocking generation. In this situation, reducing the size of each segment makes it easier for the system to find segments to copy, even if the <EM CLASS="Variable">
+max-size-to-copy</EM>
+ parameter is set to a low number to avoid using too much virtual memory.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1184163"></A>The returned value, <EM CLASS="Variable">
+max-segment-size</EM>
+, is the previous maximum segment size.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1183838"></A>If <EM CLASS="Variable">
+size-in-mb</EM>
+ is a number, it specifies the size in megabytes. If <EM CLASS="Variable">
+size-in-mb</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then <CODE CLASS="Code">
+set-maximum-segment-size</CODE>
+ returns the maximum segment size without altering it.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1176382"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1657564"></A><CODE CLASS="Code">
+set-maximum-segment-size</CODE>
+ is implemented only in 64-bit LispWorks. It is not relevant to the Memory Management API in 32-bit implementations.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171719"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1171720"></A><A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A><BR>
+<A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A><BR>
+<A HREF="lw-1424.htm#88236" CLASS="XRef">set-default-segment-size</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1430.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1428.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

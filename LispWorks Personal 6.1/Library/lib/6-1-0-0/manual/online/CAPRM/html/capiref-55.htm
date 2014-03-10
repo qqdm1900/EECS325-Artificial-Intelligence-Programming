@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ confirm-yes-or-no
+</TITLE>
+
+<LINK REL="next" HREF="capiref-56.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-54.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-56.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-54.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-4509041"></A><A NAME="21817"></A>confirm<A NAME="marker-4509040"></A>-yes-or-no</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888963"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888917"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1003821"></A>The function <CODE CLASS="Code">
+confirm-yes-or-no</CODE>
+ pops up a dialog button containing a message and a <B CLASS="Button">
+Yes</B>
+ and <B CLASS="Button">
+No</B>
+ button.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4011836"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4011837"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1003772"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888919"></A>confirm-yes-or-no <EM CLASS="Variable">
+format-string</EM>
+ &amp;rest <EM CLASS="Variable">
+format-args</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888921"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888982"></A>This pops up a dialog box containing a message and the buttons <B CLASS="Button">
+Yes</B>
+ and <B CLASS="Button">
+No</B>
+, returns <CODE CLASS="Code">
+t</CODE>
+ when the <B CLASS="Button">
+Yes</B>
+ button is clicked, and <CODE CLASS="Code">
+nil</CODE>
+ when the <B CLASS="Button">
+No</B>
+ button is clicked. The message is obtained by applying the <EM CLASS="Variable">
+format-string</EM>
+ and the <EM CLASS="Variable">
+format-args</EM>
+ to the Common Lisp function <CODE CLASS="Code">
+format</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-888927"></A>This function is actually a convenient version of <CODE CLASS="Code">
+</CODE>
+<A HREF="capiref-318.htm#22893" CLASS="XRef">prompt-for-confirmation</A>, but has the disadvantage that you cannot specify any customization arguments. For more flexibility, use <A HREF="capiref-318.htm#22893" CLASS="XRef">prompt-for-confirmation</A> itself.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888930"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888999"></A>(setq pane (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-888934"></A>             (make-instance 'capi:text-input-pane)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1821252"></A>                            :title &quot;Test Interface&quot;))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1825730"></A>(when (capi:confirm-yes-or-no &quot;Close &#126;S?&quot; pane)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1825731"></A>  (capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1821254"></A>   pane 'capi:quit-interface pane))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1821255"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889013"></A><A HREF="capiref-318.htm#22893" CLASS="XRef">prompt-for-confirmation</A><BR>
+<A HREF="capiref-77.htm#34181" CLASS="XRef">display-dialog</A><BR>
+<A HREF="capiref-300.htm#12695" CLASS="XRef">popup-confirmer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-56.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-54.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

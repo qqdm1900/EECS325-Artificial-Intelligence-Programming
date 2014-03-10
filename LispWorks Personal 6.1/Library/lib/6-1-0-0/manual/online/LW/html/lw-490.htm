@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 22.2.3.1  String types at runtime
+</TITLE>
+
+<LINK REL="next" HREF="lw-491.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-489.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-489.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-484.htm">22 Internationalization</A> &gt; <A HREF="lw-486.htm">22.2  Character and String types</A> &gt; <A HREF="lw-489.htm">22.2.3  String types</A><BR><BR>
+</DIV><A HREF="lw-491.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-489.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-489.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-893335"></A>22.2.3.1  String types at runtime</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893420"></A>The type <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-893548"></A><A HREF="lw-673.htm#85954" CLASS="XRef">string</A> (and hence <CODE CLASS="Code">
+simple-string</CODE>
+<A NAME="marker-893543"></A>) is defined by ANSI Common Lisp to be a union of all the character array types. This makes a call like</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-893421"></A>(coerce <EM CLASS="Variable">
+s</EM>
+ 'simple-string)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-893422"></A>ambiguous because it needs to select a concrete type (such as <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-893553"></A><A HREF="lw-667.htm#10180" CLASS="XRef">simple-base-string</A> or <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-893558"></A><A HREF="lw-971.htm#58132" CLASS="XRef">simple-text-string</A>).</P>
+<P CLASS="Body">
+<A NAME="pgfId-893423"></A>When LispWorks is running with <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-893581"></A><A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A> set to <CODE CLASS="Code">
+base-char</CODE>
+, it expects that you will want strings with element type <CODE CLASS="Code">
+base-char</CODE>
+, so functions like <CODE CLASS="Code">
+coerce</CODE>
+ treat references to <CODE CLASS="Code">
+simple-string</CODE>
+ as if they were <CODE CLASS="Code">
+(simple-array base-char (*))</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893424"></A>If you call <A HREF="lw-966.htm#30578" CLASS="XRef">set-default-character-element-type</A> with a larger character type, then <CODE CLASS="Code">
+simple-string</CODE>
+ becomes a union of the array types that are subtypes of that character type.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-491.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-489.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-489.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

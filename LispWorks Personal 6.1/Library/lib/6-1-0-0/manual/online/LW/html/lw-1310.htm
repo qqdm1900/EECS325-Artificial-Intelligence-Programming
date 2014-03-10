@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ stream-listen
+</TITLE>
+
+<LINK REL="next" HREF="lw-1311.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1309.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1288.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1288.htm">39 The STREAM Package</A><BR><BR>
+</DIV><A HREF="lw-1311.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1309.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-889208"></A><A NAME="21867"></A>stream<A NAME="marker-954184"></A>-listen</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888596"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888609"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888310"></A>A function used by <CODE CLASS="Code">
+listen</CODE>
+ that returns <CODE CLASS="Code">
+t</CODE>
+ if there is input available.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888311"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888312"></A>stream</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888313"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888314"></A>stream-listen <EM CLASS="Variable">
+stream</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888315"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888316"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">A stream.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888317"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888318"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888319"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888320"></A>The generic function <CODE CLASS="Code">
+stream-listen</CODE>
+ is called to determine if there is data immediately available on the stream <EM CLASS="Variable">
+stream</EM>
+, without hanging.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-972024"></A><EM CLASS="Variable">
+result</EM>
+ should be true if here is input, and <CODE CLASS="Code">
+nil</CODE>
+ otherwise (including at end of file).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-972025"></A>This method must be implemented for subclasses of <A HREF="lw-1289.htm#42777" CLASS="XRef">buffered-stream</A> that handle input.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-971984"></A>There is a built-in primary method specialized on <A HREF="lw-1289.htm#42777" CLASS="XRef">buffered-stream</A> which returns <CODE CLASS="Code">
+nil</CODE>
+. There is a built-in <CODE CLASS="Code">
+:around</CODE>
+ method specialized on <A HREF="lw-1289.htm#42777" CLASS="XRef">buffered-stream</A> which checks for input in the buffer and calls the next method if the buffer is empty. Thus a primary method specialized on a subclass of <A HREF="lw-1289.htm#42777" CLASS="XRef">buffered-stream</A> need only check the underlying data source. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-971853"></A>The built-in method on <A HREF="lw-1296.htm#36936" CLASS="XRef">fundamental-input-stream</A> uses <CODE CLASS="Code">
+stream-read-char-no-hang</CODE>
+ and <CODE CLASS="Code">
+stream-unread-char</CODE>
+. Most streams should define their own method as this is usually trivial and more efficient than the method provided.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888323"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888324"></A><A HREF="lw-1289.htm#42777" CLASS="XRef">buffered-stream</A><BR>
+<A HREF="lw-1316.htm#29689" CLASS="XRef">stream-read-char-no-hang</A><BR>
+<A HREF="lw-1322.htm#30446" CLASS="XRef">stream-unread-char</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1311.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1309.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

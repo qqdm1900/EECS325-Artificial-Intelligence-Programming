@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.1  Displaying graphics
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-176.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-174.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-174.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-174.htm">12 Creating Your Own Panes</A><BR><BR>
+</DIV><A HREF="capiuser-m-176.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-174.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-174.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884167"></A>12.1  Displaying graphics</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884169"></A><A NAME="marker-884168"></A>The following is a simple example demonstrating how to create an <CODE CLASS="Code">
+output-pane</CODE>
+ and then how to draw a circle on it.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884962"></A>(setq output-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884963"></A>    (contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884964"></A>         (make-instance 'output-pane)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884174"></A>         :best-width 300</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884175"></A>         :best-height 300))</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884867"></A>Figure 12.1  An empty output pane<DIV>
+<IMG SRC="capiuser-m-69.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-68.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884516"></A>Now you can draw a circle in the empty output pane by using the graphics ports function <CODE CLASS="Code">
+draw-circle</CODE>
+. Note that the drawing function must be called in the process of the interface containing the output pane:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891007"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891005"></A> output-pane 'gp:<A NAME="marker-891023"></A>draw-circle output-pane 100 100 50)</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884874"></A>Figure 12.2  An output pane containing a circle<DIV>
+<IMG SRC="capiuser-m-69.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-70.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884536"></A>Notice that this circle is not permanently drawn on the <CODE CLASS="Code">
+output-pane</CODE>
+, and when the window is next redisplayed it vanishes. To prove this to yourself, force the window to be redisplayed (for example by iconifying or resizing it). At this point, you can draw the circle again yourself but it will not happen automatically.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891036"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891038"></A> output-pane 'gp:draw-circle output-pane 100 100 50)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884198"></A><A NAME="marker-884197"></A>In order to create a permanent display, you need to provide a function to the <CODE CLASS="Code">
+output-pane</CODE>
+ that is called to redraw sections of the output-pane when they are exposed. This function is called the <A NAME="marker-884199"></A><I CLASS="Italic">
+display-callback</I>
+, and it is automatically called in the correct process. When the CAPI needs to redisplay a region of an <CODE CLASS="Code">
+output-pane</CODE>
+, it calls that output pane's <EM CLASS="Variable">
+display-callback</EM>
+ function, passing it the <CODE CLASS="Code">
+output-pane</CODE>
+ and the region in question.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890878"></A>For example, to create a pane that has a permanent circle drawn inside it, do the following:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-890879"></A>(defun draw-a-circle (pane x y</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890880"></A>                           width height)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890881"></A>              (gp:draw-circle pane 100 100 50))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-890886"></A>(contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890887"></A> (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890888"></A>  'output-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890889"></A>  :display-callback 'draw-a-circle)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890890"></A> :best-width 300</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884213"></A> :best-height 300)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884215"></A>Notice that the callback in this example ignores the region that needs redrawing and just redraws everything. This is possible because the CAPI clips the drawing to the region that needs redisplaying, and hence only the needed part of the drawing gets done. For maximum efficiency, it would be better to only draw the minimum area necessary.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885114"></A>The arguments <CODE CLASS="Code">
+:best-width</CODE>
+<A NAME="marker-885122"></A> and <CODE CLASS="Code">
+:best-height</CODE>
+<A NAME="marker-885124"></A> specify the initial width and height of the interface. More detail can be found in the <I CLASS="Italic">
+LispWorks CAPI Reference Manual</I>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885006"></A>Now that we can create output panes with our own display functions, we can create a new class of window by using <A NAME="marker-885007"></A><CODE CLASS="Code">
+defclass</CODE>
+ as follows.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-885009"></A>(defclass circle-pane (output-pane)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885010"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884222"></A>  (:default-initargs</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884223"></A>   :display-callback 'draw-a-circle))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884226"></A>(contain</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884227"></A> (make-instance 'circle-pane)<A NAME="marker-885093"></A>)</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-176.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-174.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-174.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

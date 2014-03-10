@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ call-editor
+</TITLE>
+
+<LINK REL="next" HREF="capiref-28.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-26.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-28.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-26.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886283"></A><A NAME="28128"></A>call<A NAME="marker-3943970"></A>-editor</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886320"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-987031"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-987187"></A>Executes an editor command in an <A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A>. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3939688"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3939689"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886287"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886289"></A>call-editor <EM CLASS="Variable">
+editor-pane</EM>
+ <EM CLASS="Variable">
+command</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886291"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886293"></A>The generic function <CODE CLASS="Code">
+call-editor</CODE>
+ executes the editor command <EM CLASS="Variable">
+command</EM>
+ in the current buffer in<EM CLASS="Variable">
+ editor-pane</EM>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1656682"></A>It can be used directly in a callback in <EM CLASS="Variable">
+editor-pane</EM>
+'s interface. See the demo interface example in the <I CLASS="Italic">
+CAPI User Guide</I>
+. In other cases, take care to modify displayed CAPI interfaces only in their own process: <A HREF="capiref-133.htm#execute-with-interface" CLASS="XRef">execute-with-interface</A> and <A HREF="capiref-12.htm#92272" CLASS="XRef">apply-in-pane-process</A> are useful for this.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-7871554"></A>The <EM CLASS="Variable">
+before-input-callback</EM>
+ and <EM CLASS="Variable">
+after-input-callback</EM>
+ of the <A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A> are called when <CODE CLASS="Code">
+call-editor</CODE>
+ is called.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886295"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1666256"></A>(setq editor (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1666257"></A>              (make-instance 'capi:editor-pane</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1677830"></A>                             :text &quot;abc&quot;)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1854977"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-3456128"></A> editor 'capi:call-editor editor &quot;End Of Buffer&quot;)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-3456170"></A>Also see the example in the directory <CODE CLASS="Code">
+examples/capi/editor/</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3456131"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886314"></A><A HREF="capiref-12.htm#92272" CLASS="XRef">apply-in-pane-process</A><BR>
+<A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A><BR>
+<A HREF="capiref-133.htm#execute-with-interface" CLASS="XRef">execute-with-interface</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-28.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-26.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

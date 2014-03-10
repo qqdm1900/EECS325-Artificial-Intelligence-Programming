@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ dspec-definition-locations
+</TITLE>
+
+<LINK REL="next" HREF="lw-711.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-709.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-698.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-698.htm">30 The DSPEC Package</A><BR><BR>
+</DIV><A HREF="lw-711.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-709.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-897772"></A><A NAME="12396"></A>dspec<A NAME="marker-938005"></A>-definition-locations</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-897773"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897316"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-897712"></A>Returns the locations of the known definitions.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897318"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897319"></A>dspec</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897320"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897321"></A>dspec-definition-locations <EM CLASS="Variable">
+dspec</EM>
+ =&gt; <EM CLASS="Variable">
+locations</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897322"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897323"></A><EM CLASS="Variable">
+dspec</EM>
+</P>
+<P CLASS="RDescription-C">A dspec.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897324"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897325"></A><EM CLASS="Variable">
+locations</EM>
+</P>
+<P CLASS="RDescription-C">A list of pairs (<EM CLASS="Variable">
+recorded-dspec</EM>
+ <EM CLASS="Variable">
+location</EM>
+).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897326"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-897327"></A>The function <CODE CLASS="Code">
+dspec-definition-locations</CODE>
+ returns the locations of the definitions recorded for the dspec <EM CLASS="Variable">
+dspec</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-942987"></A>For each known definition <EM CLASS="Variable">
+recorded-dspec</EM>
+ names the definition that defined <EM CLASS="Variable">
+dspec</EM>
+ in <EM CLASS="Variable">
+location</EM>
+, and <EM CLASS="Variable">
+location</EM>
+ is a pathname or keyword as described in <A HREF="lw-700.htm#74763" CLASS="XRef">at-location</A>. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-943779"></A>Note that non-file locations, such as <CODE CLASS="Code">
+:unknown</CODE>
+, can occur in the list. The locations in <EM CLASS="Variable">
+locations</EM>
+ are all basic locations: that is, there are no <CODE CLASS="Code">
+(:inside ...)</CODE>
+ locations. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-898149"></A>If <EM CLASS="Variable">
+dspec</EM>
+ is a local dspec, the parent function is located.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898194"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-898314"></A>CL-USER 6 &gt; (dspec:dspec-definition-locations</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-898315"></A>             '(defun foo-bar))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-898316"></A>(((DEFSTRUCT FOO) #P&quot;C:/temp/hack.lisp&quot;))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897998"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-897999"></A><A HREF="lw-723.htm#65600" CLASS="XRef">name-definition-locations</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-711.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-709.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

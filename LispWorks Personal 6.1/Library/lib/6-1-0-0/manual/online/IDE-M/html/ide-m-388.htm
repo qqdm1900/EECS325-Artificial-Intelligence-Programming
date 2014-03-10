@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.4  The debugger prompt and debugger level
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-389.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-387.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-384.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-384.htm">19 The Listener</A><BR><BR>
+</DIV><A HREF="ide-m-389.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-387.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-384.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-920466"></A>19.4  The debugger prompt and debugger level</H3>
+<P CLASS="Body">
+<A NAME="pgfId-920469"></A>When you get an error by evaluating a form in the Listener, LispWorks enters the debugger. The first <A NAME="marker-920655"></A>debugger prompt contains a colon followed by the integer 1, indicating that Lisp is 1 level deep in the debugger.</P>
+<P CLASS="Body">
+<A NAME="pgfId-920581"></A>Subsequent errors in the debugger increment the debugger level:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-920536"></A>CL-USER 57 &gt; (/ 1 0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920537"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920538"></A>Error: Division-by-zero caused by / of (1 0).</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920539"></A>  1 (continue) Return a value to use.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920540"></A>  2 Supply new arguments to use.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920541"></A>  3 (abort) Return to level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920542"></A>  4 Return to top loop level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920543"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920544"></A>Type :b for backtrace or :c &lt;option number&gt; to proceed.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920545"></A>Type :bug-form &quot;&lt;subject&gt;&quot; for a bug report template or :? for other options.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920546"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920547"></A>CL-USER 58 : 1 &gt; (/ 2 0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920548"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920549"></A>Error: Division-by-zero caused by / of (2 0).</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920550"></A>  1 (continue) Return a value to use.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920551"></A>  2 Supply new arguments to use.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920552"></A>  3 (abort) Return to level 1.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920553"></A>  4 Return to debug level 1.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920554"></A>  5 Return to level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920555"></A>  6 Return to top loop level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920556"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920557"></A>Type :b for backtrace or :c &lt;option number&gt; to proceed.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920558"></A>Type :bug-form &quot;&lt;subject&gt;&quot; for a bug report template or :? for other options.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-920559"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-920476"></A>CL-USER 59 : 2 &gt; </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-920644"></A>After fixing the cause of an error you should exit from the debugger, for example by entering <CODE CLASS="Code">
+:a</CODE>
+ to invoke the abort restart. If you do not exit, then the next time you get an error you will be nested more deeply in the debugger, which is usually not desirable. Try to avoid this.</P>
+<P CLASS="Body">
+<A NAME="pgfId-920645"></A>Note: If you reach debugger level 9 then LispWorks opens a console window to run the debugger (because it assumes that the IDE is broken). In this situation you can enter the <CODE CLASS="Code">
+:top</CODE>
+ command and then minimize the console window to restore the IDE Listener.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-389.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-387.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-384.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 22.4.1  Default string construction
+</TITLE>
+
+<LINK REL="next" HREF="lw-495.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-493.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-493.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-484.htm">22 Internationalization</A> &gt; <A HREF="lw-493.htm">22.4  String Construction</A><BR><BR>
+</DIV><A HREF="lw-495.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-493.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-493.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-892050"></A>22.4.1  Default string construction</H3>
+<P CLASS="Body">
+<A NAME="pgfId-892051"></A>If the value of <A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A> is <CODE CLASS="Code">
+base-char</CODE>
+ then:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-889571"></A>(make-string 3) </CODE>
+<P CLASS="Body">
+<A NAME="pgfId-894216"></A>returns a <A HREF="lw-667.htm#10180" CLASS="XRef">simple-base-string</A> and</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-894222"></A>(coerce <EM CLASS="Variable">
+sequence</EM>
+ 'simple-string)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-894217"></A>attempts to construct a <A HREF="lw-667.htm#10180" CLASS="XRef">simple-base-string</A>. This will signal an error if any element of <EM CLASS="Variable">
+sequence</EM>
+ is not a <CODE CLASS="Code">
+base-char</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894221"></A>If the value of <A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A> is <CODE CLASS="Code">
+simple-char</CODE>
+ then</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-894238"></A>(make-string 3) </CODE>
+<P CLASS="Body">
+<A NAME="pgfId-894236"></A>returns a <A HREF="lw-971.htm#58132" CLASS="XRef">simple-text-string</A> and</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-892007"></A>(coerce <EM CLASS="Variable">
+sequence</EM>
+ 'simple-string)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-892008"></A>attempts to construct a <A HREF="lw-971.htm#58132" CLASS="XRef">simple-text-string</A>. This will signal an error if any element of <EM CLASS="Variable">
+sequence</EM>
+ is not a <A HREF="lw-969.htm#63582" CLASS="XRef">simple-char</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894294"></A>Other string constructors also take their default from <A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A>. For instance, <A HREF="lw-680.htm#79354" CLASS="XRef">with-output-to-string</A> and <CODE CLASS="Code">
+make-string-output-stream</CODE>
+ will construct a stream with element type determined by this variable and generate a string of the same element type.</P>
+<P CLASS="Body">
+<A NAME="pgfId-896162"></A>Also the string reader will always construct a string of type determined by <A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A>, unless it sees a character of a larger type, in which case a suitable string is constructed. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896190"></A>CL-USER 1 &gt; (set-default-character-element-type 'simple-char)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896191"></A>SIMPLE-CHAR</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896192"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896193"></A>CL-USER 2 &gt; (type-of &quot;ABC&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896167"></A>SIMPLE-TEXT-STRING</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896168"></A>Compatibility note: In LispWorks 6.0 and earlier versions, the string reader would not always obey <A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A>, due to a bug.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-495.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-493.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-493.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

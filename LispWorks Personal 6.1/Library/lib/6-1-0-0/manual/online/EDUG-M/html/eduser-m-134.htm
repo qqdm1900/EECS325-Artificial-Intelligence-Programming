@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.1  Customizing default key bindings
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-135.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-133.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-133.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A><BR><BR>
+</DIV><A HREF="eduser-m-135.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-133.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-133.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-883858"></A>6.1  <A NAME="32041"></A><A NAME="marker-883856"></A>Customizing default key bindings</H3>
+<P CLASS="Body">
+<A NAME="pgfId-883859"></A>The key sequences to which individual commands are bound can be changed, and key bindings can be set up for commands which are not, by default, bound to any key sequences. Interactive means of modifying key bindings are described in <A HREF="eduser-m-87.htm#73710" CLASS="XRef">Key bindings</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-883863"></A>This section describes the editor function <CODE CLASS="Code">
+bind-key</CODE>
+, which is used to establish bindings programmatically. If you want to alter your personal key bindings, put the modifying code in your <CODE CLASS="Code">
+.lispworks</CODE>
+ file.</P>
+<P CLASS="Body">
+<A NAME="pgfId-883864"></A>The default Emacs key bindings can be found in the file <CODE CLASS="Code">
+config/key-binds.lisp</CODE>
+ in the LispWorks library directory. See <A HREF="eduser-m-126.htm#32041" CLASS="XRef">Key bindings</A> for details of the key binds files used in other editor emulations.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-883867"></A><A NAME="marker-883865"></A><A NAME="81376"></A>editor:bind-key </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-883868"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884598"></A>editor:bind-key <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+key</EM>
+ &amp;optional <EM CLASS="Variable">
+kind</EM>
+ <EM CLASS="Variable">
+where</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884594"></A>Binds the command <EM CLASS="Variable">
+name</EM>
+ to the key sequence or combination <EM CLASS="Variable">
+key</EM>
+. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-887977"></A><EM CLASS="Variable">
+kind</EM>
+ can take the value <CODE CLASS="Code">
+:global</CODE>
+, <CODE CLASS="Code">
+:mode</CODE>
+, or <CODE CLASS="Code">
+:buffer</CODE>
+. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-888010"></A>The default for <EM CLASS="Variable">
+kind</EM>
+ is <CODE CLASS="Code">
+:global</CODE>
+. which makes the binding apply in all buffers and all modes, unless overridden by a mode-specific or buffer-specific binding.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-889247"></A>If <EM CLASS="Variable">
+where</EM>
+ is not supplied, the binding is for the current emulation. Otherwise <EM CLASS="Variable">
+where</EM>
+ should be either <CODE CLASS="Code">
+:emacs</CODE>
+ or <CODE CLASS="Code">
+:mac</CODE>
+, meaning that the binding is for Emacs emulation or Mac OS editor emulation respectively. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-889269"></A>Note: before the editor starts, the current emulation is <CODE CLASS="Code">
+:emacs</CODE>
+. Therefore <CODE CLASS="Code">
+bind-key</CODE>
+ forms which do not specify <EM CLASS="Variable">
+where</EM>
+ and which are evaluated before the editor starts (for example, in your initialization file) will apply to Emacs emulation only. Thus for example </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-889296"></A>(bind-key &quot;Command&quot; &quot;Control-Right&quot;) </CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-889297"></A>when evaluated in your initialization file will establish an Emacs emulation binding. The same form when evaluated after editor startup will establish a binding in the current emulation: Emacs or Mac OS editor emulation. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-889314"></A>It is best to specify the intended emulation:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-889277"></A>(editor:bind-key &quot;Command&quot; &quot;Control-Right&quot; :global :mac)</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-888011"></A>If <EM CLASS="Variable">
+kind</EM>
+ is <CODE CLASS="Code">
+:buffer</CODE>
+ the binding applies only to a buffer which should be specified by the value of <EM CLASS="Variable">
+where</EM>
+. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-888015"></A>If <EM CLASS="Variable">
+kind</EM>
+ is <CODE CLASS="Code">
+:mode</CODE>
+ the binding applies only to a mode which should be specified by <EM CLASS="Variable">
+where</EM>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883870"></A>If this function is called interactively via the command <A HREF="eduser-m-87.htm#56026" CLASS="XRef">Bind Key</A>, you will be prompted as necessary for the kind of binding, the buffer or the mode. The binding is for the current emulation. <CODE CLASS="Code">
+Tab</CODE>
+ completion may be used at any stage.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-883873"></A>The following examples, which are used to implement some existing key bindings, illustrate how key sequences can be specified using <CODE CLASS="Code">
+bind-key</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-883875"></A>(editor:bind-key &quot;Forward Character&quot; #&#92;control-&#92;f)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-883876"></A>(editor:bind-key &quot;Forward Word&quot; #&#92;meta-&#92;f)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-883877"></A>(editor:bind-key &quot;Save File&quot; '#(#&#92;control-&#92;x #&#92;control-&#92;s))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-883878"></A>(editor:bind-key &quot;Regexp Forward Search&quot; #&#92;meta-control-&#92;s)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885361"></A>(editor:bind-key &quot;Complete Field&quot; #&#92;space :mode &quot;Echo Area&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885384"></A>(editor:bind-key &quot;Backward Character&quot; &quot;left&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-885368"></A>(editor:bind-key &quot;Forward Word&quot; #(&quot;control-right&quot;))</PRE>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-883881"></A><A NAME="marker-887086"></A>editor:bind-string-to-key </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884833"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884836"></A>editor:bind-string-to-key <EM CLASS="Variable">
+string</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+key</EM>
+ &amp;optional <EM CLASS="Variable">
+kind</EM>
+ <EM CLASS="Variable">
+where</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884837"></A>Binds the text string <EM CLASS="Variable">
+string</EM>
+ to the keyboard shortcut <EM CLASS="Variable">
+key</EM>
+ without the need to create a command explicitly. Using <EM CLASS="Variable">
+key</EM>
+ inserts <EM CLASS="Variable">
+string</EM>
+ in the current buffer. The <EM CLASS="Variable">
+kind</EM>
+ and <EM CLASS="Variable">
+where</EM>
+ arguments are as for <CODE CLASS="Code">
+editor:bind-key</CODE>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-887126"></A><A NAME="marker-887125"></A><A NAME="86758"></A>editor:set-interrupt-keys </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-887127"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887128"></A>editor:set-interrupt-keys <EM CLASS="Variable">
+keys</EM>
+ &amp;optional <EM CLASS="Variable">
+input-style</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-887144"></A>The key that aborts the current editor command is handled specially by the editor. If you wish to change the default (from <CODE CLASS="Code">
+Ctrl+G</CODE>
+ for Emacs) then you must use this function rather than <CODE CLASS="Code">
+editor:bind-key</CODE>
+. See the file <CODE CLASS="Code">
+config/mac-key-binds.lisp</CODE>
+ for an example.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-135.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-133.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-133.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

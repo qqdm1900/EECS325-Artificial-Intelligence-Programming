@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.7  Displaying packages
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-65.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-63.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-21.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-21.htm">3 Common Features</A><BR><BR>
+</DIV><A HREF="ide-m-65.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-63.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-21.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-852685"></A>3.7  <A NAME="77828"></A>Displaying packages</H3>
+<P CLASS="Body">
+<A NAME="pgfId-852687"></A><A NAME="marker-854380"></A>Symbols can be displayed either with their package information attached or not. In the LispWorks IDE, symbols are displayed with the package name attached by default.</P>
+<P CLASS="Body-Next">
+<A NAME="pgfId-852688"></A>For example, suppose you have created a package <CODE CLASS="Code">
+FOO</CODE>
+ which includes a symbol named <CODE CLASS="Code">
+bar</CODE>
+ and a symbol named <CODE CLASS="Code">
+baz</CODE>
+. Suppose further that you created a new package <CODE CLASS="Code">
+FOO2</CODE>
+, which used the <CODE CLASS="Code">
+FOO</CODE>
+ package. This can be done as shown below:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-852689"></A>(defpackage foo (:use &quot;COMMON-LISP&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-852695"></A>(defpackage foo2 (:use &quot;FOO&quot; &quot;COMMON-LISP&quot;))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-852800"></A>Note that in defining both packages, the <CODE CLASS="Code">
+COMMON-LISP</CODE>
+ package has also been used. It is good practice to use this package, to ensure that commonly-used symbols are available.</P>
+<P CLASS="Body">
+<A NAME="pgfId-852696"></A>When creating packages which use other packages, exported symbols can be called without having to refer to the package name.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855399"></A>To illustrate this, let us return to our example.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-962729"></A>Figure 3.6  Two example packages<DIV>
+<IMG SRC="ide-m-19.gif">
+</DIV>
+</P>
+<DIV>
+<MAP NAME="ide-m-35">
+</MAP>
+<IMG SRC="ide-m-35.gif" USEMAP="#ide-m-35">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-962730"></A>We have two packages: <CODE CLASS="Code">
+FOO1</CODE>
+ and <CODE CLASS="Code">
+FOO2</CODE>
+. <CODE CLASS="Code">
+FOO1</CODE>
+ contains symbols <CODE CLASS="Code">
+bar</CODE>
+ and <CODE CLASS="Code">
+baz</CODE>
+. The symbol <CODE CLASS="Code">
+bar</CODE>
+ has been exported, whereas the symbol <CODE CLASS="Code">
+baz</CODE>
+ is not exported.</P>
+<P CLASS="Body">
+<A NAME="pgfId-852728"></A>When the current package is <CODE CLASS="Code">
+FOO2</CODE>
+, you can refer to <CODE CLASS="Code">
+bar</CODE>
+ without using the package name. This is because <CODE CLASS="Code">
+FOO2</CODE>
+ uses <CODE CLASS="Code">
+FOO1</CODE>
+ and <CODE CLASS="Code">
+bar</CODE>
+ is exported. However to refer to <CODE CLASS="Code">
+baz</CODE>
+ you must still use the <CODE CLASS="Code">
+FOO1</CODE>
+ package name like this: <CODE CLASS="Code">
+foo1::baz</CODE>
+. This is because <CODE CLASS="Code">
+baz</CODE>
+ is not exported.</P>
+<P CLASS="Body">
+<A NAME="pgfId-962774"></A>Note also that when the current package is other than <CODE CLASS="Code">
+FOO1</CODE>
+ or <CODE CLASS="Code">
+FOO2</CODE>
+, you can refer to <CODE CLASS="Code">
+foo1:bar</CODE>
+, but you can only refer to <CODE CLASS="Code">
+baz</CODE>
+ as <CODE CLASS="Code">
+foo1::baz</CODE>
+.</P>
+<P CLASS="Body-Next">
+<A NAME="pgfId-1002290"></A>Package names are usually displayed alongside symbols in a list. Having a package entry on every line can be unhelpful, especially if the majority of items listed are from the same package. To hide the package names for the symbols in a given type of tool:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-1002314"></A>Raise the Preferences dialog as described in <A HREF="ide-m-36.htm#86979" CLASS="XRef">Setting preferences</A>.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-1002300"></A>Select the tool type in the list on the left side of the dialog.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-1002317"></A>Uncheck <B CLASS="Button">
+Show Package Names</B>
+<A NAME="marker-1002299"></A> in the <B CLASS="Button">
+General</B>
+ tab.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-1002323"></A>Click <B CLASS="Button">
+OK</B>
+ to confirm your setting.</LI>
+</OL>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="ide-m-65.htm#pgfId-852733" CLASS="Hypertext">3.7.1  Specifying a package</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-65.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-63.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-21.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

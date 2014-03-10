@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ B.2  Explanation Facility
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-209.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-207.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-206.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-206.htm">B Examples</A><BR><BR>
+</DIV><A HREF="kwprolog-m-209.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-207.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-206.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading-App">
+<A NAME="pgfId-866130"></A>B.2  <A NAME="64040"></A>Explanation Facility</H3>
+<P CLASS="Body">
+<A NAME="pgfId-866131"></A>Below is the complete code implementing the simple explanation facility of <A HREF="kwprolog-m-79.htm#95189" CLASS="XRef">A Simple Explanation Facility</A>. The implementation principle is exactly as described.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866135"></A> ;;; ---------- A SIMPLE EXPLANATION FACILITY ---------</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866136"></A>(in-package kw-user)</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866137"></A>; connects rule to explanation definitions</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866138"></A>(defvar *explanation-table* </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866139"></A>                (make-hash-table :test #'eq))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866140"></A>; explanation generated at runtime</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866141"></A>(defvar *explanation* nil)</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866142"></A>;;; the next four definitions make up the defexplain </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866614"></A>;;; macro for each of the why, what and because</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866143"></A>;;; definitions we create a function which we can call</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866144"></A>;;; at runtime on the bindings of the instantiation to</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866145"></A>;;; generate the explanation text - this will be</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866146"></A>;;; reasonably efficient</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866147"></A>(defun is-var (expr)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866148"></A>  &quot;is this a variable (i.e. starts with ?)&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866149"></A>  (and (symbolp expr)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866150"></A>    (eql (char (symbol-name expr) 0) #&#92;?)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866151"></A>(defun find-vars (expr)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866152"></A>  &quot;returns a list of all the variables in expr&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866153"></A>  (if (consp expr)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866154"></A>      (append (find-vars (car expr)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866155"></A>              (find-vars (cdr expr)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866156"></A>    (if (is-var expr) (list expr) nil)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866157"></A>(defun make-explain-func (explain-stuff)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866158"></A>  &quot;generates a function to generate explanation text at</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866159"></A>   runtime&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866160"></A>  (let* ((explain-string (car explain-stuff))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866161"></A>         (explain-args (cdr explain-stuff))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866162"></A>         (vars (remove-duplicates</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866163"></A>                 (find-vars explain-args))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866164"></A>    `#'(lambda (bindings)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866165"></A>         (let ,(mapcar</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866166"></A>                 #'(lambda (v)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866167"></A>                   `(,v (cdr (assoc `,v bindings))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866168"></A>                 vars)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866169"></A>           (format nil ,explain-string ,</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866170"></A>                   @explain-args)))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866171"></A>(defmacro defexplain (rulename &amp;key why what because)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866172"></A>  &quot;puts an entry for the rule in the explanation table&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866173"></A>  `(setf (gethash `,rulename *explanation-table*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866174"></A>         (list ,(make-explain-func why)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866175"></A>               ,(make-explain-func what)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866176"></A>               ,(make-explain-func because))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866177"></A>;;; next two definitions generate an explanation for</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866178"></A>;;; each instantiation that fires and stores it away in</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866179"></A>;;; *explanation*</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866180"></A>(defun add-explanation (inst)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866181"></A>  &quot;generate an explanation for firing this</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866182"></A>   instantiation&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866183"></A>  (let ((explain-info</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866184"></A>          (gethash (inst-rulename inst)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866185"></A>                   *explanation-table*)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866186"></A>    (when explain-info</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866187"></A>     (do-the-rest explain-info (inst-bindings inst)))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866188"></A>(defun do-the-rest (explain-info bindings)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866189"></A>  &quot;creates explanation text derived from explain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866190"></A>   functions and bindings&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866191"></A>  (let ((why-func (first explain-info))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866192"></A>        (what-func (second explain-info))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866193"></A>        (because-func (third explain-info)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866194"></A>    (push `(,*cycle* ,(inst-rulename inst)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866195"></A>            ,(funcall why-func bindings)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866196"></A>            ,(funcall what-func bindings)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866197"></A>            ,(funcall because-func bindings))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866198"></A>          *explanation*)))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866199"></A>;;; meta-interpreter for explanation contexts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866200"></A>;;; before firing the rule generate explanation for</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866201"></A>;;; this cycle</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866202"></A>(defrule explain-context :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866203"></A>  ((explain-context)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866204"></A>   &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866205"></A>   (start-cycle)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866206"></A>   (instantiation ?inst)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866207"></A>   ((add-explanation ?inst))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866208"></A>   (fire-rule ?inst)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866209"></A>   (cut)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866210"></A>   (explain-context)))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-866211"></A>;;; simple text output of the explanation</CODE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866212"></A>(defun explain (&amp;optional cycle)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866213"></A>  &quot;print out either the whole explanation or just for</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866214"></A>   one cycle&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866215"></A>  (if cycle (explain-cycle (assoc cycle *explanation*))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866216"></A>    (dolist (cycle-entry (reverse *explanation*))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866217"></A>      (explain-cycle cycle-entry))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866218"></A>(defun explain-cycle (entry)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866219"></A>  &quot;print this explanation entry&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866220"></A>  (if entry</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866221"></A>      (let ((cycle (first entry))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866222"></A>            (rulename (second entry))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866223"></A>            (why (third entry))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866224"></A>            (what (fourth entry))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866225"></A>            (because (fifth entry)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866226"></A>        (format t &quot;&#126;2%&#126;a: &#126;a&#126;%&#126;a&#126;%&#126;a&#126;%&#126;a&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866227"></A>                cycle rulename why what because))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866228"></A>    (format t &quot;&#126;2%No explanation for this cycle&quot;)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866229"></A>;;; we could make a really smart tool here, but to give</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866230"></A>;;; the general idea...</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866231"></A>(defun explain-an-action ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866232"></A>  (let ((item</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866233"></A>          (tk:scrollable-menu</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866234"></A>            (reverse *explanation*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866235"></A>            :title &quot;Which action do you want</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866236"></A>                    explained?&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866237"></A>            :name-function #'(lambda (x) (fourth x)))))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866238"></A>    (if item (tk:send-a-message (fifth item)))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866239"></A>;;; starting the rule interpreter should clear any old</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866240"></A>;;; explanation</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866241"></A>(defadvice (infer rest-explanation :before)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866242"></A>    (&amp;rest args)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866243"></A>  (unless *in-interpreter* (setq *explanation* nil)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866244"></A>Below are some example rules using the explanation facility. They are taken from the Monkey and Banana Example distributed with KnowledgeWorks. The classes used in the example are <CODE CLASS="Code">
+monkey</CODE>
+, <CODE CLASS="Code">
+object</CODE>
+ and <CODE CLASS="Code">
+goal</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866245"></A>(defrule mb7 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866246"></A>  :context mab</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866247"></A>  (goal ?g status active type holds object ?w)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866248"></A>  (object ?o1 kb-name ?w at ?p on floor)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866249"></A>  (monkey ?m at ?p holds nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866250"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866251"></A>  ((format t &quot;&#126;%Grab &#126;s&quot; ?w))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866252"></A>  (assert (monkey ?m holds ?w))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866253"></A>  (assert (goal ?g status satisfied)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866254"></A>(defexplain mb7</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866255"></A>  :why (&quot;Monkey is at the &#126;s which is on the floor&quot; ?w)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866256"></A>  :what (&quot;Monkey grabs the &#126;s&quot; ?w)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866257"></A>  :because (&quot;Monkey needs the &#126;s somewhere else&quot; ?w))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866258"></A>(defrule mb12 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866259"></A>  :context mab</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866260"></A>  :context mab</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866261"></A>  (goal ?g status active type walk-to object ?p)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866262"></A>  (monkey ?m on floor at ?c holds nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866263"></A>  (test (not (eq ?c ?p)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866264"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866265"></A>  ((format t &quot;&#126;%Walk to &#126;s&quot; ?p))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866266"></A>  (assert (monkey ?m at ?p))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866267"></A>  (assert (goal ?g status satisfied)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866268"></A>(defexplain mb12</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866269"></A>  :why (&quot;Monkey is on the floor holding nothing&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866270"></A>  :what (&quot;Monkey walks to &#126;s&quot; ?p)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866271"></A>  :because (&quot;Monkey needs to do something with an</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866272"></A>             object at &#126;s&quot; ?p))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866273"></A>(defrule mb13 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866274"></A>  :context mab</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866275"></A>  (goal ?g status active type walk-to object ?p)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866276"></A>  (monkey ?m on floor at ?c holds ?w)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866277"></A>  (test (and ?w (not (eq ?c ?p))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866278"></A>  (object ?o1 kb-name ?w)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866279"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866280"></A>  ((format t &quot;&#126;%Walk to &#126;s&quot; ?p))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866281"></A>  (assert (monkey ?m at ?p))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866282"></A>  (assert (object ?o1 at ?p))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866283"></A>  (assert (goal ?g status satisfied)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866284"></A>(defexplain mb13</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866285"></A>  :why (&quot;Monkey is on the floor and is holding the &#126;s&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866286"></A>        ?w)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866287"></A>  :what (&quot;Monkey walks to &#126;s with the &#126;s&quot; ?p ?w)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866288"></A>  :because (&quot;Monkey wants the &#126;s to be at &#126;s&quot; ?w ?p))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866289"></A>(defrule mb14 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866290"></A>  :context mab</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866291"></A>  (goal ?g status active type on object floor)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866292"></A>  (monkey ?m on ?x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866293"></A>  (test (not (eq ?x `floor)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866294"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866295"></A>  ((format t &quot;&#126;%Jump onto the floor&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866296"></A>  (assert (monkey ?m on floor))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866297"></A>  (assert (goal ?g status satisfied)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866298"></A>(defexplain mb14</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866299"></A>  :why (&quot;Monkey is on &#126;s&quot; ?x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866300"></A>  :what (&quot;Monkey jumps onto the floor&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866301"></A>  :because (&quot;Monkey needs to go somewhere&quot;))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866302"></A>(defrule mb17 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866303"></A>  :context mab</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866304"></A>  (goal ?g status active type on object ?o)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866305"></A>  (object ?o1 kb-name ?o at ?p)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866306"></A>  (monkey ?m at ?p holds nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866307"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866308"></A>  ((format t &quot;&#126;%Climb onto &#126;s&quot; ?o))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866309"></A>  (assert (monkey ?m on ?o))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866310"></A>  (assert (goal ?g status satisfied)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866311"></A>(defexplain mb17</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866312"></A>  :why (&quot;Monkey is at the location of the &#126;s&quot; ?o)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866313"></A>  :what (&quot;Monkey climbs onto the &#126;s&quot; ?o)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866314"></A>  :because (&quot;Monkey wants to be on top of the &#126;s&quot; ?o))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866315"></A>(defrule mb18 :forward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866316"></A>  :context mab</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866317"></A>  (goal ?g status active type holds object nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866318"></A>  (monkey ?m holds ?x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866319"></A>  (test ?x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866320"></A>  --&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866321"></A>  ((format t &quot;&#126;%Drop &#126;s&quot; ?x))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866322"></A>  (assert (monkey ?m holds nil))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866323"></A>  (assert (goal ?g status satisfied)))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866324"></A>(defexplain mb18</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866325"></A>  :why (&quot;Monkey is holding the &#126;s&quot; ?x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866326"></A>  :what (&quot;Monkey drops the &#126;s&quot; ?x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866327"></A>  :because (&quot;Monkey wants to do something for which he</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866328"></A>             can't hold anything&quot;))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-209.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-207.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-206.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

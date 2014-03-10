@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.7  Finding source code
+</TITLE>
+
+<LINK REL="next" HREF="lw-207.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-205.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-180.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-180.htm">12 Customization of LispWorks</A><BR><BR>
+</DIV><A HREF="lw-207.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-205.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-180.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-890047"></A>12.7  <A NAME="61400"></A>Finding <A NAME="marker-890170"></A>source code</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890049"></A><B CLASS="Bold">
+Note:</B>
+ This section does not apply to LispWorks Personal Edition.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890051"></A>To configure LispWorks so that editor commands such as <CODE CLASS="Code">
+Find Source</CODE>
+, the menu comand <B CLASS="Button">
+Find Source</B>
+, and the dspec system are able to locate definitions in the supplied editor source code:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-890055"></A>Load the logical host for the editor source code:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-890057"></A>(load-logical-pathname-translations &quot;EDITOR-SRC&quot;)</CODE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-890059"></A>Configure source finding to know about editor source code:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-890179"></A>(setf dspec:*active-finders*</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890180"></A>      (append dspec:*active-finders*</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890064"></A>              (list &quot;EDITOR-SRC:editor-tags-db&quot;)))</PRE>
+
+<LI CLASS="Step">
+<A NAME="pgfId-890193"></A>Now do (for example) <CODE CLASS="Code">
+Meta+X Find Command Definition</CODE>
+ and enter <CODE CLASS="Code">
+Wfind File</CODE>
+. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-890197"></A>The definition of the command <CODE CLASS="Code">
+Wfind File</CODE>
+ is displayed in an Editor tool.</P>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-890067"></A>See <A HREF="lw-203.htm#16054" CLASS="XRef">Controlling appearance of found definitions</A> for information on controlling how the source code is displayed.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-207.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-205.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-180.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

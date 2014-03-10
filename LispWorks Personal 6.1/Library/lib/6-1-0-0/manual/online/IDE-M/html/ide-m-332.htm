@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 16.2.1.2  Root and Patterns searches
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-333.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-331.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-330.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-327.htm">16 The Search Files tool</A> &gt; <A HREF="ide-m-329.htm">16.2  Performing searches</A> &gt; <A HREF="ide-m-330.htm">16.2.1  Entering Search Specifications directly</A><BR><BR>
+</DIV><A HREF="ide-m-333.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-331.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-865771"></A>16.2.1.2  Root and Patterns searches</H3>
+<P CLASS="Body">
+<A NAME="pgfId-867420"></A>A <B CLASS="Button">
+Root and Patterns</B>
+ search is used to search for a particular regexp in all files whose names match one or more patterns within a directory. Enter the regexp in the <B CLASS="Button">
+Regexp Search String</B>
+ box, the starting directory in the <B CLASS="Button">
+Root Directory</B>
+ box, and a set of filename patterns in the <B CLASS="Button">
+Pattern List</B>
+ box.</P>
+<P CLASS="Body">
+<A NAME="pgfId-867438"></A>You can press <CODE CLASS="Code">
+Up</CODE>
+ or <CODE CLASS="Code">
+Down</CODE>
+ in the <B CLASS="Button">
+Root Directory</B>
+ box to complete physical directory components, as described in <A HREF="ide-m-78.htm#78778" CLASS="XRef">Completion</A>.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-866993"></A>Figure 16.2  A Roots and Patterns search<DIV>
+<IMG SRC="ide-m-228.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="ide-m-231.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-866303"></A>You can search subdirectories by including directory components (including wild components) in the the <B CLASS="Button">
+Pattern List</B>
+ box.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866988"></A>Multiple filename patterns can be entered, separated by semicolons. Spaces before and after each pattern are ignored. Each filename pattern should be a complete filename and can use the following syntax to make it match multiple files:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-865774"></A>Use <CODE CLASS="Code">
+*</CODE>
+ within the pattern to match any sequence of characters in a directory or file name.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-865775"></A>Use <CODE CLASS="Code">
+**</CODE>
+ within the the directory part of the pattern to match any number of subdirectories.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-865776"></A>Use <CODE CLASS="Code">
+{name1,name2,...}</CODE>
+ to match any one of <CODE CLASS="Code">
+name1</CODE>
+, <CODE CLASS="Code">
+name2</CODE>
+ and so on. Spaces before and after each name are ignored.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-865777"></A>Here are some examples of pattern lists:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-865778"></A><CODE CLASS="Code">
+images/*.*  ; icons/*.*</CODE>
+</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-865779"></A><CODE CLASS="Code">
+{images,icons}/*.*</CODE>
+</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-865780"></A>Both of these patterns match all files in the <EM CLASS="Variable">
+root</EM>
+<CODE CLASS="Code">
+/images</CODE>
+ and the <EM CLASS="Variable">
+root</EM>
+<CODE CLASS="Code">
+/icons</CODE>
+ directories.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-865781"></A><CODE CLASS="Code">
+**/{images,icons}/sunrise.{bmp,jpg,jpeg}</CODE>
+</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-865782"></A><CODE CLASS="Code">
+**/images/sunrise.{bmp,jpg,jpeg} ; **/icons/sunrise.{bmp,jpg,jpeg}</CODE>
+</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-865783"></A>Both of these patterns match all files with the name <CODE CLASS="Code">
+sunrise.bmp</CODE>
+, <CODE CLASS="Code">
+sunrise.jpg</CODE>
+ or <CODE CLASS="Code">
+sunrise.jpeg</CODE>
+ in a directory named <CODE CLASS="Code">
+icons</CODE>
+ or <CODE CLASS="Code">
+images</CODE>
+, anywhere in the root directory.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-865784"></A>{maj,min}or-events/{*-name,date}/*.txt</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-865785"></A>major-events/{*-name,date}/.txt ; minor-events/{*-name,date}/.txt</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-865786"></A>{maj,min}or-events/date/*.txt ; {maj,min}or-events/*-name/*.txt</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-866414"></A>Each of these three patterns matches all <CODE CLASS="Code">
+.txt</CODE>
+ files which are in a directory <CODE CLASS="Code">
+date</CODE>
+ or a directory that ends with <CODE CLASS="Code">
+-name</CODE>
+ in the <CODE CLASS="Code">
+major-events</CODE>
+ or <CODE CLASS="Code">
+minor-events</CODE>
+ directories.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866415"></A>See also the <B CLASS="Button">
+Match flat file-namestring</B>
+ option in <A HREF="ide-m-348.htm#76301" CLASS="XRef">Search Parameters</A> for additional information.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865789"></A>If a filename pattern is a directory then all files in that directory are searched.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865790"></A>Check <B CLASS="Button">
+Case sensitive</B>
+ to make the search match only the case of letters exactly as entered, as illustrated above.</P>
+<P CLASS="Body">
+<A NAME="pgfId-865791"></A>Check <B CLASS="Button">
+All files</B>
+ to ignore any list of <B CLASS="Button">
+File Types</B>
+ in the Preferences.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-333.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-331.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

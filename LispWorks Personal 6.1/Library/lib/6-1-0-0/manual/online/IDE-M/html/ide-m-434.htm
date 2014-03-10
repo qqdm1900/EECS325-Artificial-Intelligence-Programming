@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 22.8  Some examples
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-435.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-433.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-411.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-411.htm">22 The Profiler</A><BR><BR>
+</DIV><A HREF="ide-m-435.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-433.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-411.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-852968"></A>22.8  Some examples</H3>
+<P CLASS="Body-Next">
+<A NAME="pgfId-880130"></A><A NAME="marker-880129"></A>The examples below demonstrate different ways in which the profiler can be configured and code profiled so as to produce different sets of results. In each example, the following piece of code is profiled:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-880137"></A>(dotimes (x 1000)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-880138"></A>  (capi:make-container</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-880139"></A>   (make-instance 'capi:title-pane</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-880132"></A>                  :text &quot;Title&quot;)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-880133"></A>This is a simple piece of code which makes some CAPI objects.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-852892"></A>Create a Profiler tool if you have not already done so.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-852890"></A>Copy the code above into the box in the <B CLASS="Button">
+Code to Profile</B>
+ panel.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-852894"></A>Choose <B CLASS="Button">
+LispWorks &gt; Preferences...</B>
+<A NAME="marker-894000"></A><A NAME="marker-894001"></A> or click 
+<IMG SRC="ide-m-300.gif" ALIGN="ABSBOTTOM">
+, select <B CLASS="Button">
+Profiler</B>
+ in the list on the left side of the dialog, and then select the <B CLASS="Button">
+General</B>
+ tab. Now you can change the package of the Profiler. </LI>
+<P CLASS="Figure">
+<A NAME="pgfId-867746"></A>Figure 22.6  Profiler Preferences<DIV>
+<IMG SRC="ide-m-291.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="ide-m-301.gif">
+</DIV>
+
+<LI CLASS="Step">
+<A NAME="pgfId-853511"></A>In the Profiler Preferences, replace the default package in the <B CLASS="Button">
+Package</B>
+ text box with <CODE CLASS="Code">
+CAPI</CODE>
+ and click 
+<IMG SRC="ide-m-302.gif" ALIGN="ABSBOTTOM">
+.</LI>
+
+<LI CLASS="Step">
+<A NAME="pgfId-854557"></A>Click <B CLASS="Button">
+OK</B>
+ to dismiss the Preferences dialog and apply the change you have made.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-852901"></A>Click on <B CLASS="Button">
+Profile</B>
+.</LI>
+
+<P CLASS="Body">
+<A NAME="pgfId-852902"></A>This profiles the functions in the <CODE CLASS="Code">
+COMMON-LISP</CODE>
+, <CODE CLASS="Code">
+CL-USER</CODE>
+ and <CODE CLASS="Code">
+LISPWORKS</CODE>
+ packages. </P>
+<P CLASS="Body">
+<A NAME="pgfId-854041"></A>Next, add the <CODE CLASS="Code">
+CAPI</CODE>
+ package to the list of packages whose functions are profiled.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-852903"></A>Click<B CLASS="Button">
+ Packages</B>
+<A NAME="marker-854562"></A>.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-852904"></A>In the dialog, double-click on <CODE CLASS="Code">
+CAPI</CODE>
+ in the <B CLASS="Button">
+Unselected Packages</B>
+ list, and click on <B CLASS="Button">
+OK</B>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-852905"></A>Click on <B CLASS="Button">
+Profile</B>
+ to profile the code again.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-852906"></A>Notice that this time there are many more functions which appear in the profile results.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-852907"></A>Select a few of the functions listed at the top of the <B CLASS="Button">
+Results</B>
+ area, and look at their function descriptions.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-859991"></A>Add the Description area by clicking the <B CLASS="Button">
+Description &gt;&gt;</B>
+ button if you have not already done so.</P>
+<P CLASS="Step-C">
+<A NAME="pgfId-853856"></A>Notice that most of the functions appearing on the stack are in the <CODE CLASS="Code">
+CAPI</CODE>
+ package. It is worth profiling a few functions explicitly, and removing unwanted packages from the list of packages to profile.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-853859"></A>Click <B CLASS="Button">
+Symbols...</B>
+<A NAME="marker-854578"></A>, and add the following four functions to the list in the dialog:</LI>
+
+<CODE CLASS="Code-line">
+<A NAME="pgfId-852912"></A>merge find-class make-char functionp</CODE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-852913"></A>Type the name of each function and press <CODE CLASS="Code">
+Return</CODE>
+ or click 
+<IMG SRC="ide-m-303.gif" ALIGN="ABSBOTTOM">
+ to add it to the list.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-852917"></A>Click <B CLASS="Button">
+OK</B>
+ when you have finished adding to this list.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-852914"></A>Now remove the unwanted packages from the list of packages to profile, as follows:</P>
+<LI CLASS="Step">
+<A NAME="pgfId-852915"></A>Click <B CLASS="Button">
+Packages...</B>
+<A NAME="marker-854588"></A>.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-852916"></A>In the dialog click on <B CLASS="Button">
+None</B>
+ to remove all items in the <B CLASS="Button">
+Selected Packages</B>
+ list</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-852923"></A>Click on <B CLASS="Button">
+OK</B>
+, and profile the code again by clicking on <B CLASS="Button">
+Profile</B>
+.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-852924"></A>Notice that the four functions in the <CODE CLASS="Code">
+COMMON-LISP</CODE>
+ package are still being profiled, even though you are no longer profiling all functions from that package by default.<A NAME="marker-853759"></A></P>
+<P CLASS="Body">
+<A NAME="pgfId-853718"></A><A NAME="marker-853719"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-435.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-433.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-411.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

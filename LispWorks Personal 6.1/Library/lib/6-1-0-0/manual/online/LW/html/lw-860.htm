@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ try-move-in-generation
+</TITLE>
+
+<LINK REL="next" HREF="lw-861.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-859.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-861.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-859.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1214684"></A><A NAME="try-move-in-generation"></A>try<A NAME="marker-1214683"></A>-move-in-generation</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1214685"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-940510"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-940640"></A>Moves objects out of the most fragmented segment(s) in a generation, leaving them empty in 32-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-940641"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-940513"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-940514"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-940515"></A>try-move-in-generation <EM CLASS="Variable">
+generation-number</EM>
+ <EM CLASS="Variable">
+time-threshold</EM>
+ &amp;optional <EM CLASS="Variable">
+fraction-threshold</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-940516"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-941057"></A><EM CLASS="Variable">
+generation-number</P>
+<P CLASS="RDescription-C"><BR>
+</EM>
+0 for the most recent generation, 1 for the most recent two generations, and so on up to a maximum (usually 3). Numbers outside this range signal an error.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-940517"></A>time-threshold</P>
+<P CLASS="RDescription-C">A real number.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-943467"></A>fraction-threshold</P>
+<P CLASS="RDescription-C"><BR>
+A real number between 0 and 1, defining the minimum fragmentation to actually move. The default is 0.25.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-943887"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-944012"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-944113"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-944129"></A><CODE CLASS="Code">
+try-move-in-generation</CODE>
+ finds the most fragmented segment in the generation specified. If <EM CLASS="Variable">
+time-threshold</EM>
+ is positive, it moves objects out of this segment, leaving it empty, and repeats this operation until time-threshold seconds have elapsed. At this point <CODE CLASS="Code">
+try-move-in-generation</CODE>
+ returns, with value <CODE CLASS="Code">
+t</CODE>
+ if at least one segment was moved and value <CODE CLASS="Code">
+nil</CODE>
+ otherwise. Because the operation cannot be stopped in the middle, the actual time taken will always be larger than time-threshold.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977339"></A>If fraction-threshold is 1, <CODE CLASS="Code">
+try-move-in-generation</CODE>
+ does nothing. If fraction-threshold is 0, <CODE CLASS="Code">
+try-move-in-generation</CODE>
+ will move all uncompacted segments (unless it runs out of time).  With the default (0.25) <CODE CLASS="Code">
+try-move-in-generation</CODE>
+ moves only moderately fragmented segments.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1038630"></A>If <EM CLASS="Variable">
+time-threshold</EM>
+ is negative, then <CODE CLASS="Code">
+try-move-in-generation</CODE>
+ does not actually move any segments. <EM CLASS="Variable">
+result</EM>
+ is a boolean indicating whether <CODE CLASS="Code">
+try-move-in-generation</CODE>
+ would actually try to move a segment if it were to be called with a positive <EM CLASS="Variable">
+time-threshold</EM>
+ and the other arguments unchanged.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-977340"></A>This function is typically used after a call to <A HREF="lw-760.htm#check-fragmentation" CLASS="XRef">check-fragmentation</A>. For more information, see <A HREF="lw-146.htm#89167" CLASS="XRef">Controlling Fragmentation</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1133715"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1661051"></A><CODE CLASS="Code">
+try-move-in-generation</CODE>
+ is implemented only in 32-bit LispWorks. It is not relevant to the Memory Management API in 64-bit implementations, where <A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A> with the <EM CLASS="Variable">
+what-to-copy</EM>
+ argument offers similar functionality (although <A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A> is intended to solve the problem of fragmentation automatically).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-942335"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-940526"></A><A HREF="lw-760.htm#check-fragmentation" CLASS="XRef">check-fragmentation</A><BR>
+<A HREF="lw-859.htm#try-compact-in-generation" CLASS="XRef">try-compact-in-generation</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-861.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-859.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

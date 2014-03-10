@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-foreign-type
+</TITLE>
+
+<LINK REL="next" HREF="fli-97.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-95.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-97.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-95.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886017"></A><A NAME="39541"></A>define-foreign-type<A NAME="marker-998711"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886710"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898334"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-979318"></A>Defines a new FLI type specifier.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-979110"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898335"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886018"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886685"></A>define-foreign-type <EM CLASS="Variable">
+name-and-options</EM>
+ <EM CLASS="Variable">
+lambda-list</EM>
+ &amp;body <EM CLASS="Variable">
+forms</EM>
+ =&gt; <EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1316017"></A><EM CLASS="Variable">
+name-and-options</EM>
+ ::=  <EM CLASS="Variable">
+name</EM>
+ | (<EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+option</EM>
+*)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1317313"></A><EM CLASS="Variable">
+option</EM>
+ ::= (:foreign-name <EM CLASS="Variable">
+string</EM>
+)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918367"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1317406"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the new FLI type</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1317407"></A><EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="RDescription-C">A string specifying the foreign name of the type</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1317408"></A><EM CLASS="Variable">
+lambda-list</EM>
+</P>
+<P CLASS="RDescription-C">A lambda list which is the argument list of the new FLI type</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-974177"></A><EM CLASS="Variable">
+forms</EM>
+</P>
+<P CLASS="RDescription-C">One or more Lisp forms which provide a definition of the new type</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918369"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1008196"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">The name of the new FLI type</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918371"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-918372"></A>The macro <CODE CLASS="Code">
+define-foreign-type</CODE>
+ defines a new FLI type called <EM CLASS="Variable">
+name</EM>
+. The <EM CLASS="Variable">
+forms</EM>
+ in the definition can be used to determine the behavior of the type, depending on the arguments supplied to the <EM CLASS="Variable">
+lambda-list</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918373"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-918374"></A>In the following example an integer array type specifier is defined. Note that the type takes a list as its argument, and uses this to determine the size of the array.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-979525"></A>(fli:define-foreign-type :int-array (dimensions)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-979542"></A>  `(:c-array :int ,@dimensions))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-979547"></A>(setq number-array (fli:allocate-foreign-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-979564"></A>                    :type '(:int-array (2 2))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-979775"></A>In the next example a boolean type, called <CODE CLASS="Code">
+:bool</CODE>
+, with the same size as an integer is defined.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-980662"></A>(fli:define-foreign-type :bool () `(:boolean :int))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-981493"></A>(fli:size-of :bool)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-918375"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-918376"></A><A HREF="fli-86.htm#41629" CLASS="XRef">define-c-typedef</A><BR>
+<A HREF="fli-91.htm#23684" CLASS="XRef">define-foreign-converter</A><BR>
+<A HREF="fli-92.htm#34240" CLASS="XRef">define-foreign-forward-reference-type</A><BR>
+<A HREF="fli-114.htm#35220" CLASS="XRef">foreign-type-equal-p</A><BR>
+<A HREF="fli-16.htm#40862" CLASS="XRef">FLI Types</A><BR>
+<A HREF="fli-56.htm#46594" CLASS="XRef">Defining new types</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-97.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-95.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

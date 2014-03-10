@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 14.3  Color specs
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-221.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-219.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-216.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-216.htm">14 The Color System</A><BR><BR>
+</DIV><A HREF="capiuser-m-221.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-219.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886011"></A>14.3  <A NAME="25581"></A>Color specs</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886012"></A>A color spec is an object which numerically defines a color in some color-model. For example the object returned by the call:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886013"></A>(make-rgb 0.0s0 1.0s0 0.0s0) =&gt; </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886014"></A>  #(:RGB 0.0s0 1.0s0 0.0s0) </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886015"></A>defines the color green in the RGB color model. (Note that short-floats are used; this results in the most efficient color conversion process. However, any floating-point number type can be used.)</P>
+<P CLASS="Body">
+<A NAME="pgfId-886016"></A>To find out what color-spec is associated with a color name, use the function  <A NAME="marker-887871"></A>get-color-spec. It returns the color-spec associated with a symbol. If there is no color-spec associated with <EM CLASS="Variable">
+color-name</EM>
+, this function returns <CODE CLASS="Code">
+nil</CODE>
+. If <EM CLASS="Variable">
+color-name</EM>
+ is the name of a color alias, the color alias is dereferenced until a color-spec is found. </P>
+<P CLASS="Body-Next">
+<A NAME="pgfId-886019"></A>Color-specs are made using standard functions  <A NAME="marker-887876"></A><CODE CLASS="Code">
+make-rgb</CODE>
+,  <A NAME="marker-887881"></A><CODE CLASS="Code">
+make-hsv</CODE>
+ and  <A NAME="marker-887886"></A><CODE CLASS="Code">
+make-gray</CODE>
+. For example: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886021"></A>(make-rgb 0.0s0 1.0s0 0.0s0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886022"></A>(make-hsv 1.2s0 0.5s0 0.9s0)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886023"></A>(make-gray 0.66667s0)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889299"></A>To create a color spec with an alpha component using the above constructors, pass an extra optional argument. For example this specifies green with 40% transparency:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889306"></A>(make-rgb 0.0s0 1.0s0 0.0s0 0.6s0)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-890676"></A>You can also make a transparent color using <A NAME="marker-890704"></A><CODE CLASS="Code">
+color-with-alpha</CODE>
+:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-890712"></A>(color-with-alpha <EM CLASS="Variable">
+color-spec</EM>
+ 0.8s0)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-889321"></A>Note that the alpha component is only supported on Cocoa and Windows.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886024"></A>The predicate  <A NAME="marker-887897"></A><CODE CLASS="Code">
+color-spec-p</CODE>
+ can be used to test for color-spec objects. The function  <A NAME="marker-887902"></A><CODE CLASS="Code">
+color-spec-model</CODE>
+ returns the model in which a color-spec object has been defined.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-221.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-219.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-216.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

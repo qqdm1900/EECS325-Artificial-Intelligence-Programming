@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.4.2  Segments and Allocation Types
+</TITLE>
+
+<LINK REL="next" HREF="lw-155.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-153.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-152.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-128.htm">10 Storage Management</A> &gt; <A HREF="lw-152.htm">10.4  Memory Management in 64-bit LispWorks</A><BR><BR>
+</DIV><A HREF="lw-155.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-153.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-152.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889370"></A>10.4.2  Segments and Allocation Types</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889371"></A>Some GC interface functions take an allocation type as an argument, which is one of the keywords below. There are two categories of allocation type.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890589"></A>The main allocation types, which can be used as the <EM CLASS="Variable">
+what</EM>
+ argument to the function <A NAME="marker-891781"></A><A HREF="lw-1331.htm#68519" CLASS="XRef">apply-with-allocation-in-gen-num</A>, are:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889372"></A><CODE CLASS="Code">
+:cons</CODE>
+</P>
+<P CLASS="Description-C">The segment contains only conses.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889373"></A><CODE CLASS="Code">
+:symbol</CODE>
+</P>
+<P CLASS="Description-C">The segment contains only symbols (and does not include symbol names or any of the other properties of symbols).</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889374"></A><CODE CLASS="Code">
+:function</CODE>
+</P>
+<P CLASS="Description-C">The segment contains only function objects.</P>
+<P CLASS="Description">
+<A NAME="pgfId-889375"></A><CODE CLASS="Code">
+:non-pointer</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-889674"></A>The segment contains only objects that do not contain pointers (strings, specialized numeric arrays, double-floats).</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889376"></A><CODE CLASS="Code">
+:other</CODE>
+</P>
+<P CLASS="Description-C">The segment contain other objects, that is any object that contain pointers, and is not a symbol, cons or a function.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889377"></A>The derived allocation types are:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889378"></A><CODE CLASS="Code">
+:mixed</CODE>
+</P>
+<P CLASS="Description-C">The segment contains a mixture of <CODE CLASS="Code">
+:other</CODE>
+, <CODE CLASS="Code">
+:function</CODE>
+ and <CODE CLASS="Code">
+:symbol</CODE>
+, but not <CODE CLASS="Code">
+:cons</CODE>
+ or <CODE CLASS="Code">
+:non-pointer</CODE>
+.</P>
+<P CLASS="Description">
+<A NAME="pgfId-889379"></A><CODE CLASS="Code">
+:cons-static</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-889654"></A>The segment contains cons objects that are static.</P>
+<P CLASS="Description">
+<A NAME="pgfId-889380"></A><CODE CLASS="Code">
+:non-pointer-static</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-889626"></A>The segment contains objects that do not contain pointers and are static (currently stacks are also allocated in these segments).</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889381"></A><CODE CLASS="Code">
+:mixed-static</CODE>
+</P>
+<P CLASS="Description-C">The segment contains a mixture like :mixed, but static.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889382"></A><CODE CLASS="Code">
+:weak</CODE>
+</P>
+<P CLASS="Description-C">The segment contains weak objects (arrays, and internals of weak hash tables).</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889383"></A><CODE CLASS="Code">
+:other-big</CODE>
+</P>
+<P CLASS="Description-C">The segment contains a single very large simple vector. The vector is static.</P>
+<P CLASS="Description">
+<A NAME="pgfId-889384"></A><CODE CLASS="Code">
+:non-pointer-big</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-889670"></A>The segment contains a single very large non-pointer object (a string or a specialized numeric array). The vector is static.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889385"></A>Segments of allocation type <CODE CLASS="Code">
+:other-big</CODE>
+ or <CODE CLASS="Code">
+:non-pointer-big</CODE>
+ can be as large as required to hold their object.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890611"></A>For all other allocation types, the size of each single segment is restricted. The implementation limit is currently 256MB, and you can specify a smaller limit using <A NAME="marker-890612"></A><A HREF="lw-1429.htm#98595" CLASS="XRef">set-maximum-segment-size</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-155.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-153.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-152.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

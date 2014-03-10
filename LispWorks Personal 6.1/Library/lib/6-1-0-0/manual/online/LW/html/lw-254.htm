@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.2.6  Old interrupt blocking APIs removed
+</TITLE>
+
+<LINK REL="next" HREF="lw-255.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-253.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-246.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-246.htm">15.2  The process programming interface </A><BR><BR>
+</DIV><A HREF="lw-255.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-253.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-246.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-893351"></A>15.2.6  Old interrupt blocking APIs removed</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893354"></A>The macros <CODE CLASS="Code">
+mp:without-interrupts</CODE>
+<A NAME="marker-893470"></A> and <CODE CLASS="Code">
+mp:without-preemption</CODE>
+<A NAME="marker-893476"></A>, which were available in LispWorks 5.1 and earlier, are no longer supported. The semantics of these macros allowed them to be used for several different purposes, which now require specific solutions.</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-893355"></A>Atomic operations. This use was designed to make operations atomic with respect to other uses of the same macro or with respect to some other unquantified operations that were expected to be atomic, such as reading or writing a single slot in an object.  Code of this kind should be converted to use locks (see <A HREF="lw-276.htm#63317" CLASS="XRef">Locks</A>) or low level atomic operations (see <A HREF="lw-298.htm#72244" CLASS="XRef">Low level atomic operations</A>).</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-893356"></A>Complete operations. This use was designed to ensure that a set of operations completed without being interrupted by <CODE CLASS="Code">
+mp:process-interrupt</CODE>
+<A NAME="marker-893500"></A>, keyboard breaks and so on. See <A HREF="lw-253.htm#37895" CLASS="XRef">Blocking interrupts</A> for the new approach.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-893358"></A>The following subsections show examples of typical uses of the old interrupt blocking APIs together with their replacements. The examples use <CODE CLASS="Code">
+mp:without-interrupts</CODE>
+ but the ideas also apply to uses of <CODE CLASS="Code">
+mp:without-preemption</CODE>
+.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-255.htm#pgfId-893361" CLASS="Hypertext">15.2.6.1  Atomic increment</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-256.htm#pgfId-893367" CLASS="Hypertext">15.2.6.2  Atomic push/pop</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-257.htm#pgfId-893377" CLASS="Hypertext">15.2.6.3  Atomic push/delete</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-258.htm#pgfId-893390" CLASS="Hypertext">15.2.6.4  Atomic plist update</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-259.htm#pgfId-893403" CLASS="Hypertext">15.2.6.5  Atomic update of a data structure</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-260.htm#pgfId-893415" CLASS="Hypertext">15.2.6.6  Atomic access to a cache in a hash table</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-255.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-253.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-246.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

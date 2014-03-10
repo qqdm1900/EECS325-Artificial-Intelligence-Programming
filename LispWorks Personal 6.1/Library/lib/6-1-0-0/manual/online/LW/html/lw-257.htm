@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.2.6.3  Atomic push/delete
+</TITLE>
+
+<LINK REL="next" HREF="lw-258.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-256.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-254.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-246.htm">15.2  The process programming interface </A> &gt; <A HREF="lw-254.htm">15.2.6  Old interrupt blocking APIs removed</A><BR><BR>
+</DIV><A HREF="lw-258.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-256.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-254.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-893377"></A>15.2.6.3  Atomic push/delete</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893378"></A>Old:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893379"></A>(without-interrupts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893380"></A> (push value *global-list*))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893381"></A>     (without-interrupts</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893382"></A>      (setq *global-list* (delete value *global-list*)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-893383"></A>New: use a lock, because delete cannot be done atomically since it reads more than one object before modifying one of them.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893384"></A>(defvar *global-list-lock* (mp:make-lock :name &quot;Global List&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893676"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893385"></A>(mp:with-lock (*global-list-lock*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893386"></A>	      (push value *global-list*))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893682"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893387"></A>(mp:with-lock (*global-list-lock*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893388"></A>	      (setq *global-list* (delete value *global-list*)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-258.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-256.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-254.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

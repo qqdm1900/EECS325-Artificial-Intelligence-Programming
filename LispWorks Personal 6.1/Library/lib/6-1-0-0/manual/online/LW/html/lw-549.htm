@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 23.15  Accessing the Windows registry
+</TITLE>
+
+<LINK REL="next" HREF="lw-550.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-548.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-512.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-512.htm">23 LispWorks' Operating Environment</A><BR><BR>
+</DIV><A HREF="lw-550.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-548.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-512.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-896440"></A>23.15  <A NAME="marker-896851"></A><A NAME="86725"></A>Accessing the Windows registry</H3>
+<P CLASS="Body">
+<A NAME="pgfId-896621"></A>There is an API for accessing the registry on Microsoft Windows. It is available only in LispWorks for Windows. All of its symbols are in the <CODE CLASS="Code">
+win32</CODE>
+ package.</P>
+<P CLASS="Body">
+<A NAME="pgfId-896741"></A>Create and delete keys with the functions <CODE CLASS="Code">
+<A HREF="lw-1475.htm#44547" CLASS="XRef">create-registry-key</A></CODE>
+<A NAME="marker-896763"></A> and <CODE CLASS="Code">
+<A HREF="lw-1476.htm#30969" CLASS="XRef">delete-registry-key</A></CODE>
+<A NAME="marker-896768"></A>. Open a key for reading and/or writing with <CODE CLASS="Code">
+<A HREF="lw-1478.htm#24780" CLASS="XRef">open-registry-key</A></CODE>
+<A NAME="marker-896773"></A> and close it with <CODE CLASS="Code">
+<A HREF="lw-1472.htm#71295" CLASS="XRef">close-registry-key</A></CODE>
+<A NAME="marker-896778"></A>, or wrap your registry operation inside the macro <CODE CLASS="Code">
+<A HREF="lw-1484.htm#31521" CLASS="XRef">with-registry-key</A></CODE>
+<A NAME="marker-896783"></A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-897772"></A>Query the registry with <CODE CLASS="Code">
+<A HREF="lw-1481.htm#62029" CLASS="XRef">registry-key-exists-p</A></CODE>
+<A NAME="marker-897761"></A>, <CODE CLASS="Code">
+<A HREF="lw-1477.htm#61524" CLASS="XRef">enum-registry-value</A></CODE>
+<A NAME="marker-897765"></A>, <CODE CLASS="Code">
+<A HREF="lw-1474.htm#24391" CLASS="XRef">collect-registry-values</A></CODE>
+<A NAME="marker-897769"></A>, <CODE CLASS="Code">
+<A HREF="lw-1473.htm#44730" CLASS="XRef">collect-registry-subkeys</A></CODE>
+<A NAME="marker-897774"></A>, <CODE CLASS="Code">
+<A HREF="lw-1479.htm#25456" CLASS="XRef">query-registry-key-info</A></CODE>
+<A NAME="marker-897775"></A>, <CODE CLASS="Code">
+<A HREF="lw-1480.htm#58517" CLASS="XRef">query-registry-value</A></CODE>
+<A NAME="marker-897776"></A>, and <CODE CLASS="Code">
+<A HREF="lw-1482.htm#65835" CLASS="XRef">registry-value</A></CODE>
+<A NAME="marker-897777"></A>. Write to the registry with <CODE CLASS="Code">
+<A HREF="lw-1483.htm#38406" CLASS="XRef">set-registry-value</A></CODE>
+<A NAME="marker-897778"></A> or <CODE CLASS="Code">
+(setf <A HREF="lw-1482.htm#65835" CLASS="XRef">registry-value</A>)</CODE>
+<A NAME="marker-897779"></A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-896703"></A>For example, this function returns the name, progid and filename for each of the installed ActiveX controls:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896573"></A>(defun collect-control-names (&amp;key insertable</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896574"></A>                                   (max-name-size 256)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896575"></A>                                   (max-names most-positive-fixnum))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896576"></A>  (win32:collect-registry-subkeys</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896577"></A>   &quot;CLSID&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896578"></A>   :root :root</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896579"></A>   :max-name-size max-name-size</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896580"></A>   :max-names max-names</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896581"></A>   :value-function</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896582"></A>   #'(lambda (hKeyClsid ClassidName)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896583"></A>       (win32:with-registry-key </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896584"></A>           (hkeyX ClassidName :root hKeyClsid :errorp nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896585"></A>         (when (and</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896586"></A>                (win32:registry-key-exists-p &quot;Control&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896587"></A>                                             :root hkeyX)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896588"></A>                (if insertable</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896589"></A>                    (win32:registry-key-exists-p &quot;Insertable&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896590"></A>                                                 :root hkeyX)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896591"></A>                  t))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896592"></A>           (when-let</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896593"></A>               (progid (win32:query-registry-value &quot;ProgID&quot; nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896594"></A>                                                   :root hkeyX</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896595"></A>                                                   :errorp nil))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896596"></A>             (values</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896597"></A>              (list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896598"></A>               (win32:query-registry-value nil nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896599"></A>                                           :root hkeyX)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896600"></A>               progid</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896601"></A>               (win32:query-registry-value &quot;InprocServer32&quot; nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896602"></A>                                           :root hkeyX</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896603"></A>                                           :errorp nil))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896455"></A>              t)))))))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-550.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-548.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-512.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

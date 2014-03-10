@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ ora-lob-read-foreign-buffer
+</TITLE>
+
+<LINK REL="next" HREF="lw-1241.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1239.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1241.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1239.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1176319"></A><A NAME="73032"></A>ora<A NAME="marker-1176318"></A>-lob-read-foreign-buffer</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1176320"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1176321"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1176322"></A>Reads from a LOB into a foreign buffer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1176323"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1176324"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1176325"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1176326"></A>ora-lob-read-foreign-buffer <EM CLASS="Variable">
+lob-locator</EM>
+ <EM CLASS="Variable">
+offset</EM>
+ <EM CLASS="Variable">
+amount</EM>
+ <EM CLASS="Variable">
+foreign-buffer</EM>
+ <EM CLASS="Variable">
+buffer-length</EM>
+ &amp;key <EM CLASS="Variable">
+buffer-offset</EM>
+ <EM CLASS="Variable">
+csid</EM>
+ =&gt; <EM CLASS="Variable">
+amount-read</EM>
+, <EM CLASS="Variable">
+eof-or-error-p</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1176327"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1176328"></A><EM CLASS="Variable">
+lob-locator</EM>
+</P>
+<P CLASS="RDescription-C">A LOB locator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1176329"></A><EM CLASS="Variable">
+offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1176330"></A><EM CLASS="Variable">
+amount</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1176331"></A><EM CLASS="Variable">
+foreign-buffer</EM>
+</P>
+<P CLASS="RDescription-C">A FLI pointer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1187564"></A><EM CLASS="Variable">
+buffer-length</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1176332"></A><EM CLASS="Variable">
+buffer-offset</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1176333"></A><EM CLASS="Variable">
+csid</EM>
+</P>
+<P CLASS="RDescription-C">A.Character Set ID</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1176334"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1176335"></A><EM CLASS="Variable">
+amount-read</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1193616"></A><EM CLASS="Variable">
+eof-or-error-p</EM>
+</P>
+<P CLASS="RDescription-C">A boolean or an error object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1176337"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1176338"></A>The function <CODE CLASS="Code">
+ora-lob-read-foreign-buffer</CODE>
+ reads from the LOB pointed to by <EM CLASS="Variable">
+lob-locator</EM>
+ into the foreign buffer <EM CLASS="Variable">
+foreign-buffer</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1178455"></A>This is just like <A HREF="lw-1238.htm#19337" CLASS="XRef">ora-lob-read-buffer</A> except that it reads from the LOB locator into a foreign buffer.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1178456"></A><EM CLASS="Variable">
+foreign-buffer</EM>
+ is a FLI pointer to a buffer, which must be of size at least <EM CLASS="Variable">
+buffer-length</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1176351"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1585370"></A>This is a direct call to OCILobRead, without callback.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1176352"></A><CODE CLASS="Code">
+ora-lob-read-foreign-buffer</CODE>
+ is available only when the &quot;oracle&quot; module is loaded. See the section <A HREF="lw-424.htm#Oracle LOB interface;Oracle locator objects;Oracle large objects " CLASS="XRef">Oracle LOB interface</A> for more information.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1176372"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1176376"></A><A HREF="lw-1227.htm#34086" CLASS="XRef">ora-lob-get-buffer</A><BR>
+<A HREF="lw-1238.htm#19337" CLASS="XRef">ora-lob-read-buffer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1241.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1239.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ print-dialog
+</TITLE>
+
+<LINK REL="next" HREF="capiref-306.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-304.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-306.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-304.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1284229"></A><A NAME="13155"></A>print<A NAME="marker-4196851"></A>-dialog</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1284238"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1284602"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1284608"></A>Displays a print dialog and returns a printer object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4196812"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4196813"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1284614"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-6664250"></A>print-dialog &amp;key <EM CLASS="Variable">
+screen</EM>
+ <EM CLASS="Variable">
+owner</EM>
+ <EM CLASS="Variable">
+first-page</EM>
+ <EM CLASS="Variable">
+last-page</EM>
+ <EM CLASS="Variable">
+print-selection-p</EM>
+ <EM CLASS="Variable">
+print-pages-p</EM>
+ <EM CLASS="Variable">
+print-copies-p</EM>
+ <EM CLASS="Variable">
+continuation</EM>
+ =&gt; <EM CLASS="Variable">
+printer</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3652211"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3652212"></A><EM CLASS="Variable">
+printer</EM>
+</P>
+<P CLASS="RDescription-C">A printer, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1284833"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1284899"></A>The function <CODE CLASS="Code">
+print-dialog</CODE>
+ displays a print dialog and returns a printer object. The printer object returned will print multiple copies if requested by the user.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1284942"></A>If <EM CLASS="Variable">
+print-pages-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, the user can select a range of pages to print. This should always be the case unless the application only produces single page output. If <EM CLASS="Variable">
+print-pages</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, <EM CLASS="Variable">
+first-page</EM>
+ and <EM CLASS="Variable">
+last-page</EM>
+ can be used to initialize the page range. For example, they could be set to be the first and last pages of the document.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1285946"></A>The <EM CLASS="Variable">
+print-copies-p</EM>
+ argument indicates whether the application handles production of multiple copies for drivers that do not support this function. Currently this should be <CODE CLASS="Code">
+nil</CODE>
+ if the application uses Page Sequential printing and <CODE CLASS="Code">
+t</CODE>
+ if the application uses Page on Demand printing.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1285900"></A>If <EM CLASS="Variable">
+print-selection-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+, the user is given the option of printing the current selection. Only specify this if the application has a notion of selection and selecting printing functionality is provided.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1286024"></A>The dialog is displayed on the current screen unless <EM CLASS="Variable">
+screen</EM>
+ specifies otherwise.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1286057"></A><EM CLASS="Variable">
+owner</EM>
+ specifies an owner window for the dialog. See the &quot;Prompting for Input&quot; chapter in the <I CLASS="Italic">
+CAPI User Guide</I>
+ for details.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6662225"></A>If <A NAME="marker-6691216"></A><EM CLASS="Variable">
+continuation</EM>
+ is non-nil, then it must be a function with a lambda list that accepts one argument. The <EM CLASS="Variable">
+continuation</EM>
+ function is called with the values that would normally be returned by <CODE CLASS="Code">
+print-dialog</CODE>
+. On Cocoa, passing <EM CLASS="Variable">
+continuation</EM>
+ causes the dialog to be made as a window-modal sheet and <CODE CLASS="Code">
+print-dialog</CODE>
+ returns immediately, leaving the dialog on the screen. The <A HREF="capiref-482.htm#92889" CLASS="XRef">with-dialog-results</A> macro provides a convenient way to create a <EM CLASS="Variable">
+continuation</EM>
+ function.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527810"></A>Note that the printer object itself is opaque but programmatic setting of some printer options is available via the function <A HREF="capiref-399.htm#set-printer-options" CLASS="XRef">set-printer-options</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1286253"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1286279"></A><A HREF="capiref-307.htm#13017" CLASS="XRef">print-file</A><BR>
+<A HREF="capiref-309.htm#22575" CLASS="XRef">print-text</A><BR>
+<A HREF="capiref-399.htm#set-printer-options" CLASS="XRef">set-printer-options</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-306.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-304.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

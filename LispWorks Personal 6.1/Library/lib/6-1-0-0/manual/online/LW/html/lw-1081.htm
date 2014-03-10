@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-lock
+</TITLE>
+
+<LINK REL="next" HREF="lw-1082.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1080.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1082.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1080.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886632"></A><A NAME="89516"></A>process<A NAME="marker-1059672"></A>-lock</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886634"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902348"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902357"></A>Claims the lock for the current process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886636"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886637"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886638"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886639"></A>process-lock <EM CLASS="Variable">
+lock</EM>
+ &amp;optional <EM CLASS="Variable">
+whostate</EM>
+ <EM CLASS="Variable">
+timeout</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886640"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886641"></A><EM CLASS="Variable">
+lock</P>
+<P CLASS="RDescription-C"></EM>
+A lock object (see <A HREF="lw-1057.htm#93763" CLASS="XRef">make-lock</A>).</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-928748"></A><EM CLASS="Variable">
+whostate</EM>
+ </P>
+<P CLASS="RDescription-C">The status of the current Lisp process, before <CODE CLASS="Code">
+process-lock</CODE>
+ returns, that is, the status while the current process is waiting to timeout. This can be seen in the Process Browser.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886642"></A><EM CLASS="Variable">
+timeout</EM>
+ </P>
+<P CLASS="RDescription-C">A timeout interval, in seconds. If this is not given, <CODE CLASS="Code">
+process-lock</CODE>
+ waits until the lock can be set by the current Lisp process. A process can set a lock more than once.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906878"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-906980"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886643"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886644"></A>The function <CODE CLASS="Code">
+process-lock</CODE>
+ attempts to lock <EM CLASS="Variable">
+lock</EM>
+ and returns <CODE CLASS="Code">
+t</CODE>
+ if successful, or <CODE CLASS="Code">
+nil</CODE>
+ if timed out. If <EM CLASS="Variable">
+lock</EM>
+ is already locked and the owner of the lock is the value of <A HREF="lw-1020.htm#55304" CLASS="XRef">*current-process*</A>, then <EM CLASS="Variable">
+lock</EM>
+ remains locked and an internal count is incremented. The Lisp process sleeps until the lock is claimed or the timeout period expires.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1207348"></A><EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ if <EM CLASS="Variable">
+lock</EM>
+ was successfully locked, and <CODE CLASS="Code">
+nil</CODE>
+ otherwise.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1455233"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1455253"></A><CODE CLASS="Code">
+process-lock</CODE>
+ is guaranteed to return if it locked process, but may throw before locking, as described in <A HREF="lw-280.htm#95000" CLASS="XRef">Guarantees and limitations when locking and unlocking</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886646"></A>Example</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886647"></A>(process-lock *my-lock* &quot;waiting to lock&quot; 10)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886648"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886650"></A><A HREF="lw-1057.htm#93763" CLASS="XRef">make-lock</A><BR>
+<A HREF="lw-1073.htm#52783" CLASS="XRef">process-exclusive-lock</A><BR>
+<A HREF="lw-1099.htm#96257" CLASS="XRef">process-unlock</A><BR>
+<A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1082.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1080.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ externalize-image
+</TITLE>
+
+<LINK REL="next" HREF="capiref-542.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-540.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-495.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-495.htm">2 GP Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-542.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-540.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-889308"></A><A NAME="marker-889307"></A><A NAME="46441"></A>externalize-image</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-889309"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889310"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889311"></A>Returns an external image containing color information from an image.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1085916"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1085917"></A><CODE CLASS="Code">
+graphics-ports</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889312"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1050183"></A>externalize-image <EM CLASS="Variable">
+gp</EM>
+ <EM CLASS="Variable">
+image</EM>
+ &amp;key <EM CLASS="Variable">
+maximum-colors<BR>
+</EM>
+                  <EM CLASS="Variable">
+important-colors</EM>
+ &amp;allow-other-keys<BR>
+                  =&gt; <EM CLASS="Variable">
+external-image</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1050184"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889316"></A><EM CLASS="Variable">
+gp</EM>
+</P>
+<P CLASS="RDescription-C">A CAPI pane.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-893246"></A><EM CLASS="Variable">
+image</EM>
+</P>
+<P CLASS="RDescription-C">An image.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-893247"></A><EM CLASS="Variable">
+maximum-colors</EM>
+</P>
+<P CLASS="RDescription-C">An integer or <CODE CLASS="Code">
+nil</CODE>
+. The default is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-893248"></A><EM CLASS="Variable">
+important-colors</EM>
+</P>
+<P CLASS="RDescription-C">An integer or <CODE CLASS="Code">
+nil</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889317"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889318"></A><EM CLASS="Variable">
+external-image</EM>
+</P>
+<P CLASS="RDescription-C">An external image.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889319"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889320"></A>The <CODE CLASS="Code">
+externalize-image</CODE>
+ function returns an <A HREF="capiref-537.htm#53640" CLASS="XRef">external-image</A> containing color information from <EM CLASS="Variable">
+image</EM>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1020289"></A>If <EM CLASS="Variable">
+maximum-colors</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ or if the screen has no palette, an <A HREF="capiref-537.htm#53640" CLASS="XRef">external-image</A> using all the colors in <EM CLASS="Variable">
+image</EM>
+ is created. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1020320"></A>If <EM CLASS="Variable">
+maximum-colors</EM>
+ is an integer, the <A HREF="capiref-537.htm#53640" CLASS="XRef">external-image</A> containing image will be created using no more than that number of colors. If the image contains more than <EM CLASS="Variable">
+maximum-colors</EM>
+ colors, the <EM CLASS="Variable">
+maximum-colors</EM>
+ most frequently used colors will be accurately stored; the remainder will be approximated by nearest colors out of the accurate ones, using internal Color System parameters as the weighting factors for the color distance.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1020302"></A>The value of <EM CLASS="Variable">
+important-color</EM>
+ is recorded in the <EM CLASS="Variable">
+external-image</EM>
+ for later use, and specifies the number of colors required to draw a good likeness of the image. The default value is the number of colors in the image.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1020425"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1020571"></A><A HREF="capiref-598.htm#10786" CLASS="XRef">make-image-from-port</A><BR>
+<A HREF="capiref-667.htm#37701" CLASS="XRef">write-external-image</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-542.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-540.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

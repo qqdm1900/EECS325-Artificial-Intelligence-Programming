@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-transaction
+</TITLE>
+
+<LINK REL="next" HREF="lw-1288.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1286.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1286.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-889797"></A><A NAME="32033"></A>with<A NAME="marker-1047975"></A>-transaction</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-889798"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889799"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889800"></A>Performs a body of code within a transaction for a database.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889801"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889802"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889803"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889804"></A>with-transaction &amp;key <EM CLASS="Variable">
+database</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+results</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889805"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889806"></A><EM CLASS="Variable">
+database</EM>
+</P>
+<P CLASS="RDescription-C"> A database.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889807"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C"> A set of Lisp expressions.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889808"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889809"></A><EM CLASS="Variable">
+results</EM>
+</P>
+<P CLASS="RDescription-C">The values returned by <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889810"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889811"></A>The macro <CODE CLASS="Code">
+with-transaction</CODE>
+ executes <EM CLASS="Variable">
+body</EM>
+ within a transaction for <EM CLASS="Variable">
+database</EM>
+ (which defaults to <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A>). The transaction is committed if the body finishes successfully  (without aborting or throwing), otherwise the database is rolled back.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1048643"></A><CODE CLASS="Code">
+with-transaction</CODE>
+ returns the value or multiple values returned from <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1048662"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889813"></A>The following example shows how to use <CODE CLASS="Code">
+with-transaction</CODE>
+ to insert a new record, updates the department number of employes from 40 to 50, and removes employees whose salary is higher than 300,000. If an error occurs anywhere in the body and an <CODE CLASS="Code">
+abort</CODE>
+ or <CODE CLASS="Code">
+throw</CODE>
+ is executed, none of the updates are committed.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-889814"></A>(with-transaction</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889815"></A> (insert-record :into [emp]</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889816"></A>              :attributes '(x y z)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889817"></A>               :values '(a b c))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889818"></A> (update-records [emp]</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889819"></A>    :attributes [dept]</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889820"></A>    :values 50</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889821"></A>    :where [= [dept] 40])</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889822"></A> (delete-records :from [emp]</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-889823"></A>    :where [&gt; [salary] 300000]))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889824"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889828"></A><A HREF="lw-1160.htm#25697" CLASS="XRef">commit</A><BR>
+<A HREF="lw-1256.htm#15063" CLASS="XRef">rollback</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1286.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

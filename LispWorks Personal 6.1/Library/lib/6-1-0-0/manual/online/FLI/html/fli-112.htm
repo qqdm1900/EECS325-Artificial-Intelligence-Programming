@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ foreign-slot-type
+</TITLE>
+
+<LINK REL="next" HREF="fli-113.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-111.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-113.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-111.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-925787"></A><A NAME="33624"></A>foreign-slot-type<A NAME="marker-998690"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-925788"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-925789"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-927064"></A>Returns the type of a specified slot of a foreign object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-927059"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-925790"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-925791"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-925792"></A>foreign-slot-type <EM CLASS="Variable">
+object-or-type</EM>
+ <EM CLASS="Variable">
+slot-name</EM>
+ =&gt; <EM CLASS="Variable">
+type</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-925793"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1183948"></A><EM CLASS="Variable">
+object-or-type</EM>
+</P>
+<P CLASS="RDescription-C">A foreign object, a pointer to a foreign object, or a foreign structure or union type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1314640"></A><EM CLASS="Variable">
+slot-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or a list of symbols identifying the slot whose type is to be returned. The value is interpreted as described for <A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-925795"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-925796"></A><EM CLASS="Variable">
+type</P>
+<P CLASS="RDescription-C"></EM>
+The type of <EM CLASS="Variable">
+slot-name</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-925797"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-925798"></A>The function <CODE CLASS="Code">
+foreign-slot-type</CODE>
+ returns the type of a slot of a foreign object. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-925799"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-930122"></A>In the following example two new types, <CODE CLASS="Code">
+EAST</CODE>
+ and <CODE CLASS="Code">
+WEST</CODE>
+ are defined. Then a new structure, <CODE CLASS="Code">
+COMPASS</CODE>
+, is defined, with two slots. An instance of the structure is created, and <CODE CLASS="Code">
+foreign-slot-type</CODE>
+ is used to get the type of the first slot of the structure.</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-930285"></A>(fli:define-c-typedef EAST (:boolean :int))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-930526"></A>(fli:define-c-typedef WEST :long)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-930546"></A>(fli:define-c-struct COMPASS</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-930551"></A>   (x EAST)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-930556"></A>   (y WEST))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1184184"></A>(fli:foreign-slot-type 'COMPASS 'x)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-930561"></A>(setq dir (fli:allocate-foreign-object :type 'COMPASS))</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1091498"></A>(fli:foreign-slot-type dir 'x)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1091499"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1091503"></A><A HREF="fli-109.htm#20235" CLASS="XRef">foreign-slot-names</A><BR>
+<A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-113.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-111.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

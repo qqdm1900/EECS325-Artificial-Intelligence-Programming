@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ editor-pane-default-composition-callback
+</TITLE>
+
+<LINK REL="next" HREF="capiref-120.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-118.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-120.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-118.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-9502738"></A><A NAME="21911"></A>editor-pane-default-composition<A NAME="marker-9509104"></A>-callback</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-9502739"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9502740"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9502741"></A>The default composition callback of the editor. Composition here means composing input characters into other characters by an input method.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9502742"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-9502743"></A>editor-pane-default-composition-callback <EM CLASS="Variable">
+editor-pane</EM>
+ <EM CLASS="Variable">
+what</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9502744"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9502745"></A>The function <CODE CLASS="Code">
+editor-pane-default-composition-callback</CODE>
+ is the default <EM CLASS="Variable">
+composition-callback</EM>
+ of <A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A>. It may also be called by your program. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-9502746"></A>When called with <EM CLASS="Variable">
+what</EM>
+ = <CODE CLASS="Code">
+:start</CODE>
+, <CODE CLASS="Code">
+editor-pane-default-composition-callback</CODE>
+ sets the composition placement in the editor by calling <A HREF="capiref-380.htm#45806" CLASS="XRef">set-composition-placement</A>, and also makes it move the composition window following the user's mouse cursor movement </P>
+<P CLASS="RBody">
+<A NAME="pgfId-9502747"></A>When called with <EM CLASS="Variable">
+what</EM>
+ = <CODE CLASS="Code">
+:end</CODE>
+, it stops the following of the mouse cursor. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-9502748"></A>When called with a list (which needs to be a plist), <CODE CLASS="Code">
+editor-pane-default-composition-callback</CODE>
+ checks if it contains a keyword/value pair for <CODE CLASS="Code">
+:string-face-lists</CODE>
+, and if it does displays it in the editor temporarily (until the next call to it). See the entry for  <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A> for the description of the value <EM CLASS="Variable">
+string-face-lists</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9502749"></A>By default, <CODE CLASS="Code">
+editor-pane-default-composition-callback</CODE>
+ uses the faces that are supplied in <EM CLASS="Variable">
+string-face-lists</EM>
+, but if the plist contains <CODE CLASS="Code">
+:selection-needs-face</CODE>
+ and <CODE CLASS="Code">
+:selected-range</CODE>
+, it displays the selected range with a different face, by merging <A HREF="capiref-115.htm#14465" CLASS="XRef">*editor-pane-composition-selected-range-face-plist*</A> into the given face of the selected range. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-9502750"></A>This can be overriden by setting the <EM CLASS="Variable">
+composition-face</EM>
+ in the <A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A>, or the global <A HREF="capiref-120.htm#12266" CLASS="XRef">*editor-pane-default-composition-face*</A> if the <EM CLASS="Variable">
+composition-face</EM>
+ of the pane is <CODE CLASS="Code">
+:default</CODE>
+.  If <EM CLASS="Variable">
+composition-face</EM>
+ is a true value then the exact behavior depends on its type:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-9502751"></A>A plist</P>
+<P CLASS="RDescription-C">This is appended to each face plist in the the <EM CLASS="Variable">
+string-face-lists</EM>
+. In other words, it provides default values for the attributes of the face. </P>
+<P CLASS="RDescription">
+<A NAME="pgfId-9502752"></A>An <CODE CLASS="Code">
+editor:face</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-9509014"></A>Overrides the supplied face completely. </P>
+<P CLASS="RDescription">
+<A NAME="pgfId-9502753"></A>A function or a symbol</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-9508969"></A>For <EM CLASS="Variable">
+string-face-list</EM>
+, funcalls it with two arguments, the pane and the supplied face plist, and uses the result (which may be an <CODE CLASS="Code">
+editor:face</CODE>
+ or a face plist). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-9502754"></A><CODE CLASS="Code">
+editor-pane-default-composition-callback</CODE>
+ is the default value of <EM CLASS="Variable">
+composition-callback</EM>
+ for <A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A>. This can be overridden by passing <CODE CLASS="Code">
+:composition-callback</CODE>
+ or using <CODE CLASS="Code">
+output-pane-composition-callback</CODE>
+ (see entry for <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A>). </P>
+<P CLASS="RBody">
+<A NAME="pgfId-9502755"></A>The user-supplied callback may call <CODE CLASS="Code">
+editor-pane-default-composition-callback</CODE>
+ to do the actual display, potentially after modifying the argument when it is a plist.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9502756"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9502757"></A><A HREF="capiref-380.htm#45806" CLASS="XRef">set-composition-placement</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-120.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-118.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.9.1  Native threads on Windows, Mac OS X, Linux, x86/x64 Solaris and FreeBSD
+</TITLE>
+
+<LINK REL="next" HREF="lw-296.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-294.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-294.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-294.htm">15.9  Native threads and foreign code</A><BR><BR>
+</DIV><A HREF="lw-296.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-294.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-294.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-896065"></A>15.9.1  Native threads on Windows, Mac OS X, Linux, x86/x64 Solaris and FreeBSD</H3>
+<P CLASS="Body">
+<A NAME="pgfId-896066"></A>Each Lisp <CODE CLASS="Code">
+mp:process</CODE>
+ has a separate native thread and in LispWorks 6.0 and later versions these threads can run simultaneously.</P>
+<P CLASS="Body">
+<A NAME="pgfId-896067"></A><B CLASS="Bold">
+Note:</B>
+ In LispWorks 5.1 and earlier versions, you can have many runnable <CODE CLASS="Code">
+mp:process</CODE>
+ objects/native threads, but Lisp code can only run in one thread at a time and a lock is used to enforce this. This can limit performance on a computer with multiple CPU cores. When a foreign function is called using the FLI, the lock is released until the function returns. This allows other Lisp threads to run, for instance while waiting for a database query to execute.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890493"></A><A NAME="marker-890340"></A>You can call back into Lisp using <CODE CLASS="Code">
+fli:define-foreign-callable</CODE>
+<A NAME="marker-890336"></A> in any thread, without any other setup.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890819"></A><B CLASS="Bold">
+Note:</B>
+ In a LispWorks 5.0 executable on Microsoft Windows you must first call <A NAME="marker-890494"></A><CODE CLASS="Code">
+setup-for-alien-threads</CODE>
+ before calling back into Lisp, but in LispWorks 5.1 and later versions this setup is handled automatically (and <CODE CLASS="Code">
+setup-for-alien-threads</CODE>
+ does not exist).</P>
+<P CLASS="Body">
+<A NAME="pgfId-890453"></A>Threads running Lisp code can be rescheduled preemptively, so if you call into Lisp from more than one thread simultaneously and one request takes a long time then it will not delay the requests in other threads.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-296.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-294.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-294.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

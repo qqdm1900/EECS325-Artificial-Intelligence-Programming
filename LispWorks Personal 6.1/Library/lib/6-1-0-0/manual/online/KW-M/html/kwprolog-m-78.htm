@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.1.1.2  A Simple Example
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-79.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-77.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-76.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A> &gt; <A HREF="kwprolog-m-75.htm">6.1  Control Flow</A> &gt; <A HREF="kwprolog-m-76.htm">6.1.1  Meta Rule Protocol</A><BR><BR>
+</DIV><A HREF="kwprolog-m-79.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-77.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-76.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-891667"></A>6.1.1.2  A Simple Example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891668"></A>This meta-rule displays the conflict set in a menu to the user and asks for one to be selected by hand on each cycle. Note that we have to check both that there were some instantiations available, and that the user selected one (rather than clicking on the <EM CLASS="Variable">
+Abort</EM>
+ button).</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891669"></A>(defrule manual-context :backward</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891670"></A>         ((manual-context)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891671"></A>          &lt;--</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891672"></A>          (start-cycle)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891673"></A>          (conflict-set ?conflict-set)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891674"></A>          (test ?conflict-set)    </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891675"></A>                   ; are there any instantiations?</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891676"></A>          ((select-instantiation ?conflict-set)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891677"></A>           ?instantiation)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891678"></A>          (test ?instantiation)   </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891679"></A>                   ; did the user pick one?</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891680"></A>          (fire-rule ?instantiation)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891681"></A>          (cut)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891682"></A>          (manual-context)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891683"></A>where the function <CODE CLASS="Code">
+select-instantiation</CODE>
+ could be defined as</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891684"></A>(defun select-instantiation (conflict-set)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891685"></A>        (tk:scrollable-menu conflict-set</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891686"></A>            :title &quot;Select an Instantiation:&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891687"></A>            :name-function #'(lambda (inst)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891688"></A>                              (format nil &quot;&#126;S: &#126;S&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891689"></A>                                (inst-rulename inst)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891690"></A>                                (inst-bindings inst))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891691"></A>Now a context could be defined by</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891692"></A>(defcontext a-context :strategy () </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891693"></A>                     :meta ((manual-context)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-79.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-77.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-76.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

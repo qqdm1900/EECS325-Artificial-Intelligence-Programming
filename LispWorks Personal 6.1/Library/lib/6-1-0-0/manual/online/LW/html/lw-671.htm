@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ step
+</TITLE>
+
+<LINK REL="next" HREF="lw-672.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-670.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-672.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-670.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1040352"></A>step<A NAME="marker-1040351"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1040353"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040354"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040355"></A>Steps through the evaluation of a form.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040356"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040357"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040358"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040359"></A>step <EM CLASS="Variable">
+form</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040360"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040361"></A><EM CLASS="Variable">
+form</EM>
+ </P>
+<P CLASS="RDescription-C">A form to be stepped and evaluated.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040362"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040363"></A><EM CLASS="Variable">
+result</EM>
+<CODE CLASS="Code">
+</P>
+<P CLASS="RDescription-C"></CODE>
+The values returned by <EM CLASS="Variable">
+form</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040364"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040365"></A><CODE CLASS="Code">
+step</CODE>
+ evaluates a form and allows you to single-step through it. You can include a call to <CODE CLASS="Code">
+step</CODE>
+ inside a tricky definition to invoke the stepper every time the definition is used. <CODE CLASS="Code">
+step</CODE>
+ can also optionally step through macros.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040366"></A>The commands shown below are available. When certain stepper variables (as described below) are set, some of these commands are not relevant and are therefore not available. Use <CODE CLASS="Code">
+:help</CODE>
+ to get a list of the commands.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040367"></A><CODE CLASS="Code">
+:s</CODE>
+ <EM CLASS="Variable">
+n</EM>
+</P>
+<P CLASS="RDescription-C">Step this form and all of its subforms (optional positive integer argument).</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040368"></A><CODE CLASS="Code">
+:st</CODE>
+</P>
+<P CLASS="RDescription-C">Step this form without stepping its subforms. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040369"></A><CODE CLASS="Code">
+:su</CODE>
+</P>
+<P CLASS="RDescription-C">Step up out of this form without stepping its subforms.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040370"></A><CODE CLASS="Code">
+:sr</CODE>
+</P>
+<P CLASS="RDescription-C">Return a value to use for this form.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040371"></A><CODE CLASS="Code">
+:sq</CODE>
+</P>
+<P CLASS="RDescription-C">Quit from the current stepper level. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040372"></A><CODE CLASS="Code">
+:redo</CODE>
+</P>
+<P CLASS="RDescription-C">Redo one of the previous commands. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040373"></A><CODE CLASS="Code">
+:get</CODE>
+</P>
+<P CLASS="RDescription-C">Get an item from the history list and put it in a variable. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040374"></A><CODE CLASS="Code">
+:help</CODE>
+</P>
+<P CLASS="RDescription-C">List available commands. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040375"></A><CODE CLASS="Code">
+:use</CODE>
+</P>
+<P CLASS="RDescription-C">Replace one form with another form in previous command and redo it. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040376"></A><CODE CLASS="Code">
+:his</CODE>
+</P>
+<P CLASS="RDescription-C">List the commands history. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040377"></A>The optional integer argument <EM CLASS="Variable">
+n</EM>
+ for <CODE CLASS="Code">
+:s</CODE>
+ means do <CODE CLASS="Code">
+:s</CODE>
+ <EM CLASS="Variable">
+n</EM>
+ times.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040378"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+step</CODE>
+ is a Listener-based form stepper. LispWorks also offers a graphical source-code Stepper tool. See the <I CLASS="Italic">
+LispWorks IDE User Guide</I>
+ for details of that.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040382"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040383"></A>The following examples illustrate some of these commands.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040384"></A>USER 12 &gt; (step (+ 1 (* 2 3) 4))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040385"></A>(+ 1 (* 2 3) 4) -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040386"></A>   1 -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040387"></A>   1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040388"></A>   (* 2 3) -&gt; :su</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040389"></A>   6</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040390"></A>   4 -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040391"></A>   4</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040392"></A>11</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040393"></A>11</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040394"></A>USER 13 &gt; (defun foo (x y) (+ x y))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040395"></A>FOO</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040396"></A>USER 14 &gt; step (foo (+ 1 1) 2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040397"></A>(FOO (+ 1 1) 2) -&gt; :st</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040398"></A>   (+ 1 1) -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040399"></A>     1 -&gt; :s </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040400"></A>     1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040401"></A>      1 -&gt; :s </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040402"></A>     1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040403"></A>   2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040404"></A>   2 -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040405"></A>   2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040406"></A>4</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040407"></A>4</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040408"></A>USER 15 &gt; :redo (STEP (FOO # 2))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040409"></A> (FOO (+ 1 1) 2) -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040410"></A>    (+ 1 1) -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040411"></A>       1 -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040412"></A>       1</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040413"></A>    2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040414"></A>    2 -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040415"></A>    2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040416"></A>    (+ X Y) -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040417"></A>       X -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040418"></A>       2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040419"></A>       Y -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040420"></A>       2</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040421"></A>    4</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040422"></A> 4</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040423"></A> 4</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1040424"></A>You can interact when an evaluated form returns, by setting the variable <CODE CLASS="Code">
+*no-step-out*</CODE>
+ to <CODE CLASS="Code">
+nil</CODE>
+. The prompt changes as shown below: </P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040425"></A>USER 36 &gt; step (cons 1 2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040426"></A>(CONS 1 2) -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040427"></A>   1 -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040428"></A>   1 = 1  &lt;- :sr 3</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040429"></A>   2 -&gt; :s</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040430"></A>   2 = 2  &lt;- :sr 4</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040431"></A>(CONS 1 2) = (3 . 4)  &lt;- :s</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040432"></A>(3 . 4)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1040433"></A>To allow expansion of macros, set the variable <CODE CLASS="Code">
+*step-macros*</CODE>
+ to <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040434"></A>To step through the function calls in compiled code, set the variable <CODE CLASS="Code">
+hcl:*step-compiled*</CODE>
+<A NAME="marker-1040435"></A> to <CODE CLASS="Code">
+t</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040436"></A>If required, the stepper can print out the step level: set the variable <CODE CLASS="Code">
+*print-step-level*</CODE>
+ to <CODE CLASS="Code">
+t</CODE>
+, as shown in this session:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040437"></A>USER 21 &gt; (setq *print-step-level* t) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040438"></A>T</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040439"></A>USER 22 &gt; step (cons 1 2) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040440"></A>[1](cons 1 2) -&gt; :s </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040441"></A>[2]   1 -&gt; :s       1 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040442"></A>[2]   2 -&gt; :s </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040443"></A>      2 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040444"></A>   (1 . 2) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040445"></A>(1 . 2)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1040446"></A>It is not advisable to try to step certain compiled functions, such as <CODE CLASS="Code">
+car</CODE>
+ and <CODE CLASS="Code">
+format</CODE>
+. The variable <CODE CLASS="Code">
+hcl:*step-filter*</CODE>
+<A NAME="marker-1040447"></A> contains a list of functions which should not be stepped. If you get deep stack overflows inside the stepper, you may need to add a function name to <CODE CLASS="Code">
+hcl:*step-filter*</CODE>
+.   </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040448"></A>By default, the stepper uses the same printing environment as the rest of LispWorks (the same settings of the <CODE CLASS="Code">
+*print-...*</CODE>
+ variables). To control the stepper printing environment independently, set the variable <CODE CLASS="Code">
+hcl:*step-print-env*</CODE>
+<A NAME="marker-1040449"></A> to <CODE CLASS="Code">
+t</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040450"></A>The values of the variables <CODE CLASS="Code">
+hcl:*step-print-...*</CODE>
+ are then used instead of the variables <CODE CLASS="Code">
+*print-...*</CODE>
+.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-672.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-670.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.1  Compiling a function
+</TITLE>
+
+<LINK REL="next" HREF="lw-107.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-105.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-105.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-105.htm">9 The Compiler</A><BR><BR>
+</DIV><A HREF="lw-107.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-105.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-105.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-885988"></A>9.1  <A NAME="marker-892743"></A>Compiling a function</H3>
+<P CLASS="Body">
+<A NAME="pgfId-885989"></A>The function <A HREF="lw-634.htm#28197" CLASS="XRef">compile</A> takes a symbol as its first argument, and an interpreted function definition (a lambda expression) as its second, optional, argument. It compiles the definition and installs the resultant code as the symbol-function of the symbol (unless the symbol was <CODE CLASS="Code">
+nil</CODE>
+). If the definition is omitted then the current symbol-function of the symbol is used. Below are some examples:   </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-885990"></A>CL-USER 3 &gt;  (compile (defun  fred (a b)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885991"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885992"></A>                       (dotimes (n a) (funcall b)))) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885993"></A>; FRED</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885994"></A>FRED</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885995"></A>NIL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885996"></A>NIL</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885997"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885998"></A>CL-USER 4 &gt;  (funcall (compile nil '(lambda (n)                              
+                     (* n n)))  7)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-885999"></A>; NIL </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886000"></A>49</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886001"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886002"></A>CL-USER 5 &gt;  (compile  'ident-fun  '(lambda (x) x)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886003"></A>;IDENT-FUN </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886004"></A>IDENT-FUN</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886005"></A>NIL</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886006"></A>NIL</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-107.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-105.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-105.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

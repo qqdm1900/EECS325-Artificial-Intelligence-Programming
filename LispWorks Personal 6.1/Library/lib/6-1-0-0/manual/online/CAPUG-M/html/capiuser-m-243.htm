@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 16.2.3  Data formats
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-244.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-242.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-239.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-236.htm">16 Drag and Drop</A> &gt <A HREF="capiuser-m-239.htm">16.2  Dragging</A><BR><BR>
+</DIV><A HREF="capiuser-m-244.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-242.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-239.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-911020"></A>16.2.3  Data formats</H3>
+<P CLASS="Description-Item">
+<A NAME="pgfId-910945"></A><CODE CLASS="Code">
+:string</CODE>
+</P>
+<P CLASS="Description-C">Receives a string, potentially from another application. Is also understood by some other panes that expect text.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-912235"></A><CODE CLASS="Code">
+:image</P>
+<P CLASS="Description-C"></CODE>
+Receives an image on Cocoa and GTK+. The value passed should be a <CODE CLASS="Code">
+gp:image</CODE>
+. See <A HREF="capiuser-m-204.htm#86875" CLASS="XRef">Working with images</A> for more information about images.When supplying an image for dragging (that is, including <CODE CLASS="Code">
+:image</CODE>
+ <EM CLASS="Variable">
+image</EM>
+ in the plist argument of <CODE CLASS="Code">
+drag-pane-object</CODE>
+ or in the plist that is returned from the <EM CLASS="Variable">
+drop-callback</EM>
+), the dragging mechanism frees the image (as by <CODE CLASS="Code">
+gp:free-image</CODE>
+) when it finishes with it (which will be at some indeterminate time later). If you need to pass an image which you want to use later, you should make a copy of it by <CODE CLASS="Code">
+gp:make-sub-image</CODE>
+. </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-912238"></A>When receiving an image (by calling <CODE CLASS="Code">
+drop-object-get-object</CODE>
+ with <CODE CLASS="Code">
+:image</CODE>
+), the received image should also be freed when you finish with it. However, it will be freed automatically when the pane supplied to <CODE CLASS="Code">
+drop-object-get-object</CODE>
+ is destroyed, so you do not need to free it explictly if freeing can wait  (which is probably true in most cases). </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-912240"></A>See the example in<BR>
+<CODE CLASS="Code">
+examples/capi/choice/list-panel-drag-image.lisp</CODE>
+ </P>
+<P CLASS="Description">
+<A NAME="pgfId-911028"></A><CODE CLASS="Code">
+:filename-list</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-911670"></A>Receives a list of files. Is understood by other applications such as the Mac OS X Finder and Windows Explorer.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911073"></A>You can also use private formats, named by arbitrary keywords, which will work only in the same Lisp image.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-244.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-242.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-239.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

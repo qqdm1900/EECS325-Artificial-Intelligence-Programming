@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ pinboard-pane-size
+</TITLE>
+
+<LINK REL="next" HREF="capiref-300.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-298.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-300.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-298.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-2103019"></A><A NAME="28025"></A>pinboard<A NAME="marker-4186751"></A>-pane-size</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-2103020"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2103021"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3052939"></A>Gets and sets the size of an object inside its parent <A HREF="capiref-293.htm#24209" CLASS="XRef">pinboard-layout</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4186720"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4186721"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2103023"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-2103024"></A>pinboard-pane-size <EM CLASS="Variable">
+self</EM>
+ =&gt; <EM CLASS="Variable">
+width</EM>
+, <EM CLASS="Variable">
+height</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-2103025"></A>setf (pinboard-pane-size <EM CLASS="Variable">
+self</EM>
+) (values <EM CLASS="Variable">
+width</EM>
+ <EM CLASS="Variable">
+height</EM>
+) =&gt; <EM CLASS="Variable">
+width</EM>
+, <EM CLASS="Variable">
+height</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2103026"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3052960"></A>The generic function <CODE CLASS="Code">
+pinboard-pane-size</CODE>
+ returns as multiple values <EM CLASS="Variable">
+width</EM>
+, <EM CLASS="Variable">
+height</EM>
+ the dimensions of <EM CLASS="Variable">
+self</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3052975"></A>There is also a <CODE CLASS="Code">
+setf</CODE>
+ expansion which sets the dimensions of <EM CLASS="Variable">
+self</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3052986"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-3054114"></A>(let* ((po (make-instance 'capi:pinboard-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054115"></A>                          :x 5 :y 5 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054116"></A>                          :width 5 :height 5</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054117"></A>                          :graphics-args </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054118"></A>                          '(:background :red)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054119"></A>       (pl (capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054120"></A>            (make-instance 'capi:pinboard-layout </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054121"></A>                           :description (list po)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054122"></A>                           :visible-min-width 200</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054123"></A>                           :visible-min-height 200))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054124"></A>  (capi:execute-with-interface</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054125"></A>   (capi:element-interface pl)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054126"></A>   #'(lambda(po)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054127"></A>       (dotimes (x 20)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054128"></A>         (mp:wait-processing-events 1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054129"></A>         (let ((new-x (* (1+ x) 10))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054130"></A>               (new-y (* 5 (+ 2 x))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054131"></A>           (setf (capi:pinboard-pane-size po)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3054132"></A>                 (values new-x new-y)))))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-3052990"></A>   po))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2103140"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2103160"></A><A HREF="capiref-293.htm#24209" CLASS="XRef">pinboard-layout</A><BR>
+<A HREF="capiref-298.htm#11886" CLASS="XRef">pinboard-pane-position</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-300.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-298.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

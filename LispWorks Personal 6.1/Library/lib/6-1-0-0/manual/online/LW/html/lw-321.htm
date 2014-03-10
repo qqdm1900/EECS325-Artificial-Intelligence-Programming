@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 17.5  Interface to lexical analyzer
+</TITLE>
+
+<LINK REL="next" HREF="lw-322.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-320.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-314.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-314.htm">17 The Parser Generator</A><BR><BR>
+</DIV><A HREF="lw-322.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-320.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-314.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886038"></A>17.5  <A NAME="marker-886037"></A>Interface to lexical analyzer</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886039"></A>The lexical analyzer function that is passed to the parser is expected to be a function of zero arguments that returns two values each time it is called. The first value is the next token on the input and the second value is the semantic value corresponding to that token. If there is no more input, then the lexical analyzer may return either the token <CODE CLASS="Code">
+:eoi</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886040"></A>For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886041"></A>(defparser my-parser   </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886042"></A>   ...)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886043"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886044"></A>(defun my-lexer (stream)   </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886045"></A>   .. read next token from stream .. </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886046"></A>  (values token value))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886047"></A>(defun my-symbol-to-string (symbol) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886048"></A>   .. returns a string ..)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886049"></A>(defun my-parse-stream (stream)  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886050"></A>  (let ((lexer #'(lambda () (my-lexer stream))))  </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886051"></A>    (my-parser lexer #'my-symbol-to-string)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886052"></A>Note that during error correction, the parser may push extra tokens onto the input, in which case they are given the semantic value <CODE CLASS="Code">
+nil</CODE>
+. The semantic actions should therefore be capable of dealing with this situation. Manipulation of the input (for example pushing extra tokens) is done within the parser generator and the lexical analyzer need not concern itself with this.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-322.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-320.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-314.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

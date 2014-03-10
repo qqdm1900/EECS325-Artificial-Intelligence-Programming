@@ -1,0 +1,531 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ compile-file
+</TITLE>
+
+<LINK REL="next" HREF="lw-636.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-634.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-636.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-634.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1039050"></A><A NAME="53982"></A>compile<A NAME="marker-1039049"></A>-file</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1039051"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039052"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039053"></A>Compiles a Lisp source file into a form that both loads and runs faster.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039054"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039055"></A>common-lisp </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039056"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039057"></A>compile-file <EM CLASS="Variable">
+input-file</EM>
+ &amp;key <EM CLASS="Variable">
+output-file</EM>
+ <EM CLASS="Variable">
+verbose</EM>
+ <EM CLASS="Variable">
+print</EM>
+ <EM CLASS="Variable">
+external-format</EM>
+ <EM CLASS="Variable">
+load</EM>
+ =&gt; <EM CLASS="Variable">
+output-truename</EM>
+, <EM CLASS="Variable">
+warnings-p</EM>
+, <EM CLASS="Variable">
+failure-p</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039058"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039059"></A><EM CLASS="Variable">
+input-file</P>
+<P CLASS="RDescription-C"></EM>
+A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039060"></A><EM CLASS="Variable">
+output-file</EM>
+ </P>
+<P CLASS="RDescription-C">A pathname designator, or <CODE CLASS="Code">
+:temp</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1058744"></A><EM CLASS="Variable">
+verbose</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039062"></A><EM CLASS="Variable">
+print</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1066655"></A><EM CLASS="Variable">
+external-format</EM>
+</P>
+<P CLASS="RDescription-C">An external format specification.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1055557"></A><EM CLASS="Variable">
+load</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039070"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1066788"></A><EM CLASS="Variable">
+output-truename</EM>
+</P>
+<P CLASS="RDescription-C">A pathname or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1066828"></A><EM CLASS="Variable">
+warnings-p</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1066834"></A><EM CLASS="Variable">
+failure-p</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039072"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039073"></A>The function <CODE CLASS="Code">
+compile-file</CODE>
+ calls the compiler to translate a Lisp source file into a form that both loads and runs faster. A compiled function typically runs more than ten times faster than when interpreted (assuming that it is not spending most of its work calling already compiled functions). A source file with a <CODE CLASS="Code">
+.lisp</CODE>
+ or <CODE CLASS="Code">
+.lsp</CODE>
+ extension compiles to produce a file with a <CODE CLASS="Code">
+.*fasl</CODE>
+ extension (the actual extension depends on the host machine CPU and the LispWorks implementation). Subsequent use of <CODE CLASS="Code">
+load</CODE>
+ loads the compiled version (which is in LispWorks's FASL or Fast Load format) in preference to the source.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1051735"></A>In compiling a file the compiler has to both compile each function and top level form in the file, and to produce the appropriate FASL directives so that loading has the desired effect. In particular objects need to have space allocated for them, and top level forms are called as they are loaded.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1226043"></A><EM CLASS="Variable">
+output-file</EM>
+ specifies the location of the output file, relative to the current directory (not the path of the file). If it specifies a directory, then the output file is placed there instead of the same directory as the source. If it contains a file name but not a file type, then the platform specific file type is added and and the result specifies the full path of the output file. If <EM CLASS="Variable">
+output-file</EM>
+ has a type, it specifies the full path of the output file. Note that in this case when you want to load the file you will need to add the type to <A HREF="lw-1340.htm#22217" CLASS="XRef">*binary-file-types*</A>.  See the example below.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1125692"></A>The special value <EM CLASS="Variable">
+output-file</EM>
+ <CODE CLASS="Code">
+:temp</CODE>
+ offers a convenient way to specify that the output file is a temporary file in a location that is likely to be writable.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1061955"></A><EM CLASS="Variable">
+verbose</EM>
+ controls the printing of messages describing the file being compiled, the current optimization settings, and other information. If <EM CLASS="Variable">
+verbose</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, there are no messages. If <EM CLASS="Variable">
+verbose</EM>
+ is <CODE CLASS="Code">
+0</CODE>
+, only the &quot;Compiling file...&quot; message is printed. For all other true values of <EM CLASS="Variable">
+verbose</EM>
+, messages are also printed about:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1062437"></A>compiler optimization settings before the file is processed, and</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1062438"></A>multiple matches when <EM CLASS="Variable">
+input-file</EM>
+ does not specify the pathname type, and</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1062297"></A>any clean down (garbage collection) that occurs during the compilation.</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-1062420"></A>The default value is the value of <CODE CLASS="Code">
+*compile-verbose*</CODE>
+, which defaults to <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1065824"></A><EM CLASS="Variable">
+print</EM>
+ controls the printing of information about the compilation. It can have the following values. If <EM CLASS="Variable">
+print</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, no information is printed. If <EM CLASS="Variable">
+print</EM>
+ is a non-positive number, then only warnings are printed. If <EM CLASS="Variable">
+print</EM>
+ is a positive number no greater than 1, or if <EM CLASS="Variable">
+print</EM>
+ is any non-number object, then the information printed consists of all warning messages and one line of information per function that is compiled. If <EM CLASS="Variable">
+print</EM>
+ is a number greater than 1, then full information is printed. The default value of <EM CLASS="Variable">
+print</EM>
+ is the value of <CODE CLASS="Code">
+*compile-print*</CODE>
+, which has the default value 1.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1152978"></A>Warning messages are printed to <CODE CLASS="Code">
+*error-output*</CODE>
+. Other messages are printed to <CODE CLASS="Code">
+*standard-output*</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1066630"></A><EM CLASS="Variable">
+external-format</EM>
+ is interpreted as for <A HREF="lw-659.htm#39723" CLASS="XRef">open</A>. The default value is <CODE CLASS="Code">
+:default</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1058716"></A>If <EM CLASS="Variable">
+load</EM>
+ is true, then the file is loaded after compilation.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1066839"></A><EM CLASS="Variable">
+output-truename</EM>
+ is the <CODE CLASS="Code">
+truename</CODE>
+ of the output file, or <CODE CLASS="Code">
+nil</CODE>
+ if that cannot be created.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1066849"></A><EM CLASS="Variable">
+warnings-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ if no conditions of type <CODE CLASS="Code">
+error</CODE>
+ or <CODE CLASS="Code">
+warning</CODE>
+ were detected during compilation. Otherwise <EM CLASS="Variable">
+warnings-p</EM>
+ is a list containing the conditions.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1066880"></A><EM CLASS="Variable">
+failure-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ if no conditions of type <CODE CLASS="Code">
+error</CODE>
+ or <CODE CLASS="Code">
+warning</CODE>
+ (other than <CODE CLASS="Code">
+style-warning</CODE>
+) were detected by the compiler, and <CODE CLASS="Code">
+t</CODE>
+ otherwise.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1152987"></A>Compatibility note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1152991"></A>In LispWorks 5.1 and previous versions, warning messages are printed to <CODE CLASS="Code">
+*standard-output*</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1051737"></A>Examples</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039076"></A>(compile-file &quot;devel/fred.lisp&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039077"></A>     ;; compile fred.lisp to fred.fasl</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039078"></A>(compile-file &quot;devel/fred&quot;) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039079"></A>     ;; does the same thing</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039080"></A>(compile-file &quot;test&quot; :load t) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039081"></A>     ;; compile test.lisp, then load if successful</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039082"></A>(compile-file &quot;program&quot; :output-file &quot;program.abc&quot;)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039083"></A>     ;; compile  &quot;program.lisp&quot; to &quot;program.abc&quot;</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039084"></A>(push &quot;abc&quot; sys:*binary-file-types*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039085"></A>     ;; tells LispWorks that files with extension</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039086"></A>     ;; &quot;.abc&quot; are binaries</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039087"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039091"></A>See <A HREF="lw-638.htm#20275" CLASS="XRef">declare</A> for a list of the declarations that alter the behavior of the compiler.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039092"></A>The act of compiling a file should have no side effects, other than the creation of symbols and packages as the input file is read by the reader.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039093"></A>By default a form is skipped if an error occurs during compilation. If you need to debug an error during compilation by <CODE CLASS="Code">
+compile-file</CODE>
+, set <A HREF="lw-765.htm#50315" CLASS="XRef">*compiler-break-on-error*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039097"></A>During compilation of a file <CODE CLASS="Code">
+foo.lisp</CODE>
+ (on an Intel Macintosh, for example) a temporary output file named <CODE CLASS="Code">
+t_foo.xfasl</CODE>
+ is used, so that an unsuccessful compile does not overwrite an existing <CODE CLASS="Code">
+foo.xfasl</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039098"></A>LispWorks uses the following naming conventions for fasl files, and it is recommended that you should use them too, to ensure correct operation of <CODE CLASS="Code">
+load</CODE>
+ and so on.</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-1083686"></A><A NAME="25877"></A>Naming conventions for FASL files<DIV>
+<IMG SRC="lw-37.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1083690"></A>Machine/Implementation</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-1083692"></A> Fasl Extension </P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083698"></A>x86 Windows/32-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083700"></A><CODE CLASS="Code">
+.ofasl</CODE>
+ </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083702"></A>x64 Windows/64-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083704"></A><CODE CLASS="Code">
+.64ofasl</CODE>
+ </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083706"></A>x86 Linux/32-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083708"></A><CODE CLASS="Code">
+.ufasl</CODE>
+ </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083710"></A>amd64 Linux/64-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083712"></A><CODE CLASS="Code">
+.64ufasl</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1092547"></A>x86 FreeBSD/32-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1092549"></A><CODE CLASS="Code">
+.ffasl</CODE>
+ </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1216199"></A>x86 FreeBSD/64-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1216201"></A><CODE CLASS="Code">
+.64ffasl</CODE>
+ </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083722"></A>HP-PA/32-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083724"></A><CODE CLASS="Code">
+.pfasl</CODE>
+ </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083726"></A>SPARC/32-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083728"></A><CODE CLASS="Code">
+.wfasl</CODE>
+ </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083730"></A>SPARC/64-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1083732"></A><CODE CLASS="Code">
+.64wfasl</CODE>
+ </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1163895"></A>x86 Solaris/32-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1163897"></A><CODE CLASS="Code">
+.sfasl</CODE>
+ </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1163899"></A>amd64 Solaris/64-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1163901"></A><CODE CLASS="Code">
+.64sfasl</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1102859"></A>Intel Macintosh/32-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1102861"></A><CODE CLASS="Code">
+.xfasl</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1102863"></A>PowerPC Macintosh/32-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1102865"></A><CODE CLASS="Code">
+.nfasl</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1102789"></A>Intel Macintosh/64-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1102791"></A><CODE CLASS="Code">
+.64xfasl</CODE>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1092515"></A>PowerPC Macintosh/64-bit LispWorks</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-1092517"></A><CODE CLASS="Code">
+.64nfasl</CODE>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="RBody">
+<A NAME="pgfId-1039140"></A>You can find the fasl file extension appropriate for your machine by looking at the variable <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-1225991"></A><A HREF="lw-1339.htm#75927" CLASS="XRef">*binary-file-type*</A>. The variable <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-1226004"></A><A HREF="lw-1340.htm#22217" CLASS="XRef">*binary-file-types*</A> contains a list of all the file extensions currently recognized by <CODE CLASS="Code">
+load</CODE>
+, <CODE CLASS="Code">
+require</CODE>
+ and <A HREF="lw-1399.htm#80440" CLASS="XRef">load-data-file</A> (in addition to <A HREF="lw-1339.htm#75927" CLASS="XRef">*binary-file-type*</A>).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039146"></A>Compatibility Note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039147"></A>In LispWorks for Windows 4.4 and previous, the fasl file extension is <CODE CLASS="Code">
+.fsl</CODE>
+. This changed in LispWorks 5.0.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039148"></A>In LispWorks for Linux 4.4 and previous, the fasl file extension is <CODE CLASS="Code">
+.ufsl</CODE>
+. This changed in LispWorks 5.0.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039149"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039153"></A><A HREF="lw-634.htm#28197" CLASS="XRef">compile</A><BR>
+<A HREF="lw-766.htm#17916" CLASS="XRef">compile-file-if-needed</A><BR>
+<A HREF="lw-765.htm#50315" CLASS="XRef">*compiler-break-on-error*</A><BR>
+<A HREF="lw-643.htm#30702" CLASS="XRef">disassemble</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-636.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-634.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

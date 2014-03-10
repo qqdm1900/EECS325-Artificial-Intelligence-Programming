@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ query
+</TITLE>
+
+<LINK REL="next" HREF="lw-1254.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1252.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1254.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1252.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-889193"></A><A NAME="39816"></A>query<A NAME="marker-1047535"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-889194"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889195"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889196"></A>Queries a database and returns a list of values.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889197"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889198"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889199"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889200"></A>query <EM CLASS="Variable">
+sql-exp</EM>
+ &amp;key <EM CLASS="Variable">
+database</EM>
+ <EM CLASS="Variable">
+result-types</EM>
+ <EM CLASS="Variable">
+flatp</EM>
+ =&gt; <EM CLASS="Variable">
+result-list,</EM>
+ <EM CLASS="Variable">
+field-names</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889201"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889203"></A><EM CLASS="Variable">
+sql-exp</EM>
+</P>
+<P CLASS="RDescription-C">A SQL query statement or a prepared-statement containing a query.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-947315"></A><EM CLASS="Variable">
+database</EM>
+</P>
+<P CLASS="RDescription-C">A database.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-947316"></A><EM CLASS="Variable">
+result-types</EM>
+</P>
+<P CLASS="RDescription-C">A list of symbols.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-947317"></A><EM CLASS="Variable">
+flatp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889204"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889205"></A><EM CLASS="Variable">
+result-list</P>
+<P CLASS="RDescription-C"></EM>
+A list of values.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-932810"></A><EM CLASS="Variable">
+field-names</EM>
+</P>
+<P CLASS="RDescription-C">A list of strings.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889206"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-932981"></A>The function <CODE CLASS="Code">
+query</CODE>
+ is the basic SQL query function. It queries the database specified by <EM CLASS="Variable">
+database</EM>
+ with a SQL query statement given by <EM CLASS="Variable">
+sql-exp</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-933360"></A>The argument <EM CLASS="Variable">
+database</EM>
+ defaults to <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-947835"></A><EM CLASS="Variable">
+result-types</EM>
+ is a list of symbols such as <CODE CLASS="Code">
+:string</CODE>
+ and <CODE CLASS="Code">
+:integer</CODE>
+, one for each field in the query, which are used to specify the types to return.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-948000"></A><EM CLASS="Variable">
+flatp</EM>
+ is used as in <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-933450"></A><EM CLASS="Variable">
+result-list</EM>
+ is a list of values as per <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A>, and <EM CLASS="Variable">
+field-names</EM>
+ is a list of field names selected in <EM CLASS="Variable">
+sql-exp</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1052576"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1052712"></A>The following two queries, on a table whose second column contains dates that we want to return as strings, are equivalent:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1052911"></A>(sql:query &quot;select * from some_table&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1052713"></A>           :result-types '(nil :string))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1053716"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1052714"></A>(sql:query [select [*] </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1052715"></A>           :from [some_table] </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1052661"></A>           :result-types '(nil :string)])</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-932985"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-932989"></A><A HREF="lw-1179.htm#26371" CLASS="XRef">do-query</A><BR>
+<A HREF="lw-1185.htm#32625" CLASS="XRef">execute-command</A><BR>
+<A HREF="lw-1196.htm#28604" CLASS="XRef">lob-stream</A><BR>
+<A HREF="lw-1199.htm#16896" CLASS="XRef">loop</A><BR>
+<A HREF="lw-1200.htm#17430" CLASS="XRef">map-query</A><BR>
+<A HREF="lw-1251.htm#97309" CLASS="XRef">prepare-statement</A><BR>
+<A HREF="lw-1257.htm#30104" CLASS="XRef">select</A><BR>
+<A HREF="lw-1259.htm#54409" CLASS="XRef">simple-do-query</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1254.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1252.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

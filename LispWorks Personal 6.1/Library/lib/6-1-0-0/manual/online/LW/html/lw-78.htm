@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.4.1  Functionally equivalent definers
+</TITLE>
+
+<LINK REL="next" HREF="lw-79.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-77.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-77.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-68.htm">7 Dspecs: Tools for Handling Definitions</A> &gt; <A HREF="lw-77.htm">7.4  Types of relations between definitions</A><BR><BR>
+</DIV><A HREF="lw-79.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-77.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-77.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-887796"></A>7.4.1  Functionally equivalent definers</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890107"></A>When one definition form simply macroexpands into another, or otherwise has an identical effect as far as the dspec system is concerned, the dspec system should consider them variant forms of the same class.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890111"></A>Use <A HREF="lw-703.htm#52555" CLASS="XRef">define-dspec-alias</A> to convert one definer to the other during canonicalization. A pre-defined example of this in LispWorks is <CODE CLASS="Code">
+defparameter</CODE>
+ and <CODE CLASS="Code">
+defvar</CODE>
+. These cannot be distinguished (other than in the source code), so <CODE CLASS="Code">
+defparameter</CODE>
+ has been defined as a dspec alias for <CODE CLASS="Code">
+defvar</CODE>
+. However, <CODE CLASS="Code">
+defvar</CODE>
+ and <CODE CLASS="Code">
+defconstant</CODE>
+ are distinct kinds of variable, since we can easily tell which type of definition is in effect by calling the function <CODE CLASS="Code">
+constantp</CODE>
+. To define their dspecs, LispWorks creates a dspec class called <CODE CLASS="Code">
+variable</CODE>
+ and uses it as the superspace argument when defining the <CODE CLASS="Code">
+defvar</CODE>
+ and <CODE CLASS="Code">
+defconstant</CODE>
+ dspec classes.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891239"></A>As an explicit example, suppose you have a defining macro</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891247"></A>(defmacro parameterdef  (value name)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891248"></A>  `(defparameter ,name ,value))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891249"></A>then</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891265"></A>(dspec:define-dspec-alias parameterdef (value name)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891266"></A>  `(defparameter ,name))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-896909"></A>would be a suitable appropriate alias definition. This <A HREF="lw-703.htm#52555" CLASS="XRef">define-dspec-alias</A> form defines the dspec.</P>
+<P CLASS="Body">
+<A NAME="pgfId-896910"></A><A HREF="lw-703.htm#52555" CLASS="XRef">define-dspec-alias</A> is like <CODE CLASS="Code">
+defmacro</CODE>
+ for dspecs, so it could be used to describe complicated conversions, as long as it can be done purely statically and totally in terms of existing dspecs. However, nothing more complicated than <CODE CLASS="Code">
+defparameter</CODE>
+ has been found necessary.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-79.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-77.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-77.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

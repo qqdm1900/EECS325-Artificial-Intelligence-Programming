@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.4  Advice for macros and methods
+</TITLE>
+
+<LINK REL="next" HREF="lw-66.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-64.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-59.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-59.htm">6 The Advice Facility</A><BR><BR>
+</DIV><A HREF="lw-66.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-64.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-59.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886040"></A>6.4  Advice for macros<A NAME="marker-886038"></A> and methods<A NAME="marker-886039"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-886041"></A>As well as attaching advice to ordinary functions, it may also be attached to macros and methods. </P>
+<P CLASS="Body">
+<A NAME="pgfId-886042"></A>In the case of a macro, advice is linked to the macro's expansion function, and so any before or after advice receives a copy of the arguments given to this expansion function (normally the macro call form and an environment). A simple example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886043"></A>CL-USER 45 &gt; (defmacro twice (b) `(+ ,b ,b))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886044"></A>TWICE </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886045"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886046"></A>CL-USER 46 &gt; (defadvice</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886047"></A>         (twice before-twice :before)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886048"></A>         (call-form env)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886049"></A>         (format t</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886050"></A>         &quot;&#126;%Twice with environment &#126;A and call-form  &#126;A&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886051"></A>              env call-form))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886052"></A>NIL </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886053"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886054"></A>CL-USER 47 &gt; (twice 3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886055"></A>Twice with environment NIL and call-form (TWICE 3) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886056"></A>6 </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888102"></A>Note that the advice is invoked when the macro's expansion function is used. So if the macro is present within a function that is being compiled, then the advice is invoked during compilation of that function (and not when that function is finally used).</P>
+<P CLASS="Body">
+<A NAME="pgfId-888104"></A>In the case of a method, the call to <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-888103"></A><A HREF="lw-895.htm#defadvice" CLASS="XRef">defadvice</A> must also specify precisely to which method the advice belongs. A generic function may have several methods, so the call to <A HREF="lw-895.htm#defadvice" CLASS="XRef">defadvice</A> includes a list of classes. This must correspond exactly to the parameter specializers of one of the methods for that generic function, and it is to that method that the advice is attached. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886060"></A>CL-USER 45 &gt; (progn</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886061"></A>             (defclass animal ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886062"></A>              (genus habitat description</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886063"></A>              (food-type :accessor eats)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886064"></A>              (happiness :accessor how-happy)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886065"></A>              (eaten :accessor eaten :initform nil)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886066"></A>             (defclass cat (animal)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886067"></A>              ((food-type :initform 'fish)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886068"></A>             (defclass elephant (animal)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886069"></A>              (memory (food-type :initform 'hay)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886070"></A>             (defmethod feed ((animal animal))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886071"></A>              (let ((food (eats animal)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886072"></A>             (push food (eaten animal))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886073"></A>             (format t &quot;&#126;%Feeding &#126;A with &#126;A&quot; animal</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886074"></A>               food)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886075"></A>            (defmethod feed ((animal cat))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886076"></A>             (let ((food (eats animal)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886077"></A>            (push food (eaten animal))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886078"></A>            (push 'milk (eaten animal))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886079"></A>            (format t &quot;&#126;%Feeding cat &#126;A with &#126;A and &#126;A&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886080"></A>                 animal food 'milk)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886081"></A>            (defvar *cat* (make-instance 'cat))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886082"></A>            (defvar *nellie* (make-instance 'elephant)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886083"></A>*NELLIE* </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886084"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886085"></A>CL-USER 46 &gt; (feed *cat*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886086"></A>Feeding cat #&lt;CAT 6f35d4&gt; with FISH and MILK</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886087"></A>NIL </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886088"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886089"></A>CL-USER 47 &gt; (feed *nellie*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886090"></A>Feeding #&lt;ELEPHANT 71e7bc&gt; with HAY </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886091"></A>NIL </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886092"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886093"></A>CL-USER 48 &gt; (defadvice</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886491"></A>             ((method feed (animal))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886492"></A>              after-feed :after)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886493"></A>             (animal)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886097"></A>             (format t &quot;&#126;%&#126;A has eaten &#126;A&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886098"></A>                       animal (eaten animal)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886099"></A>NIL </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886100"></A>CL-USER 49 &gt; (defadvice</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886101"></A>             ((method feed (cat))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886102"></A>              before-feed :before)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886103"></A>             (animal)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886104"></A>             (format t &quot;&#126;%Stroking &#126;A&quot; animal)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886105"></A>             (setf (how-happy animal) 'high))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886106"></A>NIL </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886107"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886108"></A>CL-USER 50 &gt; (feed *cat*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886109"></A>Stroking #&lt;CAT 6f35d4&gt; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886110"></A>Feeding cat #&lt;CAT 6f35d4&gt; with FISH and MILK </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886111"></A>NIL </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886112"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886113"></A>CL-USER 51 &gt; (feed *nellie*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886114"></A>Feeding #&lt;ELEPHANT 71eb7c&gt; with HAY </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886115"></A>#&lt;ELEPHANT 71eb7c&gt; has eaten (HAY HAY)</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-66.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-64.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-59.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

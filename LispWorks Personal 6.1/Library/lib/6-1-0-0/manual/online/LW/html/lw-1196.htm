@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ lob-stream
+</TITLE>
+
+<LINK REL="next" HREF="lw-1197.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1195.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1197.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1195.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1248918"></A><A NAME="28604"></A>lob<A NAME="marker-1248917"></A>-stream</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1248919"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1248920"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1248921"></A>The LOB stream class.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1248922"></A>Superclasses</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1248923"></A><A HREF="lw-1289.htm#42777" CLASS="XRef">buffered-stream</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1248924"></A>Initargs</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-1248926"></A><CODE CLASS="Code">
+:lob-locator</CODE>
+<A NAME="marker-1248925"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1272745"></A>A LOB locator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1248928"></A><CODE CLASS="Code">
+:direction</CODE>
+<A NAME="marker-1248927"></A></P>
+<P CLASS="RDescription-C">One of <CODE CLASS="Code">
+:input</CODE>
+ or<CODE CLASS="Code">
+:output</CODE>
+.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1273790"></A><CODE CLASS="Code">
+:free-lob-locator-on-close</CODE>
+<A NAME="marker-1273789"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1273827"></A>A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1248949"></A>Accessors</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1248951"></A><A NAME="marker-1248950"></A><CODE CLASS="Code">
+lob-stream-lob-locator</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1248953"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1248954"></A>The class <CODE CLASS="Code">
+lob-stream</CODE>
+ implements LOB streams in the Oracle LOB interface.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1259690"></A>A <CODE CLASS="Code">
+lob-stream</CODE>
+ for input can be returned from <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> or <A HREF="lw-1253.htm#39816" CLASS="XRef">query</A> by specifying <CODE CLASS="Code">
+:input-stream</CODE>
+ as the type to return for the LOB column.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1266870"></A>A <CODE CLASS="Code">
+lob-stream</CODE>
+ for output can be returned from <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> or <A HREF="lw-1253.htm#39816" CLASS="XRef">query</A> by specifying <CODE CLASS="Code">
+:output-stream</CODE>
+ as the type to return for the LOB column.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1259692"></A>A <CODE CLASS="Code">
+lob-stream</CODE>
+ can be attached to an existing LOB locator by creating the stream explicitly. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1272713"></A><EM CLASS="Variable">
+direction</EM>
+ specifies whether the stream is for input or output. The default value of <EM CLASS="Variable">
+direction</EM>
+ is <CODE CLASS="Code">
+:input</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1273925"></A>By default, if the stream is closed the LOB locator is freed, unless <EM CLASS="Variable">
+free-lob-locator-on-close</EM>
+ is passed as <CODE CLASS="Code">
+nil</CODE>
+. The default value of <EM CLASS="Variable">
+free-lob-locator-on-close</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1273967"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1273992"></A>This creates an input stream connected to the LOB locator <EM CLASS="Variable">
+lob-locator</EM>
+: </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1273988"></A>(make-instance 'lob-stream :lob-locator <EM CLASS="Variable">
+lob-locator</EM>
+)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1249049"></A> See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1249053"></A><A HREF="lw-1253.htm#39816" CLASS="XRef">query</A><BR>
+<A HREF="lw-1257.htm#30104" CLASS="XRef">select</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1197.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1195.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

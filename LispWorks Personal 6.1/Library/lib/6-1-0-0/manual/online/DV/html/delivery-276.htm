@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.3.1  Example application bundle delivery script 
+</TITLE>
+
+<LINK REL="next" HREF="delivery-277.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-275.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-275.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-271.htm">12 Example: Delivering CAPI Othello</A> &gt; <A HREF="delivery-275.htm">12.3  Creating a Mac OS X application bundle</A><BR><BR>
+</DIV><A HREF="delivery-277.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-275.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-275.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-857587"></A>12.3.1  Example application bundle delivery script </H3>
+<P CLASS="Body">
+<A NAME="pgfId-857148"></A>Note how this script calls <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A> with the executable path returned by <CODE CLASS="Code">
+hcl:create-macos-application-bundle</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-861053"></A>(in-package &quot;CL-USER&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861054"></A>(load-all-patches)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861055"></A>;; Compile and load othello example code</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861056"></A>(compile-file (example-file &quot;capi/applications/othello&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861057"></A>              :output-file :temp</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861058"></A>              :load t)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861059"></A>;; Create Othello.app and deliver the executable inside it</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861060"></A>(deliver 'play-othello </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861061"></A>         #+:cocoa (create-macos-application-bundle</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861062"></A>                  &quot;&#126;/Desktop/Othello.app&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861063"></A>                  ;; Do not copy file associations</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861064"></A>                  ;;  from LispWorks.app</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861065"></A>                  :document-types nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861066"></A>         #-:cocoa &quot;&#126;/othello&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-859125"></A>         0 :interface :capi)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-859732"></A>In the session below <CODE CLASS="Code">
+script.lisp</CODE>
+ is in the user's home directory. Here is the start and end of the session output in Terminal.app:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-861077"></A>mymac:/Applications/LispWorks 6.1/LispWorks.app/Contents/MacOS % ./lispworks-6-1-0-macos-universal -build &#126;/script.lisp</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861078"></A>LispWorks(R): The Common Lisp Programming Environment</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861079"></A>Copyright (C) 1987-2011 LispWorks Ltd.  All rights reserved.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861080"></A>Version 6.1.0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861081"></A>Saved by LispWorks as lispworks-6-1-0-x86-darwin, at 03 Nov 2011 16:03</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861082"></A>User dubya on mymac</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861083"></A>; Loading text file /Applications/LispWorks 6.1/Library/lib/6-1-0-0/private-patches/load.lisp</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861084"></A>; Loading text file /u/dubya/script.lisp</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861085"></A>;  Loading text file /Applications/LispWorks 6.1/Library/lib/6-1-0-0/private-patches/load.lisp</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861086"></A>;;; Compiling file /Applications/LispWorks 6.1/Library/lib/6-1-0-0/examples/capi/applications/othello ...</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861087"></A>;;; Safety = 3, Speed = 1, Space = 1, Float = 1, Interruptible = 1</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861088"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861089"></A>[... full compilation and delivery output not shown...]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861090"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861091"></A>Shaking stage : Saving image</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861092"></A>Build saving image: /Users/dubya/Desktop/Othello.app/Contents/MacOS/Othello</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861093"></A>Build saved image: /Users/dubya/Desktop/Othello.app/Contents/MacOS/Othello</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-861094"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-861095"></A>Delivery successful - /Users/dubya/Desktop/Othello.app/Contents/MacOS/Othello</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-857346"></A>The last line of the <CODE CLASS="Code">
+deliver</CODE>
+ output shows the full path to the executable, but you should run the application bundle Othello.app via the Finder.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-277.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-275.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-275.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

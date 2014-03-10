@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 17.2  Grammar rules
+</TITLE>
+
+<LINK REL="next" HREF="lw-317.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-315.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-314.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-314.htm">17 The Parser Generator</A><BR><BR>
+</DIV><A HREF="lw-317.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-315.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-314.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-885982"></A>17.2  <A NAME="grammar"></A>Grammar rules</H3>
+<P CLASS="Body">
+<A NAME="pgfId-885984"></A>The parser generator is accessed by the macro <CODE CLASS="Code">
+defparser</CODE>
+, described below:</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-886230"></A><A NAME="marker-886235"></A>defparser</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-886231"></A>Macro</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885985"></A>defparser <EM CLASS="Variable">
+name</EM>
+ {<EM CLASS="Variable">
+rules</EM>
+}*</CODE>
+<P CLASS="Description-Item">
+<A NAME="pgfId-885986"></A><EM CLASS="Variable">
+name</EM>
+ </P>
+<P CLASS="Description-C">The name to be used for the parsing function. The remainder of the macro form specifies the reduction rules and semantic actions for the grammar.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-885987"></A><EM CLASS="Variable">
+rules</EM>
+</P>
+<P CLASS="Description-C">The rules specified in a <CODE CLASS="Code">
+defparser</CODE>
+ form are of two types, <I CLASS="Italic">
+normal rules</I>
+ and <I CLASS="Italic">
+error rules</I>
+, described below.</P>
+<P CLASS="Body">
+<A NAME="pgfId-885988"></A>Each <I CLASS="Italic">
+normal rule</I>
+ corresponds to one production of the grammar to be parsed:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885989"></A>((<EM CLASS="Variable">
+non-terminal</EM>
+ {<EM CLASS="Variable">
+grammar-symbol</EM>
+}*)  {<EM CLASS="Variable">
+form</EM>
+}*)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-885992"></A>The <A NAME="marker-885990"></A><EM CLASS="Variable">
+non-terminal</EM>
+<A NAME="marker-885991"></A> is the left-hand side of the grammar production and the list of grammar symbols defines the right-hand side of the production. (The right-hand side may be empty.) The list of forms specifies the semantic action to be taken when the reduction is made by the parser. These forms may contain references to the variables <CODE CLASS="Code">
+$1 ... $n</CODE>
+, where <CODE CLASS="Code">
+n</CODE>
+ is the length of the right hand side of the production. When the reduction is done, these variables are bound to the semantic values corresponding to the grammar symbols of the rule.</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="lw-317.htm#pgfId-885993" CLASS="Hypertext">17.2.1  Example</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="lw-318.htm#pgfId-886005" CLASS="Hypertext">17.2.2  Resolving ambiguities</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-317.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-315.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-314.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

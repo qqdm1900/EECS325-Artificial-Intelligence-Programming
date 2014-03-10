@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.6  Synchronization between threads 
+</TITLE>
+
+<LINK REL="next" HREF="lw-287.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-285.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-244.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A><BR><BR>
+</DIV><A HREF="lw-287.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-285.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-893780"></A>15.6  <A NAME="44877"></A>Synchronization between threads </H3>
+<P CLASS="Body">
+<A NAME="pgfId-893841"></A>In LispWorks 5.1 and previous versions, the main way to synchronize between threads is to use <A NAME="marker-893842"></A><CODE CLASS="Code">
+mp:process-wait</CODE>
+ or <A NAME="marker-893843"></A><CODE CLASS="Code">
+mp:process-wait-with-timeout</CODE>
+ to supply a predicate to the scheduler. The predicate runs periodically in the background to identify threads that are no longer blocked.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893844"></A>These functions are still available, but there are some alternatives that can be more efficient in many cases by removing the need for the scheduler. The alternatives are:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-893845"></A>Mailboxes (FIFO queues). See <A HREF="lw-1058.htm#37778" CLASS="XRef">make-mailbox</A> and <A HREF="lw-1052.htm#37933" CLASS="XRef">mailbox-send</A>.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-893846"></A>Condition Variables (used with a lock). See <A HREF="lw-287.htm#75086" CLASS="XRef">Condition variables</A>.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-893962"></A>Barriers (counting arrivals at a certain point in the code). See <A HREF="lw-288.htm#82662" CLASS="XRef">Synchronization barriers</A>.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-893848"></A>Counting Semaphores (limiting the number of users of a shared resource). See <A HREF="lw-289.htm#69010" CLASS="XRef">Counting semaphores</A></LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-898045"></A>Access to all of these objects is atomic and does not require additional locks (except for the lock that is already used with a condition variable).</P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="lw-287.htm#pgfId-893997" CLASS="Hypertext">15.6.1  Condition variables</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="lw-288.htm#pgfId-894007" CLASS="Hypertext">15.6.2  Synchronization barriers</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="lw-289.htm#pgfId-893890" CLASS="Hypertext">15.6.3  Counting semaphores</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-287.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-285.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-dde-conversation
+</TITLE>
+
+<LINK REL="next" HREF="lw-1507.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1505.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1485.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1485.htm">43 The  DDE client interface</A><BR><BR>
+</DIV><A HREF="lw-1507.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1505.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1485.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1038103"></A><A NAME="32979"></A>with<A NAME="marker-1038102"></A>-dde-conversation</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1038104"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890522"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890523"></A>Dynamically binds a conversation to a server across a given body of code.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890524"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-890525"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890526"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-890527"></A>with-dde-conversation (<EM CLASS="Variable">
+conv</EM>
+ <EM CLASS="Variable">
+service</EM>
+ <EM CLASS="Variable">
+topic</EM>
+ &amp;key <EM CLASS="Variable">
+errorp</EM>
+ <EM CLASS="Variable">
+new-conversation-p</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890528"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890529"></A><EM CLASS="Variable">
+conv</EM>
+</P>
+<P CLASS="RDescription-C">A conversation object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890530"></A><EM CLASS="Variable">
+service</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890531"></A><EM CLASS="Variable">
+topic</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890532"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890533"></A><EM CLASS="Variable">
+new-conversation-p</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-890534"></A>A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890535"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">A list of Lisp forms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890536"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890537"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890538"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890539"></A>The macro <CODE CLASS="Code">
+with-dde-conversation</CODE>
+ dynamically binds a conversation with a server across the scope of a body of code specified by <EM CLASS="Variable">
+body</EM>
+. The argument <EM CLASS="Variable">
+conv</EM>
+ is bound to a conversation with the server specified by <EM CLASS="Variable">
+service</EM>
+, and the topic specified by <EM CLASS="Variable">
+topic</EM>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-895329"></A>If <EM CLASS="Variable">
+server</EM>
+ names a client service registered with <CODE CLASS="Code">
+define-dde-client</CODE>
+, the registered service name is used as the DDE service name. If <EM CLASS="Variable">
+server</EM>
+ is any other symbol, the print name of the symbol is used as the DDE service name. If <EM CLASS="Variable">
+server</EM>
+ is a string, that string is used as the DDE service name.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-895321"></A>The <EM CLASS="Variable">
+topic</EM>
+ argument specifies the DDE topic name to be used in the conversation. If it is a symbol, the symbol's print name is used. If it is a string, the string is used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-895310"></A>An existing conversation may be used, if available, unless <EM CLASS="Variable">
+new-conversation-p</EM>
+ is true, in which case a new conversation is always created.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-890543"></A>If a new conversation is created, it is disconnected after <EM CLASS="Variable">
+body</EM>
+ has executed as an implicit program.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-890544"></A>If a conversation cannot be established, the result returned by the function depends on the value of <EM CLASS="Variable">
+errorp</EM>
+. If <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ (the default value), then LispWorks signals an error. If <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, the body is not executed, and <CODE CLASS="Code">
+nil</CODE>
+ is returned.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-895687"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-895697"></A><A HREF="lw-1505.htm#34026" CLASS="XRef">define-dde-client</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1507.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1505.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1485.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

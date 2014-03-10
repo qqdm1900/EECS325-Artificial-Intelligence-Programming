@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.5  Debugger troubleshooting
+</TITLE>
+
+<LINK REL="next" HREF="lw-33.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-31.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-22.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-22.htm">3 The Debugger</A><BR><BR>
+</DIV><A HREF="lw-33.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-31.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-22.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-892764"></A>3.5  <A NAME="marker-892913"></A><A NAME="56553"></A>Debugger troubleshooting</H3>
+<P CLASS="Body">
+<A NAME="pgfId-892785"></A>Code which modifies the readtable case of the readtable can hinder debugger interaction. This is because standard commands entered as lowercase <CODE CLASS="Code">
+:a</CODE>
+ for example will not be recognized if the readtable case is <CODE CLASS="Code">
+:preserve</CODE>
+ or <CODE CLASS="Code">
+:downcase</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-892789"></A>You can use <A NAME="marker-892922"></A><A HREF="lw-697.htm#29560" CLASS="XRef">with-debugger-wrapper</A> together with <CODE CLASS="Code">
+with-standard-io-syntax</CODE>
+ to enable the debugger to recognize such input if the code in <EM CLASS="Variable">
+body</EM>
+ should enter the debugger, like this:</P>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892794"></A>(defun my-debugger-wrapper (func condition)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892795"></A>  (with-standard-io-syntax</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892796"></A>    (funcall func condition)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892797"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892798"></A>(dbg:with-debugger-wrapper</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892799"></A>    'my-debugger-wrapper</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892800"></A>  (let ((*readtable* (some-modified-readtable)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892801"></A>    <EM CLASS="Variable">body</EM>
+))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-33.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-31.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-22.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

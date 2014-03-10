@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.14  Variables
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-156.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-154.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-136.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A> &gt <A HREF="eduser-m-136.htm">6.3  Programming the editor</A><BR><BR>
+</DIV><A HREF="eduser-m-156.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-154.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-903685"></A>6.3.14  <A NAME="marker-903684"></A>Variables</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-903693"></A><A NAME="53389"></A>editor:<A NAME="marker-903914"></A>define-editor-variable</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-903731"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-903727"></A>editor:define-editor-variable <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+value</EM>
+ &amp;optional <EM CLASS="Variable">
+documentation</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903694"></A>Defines an editor variable.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-903695"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="Description-C">Symbol naming the variable.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-903697"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="Description-C">The value to assign to the variable.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-903698"></A><EM CLASS="Variable">
+mode</EM>
+</P>
+<P CLASS="Description-C">A string naming a mode.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-903699"></A><EM CLASS="Variable">
+documentation</EM>
+</P>
+<P CLASS="Description-C">A documentation string.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903700"></A>The macro <CODE CLASS="Code">
+editor:define-editor-variable</CODE>
+ defines a global editor variable. There is only one global value, so repeated uses of <CODE CLASS="Code">
+editor:define-editor-variable</CODE>
+ overwrite each other.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903841"></A><CODE CLASS="Code">
+editor:define-editor-variable</CODE>
+ gives a readable value of defining a variable, and is recognized by the LispWorks source code location system. However variables can also be defined dynamically by calling <CODE CLASS="Code">
+(setf editor:variable-value)</CODE>
+. Variable values may be accessed by <A HREF="eduser-m-155.htm#45346" CLASS="XRef">editor:variable-value</A>.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903845"></A>A variable has only one string of documentation associated with it. <A HREF="eduser-m-155.htm#45346" CLASS="XRef">editor:variable-value</A> overwrites the existing documentation string, if there is any.  You can see the documentation by the command <A HREF="eduser-m-37.htm#43909" CLASS="XRef">Describe Editor Variable</A>. It can can be accessed programmatically by <A HREF="eduser-m-155.htm#23611" CLASS="XRef">editor:editor-variable-documentation</A>.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903768"></A>	Note: for backwards compatibility <EM CLASS="Variable">
+name</EM>
+ can also be a string, which is converted to a symbol by uppercasing, replacing <CODE CLASS="Code">
+#&#92;Space</CODE>
+ by <CODE CLASS="Code">
+#&#92;-</CODE>
+, and interning in the EDITOR package. This may lead to clashes and so you should use a symbol for <EM CLASS="Variable">
+name</EM>
+, not a string.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-903703"></A>editor:<A NAME="marker-903909"></A>define-editor-mode-variable</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-903739"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-903704"></A>editor:define-editor-mode-variable <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+mode</EM>
+ <EM CLASS="Variable">
+value</EM>
+ &amp;optional <EM CLASS="Variable">
+documentation</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903705"></A>Defines an editor variable in the specified mode.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-903707"></A><EM CLASS="Variable">
+mode</EM>
+</P>
+<P CLASS="Description-C">A string naming a mode.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-903987"></A><EM CLASS="Variable">
+name, value</P>
+<P CLASS="Description-C"></EM>
+As for <A HREF="eduser-m-155.htm#53389" CLASS="XRef">editor:define-editor-variable</A>.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-903994"></A><EM CLASS="Variable">
+documentation</P>
+<P CLASS="Description-C"></EM>
+As for <A HREF="eduser-m-155.htm#53389" CLASS="XRef">editor:define-editor-variable</A>, except that <CODE CLASS="Code">
+editor:define-editor-mode-variable</CODE>
+ installs the documentation only if the editor variable does not already have any documentation. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903708"></A><CODE CLASS="Code">
+editor:define-editor-mode-variable</CODE>
+ defines a variable in the specified mode. There is one value per variable per mode.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903972"></A><CODE CLASS="Code">
+editor:define-editor-mode-variable</CODE>
+ gives a readable value of defining a variable in a mode, and is recognized by the LispWorks source code location system. However mode variables can also be defined dynamically by calling <CODE CLASS="Code">
+(setf editor:variable-value)</CODE>
+. Mode variable values may be accessed by <A HREF="eduser-m-155.htm#45346" CLASS="XRef">editor:variable-value</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-903712"></A><A NAME="23611"></A>editor:<A NAME="marker-903904"></A>editor-variable-documentation</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-903722"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-903718"></A>editor:editor-variable-documentation <EM CLASS="Variable">
+editor-variable-name</EM>
+</CODE>
+<P CLASS="Description">
+<A NAME="pgfId-904041"></A><EM CLASS="Variable">
+editor-variable-name</EM>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-904046"></A>A symbol naming an editor variable. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903714"></A>Returns the documentation associated with the editor variable, if any.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-904061"></A>Note: For backwards compatibility a string <EM CLASS="Variable">
+editor-variable-name</EM>
+ is also accepted, as described for <A HREF="eduser-m-155.htm#53389" CLASS="XRef">editor:define-editor-variable</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-903689"></A><A NAME="45346"></A>editor:<A NAME="marker-903688"></A>variable-value</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884153"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885199"></A>editor:variable-value <EM CLASS="Variable">
+name</EM>
+ &amp;optional <EM CLASS="Variable">
+kind</EM>
+ <EM CLASS="Variable">
+where</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903443"></A>Returns the value of the editor variable <EM CLASS="Variable">
+name</EM>
+, where <EM CLASS="Variable">
+name</EM>
+ is a symbol. An error is signalled if the variable is undefined. The argument <EM CLASS="Variable">
+kind</EM>
+ can take the value <CODE CLASS="Code">
+:current</CODE>
+, <CODE CLASS="Code">
+:buffer</CODE>
+, <CODE CLASS="Code">
+:global</CODE>
+ or <CODE CLASS="Code">
+:mode</CODE>
+. The default value of <EM CLASS="Variable">
+kind</EM>
+ is <CODE CLASS="Code">
+:current</CODE>
+. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903444"></A>When <EM CLASS="Variable">
+kind</EM>
+ is <CODE CLASS="Code">
+:current</CODE>
+ the argument <EM CLASS="Variable">
+where</EM>
+ should be <CODE CLASS="Code">
+nil</CODE>
+ (the default, meaning the current buffer) or an editor buffer object or the name of a buffer. The variable value for the specified buffer is returned or (if there is no current buffer) then the global variable value is returned.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903405"></A><EM CLASS="Variable">
+kind</EM>
+ can also be <CODE CLASS="Code">
+:buffer</CODE>
+, and then <EM CLASS="Variable">
+buffer</EM>
+ should be an editor buffer object.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884155"></A>For example, the code given below will, by default, return the value <CODE CLASS="Code">
+:ask-user</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-899570"></A>(editor:variable-value </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884157"></A>  'editor:add-newline-at-eof-on-writing-file)</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884158"></A>The value of variables may also be altered using this function. For example, the code given below will allow buffers to be saved to file without any prompt for a missing newline.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-899578"></A>(setf</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899579"></A>   (editor:variable-value </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899580"></A>      'editor:add-newline-at-eof-on-writing-file)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884162"></A>    nil)</PRE>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884164"></A>editor:<A NAME="marker-884163"></A>variable-value-if-bound</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884165"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885189"></A>editor:variable-value-if-bound <EM CLASS="Variable">
+name</EM>
+ &amp;optional <EM CLASS="Variable">
+kind</EM>
+ <EM CLASS="Variable">
+where</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884166"></A>Returns the value of the variable <EM CLASS="Variable">
+name</EM>
+. If the variable is not bound, <CODE CLASS="Code">
+nil</CODE>
+ is returned.<EM CLASS="Variable">
+ </EM>
+The arguments are as for <A HREF="eduser-m-155.htm#45346" CLASS="XRef">editor:variable-value</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-903511"></A>editor:<A NAME="marker-903510"></A>buffer-value</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-903512"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-903513"></A>editor:buffer-value <EM CLASS="Variable">
+buffer</EM>
+ <EM CLASS="Variable">
+name</EM>
+ &amp;optional <EM CLASS="Variable">
+errorp</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903514"></A>Accesses the value of the editor variable <EM CLASS="Variable">
+name</EM>
+ in the buffer specified by <EM CLASS="Variable">
+buffer</EM>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903539"></A><EM CLASS="Variable">
+name</EM>
+ should be a symbol and <EM CLASS="Variable">
+buffer</EM>
+ should be a point object or a buffer object.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903523"></A>If the editor variable is undefined and <EM CLASS="Variable">
+errorp</EM>
+ is true, an error is signalled. If the variable is undefined and <EM CLASS="Variable">
+errorp</EM>
+ is false, <CODE CLASS="Code">
+nil</CODE>
+ is returned. The default value of <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-156.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-154.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

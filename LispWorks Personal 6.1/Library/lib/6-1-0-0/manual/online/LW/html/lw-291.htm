@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.7.1  Timers and multiprocessing
+</TITLE>
+
+<LINK REL="next" HREF="lw-292.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-290.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-290.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-290.htm">15.7  Timers</A><BR><BR>
+</DIV><A HREF="lw-292.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-290.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-290.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-890064"></A>15.7.1  <A NAME="marker-890094"></A>Timers and multiprocessing</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890841"></A>Timers run in unpredictable threads, therefore it is not safe to run code that interacts with the user directly. The recommended solution is something like</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-890842"></A>(mp:schedule-timer-relative</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890843"></A> (mp:make-timer 'capi:execute-with-interface</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890844"></A>                <EM CLASS="Variable">interface</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890845"></A>                'capi:display-message &quot;Time's up&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890846"></A> 5)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-890847"></A>or</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-890944"></A>(mp:schedule-timer</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890945"></A> (mp:make-timer 'capi:execute-with-interface</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890946"></A>                <EM CLASS="Variable">interface</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890947"></A>                'capi:display-message &quot;Lunchtime&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890852"></A> (* 4 60 60))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-890839"></A>where <EM CLASS="Variable">
+interface</EM>
+ is an existing CAPI interface on the screen.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890970"></A>Timers actually run in the process that is current when the scheduled time is reached. This is likely to be The Idle Process in cases where LispWorks is sleeping, but it is inherently unpredictable.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-292.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-290.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-290.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

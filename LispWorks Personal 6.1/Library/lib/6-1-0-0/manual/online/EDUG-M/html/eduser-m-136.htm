@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3  Programming the editor
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-137.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-135.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-133.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A><BR><BR>
+</DIV><A HREF="eduser-m-137.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-135.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-133.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-883901"></A>6.3  <A NAME="47136"></A><A NAME="marker-883899"></A>Programming the editor</H3>
+<P CLASS="Body">
+<A NAME="pgfId-883902"></A>The editor functions described in this section can be combined and provided with arguments to create new commands.</P>
+<P CLASS="Body">
+<A NAME="pgfId-906503"></A>Existing editor commands can also be used in the creation of new commands. Every editor command documented in this manual is named by a string <EM CLASS="Variable">
+command</EM>
+ which can be used to invoke the command interactively, but there is also associated with this a standard Lisp function (the &quot;command function&quot;) named by a symbol exported from the editor package. You can use this symbol to call the command programmatically. For example, the editor command <A HREF="eduser-m-46.htm#36739" CLASS="XRef">Forward Character</A> is referred to by <CODE CLASS="Code">
+editor:forward-character-command</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-906789"></A>The first argument of any command function is the prefix argument <EM CLASS="Variable">
+p</EM>
+, and this must therefore be included in any programmatic call, even if the prefix argument is ignored. Some commands have additional optional arguments. For example to insert 42 #&#92;! characters, you would call</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-906792"></A>(editor:self-insert-command 42 #&#92;!)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-906501"></A>Details of these optional arguments are provided in the command descriptions throughout this manual.</P>
+<P CLASS="Body">
+<A NAME="pgfId-906813"></A>See <A HREF="eduser-m-138.htm#26922" CLASS="XRef">editor:defcommand</A> for the details of how to create new commands.</P>
+<P CLASS="Body">
+<A NAME="pgfId-883904"></A>Note: the code found in this chapter is included in the <CODE CLASS="Code">
+examples/editor</CODE>
+ directory in the LispWorks library.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888559"></A>Note: code which modifies the contents of a <CODE CLASS="Code">
+capi:editor-pane</CODE>
+ (for example a displayed editor buffer) must be run only in the interface process of that pane.</P>
+<P CLASS="Body">
+<A NAME="pgfId-883905"></A>The following sections describe editor functions that are not interactive editor commands. </P>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-137.htm#pgfId-902275" CLASS="Hypertext">6.3.1  Calling editor functions</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-138.htm#pgfId-883907" CLASS="Hypertext">6.3.2  Defining commands</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-139.htm#pgfId-883923" CLASS="Hypertext">6.3.3  Buffers</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-142.htm#pgfId-901995" CLASS="Hypertext">6.3.4  Points</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-143.htm#pgfId-883966" CLASS="Hypertext">6.3.5  The echo area</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-144.htm#pgfId-883976" CLASS="Hypertext">6.3.6  Editor errors</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-145.htm#pgfId-883994" CLASS="Hypertext">6.3.7  Files</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-149.htm#pgfId-884016" CLASS="Hypertext">6.3.8  Inserting text</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-150.htm#pgfId-888438" CLASS="Hypertext">6.3.9  Indentation</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-151.htm#pgfId-884026" CLASS="Hypertext">6.3.10  Lisp</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-152.htm#pgfId-884038" CLASS="Hypertext">6.3.11  Movement</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-153.htm#pgfId-884113" CLASS="Hypertext">6.3.12  Prompting the user</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-154.htm#pgfId-906117" CLASS="Hypertext">6.3.13  In-place completion</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-155.htm#pgfId-903685" CLASS="Hypertext">6.3.14  Variables</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-156.htm#pgfId-884171" CLASS="Hypertext">6.3.15  Windows</A></H4>
+<H4 CLASS="FM2HeadingTOC">
+<A HREF="eduser-m-157.htm#pgfId-884182" CLASS="Hypertext">6.3.16  Examples</A></H4>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-137.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-135.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-133.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

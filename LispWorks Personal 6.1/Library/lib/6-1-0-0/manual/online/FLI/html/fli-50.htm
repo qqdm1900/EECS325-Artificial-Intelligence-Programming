@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.2.5  Calling a C function that takes an array of strings
+</TITLE>
+
+<LINK REL="next" HREF="fli-51.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-49.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-45.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A> &gt; <A HREF="fli-45.htm">4.2  Modifying, passing and returning strings</A><BR><BR>
+</DIV><A HREF="fli-51.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-49.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-897040"></A>4.2.5  <A NAME="31319"></A>Calling a C function that takes an array of strings</H3>
+<P CLASS="Body">
+<A NAME="pgfId-897042"></A>Suppose you have a C function declared like this:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-897043"></A>extern &quot;C&quot; void foo( const char** StringArray);</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-897045"></A>To call this from Lisp you need to first allocate the foreign memory for each piece of data, that is the array itself and each string. Assuming that <CODE CLASS="Code">
+foo</CODE>
+ does not capture any of the pointers, you can give this memory dynamic extent as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-897046"></A>(defun convert-to-dynamic-foreign-array (strings)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897047"></A>  (let* ((count (length strings))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897048"></A>         (array</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897049"></A>          (fli:allocate-foreign-object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897050"></A>           :nelems (1+ count) ; assume NULL terminated</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897051"></A>           :type '(:pointer :char))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897052"></A>    (dotimes (index count)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897053"></A>      (setf (fli:dereference array :index index)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897054"></A>            (fli:convert-to-dynamic-foreign-string</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897055"></A>             (elt strings index))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897056"></A>    (setf (fli:dereference array :index count) nil)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897057"></A>    array))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897075"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897058"></A>(fli:define-foreign-function (%foo foo)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897059"></A>    ((string-array (:pointer (:pointer :char)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-897060"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899639"></A>(defun foo (strings)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899640"></A>  (fli:with-dynamic-foreign-objects ()  ; provide a dynamic scope</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-899972"></A>    (%foo (convert-to-dynamic-foreign-array strings))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-900009"></A>Here is a similar example converting Lisp strings to <CODE CLASS="Code">
+**char</CODE>
+ or <CODE CLASS="Code">
+*char[]</CODE>
+ which by default allocates using <CODE CLASS="Code">
+malloc</CODE>
+ (the value <CODE CLASS="Code">
+:static</CODE>
+ for the <EM CLASS="Variable">
+allocation</EM>
+ argument):</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-900020"></A>(defun convert-strings-to-foreign-array (strings &amp;key </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900021"></A>                                                 (allocation :static))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900022"></A>  (let* ((count (length strings))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900023"></A>         (array (fli:allocate-foreign-object </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900024"></A>                 :type '(:pointer (:unsigned :char))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900025"></A>                 :nelems (1+ count)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900026"></A>                 :initial-element nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900027"></A>                 :allocation allocation)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900028"></A>    (loop for index from 0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900029"></A>          for string in strings</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900030"></A>          do (setf (fli:dereference array :index index)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900031"></A>                   (fli:convert-to-foreign-string</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900032"></A>                    string</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900033"></A>                    :external-format :utf-8</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-900034"></A>                    :allocation allocation)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-899811"></A>    array))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-899934"></A>If you call it frequently, then you will probably want to free the array (and the strings inside it).  Alternatively, you can give the array and its strings dynamic scope if the foreign side does not keep a pointer to the data, like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-899884"></A>(fli:with-dynamic-foreign-objects ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899885"></A>  (let ((array (convert-strings-to-foreign-array </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899886"></A>                strings :allocation :dynamic)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-899959"></A>    (%foo array)))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-51.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-49.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

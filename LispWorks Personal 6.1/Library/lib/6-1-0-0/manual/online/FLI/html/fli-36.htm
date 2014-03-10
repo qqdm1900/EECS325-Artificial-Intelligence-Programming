@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.1.2  Copying pointers
+</TITLE>
+
+<LINK REL="next" HREF="fli-37.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-35.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-34.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-33.htm">3 FLI Pointers</A> &gt; <A HREF="fli-34.htm">3.1  Creating and copying pointers</A><BR><BR>
+</DIV><A HREF="fli-37.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-35.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-885993"></A>3.1.2  <A NAME="94003"></A>Copying pointers</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888041"></A>Suppose the Lisp variable <CODE CLASS="Code">
+point3</CODE>
+ is bound to a FLI pointer as in <A HREF="fli-35.htm#27534" CLASS="XRef">Creating pointers</A>. To make a copy of the pointer it is not sufficient to do the following:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886001"></A>(setq point4 point3)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886004"></A>This simply sets <CODE CLASS="Code">
+point4</CODE>
+ to contain the same pointer object as <CODE CLASS="Code">
+point3</CODE>
+. Thus if the pointer is changed using <CODE CLASS="Code">
+point3</CODE>
+, a similar change is observed when looking in <CODE CLASS="Code">
+point4</CODE>
+. To create a distinct copy of the pointer object you should use <A HREF="fli-82.htm#16376" CLASS="XRef">copy-pointer</A>, which<A NAME="marker-886698"></A> returns a new pointer object with the same address and type as the old one, as the following example shows.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886005"></A>(setq point5 (fli:copy-pointer point3))</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-37.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-35.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.6.2.2  trace works on function names, not function objects
+</TITLE>
+
+<LINK REL="next" HREF="lw-59.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-57.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-56.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-39.htm">5 The Trace Facility</A> &gt; <A HREF="lw-54.htm">5.6  Troubleshooting tracing</A> &gt; <A HREF="lw-56.htm">5.6.2  Missing output</A><BR><BR>
+</DIV><A HREF="lw-59.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-57.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-56.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-891734"></A>5.6.2.2  trace works on function names, not function objects</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891702"></A><A HREF="lw-675.htm#58889" CLASS="XRef">trace</A> works by tracing function names, not function objects.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891765"></A>Therefore tracing function objects, for example by </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891703"></A>(trace #'foo)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891704"></A>will not yield any trace output. Instead you need to do</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891766"></A>(trace foo)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891759"></A>Also, if the symbol <CODE CLASS="Code">
+foo</CODE>
+ is traced,  then code which invokes <CODE CLASS="Code">
+foo</CODE>
+ by</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891705"></A>(funcall (symbol-function 'foo) ...)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891809"></A>or equivalently</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891812"></A>(funcall #'foo ...)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891706"></A>will not produce any trace output. You could try something like this instead:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891785"></A>(trace (funcall </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891786"></A>        :when (eq (car *traced-arglist*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891770"></A>                  (symbol-function 'foo))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884490"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-59.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-57.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-56.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ when-let*
+</TITLE>
+
+<LINK REL="next" HREF="lw-998.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-996.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-998.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-996.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1326481"></A><A NAME="55295"></A>when<A NAME="marker-1326652"></A>-let*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1326482"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1326483"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1326484"></A>Executes a body of code if a series of forms evaluates to non-nil, propagating the results of the forms through the body of code.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1326485"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1326486"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1326487"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1326488"></A>when-let* <EM CLASS="Variable">
+bindings</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1326708"></A><EM CLASS="Variable">
+bindings</EM>
+ ::= ((<EM CLASS="Variable">
+var</EM>
+ <EM CLASS="Variable">
+form</EM>
+)*)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1326489"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1326490"></A><EM CLASS="Variable">
+var</EM>
+</P>
+<P CLASS="RDescription-C">A variable whose value is used in the evaluation of <EM CLASS="Variable">
+body</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1326491"></A><EM CLASS="Variable">
+form</EM>
+</P>
+<P CLASS="RDescription-C">A form, which must evaluate to non-nil.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1326492"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">A body of code to be evaluated conditionally on the result of <EM CLASS="Variable">
+form</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1326493"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1326494"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The result of evaluating <EM CLASS="Variable">
+body</EM>
+ using the value <EM CLASS="Variable">
+var</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1326495"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1326496"></A>The macro <CODE CLASS="Code">
+when-let*</CODE>
+ expands into nested <CODE CLASS="Code">
+when-let</CODE>
+ forms.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1326884"></A>The bindings are evaluated in turn as long as each returns non-nil. If the last binding evaluates to non-nil, <EM CLASS="Variable">
+body</EM>
+ is executed. Within the code <EM CLASS="Variable">
+body</EM>
+, each variable <EM CLASS="Variable">
+var</EM>
+ is bound to the result of the corresponding form <EM CLASS="Variable">
+form</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1326497"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1327098"></A>(defmacro divisible (n &amp;rest divisors) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1327099"></A>  `(when-let* ,(loop for div in divisors </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1327100"></A>                     collect (list (gensym) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1327213"></A>                                   (zerop (mod n div)))) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1327214"></A>     t))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1327514"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1327543"></A><A HREF="lw-996.htm#78272" CLASS="XRef">when-let</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-998.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-996.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

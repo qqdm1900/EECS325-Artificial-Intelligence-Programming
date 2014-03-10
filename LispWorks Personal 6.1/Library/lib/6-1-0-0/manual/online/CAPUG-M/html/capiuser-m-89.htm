@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.1  Organizing panes in columns and rows
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-90.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-88.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-88.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-88.htm">7 Laying Out CAPI Panes</A><BR><BR>
+</DIV><A HREF="capiuser-m-90.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-88.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-88.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-884333"></A>7.1  Organizing<A NAME="marker-884876"></A> panes in columns and rows</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884334"></A>You will frequently need to organize a number of different elements in rows and columns. The <A NAME="marker-884335"></A><CODE CLASS="Code">
+column-layout</CODE>
+ and <A NAME="marker-884336"></A><CODE CLASS="Code">
+row-layout</CODE>
+ elements are provided to make this easy.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884877"></A>The following is a simple example showing the use of <CODE CLASS="Code">
+column-layout</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884879"></A>(contain (make-instance 'column-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884882"></A>         :<A NAME="marker-884880"></A>description (<A NAME="marker-884881"></A>list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884343"></A>                      (make-instance 'text-input-pane)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884344"></A>                      (make-instance 'list-panel</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-889756"></A>                              :items '(1 2 3 4 5)))))</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-889763"></A>Figure 7.1  An example of using <CODE CLASS="Code">
+column-layout</CODE>
+<DIV>
+<IMG SRC="capiuser-m-33.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-32.gif">
+</DIV>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-884351"></A>Define the following elements:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-884353"></A>(setq button1 (make-instance 'push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884354"></A>                             :data &quot;Button 1&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884355"></A>                             :callback 'test-callback))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884357"></A>(setq button2 (make-instance 'push-button</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884358"></A>                             :data &quot;Button 2&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884359"></A>                             :callback 'test-callback))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-889784"></A>(setq editor (make-instance 'editor-pane </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884361"></A>                            :text &quot;An editor pane&quot;))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884363"></A>(setq message (make-instance 'display-pane</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884364"></A>                             :text &quot;A display pane&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884366"></A>(setq text (make-instance 'text-input-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884367"></A>                          :title &quot;Text: &quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884369"></A>                          :<A NAME="marker-884368"></A>title-position :left</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884370"></A>                          :callback 'test-callback))</PRE>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-884371"></A>These will be used in the examples throughout the rest of this chapter.</P>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-884373"></A>To arrange any number of elements in a column, create a layout using <CODE CLASS="Code">
+column-layout</CODE>
+, listing the elements you wish to use. For instance, to display <CODE CLASS="Code">
+title</CODE>
+, followed by <CODE CLASS="Code">
+text</CODE>
+ and <CODE CLASS="Code">
+button1</CODE>
+, enter the following into a Listener:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884375"></A>(contain (make-instance '<A NAME="marker-884899"></A>column-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884376"></A>                        :description </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884377"></A>                          (list text button1)))</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884381"></A>Figure 7.2  A number of elements displayed in a column<DIV>
+<IMG SRC="capiuser-m-33.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-34.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884383"></A>To arrange the same elements in a row, simply replace <CODE CLASS="Code">
+column-layout</CODE>
+ in the example above with <A NAME="marker-884900"></A><CODE CLASS="Code">
+row-layout</CODE>
+. If you run this example, close the column layout window first: each CAPI element can only be on the screen once at any time.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884384"></A>Layouts can be given horizontal and vertical scroll bars, if desired; the keywords <CODE CLASS="Code">
+:horizontal-scroll</CODE>
+<A NAME="marker-884385"></A> and <CODE CLASS="Code">
+:vertical-scroll</CODE>
+<A NAME="marker-884386"></A> can be set to <CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+nil</CODE>
+, as necessary.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884388"></A><A NAME="marker-884387"></A>When creating <A NAME="marker-884901"></A>panes which can be resized (for instance, list panels, editor panes and so on) you can specify the size of each pane relative to the others by listing the proportions of each. This can be done via either the <CODE CLASS="Code">
+:y-ratios</CODE>
+<A NAME="marker-884389"></A> keyword (for column layouts) or the <CODE CLASS="Code">
+:x-ratios</CODE>
+<A NAME="marker-884390"></A> keyword (for row layouts).</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884392"></A> (contain (make-instance 'column-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884393"></A>           :description (list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884395"></A>                        (make-instance '<A NAME="marker-884394"></A>display-pane)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884397"></A>                        (make-instance '<A NAME="marker-884396"></A>editor-pane)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884399"></A>                        (make-instance '<A NAME="marker-884398"></A>listener-pane))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884400"></A>           :y-ratios '(1 5 3)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-884401"></A>You may need to resize this window in order to see the size of each pane.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884402"></A>Note that the heights of the three panes are in the proportions specified. The <CODE CLASS="Code">
+:x-ratios</CODE>
+ initarg will adjust the width of panes in a row layout in a similar way.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887957"></A>It is also possible to specify that some panes are fixed at their minimum size whilst others in the same row or column adjust proportionately when the interface is resized:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887989"></A>(contain </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887990"></A> (make-instance </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887991"></A>  'column-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887992"></A>  :description </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887993"></A>  (list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887994"></A>   (make-instance 'editor-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887995"></A>                  :text &quot;Resizable&quot;  </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887996"></A>                  :visible-min-height '(:character 1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887997"></A>   (make-instance 'editor-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887998"></A>                  :text &quot;Fixed&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887999"></A>                  :visible-min-height '(:character 1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888000"></A>   (make-instance 'editor-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888001"></A>                  :text </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888002"></A>                  (format nil &quot;Resizable&#126;%Resizable&#126;%Resizable&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888003"></A>                  :visible-min-height '(:character 3)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888004"></A>  :y-ratios '(1 nil 3)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887971"></A>  ))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888594"></A>To arrange panes in your row or column layout with constant gaps between them, use the <CODE CLASS="Code">
+:gap</CODE>
+ initarg:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888643"></A>(contain </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888644"></A> (make-instance </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888645"></A>  'column-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888646"></A>  :description (list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888647"></A>                (make-instance 'output-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888648"></A>                               :background :red)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888649"></A>                (make-instance 'output-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888650"></A>                               :background :white)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888651"></A>                (make-instance 'output-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888652"></A>                               :background :blue))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888653"></A>  :gap 20</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888667"></A>  :title &quot;Try resizing this window vertically&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888668"></A>  :background :grey))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888609"></A>To create resizable spaces between panes in your row or column layout, use the special value <CODE CLASS="Code">
+nil</CODE>
+ in the layout <EM CLASS="Variable">
+description</EM>
+: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888614"></A>(contain (make-instance 'column-layout</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888615"></A>           :description (list</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888616"></A>                        (make-instance 'output-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888617"></A>                                       :background :red)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888618"></A>                        nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888619"></A>                        (make-instance 'output-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888620"></A>                                       :background :white)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888621"></A>                        nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888622"></A>                        (make-instance 'output-pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888623"></A>                                       :background :blue))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888624"></A>           :y-ratios '(1 1 4 1 1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888625"></A>           :title &quot;Try resizing this window vertically&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888626"></A>           :background :grey))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-90.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-88.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-88.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

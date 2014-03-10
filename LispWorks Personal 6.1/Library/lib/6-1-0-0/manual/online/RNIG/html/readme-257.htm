@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="readme.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.3.2  RPM_INSTALL_PREFIX not set
+</TITLE>
+
+<LINK REL="next" HREF="readme-258.htm" TYPE="text/html">
+<LINK REL="prev" HREF="readme-256.htm" TYPE="text/html">
+<LINK REL="up" HREF="readme-255.htm" TYPE="text/html">
+<LINK REL="top" HREF="readme.htm" TYPE="text/html">
+<LINK REL="contents" HREF="readme-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="readme-485.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="readme.htm">LispWorks Release Notes and Installation Guide</A> &gt; <A HREF="readme-245.htm">12 Troubleshooting, Patches and Reporting Bugs</A> &gt; <A HREF="readme-255.htm">12.3  Troubleshooting on Linux</A><BR><BR>
+</DIV><A HREF="readme-258.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-256.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-255.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-904388"></A>12.3.2  <A NAME="27213"></A>RPM_INSTALL_PREFIX not set</H3>
+<P CLASS="Body">
+<A NAME="pgfId-904396"></A>On Linux, during installation of CLIM, Common SQL, LispWorks ORB or KnowledgeWorks from a secondary rpm file you may see a message similar to this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-904403"></A># rpm --install tmp/lispworks-clim-6.1-1.i386.rpm</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904404"></A>Environment variable RPM_INSTALL_PREFIX not set, setting it to /usr</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904405"></A>LispWorks installation not found in /usr.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904406"></A>error: %pre(lispworks-clim-6.1-1) scriptlet failed, exit status 1</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-904407"></A>error:   install: %pre scriptlet failed (2), skipping lispworks-clim-6.1-1</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-904408"></A>#</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-904419"></A>This is only a problem when LispWorks itself was installed in a non-default location (that is, using the <CODE CLASS="Code">
+--prefix</CODE>
+ RPM option). You would then want to supply that same <CODE CLASS="Code">
+--prefix</CODE>
+ value when installing the secondary rpm. A bug in RPM means that a required environment variable <CODE CLASS="Code">
+RPM_INSTALL_PREFIX</CODE>
+ is not set automically to the supplied value. We have seen this bug in RPM version 4.2, as distributed with RedHat 8 and 9.</P>
+<P CLASS="Body">
+<A NAME="pgfId-904459"></A>The workaround is to set this environment variable explicitly before installing the secondary rpm. For example, if LispWorks was installed like this:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-904470"></A>rpm --install --prefix /usr/lisp lispworks-6.1-1.i386.rpm</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-904457"></A>then you would add CLIM like this (in C shell):</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-904483"></A>setenv RPM_INSTALL_PREFIX /usr/lisp</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-910945"></A>rpm --install --prefix /usr/lisp lispworks-clim-6.1-1.i386.rpm</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Release Notes and Installation Guide - 23 Dec 2011</I></P>
+<P><A HREF="readme-258.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-256.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-255.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

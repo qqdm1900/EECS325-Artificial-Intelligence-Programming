@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ merge-ef-specs
+</TITLE>
+
+<LINK REL="next" HREF="lw-1410.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1408.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1410.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1408.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-965502"></A>merge<A NAME="marker-1212738"></A>-ef-specs</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-940058"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894488"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-894489"></A>Creates a new external format spec from two other external format specs.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894490"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-894491"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894492"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-894493"></A>merge-ef-specs <EM CLASS="Variable">
+ef-spec1 ef-spec2</EM>
+ =&gt; <EM CLASS="Variable">
+ef-spec</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894494"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-894495"></A><EM CLASS="Variable">
+ef-spec1</EM>
+</P>
+<P CLASS="RDescription-C">An external format spec.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1270064"></A><EM CLASS="Variable">
+ef-spec2</EM>
+</P>
+<P CLASS="RDescription-C">An external format spec.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894497"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-894498"></A><EM CLASS="Variable">
+ef-spec</EM>
+</P>
+<P CLASS="RDescription-C">The resultant external format spec created from information in <EM CLASS="Variable">
+ef-spec1</EM>
+ and <EM CLASS="Variable">
+ef-spec2</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-894499"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1270070"></A>The function <CODE CLASS="Code">
+merge-ef-specs</CODE>
+ returns an external format spec constructed by adding information not supplied in <EM CLASS="Variable">
+ef-spec1</EM>
+ from <EM CLASS="Variable">
+ef-spec2</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1270871"></A>Each external format spec argument is either a symbol or a list.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1315271"></A>If <EM CLASS="Variable">
+ef-spec1</EM>
+ and <EM CLASS="Variable">
+ef-spec2</EM>
+ have the same value for their name component (whether they are lists or symbols), return <EM CLASS="Variable">
+ef-spec1</EM>
+ combined with any parameters from <EM CLASS="Variable">
+ef-spec2</EM>
+ that are not specified in <EM CLASS="Variable">
+ef-spec1</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1315275"></A>Otherwise, if <EM CLASS="Variable">
+ef-spec1</EM>
+ is <CODE CLASS="Code">
+:default</CODE>
+ or a list beginning with <CODE CLASS="Code">
+:default</CODE>
+, return <EM CLASS="Variable">
+ef-spec2</EM>
+ with parameters modified to be a union of the parameters from <EM CLASS="Variable">
+ef-spec1</EM>
+ and <EM CLASS="Variable">
+ef-spec2</EM>
+, with those from <EM CLASS="Variable">
+ef-spec1</EM>
+ taking priority.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1315279"></A>Otherwise, return <EM CLASS="Variable">
+ef-spec1</EM>
+ with any <CODE CLASS="Code">
+:eol-style</CODE>
+ parameter from <EM CLASS="Variable">
+ef-spec2</EM>
+ if <EM CLASS="Variable">
+ef-spec1</EM>
+ does not specify <CODE CLASS="Code">
+:eol-style</CODE>
+.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1410.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1408.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

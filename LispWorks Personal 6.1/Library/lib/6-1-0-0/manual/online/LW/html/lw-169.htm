@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.6.1  Breaking pointers from older objects
+</TITLE>
+
+<LINK REL="next" HREF="lw-170.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-168.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-168.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-128.htm">10 Storage Management</A> &gt; <A HREF="lw-168.htm">10.6  Assisting the garbage collector</A><BR><BR>
+</DIV><A HREF="lw-170.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-168.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-168.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-890984"></A>10.6.1  Breaking pointers from older objects</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890737"></A>This is a technique that can be useful when older objects regularly point to newer objects in a lower generation. In such a case, when the lower generation (only) is collected these newer objects will be promoted even if the older objects are not live. All of these objects will not get collected until the higher generation is collected.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890881"></A>This is a general issue with generational garbage collection and, if it causes poor performance in your application, can be addressed along these lines. It is not necessarily a problem in every case where older objects point to newer objects.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891008"></A>For example, suppose you are popping items from a queue represented as a list of conses (or other structures), then you can set the &quot;next&quot; slot of each popped item to <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-890789"></A>In the code below, if the <CODE CLASS="Code">
+queue-head</CODE>
+ cons is promoted to generation <EM CLASS="Variable">
+n</EM>
+, then all the other conses will also be promoted to generation <EM CLASS="Variable">
+n</EM>
+ eventually, until generation <EM CLASS="Variable">
+n</EM>
+ is collected.  This happens even after calls to <CODE CLASS="Code">
+pop-queue</CODE>
+ have removed these conses from the queue.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-890742"></A>(defstruct queue head tail)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890743"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890744"></A>(defun push-queue (item queue)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890745"></A>  (let ((new (cons item nil)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890746"></A>     (if (queue-head queue)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890747"></A>         (setf (cdr (queue-tail queue)) new)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890821"></A>       (setf (queue-head queue) new))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890822"></A>     (setf (queue-tail queue) new)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890826"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890823"></A>(defun pop-queue (queue)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890752"></A>  (pop (queue-head queue)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-890754"></A>The fix is to make <CODE CLASS="Code">
+pop-queue</CODE>
+ set the &quot;next&quot; slot (in this case the <CODE CLASS="Code">
+cdr</CODE>
+) of the discarded <CODE CLASS="Code">
+queue-head</CODE>
+ cons to <CODE CLASS="Code">
+nil</CODE>
+, so that it no longer points from an older object to a newer object. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-890756"></A>(defun pop-queue (queue)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890757"></A>   (when-let (head (queue-head queue))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-890758"></A>     (setf (queue-head queue) (shiftf (cdr head) nil))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-890759"></A>     (car head)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-890733"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-170.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-168.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-168.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

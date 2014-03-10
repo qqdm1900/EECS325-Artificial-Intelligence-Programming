@@ -1,0 +1,471 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 11.2  User interface to the delivery process
+</TITLE>
+
+<LINK REL="next" HREF="delivery-271.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-269.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-268.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-268.htm">11 User Actions in Delivery</A><BR><BR>
+</DIV><A HREF="delivery-271.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-269.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-268.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-857356"></A>11.2  <A NAME="90406"></A>User interface to the delivery process</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-857357"></A><A NAME="93062"></A><EM CLASS="Dingbats">
+</EM>
+<A NAME="marker-857568"></A>delivery-value</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-857358"></A>Function</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853891"></A>Signature: <CODE CLASS="Code">
+delivery-value</CODE>
+ <EM CLASS="Variable">
+deliver-keyword</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853398"></A><CODE CLASS="Code">
+(setf delivery-value)</CODE>
+ assigns a new-value to <EM CLASS="Variable">
+deliver-keyword</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853400"></A>These must be called after <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A> is called. <EM CLASS="Variable">
+deliver-keyword</EM>
+ must be one of the legal keywords to <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A> (which are listed in <A HREF="delivery-70.htm#17410" CLASS="XRef">Alphabetical list of deliver keywords</A>, or can be displayed by calling <A HREF="delivery-270.htm#13931" CLASS="XRef">deliver-keywords</A>).  <CODE CLASS="Code">
+delivery-value</CODE>
+ returns the value associated with this keyword. When <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A> is called, the values associated with each keyword are initialized from the arguments to <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A> or using their default values (which are listed by <A HREF="delivery-270.htm#13931" CLASS="XRef">deliver-keywords</A><CODE CLASS="Code">
+)</CODE>
+, or set to <CODE CLASS="Code">
+nil</CODE>
+. They can be modified later by user actions that were added to the &quot;Delivery actions&quot; action-list, and then by the system. Before starting the shaking operations, the values of the keywords are reset, and <CODE CLASS="Code">
+delivery-value</CODE>
+ cannot be called after the shaking.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853411"></A>(<CODE CLASS="Code">
+setf delivery-value)</CODE>
+ can beused to set the value of a keyword. Since the user actions are done before the system ones, the system actions (which also use <CODE CLASS="Code">
+delivery-value</CODE>
+ to access the keywords value) will see any change that the user actions did. </P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-853417"></A><A NAME="13931"></A><EM CLASS="Dingbats">
+</EM>
+<A NAME="marker-857579"></A>deliver-keywords</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-853932"></A>Function</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853933"></A>Lists the legal keywords to <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A>. If the keyword default is non-nil, it is  printed on the same line. The default is a form that is evaluated if the keyword was not passed to <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A>, in the order that <CODE CLASS="Code">
+deliver-keywords</CODE>
+ prints. <CODE CLASS="Code">
+deliver-keywords</CODE>
+ also prints a short documentation string for each keyword. </P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-853425"></A><EM CLASS="Dingbats">
+</EM>
+<A NAME="marker-857586"></A>delivery-shaker-cleanup</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-853940"></A>Function</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853939"></A>Signature: <CODE CLASS="Code">
+delivery-shaker-cleanup </CODE>
+<EM CLASS="Variable">
+object function</EM>
+<CODE CLASS="Code">
+ </CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853427"></A>Used to define a cleanup function that is called after the shaking operation. <CODE CLASS="Code">
+delivery-shaker-cleanup</CODE>
+ stores a pointer to <EM CLASS="Variable">
+function</EM>
+ and a weak pointer to <EM CLASS="Variable">
+object</EM>
+. After the shaking, the shaker goes through all the object/function pairs, and for each object that is still alive, calls this function with the object as argument. This is used to perform operations that are dependent on the results of the shaking operation. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853435"></A>If the cleanup function has to be called unconditionally, the object should be <CODE CLASS="Code">
+t</CODE>
+. The cleanup function should be a symbol or compiled function/closure, unless the evaluator is kept via <CODE CLASS="Code">
+:keep-eval</CODE>
+.  The shaker performs another round of shaking after calling the cleanup functions, so unless something points to them, they are shaken away before the delivered image is saved. This also means that objects (including symbols) that survived the shaking until the cleanup function is called, but become garbage as a result of the cleanup function, are shaken away as well. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853445"></A>The cleanup function <I CLASS="Italic">
+cannot</I>
+ use <A HREF="delivery-270.htm#93062" CLASS="XRef">delivery-value</A>. If the value of one of the keywords to <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A> is needed in the cleanup function, it has to be stored somewhere (for example, as a value of a symbol, or closed over). It <I CLASS="Italic">
+cannot</I>
+ be bound dynamically around the call to <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A>, because the cleanup function is executed outside the dynamic context in which <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A> is called. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853452"></A>An example:</P>
+<P CLASS="Body">
+<A NAME="pgfId-853454"></A>Suppose the symbol P:X is referred to by objects that are not shaken, but its values are used in function P:Y, which may or may not be shaken. We want to get rid of the value of P:X if the symbol P:Y has been shaken, and set the value of P:X to T if <CODE CLASS="Code">
+:keep-debug-mode</CODE>
+ is passed to <A HREF="delivery-37.htm#24511" CLASS="XRef">deliver</A> and is non-nil, or <CODE CLASS="Code">
+nil </CODE>
+otherwise. </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853461"></A>(defun setup-eliminate-x ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853462"></A>  (let ((new-value (if (delivery-value :keep-debug-mode) t nil)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853463"></A>    (delivery-shaker-cleanup </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853464"></A>     t </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853465"></A>     #'(lambda()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853466"></A>         (unless (find-symbol &quot;Y&quot; &quot;P&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853467"></A>           (let ((sym (find-symbol &quot;X&quot; &quot;P&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853468"></A>             (when sym </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853469"></A>               (set sym new-value))))))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853471"></A>(define-action &quot;Delivery actions&quot; &quot;Eliminate X&quot;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-854696"></A>  'setup-eliminate-X)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853473"></A>This sets up the lambda to be called after the shaking operation.  It will set the value of P:X if the symbol P:Y has been shaken. Notes about the cleanup function: </P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-854009"></A>It does not call <A HREF="delivery-270.htm#93062" CLASS="XRef">delivery-value</A> itself. Instead, it closes over the value. </LI>
+<LI CLASS="Step">
+<A NAME="pgfId-853478"></A>It does not contain pointers to P:X or P:Y. In this case, it is specially important not to keep a pointer to P:Y, because otherwise it is never shaken.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-853481"></A>It does not assume that P:X will survive the shaking. </LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-853483"></A>[The code above assumes the the package &quot;P&quot; is not deleted or smashed ]</P>
+<P CLASS="Body">
+<A NAME="pgfId-857443"></A>The cleanup functions are called <I CLASS="Italic">
+after</I>
+ the operation of <A HREF="delivery-270.htm#69185" CLASS="XRef">delivery-shaker-weak-pointer</A> is complete, and are useful for cleaning up the operations of <A HREF="delivery-270.htm#69185" CLASS="XRef">delivery-shaker-weak-pointer</A>.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-857450"></A><EM CLASS="Dingbats">
+</EM>
+<A NAME="marker-857593"></A><A NAME="69185"></A>delivery-shaker-weak-pointer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-857451"></A>Function</P>
+<P CLASS="Description">
+<A NAME="pgfId-854045"></A>Signature: <CODE CLASS="Code">
+delivery-shaker-weak-pointer</CODE>
+<EM CLASS="Dingbats">
+ </EM>
+<EM CLASS="Variable">
+pointing</EM>
+<EM CLASS="Dingbats">
+ </EM>
+<EM CLASS="Variable">
+accessor</EM>
+<EM CLASS="Dingbats">
+ </EM>
+<CODE CLASS="Code">
+&amp;key</CODE>
+<EM CLASS="Variable">
+ setter remover dead-value pointed</EM>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853494"></A>Used to make a pointer from one object to another weak object during the shaking operation. The operations of <CODE CLASS="Code">
+delivery-shaker-weak-pointer</CODE>
+ are:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-853498"></A>At the time it is called it computes the <EM CLASS="Variable">
+setter</EM>
+ and <EM CLASS="Variable">
+remover</EM>
+ if these are not given, and stores all its arguments for the shaker. </LI>
+<LI CLASS="Step">
+<A NAME="pgfId-853501"></A>Before the shaker starts, the shaker finds the value of the <EM CLASS="Variable">
+pointed</EM>
+ object (if this is not given) using the <EM CLASS="Variable">
+accessor</EM>
+, and stores weak pointers to the <EM CLASS="Variable">
+pointing </EM>
+object and the <EM CLASS="Variable">
+pointed</EM>
+ object. It then uses the <EM CLASS="Variable">
+remover</EM>
+ to remove the pointer from the <EM CLASS="Variable">
+pointing</EM>
+ object. </LI>
+<LI CLASS="Step">
+<A NAME="pgfId-853506"></A>After the main shaking operation, for each pair of <EM CLASS="Variable">
+pointing/pointed </EM>
+objects it checks if both have survived the shaking. If they did, it stores a pointer to the <EM CLASS="Variable">
+pointed</EM>
+ object in <EM CLASS="Variable">
+pointing</EM>
+ using the <EM CLASS="Variable">
+setter</EM>
+.</LI>
+</OL>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853511"></A>Arguments:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-853512"></A><EM CLASS="Variable">
+pointing</P>
+<P CLASS="Description-C"></EM>
+The pointing object. Because of the way <CODE CLASS="Code">
+delivery-shaker-weak-pointer</CODE>
+ is defined, you are free to use your own notion of pointing, for example, it may be the key in a <CODE CLASS="Code">
+hash-table</CODE>
+.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-853516"></A><EM CLASS="Variable">
+accessor</EM>
+ </P>
+<P CLASS="Description-C">The accessor that is called with the pointing object. It returns the pointed object. The <EM CLASS="Variable">
+accessor</EM>
+ is used for two purposes:</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-853518"></A>1. getting the pointed object if it is not given. </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-854115"></A>2. computing the setter if it is not given. </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-853520"></A>If both <CODE CLASS="Code">
+:pointed</CODE>
+ and <CODE CLASS="Code">
+:setter</CODE>
+ are passed to <CODE CLASS="Code">
+delivery-shaker-weak-pointer</CODE>
+, the accessor is not used. The <EM CLASS="Variable">
+accessor</EM>
+ can be one of: </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-854133"></A>A symbol. This specifies a function that is called with the pointing object as its argument. </P>
+<P CLASS="Description-C">
+<A NAME="pgfId-854143"></A>A list starting with a symbol. In this case the <CODE CLASS="Code">
+car</CODE>
+ of the list is called with the <EM CLASS="Variable">
+pointing</EM>
+ object as its first argument, and the <CODE CLASS="Code">
+cdr</CODE>
+ forming the rest of the arguments, that is:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-854155"></A>                (apply (car <EM CLASS="Variable">
+accessor</EM>
+) <EM CLASS="Variable">
+pointing</EM>
+ (cdr <EM CLASS="Variable">
+accessor</EM>
+)) </CODE>
+<P CLASS="Description-C">
+<A NAME="pgfId-854156"></A>For example, if the accessor is <CODE CLASS="Code">
+(slot-value name)</CODE>
+, the call is <CODE CLASS="Code">
+(slot-value </CODE>
+<EM CLASS="Variable">
+pointing</EM>
+<CODE CLASS="Code">
+ name)</CODE>
+, and </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-854167"></A>                (aref 1 2) =&gt;  (aref <EM CLASS="Variable">
+pointing</EM>
+ 1 2). </CODE>
+<P CLASS="Description-Item">
+<A NAME="pgfId-853532"></A><EM CLASS="Variable">
+setter</P>
+<P CLASS="Description-C"></EM>
+If the setter is not given, it is computed by the system using the <EM CLASS="Variable">
+accessor</EM>
+ and the same expansion that <CODE CLASS="Code">
+setf</CODE>
+ would use. If it is given, it has the same properties as the <EM CLASS="Variable">
+accessor</EM>
+, except that in the call the <EM CLASS="Variable">
+pointed</EM>
+ object is inserted before all the arguments. That is, if the setter is <CODE CLASS="Code">
+(set-something </CODE>
+<EM CLASS="Variable">
+name</EM>
+), the call is <CODE CLASS="Code">
+(set-something </CODE>
+<EM CLASS="Variable">
+pointed pointing name</EM>
+<CODE CLASS="Code">
+)</CODE>
+.  In addition, where the <EM CLASS="Variable">
+accessor</EM>
+ accepts a symbol, the <EM CLASS="Variable">
+setter</EM>
+ also accepts a function object.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-853543"></A><EM CLASS="Variable">
+remover</EM>
+</P>
+<P CLASS="Description-C">Default value <CODE CLASS="Code">
+t</CODE>
+<EM CLASS="Dingbats">
+, </EM>
+which means use the <EM CLASS="Variable">
+setter</EM>
+. This is used to remove the <EM CLASS="Variable">
+pointer</EM>
+ from the <EM CLASS="Variable">
+pointing</EM>
+ object. It is called exactly like the <EM CLASS="Variable">
+setter</EM>
+, except that the first argument is <EM CLASS="Variable">
+dead-value</EM>
+, rather than <EM CLASS="Variable">
+pointed.</EM>
+ </P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-853548"></A><EM CLASS="Variable">
+pointed</EM>
+</P>
+<P CLASS="Description-C">This gives the value of the <EM CLASS="Variable">
+pointed</EM>
+ object. If it is not given, the <EM CLASS="Variable">
+accessor</EM>
+ is used to get the <EM CLASS="Variable">
+pointed</EM>
+ object.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-853551"></A><EM CLASS="Variable">
+dead-value</EM>
+</P>
+<P CLASS="Description-C">Default value <CODE CLASS="Code">
+nil</CODE>
+. This the value that is stored by the <EM CLASS="Variable">
+remover </EM>
+in the pointing value before starting the shaking. Note that if the <EM CLASS="Variable">
+pointed</EM>
+ object is shaken, the <EM CLASS="Variable">
+pointing</EM>
+ object is left with the <EM CLASS="Variable">
+dead-value</EM>
+. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853558"></A>Note that between the calls to the <EM CLASS="Variable">
+remover</EM>
+ and the <EM CLASS="Variable">
+setter</EM>
+ (steps 2 and 3 above), the <EM CLASS="Variable">
+pointing</EM>
+ object points to the wrong thing (the <EM CLASS="Variable">
+dead-value</EM>
+). This may cause problems if the object is used by the system during the shaking (this does not happen unless you access objects which you should not access), or if you define more than one <CODE CLASS="Code">
+delivery-shaker-weak-pointer</CODE>
+ on the same object, and one of these uses a slot that has been defined by the other. Thus you have to make sure that you do not cause this situation. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853567"></A><B CLASS="Bold">
+Example 1</B>
+: </P>
+<P CLASS="Body">
+<A NAME="pgfId-854313"></A>Suppose the keys of <CODE CLASS="Code">
+*my-hash-table*</CODE>
+  are conses of an object and a number, and it is desired to remove from <CODE CLASS="Code">
+*my-hash-table*</CODE>
+ those entries where the <CODE CLASS="Code">
+car</CODE>
+ is not pointed to from anywhere else. This can be done by something like this :</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-855289"></A>;;;;--------------------------------------------------------</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855290"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855291"></A>;; This will eliminate all the entries where the car is nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855292"></A>(defun clean-my-hash-table (table)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855293"></A>  (maphash (lambda (x y) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855294"></A>             (declare (ignore y))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855295"></A>             (unless (car x) (remhash x table)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855296"></A>           table))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855297"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855298"></A>;; this will cause the car of any entry where the car is not</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855299"></A>;; pointed to from another object to change to nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855300"></A>(defun shake-my-hash-table ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855301"></A>  (maphash #'(lambda (x y) (declare (ignore y))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855302"></A>               (delivery-shaker-weak-pointer x 'car))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855303"></A>           *my-hash-table*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855304"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855305"></A>;;this will cause clean-my-hash-table to be called later</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855306"></A>;; in the shaking, provided *my-hash-table* is still alive.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855307"></A>(delivery-shaker-cleanup *my-hash-table* 'clean-my-hash-table))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855308"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855309"></A>;; call this function at delivery time</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855310"></A>(define-action &quot;Delivery Actions&quot; &quot;shake my hash table&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855311"></A>             'shake-my-hash-table) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855312"></A> &nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853598"></A>;;;;----------------------------------------------------------</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-855323"></A>If the <CODE CLASS="Code">
+car</CODE>
+ can be <CODE CLASS="Code">
+nil</CODE>
+, the code above removes some entries it should not. In this case the appropriate lines should be changed to:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853602"></A>(delivery-shaker-weak-pointer x 'car :dead-value 'my-dead-value))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-853603"></A>and</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-854293"></A>(when (eq (car x) 'my-dead-value) (remhash x table))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-853605"></A>[ This assumes there are no entries where the <CODE CLASS="Code">
+car </CODE>
+is <CODE CLASS="Code">
+my-dead-value</CODE>
+.]</P>
+<P CLASS="Body">
+<A NAME="pgfId-853607"></A>Note that the cleanup function is not going to be called unless the hash table actually survives the shaking operation. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853610"></A><B CLASS="Bold">
+Example 2:</B>
+ </P>
+<P CLASS="Body">
+<A NAME="pgfId-854317"></A>The value of <CODE CLASS="Code">
+*aaa*</CODE>
+ is a list of objects of type <CODE CLASS="Code">
+a-struct</CODE>
+, which has a slot called <CODE CLASS="Code">
+name</CODE>
+, which points to a symbol. We want to get rid of any of these structures if the symbol is not pointed to by some other object.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853615"></A>Implementation A: </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-854326"></A>Make the pointers from the structures to the names be weak, and have the cleanup function throw away any structure where the name becomes <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853619"></A>(defun clean-*aaa* ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853620"></A>  (loop for a on *aaa*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855260"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853621"></A>(delivery-shaker-weak-pointer a 'a-struct-name))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853622"></A>  (delivery-shaker-cleanup </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854337"></A>   '*aaa* </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854338"></A>   #'(lambda (symbol) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854339"></A>       (set symbol</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853626"></A>             (remove-if-not 'a-struct-name </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854700"></A>               (symbol-value symbol ) )))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855259"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853627"></A>(define-action &quot;Delivery Actions&quot; &quot;Clean aaa&quot; 'clean-*aaa*)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853629"></A>Implementation B: </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-854344"></A>Make a pointer from the symbol to the structure, and make <CODE CLASS="Code">
+*aaa*</CODE>
+ point weakly to the names, and set <CODE CLASS="Code">
+*aaa*</CODE>
+ to <CODE CLASS="Code">
+nil</CODE>
+. The remover and accessor do nothing, and the setter is defined to restore <CODE CLASS="Code">
+*aaa*</CODE>
+. This implementation does not use the cleanup function. </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853634"></A>(defun clean-*aaa* ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853635"></A>  (let ((setter #'(lambda  (name symbol)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853636"></A>                    (set symbol (nconc </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854664"></A>                                (symbol-value symbol) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854665"></A>                                  (list(get name 'a-struct))) )</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853637"></A>                                (remprop name 'a-struct)))) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853639"></A>    (dolist (x *aaa* () </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853640"></A>      (let  ((name  (a-struct-name x)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853641"></A>        (setf (get name 'a-struct)  x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853642"></A>        (delivery-shaker-weak-pointer '*aaa* nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853643"></A>                                      :remover nil </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853644"></A>                                      :pointed name</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853645"></A>                                      :setter setter)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853646"></A>    (setq *aaa* nil)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855258"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853647"></A>(define-action &quot;Delivery actions&quot; &quot;Clean aaa&quot; 'clean-*aaa*)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-852227"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-271.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-269.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-268.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

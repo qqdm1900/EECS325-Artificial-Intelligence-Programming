@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ check-button
+</TITLE>
+
+<LINK REL="next" HREF="capiref-32.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-30.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-32.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-30.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886716"></A><A NAME="20125"></A>check<A NAME="marker-3944245"></A>-button</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886929"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886722"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886888"></A>A check button is a button that can be either selected or deselected, and its selection is independent of the selections of any other buttons.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3944210"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3944211"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886725"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886727"></A><A HREF="capiref-22.htm#19366" CLASS="XRef">button</A><BR>
+<A HREF="capiref-449.htm#12473" CLASS="XRef">titled-object</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886730"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886732"></A>The class <CODE CLASS="Code">
+check-button</CODE>
+ inherits most of its behavior from the class <A HREF="capiref-22.htm#19366" CLASS="XRef">button</A>. Note that it is normally best to use a <A HREF="capiref-32.htm#17659" CLASS="XRef">check-button-panel</A> rather than make the individual buttons yourself, as the button panel provides functionality for handling groups of buttons. However, <CODE CLASS="Code">
+check-button</CODE>
+ can be used if you need to have more control over the button's behavior. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886737"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886739"></A>The following code creates a check button.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4457683"></A>(setq button (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4457684"></A>              (make-instance 'capi:check-button </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-995184"></A>                             :text &quot;Press Me&quot;)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1640172"></A>The button can be selected and deselected using this code.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4457718"></A>(capi:apply-in-pane-process</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4457719"></A> button #'(setf capi:button-selected) t button)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4457720"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4457721"></A>(capi:apply-in-pane-process</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886750"></A> button #'(setf capi:button-selected) nil button)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-995240"></A>The following code disables and enables the button.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4458295"></A>(capi:apply-in-pane-process</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4458296"></A> button #'(setf capi:button-enabled) nil button)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4458297"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4458298"></A>(capi:apply-in-pane-process</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886758"></A> button #'(setf capi:button-enabled) t button)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886762"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886780"></A><A HREF="capiref-334.htm#25158" CLASS="XRef">push-button</A><BR>
+<A HREF="capiref-337.htm#24120" CLASS="XRef">radio-button</A><BR>
+<A HREF="capiref-23.htm#40715" CLASS="XRef">button-panel</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-32.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-30.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.1.3  Allocation of FLI memory
+</TITLE>
+
+<LINK REL="next" HREF="fli-38.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-36.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-34.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-33.htm">3 FLI Pointers</A> &gt; <A HREF="fli-34.htm">3.1  Creating and copying pointers</A><BR><BR>
+</DIV><A HREF="fli-38.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-36.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888084"></A>3.1.3  <A NAME="marker-888130"></A>Allocation of FLI memory</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888090"></A>Foreign objects do take up memory. If a foreign object is no longer needed, it should be deallocated using <A HREF="fli-119.htm#14842" CLASS="XRef">free-foreign-object</A>. This should be done only once for each foreign object, regardless of the number of pointer objects that contain its address. After freeing a foreign object, any pointers or copies of pointers containing its address will give unpredicable results if the memory is accessed.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888050"></A>FLI memory is allocated using <A NAME="marker-888138"></A><CODE CLASS="Code">
+malloc()</CODE>
+ so it comes from the C heap.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888051"></A>The FLI pointer object itself is a Lisp object, but the memory it points to does not show up in the output of <CODE CLASS="Code">
+room</CODE>
+. Therefore you must use Operating System tools to see the virtual address size of the program.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-38.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-36.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

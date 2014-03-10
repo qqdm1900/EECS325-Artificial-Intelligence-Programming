@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.5.1  Making the image smaller
+</TITLE>
+
+<LINK REL="next" HREF="delivery-52.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-50.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-50.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-36.htm">4 Delivering your Application</A> &gt; <A HREF="delivery-50.htm">4.5  How to deliver a smaller and faster application </A><BR><BR>
+</DIV><A HREF="delivery-52.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-50.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-50.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-852320"></A>4.5.1  <A NAME="84455"></A>Making the image smaller</H3>
+<P CLASS="Body">
+<A NAME="pgfId-854331"></A>You can specify that the image be made smaller in two complementary ways:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-852321"></A>By increasing the delivery level. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-861701"></A>This is the simplest way to make the image smaller. As you increase the <A NAME="marker-859821"></A>delivery level, delivery employs different and increasingly severe strategies. </P>
+<LI CLASS="Step">
+<A NAME="pgfId-852323"></A>By specifying what to remove and what to keep, using keyword arguments to <CODE CLASS="Code">
+deliver</CODE>
+.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-854428"></A>This is a more complicated way to control image size, and should only be resorted to if there are problems or not enough savings can be achieved by simply increasing the delivery level. These keywords are documented in <A HREF="delivery-55.htm#64250" CLASS="XRef">Keywords to the Delivery Function</A>.</P>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-852324"></A>These two approaches are based upon the same mechanism: <A NAME="marker-859822"></A>delivery levels are in fact nothing more than different combinations of keyword parameters. But when you specify a delivery level and at the same time pass keyword values, the values you pass override any settings forced by the delivery level. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855962"></A>As an example of how explicit directions to Delivery can be necessary for effective delivery, consider the general addition function, <CODE CLASS="Code">
++</CODE>
+. The internal representation of the function contains references to functions that carry out complex number arithmetic, since <CODE CLASS="Code">
++</CODE>
+ has to use them if it is given complex arguments. If you know your application does not ever pass complex arguments to <CODE CLASS="Code">
++</CODE>
+, you should probably remove those functions from the delivered image.</P>
+<P CLASS="Body">
+<A NAME="pgfId-855963"></A>Delivery cannot decide for itself that you do not pass <CODE CLASS="Code">
++</CODE>
+ any complex arguments, and so does not delete the complex number functions. You can tell Delivery to do so explicitly, by passing <CODE CLASS="Code">
+:keep-complex-numbers nil</CODE>
+ to <CODE CLASS="Code">
+deliver</CODE>
+. (See page <A HREF="delivery-109.htm#43592" CLASS="XRef">:keep-complex-numbers</A> for a discussion of this keyword.)</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-52.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-50.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-50.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

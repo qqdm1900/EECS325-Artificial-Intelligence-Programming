@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.4  Example
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-230.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-228.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-222.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-222.htm">12 The Tracer</A><BR><BR>
+</DIV><A HREF="ide-m-230.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-228.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-222.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-871218"></A>12.4  Example</H3>
+<P CLASS="Body">
+<A NAME="pgfId-871220"></A>This section shows an example of tracing two functions and examining the output.</P>
+<P CLASS="Body">
+<A NAME="pgfId-871221"></A>Define the following functions</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-871222"></A>(defun foo (x y) (bar y x))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871357"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-871223"></A>(defun bar (x y) (values (vector x y) (list y x)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-871664"></A>in a Listener and start the Tracer tool. The trace these functions by entering <CODE CLASS="Code">
+foo</CODE>
+ into the Trace pane of the Tracer and pressing <CODE CLASS="Code">
+Return</CODE>
+ or clicking the <IMG SRC="ide-m-159.gif" ALIGN="ABSBOTTOM">
+ button. Notice that the symbol name appears in the <B CLASS="Button">
+Traced Functions:</B>
+ area.</P>
+<P CLASS="Body">
+<A NAME="pgfId-879435"></A>Do the same for <CODE CLASS="Code">
+bar</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId-879752"></A>For longer function names, you might find it useful to type just a few characters and then press <CODE CLASS="Code">
+Up</CODE>
+ or <CODE CLASS="Code">
+Down</CODE>
+ to invoke in-place completion.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-879731"></A>Figure 12.1  The Trace State view showing <CODE CLASS="Code">
+bar</CODE>
+ and <CODE CLASS="Code">
+foo</CODE>
+<DIV>
+<IMG SRC="ide-m-161.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="ide-m-160.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-871671"></A>Then call</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-871228"></A>(foo 100 200)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-871229"></A>in the Listener. You will see output something like this printed in the Listener.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-871231"></A>CL-USER 1 &gt; foo 100 200</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871232"></A>0 FOO &gt; ...</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871233"></A>  &gt;&gt; X : 100</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871234"></A>  &gt;&gt; Y : 200</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871235"></A>  1 BAR &gt; ...</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871236"></A>    &gt;&gt; X : 200</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871237"></A>    &gt;&gt; Y : 100</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871238"></A>  1 BAR &lt; ...</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871239"></A>    &lt;&lt; VALUE-0 : #(200 100)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871240"></A>    &lt;&lt; VALUE-1 : (100 200)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871241"></A>0 FOO &lt; ...</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871242"></A>  &lt;&lt; VALUE-0 : #(200 100)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871243"></A>  &lt;&lt; VALUE-1 : (100 200)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871244"></A>#(200 100)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871245"></A>(100 200)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-871246"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-871247"></A>CL-USER 2 &gt;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-871249"></A>Note: the format of the output is affected by the value of <CODE CLASS="Code">
+*trace-verbose*</CODE>
+<A NAME="marker-872957"></A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-871737"></A>Now switch to the <B CLASS="Button">
+Output Text</B>
+ view of the Tracer and you will similar output.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-871761"></A>Figure 12.2  The Output Text view<DIV>
+<IMG SRC="ide-m-161.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="ide-m-162.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-871252"></A>Now switch to the <B CLASS="Button">
+Output Data</B>
+ view of the Tracer, which will looks like this</P>
+<P CLASS="Figure">
+<A NAME="pgfId-871800"></A>Figure 12.3  The Output Data view<DIV>
+<IMG SRC="ide-m-161.gif">
+</DIV>
+</P>
+<DIV>
+<MAP NAME="ide-m-163">
+</MAP>
+<IMG SRC="ide-m-163.gif" USEMAP="#ide-m-163">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-871256"></A>The node that is labeled <B CLASS="Button">
+Arguments 100 200</B>
+ contains the arguments to the function <CODE CLASS="Code">
+foo</CODE>
+. Double-click on this node to show those arguments in an Inspector.</P>
+<P CLASS="Body">
+<A NAME="pgfId-871258"></A>The first node that is labeled <B CLASS="Button">
+Values #(200 100) (100 200)</B>
+ contains the values returned by <CODE CLASS="Code">
+bar</CODE>
+. Expand this node to reveal the two values. Double-click on one of the values nodes to inspect it. You can also see that these values were in turn returned by <CODE CLASS="Code">
+foo</CODE>
+, as shown by the second node that is labeled <B CLASS="Button">
+Values #(200 100) (100 200)</B>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-852835"></A><A NAME="marker-864738"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-230.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-228.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-222.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

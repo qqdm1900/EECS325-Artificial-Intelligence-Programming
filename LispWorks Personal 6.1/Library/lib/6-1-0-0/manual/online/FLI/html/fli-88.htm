@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-foreign-block-callable-type
+</TITLE>
+
+<LINK REL="next" HREF="fli-89.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-87.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-89.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-87.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1527269"></A><A NAME="46744"></A>define<A NAME="marker-1527267"></A>-foreign-block-callable-<A NAME="marker-1527268"></A>type</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1527270"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1527271"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1527272"></A>Defines a type for foreign blocks, in LispWorks for Macintosh.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1555137"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1555138"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1527273"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1527274"></A>define-foreign-block-callable-type <EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+result-type</EM>
+ <EM CLASS="Variable">
+arg-types</EM>
+ =&gt; <EM CLASS="Variable">
+name</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1527275"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1527276"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1527277"></A><EM CLASS="Variable">
+result-type</EM>
+</P>
+<P CLASS="RDescription-C">A foreign type specifier.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1527278"></A><EM CLASS="Variable">
+arg-types</EM>
+</P>
+<P CLASS="RDescription-C">A list of foreign type specifiers.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1527279"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1527280"></A>The macro <CODE CLASS="Code">
+define-foreign-block-callable-type</CODE>
+ defines a type for foreign blocks.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527281"></A><EM CLASS="Variable">
+name</EM>
+ specifies the name of the type. It must not be the same as the name of a <A HREF="fli-90.htm#25590" CLASS="XRef">define-foreign-callable</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527285"></A><EM CLASS="Variable">
+result-type</EM>
+ specifies the type of the result of the foreign block.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527286"></A><EM CLASS="Variable">
+arg-types</EM>
+ specifies the types of the arguments that a block of type <EM CLASS="Variable">
+name</EM>
+ takes. These must correspond to the arguments types with which the block is called from the foreign call.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1527287"></A>Note that the <EM CLASS="Variable">
+arg-types</EM>
+ specify the type for a call from foreign code into Lisp, which affects the way <A HREF="fli-187.htm#25276" CLASS="XRef">:reference-return</A> and <A HREF="fli-186.htm#15890" CLASS="XRef">:reference-pass</A> are used. If the block is called from the foreign code with a pointer and you want to treat it as pass-by-reference, you need to use <A HREF="fli-187.htm#25276" CLASS="XRef">:reference-return</A> (like <A HREF="fli-90.htm#25590" CLASS="XRef">define-foreign-callable</A> does). See the qsort_b example in </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1527300"></A>(sys:example-file &quot;misc/foreign-blocks.lisp&quot;).</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1527301"></A><CODE CLASS="Code">
+define-foreign-block-callable-type</CODE>
+ returns <EM CLASS="Variable">
+name</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1527302"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1527303"></A><CODE CLASS="Code">
+define-foreign-block-callable-type</CODE>
+ is implemented in LispWorks for Macintosh only.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1527304"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1527308"></A><A HREF="fli-74.htm#62201" CLASS="XRef">allocate-foreign-block</A><BR>
+<A HREF="fli-151.htm#87714" CLASS="XRef">with-foreign-block</A><BR>
+<A HREF="fli-155.htm#87179" CLASS="XRef">with-local-foreign-block</A><BR>
+<A HREF="fli-64.htm#29000" CLASS="XRef">Block objects in C (foreign blocks)</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-89.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-87.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

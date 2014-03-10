@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ assert
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-108.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-106.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-104.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-104.htm">7 Reference Guide</A><BR><BR>
+</DIV><A HREF="kwprolog-m-108.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-106.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-910211"></A><A NAME="marker-891642"></A><A NAME="11542"></A>assert</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-891645"></A><A NAME="assert"></A>Backward Chaining Goal</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1009822"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1009823"></A>Creates or modifies objects in the object base.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891646"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-891647"></A>assert (<EM CLASS="Variable">
+class-name</EM>
+ <EM CLASS="Variable">
+variable</EM>
+ {<EM CLASS="Variable">
+slot-name</EM>
+ <EM CLASS="Variable">
+term</EM>
+}*)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-940765"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-940766"></A><EM CLASS="Variable">
+class-name</EM>
+</P>
+<P CLASS="RDescription-C">The name of a class.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-941379"></A><EM CLASS="Variable">
+variable</EM>
+</P>
+<P CLASS="RDescription-C">A variable beginning with <CODE CLASS="Code">
+?</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-941415"></A><EM CLASS="Variable">
+slot-name</EM>
+</P>
+<P CLASS="RDescription-C">The name of a slot in the <EM CLASS="Variable">
+class-name.</EM>
+</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-941538"></A><EM CLASS="Variable">
+term</P>
+<P CLASS="RDescription-C"></EM>
+ An expression.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891650"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-891651"></A>The <EM CLASS="Variable">
+class-name</EM>
+ must be the name of a class of objects known to KnowledgeWorks. Each <EM CLASS="Variable">
+term</EM>
+ is an expression composed of Lisp data structures and KnowledgeWorks variables.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-941787"></A>If <EM CLASS="Variable">
+variable</EM>
+ is unbound a new instance of <EM CLASS="Variable">
+class-name</EM>
+ is created with each named <EM CLASS="Variable">
+slot-name</EM>
+ initialized to the value of the corresponding <EM CLASS="Variable">
+term</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-941756"></A>If <EM CLASS="Variable">
+variable</EM>
+ is bound, that bound instance has its named slots modified to contain the values of the <EM CLASS="Variable">
+term</EM>
+ corresponding to each <EM CLASS="Variable">
+slot-name</EM>
+. It is an error if the bound object is not of the named class.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-891652"></A>It is an error to put an unbound variable into a slot of an object in the object base.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1018430"></A>Only objects in the current inferencing state will be affected.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891653"></A>Examples</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-891654"></A>(assert (truck ?truck driver ?driver))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-891655"></A>(assert (possible-trucks ? trucks (?truck . ?trucks))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891656"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-891658"></A><A HREF="kwprolog-m-122.htm#29022" CLASS="XRef">erase</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-108.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-106.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,543 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-foreign-function
+</TITLE>
+
+<LINK REL="next" HREF="fli-95.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-93.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-95.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-93.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1070272"></A><A NAME="27849"></A>define-foreign-function<A NAME="marker-1070271"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886386"></A><A NAME="marker-1333875"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898313"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-911897"></A>Defines a Lisp function which acts as an interface to a foreign function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911812"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898314"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1061238"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1061239"></A>define-foreign-function <EM CLASS="Variable">
+name</EM>
+ ({<EM CLASS="Variable">
+arg</EM>
+}*) &amp;key <EM CLASS="Variable">
+lambda-list</EM>
+ <EM CLASS="Variable">
+documentation</EM>
+ <EM CLASS="Variable">
+result-type</EM>
+ <EM CLASS="Variable">
+language</EM>
+ <EM CLASS="Variable">
+no-check</EM>
+ <EM CLASS="Variable">
+calling-convention</EM>
+ <EM CLASS="Variable">
+module</EM>
+ =&gt; <EM CLASS="Variable">
+lisp-name</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-902877"></A><EM CLASS="Variable">
+name</EM>
+ ::= <EM CLASS="Variable">
+lisp-name</EM>
+ | (<EM CLASS="Variable">
+lisp-name</EM>
+ <EM CLASS="Variable">
+foreign-name</EM>
+ [<EM CLASS="Variable">
+encoding</EM>
+])</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-904111"></A><EM CLASS="Variable">
+encoding</EM>
+ ::= :source | :object | :lisp | :dbcs</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-903785"></A><EM CLASS="Variable">
+arg</EM>
+ ::= <EM CLASS="Variable">
+arg-name</EM>
+ | (<EM CLASS="Variable">
+arg-name</EM>
+ <EM CLASS="Variable">
+arg-type</EM>
+) | (:constant <EM CLASS="Variable">
+value</EM>
+ <EM CLASS="Variable">
+value-type</EM>
+) | &amp;optional | &amp;key | ((<EM CLASS="Variable">
+arg-name</EM>
+ <EM CLASS="Variable">
+default</EM>
+) <EM CLASS="Variable">
+arg-type</EM>
+) | (:ignore <EM CLASS="Variable">
+arg-type</EM>
+)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-910620"></A><EM CLASS="Variable">
+language</EM>
+ ::= :c | :ansi-c</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-914754"></A><EM CLASS="Variable">
+calling-convention</EM>
+ ::= :stdcall | :cdecl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902722"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-903620"></A><EM CLASS="Variable">
+lisp-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the defined Lisp function.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1310386"></A><EM CLASS="Variable">
+foreign-name</EM>
+</P>
+<P CLASS="RDescription-C">A string or a symbol specifying the foreign name of the function.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-904364"></A><EM CLASS="Variable">
+arg-name</EM>
+</P>
+<P CLASS="RDescription-C">A variable.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1319075"></A><EM CLASS="Variable">
+arg-type</EM>
+</P>
+<P CLASS="RDescription-C">A foreign type name.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1319147"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1319140"></A><EM CLASS="Variable">
+value-type</EM>
+</P>
+<P CLASS="RDescription-C">A foreign type name.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-909690"></A><EM CLASS="Variable">
+lambda-list</EM>
+</P>
+<P CLASS="RDescription-C">The lambda list to be used for the defined Lisp function.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-911298"></A><EM CLASS="Variable">
+documentation</EM>
+</P>
+<P CLASS="RDescription-C">A documentation string for the foreign function.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-910651"></A><EM CLASS="Variable">
+result-type</EM>
+</P>
+<P CLASS="RDescription-C">A foreign type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180194"></A><EM CLASS="Variable">
+result-pointer</EM>
+</P>
+<P CLASS="RDescription-C">The name of the keyword argument that is added to the lambda-list of the Lisp function when the result-type is an aggregate type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-910042"></A><EM CLASS="Variable">
+language</EM>
+</P>
+<P CLASS="RDescription-C">The language in which the foreign source code is written. The default is <CODE CLASS="Code">
+:ansi-c</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-910128"></A><EM CLASS="Variable">
+no-check</EM>
+</P>
+<P CLASS="RDescription-C">If <CODE CLASS="Code">
+nil</CODE>
+, the types of the arguments provided when the Lisp function is called are compared with the expected types and an error is raised if they do not match. Setting <EM CLASS="Variable">
+no-check</EM>
+ to <CODE CLASS="Code">
+t</CODE>
+ overrides this check.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-911688"></A>If the compilation safety level is set to 0 then <EM CLASS="Variable">
+no-check</EM>
+ is automatically set to <CODE CLASS="Code">
+t</CODE>
+. The default value for <EM CLASS="Variable">
+no-check</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-910409"></A><EM CLASS="Variable">
+calling-convention</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-910501"></A>Specifies the calling convention used on Windows.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1211362"></A><EM CLASS="Variable">
+module</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or string naming the module in which the foreign symbol is defined.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1059964"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1008190"></A><EM CLASS="Variable">
+lisp-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the defined Lisp function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902750"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-903471"></A>The macro <CODE CLASS="Code">
+define-foreign-function</CODE>
+ defines a Lisp function <EM CLASS="Variable">
+lisp-name</EM>
+ which acts as an interface to a foreign language function, for example a C function. When the Lisp function is called its arguments are converted to the appropriate foreign representation before being passed to the specified foreign function. Once the foreign function exits, any return values are converted back from the foreign format into a Lisp format.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1320320"></A><EM CLASS="Variable">
+encoding</EM>
+ specifies how the Lisp function name is translated into the function name in the foreign object code. Its values are interpreted as follows:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1320321"></A><CODE CLASS="Code">
+:source</CODE>
+</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+foreign-name</EM>
+ is the name of the function in the foreign source code. This is the default value of <EM CLASS="Variable">
+encoding</EM>
+ when <EM CLASS="Variable">
+foreign-name</EM>
+ is a string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1320322"></A><CODE CLASS="Code">
+:object</CODE>
+</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+foreign-name</EM>
+ is the literal name of the function in the foreign object code.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1320323"></A><CODE CLASS="Code">
+:lisp</CODE>
+</P>
+<P CLASS="RDescription-C">If <EM CLASS="Variable">
+foreign-name</EM>
+ is a Lisp symbol, it must be translated and encoded. This is the default value of <EM CLASS="Variable">
+encoding</EM>
+ if <EM CLASS="Variable">
+foreign-name</EM>
+ is a symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1320324"></A><CODE CLASS="Code">
+:dbcs</CODE>
+</P>
+<P CLASS="RDescription-C">A suffix is automatically appended to the function name depending on the Windows operating system that LispWorks runs in. The suffix is &quot;<CODE CLASS="Code">
+A</CODE>
+&quot; for Windows 95-based systems and &quot;<CODE CLASS="Code">
+W</CODE>
+&quot; for Windows NT-based systems.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1319791"></A>The number and types of the arguments of <EM CLASS="Variable">
+lisp-name</EM>
+ must be given. Lisp arguments may take any name, but the types must be accurately specified and listed in the same order as in the foreign function, unless otherwise specified using <EM CLASS="Variable">
+lambda-list</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1319363"></A>If the <EM CLASS="Variable">
+arg-name</EM>
+ syntax of <EM CLASS="Variable">
+arg</EM>
+ is used, then <CODE CLASS="Code">
+define-foreign-function</CODE>
+ assumes that it is of type <CODE CLASS="Code">
+:int</CODE>
+. Otherwise <EM CLASS="Variable">
+arg-type</EM>
+ or <EM CLASS="Variable">
+value-type</EM>
+ specifies the foreign type of the argument.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1318915"></A>If <EM CLASS="Variable">
+arg</EM>
+ is of the form <CODE CLASS="Code">
+(:constant</CODE>
+ <EM CLASS="Variable">
+value</EM>
+ <EM CLASS="Variable">
+value-type</EM>
+<CODE CLASS="Code">
+)</CODE>
+ then <EM CLASS="Variable">
+value</EM>
+ is always passed through to the foreign code, and <EM CLASS="Variable">
+arg</EM>
+ is omitted from the lambda list of <EM CLASS="Variable">
+lisp-name</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1318651"></A>If <EM CLASS="Variable">
+arg</EM>
+ is <CODE CLASS="Code">
+&amp;optional</CODE>
+ or <CODE CLASS="Code">
+&amp;key</CODE>
+, then the lambda list of the Lisp function <EM CLASS="Variable">
+lisp-name</EM>
+ will contain these lambda-list-keywords too. Any argument following <CODE CLASS="Code">
+&amp;optional</CODE>
+ or <CODE CLASS="Code">
+&amp;key</CODE>
+ can use the<BR>
+<CODE CLASS="Code">
+((</CODE>
+<EM CLASS="Variable">
+arg-name</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+default</EM>
+<CODE CLASS="Code">
+) </CODE>
+<EM CLASS="Variable">
+arg-type</EM>
+<CODE CLASS="Code">
+)</CODE>
+ syntax to provide a default value <EM CLASS="Variable">
+default</EM>
+ for <EM CLASS="Variable">
+arg-name</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1427672"></A>If <EM CLASS="Variable">
+arg</EM>
+ is of the form <CODE CLASS="Code">
+(:ignore </CODE>
+<EM CLASS="Variable">
+arg-type</EM>
+<CODE CLASS="Code">
+)</CODE>
+ then <CODE CLASS="Code">
+nil</CODE>
+ is always passed through to the foreign code and <EM CLASS="Variable">
+arg</EM>
+ is omitted from the lambda list of <EM CLASS="Variable">
+lisp-name</EM>
+. This is generally only useful when <EM CLASS="Variable">
+arg-type</EM>
+ is a <CODE CLASS="Code">
+:reference-return</CODE>
+ type, where the value <CODE CLASS="Code">
+nil</CODE>
+ will be ignored.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1254020"></A>When <EM CLASS="Variable">
+language</EM>
+ is <CODE CLASS="Code">
+:ansi-c</CODE>
+ the foreign code is expected to be written in ANSI C. In particular single floats are passed through as single-floats whereas <EM CLASS="Variable">
+language</EM>
+ <CODE CLASS="Code">
+:c</CODE>
+ causes them to be passed through as double floats. Similarly <CODE CLASS="Code">
+:c</CODE>
+ causes double floats to be returned from C and <CODE CLASS="Code">
+:ansi-c</CODE>
+ causes a single-floats to be returned. In both cases the type returned to Lisp is determined by <EM CLASS="Variable">
+result-type</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1320880"></A><EM CLASS="Variable">
+lambda-list</EM>
+ allows you to define the order in which the Lisp function <EM CLASS="Variable">
+lisp-name</EM>
+ takes its arguments to be different from the order in which the foreign function takes them, and to use standard lambda list keywords such as <CODE CLASS="Code">
+&amp;optional</CODE>
+ even if they do not appear in <EM CLASS="Variable">
+args</EM>
+. If <EM CLASS="Variable">
+lambda-list</EM>
+ is not supplied, the lambda list of <EM CLASS="Variable">
+lisp-name</EM>
+ is generated from the list of <EM CLASS="Variable">
+arg</EM>
+s.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1062422"></A>The <CODE CLASS="Code">
+:reference</CODE>
+, <CODE CLASS="Code">
+:reference-pass</CODE>
+ and <CODE CLASS="Code">
+:reference-return</CODE>
+ types are useful with <CODE CLASS="Code">
+define-foreign-function</CODE>
+.  It is fairly common for a C function to return a value by setting the contents of an argument passed by reference (that is, as a pointer). This can be handled conveniently by using the <CODE CLASS="Code">
+:reference-return</CODE>
+ type, which dynamically allocates memory for the return value and passes a pointer to the C function.  On return, the pointer is dereferenced and the value is returned as an extra multiple value from the Lisp function.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1062442"></A>The <CODE CLASS="Code">
+:reference-pass</CODE>
+ type can be used to automatically construct an extra level of pointer for an argument.  No extra results are returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1062444"></A>The <CODE CLASS="Code">
+:reference</CODE>
+ type is like <CODE CLASS="Code">
+:reference-return</CODE>
+ but allows the initial value of the reference argument to be set.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1183123"></A><EM CLASS="Variable">
+result-type</EM>
+ optionally specifies the type of the foreign function's return value. When <EM CLASS="Variable">
+result-type</EM>
+ is an aggregate type, an additional keyword argument is placed in the lambda-list of the Lisp function. This keyword is named after the <EM CLASS="Variable">
+result-pointer</EM>
+ argument or is called <CODE CLASS="Code">
+:result-pointer</CODE>
+ if unspecified. When calling the Lisp function, a foreign pointer must be supplied as the value of this keyword argument, pointing to an object of type <EM CLASS="Variable">
+result-type</EM>
+. The result of the foreign call is written into this object and the foreign pointer is returned as the primary value from the Lisp function. This allows the caller to maintain control over the lifetime of this object (in C this would typically be stored in a local variable). If <EM CLASS="Variable">
+result-type</EM>
+ is <A HREF="fli-197.htm#32781" CLASS="XRef">:void</A> or is omitted, then no value is returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1338810"></A><EM CLASS="Variable">
+calling-convention</EM>
+ is ignored on non-Windows platforms, where there is no calling convention issue. On Windows, <CODE CLASS="Code">
+:stdcall</CODE>
+ is the calling convention used to call Win32 API functions and matches the C declarator <CODE CLASS="Code">
+&quot;__stdcall&quot;</CODE>
+. This is the default value. <CODE CLASS="Code">
+:cdecl</CODE>
+ is the default calling convention for C/C++ programs and matches the C declarator<CODE CLASS="Code">
+ &quot;__cdecl&quot;</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1246249"></A>If <EM CLASS="Variable">
+module</EM>
+ is the name of a module registered using <CODE CLASS="Code">
+</CODE>
+<A HREF="fli-140.htm#30636" CLASS="XRef">register-module</A> then that module is used to look up the symbol. Otherwise <EM CLASS="Variable">
+module</EM>
+ should be a string, and a module named <EM CLASS="Variable">
+module</EM>
+ is automatically registered and used to look up the symbol. Such automatically-registered modules have <EM CLASS="Variable">
+connection-style</EM>
+ <CODE CLASS="Code">
+:manual</CODE>
+ - this prevents them being used by other <CODE CLASS="Code">
+define-foreign-function</CODE>
+ forms which do not specify a module.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1231211"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1445996"></A>The <EM CLASS="Variable">
+module</EM>
+ argument is not accepted in LispWorks for UNIX. This restriction applies to LispWorks for UNIX only (not LispWorks for Linux, FreeBSD, or x86/x64 Solaris).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1352359"></A>Compatibility note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1352360"></A>In LispWorks 4.4 and previous versions, the default value for <EM CLASS="Variable">
+language</EM>
+ is <CODE CLASS="Code">
+:c</CODE>
+. In LispWorks 5.0 and later, the default value is <CODE CLASS="Code">
+:ansi-c</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903446"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1064239"></A>A simple example of the use of <CODE CLASS="Code">
+define-foreign-function</CODE>
+ is given in <A HREF="fli-11.htm#30878" CLASS="XRef">Defining a FLI function</A>. More detailed examples are given in <A HREF="fli-43.htm#10757" CLASS="XRef">Advanced Uses of the FLI</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1064246"></A>Here is an example using the <CODE CLASS="Code">
+:reference-return</CODE>
+ type.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1065964"></A>Unix/Linux/Macintosh version:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1066514"></A>int cfloor(int x, int y, int *remainder)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1065965"></A>{</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1065966"></A>  int quotient = x/y;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1065967"></A>  *remainder = x - y*quotient;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1065968"></A>  return quotient;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1066550"></A>}</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1066637"></A>Windows version:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1066674"></A>__declspec(dllexport) int __cdecl cfloor(int x, int y, int *remainder)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1066675"></A>{</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1066676"></A>  int quotient = x/y;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1066677"></A>  *remainder = x - y*quotient;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1066678"></A>  return quotient;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1066642"></A>}</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1067433"></A>In this foreign function definition the main result is the quotient and the second return value is the remainder:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1066551"></A>(fli:define-foreign-function cfloor </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1066552"></A>    ((x :int) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1066615"></A>     (y :int) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1066616"></A>     (rem (:reference-return :int)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1066617"></A> :result-type :int)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1066628"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1066575"></A>(cfloor 11 5 t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1066576"></A>=&gt; </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1219139"></A>2,1</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1321175"></A>This example illustrates a use of the lambda list keyword <CODE CLASS="Code">
+&amp;optional</CODE>
+ and a default value for the optional argument:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1321295"></A>(define-foreign-function one-or-two-ints</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1321296"></A>    ((arg-one :int)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1321297"></A>     &amp;optional</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1321298"></A>     ((arg-two 42) :int)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1321300"></A>The call <CODE CLASS="Code">
+(one-or-two-ints 1 2)</CODE>
+ passes 1 and 2.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1352191"></A>The call <CODE CLASS="Code">
+(one-or-two-ints 1)</CODE>
+ passes 1 and 42.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903508"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-903530"></A><A HREF="fli-90.htm#25590" CLASS="XRef">define-foreign-callable</A><BR>
+<A HREF="fli-93.htm#40564" CLASS="XRef">define-foreign-funcallable</A><BR>
+<A HREF="fli-97.htm#17537" CLASS="XRef">define-foreign-variable</A><BR>
+<A HREF="fli-140.htm#30636" CLASS="XRef">register-module</A><BR>
+<A HREF="fli-57.htm#56244" CLASS="XRef">Foreign callables and foreign functions</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-95.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-93.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

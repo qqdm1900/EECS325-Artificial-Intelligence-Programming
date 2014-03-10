@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.11.9.3  Modifying LOBs
+</TITLE>
+
+<LINK REL="next" HREF="lw-440.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-438.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-436.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-424.htm">19.11  Oracle LOB interface</A> &gt; <A HREF="lw-436.htm">19.11.9  The LOB functions</A><BR><BR>
+</DIV><A HREF="lw-440.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-438.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-436.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-911447"></A>19.11.9.3  Modifying LOBs</H3>
+<P CLASS="Body">
+<A NAME="pgfId-911449"></A>All the functions mentioned in this section are applicable to internal LOBs only, except <A HREF="lw-1234.htm#83786" CLASS="XRef">ora-lob-load-from-file</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911451"></A>Before modifying a LOB, the corresponding record must be locked. See the discussion in <A HREF="lw-430.htm#68143" CLASS="XRef">Locking</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911453"></A>If you make several modifications to a LOB which has functional or domain indexes, it is useful to wrap several calls of modifying functions in a pair of <A NAME="marker-914082"></A><A HREF="lw-1237.htm#20564" CLASS="XRef">ora-lob-open</A> and <A NAME="marker-914087"></A><A HREF="lw-1208.htm#66186" CLASS="XRef">ora-lob-close</A>. That means that the indexes will be updated once (when <A HREF="lw-1208.htm#66186" CLASS="XRef">ora-lob-close</A> is called), which saves work. Note that after a call to <A HREF="lw-1237.htm#20564" CLASS="XRef">ora-lob-open</A>, <A HREF="lw-1208.htm#66186" CLASS="XRef">ora-lob-close</A> must be called before any call to <A HREF="lw-1160.htm#25697" CLASS="XRef">commit</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911455"></A>To append the contents of one LOB to another, use <A NAME="marker-914092"></A><A HREF="lw-1204.htm#25234" CLASS="XRef">ora-lob-append</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-913285"></A>You can copy all or part of a LOB into another LOB using <A NAME="marker-914097"></A><A HREF="lw-1209.htm#92945" CLASS="XRef">ora-lob-copy</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911469"></A><A NAME="marker-914102"></A><A HREF="lw-1234.htm#83786" CLASS="XRef">ora-lob-load-from-file</A> loads the data from a file LOB into an (internal) LOB.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911481"></A>You can erase (that is, fill with the 0 byte or with Space character) all or part of a LOB using <A NAME="marker-914107"></A><A HREF="lw-1216.htm#53755" CLASS="XRef">ora-lob-erase</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-913347"></A>You can reduce the size of a LOB using <A NAME="marker-914112"></A><A HREF="lw-1242.htm#61521" CLASS="XRef">ora-lob-trim</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-913482"></A>If you need to make multiple updates to a LOB you can optionally create a transaction using <A HREF="lw-1237.htm#20564" CLASS="XRef">ora-lob-open</A> and  <A HREF="lw-1208.htm#66186" CLASS="XRef">ora-lob-close</A> call. This may save work on the server side.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-440.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-438.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-436.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

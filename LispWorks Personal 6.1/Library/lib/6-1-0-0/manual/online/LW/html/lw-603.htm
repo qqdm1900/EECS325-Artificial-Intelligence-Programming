@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-verification-mode
+</TITLE>
+
+<LINK REL="next" HREF="lw-604.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-602.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-579.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-579.htm">26 The COMM Package</A><BR><BR>
+</DIV><A HREF="lw-604.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-602.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-954239"></A><A NAME="88318"></A>set<A NAME="marker-954238"></A>-verification-mode</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-954241"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954242"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-954243"></A>Sets the verification mode for CTX.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954244"></A>Package</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-954245"></A><CODE CLASS="Code">
+comm</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954246"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-954247"></A>set-verification-mode <EM CLASS="Variable">
+ssl-ctx</EM>
+ <EM CLASS="Variable">
+ssl-side</EM>
+ <EM CLASS="Variable">
+mode</EM>
+ &amp;optional <EM CLASS="Variable">
+callback</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954248"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-954249"></A><EM CLASS="Variable">
+ssl-ctx</EM>
+</P>
+<P CLASS="RDescription-C">A foreign pointer of type <CODE CLASS="Code">
+ssl-pointer</CODE>
+ or <CODE CLASS="Code">
+ssl-ctx-pointer</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955203"></A><EM CLASS="Variable">
+ssl-side</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+:server</CODE>
+ or <CODE CLASS="Code">
+:client</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955152"></A><EM CLASS="Variable">
+mode</EM>
+</P>
+<P CLASS="RDescription-C">An integer, one of the symbols <CODE CLASS="Code">
+:never</CODE>
+, <CODE CLASS="Code">
+:always</CODE>
+, <CODE CLASS="Code">
+:once</CODE>
+, or a list of keywords.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955252"></A><EM CLASS="Variable">
+callback</EM>
+</P>
+<P CLASS="RDescription-C">A foreign function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954250"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-954251"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A list of symbols.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954252"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-955321"></A>The function <CODE CLASS="Code">
+set-verification-mode</CODE>
+ sets the verification mode for CTX according to arguments <EM CLASS="Variable">
+ssl-side</EM>
+ and <EM CLASS="Variable">
+mode</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-955322"></A>When <EM CLASS="Variable">
+ssl-side</EM>
+ is <CODE CLASS="Code">
+:server</CODE>
+, <EM CLASS="Variable">
+mode</EM>
+ can be:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955323"></A>An integer</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+mode</EM>
+ is passed directly to <CODE CLASS="Code">
+SSL_set_verify</CODE>
+ or <CODE CLASS="Code">
+SSL_CTX_set_verify</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955324"></A><CODE CLASS="Code">
+:never</CODE>
+</P>
+<P CLASS="RDescription-C">The server will not send a client certificate request to the client, so the client will not send a certificate.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955325"></A><CODE CLASS="Code">
+:always</CODE>
+</P>
+<P CLASS="RDescription-C">The server sends a client certificate request to the client. The certificate returned (if any) is checked. If the verification process fails, the TLS/SSL handshake is immediately terminated with an alert message containing the reason for the verification failure.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955326"></A><CODE CLASS="Code">
+:once</CODE>
+</P>
+<P CLASS="RDescription-C">Same as <CODE CLASS="Code">
+:always</CODE>
+ except that the client certificate is checked only on the initial TLS/SSL handshake, and not again in case of renegotiation.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955327"></A>A list</P>
+<P CLASS="RDescription-C">The list contains (some of) the keywords <CODE CLASS="Code">
+:verify-client-once</CODE>
+, <CODE CLASS="Code">
+:verify-peer</CODE>
+ and :<CODE CLASS="Code">
+fail-if-no-peer-cert</CODE>
+. These keywords map to the corresponding C constants <CODE CLASS="Code">
+VERIFY_CLIENT_ONCE</CODE>
+, <CODE CLASS="Code">
+VERIFY_PEER</CODE>
+ and <CODE CLASS="Code">
+FAIL_IF_NO_PEER_CERT</CODE>
+ respectively. See the manual entry for <CODE CLASS="Code">
+SSL_CTX_set_verify</CODE>
+ for the meaning of the constants.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-955328"></A>When <EM CLASS="Variable">
+ssl-side</EM>
+ is <CODE CLASS="Code">
+:client</CODE>
+, <EM CLASS="Variable">
+mode</EM>
+ can be:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955329"></A>An integer</P>
+<P CLASS="RDescription-C"><EM CLASS="Variable">
+mode</EM>
+ is passed directly as for <EM CLASS="Variable">
+ssl-side</EM>
+ <CODE CLASS="Code">
+:server</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955330"></A><CODE CLASS="Code">
+:never</CODE>
+</P>
+<P CLASS="RDescription-C">If not using an anonymous cipher, the server will send a certificate which will be checked by the client. The handshake will be continued regardless of the verification result.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955331"></A><CODE CLASS="Code">
+:always</CODE>
+</P>
+<P CLASS="RDescription-C">The server certificate is verified. If the verification process fails, the TLS/SSL handshake is immediately terminated with an alert message containing the reason for the verification failure. If no server certificate is sent because an anonymous cipher is used, verification is ignored.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955332"></A>A list</P>
+<P CLASS="RDescription-C">The list contains keywords as described above for <EM CLASS="Variable">
+ssl-side</EM>
+ <CODE CLASS="Code">
+:server</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-957250"></A>If non-nil <EM CLASS="Variable">
+callback</EM>
+ should be a symbol, function, string or foreign pointer designating a foreign function that is called to perform verification. The default value of <EM CLASS="Variable">
+callback</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-954255"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-954256"></A><A HREF="lw-590.htm#72193" CLASS="XRef">get-verification-mode</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-604.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-602.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

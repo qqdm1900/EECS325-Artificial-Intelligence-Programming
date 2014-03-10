@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ make-hash-table
+</TITLE>
+
+<LINK REL="next" HREF="lw-655.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-653.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-655.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-653.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1039790"></A><A NAME="47359"></A>make<A NAME="marker-1039789"></A>-hash<A NAME="marker-1109093"></A>-table</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1039791"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039792"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039793"></A>Creates and returns a new hash table which, in addition to the standard functionality, can have a user-defined test, a user-defined hash function, and be a weak hash table.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039794"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039795"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039796"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039797"></A>make-hash-table &amp;key <EM CLASS="Variable">
+test</EM>
+ <EM CLASS="Variable">
+size</EM>
+ <EM CLASS="Variable">
+rehash-size</EM>
+ <EM CLASS="Variable">
+rehash-threshold</EM>
+ <EM CLASS="Variable">
+hash-function</EM>
+ <EM CLASS="Variable">
+weak-kind</EM>
+ <EM CLASS="Variable">
+single-thread</EM>
+ <EM CLASS="Variable">
+free-function</EM>
+ =&gt; <EM CLASS="Variable">
+hash-table</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039798"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039799"></A><EM CLASS="Variable">
+test</EM>
+</P>
+<P CLASS="RDescription-C">A designator for a function of two arguments, which returns <CODE CLASS="Code">
+t</CODE>
+ if they should be regarded as the same and <CODE CLASS="Code">
+nil</CODE>
+ otherwise.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039800"></A><EM CLASS="Variable">
+hash-function</EM>
+</P>
+<P CLASS="RDescription-C">A designator for a function of one argument, which returns a hash value.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039801"></A><EM CLASS="Variable">
+weak-kind</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+nil</CODE>
+, or one of the keywords <CODE CLASS="Code">
+:value</CODE>
+, <CODE CLASS="Code">
+:key</CODE>
+, <CODE CLASS="Code">
+:both</CODE>
+, <CODE CLASS="Code">
+:one</CODE>
+ and <CODE CLASS="Code">
+:either</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1158126"></A><EM CLASS="Variable">
+single-thread</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1167318"></A><EM CLASS="Variable">
+free-function</EM>
+</P>
+<P CLASS="RDescription-C">A designator for a function of two arguments.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039802"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039803"></A>The standard definition of <CODE CLASS="Code">
+make-hash-table</CODE>
+ is extended such that <EM CLASS="Variable">
+test</EM>
+ can be any suitable user-defined function, except that it must not call <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A> or similar <CODE CLASS="Code">
+mp</CODE>
+ package functions which suspend the current process. If <EM CLASS="Variable">
+test</EM>
+ is not one of the standard test functions (<CODE CLASS="Code">
+eq</CODE>
+, <CODE CLASS="Code">
+eql</CODE>
+, <CODE CLASS="Code">
+equal</CODE>
+ and <CODE CLASS="Code">
+equalp</CODE>
+), and if <EM CLASS="Variable">
+hash-function</EM>
+ is not supplied, then the hash value is the same as would be used if <EM CLASS="Variable">
+test</EM>
+ were <CODE CLASS="Code">
+equalp</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039804"></A><EM CLASS="Variable">
+hash-function</EM>
+ may be supplied only if <EM CLASS="Variable">
+test</EM>
+ is not one of the standard test functions. It takes a hash key as its argument and returns a hash value to use for hashing.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039805"></A>If <EM CLASS="Variable">
+weak-kind</EM>
+ is non-nil, it makes <EM CLASS="Variable">
+hash-table</EM>
+ weak. Its semantics are the same as the second argument of <A HREF="lw-834.htm#set-hash-table-weak" CLASS="XRef">set-hash-table-weak</A>, that is:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1039809"></A>(make-hash-table :weak-kind <EM CLASS="Variable">
+weak-kind &lt;other-args&gt;</EM>
+)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1039810"></A>is equivalent to</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1039811"></A>(let ((ht (make-hash-table <EM CLASS="Variable">&lt;other-args&gt;</EM>
+)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1039812"></A>  (set-hash-table-weak ht <EM CLASS="Variable">weak-kind</EM>
+)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1039813"></A>  ht)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1217393"></A>The default value of <EM CLASS="Variable">
+weak-kind</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1158315"></A><EM CLASS="Variable">
+single-thread</EM>
+, if true, tells <CODE CLASS="Code">
+make-hash-table</CODE>
+ that the table is going to be used only in single thread contexts, and therefore does not need to be thread-safe. Single thread context means that only one thread can access the table at any point in time. That may be because the table is used only in one thread, but it can also be the case if the table is only ever accessed in the scope of a lock. Making a table with <EM CLASS="Variable">
+single-thread</EM>
+ makes access to this table faster, but not thread-safe. It does not have other effects. The default value of <EM CLASS="Variable">
+single-thread</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1168049"></A><EM CLASS="Variable">
+free-function</EM>
+ adds a &quot;free action&quot; for a weak hash table. This has an effect only if <CODE CLASS="Code">
+make-hash-table</CODE>
+ is called with <EM CLASS="Variable">
+weak-kind</EM>
+ non-nil. The <EM CLASS="Variable">
+free-function</EM>
+ is called after an entry is automatically removed by the garbage collector (GC). If <EM CLASS="Variable">
+weak-kind</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+,  <EM CLASS="Variable">
+free-function</EM>
+ is ignored.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1167427"></A><EM CLASS="Variable">
+free-function</EM>
+, if supplied, must take two arguments: <EM CLASS="Variable">
+key</EM>
+ and <EM CLASS="Variable">
+value</EM>
+. When an entry is removed from a weak table <EM CLASS="Variable">
+hash-table</EM>
+ because the relevant object is not pointed by any other object, the <EM CLASS="Variable">
+key</EM>
+ and the <EM CLASS="Variable">
+value</EM>
+ are remembered. Some time later (normally short, but not well-defined) the <EM CLASS="Variable">
+free-function</EM>
+ is called with <EM CLASS="Variable">
+key</EM>
+ and <EM CLASS="Variable">
+value</EM>
+ as its arguments.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1167429"></A><EM CLASS="Variable">
+free-function</EM>
+ needs to be fast, to avoid delays in unexpected places. Otherwise there are no restrictions on what <EM CLASS="Variable">
+free-function</EM>
+ does. In particular, it can keep the <EM CLASS="Variable">
+key</EM>
+ or <EM CLASS="Variable">
+value</EM>
+ alive by storing them somewhere.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1167430"></A>When objects are removed from the table by explicit calls (<CODE CLASS="Code">
+remhash</CODE>
+, <CODE CLASS="Code">
+clrhash</CODE>
+, <CODE CLASS="Code">
+(setf gethash)</CODE>
+), <EM CLASS="Variable">
+free-function</EM>
+ is not called.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1167431"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1168394"></A>Objects are removed from the table when the GC has identified them as free. For long-lived objects, which normally get promoted to higher generations, that may be quite a long time after the last pointer to them has gone.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1168296"></A><EM CLASS="Variable">
+free-function</EM>
+ can also be specified in a call to <A HREF="lw-834.htm#set-hash-table-weak" CLASS="XRef">set-hash-table-weak</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039814"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039818"></A><A HREF="lw-806.htm#83166" CLASS="XRef">hash-table-weak-kind</A><BR>
+<A HREF="lw-810.htm#77199" CLASS="XRef">modify-hash</A><BR>
+<A HREF="lw-834.htm#set-hash-table-weak" CLASS="XRef">set-hash-table-weak</A><BR>
+<A HREF="lw-868.htm#20054" CLASS="XRef">with-hash-table-locked</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-655.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-653.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

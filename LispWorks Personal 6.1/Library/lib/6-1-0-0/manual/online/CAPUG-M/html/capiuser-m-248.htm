@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 16.3.2.1  Example: dropping in a list
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-249.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-247.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-247.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-236.htm">16 Drag and Drop</A> &gt <A HREF="capiuser-m-245.htm">16.3  Dropping</A> &gt <A HREF="capiuser-m-247.htm">16.3.2  Dropping in a choice</A><BR><BR>
+</DIV><A HREF="capiuser-m-249.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-247.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-247.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-911882"></A>16.3.2.1  Example: dropping in a list</H3>
+<P CLASS="Body">
+<A NAME="pgfId-911977"></A>This <EM CLASS="Variable">
+drop-callback</EM>
+ simply appends the dropped string at the end of the list:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-911996"></A>(defun list-drop-callback (pane drop-object stage)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911997"></A>  (format t &quot;list drop callback &#126;S &#126;S &#126;S&quot; pane  drop-object stage)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911998"></A>  (case stage</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911999"></A>    (:formats </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912000"></A>     (set-drop-object-supported-formats drop-object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912001"></A>                                        (list :string)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912002"></A>    (:drag</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912003"></A>     (when (and (drop-object-provides-format drop-object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912004"></A>                                             :string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912005"></A>                (drop-object-allows-drop-effect-p drop-object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912006"></A>                                                  :copy))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912007"></A>       (setf (drop-object-drop-effect drop-object) :copy)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912009"></A>    (:drop</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912010"></A>     (when (and (drop-object-provides-format drop-object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912011"></A>                                             :string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912012"></A>                (drop-object-allows-drop-effect-p drop-object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912013"></A>                                                  :copy))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912014"></A>       (setf (drop-object-drop-effect drop-object) :copy)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912015"></A>       (add-list-item pane drop-object)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912016"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912017"></A>(defun add-list-item (pane drop-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912018"></A>  (append-items</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912019"></A>        pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912020"></A>        (list (string-capitalize </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912021"></A>               (drop-object-get-object drop-object </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912022"></A>                                       pane :string)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912023"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912024"></A>(contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912025"></A> (make-instance 'list-panel</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912026"></A>                :title &quot;Shopping list&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912027"></A>                :items (list &quot;Tea&quot; &quot;Bread&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-911911"></A>                :drop-callback 'list-drop-callback))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-911932"></A>Try dragging an item from the <CODE CLASS="Code">
+tree-view</CODE>
+ created in <A HREF="capiuser-m-241.htm#65068" CLASS="XRef">Example: dragging from a tree</A>. </P>
+<P CLASS="Body">
+<A NAME="pgfId-912049"></A>Below is a more sophisticated version of add-list-item which inserts the item at the expected position within the list. This position is obtained using <CODE CLASS="Code">
+drop-object-collection-index</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-912130"></A>(defun add-list-item (pane drop-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912131"></A>  (multiple-value-bind (index placement)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912132"></A>      (drop-object-collection-index drop-object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912133"></A>    (list-panel-add-item pane </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912134"></A>                         (string-capitalize </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912135"></A>                          (drop-object-get-object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912136"></A>                           drop-object pane :string))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912137"></A>                         index placement))))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912138"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912140"></A>(defun list-panel-add-item (pane item index placement)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912141"></A>  (let ((item-count (count-collection-items pane)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912142"></A>    (let ((adjusted-index (if (eq placement :above)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912143"></A>                              index</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912144"></A>                            (1+ index)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912145"></A>          (current-items (collection-items pane)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912146"></A>      (setf (collection-items pane)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912147"></A>            (concatenate 'simple-vector</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912148"></A>                         (subseq current-items 0 adjusted-index)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912149"></A>                         (vector item)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-912150"></A>                         (subseq current-items adjusted-index </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-912087"></A>                                 item-count))))))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-249.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-247.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-247.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

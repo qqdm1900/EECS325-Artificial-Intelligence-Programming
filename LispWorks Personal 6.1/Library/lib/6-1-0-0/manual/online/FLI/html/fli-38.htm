@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.2  Pointer testing functions
+</TITLE>
+
+<LINK REL="next" HREF="fli-39.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-37.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-33.htm">3 FLI Pointers</A><BR><BR>
+</DIV><A HREF="fli-39.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-37.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886035"></A>3.2  Pointer testing functions</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886036"></A>A number of functions are provided for testing various properties of pointers. The most basic, <A HREF="fli-137.htm#16544" CLASS="XRef">pointerp</A>, tests whether an object is a pointer. In the following examples the first <A NAME="marker-886699"></A>expression returns <CODE CLASS="Code">
+nil</CODE>
+, because 7 is a number, and not a pointer. The second returns <CODE CLASS="Code">
+t</CODE>
+ because <CODE CLASS="Code">
+point4</CODE>
+ is a pointer.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886079"></A>(fli:pointerp 7)</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886082"></A>(fli:pointerp point4)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886077"></A>The address pointed to by a pointer is obtained using <A HREF="fli-131.htm#32492" CLASS="XRef">pointer-address</A>. For example, the following expression returns the address pointed to by <CODE CLASS="Code">
+point4</CODE>
+, which was defined to be <CODE CLASS="Code">
+100</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886038"></A>(fli:pointer-address point4)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886066"></A>Pointers which point to address <CODE CLASS="Code">
+0</CODE>
+ are k<A NAME="marker-886701"></A>nown as <I CLASS="Italic">
+null pointers</I>
+. Passing the Lisp object <CODE CLASS="Code">
+nil</CODE>
+ instead of a pointer results in <CODE CLASS="Code">
+nil</CODE>
+ being treated as a null pointer. The function <A HREF="fli-130.htm#30112" CLASS="XRef">null-pointer-p</A> tests whether a pointer is a null pointer or not. If the pointer is a null pointer the value <CODE CLASS="Code">
+t</CODE>
+ is returned. We know that <CODE CLASS="Code">
+point4</CODE>
+ points to address <CODE CLASS="Code">
+100</CODE>
+ and is therefore not a null pointer. As a result, the following expression returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886072"></A>(fli:null-pointer-p point4)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886069"></A>Another testing function is <A HREF="fli-135.htm#11054" CLASS="XRef">pointer-eq</A> which returns <CODE CLASS="Code">
+t</CODE>
+ if two pointers point to the same address, and <CODE CLASS="Code">
+nil</CODE>
+ if they do not. In the previous section we created <CODE CLASS="Code">
+point3</CODE>
+ by making a copy of <CODE CLASS="Code">
+point1</CODE>
+, and so both point to the same address. Therefore the following expression returns <CODE CLASS="Code">
+t</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886067"></A>(fli:pointer-eq point1 point3)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886068"></A>Two functions are provided to return information about the object pointed to by a pointer, <A HREF="fli-133.htm#31706" CLASS="XRef">pointer-element-type</A> and <A HREF="fli-132.htm#38400" CLASS="XRef">pointer-element-size</A>. In practice, it is the pointer which holds the information as to the type of the object at a given memory location--the memory location itself only contains data in the form of bytes. Recall that <CODE CLASS="Code">
+point1</CODE>
+ was defined in the previous section as a pointer to an <CODE CLASS="Code">
+:int</CODE>
+. As a result the following two lines of code return <CODE CLASS="Code">
+4</CODE>
+ (the size of an <CODE CLASS="Code">
+:int</CODE>
+) and <CODE CLASS="Code">
+:int</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886088"></A>(fli:pointer-element-size point1)</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886089"></A>(fli:pointer-element-type point1)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886090"></A>The question of pointer types is discussed further in the next section.<A NAME="marker-886700"></A></P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-39.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-37.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

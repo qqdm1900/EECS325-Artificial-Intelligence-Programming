@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ A.7.4   Interactive Debugging
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-193.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-191.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-187.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-168.htm">A Common Prolog</A> &gt; <A HREF="kwprolog-m-187.htm">A.7  Debugging</A><BR><BR>
+</DIV><A HREF="kwprolog-m-193.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-191.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-187.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading-App">
+<A NAME="pgfId-866315"></A>A.7.4   Interactive Debugging<A NAME="interactive debugging section"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-866316"></A>When Common Prolog execution enters a debugging command loop, the user has many options, which may be listed with <CODE CLASS="Code">
+?</CODE>
+, for example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866317"></A>|==&gt; (spy member)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866318"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866319"></A>|((MEMBER 2)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866320"></A>|YES.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866321"></A>|OK. </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866322"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866323"></A>|==&gt; (member 3 ?x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866324"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866325"></A>|[1] CALL: (MEMBER 3 ?0)? ? &lt;- user types ?</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866326"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866327"></A>|(c)reep     - turn on exhaustive tracing</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866328"></A>|(s)kip      - skip until another port is </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866329"></A>|              reached for this goal</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866330"></A>|(l)eap      - turn off tracing until a spy</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866331"></A>|              point or this goal is reached</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866332"></A>|(b)reak     - enter a recursive </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866333"></A>|              read/query/print loop</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866334"></A>|(d)isplay   - display a listing for the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866335"></A>|              current goal</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866336"></A>|(q)uit      - quit to top level</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866337"></A>|(r)etry     - try to satisfy this goal again</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866338"></A>|(f)ail      - cause the current goal to fail</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866339"></A>|(a)bort     - exit Common Prolog</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866340"></A>|?           - display this information</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866341"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866342"></A>|? </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866343"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866344"></A>|In a little more detail...</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866345"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866346"></A>|creep   - causes exhaustive tracing of the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866347"></A>|          next goal</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866348"></A>|skip    - ignores spy points and executes</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866349"></A>|          without displaying anything until</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866350"></A>|          this goal is reached again </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866351"></A>|          either at an exit, fail, </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866352"></A>|          or redo port</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866353"></A>|leap    - turns off exhaustive tracing until</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866354"></A>|          a spy point or this goal is</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866355"></A>|          reached</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866356"></A>|break   - enters a recursive interpreter loop</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866357"></A>|          so that the user may query</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866358"></A>|          values, redefine a predicate, etc.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866359"></A>|display - uses &quot;listing&quot; to display the </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866360"></A>|          listing of the current goal</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866361"></A>|quit    - returns to the top level interpreter</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866362"></A>|         loop</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866363"></A>|retry   - causes execution to return to the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866364"></A>|          call port of this goal as if</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866365"></A>|           this goal had just been reached for</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866366"></A>|          the first time. </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866367"></A>|fail    - causes execution to jump to the fail</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866368"></A>|         port of this goal</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866369"></A>|abort   - completely exit Common Prolog</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866370"></A>Continuing the example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866371"></A>|d &lt;- user selects display</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866372"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866373"></A>|Compiled procedure:</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866374"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866375"></A>|(DEFREL MEMBER </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866376"></A>|  ((MEMBER ?X (?X . ?)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866377"></A>|  ((MEMBER ?X (? . ?Y)) (MEMBER ?X ?Y))) ? c </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866378"></A>|  ...user selects creep</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866380"></A>|[1] EXIT: (MEMBER 3 (3 . ?0))? r </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866381"></A>|  ...user selects retry</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866382"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866383"></A>|[1] CALL: (MEMBER 3 ?0)? f &lt;-user selects fail</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866384"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866385"></A>|[1] FAIL: (MEMBER 3 ?0)? r &lt;- one more time</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866386"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866387"></A>|[1] CALL: (MEMBER 3 ?0)? s &lt;- skip</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866388"></A>|</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866389"></A>|[1] EXIT: (MEMBER 3 (3 . ?0))? l &lt;- leap</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866391"></A>|?X = (3 . ?0); &lt;- more solutions</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866392"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866393"></A>|[1] REDO: (MEMBER 3 (3 . ?0))? c &lt;- creep</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866394"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866395"></A>|[2] CALL: (MEMBER 3 ?0)? b &lt;- break</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866396"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866397"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866398"></A>|==&gt; (nospy)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866399"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866400"></A>|NIL &lt;- current spylist</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866401"></A>|YES.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866402"></A>|OK.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866403"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866404"></A>|==&gt; (halt) &lt;- return to original execution</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866405"></A>|? l &lt;- leap</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866406"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866407"></A>|?X = (?0 3 . ?1)&lt;cr&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866408"></A>|</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866409"></A>|OK.</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866410"></A>Another example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866411"></A>|==&gt; (defrel reverse</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866412"></A>|      ((reverse () ()))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866413"></A>|      ((reverse (?x . ?y) ?z)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866414"></A>|       (reverse ?y ?w)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866415"></A>|       (append ?w (?x) ?z)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866416"></A>|&lt;noise..&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866417"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866418"></A>|?X = ?0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866419"></A>|?Y = ?1</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866420"></A>|?Z = ?2</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866421"></A>|?W = ?3</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866422"></A>|</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866423"></A>|OK.</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866425"></A>|==&gt; (defrel append</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866426"></A>|      ((append () ?x ?x))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866427"></A>|      ((append (?u . ?x) ?y (?u . ?z))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866428"></A>|       (append ?x ?y ?z)))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866429"></A>|&lt;noise..&gt;</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866431"></A>|?X = ?0</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866432"></A>|?U = ?1</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866433"></A>|?Y = ?2</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866434"></A>|?Z = ?3</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866435"></A>|</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866436"></A>|OK.</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866438"></A>|==&gt; (unleash)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866439"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866440"></A>|YES.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866441"></A>|OK. </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866442"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866443"></A>|==&gt; (trace)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866444"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866445"></A>|YES.</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866446"></A>|OK. </PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866448"></A>|==&gt; (reverse (1 2 3) ?x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866449"></A>|</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866450"></A>|[1] CALL: (REVERSE (1 2 3) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866451"></A>|[2] CALL: (REVERSE (2 3) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866452"></A>|[3] CALL: (REVERSE (3) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866453"></A>|[4] CALL: (REVERSE NIL ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866454"></A>|[4] EXIT: (REVERSE NIL NIL)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866455"></A>|[5] CALL: (APPEND NIL (3) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866456"></A>|[5] EXIT: (APPEND NIL (3) (3))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866457"></A>|[3] EXIT: (REVERSE (3) (3))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866458"></A>|[6] CALL: (APPEND (3) (2) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866459"></A>|[7] CALL: (APPEND NIL (2) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866460"></A>|[7] EXIT: (APPEND NIL (2) (2))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866461"></A>|[6] EXIT: (APPEND (3) (2) (3 2))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866462"></A>|[2] EXIT: (REVERSE (2 3) (3 2))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866463"></A>|[8] CALL: (APPEND (3 2) (1) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866464"></A>|[9] CALL: (APPEND (2) (1) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866465"></A>|[10] CALL: (APPEND NIL (1) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866466"></A>|[10] EXIT: (APPEND NIL (1) (1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866467"></A>|[9] EXIT: (APPEND (2) (1) (2 1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866468"></A>|[8] EXIT: (APPEND (3 2) (1) (3 2 1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866469"></A>|[1] EXIT: (REVERSE (1 2 3) (3 2 1))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866470"></A>|?X = (3 2 1);</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-866472"></A>|[1] REDO: (REVERSE (1 2 3) (3 2 1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866473"></A>|[8] REDO: (APPEND (3 2) (1) (3 2 1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866474"></A>|[9] REDO: (APPEND (2) (1) (2 1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866475"></A>|[10] REDO: (APPEND NIL (1) (1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866476"></A>|[10] FAIL: (APPEND NIL (1) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866477"></A>|[9] FAIL: (APPEND (2) (1) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866478"></A>|[8] FAIL: (APPEND (3 2) (1) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866479"></A>|[2] REDO: (REVERSE (2 3) (3 2))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866480"></A>|[6] REDO: (APPEND (3) (2) (3 2))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866481"></A>|[7] REDO: (APPEND NIL (2) (2))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866482"></A>|[7] FAIL: (APPEND NIL (2) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866483"></A>|[6] FAIL: (APPEND (3) (2) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866484"></A>|[3] REDO: (REVERSE (3) (3))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866485"></A>|[5] REDO: (APPEND NIL (3) (3))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866486"></A>|[5] FAIL: (APPEND NIL (3) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866487"></A>|[4] REDO: (REVERSE NIL NIL)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866488"></A>|[4] FAIL: (REVERSE NIL ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866489"></A>|[3] FAIL: (REVERSE (3) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866490"></A>|[2] FAIL: (REVERSE (2 3) ?0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866491"></A>|[1] FAIL: (REVERSE (1 2 3) ?0)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866492"></A>|NO. </PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-193.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-191.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-187.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

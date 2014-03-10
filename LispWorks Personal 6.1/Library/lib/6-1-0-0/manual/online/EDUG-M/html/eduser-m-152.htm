@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.11  Movement
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-153.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-151.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-136.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A> &gt <A HREF="eduser-m-136.htm">6.3  Programming the editor</A><BR><BR>
+</DIV><A HREF="eduser-m-153.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-151.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884038"></A>6.3.11  <A NAME="marker-884037"></A>Movement</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884040"></A>editor:<A NAME="marker-884039"></A>line-end</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884041"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884936"></A>editor:line-end <EM CLASS="Variable">
+point</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884042"></A>Moves <EM CLASS="Variable">
+point</EM>
+ to be located immediately before the next newline character, or the end of the buffer if there are no following newline characters.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884044"></A>editor:<A NAME="marker-884043"></A>line-start</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884045"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884904"></A>editor:line-start <EM CLASS="Variable">
+point</EM>
+ </CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884046"></A>Moves <EM CLASS="Variable">
+point</EM>
+ to be located immediately after the previous newline character, or the start of the buffer if there are no previous newline characters.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884048"></A>editor:<A NAME="marker-884047"></A>character-offset</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884049"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884941"></A>editor:character-offset <EM CLASS="Variable">
+point n</EM>
+ </CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884050"></A>Moves <EM CLASS="Variable">
+point</EM>
+ forward <EM CLASS="Variable">
+n</EM>
+ characters. If <EM CLASS="Variable">
+n</EM>
+ is negative, <EM CLASS="Variable">
+point</EM>
+ moves back <EM CLASS="Variable">
+n</EM>
+ characters.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884052"></A>editor:<A NAME="marker-884051"></A>word-offset</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884053"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884950"></A>editor:word-offset <EM CLASS="Variable">
+point n</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884054"></A>Moves <EM CLASS="Variable">
+point</EM>
+ forward<EM CLASS="Variable">
+ n</EM>
+ words. If<EM CLASS="Variable">
+ n</EM>
+ is negative, <EM CLASS="Variable">
+point</EM>
+ moves back <EM CLASS="Variable">
+n</EM>
+ words.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884056"></A>editor:<A NAME="marker-884055"></A>line-offset</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884057"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884957"></A>editor:line-offset <EM CLASS="Variable">
+point n</EM>
+ &amp;optional <EM CLASS="Variable">
+to-offset</EM>
+ </CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884058"></A>Moves <EM CLASS="Variable">
+point</EM>
+ <EM CLASS="Variable">
+n</EM>
+ lines forward, to a location <EM CLASS="Variable">
+to-offset</EM>
+ characters into the line. If <EM CLASS="Variable">
+n</EM>
+ is negative, <EM CLASS="Variable">
+point</EM>
+ moves back <EM CLASS="Variable">
+n</EM>
+ lines. If <EM CLASS="Variable">
+to-offset</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ (its default value), an attempt is made to retain the current offset. An error is signalled if there are not <EM CLASS="Variable">
+n</EM>
+ further lines in the buffer.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884060"></A>editor:<A NAME="marker-884059"></A>form-offset</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884061"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885052"></A>editor:form-offset <EM CLASS="Variable">
+point n</EM>
+ &amp;optional <EM CLASS="Variable">
+form depth</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884062"></A>Moves <EM CLASS="Variable">
+point</EM>
+ forward <EM CLASS="Variable">
+n</EM>
+ Lisp forms. If <EM CLASS="Variable">
+n</EM>
+ is negative, point moves back <EM CLASS="Variable">
+n</EM>
+ forms. If <EM CLASS="Variable">
+form</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ (its default value) then atoms are counted as forms, otherwise they are ignored. Before point is moved forward <EM CLASS="Variable">
+n</EM>
+ forms, it first jumps out <EM CLASS="Variable">
+depth</EM>
+ levels. The default value for <EM CLASS="Variable">
+depth</EM>
+ is 0.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-153.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-151.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

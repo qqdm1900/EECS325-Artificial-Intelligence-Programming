@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiuser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.3.2  The implementation of graph panes
+</TITLE>
+
+<LINK REL="next" HREF="capiuser-m-180.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiuser-m-178.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiuser-m-177.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiuser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiuser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiuser-m-252.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="capiuser-m.htm">CAPI User Guide</A> &gt <A HREF="capiuser-m-174.htm">12 Creating Your Own Panes</A> &gt <A HREF="capiuser-m-177.htm">12.3  Creating graphical objects</A><BR><BR>
+</DIV><A HREF="capiuser-m-180.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-178.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-177.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884279"></A>12.3.2  The implementation of graph panes</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884280"></A>One of the major uses the CAPI itself makes of pinboard objects is to implement graph panes. The <A NAME="marker-884281"></A><CODE CLASS="Code">
+graph-pane</CODE>
+ itself is a <CODE CLASS="Code">
+pinboard-layout</CODE>
+ and it is built using <CODE CLASS="Code">
+pinboard-object</CODE>
+s for the nodes and edges. This is because each node (and sometimes each edge) of the graph needs to react individually to the user. For instance, when an event is received by the <CODE CLASS="Code">
+graph-pane</CODE>
+, it is told which pinboard object was under the pointer at the time, and it can then use this information to change the selection.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884282"></A>Create the following <CODE CLASS="Code">
+graph-pane</CODE>
+ and notice that every node in the graph is made from an <CODE CLASS="Code">
+item-pinboard-object</CODE>
+ as described in the previous section and that each edge is made from a <CODE CLASS="Code">
+line-pinboard-object</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884284"></A>(defun node-children (node)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884285"></A>  (when (&lt; node 16)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884286"></A>    (list (* node 2)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884287"></A>          (1+ (* node 2)))))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-884290"></A>(contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884291"></A> (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884292"></A>  'graph-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884293"></A>  :roots '(1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884294"></A>  :children-function 'node-children)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884295"></A> :best-width 300 :best-height 400)</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-885048"></A>Figure 12.5  A graph pane with pinboard object nodes<DIV>
+<IMG SRC="capiuser-m-69.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-73.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-884641"></A>As mentioned before, <CODE CLASS="Code">
+pinboard-layout</CODE>
+s can just as easily display ordinary panes inside themselves, and so the <CODE CLASS="Code">
+graph-pane</CODE>
+ provides the ability to specify the class used to represent the nodes. As an example, here is a <CODE CLASS="Code">
+graph-pane</CODE>
+ with the nodes made from <CODE CLASS="Code">
+push-button</CODE>
+s.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-884305"></A>(contain</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884306"></A> (make-instance</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884307"></A>  'graph-pane</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884308"></A>  :roots '(1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884309"></A>  :children-function 'node-children</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-884310"></A>  :node-pinboard-class 'push-button)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-884311"></A> :best-width 300 :best-height 400)</PRE>
+<P CLASS="Figure">
+<A NAME="pgfId-884920"></A>Figure 12.6  A graph pane with push-button nodes<DIV>
+<IMG SRC="capiuser-m-69.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="capiuser-m-74.gif">
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI User Guide (Macintosh version) - 30 Aug 2011</I></P>
+<P><A HREF="capiuser-m-180.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiuser-m-178.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiuser-m-177.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiuser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiuser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiuser-m-252.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

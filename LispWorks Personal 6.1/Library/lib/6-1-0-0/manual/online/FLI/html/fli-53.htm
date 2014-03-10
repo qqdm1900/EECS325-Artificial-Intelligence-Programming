@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.2.8  Win32 API functions that handle strings
+</TITLE>
+
+<LINK REL="next" HREF="fli-54.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-52.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-45.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A> &gt; <A HREF="fli-45.htm">4.2  Modifying, passing and returning strings</A><BR><BR>
+</DIV><A HREF="fli-54.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-52.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-898892"></A>4.2.8  Win32 API functions that handle strings</H3>
+<P CLASS="Body">
+<A NAME="pgfId-898893"></A>Functions in the Win32 API that handle strings come in two flavors, one for ANSI strings and one for Unicode strings. Windows ME only supports the ANSI functions but Windows XP/Vista/7 support both. The functions are named with a single letter suffix, an <CODE CLASS="Code">
+A</CODE>
+ for the ANSI functions and a <CODE CLASS="Code">
+W</CODE>
+ for the Unicode functions. So for example both <CODE CLASS="Code">
+CreateFileA</CODE>
+ and <CODE CLASS="Code">
+CreateFileW</CODE>
+ exist. In C, this is finessed by the use of #define in the header files.</P>
+<P CLASS="Body">
+<A NAME="pgfId-898894"></A>There are two ways to handle this:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-898895"></A>Always use the <CODE CLASS="Code">
+A</CODE>
+ functions. This will allow your code to work on all supported versions of Windows, but will prevent the use of Unicode on Windows XP/Vista/7 (this is typically only a problem if you are handling mixed language data), or</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-898896"></A>Use <EM CLASS="Variable">
+encoding</EM>
+ <CODE CLASS="Code">
+:dbcs</CODE>
+ in <A HREF="fli-94.htm#27849" CLASS="XRef">define-foreign-function</A>. This will cause it to switch between ANSI and Unicode versions depending on the operating system.</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-898998"></A>In either case, as well as calling the correct function, you must encode/decode any string arguments/results correctly, to match the <CODE CLASS="Code">
+A</CODE>
+ or <CODE CLASS="Code">
+W</CODE>
+ in the function name. The foreign types <A NAME="marker-899004"></A><CODE CLASS="Code">
+win32:tstr</CODE>
+, <A NAME="marker-899006"></A><CODE CLASS="Code">
+win32:lpctstr</CODE>
+ and <A NAME="marker-899011"></A><CODE CLASS="Code">
+win32:lptstr</CODE>
+ correspond to the typical ones found in the Win32 API. For more information about  these foreign types, see their manual pages in the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-54.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-52.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.3.1.1  Querying
+</TITLE>
+
+<LINK REL="next" HREF="lw-370.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-368.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-368.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-367.htm">19.3  Functional interface</A> &gt; <A HREF="lw-368.htm">19.3.1  Functional Data Manipulation Language (FDML)</A><BR><BR>
+</DIV><A HREF="lw-370.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-368.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-368.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-886165"></A>19.3.1.1  <A NAME="11131"></A>Querying</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886167"></A>The function  <A NAME="marker-886166"></A><A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> returns data from a database matching the constraints specified. The data is returned, by default, as a list of records in which each record is represented as a list of attribute values.</P>
+<P CLASS="Body">
+<A NAME="pgfId-901395"></A>Database identifiers used in <A HREF="lw-1257.htm#30104" CLASS="XRef">select</A> are conveniently specified using the symbolic SQL <CODE CLASS="Code">
+[]</CODE>
+ syntax. This syntax is enabled by calling <A NAME="marker-901396"></A><A HREF="lw-1184.htm#20888" CLASS="XRef">enable-sql-reader-syntax</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-901397"></A>The square bracket syntax assumes that sql symbols are visible. Therefore when using the  <CODE CLASS="Code">
+[]</CODE>
+ syntax, ensure that the current package either is <CODE CLASS="Code">
+sql</CODE>
+, or is a pacakge which has the <CODE CLASS="Code">
+sql</CODE>
+ package on its package-use-list.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886174"></A>For a description of the symbolic SQL syntax see <A HREF="lw-389.htm#94969" CLASS="XRef">Symbolic SQL syntax</A>. For example, the following is a potential query and its result:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-907214"></A>(select [person_id] [person surname] :from [person])</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907220"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907215"></A>((111 &quot;Brown&quot;) (222 &quot;Jones&quot;) (333 &quot;Smith&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-907216"></A>(&quot;PERSON_ID&quot; &quot;SURNAME&quot;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886178"></A>In this example, <CODE CLASS="Code">
+[person_id]</CODE>
+, <CODE CLASS="Code">
+[person surname</CODE>
+] and <CODE CLASS="Code">
+[person</CODE>
+] are database-identifiers and evaluate to literal SQL. The result is a list of lists of attribute values. Conversely, consider</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-907230"></A>(select [surname] :from [person] :flatp t)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907235"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907231"></A>(&quot;Brown&quot; &quot;Jones&quot; &quot;Smith&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886180"></A>(&quot;SURNAME&quot;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886181"></A>In this case the result is a simple list of surname values because of the use of the <EM CLASS="Variable">
+flatp</EM>
+ keyword. The <EM CLASS="Variable">
+flatp</EM>
+ keyword only works when there is one column of data to return.</P>
+<P CLASS="Body">
+<A NAME="pgfId-907183"></A><A NAME="marker-907374"></A>In this example we use * to match all fields in the table, and then we use the <EM CLASS="Variable">
+result-types</EM>
+ keyword to specify the types to return:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-907246"></A>(select [*] :from [person])</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907261"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907247"></A>((2 111 &quot;Brown&quot;) (3 222 &quot;Jones&quot;) (4 333 &quot;Smith&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907248"></A>(&quot;ID&quot; &quot;Person_ID&quot; &quot;Surname&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907249"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907250"></A>(select [*] :from [person] :result-types '(:integer :string :string))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907262"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907251"></A>((2 &quot;111&quot; &quot;Brown&quot;) (3 &quot;222&quot; &quot;Jones&quot;) (4 &quot;333&quot; &quot;Smith&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-907208"></A>(&quot;ID&quot; &quot;Person_ID&quot; &quot;Surname&quot;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-914772"></A><A NAME="marker-910958"></A>If you want to affect the result type for a specified field, use a type-modified database identifier. As an example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-914775"></A>(sql:select [Person_ID :string][Surname] :from [person])</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-914776"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-914777"></A>((&quot;111&quot; &quot;Brown&quot;) (&quot;222&quot; &quot;Jones&quot;) (&quot;333&quot; &quot;Smith&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-907292"></A>(&quot;PERSON_ID&quot; &quot;SURNAME&quot;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-910306"></A>With <EM CLASS="Variable">
+database-type</EM>
+ <CODE CLASS="Code">
+:mysql</CODE>
+, further control over the values returned from queries is possible as described in <A HREF="lw-419.htm#31477" CLASS="XRef">Types of values returned from queries</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-896751"></A>In this final example the <CODE CLASS="Code">
+:where</CODE>
+ keyword is used to specify a condition for returning selected values from the database.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-907275"></A>(select [surname] :from [person] :where [= [person_id] 222])</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907276"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-907280"></A>((&quot;Jones&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896753"></A>(&quot;SURNAME&quot;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-890628"></A>To output the results of a query in a more easily readable tabulated way, use the function <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-886182"></A><A HREF="lw-1252.htm#19259" CLASS="XRef">print-query</A>. For example the following call prints two even columns of names and salaries: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886192"></A>(print-query [select [surname] [income] :from [employee]]</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886193"></A>             :titles '(&quot;NAME&quot; &quot;SALARY&quot;))</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-886194"></A>NAME   SALARY</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886195"></A>Brown  22000</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886196"></A>Jones  45000</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886197"></A>Smith  35000</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-370.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-368.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-368.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

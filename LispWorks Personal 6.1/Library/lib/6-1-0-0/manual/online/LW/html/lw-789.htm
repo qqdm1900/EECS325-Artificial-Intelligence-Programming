@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ extended-time
+</TITLE>
+
+<LINK REL="next" HREF="lw-790.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-788.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-790.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-788.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1066367"></A><A NAME="58380"></A>extended<A NAME="marker-1066366"></A>-time</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888590"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888591"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888592"></A>Prints useful timing information, including information on garbage collection (GC) activity.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888593"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888594"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888595"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888596"></A>extended-time &amp;body <EM CLASS="Variable">
+body</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888597"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888598"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">The forms to be timed. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888601"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888602"></A>The macro <CODE CLASS="Code">
+extended-time</CODE>
+ runs the forms in <EM CLASS="Variable">
+body</EM>
+. It then prints a summary of the time taken followed by a breakdown of time spent in the GC.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1126243"></A>The three columns of the GC breakdown show, respectively, total time, user time, and system time. The rows of the GC breakdown indicate the type of activity.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1104111"></A>In 32-bit LispWorks these rows begin:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1104140"></A><CODE CLASS="Code">
+main promote</CODE>
+</P>
+<P CLASS="RDescription-C">indicates promotions from generation 0.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1104161"></A><CODE CLASS="Code">
+internal promote</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1125936"></A>indicates when an attempt to promote from one generation to the next causes promotion of the higher generation, to make room for the objects from the lower generation.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1104667"></A><CODE CLASS="Code">
+fixup</CODE>
+</P>
+<P CLASS="RDescription-C">is a part of the compaction and promotion process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1126250"></A>In 64-bit LispWorks these rows begin:</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1130683"></A><CODE CLASS="Code">
+Standard </CODE>
+<EM CLASS="Variable">
+gen-num</EM>
+<CODE CLASS="Code">
+ (</CODE>
+<EM CLASS="Variable">
+n</EM>
+<CODE CLASS="Code">
+ calls)</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1130684"></A>indicates <EM CLASS="Variable">
+n</EM>
+ Standard GCs (includes automatic GCs and calls to <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A>) in which the highest generation collected was <EM CLASS="Variable">
+gen-num</EM>
+.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1130687"></A><CODE CLASS="Code">
+Marking </CODE>
+<EM CLASS="Variable">
+gen-num</EM>
+<CODE CLASS="Code">
+ (</CODE>
+<EM CLASS="Variable">
+n</EM>
+<CODE CLASS="Code">
+ calls)</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1130752"></A>indicates <EM CLASS="Variable">
+n</EM>
+ Marking GCs (includes calls to <A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A>)  in which the highest generation collected was <EM CLASS="Variable">
+gen-num</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1130697"></A>Thus in the example below</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1128540"></A>Standard  1  (    1 calls) ...</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1128545"></A>indicates that there was 1 Standard GC in which the  highest generation collected was 1.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1106441"></A>Example </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1106442"></A>This example illustrates output in 32-bit LispWorks:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1650846"></A>CL-USER 57 &gt; (extended-time (foo))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650847"></A>Timing the evaluation of (PROGN (FOO))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650848"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650849"></A>User time    =       26.703</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650850"></A>System time  =        0.109</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650851"></A>Elapsed time =       27.047</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650852"></A>Allocation   = 40021902832 bytes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650853"></A>0 Page faults</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650854"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650855"></A>                                      total    /   user     /   system</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650856"></A>total gc activity              =      3.312500 /   3.312500 /   0.000000</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650857"></A>main promote (    1 calls)     =      0.000000 /   0.000000 /   0.000000</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650858"></A>mark and sweep ( 7305 calls)   =      3.312500 /   3.312500 /   0.000000</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650859"></A>internal promote (    0 calls) =      0.000000 /   0.000000 /   0.000000</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650860"></A>promote (    0 calls)          =      0.000000 /   0.000000 /   0.000000</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650861"></A>fixup (    1 calls)            =      0.000000 /   0.000000 /   0.000000</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650862"></A>compact (    0 calls)          =      0.000000 /   0.000000 /   0.000000</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1650863"></A>10006387712</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1106487"></A>0.0</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1106488"></A>This example illustrates output in 64-bit LispWorks:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1651320"></A>CL-USER 3 &gt; (extended-time (foo))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651321"></A>Timing the evaluation of (PROGN (FOO))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651322"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651323"></A>User time    =       11.433</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651324"></A>System time  =        0.268</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651325"></A>Elapsed time =       11.197</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651326"></A>Allocation   = 80040251696 bytes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651327"></A>5 Page faults</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651328"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651329"></A>                                  total    /   user     /   system</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651330"></A>total gc activity          =      2.168062 /   2.126444 /   0.041618</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651331"></A>Standard  0  (28545 calls) =      2.153886 /   2.119799 /   0.034087</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651332"></A>Standard  1  (    1 calls) =      0.014176 /   0.006645 /   0.007531</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1651333"></A>10006387712</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1110169"></A>0.0</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1106443"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888623"></A><A HREF="lw-674.htm#35434" CLASS="XRef">time</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-790.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-788.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

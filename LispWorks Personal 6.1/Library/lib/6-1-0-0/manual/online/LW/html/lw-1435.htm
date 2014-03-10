@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ setup-atomic-funcall
+</TITLE>
+
+<LINK REL="next" HREF="lw-1436.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1434.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1436.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1434.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1379229"></A><A NAME="50195"></A>setup<A NAME="marker-1381332"></A>-atomic-funcall</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1379230"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1379231"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1379232"></A>Sets up mutually atomic funcalls in SMP LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1379233"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1379234"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1379235"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1379236"></A>setup-atomic-funcall &amp;rest <EM CLASS="Variable">
+function-and-arguments</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1379237"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1379238"></A><EM CLASS="Variable">
+function-and-arguments</EM>
+</P>
+<P CLASS="RDescription-C"> A list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1379239"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1379240"></A>The function <CODE CLASS="Code">
+setup-atomic-funcall</CODE>
+ sets up a funcall which will be executed atomically with respect to any other calls which were also set up by <CODE CLASS="Code">
+setup-atomic-funcall</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1379241"></A>The call causes the execution of the form</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1379931"></A>(apply (car <EM CLASS="Variable">function-and-arguments</EM>
+)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1379242"></A>       (cdr <EM CLASS="Variable">function-and-arguments</EM>
+))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1379243"></A>some time after the entry to <CODE CLASS="Code">
+setup-atomic-funcall</CODE>
+. The call may happen before <CODE CLASS="Code">
+setup-atomic-funcall</CODE>
+ returns, and it is expected that normally this is what will happen. However, it may be delayed for an indefinite period, but normally this period is short (milliseconds). The execution occurs atomically with respect to other calls that were set up by <CODE CLASS="Code">
+setup-atomic-funcall</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1379244"></A>The call should be short, because otherwise it will delay all the other calls. If an error occurs during the call, the atomicity is no longer guaranteed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1379245"></A><CODE CLASS="Code">
+setup-atomic-funcall</CODE>
+ is useful when a process needs to atomically tell another process to do something, but does not need to wait for it to finish.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1379246"></A><CODE CLASS="Code">
+setup-atomic-funcall</CODE>
+ causes less congestion than using a lock, and so is more efficient for locks that may cause congestion. <A HREF="lw-1346.htm#59556" CLASS="XRef">compare-and-swap</A> and <A HREF="lw-1333.htm#36022" CLASS="XRef">atomic-exchange</A> operations will be faster.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1380050"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1380111"></A><A HREF="lw-1333.htm#36022" CLASS="XRef">atomic-exchange</A><BR>
+<A HREF="lw-1346.htm#59556" CLASS="XRef">compare-and-swap</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1436.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1434.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

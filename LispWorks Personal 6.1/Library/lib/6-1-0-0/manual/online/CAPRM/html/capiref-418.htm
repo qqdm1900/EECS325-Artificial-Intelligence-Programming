@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ sorted-object-sort-by
+</TITLE>
+
+<LINK REL="next" HREF="capiref-419.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-417.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-419.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-417.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3260086"></A><A NAME="31312"></A>sorted<A NAME="marker-4231432"></A>-object-sort-by</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-3260087"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3260088"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3260092"></A>Sets the sorting type of a <A HREF="capiref-417.htm#93813" CLASS="XRef">sorted-object</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4231423"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4231424"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3260094"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3260095"></A>sorted-object-sort-by <EM CLASS="Variable">
+pane</EM>
+ <EM CLASS="Variable">
+new-sort-type</EM>
+ &amp;key <EM CLASS="Variable">
+allow-reverse</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3260096"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3260100"></A><EM CLASS="Variable">
+pane</EM>
+</P>
+<P CLASS="RDescription-C">An instance of <A HREF="capiref-417.htm#93813" CLASS="XRef">sorted-object</A> or a subclass.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3263136"></A><EM CLASS="Variable">
+new-sort-type</EM>
+</P>
+<P CLASS="RDescription-C">The sort type to set.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3263149"></A><EM CLASS="Variable">
+allow-reverse</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3260107"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3260108"></A>The generic function <CODE CLASS="Code">
+sorted-object-sort-by</CODE>
+ sets the sort type of <EM CLASS="Variable">
+pane</EM>
+ to <EM CLASS="Variable">
+new-sort-type</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3263169"></A><EM CLASS="Variable">
+new-sort-type</EM>
+ must match the type of one of the sort descriptions of <EM CLASS="Variable">
+pane</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3263804"></A>If <EM CLASS="Variable">
+allow-reverse</EM>
+ is non-nil and the sort type already matches <EM CLASS="Variable">
+new-sort-type</EM>
+, then the sort reverses the order of the <EM CLASS="Variable">
+items</EM>
+. The default value of <EM CLASS="Variable">
+allow-reverse</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3263808"></A>If <EM CLASS="Variable">
+pane</EM>
+ is a <A HREF="capiref-214.htm#30299" CLASS="XRef">list-panel</A>, then <CODE CLASS="Code">
+sorted-object-sort-by</CODE>
+ also calls <A HREF="capiref-416.htm#37745" CLASS="XRef">sort-object-items-by</A> to sort the items with the new sort type. For your own subclasses of <A HREF="capiref-417.htm#93813" CLASS="XRef">sorted-object</A> which are not subclasses of <A HREF="capiref-214.htm#30299" CLASS="XRef">list-panel</A>, if you need this behavior define an <CODE CLASS="Code">
+:after</CODE>
+ method that calls <A HREF="capiref-416.htm#37745" CLASS="XRef">sort-object-items-by</A>. You can also define <CODE CLASS="Code">
+:after</CODE>
+ methods on subclasses of <A HREF="capiref-214.htm#30299" CLASS="XRef">list-panel</A> to perform other tasks each time the items are sorted.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3266260"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-4231470"></A><A HREF="capiref-416.htm#37745" CLASS="XRef">sort-object-items-by</A><BR>
+<A HREF="capiref-417.htm#93813" CLASS="XRef">sorted-object</A><BR>
+<A HREF="capiref-419.htm#63132" CLASS="XRef">sorted-object-sorted-by</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-419.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-417.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

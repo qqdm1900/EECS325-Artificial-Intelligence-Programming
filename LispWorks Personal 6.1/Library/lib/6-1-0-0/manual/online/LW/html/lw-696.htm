@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *terminal-debugger-block-multiprocessing* 
+</TITLE>
+
+<LINK REL="next" HREF="lw-697.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-695.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-683.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-683.htm">29 The DBG Package</A><BR><BR>
+</DIV><A HREF="lw-697.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-695.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-892060"></A><A NAME="37475"></A>*terminal<A NAME="marker-898110"></A>-debugger-block-multiprocessing* </H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-892069"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892071"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892073"></A>Controls blocking of multiprocessing in the terminal debugger.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892077"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-892078"></A>dbg</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892079"></A>Initial Value</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-892080"></A>t</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892081"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892117"></A>When the debugger is entered on the terminal, multiprocessing is blocked if the value of <CODE CLASS="Code">
+*terminal-debugger-block-multiprocessing*</CODE>
+ is <CODE CLASS="Code">
+t</CODE>
+. This is the default value.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-892121"></A>If you set this variable to <CODE CLASS="Code">
+nil</CODE>
+ then other processes, including timers, will continue to run in parallel to the process that entered the terminal debugger (as they did before the debugger was entered). Beware that this will make it more difficult to debug multiprocess activities.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-892539"></A>The other allowed value is <CODE CLASS="Code">
+:maybe</CODE>
+. This means that multiprocessing is blocked in the terminal debugger unless the debugger was entered from the CAPI environment.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-898121"></A>The value of <CODE CLASS="Code">
+*terminal-debugger-block-multiprocessing*</CODE>
+ affects the behavior of a REPL started by <A HREF="lw-976.htm#90353" CLASS="XRef">start-tty-listener</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892404"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892405"></A>This listener session illustrates the effect of <CODE CLASS="Code">
+*terminal-debugger-block-multiprocessing*</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-898414"></A>Firstly we see the default behavior whereby a call to <CODE CLASS="Code">
+print</CODE>
+ in another process is blocked by the debugger.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-898297"></A>CL-USER 1 &gt; dbg:*terminal-debugger-block-multiprocessing*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892406"></A>T</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892407"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892408"></A>CL-USER 2 &gt; unbound</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892409"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892410"></A>Error: The variable UNBOUND is unbound.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892411"></A>  1 (continue) Try evaluating UNBOUND again.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892412"></A>  2 Specify a value to use this time instead of evaluating UNBOUND.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892413"></A>  3 Specify a value to set UNBOUND to.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892414"></A>  4 (abort) Return to level 0.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892415"></A>  5 Return to top-level loop.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892416"></A>  6 Return from multiprocessing.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892417"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892418"></A>Type :b for backtrace, :c &lt;option number&gt; to proceed,  or :? for other options</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892419"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892420"></A>CL-USER 3 : 1 &gt; (setq *timer* (mp:make-timer 'print 10))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892421"></A>Warning: Setting unbound variable *TIMER*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892422"></A>#&lt;Time Event : PRINT&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892423"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892424"></A>CL-USER 4 : 1 &gt; (mp:schedule-timer-relative *timer* 1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892425"></A>#&lt;Time Event : PRINT&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892426"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-892427"></A>CL-USER 5 : 1 &gt; :a</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-898341"></A>On leaving the debugger the output <CODE CLASS="Code">
+10</CODE>
+ from the call to <CODE CLASS="Code">
+print</CODE>
+ appears. Then we set <CODE CLASS="Code">
+*terminal-debugger-block-multiprocessing*</CODE>
+ to <CODE CLASS="Code">
+nil</CODE>
+ and repeat the comands:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-898361"></A>CL-USER 6 &gt; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-898362"></A>10 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-898363"></A>(setf dbg:*terminal-debugger-block-multiprocessing* nil) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892432"></A> NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892433"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892434"></A>CL-USER 7 &gt; unbound</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892435"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892436"></A>Error: The variable UNBOUND is unbound.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892437"></A>  1 (continue) Try evaluating UNBOUND again.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892438"></A>  2 Specify a value to use this time instead of evaluating UNBOUND.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892439"></A>  3 Specify a value to set UNBOUND to.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892440"></A>  4 (abort) Return to level 0.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892441"></A>  5 Return to top-level loop.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892442"></A>  6 Return from multiprocessing.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892443"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892444"></A>Type :b for backtrace, :c &lt;option number&gt; to proceed,  or :? for other options</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892445"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892446"></A>CL-USER 8 : 1 &gt; (setq *timer* (mp:make-timer 'print 10))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892447"></A>#&lt;Time Event : PRINT&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892448"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892449"></A>CL-USER 9 : 1 &gt; (mp:schedule-timer-relative *timer* 1)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892450"></A>#&lt;Time Event : PRINT&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892451"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-892452"></A>CL-USER 10 : 1 &gt; </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-892324"></A>10</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-898391"></A>Notice above that the output <CODE CLASS="Code">
+10</CODE>
+ from the call to <CODE CLASS="Code">
+print</CODE>
+ appears after 1 second, in the debugger. Multiprocessing was not blocked.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898178"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-904348"></A><A HREF="lw-976.htm#90353" CLASS="XRef">start-tty-listener</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-697.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-695.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

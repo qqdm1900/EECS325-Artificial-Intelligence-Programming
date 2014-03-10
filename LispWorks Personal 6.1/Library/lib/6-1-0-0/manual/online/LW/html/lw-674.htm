@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ time
+</TITLE>
+
+<LINK REL="next" HREF="lw-675.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-673.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-675.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-673.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1040532"></A><A NAME="35434"></A>time<A NAME="marker-1040531"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1040533"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040534"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040535"></A>Determines the execution time of a form in the current environment.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040536"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040537"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040538"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040539"></A>time <EM CLASS="Variable">
+form</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040540"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040541"></A><EM CLASS="Variable">
+form</EM>
+ </P>
+<P CLASS="RDescription-C">A form to be evaluated.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040542"></A>Values </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040543"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">The result of the evaluation of the form. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040544"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040545"></A><CODE CLASS="Code">
+time</CODE>
+ can be used to determine execution times. The macro evaluates the form <EM CLASS="Variable">
+form</EM>
+ and returns its value <EM CLASS="Variable">
+result</EM>
+. <CODE CLASS="Code">
+time</CODE>
+ also prints some timing and size data: <EM CLASS="Variable">
+user time</EM>
+, <EM CLASS="Variable">
+system time</EM>
+, <EM CLASS="Variable">
+elapsed time</EM>
+, and the total amount of heap space allocated in executing the form (in bytes).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1149854"></A>The <EM CLASS="Variable">
+user time</EM>
+ printed is the time used by LispWorks or any code that it calls in a dynamic library.  </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1149856"></A>The <EM CLASS="Variable">
+system time</EM>
+ printed is the time used in the operating system kernel when it is doing work on behalf of the LispWorks process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1149859"></A>The <EM CLASS="Variable">
+elapsed time</EM>
+ printed is the time you could in principle measure with a stopwatch.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1152735"></A>If LispWorks is 100% busy throughout the execution of the code, then <EM CLASS="Variable">
+user time</EM>
+ + <EM CLASS="Variable">
+system time</EM>
+ = <EM CLASS="Variable">
+elapsed time</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1152688"></A>Each of the times is printed as:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1152700"></A><EM CLASS="Variable">
+secs.micros</EM>
+ if less than 60 seconds</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1152674"></A><EM CLASS="Variable">
+hours:minutes:secs.micros</EM>
+ if 60 seconds or more. </LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-1151066"></A>The timing and size data covers all stack groups, not just the one that invokes <CODE CLASS="Code">
+time</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1092684"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1150088"></A>Note that <CODE CLASS="Code">
+time</CODE>
+ itself uses a small, constant amount of heap space.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1152528"></A><CODE CLASS="Code">
+time</CODE>
+ measures all threads, so to test accurately for consing in <EM CLASS="Variable">
+code</EM>
+ you need to do:</LI>
+<P CLASS="RStep-C">
+<A NAME="pgfId-1092787"></A><CODE CLASS="Code">
+(sys:with-other-threads-disabled (time </CODE>
+<EM CLASS="Variable">
+code</EM>
+<CODE CLASS="Code">
+))</CODE>
+</P>
+<P CLASS="RStep-C">
+<A NAME="pgfId-1093459"></A>This is particularly important when using the LispWorks IDE. Do not use <A HREF="lw-1449.htm#71625" CLASS="XRef">with-other-threads-disabled</A> in your application code.</P>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1150457"></A>Examples</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1152877"></A>CL-USER 7 &gt;  (time (loop for i below 3000000</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1152743"></A>                         sum (sqrt i)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1152744"></A>Timing the evaluation of (LOOP FOR I BELOW 3000000 SUM (SQRT I))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1152745"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1152746"></A>User time    =  0:01:04.187</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1152747"></A>System time  =        0.062</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1152748"></A>Elapsed time =  0:01:07.297</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1152749"></A>Allocation   = 4932022956 bytes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1152750"></A>0 Page faults</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1152751"></A>Calls to %EVAL    72000048</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1092961"></A>3.4606518E9</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1092962"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040561"></A><A HREF="lw-789.htm#58380" CLASS="XRef">extended-time</A><BR>
+<A HREF="lw-1449.htm#71625" CLASS="XRef">with-other-threads-disabled</A><BR>
+<A HREF="lw-1001.htm#94554" CLASS="XRef">with-unique-names</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-675.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-673.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

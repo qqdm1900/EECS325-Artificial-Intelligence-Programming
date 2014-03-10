@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :dll-exports
+</TITLE>
+
+<LINK REL="next" HREF="delivery-89.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-87.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-55.htm">5 Keywords to the Delivery Function</A> &gt; <A HREF="delivery-70.htm">5.2  Alphabetical list of deliver keywords </A><BR><BR>
+</DIV><A HREF="delivery-89.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-87.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="Interface">
+<A NAME="pgfId-110601"></A><A NAME="marker-111295"></A><A NAME="38332"></A>:dll-exports</H3>
+<P CLASS="Interface-type">
+<A NAME="pgfId-110602"></A>Keyword</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-110603"></A>Default value: <CODE CLASS="Code">
+:default</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-178109"></A><EM CLASS="Variable">
+dll-exports</EM>
+ is implemented only on Windows, Linux, x86/x64 Solaris, Macintosh and FreeBSD. It controls whether the image saved is an executable or a dynamic library (DLL). If <EM CLASS="Variable">
+dll-exports</EM>
+ is <CODE CLASS="Code">
+:default</CODE>
+, the delivered image is an executable. The value <CODE CLASS="Code">
+:com</CODE>
+ is supported on Microsoft Windows only (see below). Otherwise <EM CLASS="Variable">
+dll-exports</EM>
+ should be list (potentially <CODE CLASS="Code">
+nil</CODE>
+). In this case a dynamic library is saved, and each string in <CODE CLASS="Code">
+dll-exports</CODE>
+ names a function which becomes an export of the dynamic library and should be defined as a Lisp function using <A NAME="marker-178124"></A><CODE CLASS="Code">
+fli:define-foreign-callable</CODE>
+ . Each exported name can be found by <CODE CLASS="Code">
+GetProcAddress</CODE>
+ (on Windows) or <CODE CLASS="Code">
+dlsym</CODE>
+ (on other platforms). The exported symbol is actually a stub which ensures that the LispWorks dynamic library has finished initializing, and then enters the Lisp code.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-178161"></A>On Microsoft Windows <EM CLASS="Variable">
+dll-exports</EM>
+ can also contain the keyword <CODE CLASS="Code">
+:com</CODE>
+, or <EM CLASS="Variable">
+dll-exports</EM>
+ can simply be the keyword <CODE CLASS="Code">
+:com</CODE>
+, both of which mean that the DLL is intended to be used as a COM server. See the <I CLASS="Italic">
+LispWorks COM/Automation User Guide and Reference Manual</I>
+ for details.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-174367"></A>To deliver a dynamic library on Linux/Macintosh/FreeBSD, the build machine must have a C compiler installed. This is typically <CODE CLASS="Code">
+gcc</CODE>
+ (which is available on the Macintosh by installing Xcode).</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-178073"></A>On Mac OS X the default behavior is to generate an object of type &quot;Mach-O dynamically linked shared library&quot; with file type dylib. See <EM CLASS="Variable">
+image-type</EM>
+ below for information about creating another type of library on Mac OS X.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-111412"></A>ON Microsoft Windows you can use <CODE CLASS="Code">
+LoadLibrary</CODE>
+ from the main application to load the DLL and <CODE CLASS="Code">
+GetProcAddress</CODE>
+ to find the address of the external names.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-164503"></A>There is an example DLL delivery script in <A HREF="delivery-42.htm#46227" CLASS="XRef">Delivering a dynamic library</A>.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-163915"></A>For more information about the behavior of LispWorks DLLs (dynamic libraries) see the chapter &quot;LispWorks as a dynamic library&quot; in the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-89.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-87.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

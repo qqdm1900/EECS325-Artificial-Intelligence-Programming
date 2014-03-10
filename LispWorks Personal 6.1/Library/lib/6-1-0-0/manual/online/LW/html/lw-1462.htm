@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ security-description-string-for-open-named-pipe
+</TITLE>
+
+<LINK REL="next" HREF="lw-1463.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1461.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1450.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1450.htm">41 Miscellaneous WIN32 symbols</A><BR><BR>
+</DIV><A HREF="lw-1463.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1461.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1054520"></A><A NAME="94652"></A>s<A NAME="marker-1054518"></A>ecurity-description-string-for-open-named<A NAME="marker-1054519"></A>-pipe</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1054521"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054522"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1054523"></A>Interprets an access specification and generates a Security Descriptor String. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1059517"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1059518"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054524"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1054525"></A>security-description-string-for-open-named-pipe <EM CLASS="Variable">
+access-spec</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+, <EM CLASS="Variable">
+fail-type</EM>
+, <EM CLASS="Variable">
+fail-item</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054526"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1054527"></A><EM CLASS="Variable">
+access-spec</EM>
+</P>
+<P CLASS="RDescription-C">A keyword, an integer, a string or a list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054528"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1054529"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A string or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1054530"></A><EM CLASS="Variable">
+fail-type</EM>
+</P>
+<P CLASS="RDescription-C">Undefined, or a string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1054531"></A><EM CLASS="Variable">
+fail-item</EM>
+</P>
+<P CLASS="RDescription-C">Undefined, or a keyword, an integer, a string or a list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054532"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1054533"></A>The function <CODE CLASS="Code">
+security-description-string-for-open-named-pipe</CODE>
+ interprets <EM CLASS="Variable">
+access-spec</EM>
+ and generates from it a Security Descriptor String as defined by Windows. See the MSDN for documentation of &quot;Security Descriptor String Format&quot;.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1054534"></A><CODE CLASS="Code">
+security-description-string-for-open-named-pipe</CODE>
+ has quite limited capabilities, and the string that it generates contains only the DACL part of the descriptor.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1054535"></A>If <EM CLASS="Variable">
+access-spec</EM>
+ is a keyword, then its symbol name specifies a SID (Security Identifier). This SID gets read/write permission. The SID can be either standard representation (which looks like <CODE CLASS="Code">
+&quot;S-1-..&quot;</CODE>
+) or one of the aliases. The aliases are documented in the MSDN in the page titled &quot;SID strings&quot; (search for <CODE CLASS="Code">
+SDDL_ANONYMOUS</CODE>
+). In general they have two letters, for example <CODE CLASS="Code">
+:AU</CODE>
+ means authenticated users. The common standard strings are documented in the MSDN page titled &quot;Well-known SIDs&quot; (search for <CODE CLASS="Code">
+SECURITY_WORLD_RID</CODE>
+). For example, <CODE CLASS="Code">
+:S-1-15-11</CODE>
+ means authentication users. Any standard strings is acceptable, not only the documented ones, provided that it specifies a valid SID. For example, you can find the SID of a user by <A HREF="lw-1469.htm#15613" CLASS="XRef">user-name-to-sid-string</A>, intern it in the keyword package and use this (but it is better to pass a list <CODE CLASS="Code">
+(:user)</CODE>
+ as described below).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1054539"></A>If <EM CLASS="Variable">
+access-spec</EM>
+ is an integer, it must be one of the integers in the <CODE CLASS="Code">
+WELL_KNOWN_SID_TYPE Enumeration</CODE>
+ as documented in the MSDN. For example, 17 means authenticated users. The corresponding SID gets read/write permission.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1054540"></A>If <EM CLASS="Variable">
+access-spec</EM>
+ is a string, it is returned as-is. In this case it is the responsibility of the programmer to ensure that the string is valid. Note that if this string is used in <A HREF="lw-1461.htm#10506" CLASS="XRef">open-named-pipe-stream</A>, <A HREF="lw-1461.htm#10506" CLASS="XRef">open-named-pipe-stream</A> does not inherit the access even if <EM CLASS="Variable">
+inherit-access-p</EM>
+ is non-nil.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1054547"></A>If <EM CLASS="Variable">
+access-spec</EM>
+ is a list, then each element in the list must be one of:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1054548"></A>A string</P>
+<P CLASS="RDescription-C">The string must a correct ACE (Access Control Entry) string, as described in the MSDN (search for &quot;ACE strings&quot;). The string must contain the opening and closing brackets, and can contain more than one ACE. <CODE CLASS="Code">
+security-description-string-for-open-named-pipe</CODE>
+ does not check the syntax in the string, and if the ACE is wrong the result string would be invalid.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1054549"></A>A keyword</P>
+<P CLASS="RDescription-C">This is interpreted as when <EM CLASS="Variable">
+access-spec</EM>
+ is a keyword, and the corresponding SID gets read/write permission.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1054550"></A>An integer</P>
+<P CLASS="RDescription-C">This is interpreted as when <EM CLASS="Variable">
+access-spec</EM>
+ is an integer, and the corresponding SID gets read/write permission.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1054551"></A>A list of the form <CODE CLASS="Code">
+(</CODE>
+<EM CLASS="Variable">
+keyword</EM>
+<CODE CLASS="Code">
+ </CODE>
+<EM CLASS="Variable">
+SID-spec</EM>
+<CODE CLASS="Code">
+ &amp;rest </CODE>
+<EM CLASS="Variable">
+permissions</EM>
+<CODE CLASS="Code">
+)</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1054552"></A>The first element <EM CLASS="Variable">
+keyword</EM>
+ specifies how to interpret the <EM CLASS="Variable">
+SID-spec</EM>
+. The possible keywords are <CODE CLASS="Code">
+:user</CODE>
+, when <EM CLASS="Variable">
+SID-spec</EM>
+ must be a string and should name a user on the local machine, and <CODE CLASS="Code">
+:sid</CODE>
+, when <EM CLASS="Variable">
+SID-spec</EM>
+ must be a keyword, an integer or a string specifying the SID. Integers and keywords are interpreted as above, and strings are interpreted in the same way as keywords.If <EM CLASS="Variable">
+permissions</EM>
+ are not supplied, they default to <CODE CLASS="Code">
+(:read :write)</CODE>
+. When they are supplied, they are keywords specifying permission. Currently supported keywords are (i) one of <CODE CLASS="Code">
+:read</CODE>
+ or <CODE CLASS="Code">
+:disallow-read</CODE>
+ (ii) one of <CODE CLASS="Code">
+:write</CODE>
+ or <CODE CLASS="Code">
+:disallow-write</CODE>
+, specifying the obvious meaning. It is an error if a keyword is repeated or if an incompatible pair is passed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1054553"></A><CODE CLASS="Code">
+security-description-string-for-open-named-pipe</CODE>
+ returns 3 values. When successful, result is the string and the other return values are undefined. When it fails, which can be because it is given an unrecognized SID specifier, <EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, <EM CLASS="Variable">
+fail-type</EM>
+ is a short string giving the type of the item that fails, and <EM CLASS="Variable">
+fail-item</EM>
+ is the item in the list that fails when <EM CLASS="Variable">
+access-spec</EM>
+ is a list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054554"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1054555"></A>When the argument is syntactically incorrect, <CODE CLASS="Code">
+security-description-string-for-open-named-pipe</CODE>
+ signals an error. It fails and returns <CODE CLASS="Code">
+nil</CODE>
+ only when a SID specifier of an acceptable type does not specify a SID.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1054556"></A>Except when given a string which is returned as-is, <CODE CLASS="Code">
+security-description-string-for-open-named-pipe</CODE>
+ works by generating an ACE (Access Control Entry) string for each SID giving it the read and write permission, except in the case when either <CODE CLASS="Code">
+:disallow-write</CODE>
+ or <CODE CLASS="Code">
+:disallow-read</CODE>
+ is used, when it generates an ACE string denying permission. All the ACEs are then concatenated and <CODE CLASS="Code">
+&quot;D:&quot;</CODE>
+ is prepended, thus generating a Security Descriptor String containing only the DACL.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1054557"></A>Experimentally, you can connect to a named pipe only if you have both read and write permission, even when opening it for only read or only write. Thus when this function is used from <A HREF="lw-1461.htm#10506" CLASS="XRef">open-named-pipe-stream</A>, the keywords <CODE CLASS="Code">
+:disallow-read</CODE>
+ etc are not very useful. They are useful only when you want to deny access for a specific SID, by using <CODE CLASS="Code">
+:disallow-read</CODE>
+ and <CODE CLASS="Code">
+:disallow-write</CODE>
+.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1054561"></A>The order of the items in the list is significant: earlier items override later items.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1054562"></A>Disallowing permission, for example by using <CODE CLASS="Code">
+:disallow-read</CODE>
+, is not the same as not allowing it, because in the latter case a later ACE can give the SID the permission. Disallowing prevents later ACEs from giving permission.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1054563"></A>Using a string or ACE strings in the list allows the user to generate a more elaborate string than <CODE CLASS="Code">
+security-description-string-for-open-named-pipe</CODE>
+ knows how to generate. In this case the returned string may be invalid. When this happens from <A HREF="lw-1461.htm#10506" CLASS="XRef">open-named-pipe-stream</A>, <A HREF="lw-1461.htm#10506" CLASS="XRef">open-named-pipe-stream</A> will get a failure and signal or return an error according to <EM CLASS="Variable">
+errorp</EM>
+.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054570"></A>Examples</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1054571"></A>Any of these gives permissions to all authenticated users:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1054572"></A>     :AU</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1054573"></A>      17</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1054574"></A>    '(:AU)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1054575"></A>     '(17)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1054576"></A>    '((:SID :AU))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1054577"></A>    '((:SID &quot;AU&quot;)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1054578"></A>    '((:SID 17))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1054579"></A>Also, all of the above with <CODE CLASS="Code">
+AU</CODE>
+ replaced by <CODE CLASS="Code">
+S-1-15-11</CODE>
+ will give permission to all authenticated users.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1054580"></A>This gives permissions to all authorized users except the user <CODE CLASS="Code">
+&quot;exclude&quot;</CODE>
+:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1054581"></A>  '((:use &quot;exclude&quot; :DISALLOW-READ :DISALLOW-WRITE) :AU)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1054582"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1054586"></A><A HREF="lw-1451.htm#82059" CLASS="XRef">canonicalize-sid-string</A><BR>
+<A HREF="lw-1460.htm#62078" CLASS="XRef">named-pipe-stream-name</A><BR>
+<A HREF="lw-1461.htm#10506" CLASS="XRef">open-named-pipe-stream</A><BR>
+<A HREF="lw-1453.htm#98337" CLASS="XRef">dismiss-splash-screen</A><BR>
+<A HREF="lw-1469.htm#15613" CLASS="XRef">user-name-to-sid-string</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1463.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1461.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1450.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

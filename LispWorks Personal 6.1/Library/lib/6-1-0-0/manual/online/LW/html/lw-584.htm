@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ detach-ssl
+</TITLE>
+
+<LINK REL="next" HREF="lw-585.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-583.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-579.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-579.htm">26 The COMM Package</A><BR><BR>
+</DIV><A HREF="lw-585.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-583.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-913421"></A><A NAME="57587"></A>detach<A NAME="marker-913420"></A>-ssl</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-913422"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913423"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-913424"></A>Detaches the SSL from a socket stream.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1004231"></A>Package</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1004232"></A><CODE CLASS="Code">
+comm</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913425"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-913426"></A>detach-ssl <EM CLASS="Variable">
+socket-stream</EM>
+ &amp;key <EM CLASS="Variable">
+retry-count</EM>
+ <EM CLASS="Variable">
+retry-timeout</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913427"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-913431"></A><EM CLASS="Variable">
+socket-stream</EM>
+</P>
+<P CLASS="RDescription-C">A <A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-913432"></A><EM CLASS="Variable">
+retry-count</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-913433"></A><EM CLASS="Variable">
+retry-timeout</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative real.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913440"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-914761"></A>The function <CODE CLASS="Code">
+detach-ssl</CODE>
+ detaches the SSL from the socket-stream <EM CLASS="Variable">
+socket-stream</EM>
+. If <EM CLASS="Variable">
+socket-stream</EM>
+ is not attached to an SSL, <CODE CLASS="Code">
+detach-ssl</CODE>
+ just returns immediately. Otherwise, it detaches the SSL from <EM CLASS="Variable">
+socket-stream</EM>
+, tries to shut down the SSL cleanly, and then frees the objects that were allocated by <A HREF="lw-580.htm#92293" CLASS="XRef">attach-ssl</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-914762"></A><EM CLASS="Variable">
+retry-count</EM>
+ specifies how many additional times to call <CODE CLASS="Code">
+SSL_shutdown</CODE>
+ after the second to attempt to get a successful shutdown. The default value of <EM CLASS="Variable">
+retry-count</EM>
+ is 5.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-914935"></A><EM CLASS="Variable">
+retry-timeout</EM>
+ specifies the time in seconds to wait between each of the calls to <CODE CLASS="Code">
+SSL_shutdown</CODE>
+. If it fails to get a successful shudown after these attempts, <CODE CLASS="Code">
+detach-ssl</CODE>
+ signals an error. The default value of <EM CLASS="Variable">
+retry-timeout</EM>
+ is 0.1.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-914763"></A>Note that the shutdown calls happen after the SSL has been detached from <EM CLASS="Variable">
+socket-stream</EM>
+ as far as LispWorks is concerned, so if an error occurs at this point and is aborted, <EM CLASS="Variable">
+socket-stream</EM>
+ can be used in <A HREF="lw-580.htm#92293" CLASS="XRef">attach-ssl</A> again (assuming that the peer can cope with this situation).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-914764"></A>If <EM CLASS="Variable">
+retry-count</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+detach-ssl</CODE>
+ does not try to get a successful shutdown call. This value is used when the stream is closed, but should not be used normally.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-913455"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-913328"></A><A HREF="lw-580.htm#92293" CLASS="XRef">attach-ssl</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-585.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-583.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

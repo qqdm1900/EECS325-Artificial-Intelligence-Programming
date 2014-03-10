@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.1  The server
+</TITLE>
+
+<LINK REL="next" HREF="corba-50.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-48.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-48.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-48.htm">6 The Bank Server</A><BR><BR>
+</DIV><A HREF="corba-50.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-48.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-48.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853212"></A>6.1  <A NAME="marker-853927"></A><A NAME="marker-853973"></A>The server</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853213"></A>In this chapter, we use Common Lisp to design and implement a CORBA server using the LispWorks ORB. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853886"></A>Our server presents an object-oriented interface to a <CODE CLASS="Code">
+bank</CODE>
+ object and its accounts. Because we want the bank's account records to persist beyond the lifetime of the server, we would store the account records in a database. This database could be manipulated by the server using an SQL interface, such as that currently available with the LispWorks product.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853887"></A>Since the primary motivation for this tutorial is to illustrate the use of CORBA, we simply simulate the database using a hash table. It would be fairly easy to replace this implementation with code that manipulates a real database. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853215"></A>The hash table simply uses a structure instance for each row:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-853216"></A>(defstruct database-row name balance limit)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-853217"></A>In the case of an account that does not allow an overdraft<CODE CLASS="Code">
+,</CODE>
+ <CODE CLASS="Code">
+limit</CODE>
+ will be nil.</P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-50.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-48.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-48.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

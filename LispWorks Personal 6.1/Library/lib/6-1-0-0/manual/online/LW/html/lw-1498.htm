@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ dde-execute-string*
+</TITLE>
+
+<LINK REL="next" HREF="lw-1499.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1497.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1485.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1485.htm">43 The  DDE client interface</A><BR><BR>
+</DIV><A HREF="lw-1499.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1497.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1485.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-897794"></A><A NAME="10579"></A>dde<A NAME="marker-937180"></A>-execute-string*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-897795"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897796"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-897797"></A>Issues an execute transaction consisting of a specified string on an automatically managed conversation.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897798"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897799"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897800"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897801"></A>dde-execute-string* <EM CLASS="Variable">
+service</EM>
+ <EM CLASS="Variable">
+topic</EM>
+ <EM CLASS="Variable">
+command</EM>
+ &amp;key <EM CLASS="Variable">
+errorp</EM>
+ <EM CLASS="Variable">
+connect-error-p</EM>
+ <EM CLASS="Variable">
+new-conversation-p</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897802"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897803"></A><EM CLASS="Variable">
+service</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-898006"></A><EM CLASS="Variable">
+topic</EM>
+</P>
+<P CLASS="RDescription-C">A symbol or string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897804"></A><EM CLASS="Variable">
+command</EM>
+</P>
+<P CLASS="RDescription-C">A string or symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897805"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-898072"></A><EM CLASS="Variable">
+connect-error-p</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-898087"></A><EM CLASS="Variable">
+new-conversation-p</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-898149"></A>A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897806"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897807"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897808"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-897809"></A>The function <CODE CLASS="Code">
+dde-execute-string*</CODE>
+ is similar to <A HREF="lw-1497.htm#23817" CLASS="XRef">dde-execute-string</A>, in that it issues an execute transaction consisting of the string <EM CLASS="Variable">
+command</EM>
+. However, the conversation across which <EM CLASS="Variable">
+command</EM>
+ is issued is managed automatically. No processing of the string is performed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-898823"></A>If <EM CLASS="Variable">
+server</EM>
+ names a client service registered with <CODE CLASS="Code">
+define-dde-client</CODE>
+, the registered service name is used as the DDE service name. If <EM CLASS="Variable">
+server</EM>
+ is any other symbol, the print name of the symbol is used as the DDE service name. If <EM CLASS="Variable">
+server</EM>
+ is a string, that string is used as the DDE service name.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-898824"></A>The <EM CLASS="Variable">
+topic</EM>
+ argument specifies the DDE topic name to be used in the conversation. If it is a symbol, the symbol's print name is used. If it is a string, the string is used.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-898829"></A>If necessary, the function <CODE CLASS="Code">
+dde-execute-string*</CODE>
+ will create a conversation for the duration of the transaction, but if a suitable conversation already exists, the transaction will be executed over that conversation. Hence, if several transactions will be made with the same <EM CLASS="Variable">
+service</EM>
+ and <EM CLASS="Variable">
+topic</EM>
+, placing them inside a <A HREF="lw-1506.htm#32979" CLASS="XRef">with-dde-conversation</A> prevents a new conversation being established for each transaction.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-898833"></A>If <EM CLASS="Variable">
+new-conversation-p</EM>
+ is set to <CODE CLASS="Code">
+t</CODE>
+ a new conversation is always established for the transaction. This new conversation is always automatically disconnected when the transaction is completed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-898834"></A>If <EM CLASS="Variable">
+connect-error-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ (the default value), then LispWorks signals an error if a conversation cannot be established. If it is <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+dde-execute-string*</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+ if a conversation cannot be established. This allows the caller to distinguish between the cases when the server is not running, and when the server is running but the transaction fails.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-897810"></A>Upon success, the function returns <CODE CLASS="Code">
+t</CODE>
+. On failure, the behavior depends on the value of the <EM CLASS="Variable">
+errorp</EM>
+ argument. If <EM CLASS="Variable">
+errorp</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+ (the default value), LispWorks signals an error. If it is <CODE CLASS="Code">
+nil</CODE>
+, the function returns <CODE CLASS="Code">
+nil</CODE>
+ to indicate failure.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897811"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-897815"></A><A HREF="lw-1493.htm#22129" CLASS="XRef">dde-execute</A><BR>
+<A HREF="lw-1495.htm#13766" CLASS="XRef">dde-execute-command</A><BR>
+<A HREF="lw-1497.htm#23817" CLASS="XRef">dde-execute-string</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1499.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1497.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1485.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

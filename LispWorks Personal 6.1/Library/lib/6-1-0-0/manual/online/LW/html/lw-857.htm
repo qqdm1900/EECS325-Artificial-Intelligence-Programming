@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *trace-print-pretty*
+</TITLE>
+
+<LINK REL="next" HREF="lw-858.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-856.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-858.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-856.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1008180"></A><A NAME="10760"></A>*trace<A NAME="marker-1043669"></A>-print-pretty*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886447"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886448"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886449"></A>Controls the amount of whitespace in trace output.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886450"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886451"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886452"></A>Initial Value </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886453"></A>nil  </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886454"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886455"></A><CODE CLASS="Code">
+*trace-print-pretty*</CODE>
+ controls the amount of whitespace printed during output from tracing. If it is not <CODE CLASS="Code">
+nil</CODE>
+ then extra whitespace is inserted to make the output more comprehensible. <CODE CLASS="Code">
+*print-pretty*</CODE>
+ is bound to the value of <CODE CLASS="Code">
+*trace-print-pretty*</CODE>
+ while printing tracing information. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886456"></A>Examples </H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886457"></A>USER 6 &gt; (trace macroexpand-1)</CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886458"></A>MACROEXPAND-1 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886459"></A>USER 7 &gt; (setq *trace-print-pretty* t                    </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886460"></A>            *print-pretty* nil)</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886461"></A>NIL </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886462"></A>USER 8 &gt; (defmacro sum (n)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886463"></A>            '(do ((i 0 (1+ i))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886464"></A>                  (res 0 (+ i res)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886465"></A>                 ((= i ,n) res)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886466"></A>SUM </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886467"></A>USER 9 &gt; (macroexpand-1 '(sum 3))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-886468"></A>0 MACROEXPAND-1 &gt; ((SUM 3)) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886469"></A>0 MACROEXPAND-1 &lt; ((DO ((I 0 (1+ I))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886470"></A>                     (RES 0 (+ I RES)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886471"></A>                    ((= I 3)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886472"></A>                    RES))                    </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886473"></A>                  T) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-886474"></A>(DO ((I 0 (1+ I)) (RES 0 (+ I RES))) ((= I 3) RES)) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-886475"></A>T </PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886476"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886477"></A><CODE CLASS="Code">
+*trace-print-pretty*</CODE>
+ is an extension to Common Lisp.   </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886478"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-940346"></A><A HREF="lw-675.htm#58889" CLASS="XRef">trace</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-858.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-856.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

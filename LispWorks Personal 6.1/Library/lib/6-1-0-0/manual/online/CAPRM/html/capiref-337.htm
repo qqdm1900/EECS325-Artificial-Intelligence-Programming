@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ radio-button
+</TITLE>
+
+<LINK REL="next" HREF="capiref-338.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-336.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-338.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-336.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-908817"></A><A NAME="24120"></A>radio<A NAME="marker-4212001"></A>-button</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-909031"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-908821"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-908823"></A>A button that can be either selected or deselected, but when selecting it any other buttons in its group will be cleared. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4211966"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4211967"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-908826"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-908828"></A><A HREF="capiref-22.htm#19366" CLASS="XRef">button</A><BR>
+<A HREF="capiref-449.htm#12473" CLASS="XRef">titled-object</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-908831"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-908833"></A>The class <CODE CLASS="Code">
+radio-button</CODE>
+ inherits most of its behavior from <A HREF="capiref-22.htm#19366" CLASS="XRef">button</A>. Note that it is normally best to use a <CODE CLASS="Code">
+</CODE>
+<A HREF="capiref-338.htm#40968" CLASS="XRef">radio-button-panel</A> rather than make the individual buttons yourself, as the <A HREF="capiref-23.htm#40715" CLASS="XRef">button-panel</A> provides functionality for handling groups of buttons. However, radio buttons are provided in case you need to have more control over the button's behavior. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-908838"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-4425303"></A>(setq button (capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425304"></A>              (make-instance 'capi:radio-button</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425305"></A>                             :text &quot;Press Me&quot;)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425993"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425306"></A>(capi:apply-in-pane-process</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425307"></A> button #'(setf capi:button-selected) t button)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425308"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425309"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425310"></A> button #'(setf capi:button-selected) nil button)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425311"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425312"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425313"></A> button #'(setf capi:button-enabled) nil button)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425314"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4425315"></A>(capi:apply-in-pane-process </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-3482469"></A> button #'(setf capi:button-enabled) t button)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-4425357"></A>There is a further example in the file <CODE CLASS="Code">
+examples/capi/buttons/buttons.lisp</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-908867"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-908869"></A><A HREF="capiref-334.htm#25158" CLASS="XRef">push-button</A><BR>
+<A HREF="capiref-31.htm#20125" CLASS="XRef">check-button</A> <BR>
+<A HREF="capiref-23.htm#40715" CLASS="XRef">button-panel</A><BR>
+<A HREF="capiref-338.htm#40968" CLASS="XRef">radio-button-panel</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-338.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-336.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

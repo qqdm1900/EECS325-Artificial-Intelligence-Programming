@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-whostate
+</TITLE>
+
+<LINK REL="next" HREF="lw-1110.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1108.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1110.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1108.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1085683"></A><A NAME="98388"></A>process<A NAME="marker-1088051"></A>-whostate</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1085684"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1085685"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1085686"></A>Returns the state of a process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1801443"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1801444"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1085687"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1085688"></A>process-whostate <EM CLASS="Variable">
+process</EM>
+ =&gt; <EM CLASS="Variable">
+reason</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1085691"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1085692"></A><EM CLASS="Variable">
+process</EM>
+</P>
+<P CLASS="RDescription-C">A process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1085696"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1085697"></A><EM CLASS="Variable">
+reason</P>
+<P CLASS="RDescription-C"></EM>
+A string.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1085698"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1085699"></A>The function <CODE CLASS="Code">
+process-whostate</CODE>
+ returns a string describing the state of the process.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1088719"></A>Depending on the state of <EM CLASS="Variable">
+process</EM>
+, <EM CLASS="Variable">
+reason</EM>
+ can be:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1088720"></A><CODE CLASS="Code">
+&quot;Dead&quot;</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1088751"></A><CODE CLASS="Code">
+&quot;Stopped&quot;</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1088721"></A><CODE CLASS="Code">
+&quot;Sleeping&quot;</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1088394"></A><CODE CLASS="Code">
+&quot;Running&quot;</CODE>
+</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1088399"></A><CODE CLASS="Code">
+&quot;Running (preempted)&quot;</CODE>
+</LI>
+</UL>
+<P CLASS="RBody">
+<A NAME="pgfId-1088756"></A><EM CLASS="Variable">
+reason</EM>
+ can also be the <EM CLASS="Variable">
+wait-reason</EM>
+ of the process, as passed to <A HREF="lw-1133.htm#29061" CLASS="XRef">wait-processing-events</A>, <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A>, <A HREF="lw-1050.htm#21302" CLASS="XRef">mailbox-read</A> and so on.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1089162"></A><EM CLASS="Variable">
+reason</EM>
+ can also be a string containing the <EM CLASS="Variable">
+run-reasons</EM>
+, as set by <CODE CLASS="Code">
+(setf </CODE>
+<A HREF="lw-1092.htm#93660" CLASS="XRef">process-run-reasons</A><CODE CLASS="Code">
+)</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1085708"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1085712"></A><A HREF="lw-1133.htm#29061" CLASS="XRef">wait-processing-events</A><BR>
+<A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A><BR>
+<A HREF="lw-1092.htm#93660" CLASS="XRef">process-run-reasons</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1110.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1108.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ make-container
+</TITLE>
+
+<LINK REL="next" HREF="capiref-228.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-226.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-228.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-226.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-899376"></A><A NAME="10479"></A>make<A NAME="marker-4167285"></A>-container</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-899495"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-899380"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1115963"></A>The generic function <CODE CLASS="Code">
+make-container</CODE>
+ creates a container for a specified element.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4167119"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4167120"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1115962"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-899382"></A>make-container <EM CLASS="Variable">
+element</EM>
+ &amp;rest <EM CLASS="Variable">
+interface-args</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-899384"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-899386"></A>This creates a container for <EM CLASS="Variable">
+element</EM>
+ such that calling <A HREF="capiref-76.htm#40005" CLASS="XRef">display</A> on it will produce a window containing <EM CLASS="Variable">
+element</EM>
+ on the screen. It will produce a container for any of the following classes of object: </P>
+<P CLASS="RSignature">
+<A NAME="pgfId-899389"></A><A HREF="capiref-408.htm#40919" CLASS="XRef">simple-pane</A><BR>
+<A HREF="capiref-211.htm#12861" CLASS="XRef">layout</A><BR>
+<A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A> <BR>
+<A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A> <BR>
+<A HREF="capiref-245.htm#19220" CLASS="XRef">menu</A> <BR>
+<A HREF="capiref-247.htm#29489" CLASS="XRef">menu-item</A> <BR>
+<A HREF="capiref-246.htm#24767" CLASS="XRef">menu-component</A> <BR>
+list</P>
+<P CLASS="RBody">
+<A NAME="pgfId-899398"></A>In the case of a <CODE CLASS="Code">
+list</CODE>
+, the CAPI tries to see what sort of objects they are and makes an appropriate container. For instance, if they were all simple panes it would put them into a column layout. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-899401"></A>The arguments <EM CLASS="Variable">
+interface-args</EM>
+ will be passed through to the <CODE CLASS="Code">
+make-instance</CODE>
+ of the top-level interface, assuming that pane is not a top-level interface itself. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-899404"></A>The complementary function <A HREF="capiref-57.htm#34324" CLASS="XRef">contain</A> uses <CODE CLASS="Code">
+make-container</CODE>
+ to create a container for an element which it then displays. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-899407"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-899409"></A>(capi:display (capi:make-container</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-899411"></A>                (make-instance</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-899451"></A>                 'capi:text-input-pane)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-899415"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-899417"></A><A HREF="capiref-57.htm#34324" CLASS="XRef">contain</A><BR>
+<A HREF="capiref-76.htm#40005" CLASS="XRef">display</A> <BR>
+<A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A> <BR>
+<A HREF="capiref-126.htm#29333" CLASS="XRef">element</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-228.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-226.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

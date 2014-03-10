@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ :clos-initarg-checking
+</TITLE>
+
+<LINK REL="next" HREF="delivery-81.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-79.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-55.htm">5 Keywords to the Delivery Function</A> &gt; <A HREF="delivery-70.htm">5.2  Alphabetical list of deliver keywords </A><BR><BR>
+</DIV><A HREF="delivery-81.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-79.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="Interface">
+<A NAME="pgfId-205518"></A><A NAME="marker-205516"></A><A NAME="60666"></A>:clos-initarg<A NAME="marker-205783"></A>-checking</H3>
+<P CLASS="Interface-type">
+<A NAME="pgfId-205519"></A>Keyword</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-205520"></A>Default value: <CODE CLASS="Code">
+(if (delivery-value :keep-debug-mode) :default nil)</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-205521"></A>The value of the <CODE CLASS="Code">
+:</CODE>
+clos-initarg-checking keyword controls whether CLOS checks initialization arguments. Initializations checked can include:</P>
+<P CLASS="Bullet-Indented">
+<A NAME="pgfId-205616"></A>Calls to <A NAME="marker-205636"></A><CODE CLASS="Code">
+make-instance</CODE>
+.</P>
+<P CLASS="Bullet-Indented">
+<A NAME="pgfId-205617"></A>Calls to <A NAME="marker-205644"></A><CODE CLASS="Code">
+reinitialize-instance</CODE>
+.</P>
+<P CLASS="Bullet-Indented">
+<A NAME="pgfId-205618"></A>Calls to <A NAME="marker-205652"></A><CODE CLASS="Code">
+change-class</CODE>
+.</P>
+<P CLASS="Bullet-Indented">
+<A NAME="pgfId-205900"></A><A NAME="marker-205898"></A><CODE CLASS="Code">
+call-next-method</CODE>
+ to <A NAME="marker-205899"></A><CODE CLASS="Code">
+update-instance-for-redefined-class</CODE>
+ with extra keywords.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-205904"></A>If the value is <CODE CLASS="Code">
+t</CODE>
+ and <A HREF="delivery-107.htm#13878" CLASS="XRef">:keep-clos</A> is <CODE CLASS="Code">
+t</CODE>
+, <CODE CLASS="Code">
+:full-dynamic-definition</CODE>
+ or <CODE CLASS="Code">
+:method-dynamic-definition</CODE>
+ then all of these checks are switched on.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-205877"></A>If the value is <CODE CLASS="Code">
+t</CODE>
+ and <A HREF="delivery-107.htm#13878" CLASS="XRef">:keep-clos</A> is <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+:no-dynamic-definition</CODE>
+ or <CODE CLASS="Code">
+:meta-object-slots</CODE>
+ then only the <CODE CLASS="Code">
+make-instance</CODE>
+ checking is switched on, and the other checks are switched off.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-205817"></A>If the value is <CODE CLASS="Code">
+:default</CODE>
+, the checks are not affected by the delivery process. See the function <A NAME="marker-205818"></A><CODE CLASS="Code">
+clos:set-clos-initarg-checking</CODE>
+ for instructions on controlling the checks in this situation.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-205828"></A>If the value is <CODE CLASS="Code">
+nil</CODE>
+, then all of these checks are switched off. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-205525"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+:clos-initarg-checking</CODE>
+ always affects the behavior of the delivered application, regardless of <A HREF="delivery-107.htm#13878" CLASS="XRef">:keep-clos</A>.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-205535"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+<A HREF="delivery-111.htm#10760" CLASS="XRef">:keep-debug-mode</A></CODE>
+ retains the current setting of CLOS initialization checks (as set by <CODE CLASS="Code">
+:clos-initarg-checking</CODE>
+ or <A NAME="marker-206959"></A><CODE CLASS="Code">
+clos:set-clos-initarg-checking</CODE>
+), rather than forcing the checks to be switched on.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-205548"></A>Affected by: <A HREF="delivery-111.htm#10760" CLASS="XRef">:keep-debug-mode</A>, <A HREF="delivery-107.htm#13878" CLASS="XRef">:keep-clos</A></P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-81.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-79.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

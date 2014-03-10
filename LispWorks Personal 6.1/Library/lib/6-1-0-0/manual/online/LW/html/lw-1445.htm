@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ wait-for-input-streams
+</TITLE>
+
+<LINK REL="next" HREF="lw-1446.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1444.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1446.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1444.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1251327"></A><A NAME="71910"></A>wait<A NAME="marker-1251326"></A>-for-input-streams</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1251328"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1251329"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1251330"></A>Waits for input on a list of socket streams, returning those that are ready.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1251331"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1251332"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1251333"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1251334"></A>wait-for-input-streams <EM CLASS="Variable">
+streams</EM>
+ &amp;key <EM CLASS="Variable">
+wait-function</EM>
+ <EM CLASS="Variable">
+wait-reason</EM>
+ <EM CLASS="Variable">
+timeout</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1251461"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1251462"></A><EM CLASS="Variable">
+streams</EM>
+</P>
+<P CLASS="RDescription-C">A list, each member of which is a <A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1251480"></A><EM CLASS="Variable">
+wait-function</EM>
+</P>
+<P CLASS="RDescription-C">A function of no arguments.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1251484"></A><EM CLASS="Variable">
+wait-reason</EM>
+</P>
+<P CLASS="RDescription-C">A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1251488"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A real number or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1251335"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1251336"></A><EM CLASS="Variable">
+result</EM>
+<CODE CLASS="Code">
+</P>
+<P CLASS="RDescription-C"></CODE>
+A list of <A HREF="lw-609.htm#32260" CLASS="XRef">socket-stream</A>s or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1251340"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1251410"></A>The function <CODE CLASS="Code">
+wait-for-input-streams</CODE>
+ waits for any of the streams in the argument <EM CLASS="Variable">
+streams</EM>
+ to be ready for input. &quot;Ready for input&quot;  typically means that some input is available from the stream, but can also means that the peer closed the connection or there is an attempt to connect to the socket. Note that this function first checks the buffer for buffered streams.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1251541"></A>When any of the streams is ready for input, <CODE CLASS="Code">
+wait-for-input-streams</CODE>
+ returns a list of all the streams that are ready, in the same order that they appear in <EM CLASS="Variable">
+streams</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1251413"></A>If <EM CLASS="Variable">
+timeout</EM>
+ is non-nil it must be a real number, specifying a timeout in seconds. If  <EM CLASS="Variable">
+timeout</EM>
+ seconds pass and none of the streams is ready, <CODE CLASS="Code">
+wait-for-input-streams</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1251414"></A>If <EM CLASS="Variable">
+timeout</EM>
+ is 0, <CODE CLASS="Code">
+wait-for-input-streams</CODE>
+ returns all of the streams that are ready immediately, without waiting at all. That is, it behaves like <CODE CLASS="Code">
+listen</CODE>
+ on many streams.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1251415"></A>If <EM CLASS="Variable">
+wait-function</EM>
+ is supplied, it is called periodically with no arguments, and if it returns non-nil then <CODE CLASS="Code">
+wait-for-input-streams</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+. Note that, like the <EM CLASS="Variable">
+wait-function</EM>
+ of <A HREF="lw-1101.htm#22792" CLASS="XRef">process-wait</A>, <EM CLASS="Variable">
+wait-function</EM>
+ is called often and on other threads, so need to be an inexpensive call and independent of dynamic context.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1251416"></A>If <EM CLASS="Variable">
+wait-reason</EM>
+ is supplied it is used as the <EM CLASS="Variable">
+wait-reason</EM>
+ for the Lisp process that calls <CODE CLASS="Code">
+wait-for-input-streams</CODE>
+ while it is waiting.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1340314"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1251342"></A><CODE CLASS="Code">
+wait-for-input-streams</CODE>
+ may return the list <EM CLASS="Variable">
+streams</EM>
+ that was passed to it as is, if all the streams are ready.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1251349"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1251353"></A><A HREF="lw-1446.htm#83310" CLASS="XRef">wait-for-input-streams-returning-first</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1446.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1444.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

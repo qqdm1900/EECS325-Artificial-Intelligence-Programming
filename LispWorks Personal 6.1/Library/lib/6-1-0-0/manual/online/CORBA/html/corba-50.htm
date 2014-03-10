@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.2  Implementing CORBA objects on the server
+</TITLE>
+
+<LINK REL="next" HREF="corba-51.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-49.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-48.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-48.htm">6 The Bank Server</A><BR><BR>
+</DIV><A HREF="corba-51.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-49.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-48.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853218"></A>6.2  <A NAME="marker-853929"></A><A NAME="marker-853945"></A>Implementing CORBA objects on the server</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853219"></A>A CORBA server has to provide an implementation object, called a servant, for each of the proxy objects manipulated by the client. Our server needs to implement the initial bank servant, and then create new servants for each of the account objects created in response to <CODE CLASS="Code">
+openAccount</CODE>
+, <CODE CLASS="Code">
+openCheckingAccount</CODE>
+ and <CODE CLASS="Code">
+retrieveAccount</CODE>
+ requests. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853556"></A>Each of these servants needs to be registered in the CORBA environment and assigned an object reference, so that the ORB can direct incoming requests to the appropriate servant. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853220"></A>In CORBA, the primary means for an object implementation to access ORB services such as object reference generation is via an <I CLASS="Italic">
+object adapter</I>
+. The object adapter is responsible for the following functions:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853221"></A>Generation and interpretation of object references </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853222"></A>Registration of servants</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853223"></A>Mapping object references to the corresponding servants</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853224"></A>IDL method invocations, mediated by skeleton methods</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853225"></A>Servant activation and deactivation</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-853226"></A>The LispWorks ORB provides an implementation of the <A NAME="marker-854001"></A>Portable Object Adapter (POA). This object adapter forms part of the CORBA standard and, like the ORB, has an interface that is specified in <A NAME="marker-854003"></A>pseudo IDL (PIDL). The Common Lisp interface to the POA conforms closely to the interface obtained by applying the Common Lisp mapping rules to the POA's PIDL specification. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853227"></A>A POA object manages the implementation of a collection of objects, associating object references with specific servants. While the ORB is an abstraction visible to both the client and server, POA objects are visible only to the server. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853228"></A>User-supplied object implementations are registered with a POA and assigned object references.When a client issues a request to perform an operation on such an object reference, the ORB and POA cooperate to determine the servant on which the operation should be invoked, and perform the invocation as an upcall through a skeleton method. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853229"></A>The POA allows several ways of using servants although it does not deal with the issue of starting the server process. Once started, however, there can be a servant started and ended for a single method call, a separate servant for each object, or a shared servant for all instances of a particular object type. It allows for groups of objects to be associated by means of being registered with different instances of the POA object and allows implementations to specify their own activation techniques. If the implementation is not active when an invocation is performed, the POA can start one. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853230"></A>Unfortunately, the flexibility afforded by the POA means that its interface is complex and somewhat difficult to use. The example in this tutorial makes only elementary use of the POA. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853231"></A>Here is the PIDL specification of the facilities of the POA that the bank tutorial uses:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853232"></A>module PortableServer { </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853233"></A>  native Servant; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853234"></A>  interface POAManager { </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853235"></A>    exception AdapterInactive{}; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853236"></A>    void activate() raises (...); </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853237"></A>    ... </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853238"></A>  }; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853239"></A>  interface POA { </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853240"></A>    exception WrongAdapter {}; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853241"></A>    readonly attribute POAManager the_POAManager; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853242"></A>    Object servant_to_reference(in Servant p_servant) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853243"></A>          raises (...); </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853244"></A>    Servant reference_to_servant(in Object reference) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853245"></A>          raises (WrongAdapter, ...); </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853246"></A>    ... </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853247"></A>  };</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853248"></A>...</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853249"></A>};</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853737"></A>The POA-related interfaces are defined in a module separate from the <CODE CLASS="Code">
+CORBA</CODE>
+ module, called the <CODE CLASS="Code">
+PortableServer</CODE>
+ module. It declares several interfaces, of which only the <CODE CLASS="Code">
+POA</CODE>
+ and <CODE CLASS="Code">
+POAManager</CODE>
+ are shown here. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853738"></A>The <CODE CLASS="Code">
+PortableServer</CODE>
+ module specifies the type <CODE CLASS="Code">
+Servant</CODE>
+. Values of type <CODE CLASS="Code">
+Servant</CODE>
+ represent language-specific implementations of CORBA interfaces. Since this type can only be determined by the programming language in question, it is merely declared as a native type in the PIDL. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853252"></A>In the Common Lisp mapping, the <CODE CLASS="Code">
+Servant</CODE>
+ type maps to the abstract class <CODE CLASS="Code">
+PortableServer:Servantbase</CODE>
+. User defined Common Lisp classes that are meant to implement CORBA objects and be registered with a POA must inherit from this class. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853253"></A>Each <CODE CLASS="Code">
+POA</CODE>
+ object has an associated <CODE CLASS="Code">
+POAManager</CODE>
+ object. A POA manager encapsulates the processing state of the POA it is associated with. Using operations on the POA manager, an application can cause requests for a POA to be queued or discarded, and can cause the POA to be deactivated.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853254"></A>A POA manager has two main processing states, holding and active, that determine the capabilities of the associated POA and the handling of ORB requests received by that POA. Both the POA manager and its associated POA are initially in the holding state. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853255"></A>When a POA is in the holding state, it simply queues requests received from the ORB without dispatching them to their implementation objects. In the active state, the POA receives and processes requests. Invoking the POA Manager's <CODE CLASS="Code">
+activate</CODE>
+ operation causes it, and its associated POAs, to enter the active state. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853256"></A>A POA object provides two useful operations that map between object references and servants. The <CODE CLASS="Code">
+servant_to_reference</CODE>
+ operation has two behaviors. If the given servant is not already active in the POA, then the POA generates a new object reference for that servant, records the association in the POA, and returns the reference. If the servant is already active in the POA, then the operation merely returns its associated object reference. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853257"></A>The <CODE CLASS="Code">
+reference_to_servant</CODE>
+ operation returns the servant associated with a given object reference in the POA. If the object reference was not created by this POA, the operation raises the <CODE CLASS="Code">
+WrongAdapter</CODE>
+ exception. </P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-51.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-49.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-48.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

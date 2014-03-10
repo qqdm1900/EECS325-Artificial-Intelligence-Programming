@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ registry-key-exists-p
+</TITLE>
+
+<LINK REL="next" HREF="lw-1482.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1480.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1471.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1471.htm">42 The Windows registry API</A><BR><BR>
+</DIV><A HREF="lw-1482.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1480.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-964932"></A><A NAME="62029"></A>registry-<A NAME="marker-1025408"></A>key-exists-p</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-964933"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-964934"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-964935"></A>The predicate for whether a registry key can be opened.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1042977"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1042978"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-964936"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-964937"></A>registry-key-exists-p <EM CLASS="Variable">
+subkey</EM>
+ &amp;key <EM CLASS="Variable">
+root</EM>
+ <EM CLASS="Variable">
+access</EM>
+ =&gt; <EM CLASS="Variable">
+existsp</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-964938"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-964939"></A><EM CLASS="Variable">
+subkey</EM>
+</P>
+<P CLASS="RDescription-C">A string specifying the name of the key.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-964940"></A><EM CLASS="Variable">
+root</EM>
+</P>
+<P CLASS="RDescription-C">A keyword or handle.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-964941"></A><EM CLASS="Variable">
+access</EM>
+</P>
+<P CLASS="RDescription-C">An integer or keyword.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-964942"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-964943"></A><EM CLASS="Variable">
+existsp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-964944"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-966242"></A>The function <CODE CLASS="Code">
+registry-key-exists-p</CODE>
+ checks whether the registry key named <EM CLASS="Variable">
+subkey</EM>
+ can be opened under the parent key <EM CLASS="Variable">
+root</EM>
+ with the supplied <EM CLASS="Variable">
+access</EM>
+ permissions.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-966243"></A><EM CLASS="Variable">
+subkey</EM>
+ and <EM CLASS="Variable">
+root</EM>
+ are interpreted as described for <A HREF="lw-1475.htm#44547" CLASS="XRef">create-registry-key</A>. The default value of <EM CLASS="Variable">
+root</EM>
+ is <CODE CLASS="Code">
+:user</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-966889"></A>If <EM CLASS="Variable">
+access</EM>
+ is <CODE CLASS="Code">
+:read</CODE>
+, then it opens the key with <CODE CLASS="Code">
+KEY_READ</CODE>
+ permissions.  If <EM CLASS="Variable">
+access</EM>
+ is <CODE CLASS="Code">
+:write</CODE>
+, then it opens the key with <CODE CLASS="Code">
+KEY_WRITE</CODE>
+ permissions.  If <EM CLASS="Variable">
+access</EM>
+ is an integer, then the value <EM CLASS="Variable">
+access</EM>
+ specifies the desired Win32 access rights.  If <EM CLASS="Variable">
+access</EM>
+ is omitted and <EM CLASS="Variable">
+root</EM>
+ is <CODE CLASS="Code">
+:user</CODE>
+, then <CODE CLASS="Code">
+registry-key-exists-p</CODE>
+  uses <CODE CLASS="Code">
+KEY_ALL_ACCESS</CODE>
+. Otherwise it uses <CODE CLASS="Code">
+KEY_READ</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-964948"></A><CODE CLASS="Code">
+registry-key-exists-p</CODE>
+ closes the key before returning, but the return value is <CODE CLASS="Code">
+t</CODE>
+ if the key could actually be opened and <CODE CLASS="Code">
+nil</CODE>
+ otherwise.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-964699"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-967434"></A><A HREF="lw-1475.htm#44547" CLASS="XRef">create-registry-key</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1482.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1480.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1471.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

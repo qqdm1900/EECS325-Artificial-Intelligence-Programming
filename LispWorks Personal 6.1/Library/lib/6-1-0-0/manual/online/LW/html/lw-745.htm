@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ add-special-free-action
+</TITLE>
+
+<LINK REL="next" HREF="lw-746.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-746.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886818"></A><A NAME="33373"></A>add<A NAME="marker-1038990"></A>-special-free-action</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886819"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886820"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886821"></A>Adds a function to perform a special action during garbage collection.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886822"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886823"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886824"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886825"></A>add-special-free-action <EM CLASS="Variable">
+function</EM>
+ =&gt; <EM CLASS="Variable">
+function-list</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886826"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886827"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C"> A symbol naming a function of one argument.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886828"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-886829"></A><EM CLASS="Variable">
+function-list</EM>
+</P>
+<P CLASS="RDescription-C">A list of the functions currently called to perform special actions, including the one just added.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886830"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886831"></A>When some objects are garbage collected, you may require a &quot;special action&quot; to be performed as well. <CODE CLASS="Code">
+add-special-free-action</CODE>
+ adds the function <EM CLASS="Variable">
+function</EM>
+ to perform the special action. Note that the function is applied to all objects flagged for special-free-action, so the function <EM CLASS="Variable">
+function</EM>
+ should check for the object's type, so that it only affects relevant objects.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-886832"></A>The functions <A HREF="lw-795.htm#24068" CLASS="XRef">flag-special-free-action</A> and <A HREF="lw-794.htm#14078" CLASS="XRef">flag-not-special-free-action</A> flag and unflag objects for action.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886833"></A>Example</H5>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-886834"></A>(add-special-free-action 'free-my-app)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886835"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886839"></A><A HREF="lw-822.htm#97958" CLASS="XRef">remove-special-free-action</A><BR>
+<A HREF="lw-795.htm#24068" CLASS="XRef">flag-special-free-action</A><BR>
+<A HREF="lw-794.htm#14078" CLASS="XRef">flag-not-special-free-action</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-746.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

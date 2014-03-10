@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ get-origin
+</TITLE>
+
+<LINK REL="next" HREF="capiref-570.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-568.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-495.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-495.htm">2 GP Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-570.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-568.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-890104"></A><A NAME="marker-890103"></A>get-origin</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-890105"></A><EM CLASS="Variable">
+Function</EM>
+</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890106"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890107"></A>Returns the coordinate origin of a pixmap graphics port.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1088802"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1088803"></A><CODE CLASS="Code">
+graphics-ports</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890108"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-890109"></A>get-origin <EM CLASS="Variable">
+pixmap-port</EM>
+ =&gt; <EM CLASS="Variable">
+x</EM>
+ <EM CLASS="Variable">
+y</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890110"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890111"></A><EM CLASS="Variable">
+pixmap-port</P>
+<P CLASS="RDescription-C"></EM>
+A graphics port.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890112"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-890113"></A><EM CLASS="Variable">
+x</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-897261"></A><EM CLASS="Variable">
+y</P>
+<P CLASS="RDescription-C"></EM>
+An integer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890114"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890115"></A>This returns two values being the coordinate origin of the pixmap graphics port. Normally this is (0 0) but after a series of drawing function calls with <CODE CLASS="Code">
+:relative t</CODE>
+, the drawing may have been shifted. The <CODE CLASS="Code">
+get-origin</CODE>
+ values tell you by how much. The values are <I CLASS="Italic">
+not</I>
+ needed when making images from the port's drawing.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897256"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-890116"></A>(with-pixmap-graphics-port (p1 pane width height :relative t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890117"></A>    (with-graphics-rotation (p1 0.123)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890118"></A>      (draw-rectangle p1 0 0 200 120 :filled t</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-890119"></A>                                       :foreground :red)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-890120"></A>      (get-origin p1)))   </PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-890121"></A>produces:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-890122"></A>-15</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-890123"></A>0</PRE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-570.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-568.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

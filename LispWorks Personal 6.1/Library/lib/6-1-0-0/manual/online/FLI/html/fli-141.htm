@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ replace-foreign-array
+</TITLE>
+
+<LINK REL="next" HREF="fli-142.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-140.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-142.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-140.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1050254"></A><A NAME="91488"></A>replace-foreign-array<A NAME="marker-1050372"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1050343"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1050346"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1050357"></A>Copies the contents of one foreign or Lisp array into another.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1050429"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1050430"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1050431"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1050432"></A>replace-foreign-array <EM CLASS="Variable">
+to</EM>
+ <EM CLASS="Variable">
+from</EM>
+ &amp;key <EM CLASS="Variable">
+start1</EM>
+ <EM CLASS="Variable">
+start2</EM>
+ <EM CLASS="Variable">
+end1</EM>
+ <EM CLASS="Variable">
+end2</EM>
+ =&gt; <EM CLASS="Variable">
+to</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1050617"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1050618"></A><EM CLASS="Variable">
+to</EM>
+</P>
+<P CLASS="RDescription-C">A foreign array, foreign pointer or a Lisp array.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1050640"></A><EM CLASS="Variable">
+from</EM>
+</P>
+<P CLASS="RDescription-C">A foreign array, foreign pointer or a Lisp array.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1050867"></A><EM CLASS="Variable">
+start1</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1050922"></A><EM CLASS="Variable">
+start2</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1050930"></A><EM CLASS="Variable">
+end1</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1050966"></A><EM CLASS="Variable">
+end2</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1051007"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1051008"></A><EM CLASS="Variable">
+to</EM>
+</P>
+<P CLASS="RDescription-C">A foreign array, foreign pointer or a Lisp array.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1051040"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1051055"></A>The function <CODE CLASS="Code">
+replace-foreign-array</CODE>
+ copies the contents of the array specified by <EM CLASS="Variable">
+from</EM>
+ into another array specified by <EM CLASS="Variable">
+to</EM>
+.  The arrays element types must have the same size and both be either signed or unsigned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1051058"></A>The argument <EM CLASS="Variable">
+to</EM>
+ is destructively modified by copying successive elements into it from <EM CLASS="Variable">
+from</EM>
+. Elements of the subsequence of <EM CLASS="Variable">
+from</EM>
+ bounded by <EM CLASS="Variable">
+start2</EM>
+ and <EM CLASS="Variable">
+end2</EM>
+ are copied into the subsequence of <EM CLASS="Variable">
+to</EM>
+ bounded by <EM CLASS="Variable">
+start1</EM>
+ and <EM CLASS="Variable">
+end1</EM>
+. If these subsequences are not of the same length, then the shorter length determines how many elements are copied; the extra elements near the end of the longer subsequence are not involved in the operation.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1051322"></A>Each of <EM CLASS="Variable">
+to</EM>
+ and <EM CLASS="Variable">
+from</EM>
+ can be one of the following:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1051065"></A>A lisp array.</P>
+<P CLASS="RDescription-C">The start and end are handled in the same way as Common Lisp sequence functions.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1051067"></A>A foreign array.</P>
+<P CLASS="RDescription-C">The start and end are handled in the same way as Common Lisp sequence functions.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1051518"></A>A pointer to a foreign array</P>
+<P CLASS="RDescription-C"></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1051604"></A>The start and end are handled in the same way as Common Lisp sequence functions.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1051519"></A>A pointer to any other foreign object.</P>
+<P CLASS="RDescription-C"></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1051629"></A>In this case, the pointer is assumed to point to an array of such objects. Start and end are used as indices into that array, but without any bounds checking.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1051872"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1051890"></A>This example demonstrates copying from a foreign pointer to a lisp array.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1051892"></A>An initial array filled with 42:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1051894"></A>(setq lisp-array </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051895"></A>      (make-array 10 </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051896"></A>                  :element-type '(unsigned-byte 8)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1051897"></A>                  :initial-element 42))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1051899"></A>A foreign pointer to 10 consecutive unsigned chars:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1051901"></A>(setq foreign-array</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051902"></A>      (fli:allocate-foreign-object </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051903"></A>       :type '(:unsigned :char)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051904"></A>       :nelems 10</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1051905"></A>       :initial-contents '(1 2 3 4 5 6 7 8 9 10)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1051907"></A>Copy some of the unsigned char into the lisp array. Without <CODE CLASS="Code">
+:start2</CODE>
+ and <CODE CLASS="Code">
+:end2</CODE>
+, only the first unsigned char would be copied:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1051909"></A>(fli:replace-foreign-array </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051910"></A> lisp-array foreign-array</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051911"></A> :start1 3</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051912"></A> :start2 5 :end2 8)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051913"></A>=&gt;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1051914"></A>#(42 42 42 6 7 8 42 42 42 42)</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1051919"></A>This example demonstrates copying from a foreign array to a lisp array.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1051921"></A>A pointer to a foreign array of 10 unsigned chars:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1051923"></A>(setq foreign-array</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051924"></A>      (fli:allocate-foreign-object </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051925"></A>       :type </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051926"></A>       '(:c-array (:unsigned :char) 10)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051927"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051928"></A>(dotimes (i 10) </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1051929"></A>  (setf (fli:foreign-aref foreign-array i) (1+ i)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1051931"></A>Copy part of the foreign array into the lisp array:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1051933"></A>(fli:replace-foreign-array </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051934"></A> lisp-array foreign-array :start1 7)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1051935"></A>=&gt;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1051885"></A>#(42 42 42 6 7 8 42 1 2 3)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1053110"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1053115"></A><A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A><BR>
+<A HREF="fli-82.htm#16376" CLASS="XRef">copy-pointer</A><BR>
+<A HREF="fli-126.htm#29578" CLASS="XRef">make-pointer</A><BR>
+<A HREF="fli-142.htm#13343" CLASS="XRef">replace-foreign-object</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-142.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-140.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

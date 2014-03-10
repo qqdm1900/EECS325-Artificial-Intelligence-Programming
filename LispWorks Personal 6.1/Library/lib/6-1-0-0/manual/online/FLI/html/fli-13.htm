@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.3  Using the FLI to set the cursor position
+</TITLE>
+
+<LINK REL="next" HREF="fli-14.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-12.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-4.htm">1 Introduction to the FLI</A><BR><BR>
+</DIV><A HREF="fli-14.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-12.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-886902"></A>1.3  Using the FLI to set the cursor position</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886903"></A>A similar Windows function, <CODE CLASS="Code">
+SetCursorPos</CODE>
+, can be used to set the cursor position. The <CODE CLASS="Code">
+SetCursorPos</CODE>
+ function takes two <CODE CLASS="Code">
+LONG</CODE>
+s. The following code defines an interface function to call <CODE CLASS="Code">
+SetCursorPos</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887288"></A>(fli:define-foreign-function (set-cursor-position &quot;SetCursorPos&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887289"></A>    ((x :long)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887290"></A>     (y :long))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887303"></A>  :result-type :boolean)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886908"></A>For example, the cursor position can now be set to be near the top left corner by simply using the following command:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886909"></A>(set-cursor-position 20 20)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886910"></A>For a more extravagant example, define and execute the following function:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886911"></A>(defun test-cursor ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886912"></A>  (dotimes (x 10)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886913"></A>    (dotimes (d 300) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886914"></A>      (let ((r (/ (+ d (* 300 x)) 10.0)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886915"></A>           (set-cursor-position</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886916"></A>              (+ 300 (floor (* r (cos (/ (* d pi) 150.0)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886917"></A>              (+ 300 (floor (* r (sin (/ (* d pi) 150.0)))))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886918"></A>           )))))</PRE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886919"></A>(test-cursor)</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-14.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-12.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

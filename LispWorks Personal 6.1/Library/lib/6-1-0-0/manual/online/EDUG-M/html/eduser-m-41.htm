@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.5.1  Finding files
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-42.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-40.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-40.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-33.htm">3 Command Reference</A> &gt <A HREF="eduser-m-40.htm">3.5  File handling</A><BR><BR>
+</DIV><A HREF="eduser-m-42.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-40.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884120"></A>3.5.1  <A NAME="marker-884118"></A>Finding files</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884123"></A><A NAME="marker-884121"></A><A NAME="86391"></A>Find File </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884124"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884125"></A>Arguments: <EM CLASS="Variable">
+pathname<BR>
+</EM>
+Key sequence: None</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884126"></A>editor:find-file-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+pathname</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884127"></A>Finds a new buffer with the same name as <EM CLASS="Variable">
+pathname</EM>
+ (where <EM CLASS="Variable">
+pathname</EM>
+ is the name of the file to be found, including its directory relative to the current directory), creating it if necessary, and inserts the contents of the file into the buffer. The contents of the buffer are displayed in an editor pane and may then be edited.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-907983"></A>The file is initially read in the external format (encoding) given by the editor variable <A HREF="eduser-m-41.htm#28642" CLASS="XRef">input-format-default</A>. If the value of this is <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+cl:open </CODE>
+chooses the external format to use. The external format is remembered for subsequent reading and writing of the buffer, and its name is displayed in the mode line.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884128"></A>If the file is already being visited a new buffer is not created, but the buffer already containing the contents of that file is displayed instead. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884129"></A>If a file with the specified name does not exist, an empty buffer with that file name is created for editing purposes, but the new file is not created until the appropriate save file command is issued.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884130"></A>If there is no prefix argument, a new Editor window is created for the file. With any prefix argument, the file is shown in the current window.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884132"></A>Another version of this command is <A HREF="eduser-m-41.htm#37765" CLASS="XRef">Wfind File</A><CODE CLASS="Code">
+ </CODE>
+which is usually used for finding files.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884135"></A><A NAME="marker-884133"></A><A NAME="37765"></A>Wfind File </P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884136"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884138"></A>Arguments: <EM CLASS="Variable">
+pathname<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X Ctrl+F </CODE>
+<EM CLASS="Variable">
+pathname</EM>
+</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884139"></A>editor:wfind-file-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+pathname</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884141"></A>Calls <A HREF="eduser-m-41.htm#86391" CLASS="XRef">Find File</A> with a prefix argument (that is, the new file is opened in the existing window).</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884143"></A><A NAME="marker-967328"></A><A NAME="30467"></A>Visit File</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884144"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884145"></A>Arguments: <EM CLASS="Variable">
+pathname<BR>
+</EM>
+Key sequence: None</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884146"></A>editor:visit-file-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+pathname</EM>
+ <EM CLASS="Variable">
+buffer</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884148"></A>Does the same as <A HREF="eduser-m-41.htm#83062" CLASS="XRef">Find Alternate File</A>, and then sets the buffer to be writable.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-967257"></A><A NAME="marker-967255"></A><A NAME="83062"></A>Find Alternate File</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-967258"></A>Editor Command</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-967259"></A>Arguments: <EM CLASS="Variable">
+pathname<BR>
+</EM>
+Key sequence: <CODE CLASS="Code">
+Ctrl+X Ctrl+V </CODE>
+<EM CLASS="Variable">
+pathname</EM>
+</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-967260"></A>editor:find-alternate-file-command <EM CLASS="Variable">
+p</EM>
+ &amp;optional <EM CLASS="Variable">
+pathname</EM>
+ <EM CLASS="Variable">
+buffer</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-967264"></A>Does the same as <A HREF="eduser-m-41.htm#86391" CLASS="XRef">Find File</A> with a prefix argument, but kills the current buffer and replaces it with the newly created buffer containing the file requested. If the contents of the buffer to be killed have been modified, the user is asked if the changes are to be saved to file.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-967265"></A>The argument <EM CLASS="Variable">
+buffer</EM>
+ is the buffer in which the contents of the file are to be displayed. <EM CLASS="Variable">
+buffer</EM>
+ defaults to the current buffer.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-967318"></A>The prefix argument is ignored.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-908334"></A><A NAME="marker-913349"></A><A NAME="69244"></A><A NAME="28642"></A>input-format-default</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-908335"></A>Editor Variable</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-908336"></A>Default value: <CODE CLASS="Code">
+nil</CODE>
+</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-1022753"></A>The default external format used by <A HREF="eduser-m-41.htm#86391" CLASS="XRef">Find File</A>, <A HREF="eduser-m-41.htm#37765" CLASS="XRef">Wfind File</A> and <A HREF="eduser-m-41.htm#30467" CLASS="XRef">Visit File</A> for reading files into buffers. </P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-908439"></A>If the buffer already has an external format (either it has previously been read from a file, or <A HREF="eduser-m-42.htm#79402" CLASS="XRef">Set External Format</A> has been used to specify an external format) then <CODE CLASS="Code">
+input-format-default</CODE>
+ is ignored. If the value is <CODE CLASS="Code">
+nil</CODE>
+ and the buffer does not have an external format,<CODE CLASS="Code">
+ cl:open</CODE>
+ chooses the external format to use.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-908413"></A>The value should be <CODE CLASS="Code">
+nil</CODE>
+ or an external format specification. See the <I CLASS="Italic">
+LispWorks User Guide and Reference Manual</I>
+ for a description of these and of how <CODE CLASS="Code">
+cl:open</CODE>
+ chooses an external format.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-908528"></A>If you have specified an input encoding via the Editor tool's Preferences dialog, then <CODE CLASS="Code">
+input-format-default</CODE>
+ is initialized to that value on startup.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-42.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-40.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-40.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

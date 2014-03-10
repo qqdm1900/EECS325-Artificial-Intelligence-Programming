@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.5  Inspecting objects using the Inspector
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-18.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-16.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-12.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-12.htm">2 A Short Tutorial</A><BR><BR>
+</DIV><A HREF="ide-m-18.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-16.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-12.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-853478"></A>2.5  Inspecting objects using the Inspector</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853182"></A>The variables <CODE CLASS="Code">
+*</CODE>
+<A NAME="marker-853586"></A><A NAME="marker-853589"></A><A NAME="marker-853577"></A>, <CODE CLASS="Code">
+**</CODE>
+<A NAME="marker-853187"></A><A NAME="marker-853580"></A>, and <CODE CLASS="Code">
+***</CODE>
+<A NAME="marker-853195"></A><A NAME="marker-853579"></A> hold the results of expressions which have been evaluated in the Listener. <CODE CLASS="Code">
+*</CODE>
+ always holds the result of the last expression evaluated; <CODE CLASS="Code">
+**</CODE>
+ holds the previous value of <CODE CLASS="Code">
+*</CODE>
+, and <CODE CLASS="Code">
+***</CODE>
+ holds the previous value of <CODE CLASS="Code">
+**</CODE>
+. These variables (<CODE CLASS="Code">
+*</CODE>
+ in particular) are not only useful in their own right; the environment uses them to pass values between different tools. </P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-853197"></A>Make sure the <B CLASS="Button">
+Listener</B>
+ tab is visible, and type <CODE CLASS="Code">
+*</CODE>
+.</LI>
+
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853645"></A>If you have followed this tutorial so far, the text input pane object that you created above is returned. This is because the <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-925411"></A><A NAME="marker-925418"></A><CODE CLASS="Code">
+capi:contain</CODE>
+ function returns the object that is being contained. You can easily inspect this object more closely in the Inspector tool.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-853203"></A>Choose the menu command <B CLASS="Button">
+Values &gt; Inspect</B>
+<A NAME="marker-853345"></A><A NAME="marker-853343"></A>.</LI>
+
+<P CLASS="Body-Indent">
+<A NAME="pgfId-855722"></A>This creates an Inspector tool which displays the <CODE CLASS="Code">
+capi:text-input-pane</CODE>
+ object currently contained in <CODE CLASS="Code">
+*</CODE>
+.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-892701"></A>Figure 2.5  <A NAME="47698"></A>Examining a text input pane in the Inspector<DIV>
+<IMG SRC="ide-m-9.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="ide-m-15.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-892662"></A>The commands in the <B CLASS="Button">
+Values</B>
+ menu always act upon the current value of <CODE CLASS="Code">
+*</CODE>
+. This enables you to pass a value easily from one tool to another.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853232"></A>The main part of the Inspector is a list of all the slots in the object being inspected. This list shows both the name of each slot and its current value. Above this list is a button labeled <B CLASS="Button">
+Filter</B>
+ with a text box to its right. This lets you filter the information shown in the main list, which can be useful when you are inspecting objects with a large number of slots. The name of the object being inspected appears immediately below the echo area.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-853233"></A>Click in the Filter text box, type the word <CODE CLASS="Code">
+text</CODE>
+.</LI>
+
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853236"></A>This restricts the display in the Inspector to only those items which contain the string &quot;text&quot;, either in the slot name or in the slot value.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853237"></A>After using the filter, you can easily see that one of the available slots contains the word <CODE CLASS="Code">
+hello</CODE>
+ that you typed into the text input pane. </P>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-853238"></A>The Inspector always displays the actual instantiation of a given object (as opposed to a copy of it), so that you can be certain that any changes to the object itself are reflected in the Inspector.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-853241"></A>Display the text input pane that you created earlier. </LI>
+
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853250"></A>If you can no longer see it, choose <B CLASS="Button">
+Window &gt; Container</B>
+<A NAME="marker-950969"></A>; this is a simple way to display any of the windows and tools that you have created so far. (There are actually two windows with this name; if you choose the wrong one first of all, then just choose the other one.)</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-878582"></A>Click in the text input pane and delete the word <CODE CLASS="Code">
+hello</CODE>
+. Type <CODE CLASS="Code">
+goodbye</CODE>
+ and press <CODE CLASS="Code">
+Return</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-878585"></A>Select the Inspector to make it the active window and choose <B CLASS="Button">
+Window &gt; Refresh</B>
+<A NAME="marker-951016"></A>.</LI>
+
+<P CLASS="Body-Indent">
+<A NAME="pgfId-853253"></A>The description of the text slot now reflects the new value you specified.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-853254"></A>Close the Inspector by <B CLASS="Button">
+Command+W</B>
+ or by choosing <B CLASS="Button">
+Window &gt; Close Window</B>
+.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-853255"></A>You can close any window in the environment in this way, although there are often other ways of closing windows.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-18.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-16.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-12.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

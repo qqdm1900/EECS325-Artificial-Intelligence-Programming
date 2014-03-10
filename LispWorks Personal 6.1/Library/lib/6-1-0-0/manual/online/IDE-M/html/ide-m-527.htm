@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 27.2.1.2  Creating a new delivery script
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-528.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-526.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-525.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-521.htm">27 The Application Builder</A> &gt; <A HREF="ide-m-524.htm">27.2  Preparing to build your application</A> &gt; <A HREF="ide-m-525.htm">27.2.1  The script</A><BR><BR>
+</DIV><A HREF="ide-m-528.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-526.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-525.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-863988"></A>27.2.1.2  <A NAME="89150"></A>Creating a new delivery script</H3>
+<P CLASS="Body">
+<A NAME="pgfId-863807"></A>Suppose that you already have a file <CODE CLASS="Code">
+compile-and-load-my-app.lisp</CODE>
+ that you use to compile and load your application. Then you can create a suitable delivery script with the help of the Application Builder.</P>
+<P CLASS="Body">
+<A NAME="pgfId-873061"></A>To create the new delivery script:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-868038"></A>Choose <B CLASS="Button">
+Build &gt; Make a New Script</B>
+<A NAME="marker-863884"></A><A NAME="marker-863885"></A> or click 
+<IMG SRC="ide-m-362.gif" ALIGN="ABSBOTTOM">
+ in the Application Builder toolbar. </LI>
+
+<P CLASS="Step-C">
+<A NAME="pgfId-868041"></A>This displays a dialog as shown in <A HREF="ide-m-527.htm#95798" CLASS="XRef">The New Delivery script dialog</A>. </P>
+<LI CLASS="Step">
+<A NAME="pgfId-868040"></A>Enter the path to <CODE CLASS="Code">
+compile-and-load-my-app.lisp</CODE>
+ in the Loading script pane. You can use the 
+<IMG SRC="ide-m-363.gif" ALIGN="ABSBOTTOM">
+ button to locate the file.</LI>
+
+<LI CLASS="Step">
+<A NAME="pgfId-868048"></A>Enter the <CODE CLASS="Code">
+deliver</CODE>
+ arguments. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-868069"></A>Note: Level defaults to 0, which is a good choice the first time you deliver your application. You will probably want to increase the Delivery level later, for reasons explained in the <I CLASS="Italic">
+LispWorks Delivery User Guide</I>
+.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-868052"></A>Check the calculated <B CLASS="Button">
+Script Name</B>
+ (and modify it if desired), and click <B CLASS="Button">
+OK</B>
+.</LI>
+</OL>
+<P CLASS="Figure">
+<A NAME="pgfId-863913"></A>Figure 27.2  <A NAME="95798"></A><A NAME="27472"></A>The New Delivery script dialog<DIV>
+<IMG SRC="ide-m-358.gif">
+</DIV>
+</P>
+<DIV>
+<IMG SRC="ide-m-364.gif">
+</DIV>
+<P CLASS="Body">
+<A NAME="pgfId-863934"></A>The Application Builder now displays the path to the new script in its Build script pane. The new script will load patches, load your file, and then call <CODE CLASS="Code">
+deliver</CODE>
+, something like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-873072"></A>   (in-package &quot;CL-USER&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-873073"></A>   (load-all-patches)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-873074"></A>   (load &quot;compile-and-load-my-app&quot;)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-873075"></A>   (deliver 'my-start-function &quot;my-app&quot; 0)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-902363"></A>Note: the script will be more complex for Cocoa applications.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894175"></A><A NAME="marker-894214"></A>Note: your delivery script should load all the code needed for the application. Do not rely on your personal initialization or siteinit files (which are ordinarily loaded into LispWorks), because these initialization files will not be used when building the application.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-528.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-526.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-525.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

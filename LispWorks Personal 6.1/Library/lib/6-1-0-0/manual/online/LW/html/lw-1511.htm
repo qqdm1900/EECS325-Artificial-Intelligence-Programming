@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ dde-server-topics
+</TITLE>
+
+<LINK REL="next" HREF="lw-1512.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1510.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1507.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1507.htm">44 The DDE server interface</A><BR><BR>
+</DIV><A HREF="lw-1512.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1510.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1507.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-911659"></A><A NAME="22836"></A>dde<A NAME="marker-937324"></A>-server-topics</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-911660"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911661"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-911662"></A>Returns a list of the available general topics on a given server.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911663"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-911664"></A>win32</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911665"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-911666"></A>dde-server-topics <EM CLASS="Variable">
+server</EM>
+ =&gt; <EM CLASS="Variable">
+topic-list</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911667"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-911668"></A><EM CLASS="Variable">
+server</EM>
+</P>
+<P CLASS="RDescription-C">A server object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911669"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-911670"></A><EM CLASS="Variable">
+topic-list</EM>
+</P>
+<P CLASS="RDescription-C">A list of strings.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911671"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-911672"></A>The generic function <CODE CLASS="Code">
+dde-server-topics</CODE>
+ returns a list of the available general topics on a given server. A suitable method specializing on the server class should be defined. Dispatching topics (see <A HREF="lw-1515.htm#36921" CLASS="XRef">define-dde-dispatch-topic</A>) should not be returned, as they are handled automatically by LispWorks. If you do not provide a <CODE CLASS="Code">
+dde-server-topics</CODE>
+ method, the default method returns <CODE CLASS="Code">
+:unknown</CODE>
+, which prevents the DDE server from responding to the topics request.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-911673"></A>Generally only one canonical name should be returned for each topic, even though the server may recognize several alternative forms of name for a topic. For example, if an application implements a topic for each open file, the topics <CODE CLASS="Code">
+foo</CODE>
+, <CODE CLASS="Code">
+foo.doc</CODE>
+ and <CODE CLASS="Code">
+c:&#92;foo.doc</CODE>
+ may all be acceptable strings for referring to the same topic; however <CODE CLASS="Code">
+dde-server-topics</CODE>
+ should return each topic once only.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-911676"></A>The application must also provide a method on the <A HREF="lw-1510.htm#22701" CLASS="XRef">dde-server-topic</A> generic function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-911678"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-911682"></A><A HREF="lw-1510.htm#22701" CLASS="XRef">dde-server-topic</A><BR>
+<A HREF="lw-1514.htm#32113" CLASS="XRef">dde-topic-items</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1512.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1510.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1507.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

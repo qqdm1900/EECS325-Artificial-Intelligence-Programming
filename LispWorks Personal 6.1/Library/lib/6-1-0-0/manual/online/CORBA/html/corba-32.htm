@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.1.3  IDL for the bank interface
+</TITLE>
+
+<LINK REL="next" HREF="corba-33.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-31.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-29.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-28.htm">4 Writing and Compiling IDL</A> &gt <A HREF="corba-29.htm">4.1  Designing the IDL</A><BR><BR>
+</DIV><A HREF="corba-33.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-31.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-29.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-853271"></A>4.1.3  <A NAME="marker-856051"></A><A NAME="marker-856077"></A>IDL for the bank interface</H3>
+<P CLASS="Body">
+<A NAME="pgfId-855653"></A>We can now design the interface of a <CODE CLASS="Code">
+bank</CODE>
+ object. The intention is that a bank associates customer names with accounts, with each name identifying at most one account. A client is able to open accounts for new customers and to retrieve both accounts and checking accounts for existing customers from the persistent store. If the client attempts to open a second account under the same name, the bank should refuse the request by raising an exception. Similarly, if the client attempts to retrieve an account for an unknown customer, the bank should reject the request by raising an exception.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853272"></A>The IDL definition of the bank interface captures some of these requirements: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853273"></A>// in module BankingDemo </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853712"></A>interface bank { </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855667"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853714"></A>  readonly attribute string name; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855657"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853716"></A>  exception duplicateAccount{}; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855658"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853718"></A>  account openAccount (in string name) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853720"></A>    raises (duplicateAccount); </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855659"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853722"></A>  checkingAccount openCheckingAccount(in string name, </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854707"></A>                                      in long limit) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853724"></A>    raises (duplicateAccount); </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855660"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853726"></A>  exception nonExistentAccount{}; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855661"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855663"></A>  account retrieveAccount(in string name) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855664"></A>    raises (nonExistentAccount); </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855666"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-855665"></A>  void closeAccount (in account account); </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853734"></A>};</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853274"></A>The name of a bank is recorded in its <CODE CLASS="Code">
+name</CODE>
+ attribute. </P>
+<P CLASS="Body">
+<A NAME="pgfId-854711"></A>The operation <CODE CLASS="Code">
+openAccount</CODE>
+ is declared to take a CORBA <CODE CLASS="Code">
+string</CODE>
+ and return an <CODE CLASS="Code">
+account</CODE>
+. Because <CODE CLASS="Code">
+account</CODE>
+ is defined as an interface, and not a type, this means that the operation will return a <I CLASS="Italic">
+reference</I>
+ to an <CODE CLASS="Code">
+account</CODE>
+ object. This illustrates an important distinction between ordinary values and objects in CORBA: while members of basic and constructed types are passed by value, objects are passed by reference. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855668"></A>The qualification <CODE CLASS="Code">
+raises</CODE>
+ (<CODE CLASS="Code">
+duplicateAccount</CODE>
+) specifies that <CODE CLASS="Code">
+openAccount</CODE>
+ can raise the user-defined exception <CODE CLASS="Code">
+duplicateAccount</CODE>
+, instead of returning an account. (The exception <CODE CLASS="Code">
+duplicateAccount</CODE>
+ has no fields.) </P>
+<P CLASS="Body">
+<A NAME="pgfId-853276"></A>The operation <CODE CLASS="Code">
+openCheckingAccount</CODE>
+ is similar to <CODE CLASS="Code">
+openAccount</CODE>
+, but takes an additional argument, <CODE CLASS="Code">
+limit</CODE>
+, which represents the account's overdraft limit. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853277"></A>The operation <CODE CLASS="Code">
+retrieveAccount</CODE>
+ looks up the account (or checking account), if any, associated with a customer name, returning an object reference of interface <CODE CLASS="Code">
+account</CODE>
+. The operation may raise the exception <CODE CLASS="Code">
+nonExistentAccount</CODE>
+ to indicate that there is no account under the supplied name. </P>
+<P CLASS="Body">
+<A NAME="pgfId-855673"></A>The last operation, <CODE CLASS="Code">
+closeAccount</CODE>
+, closes an account by deleting it from the bank's records. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853278"></A>Because <CODE CLASS="Code">
+checkingAccount</CODE>
+ inherits from <CODE CLASS="Code">
+account</CODE>
+, a <CODE CLASS="Code">
+checkingAccount</CODE>
+ object may be used wherever an <CODE CLASS="Code">
+account</CODE>
+ object is expected, whether as the actual argument, or the result, of an operation. For instance, this means that we can use <CODE CLASS="Code">
+closeAccount</CODE>
+ to close checking accounts as well as accounts; and to use <CODE CLASS="Code">
+retrieveAccount</CODE>
+ to fetch checking accounts as well as accounts.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853279"></A>The complete IDL definition for the bank can be found in file <CODE CLASS="Code">
+bank.idl</CODE>
+. </P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-33.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-31.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-29.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

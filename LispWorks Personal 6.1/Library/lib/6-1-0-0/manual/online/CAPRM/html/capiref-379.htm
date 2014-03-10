@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-clipboard
+</TITLE>
+
+<LINK REL="next" HREF="capiref-380.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-378.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-380.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-378.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3124158"></A><A NAME="73382"></A>set<A NAME="marker-4227420"></A>-clipboard</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-3124159"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3124161"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3124162"></A>Sets the contents of the system clipboard.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4227378"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4227379"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3124163"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3124164"></A>set-clipboard <EM CLASS="Variable">
+self</EM>
+ <EM CLASS="Variable">
+value</EM>
+ &amp;optional <EM CLASS="Variable">
+string</EM>
+ <EM CLASS="Variable">
+plist</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3124165"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3124166"></A><EM CLASS="Variable">
+self</EM>
+</P>
+<P CLASS="RDescription-C">A displayed CAPI pane or interface.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5400271"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RDescription-C">A Lisp object (not necessarily a string) to make available within the local Lisp image.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5400272"></A><EM CLASS="Variable">
+string</EM>
+</P>
+<P CLASS="RDescription-C">The string representation of <EM CLASS="Variable">
+value</EM>
+ to export, or <CODE CLASS="Code">
+nil</CODE>
+. If <CODE CLASS="Code">
+nil</CODE>
+ and <EM CLASS="Variable">
+value</EM>
+ is a string, then that will be exported as the string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5400273"></A><EM CLASS="Variable">
+plist</EM>
+</P>
+<P CLASS="RDescription-C">A property list of additional format/value pairs to export. The currently supported formats are as described for <CODE CLASS="Code">
+<A HREF="capiref-38.htm#30401" CLASS="XRef">clipboard</A></CODE>
+. You can export more than one format simultaneously.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3124167"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3124168"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A string, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3124169"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3124170"></A>The function <CODE CLASS="Code">
+set-clipboard</CODE>
+ sets the contents of the system clipboard to be the text of <EM CLASS="Variable">
+string</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3124171"></A>In Microsoft Windows applications (including LispWorks in Windows emulation mode), the contents of the system clipboard is usually accessed by the user with the <CODE CLASS="Code">
+Ctrl+V</CODE>
+ gesture.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3124172"></A>The X clipboard can be accessed by the <CODE CLASS="Code">
+Ctrl+V</CODE>
+ gesture in KDE/Gnome emulation, or by running the program <CODE CLASS="Code">
+xclipboard</CODE>
+ or the Emacs function <CODE CLASS="Code">
+x-get-clipboard</CODE>
+. The most likely explanation for apparent inconsistencies after <CODE CLASS="Code">
+set-clipboard</CODE>
+ is that the pasting application doesn't use the X clipboard.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5832035"></A>In Cocoa applications (including LispWorks), the contents of the system clipboard is usually accessed by the user with the <CODE CLASS="Code">
+Command+V</CODE>
+ gesture.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5400302"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-5400355"></A>To export an image:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-5400357"></A>(capi:set-clipboard <EM CLASS="Variable">
+pane</EM>
+ nil nil (list :image <EM CLASS="Variable">
+image</EM>
+))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-5400359"></A>To export an image with a text description</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-5406385"></A>(capi:set-clipboard <EM CLASS="Variable">pane</EM>
+ nil nil</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5406386"></A>                    (list :image <EM CLASS="Variable">image</EM>
+ </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-5400347"></A>                          :string &quot;my image&quot;))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3124173"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3124174"></A><A HREF="capiref-38.htm#30401" CLASS="XRef">clipboard</A><BR>
+<A HREF="capiref-375.htm#62388" CLASS="XRef">selection</A><BR>
+<A HREF="capiref-438.htm#22705" CLASS="XRef">text-input-pane-copy</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-9500308"></A>&nbsp;</H5>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-380.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-378.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

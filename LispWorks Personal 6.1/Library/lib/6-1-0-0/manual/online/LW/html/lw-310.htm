@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 16.2.5  Examples
+</TITLE>
+
+<LINK REL="next" HREF="lw-311.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-309.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-305.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-303.htm">16 Common Defsystem and ASDF</A> &gt; <A HREF="lw-305.htm">16.2  Defining a system </A><BR><BR>
+</DIV><A HREF="lw-311.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-309.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-305.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-887050"></A>16.2.5  Examples</H3>
+<P CLASS="Body">
+<A NAME="pgfId-887052"></A><A NAME="marker-887051"></A>Consider an example system, <CODE CLASS="Code">
+demo</CODE>
+, defined as follows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887053"></A>(defsystem demo (:package &quot;USER&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887054"></A>  :members (&quot;parent&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887055"></A>            &quot;child1&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887056"></A>            &quot;child2&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887057"></A>  :rules ((:in-order-to :compile (&quot;child1&quot; &quot;child2&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887058"></A>           (:caused-by (:compile &quot;parent&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887059"></A>           (:requires (:load &quot;parent&quot;)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887060"></A>This system compiles and loads members into the <CODE CLASS="Code">
+USER</CODE>
+ package if the members themselves do not specify packages. The system contains three members -- <CODE CLASS="Code">
+parent</CODE>
+, <CODE CLASS="Code">
+child1</CODE>
+, and <CODE CLASS="Code">
+child2</CODE>
+ -- which may themselves be either files or other systems. There is only one explicit rule in the example. If <CODE CLASS="Code">
+parent</CODE>
+ needs to be compiled (for instance, if it has been changed), then this causes <CODE CLASS="Code">
+child1</CODE>
+ and <CODE CLASS="Code">
+child2</CODE>
+ to be compiled as well, irrespective of whether they have themselves changed. In order for them to be compiled, <CODE CLASS="Code">
+parent</CODE>
+ must first be loaded. </P>
+<P CLASS="Body">
+<A NAME="pgfId-887061"></A>Implicitly, it is always the case that if any member changes, it needs to be compiled when you compile the system. The explicit rule above means that if the changed member happens to be <CODE CLASS="Code">
+parent</CODE>
+, then <I CLASS="Italic">
+every</I>
+ member gets compiled. If the changed member is not <CODE CLASS="Code">
+parent</CODE>
+, then <CODE CLASS="Code">
+parent</CODE>
+ must at least be loaded before compiling takes place.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887062"></A>The next example shows a system consisting of three files:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887063"></A>(defsystem my-system </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887064"></A>  (:default-pathname &quot;&#126;/junk/&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887065"></A>   :members (&quot;a&quot; &quot;b&quot; &quot;c&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887066"></A>   :rules ((:in-order-to :compile  (&quot;c&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887067"></A>            (:requires (:load &quot;a&quot;))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887068"></A>            (:caused-by (:compile &quot;b&quot;)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-887069"></A>What plan is produced when all three files have already been compiled, but the file <CODE CLASS="Code">
+b.lisp</CODE>
+ has since been changed? </P>
+<P CLASS="Body">
+<A NAME="pgfId-887070"></A>First, file <CODE CLASS="Code">
+a.lisp</CODE>
+ is considered. This file has already been compiled, so no instructions are added to the plan.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887071"></A>Second, file <CODE CLASS="Code">
+b.lisp</CODE>
+ is considered. Since this file has changed, the instruction <EM CLASS="Variable">
+compile b</EM>
+ is added to the plan.</P>
+<P CLASS="Body">
+<A NAME="pgfId-887072"></A>Finally file <CODE CLASS="Code">
+c.lisp</CODE>
+ is considered. Although this has already been compiled, the clause </P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887073"></A>(:caused-by (:compile &quot;b&quot;)) </CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887074"></A>causes the instruction <EM CLASS="Variable">
+compile c</EM>
+ to be added to the plan. The compilation of <CODE CLASS="Code">
+c.lisp</CODE>
+ also requires that <CODE CLASS="Code">
+a.lisp</CODE>
+ is loaded, so the instruction <EM CLASS="Variable">
+load a</EM>
+ is added to the plan first. This gives us the following plan:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-887075"></A>Compile <CODE CLASS="Code">
+b.lisp</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-891755"></A>Load <CODE CLASS="Code">
+a.lisp</CODE>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-887080"></A>Compile <CODE CLASS="Code">
+c.lisp</CODE>
+.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-891762"></A>This last example shows how to make each fasl get loaded immediately after compiling it:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-891775"></A>(defsystem my-system ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891776"></A>  :members (&quot;foo&quot; &quot;bar&quot; &quot;baz&quot; &quot;quux&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891777"></A>  :rules ((:in-order-to :compile :all</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891778"></A>           (:requires (:load :previous)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891779"></A>&nbsp;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-891773"></A>(compile-system my-system :load t)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891772"></A><A NAME="marker-891756"></A><A NAME="marker-891757"></A><A NAME="marker-891758"></A><A NAME="marker-892512"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-311.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-309.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-305.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

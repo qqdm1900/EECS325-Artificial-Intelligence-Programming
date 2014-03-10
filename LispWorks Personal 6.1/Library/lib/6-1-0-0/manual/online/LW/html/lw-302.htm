@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.10.2.1  Example of ensuring order of memory
+</TITLE>
+
+<LINK REL="next" HREF="lw-303.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-301.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-301.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-298.htm">15.10  Low level atomic operations</A> &gt; <A HREF="lw-301.htm">15.10.2  Ensuring order of memory between operations in different threads</A><BR><BR>
+</DIV><A HREF="lw-303.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-301.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-301.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-899417"></A>15.10.2.1  Example of ensuring order of memory</H3>
+<P CLASS="Body">
+<A NAME="pgfId-899418"></A>Suppose you have two code fragments, which may end up executed in parallel, and both of which access a global structure <CODE CLASS="Code">
+*gs*</CODE>
+. The first fragment is a setter, and you can be sure that it is not executed in parallel to itself (normally because it actually runs inside a lock):</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-899419"></A>(setf</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899420"></A>  (my-structure-value-slot *gs*)   ; <EM CLASS="Variable">store1</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899421"></A>  some-value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899422"></A>(setf</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899423"></A>  (my-structure-counter-slot *gs*) ; <EM CLASS="Variable">store2</EM>
+</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-899424"></A>  counter)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-899425"></A>The second fragment is the reader. You want to guarantee that it gets a value that was stored after the counter reached some value (the counter value always increases). You may think that this will suffice:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-899426"></A>(if (&gt;=</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899427"></A>     (my-structure-counter-slot *gs*) ; <EM CLASS="Variable">load1</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899428"></A>     counter)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899429"></A>    (my-structure-value-slot *gs*)    ; <EM CLASS="Variable">load2</EM>
+</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-899430"></A>  (.. something else ...))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-899431"></A>Programmatically, if the <CODE CLASS="Code">
+&gt;=</CODE>
+ is true then <EM CLASS="Variable">
+store2</EM>
+ already occurred before <EM CLASS="Variable">
+load1</EM>
+, therefore <EM CLASS="Variable">
+store1</EM>
+ also occurred before <EM CLASS="Variable">
+load1</EM>
+, and <EM CLASS="Variable">
+load2</EM>
+ which happens after <EM CLASS="Variable">
+load1</EM>
+ must happen after <EM CLASS="Variable">
+store1</EM>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-899432"></A>On a single CPU that is true. On a computer with multiple CPU cores it can go wrong (that is, <EM CLASS="Variable">
+load2</EM>
+ can happen before <EM CLASS="Variable">
+store1</EM>
+) because of two possible reasons:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-899433"></A><EM CLASS="Variable">
+load2</EM>
+ may happen before <EM CLASS="Variable">
+load1</EM>
+.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-899434"></A><EM CLASS="Variable">
+store2</EM>
+ may happen before <EM CLASS="Variable">
+store1</EM>
+.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-899435"></A>To guarantee that <EM CLASS="Variable">
+load2</EM>
+ happens after <EM CLASS="Variable">
+store1</EM>
+, both of these possibilities need to be dealt with. Thus the setter has to be:</P>
+<PRE CLASS="Code-body"><A NAME="pgfId-899436"></A>(setf (my-structure-value-slot *gs*)   ; <EM CLASS="Variable">store1</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899437"></A>      some-value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899438"></A>(sys:ensure-stores-after-stores)       ; ensure store order</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899439"></A>(setf (my-structure-counter-slot *gs*) ; <EM CLASS="Variable">store2</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899440"></A>      (incf-counter))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-899441"></A>and the reader has to be:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-899442"></A>(if (&gt; (my-structure-counter-slot *gs*) ; <EM CLASS="Variable">load1</EM>
+</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899443"></A>       my-counter)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899444"></A>    (progn</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899445"></A>      (sys:ensure-loads-after-loads)    ; ensure load order</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-899446"></A>      (my-structure-value-slot *gs*))   ; <EM CLASS="Variable">load2</EM>
+</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-899447"></A>  (.. something else ...))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-899448"></A>Note that somehow both threads know about <CODE CLASS="Code">
+counter</CODE>
+, and normally will have to synchronize the getting of its value too.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-303.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-301.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-301.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

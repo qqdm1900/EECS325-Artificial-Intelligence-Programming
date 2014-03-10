@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 18.3.3.3  The system topic
+</TITLE>
+
+<LINK REL="next" HREF="lw-343.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-341.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-339.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-323.htm">18 Dynamic Data Exchange</A> &gt; <A HREF="lw-336.htm">18.3  Server interface</A> &gt; <A HREF="lw-339.htm">18.3.3  Topics</A><BR><BR>
+</DIV><A HREF="lw-343.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-341.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-339.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-886795"></A>18.3.3.3  <A NAME="64845"></A>The system topic</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886796"></A>The system topic is implemented as a predefined dispatching topic called <CODE CLASS="Code">
+:system</CODE>
+. It is automatically available to all defined DDE servers. Its class is <A HREF="lw-1512.htm#65741" CLASS="XRef">dde-system-topic</A>, which is a subclass of <A HREF="lw-1513.htm#89064" CLASS="XRef">dde-topic</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888159"></A>The following items are implemented by the system topic:</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-888160"></A>SZDDESYS_ITEM_TOPICS</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-888172"></A>Constant</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-888167"></A>The constant <CODE CLASS="Code">
+SZDDESYS_ITEM_TOPICS</CODE>
+ has the value &quot;<CODE CLASS="Code">
+Topics&quot;</CODE>
+. Referring to this item in the system topic calls <A HREF="lw-1511.htm#22836" CLASS="XRef">dde-server-topics</A> to obtain a list of topics implemented by the server. The server should define a method on this generic function to return a list of strings naming the topics supported by the server. If this item is not to be implemented, do not define a method on the function, or define a method that returns <CODE CLASS="Code">
+:unknown</CODE>
+.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-888170"></A>SZDDESYS_ITEM_SYSITEMS</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-888178"></A>Constant</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-888179"></A>The constant <CODE CLASS="Code">
+SZDDESYS_ITEM_SYSITEMS</CODE>
+ has the value &quot;<CODE CLASS="Code">
+SysItems</CODE>
+&quot;. Referring to this item in the system topic calls <A HREF="lw-1514.htm#32113" CLASS="XRef">dde-topic-items</A> to obtain a list of items implemented by the system topic. If a server implements additional system topic items it should define a method on the generic function specialized on its server class and <A HREF="lw-1512.htm#65741" CLASS="XRef">dde-system-topic</A> returning the complete list of supported topics. The server can return <CODE CLASS="Code">
+:unknown</CODE>
+ if this item is not to be implemented.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-888171"></A>SZDDESYS_ITEM_FORMATS</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-888187"></A>Constant</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-888188"></A>The constant <CODE CLASS="Code">
+SZDDESYS_ITEM_FORMATS</CODE>
+ has the value &quot;<CODE CLASS="Code">
+Formats</CODE>
+&quot;, and returns <CODE CLASS="Code">
+unicodetext</CODE>
+ and <CODE CLASS="Code">
+text</CODE>
+. Currently only text formats are supported.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888189"></A>The system topic is a single object which is used by all DDE servers running in the Lisp image. You should therefore not under normal circumstances modify it with <A HREF="lw-1517.htm#32469" CLASS="XRef">define-dde-server-function</A> by specifying a value of <CODE CLASS="Code">
+:system</CODE>
+ for the <EM CLASS="Variable">
+topic</EM>
+ argument, as this would make the changes to the system topic visible to all users of DDE within the Lisp image.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888193"></A>Instead, specify <CODE CLASS="Code">
+:server</CODE>
+ <EM CLASS="Variable">
+my-server</EM>
+ <CODE CLASS="Code">
+:topic :system</CODE>
+, where <EM CLASS="Variable">
+my-server</EM>
+ is the name of your DDE server. This makes the additional items available only on the system topic of the specified server.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884490"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-343.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-341.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-339.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

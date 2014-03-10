@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.11.6  Interactions with foreign calls
+</TITLE>
+
+<LINK REL="next" HREF="lw-434.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-432.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-424.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-424.htm">19.11  Oracle LOB interface</A><BR><BR>
+</DIV><A HREF="lw-434.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-432.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-424.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-919509"></A>19.11.6  <A NAME="78003"></A>Interactions with foreign calls</H3>
+<P CLASS="Body">
+<A NAME="pgfId-913931"></A>You can define your own foreign calls and use them on the underlying OCI descriptors. For this, you need to access the OCI handles using <A NAME="marker-913935"></A><A HREF="lw-1235.htm#92176" CLASS="XRef">ora-lob-lob-locator</A>, and maybe <A NAME="marker-913940"></A><A HREF="lw-1215.htm#38001" CLASS="XRef">ora-lob-env-handle</A> and <A NAME="marker-913945"></A><A HREF="lw-1241.htm#64553" CLASS="XRef">ora-lob-svc-ctx-handle</A>. These accessors return foreign pointers that can be passed to foreign functions in the usual way.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911281"></A>When the foreign functions deal only with the data, rather than with LOB objects, use the functions <A NAME="marker-913950"></A><A HREF="lw-1240.htm#73032" CLASS="XRef">ora-lob-read-foreign-buffer</A>, <A NAME="marker-913955"></A><A HREF="lw-1245.htm#72707" CLASS="XRef">ora-lob-write-foreign-buffer</A> and <A NAME="marker-913960"></A><A HREF="lw-1227.htm#34086" CLASS="XRef">ora-lob-get-buffer</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-911283"></A>For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-911284"></A>;;; You have a C function my_lob_processor</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911285"></A>;;; int my_lob_processor(OCILobLocator *lob,</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911286"></A>;;;                      OCISvcCtx *Context,</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911287"></A>;;;                      int other_arg)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911288"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911289"></A>(fli:define-foreign-function my-lob-processor</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911290"></A>    ((lob sql:p-oci-lob-locator)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911291"></A>     (env sql:p-oci-svc-ctx)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911292"></A>     (other-arg :int))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-911293"></A>   :result-type :int)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-911295"></A>Assuming you have the LOB locator in the variable <EM CLASS="Variable">
+lob</EM>
+, call the foreign function on it:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-911297"></A>(my-lob-processor (sql:ora-lob-lob <EM CLASS="Variable">lob</EM>
+)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-911298"></A>                  (sql:ora-lob-svc-ctx-handle <EM CLASS="Variable">lob</EM>
+)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-911299"></A>                  36)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-914636"></A>There are three handles in the LOB: the LOB descriptor itself, the environment and the context. The pointer types, the reader and the corresponding C type for each handle are shown in <A HREF="lw-433.htm#24964" CLASS="XRef">Handles in the LOB locator</A> below.</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-914643"></A><A NAME="24964"></A>Handles in the LOB locator<DIV>
+<IMG SRC="lw-26.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-914651"></A>OCI handle</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-914653"></A>Reader</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-914655"></A>Pointer type</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-914657"></A>C type</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-914659"></A>LOB<BR>
+descriptor</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-914661"></A><A HREF="lw-1235.htm#92176" CLASS="XRef">ora-lob-lob-locator</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-914664"></A>	<A NAME="marker-919567"></A><CODE CLASS="Code">
+<A HREF="lw-1248.htm#39968" CLASS="XRef">p-oci-lob-locator</A><BR>
+</CODE>
+or <A NAME="marker-919569"></A><CODE CLASS="Code">
+<A HREF="lw-1247.htm#55517" CLASS="XRef">p-oci-file</A></CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-914667"></A>OCILobLocator*</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-914669"></A>context</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-914671"></A><A HREF="lw-1241.htm#64553" CLASS="XRef">ora-lob-svc-ctx-handle</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-914674"></A><A NAME="marker-914673"></A><CODE CLASS="Code">
+<A HREF="lw-1250.htm#69502" CLASS="XRef">p-oci-svc-ctx</A></CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-914676"></A>OCISvcCtx*</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-914678"></A>environment</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-914680"></A><A HREF="lw-1215.htm#38001" CLASS="XRef">ora-lob-env-handle</A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-914683"></A><A NAME="marker-914682"></A><CODE CLASS="Code">
+<A HREF="lw-1246.htm#62348" CLASS="XRef">p-oci-env</A></CODE>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-914685"></A>OCIEnv*</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-914686"></A>The pointer type <CODE CLASS="Code">
+<A HREF="lw-1248.htm#39968" CLASS="XRef">p-oci-lob-locator</A></CODE>
+ is used for internal LOBs (that is, BLOB, CLOB and NCLOB). The pointer type <CODE CLASS="Code">
+<A HREF="lw-1247.htm#55517" CLASS="XRef">p-oci-file</A></CODE>
+ is used for file LOBs (CFILE and BFILE). For functions that take both, the type <CODE CLASS="Code">
+<A HREF="lw-1249.htm#56598" CLASS="XRef">p-oci-lob-or-file</A></CODE>
+ is defined as the union of these two types</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-434.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-432.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-424.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

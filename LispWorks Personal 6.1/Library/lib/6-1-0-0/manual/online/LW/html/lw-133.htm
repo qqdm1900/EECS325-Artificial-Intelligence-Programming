@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.2.3  Long-lived data
+</TITLE>
+
+<LINK REL="next" HREF="lw-134.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-132.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-130.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-128.htm">10 Storage Management</A> &gt; <A HREF="lw-130.htm">10.2  Guidance for control of the storage management system</A><BR><BR>
+</DIV><A HREF="lw-134.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-132.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-130.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-893246"></A>10.2.3  Long-lived data</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893589"></A>Long-lived data is data that lives long enough to be promoted to the highest generation to which promotion occurs automatically (the &quot;blocking generation&quot;), but later becomes garbage. The blocking generation is 2 in 32-bit LispWorks and (by default) 3 in 64-bit LispWorks.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893590"></A>You can check which generation individual objects are in (by <A HREF="lw-1370.htm#72063" CLASS="XRef">generation-number</A>), but normally you want to know the total amount of data in various generations. The function <A HREF="lw-664.htm#94982" CLASS="XRef">room</A> is used for that.  In general, it is useful to call</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-893655"></A>(room)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-893646"></A>and sometimes also</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-893647"></A>(room t)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-893648"></A>periodically (every 5 minutes) and log the output. In servers, such logs are essential. From this output you can see how the sizes of the various generations change over time.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893252"></A>If the output shows that the blocking generation grows too much, even though permanant data is not added, you will need to do something about it. In 64-bit LispWorks there is a good chance that you do not have to do anything. In 32-bit LispWorks long-lived processes (for example servers) probably need to do something.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893254"></A>The main thing you will do is calling <CODE CLASS="Code">
+(gc-generation t)</CODE>
+.  This garbage collects the blocking generation. You should check the state of the memory after calling it by calling <A HREF="lw-664.htm#94982" CLASS="XRef">room</A> again. If the amount of allocated data (as opposed to total size) did not reduce, you may have a memory leak that causes accumulation of permanent data that does not die.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893256"></A>If <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> does free data (that is, the allocation reduces significantly), you probably need to add calls to it to your application.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894135"></A><B CLASS="Bold">
+Comptibility note:</B>
+ In 32-bit LispWorks version 5.1 and earlier, the documented way to collect generation 2 is to call <CODE CLASS="Code">
+(mark-and-sweep 2)</CODE>
+. <CODE CLASS="Code">
+(gc-generation t)</CODE>
+ does what <CODE CLASS="Code">
+(mark-and-sweep 2)</CODE>
+ does, plus some additional operations that improve the perfomance of allocation. It also has the advantage that it is the same call that is used in 64-bit LispWorks. We recommend always using <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893260"></A>To decide when to call <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A>, you need to consider the following:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-893261"></A>You need to prevent excessive growth of the process.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-893262"></A>You want to avoid calling <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> when the application needs to respond quickly.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-893263"></A>The call will be more effective if it is done between chunks of work than in the middle of a chunk of work.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-893265"></A>We now discuss these considerations in detail:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-893864"></A>You can follow the overall size of the process by looking at the output of <CODE CLASS="Code">
+(room nil)</CODE>
+, or programmatically by using the result of <A HREF="lw-1419.htm#46961" CLASS="XRef">room-values</A>. The definition of &quot;excessive growth&quot; depends on the machine that you are running on and what the server actually does. Normally you want to avoid the need for paging, so you should try to keep the size of the image below the size of real memory that it can use. For 32-bit LispWorks on modern machines that have a lot of memory, the limit will be the amount of address space the machine has. In addition, garbage collecting a larger image takes more time. In a typical 32-bit application, 100-200Mb would be the target, though it can be larger. In a 64-bit application the limit is the size of the real memory.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-893866"></A><CODE CLASS="Code">
+(gc-generation t)</CODE>
+ can take a significant amount of time. 32-bit LispWorks on a modern machine can collect 100-200Mb in less than a second if it does not page. If it pages, or has a slower CPU, it takes more time. The 64-bit GC is generally faster and better, as long as it does not page, but since you normally deal with much more data in 64-bit images, there may be significant delays in 64-bit LispWorks. If such delays are a problem for your application, you should try to call <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> at times when it is less of a problem. Use <A HREF="lw-674.htm#35434" CLASS="XRef">time</A> to find out how long <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> takes in various situations.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-893271"></A>If you can identify places where there are no active chunks of work, you can try to place calls to <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> in these places. For servers, this is likely to be much less important than the two considerations above, but for an application that computes results using large amounts of data, this may be a significant consideration.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-893273"></A>In 32-bit LispWorks, by default, generation 2 (which is the &quot;blocking generation&quot;) is not collected automatically, because such collection may take a signficant amount of time, so most programmers need to control when it actually happens. You can change this by using <A HREF="lw-763.htm#48533" CLASS="XRef">collect-generation-2</A>, but usually you need better control, and do a collection of generation 2 when it is appropriate. Therefore if your application generates long-lived data, you need to add calls to <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893274"></A>Even if you find that your application does not generate long-lived data (that is, generation 2 does not grow), it is probably a good idea to keep checking, in case some circumstances do cause it to generate long-lived data.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893955"></A>In 64-bit LispWorks by default generation 3 (the &quot;blocking generation&quot;) is collected automatically, so there is a good chance that you do not have to do anything. However, you may want to call <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> explicitly when you know it is a good time to do it. You may also want to block automatic calls if they they take too long: use <A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A> to do that. If generation 3 becomes very big (Gigabytes), you may also consider using <A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A> instead of <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893278"></A>Once you set up <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> calls, you may still see the image growing even though the allocation does not grow that much. That is normally the result of fragmentation. On 32-bit LispWorks you can use <A HREF="lw-760.htm#check-fragmentation" CLASS="XRef">check-fragmentation</A> to check for fragmentation, and <A HREF="lw-860.htm#try-move-in-generation" CLASS="XRef">try-move-in-generation</A> to prevent it if needed. See <A HREF="lw-146.htm#89167" CLASS="XRef">Controlling Fragmentation</A> for a discussion.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894026"></A>In 64-bit LispWorks you have a problem with fragmentation only if you use <A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A>. <A HREF="lw-1407.htm#28021" CLASS="XRef">marking-gc</A> has keyword arguments that can be used to reduce fragmentation, and there is a good chance that using these will be enough to avoid serious fragmentation.  <A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A> can be used occasionally to eliminate all fragmentation. Check for fragmentation by using <A HREF="lw-1369.htm#69789" CLASS="XRef">gen-num-segments-fragmentation-state</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-134.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-132.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-130.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

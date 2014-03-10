@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ list-panel-search-with-function
+</TITLE>
+
+<LINK REL="next" HREF="capiref-219.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-217.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-219.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-217.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-9576911"></A><A NAME="59604"></A>list<A NAME="marker-10342813"></A>-panel-search-with<A NAME="marker-9600282"></A>-function</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-9576912"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9576913"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9576914"></A>Searches a <A HREF="capiref-214.htm#30299" CLASS="XRef">list-panel</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9576915"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-9576916"></A>list-panel-search-with-function <EM CLASS="Variable">
+list-panel</EM>
+ <EM CLASS="Variable">
+function</EM>
+ <EM CLASS="Variable">
+arg</EM>
+ &amp;key <EM CLASS="Variable">
+start-index</EM>
+ <EM CLASS="Variable">
+wrap-around</EM>
+ <EM CLASS="Variable">
+reset-time</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9576917"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-9576918"></A><EM CLASS="Variable">
+list-panel</EM>
+</P>
+<P CLASS="RDescription-C">A <A HREF="capiref-214.htm#30299" CLASS="XRef">list-panel</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-9576919"></A><EM CLASS="Variable">
+function</EM>
+</P>
+<P CLASS="RDescription-C">A function taking two arguments. The first is <EM CLASS="Variable">
+arg</EM>
+, the second is an item in <EM CLASS="Variable">
+list-panel</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-9576920"></A><EM CLASS="Variable">
+arg</EM>
+</P>
+<P CLASS="RDescription-C">Any Lisp object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-9576921"></A><EM CLASS="Variable">
+start-index</EM>
+</P>
+<P CLASS="RDescription-C">An integer, default 0.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-9576922"></A><EM CLASS="Variable">
+reset-time</EM>
+</P>
+<P CLASS="RDescription-C">A real number. The default is an internal value which can be set by <A HREF="capiref-392.htm#22351" CLASS="XRef">set-list-panel-keyboard-search-reset-time</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-9576923"></A><EM CLASS="Variable">
+wrap-around</EM>
+</P>
+<P CLASS="RDescription-C">A boolean, default <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9576924"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9576925"></A>The function <CODE CLASS="Code">
+list-panel-search-with-function</CODE>
+ searches <EM CLASS="Variable">
+list-panel</EM>
+ using <EM CLASS="Variable">
+function</EM>
+. <CODE CLASS="Code">
+list-panel-search-with-function</CODE>
+ is intended to simplify the implementation of the <EM CLASS="Variable">
+keyboard-search-callback</EM>
+ of <A HREF="capiref-214.htm#30299" CLASS="XRef">list-panel</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9576926"></A><CODE CLASS="Code">
+list-panel-search-with-function</CODE>
+ searches <EM CLASS="Variable">
+list-panel</EM>
+ for a match. It applies <EM CLASS="Variable">
+function</EM>
+ to each item and <EM CLASS="Variable">
+arg</EM>
+, until <EM CLASS="Variable">
+function</EM>
+ returns non-nil.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9576927"></A>When <EM CLASS="Variable">
+function</EM>
+ returns non-nil, <EM CLASS="Variable">
+list-panel-search-with-function</EM>
+ returns three values: the index of the item, <EM CLASS="Variable">
+arg</EM>
+, and <EM CLASS="Variable">
+reset-time</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-9576928"></A>The search starts at <EM CLASS="Variable">
+start-index</EM>
+ if supplied, and at 0 otherwise. When the search reaches the end of the list panel and it did not start from 0, it wraps around to the beginning, unless <EM CLASS="Variable">
+wrap-around</EM>
+ is supplied as <CODE CLASS="Code">
+nil</CODE>
+. The default value of <EM CLASS="Variable">
+wrap-around</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9576929"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-9576930"></A>(defun string-equal-prefix (string item)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576931"></A>  (let* ((start 0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576932"></A>         (len (length item))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576933"></A>         (end (+ start (length string))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576934"></A>    (and (&gt;= len end )</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576935"></A>         (string-equal string item </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576936"></A>                       :start2 start</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576937"></A>                       :end2 end))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576938"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576939"></A>(capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576940"></A> (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576941"></A>  'capi:list-panel</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576942"></A>  :items '(&quot;ae&quot; &quot;af&quot; &quot;bb&quot; &quot;cc&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576943"></A>  :keyboard-search-callback</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9598787"></A>  #'(lambda (pane string position)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9598788"></A>      (capi:list-panel-search-with-function</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9598823"></A>       pane</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9598824"></A>       'string-equal-prefix ; or 'string-not-greaterp</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9598789"></A>       string</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9598847"></A>       :start position</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-9576949"></A>       :reset-time 1</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-9576950"></A>       :wrap-around t))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-9576952"></A>Pressing &quot;a&quot; slowly cycles between &quot;ae&quot; and &quot;af&quot;.  Running the same example with <CODE CLASS="Code">
+string-not-greaterp</CODE>
+ instead causes &quot;a&quot; to cycle around all of the items.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-9576954"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-9576956"></A><A HREF="capiref-214.htm#30299" CLASS="XRef">list-panel</A><BR>
+<A HREF="capiref-392.htm#22351" CLASS="XRef">set-list-panel-keyboard-search-reset-time</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-219.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-217.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ scroll
+</TITLE>
+
+<LINK REL="next" HREF="capiref-372.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-370.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-372.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-370.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1580041"></A><A NAME="scroll"></A>scroll<A NAME="marker-4227130"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1580042"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1580043"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1166732"></A>Moves the scrollbar and calls the <EM CLASS="Variable">
+scroll-callback</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4227121"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4227122"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1580370"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1580371"></A>scroll <EM CLASS="Variable">
+self</EM>
+ <EM CLASS="Variable">
+scroll-dimension</EM>
+ <EM CLASS="Variable">
+scroll-operation</EM>
+ <EM CLASS="Variable">
+scroll-value</EM>
+ &amp;rest <EM CLASS="Variable">
+options</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5632984"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5633004"></A><EM CLASS="Variable">
+self</EM>
+</P>
+<P CLASS="RDescription-C">A pane that supports scrolling.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5633049"></A><EM CLASS="Variable">
+scroll-dimension</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+:vertical</CODE>
+, <CODE CLASS="Code">
+:horizontal</CODE>
+ or <CODE CLASS="Code">
+:pan</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5633201"></A><EM CLASS="Variable">
+scroll-operation</EM>
+</P>
+<P CLASS="RDescription-C"><CODE CLASS="Code">
+:move</CODE>
+, <CODE CLASS="Code">
+:step</CODE>
+ or <CODE CLASS="Code">
+:page</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5633223"></A><EM CLASS="Variable">
+scroll-value</EM>
+</P>
+<P CLASS="RDescription-C">An integer, or a list of two integers, or a keyword, or a list of two keywords.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-5633291"></A><EM CLASS="Variable">
+options</EM>
+</P>
+<P CLASS="RDescription-C">A list.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-5633167"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3188625"></A>The generic function <CODE CLASS="Code">
+scroll</CODE>
+ works for panes that support scrolling - these are subclasses of <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A> and <A HREF="capiref-211.htm#12861" CLASS="XRef">layout</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5633031"></A><CODE CLASS="Code">
+scroll</CODE>
+ moves the scrollbar of a scrollable pane according to <EM CLASS="Variable">
+scroll-dimension</EM>
+, <EM CLASS="Variable">
+scroll-operation</EM>
+ and <EM CLASS="Variable">
+scroll-value</EM>
+. It then calls the <EM CLASS="Variable">
+scroll-callback</EM>
+ (see <A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A>) with these arguments and <EM CLASS="Variable">
+options</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1585544"></A><EM CLASS="Variable">
+scroll-dimension</EM>
+ determines whether the scrolling is vertical, horizontal or, if the value is <CODE CLASS="Code">
+:pan</CODE>
+,  in both dimensions.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1584879"></A><EM CLASS="Variable">
+scroll-operation</EM>
+ determines the extent of the scroll. The value <CODE CLASS="Code">
+:move</CODE>
+  means that the pane scrolls to the position on the scroll range given by <EM CLASS="Variable">
+scroll-value</EM>
+, regardless of the current scroll position. The value <CODE CLASS="Code">
+:step</CODE>
+ means scroll from the current scroll position by <EM CLASS="Variable">
+scroll-value</EM>
+ times the scroll step size. In the case of panes which do their own scrolling the scroll step size is determined by the operating system (OS). In the case of panes for which the CAPI computes the scroll, the scroll step size is as described in <A HREF="capiref-485.htm#37784" CLASS="XRef">with-geometry</A>. The value <CODE CLASS="Code">
+:page</CODE>
+ means scroll from the current scroll position by <EM CLASS="Variable">
+scroll-value</EM>
+ times the scroll page size (which is also determined by the OS or the pane's geometry).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1584927"></A><EM CLASS="Variable">
+scroll-value should be </EM>
+an integer or keyword if <EM CLASS="Variable">
+scroll-dimension</EM>
+ is <CODE CLASS="Code">
+:horizontal</CODE>
+ or <CODE CLASS="Code">
+:vertical</CODE>
+. Allowed keyword values are <CODE CLASS="Code">
+:start</CODE>
+ and <CODE CLASS="Code">
+:end</CODE>
+. <EM CLASS="Variable">
+scroll-value</EM>
+ should be a list of two integers or keywords representing the horizontal and vertical scroll values if <EM CLASS="Variable">
+scroll-dimension</EM>
+ is <CODE CLASS="Code">
+:pan</CODE>
+.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-2068498"></A><EM CLASS="Variable">
+options</EM>
+ is a list containing arbitrary user data.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2068499"></A>Compatibility note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2068500"></A><CODE CLASS="Code">
+scroll </CODE>
+supersedes <A NAME="marker-3837691"></A><CODE CLASS="Code">
+set-scroll-position</CODE>
+, which is deprecated and no longer exported. The call</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-2068501"></A>(capi:scroll pane :pan :move (list x y))</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-2068502"></A>is equivalent to</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-2068503"></A>(capi:set-scroll-position pane x y)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2068504"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1608313"></A><A HREF="capiref-131.htm#76371" CLASS="XRef">ensure-area-visible</A><BR>
+<A HREF="capiref-156.htm#55069" CLASS="XRef">get-scroll-position</A><BR>
+<A HREF="capiref-275.htm#35026" CLASS="XRef">output-pane</A><BR>
+<A HREF="capiref-390.htm#67792" CLASS="XRef">set-horizontal-scroll-parameters</A><BR>
+<A HREF="capiref-402.htm#23862" CLASS="XRef">set-vertical-scroll-parameters</A><BR>
+<A HREF="capiref-485.htm#37784" CLASS="XRef">with-geometry</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-372.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-370.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

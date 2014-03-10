@@ -1,0 +1,713 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 21.6.4  Direct calls to OpenSSL
+</TITLE>
+
+<LINK REL="next" HREF="lw-475.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-473.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-466.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-457.htm">21 TCP/IP socket communication and SSL</A> &gt; <A HREF="lw-466.htm">21.6  Socket Stream SSL interface</A><BR><BR>
+</DIV><A HREF="lw-475.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-473.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-466.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-889429"></A>21.6.4  Direct calls to OpenSSL</H3>
+<P CLASS="Body">
+<A NAME="pgfId-889431"></A>The following functions map directly to the OpenSSL functions. Check the OpenSSL documentation for details.</P>
+<P CLASS="Body">
+<A NAME="pgfId-910671"></A>Where an OpenSSL function takes an SSL* or SSL_CTX*, the Lisp function's argument must be a foreign pointer of type <A NAME="marker-910672"></A><A HREF="lw-622.htm#94102" CLASS="XRef">ssl-pointer</A>, <A NAME="marker-910676"></A><A HREF="lw-618.htm#89480" CLASS="XRef">ssl-ctx-pointer</A> or <A NAME="marker-910680"></A><A HREF="lw-614.htm#21488" CLASS="XRef">ssl-cipher-pointer</A>. Where an OpenSSL function takes a <CODE CLASS="Code">
+char*</CODE>
+ or <CODE CLASS="Code">
+int</CODE>
+, the Lisp function's argument must be a string or integer. Where an OpenSSL function takes other kinds of pointers, the Lisp function's argument must be a foreign pointer. The return values are integers or foreign pointers unless stated otherwise.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893457"></A>If an error occurs in one of these functions, an error code is returned. They do not signal any Common Lisp conditions and so you should check the return value carefully.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889434"></A>&nbsp;</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="Table">
+<A NAME="pgfId-894925"></A>Direct calls to OpenSSL<DIV>
+<IMG SRC="lw-29.gif">
+</DIV>
+</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-894929"></A>Lisp function</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId-894931"></A>Return values</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894934"></A><CODE CLASS="Code">
+ssl-add-client-ca</CODE>
+<A NAME="marker-894933"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894936"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894939"></A><CODE CLASS="Code">
+ssl-cipher-get-bits</CODE>
+<A NAME="marker-894938"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894941"></A>First value is number of bits the cipher actually uses.<BR>
+Second value is number of bits the algorithm of the cipher can use (which may be higher).</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894944"></A><CODE CLASS="Code">
+ssl-cipher-get-name</CODE>
+<A NAME="marker-894943"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894946"></A>string.<BR>
+e.g. &quot;DHE-RSA-AES256-SHA&quot;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894949"></A><CODE CLASS="Code">
+ssl-cipher-get-version</CODE>
+<A NAME="marker-894948"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894951"></A>string.<BR>
+e.g. &quot;TLSv1/SSLv3&quot;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894954"></A><CODE CLASS="Code">
+ssl-clear-num-renegotiations</CODE>
+<A NAME="marker-894953"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894956"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894959"></A><CODE CLASS="Code">
+ssl-ctrl</CODE>
+<A NAME="marker-894958"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894961"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894964"></A><CODE CLASS="Code">
+ssl-ctx-add-client-ca</CODE>
+<A NAME="marker-894963"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894966"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894969"></A><CODE CLASS="Code">
+ssl-ctx-add-extra-chain-cert</CODE>
+<A NAME="marker-894968"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894971"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894974"></A><CODE CLASS="Code">
+ssl-ctx-ctrl</CODE>
+<A NAME="marker-894973"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894976"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894979"></A><CODE CLASS="Code">
+ssl-ctx-get-max-cert-list</CODE>
+<A NAME="marker-894978"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894981"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894984"></A><CODE CLASS="Code">
+ssl-ctx-get-mode</CODE>
+<A NAME="marker-894983"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894986"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894989"></A><CODE CLASS="Code">
+ssl-ctx-get-options</CODE>
+<A NAME="marker-894988"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894991"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894994"></A><CODE CLASS="Code">
+ssl-ctx-get-read-ahead</CODE>
+<A NAME="marker-894993"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894996"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-894999"></A><CODE CLASS="Code">
+ssl-ctx-get-verify-mode</CODE>
+<A NAME="marker-894998"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895001"></A>integer</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895004"></A><CODE CLASS="Code">
+ssl-ctx-load-verify-locations</CODE>
+<A NAME="marker-895003"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895006"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895009"></A><CODE CLASS="Code">
+ssl-ctx-need-tmp-rsa</CODE>
+<A NAME="marker-895008"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895011"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895014"></A><CODE CLASS="Code">
+ssl-ctx-sess-set-cache-size</CODE>
+<A NAME="marker-895013"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895016"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895019"></A><CODE CLASS="Code">
+ssl-ctx-sess-get-cache-size</CODE>
+<A NAME="marker-895018"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895021"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895024"></A><CODE CLASS="Code">
+ssl-ctx-sess-set-cache-mode</CODE>
+<A NAME="marker-895023"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895026"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895029"></A><CODE CLASS="Code">
+ssl-ctx-sess-get-cache-mode</CODE>
+<A NAME="marker-895028"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895031"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895034"></A><CODE CLASS="Code">
+ssl-ctx-set-client-ca-list</CODE>
+<A NAME="marker-895033"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895036"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895039"></A><CODE CLASS="Code">
+ssl-ctx-set-max-cert-list</CODE>
+<A NAME="marker-895038"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895041"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895044"></A><CODE CLASS="Code">
+ssl-ctx-set-mode</CODE>
+<A NAME="marker-895043"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895046"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895049"></A><CODE CLASS="Code">
+ssl-ctx-set-options</CODE>
+<A NAME="marker-895048"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895051"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895054"></A><CODE CLASS="Code">
+ssl-ctx-set-read-ahead</CODE>
+<A NAME="marker-895053"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895056"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895059"></A><CODE CLASS="Code">
+ssl-ctx-set-tmp-rsa</CODE>
+<A NAME="marker-895058"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895061"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895064"></A><CODE CLASS="Code">
+ssl-ctx-set-tmp-dh</CODE>
+<A NAME="marker-895063"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895066"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895069"></A><CODE CLASS="Code">
+ssl-ctx-use-certificate-chain-file</CODE>
+<A NAME="marker-895068"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895071"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895074"></A><CODE CLASS="Code">
+ssl-ctx-use-certificate-file</CODE>
+<A NAME="marker-895073"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895076"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895079"></A><CODE CLASS="Code">
+ssl-ctx-use-privatekey-file</CODE>
+<A NAME="marker-895078"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895081"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895084"></A><CODE CLASS="Code">
+ssl-ctx-use-rsaprivatekey-file</CODE>
+<A NAME="marker-895083"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895086"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895089"></A><CODE CLASS="Code">
+ssl-get-current-cipher</CODE>
+<A NAME="marker-895088"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895091"></A><CODE CLASS="Code">
+ssl-cipher-pointer<BR>
+</CODE>
+Can be a null pointer.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895094"></A><CODE CLASS="Code">
+ssl-get-max-cert-list</CODE>
+<A NAME="marker-895093"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895096"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895099"></A><CODE CLASS="Code">
+ssl-get-mode</CODE>
+<A NAME="marker-895098"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895101"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895104"></A><CODE CLASS="Code">
+ssl-get-options</CODE>
+<A NAME="marker-895103"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895106"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895109"></A><CODE CLASS="Code">
+ssl-get-verify-mode</CODE>
+<A NAME="marker-895108"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895111"></A>integer</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895114"></A><CODE CLASS="Code">
+ssl-get-version</CODE>
+<A NAME="marker-895113"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895116"></A>string<BR>
+&quot;TLSv1&quot;, &quot;SSLv2&quot; or &quot;SSLv3&quot;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895119"></A><CODE CLASS="Code">
+ssl-load-client-ca-file</CODE>
+<A NAME="marker-895118"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895121"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895124"></A><CODE CLASS="Code">
+ssl-need-tmp-rsa</CODE>
+<A NAME="marker-895123"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895126"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895129"></A><CODE CLASS="Code">
+ssl-num-renegotiations</CODE>
+<A NAME="marker-895128"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895131"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895134"></A><CODE CLASS="Code">
+ssl-session-reused</CODE>
+<A NAME="marker-895133"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895136"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-908076"></A><CODE CLASS="Code">
+ssl-set-accept-state</CODE>
+<A NAME="marker-908075"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-908078"></A>None</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895139"></A><CODE CLASS="Code">
+ssl-set-client-ca-list</CODE>
+<A NAME="marker-895138"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895141"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-908058"></A><CODE CLASS="Code">
+ssl-set-connect-state</CODE>
+<A NAME="marker-908066"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-908060"></A>None</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895144"></A><CODE CLASS="Code">
+ssl-set-max-cert-list</CODE>
+<A NAME="marker-895143"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895146"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895149"></A><CODE CLASS="Code">
+ssl-set-mode</CODE>
+<A NAME="marker-895148"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895151"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895154"></A><CODE CLASS="Code">
+ssl-set-options</CODE>
+<A NAME="marker-895153"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895156"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895159"></A><CODE CLASS="Code">
+ssl-set-tmp-rsa</CODE>
+<A NAME="marker-895158"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895161"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895164"></A><CODE CLASS="Code">
+ssl-set-tmp-dh</CODE>
+<A NAME="marker-895163"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895166"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895169"></A><CODE CLASS="Code">
+ssl-total-renegotiations</CODE>
+<A NAME="marker-895168"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895171"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895174"></A><CODE CLASS="Code">
+ssl-use-certificate-file</CODE>
+<A NAME="marker-895173"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895176"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895179"></A><CODE CLASS="Code">
+ssl-use-rsaprivatekey-file</CODE>
+<A NAME="marker-895178"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895181"></A>&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895184"></A><CODE CLASS="Code">
+ssl-use-privatekey-file</CODE>
+<A NAME="marker-895183"></A></P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId-895186"></A>&nbsp;</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId-889481"></A>If you need OpenSSL functionality that is not provided here, you can define your own foreign functions via the LispWorks Foreign Language Interface. </P>
+<P CLASS="Body">
+<A NAME="pgfId-889482"></A>If you do this, an important point to note is that on Microsoft Windows, the <CODE CLASS="Code">
+:calling-convention</CODE>
+ must be <CODE CLASS="Code">
+:cdecl</CODE>
+ (it defaults to <CODE CLASS="Code">
+:stdcall</CODE>
+). If using OpenSSL suddenly causes mysterious crashes, the <EM CLASS="Variable">
+calling-convention</EM>
+ in your foreign function definitions is the first thing to check.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-475.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-473.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-466.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

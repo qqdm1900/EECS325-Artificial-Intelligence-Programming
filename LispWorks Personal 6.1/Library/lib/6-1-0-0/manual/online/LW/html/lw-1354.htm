@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ detect-eol-style 
+</TITLE>
+
+<LINK REL="next" HREF="lw-1355.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1353.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1355.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1353.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-999677"></A><A NAME="16438"></A>detect<A NAME="marker-1026446"></A>-eol-style </H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-896150"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896151"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896152"></A>Detects the end of line style of a file.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896153"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-896154"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896155"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-896156"></A>detect-eol-style <EM CLASS="Variable">
+pathname ef-spec buffer length</EM>
+ =&gt; <EM CLASS="Variable">
+new-ef-spec</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896157"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-896158"></A><EM CLASS="Variable">
+pathname</EM>
+</P>
+<P CLASS="RDescription-C">Pathname identifying location of <EM CLASS="Variable">
+buffer</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-896159"></A><EM CLASS="Variable">
+ef-spec</EM>
+</P>
+<P CLASS="RDescription-C">An external format spec.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-896160"></A><EM CLASS="Variable">
+buffer</EM>
+</P>
+<P CLASS="RDescription-C">A buffer whose contents are examined.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-896161"></A><EM CLASS="Variable">
+length</EM>
+</P>
+<P CLASS="RDescription-C">Length (an integer) up to which <EM CLASS="Variable">
+buffer</EM>
+ should be examined.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896162"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-896163"></A><EM CLASS="Variable">
+new-ef-spec</EM>
+</P>
+<P CLASS="RDescription-C">A new external format spec created by merging <EM CLASS="Variable">
+ef-spec</EM>
+ with the encoding that was found.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896164"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896165"></A>When the encoding in <EM CLASS="Variable">
+ef-spec</EM>
+ has foreign type <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+, search <EM CLASS="Variable">
+buffer</EM>
+ up to <EM CLASS="Variable">
+length</EM>
+ for the first occurrence of the byte <CODE CLASS="Code">
+(10)</CODE>
+. If found, and it is preceded in <EM CLASS="Variable">
+buffer</EM>
+ by <CODE CLASS="Code">
+(13)</CODE>
+, merge <EM CLASS="Variable">
+ef-spec</EM>
+ with </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-896166"></A>(:default :eol-style :crlf)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-896167"></A>If found and is not preceded by <CODE CLASS="Code">
+(13)</CODE>
+, merge <EM CLASS="Variable">
+ef-spec</EM>
+ with</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-896168"></A>(:default :eol-style :lf)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-896169"></A>Thus a complete external format spec is constructed. Otherwise, return <EM CLASS="Variable">
+ef-spec</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-896170"></A>When the encoding in <EM CLASS="Variable">
+ef-spec</EM>
+ has foreign type <CODE CLASS="Code">
+(unsigned-byte 16)</CODE>
+, search <EM CLASS="Variable">
+buffer</EM>
+ up to <EM CLASS="Variable">
+length</EM>
+ for the first occurrence of the byte sequence <CODE CLASS="Code">
+(13 0 10)</CODE>
+. If found, merge <EM CLASS="Variable">
+ef-spec</EM>
+ with </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-896171"></A>(:default :eol-style :crlf)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-896172"></A>If <CODE CLASS="Code">
+(13 0 10)</CODE>
+ is not found, search <EM CLASS="Variable">
+buffer</EM>
+ up to <EM CLASS="Variable">
+length</EM>
+ for <CODE CLASS="Code">
+(10 0)</CODE>
+ or <CODE CLASS="Code">
+(0 10)</CODE>
+. If found, merge <EM CLASS="Variable">
+ef-spec</EM>
+ with </P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-896173"></A>(:default :eol-style :lf)</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-896174"></A>Thus a complete external format spec is constructed. Otherwise, return <EM CLASS="Variable">
+ef-spec</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896175"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896176"></A><A HREF="lw-1365.htm#82936" CLASS="XRef">*file-eol-style-detection-algorithm*</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1355.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1353.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

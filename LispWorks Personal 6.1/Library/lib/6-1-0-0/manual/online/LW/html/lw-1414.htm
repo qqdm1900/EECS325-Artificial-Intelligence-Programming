@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ pipe-kill-process
+</TITLE>
+
+<LINK REL="next" HREF="lw-1415.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1413.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1415.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1413.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1667163"></A><A NAME="84954"></A>pipe<A NAME="marker-1669386"></A>-kill-<A NAME="marker-1669391"></A>process</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1667164"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1667165"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1667166"></A>Tries to kill the process of a pipe stream.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1667167"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1667168"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1667169"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1667170"></A>pipe-kill-process <EM CLASS="Variable">
+pipe-stream</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1667171"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1667172"></A><EM CLASS="Variable">
+pipe-stream</EM>
+</P>
+<P CLASS="RDescription-C">A pipe stream.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1667173"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1667174"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1667175"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1667176"></A>The function <CODE CLASS="Code">
+pipe-kill-process</CODE>
+ tries to kill the process of a pipe stream.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1667177"></A><EM CLASS="Variable">
+pipe-stream</EM>
+ must be the result of <A HREF="lw-1411.htm#15712" CLASS="XRef">open-pipe</A>. <CODE CLASS="Code">
+pipe-kill-process</CODE>
+ tries to kill the process that <A HREF="lw-1411.htm#15712" CLASS="XRef">open-pipe</A> creates.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1667178"></A>The return value <CODE CLASS="Code">
+nil</CODE>
+ means that the process has already died. In this case the process is guaranteed to have died.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1667179"></A>The return value <CODE CLASS="Code">
+t</CODE>
+ means that the process was still alive when <CODE CLASS="Code">
+pipe-kill-process</CODE>
+ was called, and it tried to kill it.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1667180"></A>On Microsoft Windows, it causes the process to exit, but there may be some delay until it actually exits, so the process may still be alive at the time <CODE CLASS="Code">
+pipe-kill-process</CODE>
+ returns.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1667181"></A>On Unix it sends SIGTERM to the process, which normally would cause it to exit, but in principle the process may handle SIGTERM and continue to run.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1667182"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1667183"></A>When <A HREF="lw-1411.htm#15712" CLASS="XRef">open-pipe</A> is called with a string, it executes it using a shell (non-Windows) or cmd (Windows), so the process that <CODE CLASS="Code">
+pipe-kill-process</CODE>
+ will kill is the shell or cmd. When <A HREF="lw-1411.htm#15712" CLASS="XRef">open-pipe</A> is called with a list, it executes the process (first element of the list) directly, and <CODE CLASS="Code">
+pipe-kill-process</CODE>
+ kills this process (the different behavior is actually documented in <A HREF="lw-1341.htm#26978" CLASS="XRef">call-system</A>).</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1667184"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1667185"></A><A HREF="lw-1411.htm#15712" CLASS="XRef">open-pipe</A><BR>
+<A HREF="lw-1341.htm#26978" CLASS="XRef">call-system</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1415.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1413.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

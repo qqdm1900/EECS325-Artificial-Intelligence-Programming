@@ -1,0 +1,28 @@
+;;;first
+(defun make-balance (initial)
+  (let ((i initial))
+    (lambda (&optional x) (if x (incf i x) i))))
+
+;;;final
+(defun make-balance (balance)
+  (lambda (&optional x)
+              (if x
+                  (incf balance x)
+                balance)))
+
+;;;why these 2 not pass
+(defun make-balance (initial)
+  (let ((i initial))
+    (lambda (&optional x)
+      (if x
+          (incf i x)
+        initial))))
+
+(defun make-balance (initial)
+  (let ((i initial))
+    (lambda (&optional x)
+      (if x
+          (+ i x)
+        initial))))
+
+

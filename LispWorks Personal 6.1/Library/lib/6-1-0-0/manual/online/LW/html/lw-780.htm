@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ delete-advice
+</TITLE>
+
+<LINK REL="next" HREF="lw-781.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-779.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-781.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-779.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-887674"></A><A NAME="80152"></A>delete<A NAME="marker-1039803"></A>-advice</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-887675"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887676"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887677"></A>Removes a piece of advice.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887678"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-887679"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887680"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1373646"></A>delete-advice <EM CLASS="Variable">
+dspec</EM>
+ <EM CLASS="Variable">
+name</EM>
+ =&gt; nil</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1373647"></A>dspec ::= <EM CLASS="Variable">
+fn-name</EM>
+ | <EM CLASS="Variable">
+macro-name</EM>
+ | <BR>
+           (<EM CLASS="Variable">
+clos::method</EM>
+ <EM CLASS="Variable">
+generic-fn-name</EM>
+  [(<EM CLASS="Variable">
+class</EM>
+*)]) </CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887683"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887684"></A><EM CLASS="Variable">
+dspec</EM>
+</P>
+<P CLASS="RDescription-C">Specifies the functional definition to which the piece of advice belongs. The specification contains the name of the associated function. In the case of a method the list of classes is used to identify from which particular method the advice should come. This list must correspond exactly with the classes corresponding to the specialized parameters for some method belonging to the generic function. </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-887685"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the piece of advice to be removed. Since several pieces of advice may be attached to a single functional definition, the name is necessary to indicate which one is to be removed. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887686"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887687"></A><CODE CLASS="Code">
+delete-advice</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887688"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887689"></A><CODE CLASS="Code">
+delete-advice</CODE>
+ is used to remove a piece of advice. Advice is a way of altering the behavior of functions. Pieces of advice are associated with a function using <A HREF="lw-895.htm#defadvice" CLASS="XRef">defadvice</A>. They define additional actions to be performed when the function is invoked, or alternative code to be performed instead of the function, which may or may not access the original definition. As well as being attached to ordinary functions, advice may be attached to methods and to macros (in this case it is in fact associated with the macro's expansion function).   </P>
+<P CLASS="RBody">
+<A NAME="pgfId-887690"></A><A HREF="lw-961.htm#92651" CLASS="XRef">remove-advice</A> is a function, identical in effect to <CODE CLASS="Code">
+delete-advice</CODE>
+, except that you need to quote the arguments.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887691"></A>Notes </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887692"></A><CODE CLASS="Code">
+delete-advice</CODE>
+ is an extension to Common Lisp.   </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-887693"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-887697"></A><A HREF="lw-895.htm#defadvice" CLASS="XRef">defadvice</A><BR>
+<A HREF="lw-961.htm#92651" CLASS="XRef">remove-advice</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-781.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-779.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

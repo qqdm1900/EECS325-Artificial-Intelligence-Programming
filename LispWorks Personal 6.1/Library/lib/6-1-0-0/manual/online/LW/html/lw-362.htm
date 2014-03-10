@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 19.2.8.4  Special instructions for MySQL on Mac OS X
+</TITLE>
+
+<LINK REL="next" HREF="lw-363.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-361.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-358.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-343.htm">19 Common SQL</A> &gt; <A HREF="lw-347.htm">19.2  Initialization</A> &gt; <A HREF="lw-358.htm">19.2.8  Connecting to MySQL</A><BR><BR>
+</DIV><A HREF="lw-363.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-361.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-358.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-916507"></A>19.2.8.4  Special instructions for MySQL on Mac OS X</H3>
+<P CLASS="Body">
+<A NAME="pgfId-916508"></A>Download the 32-bit or 64-bit MySQL package to match your LispWorks image.</P>
+<P CLASS="Body">
+<A NAME="pgfId-916514"></A>The downloadable packages from the MySQL web site contain only static client libraries<A NAME="marker-916509"></A>, but LispWorks needs a dynamic library. You need to create the dynamic library, for example by using the following shell command.</P>
+<P CLASS="Body">
+<A NAME="pgfId-916515"></A>To build the 32-bit dynamic library:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-915467"></A>gcc -dynamiclib -fno-common &#92;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-915504"></A>	-o /usr/local/mysql/lib/libmysqlclient_r.dylib &#92;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-915582"></A>	-all_load /usr/local/mysql/lib/libmysqlclient_r.a -lz</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-916518"></A>To build the 64-bit dynamic library:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-916519"></A>gcc -m64 -dynamiclib -fno-common &#92;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-916520"></A>	-o /usr/local/mysql/lib/libmysqlclient_r.dylib &#92;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-916521"></A>	-all_load /usr/local/mysql/lib/libmysqlclient_r.a -lz</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-915583"></A>This command should be executed as the root user, or some other user with write permission to the <CODE CLASS="Code">
+/usr/local/mysql/lib</CODE>
+ directory and assumes that MySQL was installed  in <CODE CLASS="Code">
+/usr/local/mysql</CODE>
+, which is the location used by the prepackaged downloads.</P>
+<P CLASS="Body">
+<A NAME="pgfId-915475"></A>An alternate way to create a dynamic library is to build MySQL from its source code with the <CODE CLASS="Code">
+--enable-shared</CODE>
+ flag.</P>
+<P CLASS="Body">
+<A NAME="pgfId-915535"></A>By default, LispWorks expects to find the library either in <CODE CLASS="Code">
+/usr/local/mysql/lib</CODE>
+ or on the shared library path. This can be overridden by setting the special variable <A NAME="marker-915608"></A><A HREF="lw-1201.htm#90968" CLASS="XRef">*mysql-library-directories*</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-917881"></A>By default, LispWorks expects the  library to be called <CODE CLASS="Code">
+libmysqlclient.*.dylib</CODE>
+ and it searches for a library that matches that pattern, where <CODE CLASS="Code">
+*</CODE>
+ is any version number. This search can be avoided by setting <A NAME="marker-917882"></A><A HREF="lw-1202.htm#28635" CLASS="XRef">*mysql-library-path*</A> to something other than the default (<CODE CLASS="Code">
+&quot;-lmysqlclient&quot;</CODE>
+), for example, it is possible to force LispWorks to look for version 12 by evaluating</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-915481"></A>   (setq *mysql-library-path* &quot;libmysqlclient.12&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-915483"></A>You can also set <A HREF="lw-1202.htm#28635" CLASS="XRef">*mysql-library-path*</A> to a full path, which avoids the need to set <A HREF="lw-1201.htm#90968" CLASS="XRef">*mysql-library-directories*</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-915485"></A>If the environment variable <CODE CLASS="Code">
+LW_MYSQL_LIBRARY</CODE>
+. is set, then its value is used instead of the value of <A HREF="lw-1202.htm#28635" CLASS="XRef">*mysql-library-path*</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-363.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-361.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-358.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

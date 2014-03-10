@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ quit
+</TITLE>
+
+<LINK REL="next" HREF="lw-959.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-957.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-877.htm">34 The LISPWORKS Package</A><BR><BR>
+</DIV><A HREF="lw-959.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-957.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1371995"></A><A NAME="15680"></A>qui<A NAME="marker-1631134"></A>t</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1371996"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1371997"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1371998"></A>Quits LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1371999"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1372000"></A>lispworks</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1372001"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1372002"></A>quit &amp;key <EM CLASS="Variable">
+status</EM>
+ <EM CLASS="Variable">
+confirm</EM>
+ <EM CLASS="Variable">
+ignore-errors-p</EM>
+ <EM CLASS="Variable">
+return</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1372003"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1372004"></A><EM CLASS="Variable">
+status</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1372478"></A><EM CLASS="Variable">
+confirm</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1372479"></A><EM CLASS="Variable">
+ignore-errors-p</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1372496"></A><EM CLASS="Variable">
+return</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1372717"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1372729"></A><CODE CLASS="Code">
+quit</CODE>
+ does not return, or returns <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1372696"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1372749"></A>The function <CODE CLASS="Code">
+quit</CODE>
+ exits LispWorks unless the user cancels the operation.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1372750"></A>There are two stages which may allow the user the chance to cancel.</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1372751"></A>First the action items of the action list <CODE CLASS="Code">
+&quot;Confirm when quitting image&quot;</CODE>
+ are run. If any action item returns <CODE CLASS="Code">
+nil</CODE>
+, then LispWorks does not exit. </LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1373560"></A>Otherwise, if <EM CLASS="Variable">
+confirm</EM>
+ is true (the default value is <CODE CLASS="Code">
+nil</CODE>
+) then a question like<BR>
+ <CODE CLASS="Code">
+&quot;Do you really want to exit LispWorks?&quot;<BR>
+</CODE>
+is presented to the user.  If the answer No is supplied, then LispWorks does not exit. Otherwise, the action items of the action list <CODE CLASS="Code">
+&quot;When quitting image&quot;</CODE>
+ are run, and then LispWorks exits, and the value <EM CLASS="Variable">
+status</EM>
+ is returned to the Operating System as the exit value of the LispWorks process. The default value of <EM CLASS="Variable">
+status</EM>
+ is 0.</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-1373561"></A>If <EM CLASS="Variable">
+ignore-errors-p</EM>
+ is true, then any error signalled during the running of the action list items or the confirm prompt is ignored and <CODE CLASS="Code">
+quit</CODE>
+ proceeds to exit the image. If <EM CLASS="Variable">
+ignore-errors-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ and an error is signalled during the running of the action list items, then a restart is available allowing the user to choose to continue to exit the image. The default values of <EM CLASS="Variable">
+ignore-errors-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1373499"></A>If <EM CLASS="Variable">
+return</EM>
+ is true and LispWorks is going to exit, then <CODE CLASS="Code">
+quit</CODE>
+ returns <CODE CLASS="Code">
+t</CODE>
+. This can be used if you want some other Lisp process to kill the current one later, rather than it self-destructing immediately. This can be useful to allow more precise control over process termination. If <EM CLASS="Variable">
+return</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then <CODE CLASS="Code">
+quit</CODE>
+ does not return. The default value of <EM CLASS="Variable">
+return</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1598493"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1872912"></A>On Cocoa, when you define your own application menu (by passing <CODE CLASS="Code">
+:application-menu</CODE>
+ when making the application interface), the <B CLASS="Button">
+Quit</B>
+ menu item needs to call <CODE CLASS="Code">
+capi:destroy</CODE>
+ on the application interface, rather than <CODE CLASS="Code">
+quit</CODE>
+. See <CODE CLASS="Code">
+capi:cocoa-default-application-interface</CODE>
+ in the <I CLASS="Italic">
+CAPI Reference Manual</I>
+ for more information.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1372698"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1372017"></A><A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-959.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-957.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

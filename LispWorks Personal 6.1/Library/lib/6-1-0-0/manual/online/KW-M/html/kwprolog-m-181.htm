@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ A.6  Calling Prolog From Lisp
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-182.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-180.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-168.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-168.htm">A Common Prolog</A><BR><BR>
+</DIV><A HREF="kwprolog-m-182.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-180.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-168.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading-App">
+<A NAME="pgfId-866190"></A>A.6  <A NAME="marker-866189"></A>Calling Prolog From Lisp</H3>
+<P CLASS="Body">
+<A NAME="pgfId-866191"></A>There are several entry points provided for calling Prolog from Lisp. The main interface function is called <A NAME="marker-866192"></A><CODE CLASS="Code">
+logic</CODE>
+ and has numerous options. The basic form is:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866193"></A>(logic &lt;<EM CLASS="Variable">goal</EM>
+&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866194"></A>       :return-type &lt;<EM CLASS="Variable">return-type</EM>
+&gt; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866195"></A>       :all &lt;<EM CLASS="Variable">all-type</EM>
+&gt; </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866196"></A>       :bag-exp &lt;<EM CLASS="Variable">bag-exp</EM>
+&gt;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866197"></A>The keyword arguments are interpreted as follows:</P>
+<P CLASS="Body">
+<A NAME="pgfId-866198"></A><CODE CLASS="Code">
+:return-type</CODE>
+ describes what to do with a solution when one is found. Possible values of <CODE CLASS="Code">
+:return-type</CODE>
+ are:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-866199"></A><CODE CLASS="Code">
+:display</P>
+<P CLASS="Description-C"></CODE>
+Display variable bindings and prompt user (the option used by the <CODE CLASS="Code">
+read-query-print</CODE>
+ loop).</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-866200"></A><CODE CLASS="Code">
+:fill</P>
+<P CLASS="Description-C"></CODE>
+Instantiate the goal expression and return it.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-866201"></A><CODE CLASS="Code">
+:bag</P>
+<P CLASS="Description-C"></CODE>
+Instantiate &lt;<EM CLASS="Variable">
+bag-exp</EM>
+&gt; and return it.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-866202"></A><CODE CLASS="Code">
+:alist</CODE>
+</P>
+<P CLASS="Description-C">Return an alist of variables and bindings.</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-866203"></A>The default is <CODE CLASS="Code">
+:fill</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866204"></A><CODE CLASS="Code">
+:all</CODE>
+ tells what to do with multiple solutions. Possible values of <CODE CLASS="Code">
+:all</CODE>
+ are:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-866205"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+<P CLASS="Description-C">Return the first solution.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-866206"></A><CODE CLASS="Code">
+:values</CODE>
+</P>
+<P CLASS="Description-C">Return multiple solutions as multiple values.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-866207"></A><CODE CLASS="Code">
+:list</CODE>
+</P>
+<P CLASS="Description-C">Return a list of the solutions.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866208"></A><CODE CLASS="Code">
+:bag-exp</CODE>
+ is an expression that should be instantiated with the bindings from a solution. This is only meaningful if <CODE CLASS="Code">
+:return-type</CODE>
+ is <CODE CLASS="Code">
+:bag</CODE>
+.</P>
+<H4 CLASS="FM2Heading-AppTOC">
+<A HREF="kwprolog-m-182.htm#pgfId-866209" CLASS="Hypertext">A.6.1  Examples</A></H4>
+<H4 CLASS="FM2Heading-AppTOC">
+<A HREF="kwprolog-m-183.htm#pgfId-866234" CLASS="Hypertext">A.6.2  Interface Functions</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-182.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-180.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-168.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

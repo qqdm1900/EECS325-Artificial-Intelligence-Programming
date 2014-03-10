@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ create-universal-binary
+</TITLE>
+
+<LINK REL="next" HREF="lw-771.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-769.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-771.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-769.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1181599"></A><A NAME="48399"></A>create<A NAME="marker-1181598"></A>-universal<A NAME="marker-1214020"></A>-binary</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1181600"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1182723"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1182724"></A>Creates a universal binary from two mono-architecture LispWorks images.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1182725"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1181604"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1182774"></A>Signature </H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1182775"></A>create-universal-binary <EM CLASS="Variable">
+target-image</EM>
+ <EM CLASS="Variable">
+src-image1</EM>
+ <EM CLASS="Variable">
+src-image2</EM>
+ =&gt; <EM CLASS="Variable">
+target-image</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1181607"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1181608"></A><EM CLASS="Variable">
+target-image</P>
+<P CLASS="RDescription-C"></EM>
+A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1181609"></A><EM CLASS="Variable">
+src-image1</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1181610"></A><EM CLASS="Variable">
+src-image2</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1181611"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1181612"></A><EM CLASS="Variable">
+target-image</EM>
+</P>
+<P CLASS="RDescription-C">A pathname designator.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1181615"></A>Description </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1213815"></A>This function is intended for advanced use. See the function <A HREF="lw-829.htm#75131" CLASS="XRef">save-universal-from-script</A> for a simpler way to create a universal binary.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1184721"></A>The function <CODE CLASS="Code">
+create-universal-binary</CODE>
+ writes a universal binary to the file <EM CLASS="Variable">
+target-image</EM>
+ from the saved image files  <EM CLASS="Variable">
+src-image1</EM>
+ and <EM CLASS="Variable">
+src-image2</EM>
+. The value of <EM CLASS="Variable">
+target-image</EM>
+ is returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1184850"></A>The source images <EM CLASS="Variable">
+src-image1</EM>
+ and <EM CLASS="Variable">
+src-image2</EM>
+ must both be LispWorks for Macintosh mono-architecture (&quot;thin&quot;) images and one should be for the Intel architecture and the other for the PowerPC architecture (the order is immaterial). For example, they could have been created by <A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A> or <A HREF="lw-903.htm#44253" CLASS="XRef">deliver</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1184852"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1663080"></A>The function <CODE CLASS="Code">
+create-universal-binary</CODE>
+ checks that <EM CLASS="Variable">
+src-image1</EM>
+ and <EM CLASS="Variable">
+src-image2</EM>
+ are LispWorks images of different architectures, but it does not check how they were saved or how similar they are. You need to ensure that both images contain the same functionality.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1184853"></A>The function <CODE CLASS="Code">
+create-universal-binary</CODE>
+ can only be called from a LispWorks for Macintosh image that is itself a universal binary, such as the distributed image.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1194311"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1194312"></A>Suppose that you have saved two images, <CODE CLASS="Code">
+my-application-intel</CODE>
+ and <CODE CLASS="Code">
+my-application-powerpc</CODE>
+, which contains the same application code loaded on an Intel Macintosh and a PowerPC Macintosh. The following command will combine them into a universal binary <CODE CLASS="Code">
+my-application</CODE>
+ that will run on both kinds of Macintosh:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1194313"></A>(create-universal-binary &quot;my-application&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1189463"></A>                         &quot;my-application-intel&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1189577"></A>                         &quot;my-application-powerpc&quot;)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1181644"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1181648"></A><A HREF="lw-827.htm#36980" CLASS="XRef">save-image</A><BR>
+<A HREF="lw-829.htm#75131" CLASS="XRef">save-universal-from-script</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-771.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-769.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 7.3.2  Dspec aliases
+</TITLE>
+
+<LINK REL="next" HREF="lw-77.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-75.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-72.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-68.htm">7 Dspecs: Tools for Handling Definitions</A> &gt; <A HREF="lw-72.htm">7.3  Dspec namespaces</A><BR><BR>
+</DIV><A HREF="lw-77.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-75.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-72.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-887787"></A>7.3.2  <A NAME="marker-893339"></A><A NAME="22750"></A>Dspec aliases</H3>
+<P CLASS="Body">
+<A NAME="pgfId-890088"></A>You can add new ways of making existing definitions and use the dspec system to track these definitions. This is what happens when your defining form expands into a system-provided form. The macro <A HREF="lw-703.htm#52555" CLASS="XRef">define-dspec-alias</A> is used to inform the dspec system of this.</P>
+<P CLASS="Body">
+<A NAME="pgfId-906719"></A>For example if your definer is:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-906722"></A>(defmacro my-defun ((name &amp;rest args) &amp;body body)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-906723"></A>   `(defun ,name ,args ,@body))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-906724"></A>then you would define the form of dspecs for <CODE CLASS="Code">
+my-defun</CODE>
+ definitions like this: </P>
+<PRE CLASS="Code-first"><A NAME="pgfId-906725"></A>(dspec:define-dspec-alias my-defun (name)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-906726"></A>  `(defun ,name))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-906755"></A><B CLASS="Bold">
+Note:</B>
+ in general you should not include the lambda list in the dspec, because it is not needed to locate the definition later.</P>
+<P CLASS="Body">
+<A NAME="pgfId-906783"></A><B CLASS="Bold">
+Note:</B>
+ to make source location work you will also need a <A HREF="lw-705.htm#21533" CLASS="XRef">define-form-parser</A> definition for my-defun. This is illustrated in <A HREF="lw-93.htm#45671" CLASS="XRef">Using pre-defined form parsers</A>.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-77.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-75.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-72.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

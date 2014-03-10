@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ stream-read-buffer
+</TITLE>
+
+<LINK REL="next" HREF="lw-1314.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1312.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1288.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1288.htm">39 The STREAM Package</A><BR><BR>
+</DIV><A HREF="lw-1314.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1312.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-963724"></A><A NAME="88342"></A>stream<A NAME="marker-963963"></A>-read-buffer</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-963976"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963725"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-963726"></A>Reads data into the stream buffer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963727"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-963728"></A>stream</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963729"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-963730"></A>stream-read-buffer <EM CLASS="Variable">
+stream</EM>
+ <EM CLASS="Variable">
+buffer</EM>
+ <EM CLASS="Variable">
+start</EM>
+ <EM CLASS="Variable">
+end</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963731"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-963732"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">An input stream.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-964844"></A><EM CLASS="Variable">
+buffer</EM>
+</P>
+<P CLASS="RDescription-C">A stream buffer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-964766"></A><EM CLASS="Variable">
+start, end</EM>
+</P>
+<P CLASS="RDescription-C">Bounding indexes for a subsequence of <EM CLASS="Variable">
+buffer</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963734"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-963735"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative integer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963737"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-963738"></A>The generic function <CODE CLASS="Code">
+stream-read-buffer</CODE>
+ is called by <A HREF="lw-1304.htm#20778" CLASS="XRef">stream-fill-buffer</A> to place characters into the region of the buffer <EM CLASS="Variable">
+buffer</EM>
+ bounded by <EM CLASS="Variable">
+start</EM>
+ and <EM CLASS="Variable">
+end</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-963739"></A><EM CLASS="Variable">
+stream</EM>
+ should be an instance of a subclass of <A HREF="lw-1289.htm#42777" CLASS="XRef">buffered-stream</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-963740"></A><CODE CLASS="Code">
+stream-read-buffer</CODE>
+ should block until some data is available. <EM CLASS="Variable">
+result</EM>
+ should be the number of characters actually placed in the buffer (0 if at end of file). This method must be implemented for subclasses of <A HREF="lw-1289.htm#42777" CLASS="XRef">buffered-stream</A> that handle input.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-963741"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-963742"></A><A HREF="lw-1289.htm#42777" CLASS="XRef">buffered-stream</A><BR>
+<A HREF="lw-1304.htm#20778" CLASS="XRef">stream-fill-buffer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1314.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1312.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1288.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

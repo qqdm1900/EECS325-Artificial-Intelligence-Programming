@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.5.3.2  Interleaved in a Single Thread
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-104.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-102.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-101.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-74.htm">6 Advanced Topics</A> &gt; <A HREF="kwprolog-m-98.htm">6.5  Inferencing States</A> &gt; <A HREF="kwprolog-m-101.htm">6.5.3  Uses of Inferencing States</A><BR><BR>
+</DIV><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-102.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-101.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-895216"></A>6.5.3.2  Interleaved in a Single Thread</H3>
+<P CLASS="Body">
+<A NAME="pgfId-895357"></A>By binding <A HREF="kwprolog-m-130.htm#84200" CLASS="XRef">*inferencing-state*</A> around specific KnowledgeWorks operations in a function as in the example below, multiple inferencing states can be maintained within a single thread.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-895416"></A>(defun test-stepping-single-context ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895436"></A>  (let ((state1 (make-inferencing-state 'state1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895437"></A>        (state2 (make-inferencing-state 'state2)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895438"></A>    (unwind-protect</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895439"></A>        (progn</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895440"></A>          (let ((*inferencing-state* state1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895441"></A>            (make-instance 'step-controller</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895442"></A>                           :kb-name 'stepper-one-a))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895443"></A>          (let ((*inferencing-state* state2))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895444"></A>            (make-instance 'step-controller</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895445"></A>                           :kb-name 'stepper-one-b))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895446"></A>          (loop repeat 10</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895447"></A>                do</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895448"></A>                (let ((*inferencing-state* state1))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895449"></A>                  (infer))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895450"></A>                (let ((*inferencing-state* state2))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895417"></A>                  (infer))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-895431"></A>      (destroy-inferencing-state state1)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-895432"></A>      (destroy-inferencing-state state2))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-895393"></A>&nbsp;</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-102.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-101.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

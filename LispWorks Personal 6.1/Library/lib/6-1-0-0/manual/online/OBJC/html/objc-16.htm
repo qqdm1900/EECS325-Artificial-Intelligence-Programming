@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.3.6  Invoking a method that returns a string or array
+</TITLE>
+
+<LINK REL="next" HREF="objc-17.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-15.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-10.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-3.htm">1 Introduction to the Objective-C Interface</A> &gt; <A HREF="objc-10.htm">1.3  Invoking Objective-C methods</A><BR><BR>
+</DIV><A HREF="objc-17.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-15.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-893000"></A>1.3.6  <A NAME="33442"></A>Invoking a method that returns a string<A NAME="marker-892998"></A> or array<A NAME="marker-892999"></A></H3>
+<P CLASS="Body">
+<A NAME="pgfId-893006"></A>The Objective-C classes <A NAME="marker-893004"></A><CODE CLASS="Code">
+NSString</CODE>
+ and <A NAME="marker-893005"></A><CODE CLASS="Code">
+NSArray</CODE>
+ are used extensively in Cocoa to represent <A NAME="marker-893007"></A>strings and arrays of various objects. When a method that returns these types is called with <A NAME="marker-893008"></A><A HREF="objc-47.htm#46194" CLASS="XRef">invoke</A>, the result is a foreign pointer of type <A NAME="marker-893012"></A><A HREF="objc-60.htm#36910" CLASS="XRef">objc-object-pointer</A> as for other classes.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888857"></A>In order to obtain a more useful Lisp value, <A NAME="marker-892208"></A><A HREF="objc-49.htm#40401" CLASS="XRef">invoke-into</A> can be used by specifying a type as the extra initial argument. For a method that returns <CODE CLASS="Code">
+NSString</CODE>
+, the symbol <CODE CLASS="Code">
+string</CODE>
+ can be specified to cause the foreign object to be converted to a string. For a method that returns <CODE CLASS="Code">
+NSArray</CODE>
+, the symbol <CODE CLASS="Code">
+array</CODE>
+ can be specified and the foreign object is converted to an array of foreign pointers. Alternatively a type such as <CODE CLASS="Code">
+(array string)</CODE>
+ can be specified and the foreign object is converted to an array of strings.</P>
+<P CLASS="Body">
+<A NAME="pgfId-893620"></A>For example, the form</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-893621"></A>(invoke object &quot;description&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-893622"></A>will return a foreign pointer, whereas the form</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-893623"></A>(invoke-into 'string object &quot;description&quot;)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-893624"></A>will return a string.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-17.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-15.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ string
+</TITLE>
+
+<LINK REL="next" HREF="lw-674.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-672.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-674.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-672.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1040491"></A><A NAME="85954"></A>string<A NAME="marker-1040490"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1040492"></A>Type</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040493"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040494"></A>The string type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040495"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040496"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040497"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1040498"></A>string <EM CLASS="Variable">
+length element-type</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040499"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040500"></A><EM CLASS="Variable">
+length</EM>
+</P>
+<P CLASS="RDescription-C">The length of the string (or <CODE CLASS="Code">
+*</CODE>
+, meaning any).</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1040501"></A><EM CLASS="Variable">
+element-type</EM>
+</P>
+<P CLASS="RDescription-C">The type of string element. The default is the value of <A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A> rather than <CODE CLASS="Code">
+*</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040505"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040506"></A>The union of all string types as specified in the standard, but extended with an extra parameter: <EM CLASS="Variable">
+element-type</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040507"></A><CODE CLASS="Code">
+(string </CODE>
+<EM CLASS="Variable">
+length element-type</EM>
+<CODE CLASS="Code">
+)</CODE>
+ means all string types whose element type is a subtype of <EM CLASS="Variable">
+element-type</EM>
+. That is:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1040508"></A>(string * base-char)      = (vector base-char *) </CODE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040509"></A>(string * lw:simple-char) = (or (vector base-char *)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040510"></A>                                (vector lw:simple-char *))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040511"></A>(string * character)      = (or (vector base-char *)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040512"></A>                                (vector lw:simple-char *)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040513"></A>                                (vector character *)) </PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040514"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1040515"></A>CL-USER 235 &gt; (lw:set-default-character-element-type</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040516"></A>                     'base-char)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040517"></A>BASE-CHAR</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040518"></A>CL-USER 236 &gt; (concatenate 'string &quot;f&quot; &quot;o&quot; &quot;o&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040519"></A>&quot;foo&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1040520"></A>CL-USER 237 &gt; (type-of *)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1040521"></A>SIMPLE-BASE-STRING</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1040522"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1040526"></A><A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A><BR>
+<A HREF="lw-966.htm#30578" CLASS="XRef">set-default-character-element-type</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-674.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-672.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

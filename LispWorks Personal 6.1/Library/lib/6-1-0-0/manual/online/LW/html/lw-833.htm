@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-gc-parameters
+</TITLE>
+
+<LINK REL="next" HREF="lw-834.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-832.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-834.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-832.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1387520"></A><A NAME="87315"></A>set<A NAME="marker-1387519"></A>-gc-parameters</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1387521"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1387522"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1387523"></A>Sets the parameters for the garbage collector in 32-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1387524"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1387525"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1387526"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1387527"></A>set-gc-parameters &amp;key <EM CLASS="Variable">
+maximum-buffer-size</EM>
+ <EM CLASS="Variable">
+minimum-buffer-size</EM>
+ <EM CLASS="Variable">
+big-object</EM>
+ <EM CLASS="Variable">
+promote-min-buffer</EM>
+ <EM CLASS="Variable">
+promote-max-buffer</EM>
+ <EM CLASS="Variable">
+new-generation-size</EM>
+ <EM CLASS="Variable">
+minimum-overflow</EM>
+ <EM CLASS="Variable">
+maximum-overflow</EM>
+ <EM CLASS="Variable">
+minimum-for-sweep</EM>
+ <EM CLASS="Variable">
+minimum-for-promote</EM>
+ <EM CLASS="Variable">
+enlarge-by-segments</EM>
+ =&gt; &lt;no values&gt;</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1387528"></A>Arguments </H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-1387529"></A><EM CLASS="Variable">
+maximum-buffer-size</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1387530"></A>Maximum size of the small objects buffer.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1387531"></A><EM CLASS="Variable">
+minimum-buffer-size</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1387532"></A>Minimum size of the small objects buffer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1387533"></A><EM CLASS="Variable">
+big-object</EM>
+</P>
+<P CLASS="RDescription-C">An object that is bigger than this value is &quot;big&quot;. That is, it is not allocated from the small objects buffer, but from the big-chunk area (if it is allocated in generation 0 in the normal way).</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1387534"></A><EM CLASS="Variable">
+promote-min-buffer</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1387535"></A>During promotion, a buffer is allocated in the generation being promoted into, and the objects promoted are moved into it. <EM CLASS="Variable">
+promote-min-buffer</EM>
+ controls the minimum size of this buffer.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1387536"></A><EM CLASS="Variable">
+promote-max-buffer</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1387537"></A>Controls the maximum size of the promotion buffer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1387538"></A><EM CLASS="Variable">
+new-generation-size</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1387539"></A>Controls the minimum enlargement of generation <EM CLASS="Variable">
+gen-num</EM>
+, for <EM CLASS="Variable">
+gen-num</EM>
+ &gt; 0. Value 0 means the generation is not expanded. Otherwise, <EM CLASS="Variable">
+new-generation-size</EM>
+ must be a fixnum in the exclusive range (10000, 100000000) and the minimum expansion is then <EM CLASS="Variable">
+new-generation-size * gen-num</EM>
+ words.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1387540"></A><EM CLASS="Variable">
+new-generation-size</EM>
+ has no effect on the enlargement of generation 0.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1387541"></A><EM CLASS="Variable">
+maximum-overflow</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1387542"></A>Maximum size of the small-objects buffer in the big-chunk area.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1387543"></A><EM CLASS="Variable">
+minimum-overflow</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1387544"></A>Minimum size of the small-objects buffer in the big-chunk area.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1387545"></A><EM CLASS="Variable">
+minimum-for-promote</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1387546"></A>Controls the frequency of promotions. Setting <EM CLASS="Variable">
+minimum-for-promote</EM>
+ to a high value causes the system to promote less frequently. This may improve performance for programs that allocate a lot of data for a short term and then delete it.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1387547"></A><EM CLASS="Variable">
+minimum-for-sweep</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1387548"></A>Controls when a mark and sweep takes place. Setting <EM CLASS="Variable">
+minimum-for-sweep</EM>
+ to a high value causes the system to mark and sweep less often, which means it has to grow. The CPU time spent in garbage collection is mostly smaller, but the process is bigger and may cause more disk access.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1387549"></A><EM CLASS="Variable">
+enlarge-by-segments</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1387550"></A>A minimum for how much the image grows each time a segment is enlarged, as a multiple of 64K. This parameter is ignored when adding a static segment.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1387551"></A>Values</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-1387552"></A>None.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1387553"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1387554"></A>This function sets the parameters of the garbage collector, using the keywords described above.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1387555"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1641475"></A><CODE CLASS="Code">
+set-gc-parameters</CODE>
+ is implemented only in 32-bit LispWorks. It is not relevant to the Memory Management API in 64-bit implementations.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1387556"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1387560"></A><A HREF="lw-800.htm#90777" CLASS="XRef">get-gc-parameters</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-834.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-832.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ coerce-to-gesture-spec
+</TITLE>
+
+<LINK REL="next" HREF="lw-1346.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1344.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1346.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1344.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1055599"></A><A NAME="93817"></A>coerce<A NAME="marker-1056217"></A>-to-gesture-spec</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1055600"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1055601"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1055602"></A>Returns a Gesture Spec object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1055603"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1055604"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1055605"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1055606"></A>coerce-to-gesture-spec <EM CLASS="Variable">
+object</EM>
+ &amp;optional <EM CLASS="Variable">
+errorp</EM>
+ =&gt; <EM CLASS="Variable">
+gspec</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1055607"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1055608"></A><EM CLASS="Variable">
+object</EM>
+</P>
+<P CLASS="RDescription-C">A character, keyword, Gesture Spec or string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1055609"></A><EM CLASS="Variable">
+errorp</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1055610"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1055611"></A><EM CLASS="Variable">
+gspec</EM>
+</P>
+<P CLASS="RDescription-C">A Gesture Spec object</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1055612"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1055613"></A>The function <CODE CLASS="Code">
+coerce-to-gesture-spec</CODE>
+ returns a Gesture Spec object <EM CLASS="Variable">
+gspec</EM>
+ which can be used to represent the keystroke indicated by <EM CLASS="Variable">
+object</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1055614"></A>If <EM CLASS="Variable">
+object</EM>
+ is a Lisp character, then <EM CLASS="Variable">
+gspec</EM>
+'s data is one of the known Gesture Spec keywords, or its <CODE CLASS="Code">
+char-code</CODE>
+, and <EM CLASS="Variable">
+gspec</EM>
+'s modifiers contains its <CODE CLASS="Code">
+char-bits</CODE>
+ attribute mapped onto the values <A HREF="lw-1372.htm#45533" CLASS="XRef">gesture-spec-control-bit</A> etc.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1056403"></A>If <EM CLASS="Variable">
+object</EM>
+ is a keyword, then it must be one of the known Gesture Spec keywords and becomes <EM CLASS="Variable">
+gspec</EM>
+'s data. <EM CLASS="Variable">
+gspec</EM>
+'s modifiers is 0.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1059453"></A>If <EM CLASS="Variable">
+object</EM>
+ is a string, then <CODE CLASS="Code">
+coerce-to-gesture-spec</CODE>
+ expects it to be a sequence of modifier key names separated by the - character, followed by a single character or a character name as returned by <CODE CLASS="Code">
+name-char</CODE>
+ or the name of one of the known Gesture Spec keywords. Then <EM CLASS="Variable">
+gspec</EM>
+ contains the corresponding Gesture Spec keyword or <CODE CLASS="Code">
+char-code</CODE>
+ in its <EM CLASS="Variable">
+data</EM>
+, and the modifier keys are represented in its <EM CLASS="Variable">
+modifers</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1063196"></A>If <EM CLASS="Variable">
+object</EM>
+ is a Gesture Spec object, it is simply returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1072362"></A><CODE CLASS="Code">
+coerce-to-gesture-spec</CODE>
+ does not create wild gesture specs.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1060683"></A>Examples</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1061171"></A>(sys:coerce-to-gesture-spec #&#92;Control-C)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061246"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061172"></A>#S(SYSTEM::GESTURE-SPEC :DATA 67 :MODIFIERS 2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061173"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061174"></A>CL-USER 8 &gt; (sys:coerce-to-gesture-spec #&#92;Control-&#92;c)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061735"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061037"></A>#S(SYSTEM::GESTURE-SPEC :DATA 99 :MODIFIERS 2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1063162"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061762"></A>(sys:coerce-to-gesture-spec :F10)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061776"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061748"></A>#S(SYSTEM::GESTURE-SPEC :DATA :F10 :MODIFIERS 0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1063168"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061770"></A>(sys:coerce-to-gesture-spec &quot;Ctrl-C&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061049"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061021"></A>#S(SYSTEM::GESTURE-SPEC :DATA 67 :MODIFIERS 2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1063173"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061109"></A>(sys:coerce-to-gesture-spec &quot;Shift-F10&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1061123"></A>=&gt;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1061110"></A>#S(SYSTEM::GESTURE-SPEC :DATA :F10 :MODIFIERS 1)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1055635"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1055262"></A><A HREF="lw-1372.htm#45533" CLASS="XRef">gesture-spec-control-bit</A><BR>
+<A HREF="lw-1373.htm#61293" CLASS="XRef">gesture-spec-data</A><BR>
+<A HREF="lw-1376.htm#90167" CLASS="XRef">gesture-spec-modifiers</A><BR>
+<A HREF="lw-1377.htm#21052" CLASS="XRef">gesture-spec-p</A><BR>
+<A HREF="lw-1380.htm#16238" CLASS="XRef">gesture-spec-to-character</A><BR>
+<A HREF="lw-1402.htm#95339" CLASS="XRef">make-gesture-spec</A><BR>
+<A HREF="lw-1416.htm#27502" CLASS="XRef">print-pretty-gesture-spec</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1346.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1344.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

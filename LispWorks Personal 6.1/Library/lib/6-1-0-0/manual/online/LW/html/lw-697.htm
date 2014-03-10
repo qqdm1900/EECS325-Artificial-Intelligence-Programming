@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ with-debugger-wrapper
+</TITLE>
+
+<LINK REL="next" HREF="lw-698.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-696.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-683.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-683.htm">29 The DBG Package</A><BR><BR>
+</DIV><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-696.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-904349"></A><A NAME="29560"></A>with<A NAME="marker-904385"></A>-debugger-wrapper</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-904350"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904039"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-904040"></A>Executes code with a &quot;debugger wrapper&quot; which is called only if the debugger is invoked during the execution.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904041"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-904042"></A>dbg</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904043"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-904044"></A>with-debugger-wrapper <EM CLASS="Variable">
+wrapper</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+results</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904045"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-904293"></A><EM CLASS="Variable">
+wrapper</EM>
+</P>
+<P CLASS="RDescription-C">A function designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-904302"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">Forms.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904046"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-904306"></A><EM CLASS="Variable">
+results</EM>
+</P>
+<P CLASS="RDescription-C">Results of <EM CLASS="Variable">
+body</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904047"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-904048"></A>The macro <CODE CLASS="Code">
+with-debugger-wrapper</CODE>
+ executes forms in <EM CLASS="Variable">
+body</EM>
+ with the function <EM CLASS="Variable">
+wrapper</EM>
+ bound as a &quot;debugger wrapper&quot;. This debugger wrapper takes effect only if the code in <EM CLASS="Variable">
+body</EM>
+ tries to invoke the debugger (by a call to <CODE CLASS="Code">
+invoke-debugger</CODE>
+), typically indirectly as a result of an error. Instead of entering the debugger, the debugger wrapper is called with two arguments: a function to call to enter the debugger, and the condition. The wrapper can do whatever is needed. If it wants to enter the debugger, it does it by calling its first argument with the second argument:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-904049"></A>(funcall function condition)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-904050"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-904051"></A>Suppose that you run many processes in parallel with the same code. If the code is broken then every process will get an error. This example shows how a debugger wrapper can be used to keep a lock around entry to the debugger, so that the processes enter the debugger one by one. It contains firstly the &quot;application code&quot;, then the debugger wrapper, and lastly forms which execute the application with or without the debugger wrapper.  </P>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904128"></A>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904129"></A>;;;;;;;;;; application code ;;;;;;;;;;;;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904130"></A>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904131"></A>(in-package &quot;CL-USER&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904132"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904133"></A>(defglobal-parameter *a* 0)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904134"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904135"></A>(defun foo (index cons)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904136"></A>  (sys:atomic-push (* index *a*) (cdr cons)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904137"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904138"></A>;; This gets the process function so we can pass</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904139"></A>;; the wrapper function instead.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-907095"></A>(defun my-run-processes (do-error &amp;optional</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-907096"></A>                                  (process-function 'foo))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-907097"></A>  (setq *a* (if do-error :do-error 7))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-907098"></A>  (let ((cons (cons nil nil)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-907099"></A>    (dotimes (x 10)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-907100"></A>      (mp:process-run-function</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-907101"></A>       (format nil &quot;My test process &#126;d&quot; x)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-907102"></A>       ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-907103"></A>       process-function</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-907104"></A>       x cons))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-907105"></A>    (sleep 0.2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904149"></A>    (print (cdr cons))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904150"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904151"></A>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904152"></A>;;;;;;;;;; debugger wrapper ;;;;;;;;;;;;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904153"></A>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904154"></A>(defglobal-parameter *my-debugger-lock*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904155"></A>  (mp:make-lock :name &quot;Debugger Lock&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904156"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904157"></A>(defun my-debugger-wrapper (func condition)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904158"></A>  (mp:with-lock (*my-debugger-lock*)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904159"></A>    (funcall func condition)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904160"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904161"></A>(defun foo-wrapper (index cons)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904162"></A>  (dbg:with-debugger-wrapper 'my-debugger-wrapper</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904163"></A>    (foo index cons)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904164"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904165"></A>;; Running the application without the wrapper fills</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904166"></A>;; your screen with notifiers</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904167"></A>(my-run-processes t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904168"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904286"></A>;; Running with the wrapper raises the notifiers one by</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-904170"></A>;; one. You can use the Process Browser kill them all.</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-904171"></A>(my-run-processes t 'foo-wrapper)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906129"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-904097"></A><A HREF="lw-32.htm#56553" CLASS="XRef">Debugger troubleshooting</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-698.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-696.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-683.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

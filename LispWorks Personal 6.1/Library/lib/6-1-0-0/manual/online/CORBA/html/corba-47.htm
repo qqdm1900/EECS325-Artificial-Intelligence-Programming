@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="corba.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 5.4.3  Initializing the ORB and obtaining the first object reference
+</TITLE>
+
+<LINK REL="next" HREF="corba-48.htm" TYPE="text/html">
+<LINK REL="prev" HREF="corba-46.htm" TYPE="text/html">
+<LINK REL="up" HREF="corba-44.htm" TYPE="text/html">
+<LINK REL="top" HREF="corba.htm" TYPE="text/html">
+<LINK REL="contents" HREF="corba-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="corba-68.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="corba.htm">Developing Component Software with CORBA</A> &gt <A HREF="corba-40.htm">5 The Bank Client</A> &gt <A HREF="corba-44.htm">5.4  Defining the interfaces</A><BR><BR>
+</DIV><A HREF="corba-48.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-46.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-44.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-853411"></A>5.4.3  <A NAME="marker-853905"></A><A NAME="marker-853929"></A><A NAME="marker-853923"></A>Initializing the ORB and obtaining the first object reference</H3>
+<P CLASS="Body">
+<A NAME="pgfId-853412"></A>A client can only communicate with a CORBA object if it possesses a reference to that object. This raises the question of how the client obtains its initial object reference. The fact that some IDL operation may return an object reference is of no help here: without a reference to specify as its target, there is no way to invoke this operation. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853413"></A>In more detail, before a client can enter the CORBA environment, it must first: </P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853414"></A>Be initialized into the ORB</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853415"></A>Get a reference to the ORB pseudo-object for use in future ORB operations</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-853416"></A>Get an initial reference to an actual object on the server</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-853417"></A>CORBA provides a standard set of operations, specified in <I CLASS="Italic">
+pseudo IDL</I>
+ (PIDL), to initialize applications and obtain the appropriate object references. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853776"></A>Operations providing access to the ORB reside in the <CODE CLASS="Code">
+CORBA</CODE>
+ module. (Like an IDL interface declaration, a (P)IDL module declaration defines a new namespace for the body of declarations it encloses. What it does not do is define a new type of CORBA object.) Operations providing access to an Object Adapter, Interface Repository, Naming Service, and other Object Services reside in the ORB interface defined within the <CODE CLASS="Code">
+CORBA</CODE>
+ module. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853639"></A>To provide some flavor of PIDL, here is a fragment of the PIDL specification of CORBA that we rely on in our implementation of the bank client.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853418"></A>module CORBA { </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853419"></A>  interface Object { </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853420"></A>    boolean is_a (in string logical_type_id); </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853421"></A>  ... </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853422"></A>  }; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853423"></A>  interface ORB { </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853424"></A>    string object_to_string (in Object obj); </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853425"></A>    Object string_to_object (in string str); </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853426"></A>  ... </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853427"></A>  }; </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853428"></A>...</PRE>
+<PRE CLASS="Code-first"><A NAME="pgfId-853429"></A>  typedef string ORBid; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853430"></A>  typedef sequence &lt;string&gt; arg_list;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853431"></A>  ORB ORB_init (inout arg_list argv, in ORBid orb_identifier);</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853432"></A>}; </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853433"></A>The <CODE CLASS="Code">
+Object</CODE>
+ interface is implicitly inherited by all IDL interfaces, much as every Common Lisp class inherits from the class <CODE CLASS="Code">
+standard-object</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853434"></A>The <CODE CLASS="Code">
+is_a</CODE>
+ operation provides a test for inheritance (the <CODE CLASS="Code">
+logical_type_id</CODE>
+ is a string representation of an interface identifier). The operation returns true if the object is an instance of that interface, including if that interface is an ancestor of the most derived interface of that object.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853435"></A>The ORB operations <CODE CLASS="Code">
+object_to_string</CODE>
+ and <CODE CLASS="Code">
+string_to_object</CODE>
+ provide an invertible mapping from object references to their representations as strings.</P>
+<P CLASS="Body">
+<A NAME="pgfId-853436"></A>Notice that the CORBA operation <CODE CLASS="Code">
+ORB_init</CODE>
+ is defined outside the scope of any interface, providing a means of bootstrapping into the CORBA world. Calling <CODE CLASS="Code">
+ORB_init</CODE>
+ initializes the ORB, returning an ORB pseudo-object that can be used as the target for further ORB operations. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853437"></A>Like most other language bindings, the Common Lisp binding adopts the pseudo-objects approach in which these CORBA and ORB operations are accessed by applying the binding's normal IDL mapping rules to the PIDL specification. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853438"></A>In this tutorial, we use a very simple technique to obtain the initial object reference. The client assumes that the server has published a reference to its implementation of the <CODE CLASS="Code">
+bank</CODE>
+ object, encoded as a string, in a shared file. After starting up, the client reads the file, decodes the string as an object reference, and then uses this reference as the target of further operations. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853439"></A>Here is the remaining Common Lisp code that completes the implementation of the client:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-853440"></A>(defun bank-client ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853441"></A>  (let ((orb (op:orb_init nil &quot;LispWorks ORB&quot;)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853442"></A>    (let ((bank-ref (op:narrow 'BankingDemo:bank</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853443"></A>                               (file-to-object orb))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853444"></A>      (capi:display (make-instance 'bank-interface </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-853445"></A>                                   :bank-ref bank-ref</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-853446"></A>                                   :title &quot;Corba Bank&quot;)))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-853447"></A>The defparameter <CODE CLASS="Code">
+*bank-ior-file*</CODE>
+ is the name of the shared file used to pass the reference of the <CODE CLASS="Code">
+bank</CODE>
+ object from the server to the client. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853448"></A>The method <CODE CLASS="Code">
+file-as-string </CODE>
+reads a file's contents. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853449"></A>The top-level <CODE CLASS="Code">
+let</CODE>
+ statement first initializes The LispWorks ORB by calling the Common Lisp generic function <CODE CLASS="Code">
+op:ORB_init</CODE>
+ corresponding to the PIDL <CODE CLASS="Code">
+ORB_init</CODE>
+ operation. The first argument to this call is an empty list. Passing an empty sequence instructs the <CODE CLASS="Code">
+op:ORB_init</CODE>
+ function to ignore this argument and use the application's command line arguments (if any) instead. The value of the second argument, <CODE CLASS="Code">
+&quot;LispWorks ORB&quot;</CODE>
+, merely identifies the ORB to use. </P>
+<P CLASS="Body">
+<A NAME="pgfId-853450"></A>Invoking <CODE CLASS="Code">
+op:string_to_object</CODE>
+ on this ORB, passing the string read from the shared file, reconstitutes the string as an unspecific object reference of class <CODE CLASS="Code">
+CORBA:Object</CODE>
+. Calling the <CODE CLASS="Code">
+op:narrow</CODE>
+ method on this object reference narrows (that is, coerces) it to a more specific object reference of class <BR>
+<CODE CLASS="Code">
+BankingDemo:bank</CODE>
+. (The <CODE CLASS="Code">
+op:narrow</CODE>
+ method employs an implicit call to the object's <CODE CLASS="Code">
+is_a</CODE>
+ operation to check that the desired coercion is safe.)</P>
+<P CLASS="Body">
+<A NAME="pgfId-853451"></A>Finally, the resulting object reference <CODE CLASS="Code">
+bank-ref</CODE>
+, of class <CODE CLASS="Code">
+BankingDemo:bank</CODE>
+, is used to make and start a new bank interface, displaying the initial GUI to the user. The implementation of the client is now complete.</P>
+<P CLASS="Body">
+<A NAME="pgfId-852227"></A>&nbsp;</P>
+<HR>
+<ADDRESS>Developing Component Software with CORBA - 29 Jul 2010</ADDRESS>
+<P><A HREF="corba-48.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="corba-46.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="corba-44.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="corba.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="corba-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="corba-68.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

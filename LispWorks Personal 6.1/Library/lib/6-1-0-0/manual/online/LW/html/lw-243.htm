@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 14.3  Implementation of virtual slots
+</TITLE>
+
+<LINK REL="next" HREF="lw-244.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-242.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-228.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-228.htm">14 The Metaobject Protocol</A><BR><BR>
+</DIV><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-242.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-228.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-887765"></A>14.3  Implementation of virtual slots</H3>
+<P CLASS="Body">
+<A NAME="pgfId-887778"></A>This is an implementation of virtual slots with readers, writers and which also allow access by <CODE CLASS="Code">
+slot-value</CODE>
+.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888100"></A>;; ----------------------- Virtual Slots --------------------</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888406"></A>(in-package &quot;CL-USER&quot;)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888101"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888102"></A>;; Metaclass of objects that might contain virtual slots.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888103"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888104"></A>(defclass virtual-metaclass (standard-class)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888105"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888106"></A>  )</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888107"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888108"></A>;; Mixin metaclass for virtual slots and methods to make them</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888109"></A>;; appear virtual.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888110"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888111"></A>(defclass virtual-slot-definition </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888112"></A>          (standard-slot-definition)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888113"></A>  ((function :initarg :function </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888114"></A>             :accessor virtual-slot-definition-function))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888115"></A>  )</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888116"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888117"></A>(defmethod slot-definition-allocation </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888118"></A>           ((slotd virtual-slot-definition))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888119"></A>  :virtual)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888120"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888121"></A>(defmethod (setf slot-definition-allocation) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888122"></A>           (allocation (slotd virtual-slot-definition))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888123"></A>  (unless (eq allocation :virtual)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888124"></A>    (error &quot;Cannot change the allocation of a &#126;S&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888125"></A>           'virtual-direct-slot-definition))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888126"></A>  allocation)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888127"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888128"></A>;; Class of direct virtual slots and methods to construct them</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888129"></A>;; when appropriate.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888130"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888131"></A>(defclass virtual-direct-slot-definition </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888132"></A>          (standard-direct-slot-definition</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888133"></A>           virtual-slot-definition)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888134"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888135"></A>  )</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888136"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888431"></A>;; Called when the class is being made, to choose the metaclass of</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888432"></A>;; a given direct slot. It should return the class of slot</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888433"></A>;; definition required.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888434"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888435"></A>(defmethod clos:direct-slot-definition-class </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888436"></A>           ((class virtual-metaclass) &amp;rest initargs)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888437"></A>  ;; Use virtual-direct-slot-definition if appropriate.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888438"></A>  (if (eq (getf initargs :allocation) :virtual)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888439"></A>      (find-class 'virtual-direct-slot-definition)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888148"></A>    (call-next-method)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888443"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888149"></A>;; Called when the defclass is expanded, to process a slot option.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888150"></A>;; It should return the new list of slot options, based on</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888151"></A>;; already-processed-options.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888152"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888153"></A>(defmethod clos:process-a-slot-option </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888154"></A>           ((class virtual-metaclass) option value</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888155"></A>            already-processed-options slot)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888156"></A>  ;; Handle the :function option by adding it to the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888157"></A>  ;; list of processed options.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888158"></A>  (if (eq option :function)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888159"></A>      (list* :function value already-processed-options)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888160"></A>    (call-next-method)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888161"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888162"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888163"></A>;; Class of effective virtual slots and methods to construct</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888164"></A>;; them when appropriate.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888165"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888166"></A>(defclass virtual-effective-slot-definition </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888167"></A>          (standard-effective-slot-definition</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888168"></A>           virtual-slot-definition)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888169"></A>  ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888170"></A>  )</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888171"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888417"></A>;; Called when the class is being finalized, to choose the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888418"></A>;; metaclass of a given effective slot.  It should return the</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888419"></A>;; class of slot definition required.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888420"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888421"></A>(defmethod clos:effective-slot-definition-class </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888422"></A>           ((class virtual-metaclass) &amp;rest initargs)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888423"></A>  ;; Use virtual-effective-slot-definition if appropriate.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888424"></A>  (let ((slot-initargs (getf initargs :initargs)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888425"></A>    (if (member :virtual-slot slot-initargs)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888426"></A>        (find-class 'virtual-effective-slot-definition)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888184"></A>      (call-next-method))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888185"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888186"></A>(defmethod clos:compute-effective-slot-definition </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888187"></A>           ((class virtual-metaclass)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888188"></A>            name</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888189"></A>            direct-slot-definitions)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888190"></A>  ;; Copy the function into the effective slot definition</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888191"></A>  ;; if appropriate.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888192"></A>  (let ((effective-slotd (call-next-method)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888193"></A>    (dolist (slotd direct-slot-definitions)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888194"></A>      (when (typep slotd 'virtual-slot-definition)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888195"></A>        (setf (virtual-slot-definition-function effective-slotd) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888196"></A>              (virtual-slot-definition-function slotd))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888197"></A>        (return)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888198"></A>    effective-slotd))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888199"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888200"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888201"></A>;; Underlying access methods for invoking</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888202"></A>;; virtual-slot-definition-function.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888203"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888204"></A>(defmethod clos:slot-value-using-class </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888205"></A>           ((class virtual-metaclass) object slot-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888206"></A>  (let ((slotd (find slot-name (class-slots class) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888207"></A>                     :key 'slot-definition-name)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888208"></A>    (if (typep slotd 'virtual-slot-definition)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888209"></A>        (funcall (virtual-slot-definition-function slotd)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888210"></A>                 :get</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888211"></A>                 object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888212"></A>      (call-next-method))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888213"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888214"></A>(defmethod (setf clos:slot-value-using-class) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888215"></A>           (value (class virtual-metaclass) object slot-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888216"></A>  (format t &quot;&#126;% setf slot : &#126;A&quot; slot-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888217"></A>  (let ((slotd (find slot-name (class-slots class) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888218"></A>                     :key 'slot-definition-name)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888219"></A>    (if (typep slotd 'virtual-slot-definition)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888220"></A>        (funcall (virtual-slot-definition-function slotd)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888221"></A>                 :set</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888222"></A>                 object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888223"></A>                 value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888224"></A>      (call-next-method))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888225"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888226"></A>(defmethod clos:slot-boundp-using-class </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888227"></A>           ((class virtual-metaclass) object slot-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888228"></A>  (let ((slotd (find slot-name (class-slots class) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888229"></A>                     :key 'slot-definition-name)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888230"></A>    (if (typep slotd 'virtual-slot-definition)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888231"></A>        (funcall (virtual-slot-definition-function slotd)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888232"></A>                 :is-set</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888233"></A>                 object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888234"></A>      (call-next-method))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888235"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888236"></A>(defmethod clos:slot-makunbound-using-class </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888237"></A>           ((class virtual-metaclass) object slot-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888238"></A>  (let ((slotd (find slot-name (class-slots class) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888239"></A>                     :key 'slot-definition-name)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888240"></A>    (if (typep slotd 'virtual-slot-definition)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888241"></A>        (funcall (virtual-slot-definition-function slotd)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888242"></A>                 :unset</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888243"></A>                 object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888244"></A>      (call-next-method))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888245"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888246"></A>(defmethod clos:slot-exists-p-using-class </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888247"></A>           ((class virtual-metaclass) object slot-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888248"></A>  (or (call-next-method)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888249"></A>      (and (find slot-name (class-slots class) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888250"></A>                 :key 'slot-definition-name)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888251"></A>           t)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888252"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888253"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888254"></A>;; Example virtual slot which depends on a real slot.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888255"></A>;; Compile this separately after the virtual-metaclass etc.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888256"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888257"></A>(defclass a-virtual-class ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888258"></A>  ((real-slot :initarg :real-slot :accessor real-slot</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888259"></A>              :initform -1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888260"></A>   (virtual-slot :accessor virtual-slot </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888261"></A>                 :initarg :virtual-slot</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888262"></A>                 :allocation :virtual</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888263"></A>                 :function </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888264"></A>                 'a-virtual-class-virtual-slot-function))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888265"></A>  (:metaclass virtual-metaclass))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888266"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888267"></A>(defun a-virtual-class-virtual-slot-function </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888268"></A>       (key object &amp;optional value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888269"></A>  (ecase key</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888270"></A>    (:get (let ((real-slot (real-slot object)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888271"></A>            (if (&lt;= 0 real-slot 100)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888272"></A>                (/ real-slot 100.0)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888273"></A>              (slot-unbound (class-of object) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888274"></A>                            object</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888275"></A>                            'virtual-slot))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888276"></A>    (:set (setf (real-slot object) (* value 100))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888277"></A>          value)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888278"></A>    (:is-set (let ((real-slot (real-slot object)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888279"></A>               (&lt;= real-slot 100)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888280"></A>    (:unset (setf (real-slot object) -1))))</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888409"></A>;; ----------------------- Virtual Slots --------------------</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888347"></A>Compile the code above. Then make an object and access the virtual slot:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888445"></A>CL-USER 1 &gt; (setf object (make-instance 'a-virtual-class))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888446"></A>#&lt;A-VIRTUAL-CLASS 2067B064&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888447"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888448"></A>CL-USER 2 &gt; (setf (virtual-slot object) 0.75)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888449"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888450"></A> setf slot : VIRTUAL-SLOT</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888451"></A>0.75</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888452"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888453"></A>CL-USER 3 &gt; (virtual-slot object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888454"></A>0.75</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888455"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888456"></A>CL-USER 4 &gt; (real-slot object)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888457"></A>75.0</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888354"></A>Note that when you call <CODE CLASS="Code">
+(setf real-slot)</CODE>
+ there is no output.since <CODE CLASS="Code">
+(setf clos:slot-value-using-class)</CODE>
+ is not called. Compare with <CODE CLASS="Code">
+(setf virtual-slot).</CODE>
+</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888512"></A>CL-USER 5 &gt; (setf (real-slot object) 42)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888513"></A>42</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888299"></A>Redefine <CODE CLASS="Code">
+a-virtual-class</CODE>
+ with <CODE CLASS="Code">
+:optimize-slot-access</CODE>
+ <CODE CLASS="Code">
+nil</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888669"></A>CL-USER 6 &gt; (defclass a-virtual-class ()</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888670"></A>              ((real-slot :initarg :real-slot </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888671"></A>                          :accessor real-slot</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888672"></A>                          :initform -1)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888673"></A>               (virtual-slot :accessor virtual-slot </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888674"></A>                             :initarg :virtual-slot</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888675"></A>                             :allocation :virtual</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888676"></A>                             :function </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888677"></A>                   'a-virtual-class-virtual-slot-function))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888678"></A>              (:metaclass virtual-metaclass)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888554"></A>              (:optimize-slot-access nil))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888682"></A>Warning: (DEFCLASS A-VIRTUAL-CLASS) being redefined in LISTENER (previously in H:&#92;tmp&#92;vs.lisp).</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888555"></A>Warning: (METHOD REAL-SLOT (A-VIRTUAL-CLASS)) being redefined in LISTENER (previously in H:&#92;tmp&#92;vs.lisp).</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888556"></A>Warning: (METHOD (SETF REAL-SLOT) (T A-VIRTUAL-CLASS)) being redefined in LISTENER (previously in H:&#92;tmp&#92;vs.lisp).</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888557"></A>Warning: (METHOD VIRTUAL-SLOT (A-VIRTUAL-CLASS)) being redefined in LISTENER (previously in H:&#92;tmp&#92;vs.lisp).</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888558"></A>Warning: (METHOD (SETF VIRTUAL-SLOT) (T A-VIRTUAL-CLASS)) being redefined in LISTENER (previously in H:&#92;tmp&#92;vs.lisp).</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888559"></A>#&lt;VIRTUAL-METACLASS A-VIRTUAL-CLASS 21AD908C&gt;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888313"></A>Now the standard accessors call <A HREF="lw-572.htm#59914" CLASS="XRef">slot-value-using-class</A>, so we see output when calling <CODE CLASS="Code">
+(setf real-slot)</CODE>
+</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888571"></A>CL-USER 7 &gt; (setf (real-slot object) 42)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888572"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888573"></A> setf slot : REAL-SLOT</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888574"></A>42</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-244.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-242.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-228.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

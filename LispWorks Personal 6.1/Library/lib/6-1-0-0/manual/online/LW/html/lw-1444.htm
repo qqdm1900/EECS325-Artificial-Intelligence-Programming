@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ typed-aref
+</TITLE>
+
+<LINK REL="next" HREF="lw-1445.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1443.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1445.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1443.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1032361"></A><A NAME="29034"></A>typed<A NAME="marker-1032491"></A>-aref</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1032362"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1032363"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1032364"></A>Accesses a typed aref vector efficiently.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1032365"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1032366"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1032367"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1032368"></A>typed-aref <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+vector</EM>
+ <EM CLASS="Variable">
+byte-index</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1032430"></A>(setf typed-aref) <EM CLASS="Variable">
+value</EM>
+ <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+vector</EM>
+ <EM CLASS="Variable">
+byte-index</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1032369"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1032455"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">A type specifier.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1032451"></A><EM CLASS="Variable">
+vector</EM>
+</P>
+<P CLASS="RDescription-C">A vector created by <A HREF="lw-1405.htm#84662" CLASS="XRef">make-typed-aref-vector</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1032370"></A><EM CLASS="Variable">
+byte-index</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative fixnum.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1032371"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1032466"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RDescription-C">An object of type <EM CLASS="Variable">
+type</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1032373"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1032496"></A>The function <CODE CLASS="Code">
+typed-aref</CODE>
+ allows efficient access to a typed aref vector.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1032548"></A><EM CLASS="Variable">
+type</EM>
+ must evaluate to one of: <CODE CLASS="Code">
+double-float</CODE>
+, <CODE CLASS="Code">
+float</CODE>
+, <CODE CLASS="Code">
+single-float</CODE>
+, <CODE CLASS="Code">
+sys:int32</CODE>
+, <CODE CLASS="Code">
+(unsigned-byte 32)</CODE>
+, <CODE CLASS="Code">
+(signed-byte 32)</CODE>
+, <CODE CLASS="Code">
+(unsigned-byte 16)</CODE>
+, <CODE CLASS="Code">
+(signed-byte 16)</CODE>
+, <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+ or <CODE CLASS="Code">
+(signed-byte 8)</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1032671"></A><EM CLASS="Variable">
+vector</EM>
+ must be an object returned by <A HREF="lw-1405.htm#84662" CLASS="XRef">make-typed-aref-vector</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1251780"></A><EM CLASS="Variable">
+byte-index</EM>
+ specifies the index in 8-bit bytes from the start of the data in the vector. It must be a non-negative fixnum which is less than the <EM CLASS="Variable">
+byte-length</EM>
+ argument passed to <A HREF="lw-1405.htm#84662" CLASS="XRef">make-typed-aref-vector</A>. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1032803"></A><CODE CLASS="Code">
+typed-aref</CODE>
+ and <CODE CLASS="Code">
+(setf typed-aref)</CODE>
+ will be inlined to code which is as efficient as possible when compiled with <CODE CLASS="Code">
+(optimize (safety 0))</CODE>
+ and a constant type. As usual, you need to add <CODE CLASS="Code">
+(optimize (float 0))</CODE>
+ to remove boxing for the float types.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1032938"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1643196"></A>Efficient access to foreign arrays is also available. See <CODE CLASS="Code">
+fli:foreign-typed-aref</CODE>
+ in the <I CLASS="Italic">
+LispWorks Foreign Language Interface User Guide and Reference Manual</I>
+ </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1032727"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1032761"></A>(defun double-float-typed-aref-incf (x y z)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1032762"></A>  (declare (optimize (float 0) (safety 0)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1032763"></A>  (incf (sys:typed-aref 'double-float x y)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1032764"></A>        (the double-float z))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1032717"></A>  x)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1032375"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1032376"></A><A HREF="lw-1405.htm#84662" CLASS="XRef">make-typed-aref-vector</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1445.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1443.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

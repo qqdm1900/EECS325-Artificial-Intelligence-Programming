@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ check-fragmentation
+</TITLE>
+
+<LINK REL="next" HREF="lw-761.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-759.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-744.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-744.htm">32 The HCL Package</A><BR><BR>
+</DIV><A HREF="lw-761.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-759.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-915665"></A><A NAME="check-fragmentation"></A>check<A NAME="marker-1039547"></A>-fragmentation</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-915666"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915667"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-915668"></A>Provides information about the fragmentation in a generation in 32-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915669"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-915670"></A>hcl</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-915919"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-920993"></A>check-fragmentation <EM CLASS="Variable">
+gen-num</EM>
+ =&gt; <EM CLASS="Variable">
+total-free</EM>
+, <EM CLASS="Variable">
+total-small-blocks</EM>
+, <EM CLASS="Variable">
+total-large-blocks</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920994"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-923481"></A><EM CLASS="Variable">
+gen-num</EM>
+</P>
+<P CLASS="RDescription-C">0 for the most recent generation, 1 for the most recent two generations, and so on up to a maximum (usually 3). Numbers outside this range signal an error.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-923875"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-923482"></A>total-free</P>
+<P CLASS="RDescription-C">Total free space in the generation.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-923745"></A>total-small-blocks</P>
+<P CLASS="RDescription-C">Amount of free space in the generation which is available in blocks of 512 bytes or larger.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-931947"></A>total-large-blocks</P>
+<P CLASS="RDescription-C">Amount of free space in the generation which is available in blocks of 4096 bytes or larger.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-939026"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-939027"></A>The latter two values give indication of the level of fragmentation in the generation. This information can be used, for example, to decide whether to call <CODE CLASS="Code">
+try-move-in-generation</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1091269"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1640732"></A><CODE CLASS="Code">
+check-fragmentation</CODE>
+ is implemented only in 32-bit LispWorks. It is not relevant to the Memory Management API in 64-bit implementations, where <A HREF="lw-1369.htm#69789" CLASS="XRef">gen-num-segments-fragmentation-state</A> is available instead.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-939028"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-940062"></A><A HREF="lw-859.htm#try-compact-in-generation" CLASS="XRef">try-compact-in-generation</A><BR>
+<A HREF="lw-860.htm#try-move-in-generation" CLASS="XRef">try-move-in-generation</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-761.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-759.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-744.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ do-query
+</TITLE>
+
+<LINK REL="next" HREF="lw-1180.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1178.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1155.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1155.htm">38 The SQL Package</A><BR><BR>
+</DIV><A HREF="lw-1180.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1178.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-888584"></A><A NAME="26371"></A>do<A NAME="marker-1047269"></A>-query</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-888585"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888586"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888587"></A>Repeatedly binds a set of variables to the results of a query, and executes a body of code using the bound variables.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888588"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888589"></A>sql</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888590"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-888591"></A>do-query ((&amp;rest <EM CLASS="Variable">
+args</EM>
+) <EM CLASS="Variable">
+query</EM>
+ &amp;key <EM CLASS="Variable">
+database</EM>
+ <EM CLASS="Variable">
+not-inside-transaction</EM>
+ <EM CLASS="Variable">
+get-all</EM>
+) &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt;</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888592"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888593"></A><EM CLASS="Variable">
+args</P>
+<P CLASS="RDescription-C"></EM>
+A set of variables.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888594"></A><EM CLASS="Variable">
+query</EM>
+</P>
+<P CLASS="RDescription-C">A database query or a prepared-statement containing a query.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-888595"></A><EM CLASS="Variable">
+database</EM>
+</P>
+<P CLASS="RDescription-C">A database.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1373857"></A><EM CLASS="Variable">
+not-inside-transaction</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1377436"></A>A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1378294"></A><EM CLASS="Variable">
+get-all</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1377437"></A><EM CLASS="Variable">
+body</P>
+<P CLASS="RDescription-C"></EM>
+A Lisp code body.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-919053"></A>Values</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-919091"></A>None.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-919055"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888600"></A>The macro <CODE CLASS="Code">
+do-query</CODE>
+ repeatedly executes <EM CLASS="Variable">
+body</EM>
+ within a binding of <EM CLASS="Variable">
+args</EM>
+ on the attributes of each record resulting from <EM CLASS="Variable">
+query</EM>
+. <CODE CLASS="Code">
+do-query</CODE>
+ returns no values.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-888601"></A>The default value of <EM CLASS="Variable">
+database</EM>
+ is <A HREF="lw-1169.htm#92691" CLASS="XRef">*default-database*</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1373577"></A><EM CLASS="Variable">
+not-inside-transaction</EM>
+ and <EM CLASS="Variable">
+get-all</EM>
+ may be useful when fetching many records through a connection with <EM CLASS="Variable">
+database-type</EM>
+ <CODE CLASS="Code">
+:mysql</CODE>
+. Both of these arguments have default value <CODE CLASS="Code">
+nil</CODE>
+. See the section <A HREF="lw-414.htm#47910" CLASS="XRef">Special considerations for iteration functions and macros</A> for details.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888602"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888603"></A>The following code repeatedly binds the result of selecting an entry in <CODE CLASS="Code">
+ename</CODE>
+ from the table <CODE CLASS="Code">
+emp</CODE>
+ to the variable <CODE CLASS="Code">
+name</CODE>
+, and then prints <CODE CLASS="Code">
+name</CODE>
+ using the Lisp function <CODE CLASS="Code">
+print</CODE>
+.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-888604"></A>(do-query ((name) [select [ename] :from [emp]])</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-888605"></A>         (print name))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-888606"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-888610"></A><A HREF="lw-1199.htm#16896" CLASS="XRef">loop</A><BR>
+<A HREF="lw-1200.htm#17430" CLASS="XRef">map-query</A><BR>
+<A HREF="lw-1251.htm#97309" CLASS="XRef">prepare-statement</A><BR>
+<A HREF="lw-1253.htm#39816" CLASS="XRef">query</A><BR>
+<A HREF="lw-1257.htm#30104" CLASS="XRef">select</A><BR>
+<A HREF="lw-1259.htm#54409" CLASS="XRef">simple-do-query</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1180.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1178.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1155.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ document-frame
+</TITLE>
+
+<LINK REL="next" HREF="capiref-93.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-91.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-93.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-91.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-7092029"></A><A NAME="20935"></A>document<A NAME="marker-7092026"></A>-<A NAME="marker-7092027"></A>frame<A NAME="marker-7092028"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-7092030"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2384617"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2420554"></A>The class <CODE CLASS="Code">
+document-frame</CODE>
+ is used to implement MDI. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-4036538"></A>This works only in LispWorks for Windows.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4036550"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4036551"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2420556"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-2384623"></A><A HREF="capiref-184.htm#30394" CLASS="XRef">interface</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-6821756"></A>Readers</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-6821758"></A><A NAME="marker-6821757"></A>document-frame-container</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2384651"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2384588"></A>The class <CODE CLASS="Code">
+document-frame</CODE>
+ is used to implement Multiple-Document Interface (MDI) which is a standard technique on Microsoft Windows (see the MSDN for documentation).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2396192"></A>To use MDI in the CAPI, define an interface class that inherits from <CODE CLASS="Code">
+document-frame</CODE>
+, and use the two special slots <A NAME="marker-6449848"></A><CODE CLASS="Code">
+capi:container</CODE>
+ and <A NAME="marker-6449856"></A><CODE CLASS="Code">
+capi:windows-menu</CODE>
+ as described below.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2398185"></A>In your interface's layouts, use the symbol <CODE CLASS="Code">
+capi:container</CODE>
+<A NAME="marker-3760230"></A> in the <EM CLASS="Variable">
+description</EM>
+ to denote the pane inside the MDI interface in which child interfaces are added.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-6821780"></A><CODE CLASS="Code">
+document-frame-container</CODE>
+ is a reader which returns the <A HREF="capiref-91.htm#35734" CLASS="XRef">document-container</A> of the <CODE CLASS="Code">
+document-frame</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3295326"></A>Interfaces of any type other than subclasses of <CODE CLASS="Code">
+document-frame</CODE>
+ may be added as children. To add a child interface in your MDI interface, call <A HREF="capiref-76.htm#40005" CLASS="XRef">display</A> on the child interface and pass the MDI interface as the <EM CLASS="Variable">
+screen</EM>
+ argument. This will display the child interface inside the container pane. To obtain a list of the child interfaces, call the <A HREF="capiref-363.htm#41931" CLASS="XRef">screen</A> reader function <CODE CLASS="Code">
+screen-interfaces</CODE>
+, passing the frame's <A HREF="capiref-91.htm#35734" CLASS="XRef">document-container</A> as the <EM CLASS="Variable">
+screen</EM>
+ argument.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5925404"></A>You can use most of the normal CAPI window operations such as <A HREF="capiref-457.htm#top-level-interface-geometry" CLASS="XRef">top-level-interface-geometry</A> and <A HREF="capiref-9.htm#30968" CLASS="XRef">activate-pane</A> on windows displayed as children of a <CODE CLASS="Code">
+document-frame</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5925412"></A>The <CODE CLASS="Code">
+capi:windows-menu</CODE>
+<A NAME="marker-5925411"></A> slot contains the Windows Menu, which allows the user to manipulate child interfaces. The standard functionality of the Windows Menu is handled by the system and normally you will not need to modify it. However, you will want to specify its position in the menu bar. Do this by adding the symbol <CODE CLASS="Code">
+capi:windows-menu</CODE>
+ in the <CODE CLASS="Code">
+:menu-bar</CODE>
+ option of your <A HREF="capiref-69.htm#25433" CLASS="XRef">define-interface</A> form.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3295345"></A><B CLASS="Bold">
+Note:</B>
+ <CODE CLASS="Code">
+capi:windows-menu</CODE>
+<A NAME="marker-3295351"></A> is a special slot in <CODE CLASS="Code">
+document-frame</CODE>
+ and this symbol should not appear elsewhere in the <A HREF="capiref-69.htm#25433" CLASS="XRef">define-interface</A> form.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-5537788"></A>By default the menu bar is made by effectively appending the menu bar of the <CODE CLASS="Code">
+document-frame</CODE>
+ interface with the menu bar of the current child. You can customize this behavior with <A HREF="capiref-249.htm#67283" CLASS="XRef">merge-menu-bars</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2399386"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2399455"></A>This example uses <CODE CLASS="Code">
+document-frame</CODE>
+ to create a primitive <CODE CLASS="Code">
+apropos</CODE>
+ browser.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2399521"></A>Firstly we define an interface that lists symbols. There is nothing special about this in itself.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-2399523"></A>(capi:define-interface symbols-listing ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399524"></A>  ((symbols :initarg :symbols))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399525"></A>  (:panes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399526"></A>   ( symbols-pane capi:list-panel</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399527"></A>                  :items symbols</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399528"></A>                  :print-function </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399529"></A>                  'symbol-name))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399530"></A>  (:default-initargs</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399531"></A>   :best-width '(character 40)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-2399532"></A>   :best-height '(character 10)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-2399534"></A>Next we define the MDI interface. Note:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-2412343"></A>It inherits from <CODE CLASS="Code">
+document-frame</CODE>
+.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-2412344"></A><CODE CLASS="Code">
+capi:container</CODE>
+ is used in the layout description.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-2412345"></A><CODE CLASS="Code">
+capi:windows-menu</CODE>
+ is in the <CODE CLASS="Code">
+:menu-bar</CODE>
+ list.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-2405783"></A>When the interface showing the symbols is being displayed, the MDI interface is passed as the <EM CLASS="Variable">
+screen</EM>
+ argument to <A HREF="capiref-76.htm#40005" CLASS="XRef">display</A>.</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-2405800"></A>Otherwise, this example uses standard Common Lisp and CAPI functionality.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-2399543"></A>(capi:define-interface my-apropos-browser </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399544"></A>    (capi:document-frame)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399545"></A>  ((string :initarg :string))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399546"></A>  (:panes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399547"></A>   (package-list</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399548"></A>    capi:list-panel</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399549"></A>    :items </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399550"></A>    (loop for package in (list-all-packages)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399551"></A>          when </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399552"></A>          (let ((al (apropos-list string package)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399553"></A>            (when al </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399554"></A>              (cons (package-name package) al)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399555"></A>          collect it)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399556"></A>    :print-function 'car</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399557"></A>    :action-callback </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399558"></A>    #'(lambda (mdi-interface name-and-symbols)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399559"></A>        (capi:display </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399560"></A>         (make-instance </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399561"></A>          'symbols-listing</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399562"></A>          :symbols  (cdr name-and-symbols)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399563"></A>          :title (car name-and-symbols))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399564"></A>         :screen mdi-interface))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399565"></A>    :callback-type :interface-data)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399566"></A>   )</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399567"></A>  (:menu-bar capi:windows-menu)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399568"></A>  (:layouts</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399569"></A>   (main </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399570"></A>    capi:row-layout </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399571"></A>    '(package-list :divider capi:container)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399572"></A>    :ratios '(1 nil 4)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399573"></A>  (:default-initargs</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399574"></A>   :visible-min-height '(character 20)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-2399575"></A>   :visible-min-width '(character 100)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-2399577"></A>To browse apropos of a specific string</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-2399579"></A>(capi:display </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2399580"></A> (make-instance 'my-apropos-browser </PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-2399513"></A>                :string &quot;EDITOR&quot;))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2412353"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2414061"></A><A HREF="capiref-62.htm#20060" CLASS="XRef">current-document</A><BR>
+<A HREF="capiref-249.htm#67283" CLASS="XRef">merge-menu-bars</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-93.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-91.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

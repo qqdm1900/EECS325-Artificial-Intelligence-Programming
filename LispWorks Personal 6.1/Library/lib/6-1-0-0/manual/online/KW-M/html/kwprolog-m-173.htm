@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ A.3  Defining Relations
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-174.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-172.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-168.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-168.htm">A Common Prolog</A><BR><BR>
+</DIV><A HREF="kwprolog-m-174.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-172.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-168.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading-App">
+<A NAME="pgfId-866035"></A>A.3  Defining Relations</H3>
+<P CLASS="Body">
+<A NAME="pgfId-866036"></A>The normal method of defining relations in Common Prolog is to use the <CODE CLASS="Code">
+defrel</CODE>
+ macro:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866037"></A>(defrel &lt;<EM CLASS="Variable">relation</EM>
+ <EM CLASS="Variable">name</EM>
+&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866038"></A>  [(declare declaration*)]</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866039"></A>    &lt;<EM CLASS="Variable">clause1</EM>
+&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866040"></A>     .</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866041"></A>     .</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866042"></A>    &lt;<EM CLASS="Variable">clauseN</EM>
+&gt;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866043"></A>where each <CODE CLASS="Code">
+&lt;</CODE>
+<EM CLASS="Variable">
+clause</EM>
+<CODE CLASS="Code">
+&gt;</CODE>
+ is of the form:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-866044"></A>(&lt;<EM CLASS="Variable">clause head</EM>
+&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866045"></A> &lt;<EM CLASS="Variable">subgoal1</EM>
+&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866046"></A>    .</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-866047"></A>    .</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-866048"></A> &lt;<EM CLASS="Variable">subgoalN</EM>
+&gt;)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-866049"></A>and declarations may include: <CODE CLASS="Code">
+(mode arg-mode*)</CODE>
+ and any of the normal Lisp optimization declarations. Mode declarations determine how much clause indexing will be done on the predicate and can also streamline generated code for a predicate that will only be used in certain ways. A mode declaration consists of the word &quot;MODE&quot; followed by a mode spec for each argument position of the predicate. The possible argument mode specs are:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-866050"></A><CODE CLASS="Code">
+?</CODE>
+</P>
+<P CLASS="Description-C">Generate completely general code for this arg and don't index on it.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-866051"></A><CODE CLASS="Code">
+?*</CODE>
+</P>
+<P CLASS="Description-C">Generate completely general code and index.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-866052"></A><CODE CLASS="Code">
++</CODE>
+</P>
+<P CLASS="Description-C">Generate code assuming this argument will be bound on entry and index.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-866053"></A><CODE CLASS="Code">
+-</CODE>
+</P>
+<P CLASS="Description-C">Generate code assuming this argument will be unbound on entry and don't index.</P>
+<P CLASS="Body">
+<A NAME="pgfId-866054"></A>The default mode specs are <CODE CLASS="Code">
+?*</CODE>
+ for the first argument and <CODE CLASS="Code">
+?</CODE>
+ for all the rest.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-174.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-172.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-168.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

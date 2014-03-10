@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ mailbox-read
+</TITLE>
+
+<LINK REL="next" HREF="lw-1051.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1049.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1051.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1049.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1693729"></A><A NAME="21302"></A>mailbox<A NAME="marker-1693728"></A>-read</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-938980"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-939226"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-939233"></A>Reads the next object in a mailbox.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-939234"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-939235"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-939236"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-939237"></A>mailbox-read <EM CLASS="Variable">
+mailbox</EM>
+ &amp;optional <EM CLASS="Variable">
+wait-reason</EM>
+ <EM CLASS="Variable">
+timeout</EM>
+ =&gt; <EM CLASS="Variable">
+object</EM>
+, <EM CLASS="Variable">
+flag</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-939238"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-939239"></A><EM CLASS="Variable">
+mailbox</EM>
+</P>
+<P CLASS="RDescription-C">A mailbox.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1098559"></A><EM CLASS="Variable">
+wait-reason</EM>
+</P>
+<P CLASS="RDescription-C">A string or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1098560"></A><EM CLASS="Variable">
+timeout</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative number or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1098561"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-939241"></A><EM CLASS="Variable">
+object</EM>
+</P>
+<P CLASS="RDescription-C">An object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1530528"></A><EM CLASS="Variable">
+flag</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-939242"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-939243"></A>The function <CODE CLASS="Code">
+mailbox-read</CODE>
+ returns the next object from the mailbox <EM CLASS="Variable">
+mailbox</EM>
+, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1099778"></A>If <EM CLASS="Variable">
+mailbox</EM>
+ is empty and <EM CLASS="Variable">
+timeout</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then <CODE CLASS="Code">
+mailbox-read</CODE>
+ blocks until an object is placed in <EM CLASS="Variable">
+mailbox</EM>
+. If <EM CLASS="Variable">
+mailbox</EM>
+ is empty and <EM CLASS="Variable">
+timeout</EM>
+ is a number, then <CODE CLASS="Code">
+mailbox-read</CODE>
+ blocks until an object is placed in <EM CLASS="Variable">
+mailbox</EM>
+ or <EM CLASS="Variable">
+timeout</EM>
+ seconds have passed. If the timeout occurs, then <CODE CLASS="Code">
+mailbox-read</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+ as the first value and also <EM CLASS="Variable">
+flag</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+. If an object is actually read from the mailbox, then <EM CLASS="Variable">
+flag</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1671475"></A>The <EM CLASS="Variable">
+wait-reason</EM>
+ argument defaults to <CODE CLASS="Code">
+&quot;Waiting for message in #&lt;Mailbox...&gt;&quot;</CODE>
+ and will be the value returned by <A HREF="lw-1109.htm#98388" CLASS="XRef">process-whostate</A> while <CODE CLASS="Code">
+mailbox-read</CODE>
+ is blocking.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1099676"></A>The default value of <EM CLASS="Variable">
+timeout</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-939244"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-939245"></A><A HREF="lw-1047.htm#12623" CLASS="XRef">mailbox-empty-p</A><BR>
+<A HREF="lw-1049.htm#36380" CLASS="XRef">mailbox-peek</A><BR>
+<A HREF="lw-1052.htm#37933" CLASS="XRef">mailbox-send</A><BR>
+<A HREF="lw-1053.htm#22144" CLASS="XRef">mailbox-wait-for-event</A><BR>
+<A HREF="lw-1058.htm#37778" CLASS="XRef">make-mailbox</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1051.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1049.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

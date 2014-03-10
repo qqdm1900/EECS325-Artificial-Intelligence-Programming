@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ replace-foreign-object
+</TITLE>
+
+<LINK REL="next" HREF="fli-143.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-141.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-143.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-141.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-914801"></A><A NAME="13343"></A>replace-foreign-object<A NAME="marker-998704"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-897833"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-898640"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-937407"></A>Copies the contents of one foreign object into another.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-937389"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-898641"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-897834"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-897835"></A>replace-foreign-object <EM CLASS="Variable">
+to</EM>
+ <EM CLASS="Variable">
+from</EM>
+ &amp;key <EM CLASS="Variable">
+nelems</EM>
+ =&gt; <EM CLASS="Variable">
+pointer</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920211"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920212"></A><EM CLASS="Variable">
+to</EM>
+</P>
+<P CLASS="RDescription-C">A foreign object or a pointer to a foreign object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933860"></A><EM CLASS="Variable">
+from</EM>
+</P>
+<P CLASS="RDescription-C">A foreign object or a pointer to a foreign object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-933868"></A><EM CLASS="Variable">
+nelems</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920213"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920214"></A><EM CLASS="Variable">
+pointer</P>
+<P CLASS="RDescription-C"></EM>
+A pointer to the object specified by <EM CLASS="Variable">
+from</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920215"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920216"></A>The function<CODE CLASS="Code">
+ replace-foreign-object</CODE>
+ copies the contents of the foreign object specified by <EM CLASS="Variable">
+from</EM>
+ into another foreign object specified by <EM CLASS="Variable">
+to</EM>
+. Block copying on an array of elements can also be performed by specifying the number of elements to copy using the <EM CLASS="Variable">
+nelems</EM>
+ argument.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920217"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920218"></A>In the following object two sets of ten integers are defined. The object <CODE CLASS="Code">
+from-obj</CODE>
+ contains the integers from 0 to 9. The object <CODE CLASS="Code">
+to-obj</CODE>
+ contains random values. The <CODE CLASS="Code">
+replace-foreign-object</CODE>
+ function is then used to copy the contents of <CODE CLASS="Code">
+from-obj</CODE>
+ into <CODE CLASS="Code">
+to-obj</CODE>
+.</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-937291"></A>(setf from-obj</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937258"></A>      (fli:allocate-foreign-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937348"></A>                  :type :int</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937259"></A>                  :nelems 10</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937260"></A>                  :initial-contents</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-937361"></A>                  '(0 1 2 3 4 5 6 7 8 9)))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-937418"></A>(setf to-obj</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937419"></A>      (fli:allocate-foreign-object</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937420"></A>                  :type :int</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-937421"></A>                  :nelems 10 ))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-937414"></A>(fli:replace-foreign-object to-obj from-obj :nelems 10)</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920219"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920220"></A><A HREF="fli-75.htm#29510" CLASS="XRef">allocate-foreign-object</A><BR>
+<A HREF="fli-102.htm#98933" CLASS="XRef">fill-foreign-object</A><BR>
+<A HREF="fli-82.htm#16376" CLASS="XRef">copy-pointer</A><BR>
+<A HREF="fli-126.htm#29578" CLASS="XRef">make-pointer</A><BR>
+<A HREF="fli-141.htm#91488" CLASS="XRef">replace-foreign-array</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-143.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-141.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

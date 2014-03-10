@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-menu
+</TITLE>
+
+<LINK REL="next" HREF="capiref-72.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-70.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-72.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-70.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-890984"></A><A NAME="15943"></A>define<A NAME="marker-4013265"></A>-menu</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-891182"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890988"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1016955"></A>The <CODE CLASS="Code">
+define-menu</CODE>
+ macro defines a menu function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4013247"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4013248"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1016950"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-891116"></A>define-menu <EM CLASS="Variable">
+function-name</EM>
+ (<EM CLASS="Variable">
+self</EM>
+) <EM CLASS="Variable">
+title</EM>
+ <EM CLASS="Variable">
+menu-body</EM>
+ &amp;rest <EM CLASS="Variable">
+menu-options</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890992"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-890994"></A>The macro <CODE CLASS="Code">
+define-menu</CODE>
+ defines a function called <EM CLASS="Variable">
+function-name</EM>
+ with a single argument <EM CLASS="Variable">
+self</EM>
+ that will make a menu. The parameters <EM CLASS="Variable">
+title</EM>
+, <EM CLASS="Variable">
+menu-body</EM>
+ and <EM CLASS="Variable">
+menu-options</EM>
+ take the same form as the <CODE CLASS="Code">
+:menus</CODE>
+ section of <A HREF="capiref-69.htm#25433" CLASS="XRef">define-interface</A>. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-890998"></A>Example</H5>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994925"></A>(capi:define-menu make-test-menu (self)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994926"></A>   &quot;Test&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994927"></A>   (&quot;Item1&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994928"></A>    &quot;Item2&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994929"></A>    (:component</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994930"></A>     (&quot;Item3&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994931"></A>      &quot;Item4&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994932"></A>     :interaction :single-selection)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994933"></A>    (:menu</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994934"></A>     (&quot;Item5&quot; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994935"></A>      &quot;Item6&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994936"></A>     :title &quot;More Items&quot;)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994937"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994938"></A>(setq interface (make-instance 'capi:interface))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994939"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994940"></A>(setf (capi:interface-menu-bar-items interface)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-4994941"></A>      (list (make-test-menu interface)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-5018639"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-891022"></A>(capi:display interface)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891026"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-891028"></A><A HREF="capiref-69.htm#29738" CLASS="XRef">define-interface</A><BR>
+<A HREF="capiref-245.htm#19220" CLASS="XRef">menu</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-72.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-70.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

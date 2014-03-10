@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ lock-owner
+</TITLE>
+
+<LINK REL="next" HREF="lw-1046.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1044.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1046.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1044.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-934464"></A><A NAME="32193"></A>lock<A NAME="marker-1062132"></A>-owner</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-934497"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-934512"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-934522"></A>Returns the owner of a lock.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-934532"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-934733"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-934767"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-934824"></A>lock-owner <EM CLASS="Variable">
+lock</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-934876"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-934898"></A><EM CLASS="Variable">
+lock</P>
+<P CLASS="RDescription-C"></EM>
+A lock object</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-934922"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-934944"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A process, <CODE CLASS="Code">
+t</CODE>
+ or <CODE CLASS="Code">
+:unknown</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-934968"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-934994"></A>The function <CODE CLASS="Code">
+lock-owner</CODE>
+ returns the process that currently owns the lock, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1310396"></A>If lock is a &quot;sharing&quot; lock then <CODE CLASS="Code">
+lock-owner</CODE>
+ checks for an exclusive lock (see <A HREF="lw-1041.htm#49124" CLASS="XRef">lock-owned-by-current-process-p</A>).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1203335"></A>If <EM CLASS="Variable">
+lock</EM>
+ is locked then <EM CLASS="Variable">
+result</EM>
+ is normally the process that locked it. If <EM CLASS="Variable">
+lock</EM>
+ was locked while multiprocessing was not running then <EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+. Also, if <EM CLASS="Variable">
+lock</EM>
+ was locked by an unknown process (for example, the process is killed whilst holding the lock) then <EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+:unknown</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1206231"></A><EM CLASS="Variable">
+result</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ if <EM CLASS="Variable">
+lock</EM>
+ is not locked.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-935319"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1207107"></A>CL-USER 1 &gt; (let ((lock (mp:make-lock :name</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1207108"></A>                                      &quot;my lock&quot;)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1207109"></A>              (mp:lock-owner lock))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1207110"></A>NIL</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1207111"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1207112"></A>CL-USER 2 &gt; (let ((lock (mp:make-lock :name</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1207113"></A>                                      &quot;my lock&quot;)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1207114"></A>              (mp:with-lock (lock)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1207115"></A>                (mp:lock-owner lock)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1207116"></A>#&lt;MP:PROCESS Name &quot;CAPI Execution Listener 1&quot; Priority 0 State &quot;Running&quot;&gt;</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-936416"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-936424"></A><A HREF="lw-1041.htm#49124" CLASS="XRef">lock-owned-by-current-process-p</A><BR>
+<A HREF="lw-1057.htm#93763" CLASS="XRef">make-lock</A><BR>
+<A HREF="lw-1136.htm#15843" CLASS="XRef">with-lock</A><BR>
+<A HREF="lw-1081.htm#89516" CLASS="XRef">process-lock</A><BR>
+<A HREF="lw-1099.htm#96257" CLASS="XRef">process-unlock</A><BR>
+<A HREF="lw-1044.htm#27302" CLASS="XRef">lock-name</A><BR>
+<A HREF="lw-1041.htm#49124" CLASS="XRef">lock-owned-by-current-process-p</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1046.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1044.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

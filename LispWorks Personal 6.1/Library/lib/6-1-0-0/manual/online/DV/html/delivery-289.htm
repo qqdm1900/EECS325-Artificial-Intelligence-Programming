@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 13.6.1  Referencing types via methods
+</TITLE>
+
+<LINK REL="next" HREF="delivery-290.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-288.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-288.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-282.htm">13 Efficiency considerations when coding for delivery</A> &gt; <A HREF="delivery-288.htm">13.6  Avoid referencing type names</A><BR><BR>
+</DIV><A HREF="delivery-290.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-288.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-288.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-865061"></A>13.6.1  <A NAME="76293"></A>Referencing types via methods</H3>
+<P CLASS="Body">
+<A NAME="pgfId-865089"></A>Code can reference type names either directly as shown in <A HREF="delivery-288.htm#29114" CLASS="XRef">Avoid referencing type names</A> or via <CODE CLASS="Code">
+type-of</CODE>
+ in code like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-865090"></A>(defun foo (x)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865091"></A>  (let ((type (type-of x)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865092"></A>    (cond ((eq type 'class1) ...)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865093"></A>          ((eq type 'class2) ...)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-865094"></A>          ...</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-865095"></A>          ((eq type 'class1000) ...))))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-864924"></A>Instead, you could express the conditional clauses as methods specialized for each class:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-864925"></A>(defmethod foo ((x class1)) ...)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864926"></A>(defmethod foo ((x class2)) ...)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-864952"></A>...</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-864955"></A>(defmethod foo ((x class1000)) ...)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-861425"></A>This would allow any unused classes to be removed by delivery, because each method is a separate function.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-290.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-288.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-288.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

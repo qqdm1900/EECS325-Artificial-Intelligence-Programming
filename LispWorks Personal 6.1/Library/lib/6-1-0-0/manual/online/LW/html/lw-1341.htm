@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ call-system
+</TITLE>
+
+<LINK REL="next" HREF="lw-1342.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1340.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1342.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1340.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-920421"></A><A NAME="26978"></A>call<A NAME="marker-1030217"></A>-system</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-920422"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920424"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-920425"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920426"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-920427"></A>call-system <EM CLASS="Variable">
+command</EM>
+ &amp;key <EM CLASS="Variable">
+current-directory</EM>
+ <EM CLASS="Variable">
+wait</EM>
+ <EM CLASS="Variable">
+shell-type</EM>
+ =&gt; <EM CLASS="Variable">
+status</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920428"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-920429"></A><EM CLASS="Variable">
+command</EM>
+</P>
+<P CLASS="RDescription-C">A string, a list of strings, a simple-vector of strings, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1008978"></A><EM CLASS="Variable">
+current-directory</EM>
+</P>
+<P CLASS="RDescription-C">A string. Implemented only on Microsoft Windows.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1008979"></A><EM CLASS="Variable">
+wait</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039574"></A><EM CLASS="Variable">
+shell-type</EM>
+</P>
+<P CLASS="RDescription-C">A string or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-944900"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-944901"></A><EM CLASS="Variable">
+status</EM>
+</P>
+<P CLASS="RDescription-C">The exit status of the invoked shell or process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-945433"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-945436"></A><CODE CLASS="Code">
+call-system</CODE>
+ allows executables and DOS<A NAME="marker-1008989"></A> or Unix<A NAME="marker-1008990"></A> shell commands to be called from Lisp code. The output goes to standard output, as the operating system sees it. (This normally means <CODE CLASS="Code">
+*terminal-io*</CODE>
+ in LispWorks.)</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1213596"></A><A NAME="marker-1343767"></A>If <EM CLASS="Variable">
+command</EM>
+ is a string then it is passed to the shell as the command to run without any other arguments. The type of shell to run is determined by <EM CLASS="Variable">
+shell-type</EM>
+ as described below.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1225561"></A><A NAME="marker-1343766"></A>If <EM CLASS="Variable">
+command</EM>
+ is a list then it becomes the argv of a command to run directly, without invoking a shell. The first element is the command to run directly and the other elements are passed as arguments on the command line (that is, element 0 has its name in argv[0] in C, and so on).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1600437"></A>If <EM CLASS="Variable">
+command</EM>
+ is a simple vector of strings, the element at index 0 is the command to run directly, without invoking a shell. The other elements are the complete set of arguments seen by the command (that is, element 1 becomes argv[0] in C, and so on).</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1614000"></A>If <EM CLASS="Variable">
+command</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, then the shell is run.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1614001"></A><A NAME="marker-1620037"></A>On Microsoft Windows, if <EM CLASS="Variable">
+command</EM>
+ is a string, LispWorks hides the first window of the execution of the command, because that is the console that <CODE CLASS="Code">
+cmd.exe</CODE>
+ starts in a DOS window. If the command itself is a console application, you may want to see the console. In this case run the command as a direct command. To do this, pass a list or a vector as described above. Conversely, if you run a console application and do not want to see the console, pass the command as a string.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1009002"></A>On Microsoft Windows <EM CLASS="Variable">
+current-directory</EM>
+ is the <EM CLASS="Variable">
+lpCurrentDirectory</EM>
+ argument passed to <CODE CLASS="Code">
+CreateProcess</CODE>
+. If this is not supplied, the <A HREF="lw-951.htm#29524" CLASS="XRef">pathname-location</A> of the <A HREF="lw-894.htm#current-pathname" CLASS="XRef">current-pathname</A> is passed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1009003"></A>If <EM CLASS="Variable">
+wait</EM>
+ is true, <CODE CLASS="Code">
+call-system</CODE>
+ does not return until the process has exited. The default for <EM CLASS="Variable">
+wait</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1040307"></A>On Unix/Linux/Mac OS X/FreeBSD, if <EM CLASS="Variable">
+shell-type</EM>
+ is a string it specifies the shell. If <EM CLASS="Variable">
+shell-type</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ (the default) then the Bourne shell,<CODE CLASS="Code">
+ /bin/sh</CODE>
+, is used. The C shell may be obtained by passing <CODE CLASS="Code">
+&quot;/bin/csh&quot;</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1224197"></A>On Microsoft Windows if <EM CLASS="Variable">
+shell-type</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ then <CODE CLASS="Code">
+cmd.exe</CODE>
+ is used on Windows 7, Windows Vista, Windows XP and Windows 2000 and <CODE CLASS="Code">
+command.com</CODE>
+ on Windows 98 and Windows ME.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-945686"></A><CODE CLASS="Code">
+call-system</CODE>
+ returns the exit status of the shell invoked to execute the command on Unix/Linux/Mac OS X, or the process created on Microsoft Windows.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1224223"></A>Compatibility note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1225445"></A>The argument <CODE CLASS="Code">
+:shell-type</CODE>
+ is not implemented in LispWorks for Windows 4.4 and earlier, and <CODE CLASS="Code">
+cmd.exe</CODE>
+ is not used implicitly.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1260285"></A><A NAME="marker-1620039"></A>On Microsoft Windows, LispWorks 5.0 and later use <EM CLASS="Variable">
+shell-type</EM>
+ <CODE CLASS="Code">
+cmd.exe</CODE>
+ (or <CODE CLASS="Code">
+command.com</CODE>
+) by default when <EM CLASS="Variable">
+command</EM>
+ is a string. In LispWorks 5.x the user may see a DOS command window in this case, but LispWorks 6.0 and later explictly hide the DOS window. To call your command directly <EM CLASS="Variable">
+command</EM>
+ should be a list, as in the last example below.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920438"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1009013"></A>On Unix:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1021064"></A>(call-system (format nil &quot;adb &#126;a &lt; &#126;a &gt; &#126;a&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009014"></A>                (namestring   a)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1009015"></A>                (namestring   b)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1009016"></A>                (namestring   c)))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-1009017"></A>On Microsoft Windows:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1021088"></A>(sys:call-system &quot;sleep 3&quot; :wait t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1268213"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1269606"></A>(sys:call-system '(&quot;notepad&quot; &quot;myfile.txt&quot;))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-920443"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-920447"></A><A HREF="lw-1411.htm#15712" CLASS="XRef">open-pipe</A><BR>
+<A HREF="lw-1342.htm#20692" CLASS="XRef">call-system-showing-output</A><BR>
+<A HREF="lw-1420.htm#31535" CLASS="XRef">run-shell-command</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1342.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1340.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

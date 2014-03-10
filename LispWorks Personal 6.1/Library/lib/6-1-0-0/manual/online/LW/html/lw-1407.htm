@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ marking-gc
+</TITLE>
+
+<LINK REL="next" HREF="lw-1408.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1406.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1408.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1406.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1170895"></A><A NAME="28021"></A>marking<A NAME="marker-1170894"></A>-gc</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1170896"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1170897"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1170898"></A>Performs a Marking GC in 64-bit LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1170899"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1170900"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171389"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1179390"></A>marking-gc <EM CLASS="Variable">
+gen-num</EM>
+ &amp;key <EM CLASS="Variable">
+what-to-copy</EM>
+ <EM CLASS="Variable">
+max-size</EM>
+ <EM CLASS="Variable">
+max-size-to-copy</EM>
+ <EM CLASS="Variable">
+fragmentation-threshold</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1171422"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1171458"></A><EM CLASS="Variable">
+gen-num</EM>
+</P>
+<P CLASS="RDescription-C">An integer in the inclusive range [0,7].</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180343"></A><EM CLASS="Variable">
+what-to-copy</P>
+<P CLASS="RDescription-C"></EM>
+One of the keywords <CODE CLASS="Code">
+:cons</CODE>
+, <CODE CLASS="Code">
+:symbol</CODE>
+, <CODE CLASS="Code">
+:function</CODE>
+, <CODE CLASS="Code">
+:non-pointer</CODE>
+, <CODE CLASS="Code">
+:other</CODE>
+, <CODE CLASS="Code">
+:weak</CODE>
+, <CODE CLASS="Code">
+:all</CODE>
+ or <CODE CLASS="Code">
+:default</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1180344"></A><EM CLASS="Variable">
+max-size-to-copy</P>
+<P CLASS="RDescription-C"></EM>
+A positive number or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1343782"></A><EM CLASS="Variable">
+max-size</P>
+<P CLASS="RDescription-C"></EM>
+A synonym for <EM CLASS="Variable">
+max-size-to-copy</EM>
+.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1180365"></A><EM CLASS="Variable">
+fragmentation-threshold</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1180701"></A>A number in the inclusive range [0, 10].</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1170908"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1178751"></A>The function <CODE CLASS="Code">
+marking-gc</CODE>
+ garbage collects (GCs) the generation specified by <EM CLASS="Variable">
+gen-num, </EM>
+and all younger generations. It uses mark and sweep, rather than copy.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1178753"></A>Mark and sweep garbage collection uses less virtual memory during its operation, but leaves the memory fragmented, which has a detrimental effect on the performance of the system afterwards. It is therefore not used automatically by the system, except to garbage collect static objects.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1178754"></A><CODE CLASS="Code">
+marking-gc</CODE>
+ is useful when you want to GC a generation which contains large amount (gigabytes) of data, to make sure there are no spurious pointers from this generation to a younger generation, and you do not expect many objects in the large generation to be collected. In this scenario, a Copying GC would use virtual memory which is almost double the size of the large generation during its operation, and so would possibly cause heavy paging.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1346311"></A>Marking GC causes fragmentation. You can reduce the amount of fragmentation by supplying either (or both) of the arguments <EM CLASS="Variable">
+what-to-copy</EM>
+ and <EM CLASS="Variable">
+max-size-to-copy</EM>
+. These specify that part of the data should be collected by copying instead. Using some copying GC rather than mark and sweep will reduce the amount of fragmentation.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1180665"></A><EM CLASS="Variable">
+what-to-copy</EM>
+ specifies the allocation type to copy. It can be one of the main allocation types or <CODE CLASS="Code">
+:weak</CODE>
+, meaning copy only objects in segments of that type. <EM CLASS="Variable">
+what-to-copy</EM>
+ can also be <CODE CLASS="Code">
+:all</CODE>
+, meaning copy objects in all segments. If <EM CLASS="Variable">
+what-to-copy</EM>
+ is <CODE CLASS="Code">
+:default</CODE>
+ then each call to <CODE CLASS="Code">
+marking-gc</CODE>
+ chooses one of the main allocation types or <CODE CLASS="Code">
+:weak</CODE>
+ to copy, and successive calls with <CODE CLASS="Code">
+:default</CODE>
+ cycle through these allocation types.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1180902"></A><EM CLASS="Variable">
+max-size-to-copy</EM>
+ can be used to limit the amount that is copied, and thus limit the virtual memory that the operation needs. If <EM CLASS="Variable">
+max-size-to-copy</EM>
+ is non-nil, it specifies the limit, in gigabytes, of memory that can be used for copying. If there is more than <EM CLASS="Variable">
+max-size-to-copy </EM>
+gigabytes of data of the type <EM CLASS="Variable">
+what-to-copy</EM>
+, the rest of this data is garbage collected by marking. The default value of <EM CLASS="Variable">
+max-size-to-copy</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, which means there is no limit on the amount that is copied.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1178757"></A><EM CLASS="Variable">
+fragmentation-threshold</EM>
+ should be a number between 0 and 10. It specifies a minimum ratio between the free area in a segment that cannot be easily used for more allocation and the allocated area in this segment. Segments that are below this threshold are not copied. The default value of <EM CLASS="Variable">
+fragmentation-threshold</EM>
+ is 1.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1179201"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1656309"></A><CODE CLASS="Code">
+marking-gc</CODE>
+ is implemented only in 64-bit LispWorks. It is not relevant to the Memory Management API in 32-bit implementations.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1170910"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1170914"></A><A HREF="lw-797.htm#55872" CLASS="XRef">gc-generation</A><BR>
+<A HREF="lw-1423.htm#33314" CLASS="XRef">set-blocking-gen-num</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1408.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1406.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

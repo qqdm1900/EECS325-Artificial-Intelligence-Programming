@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ process-kill
+</TITLE>
+
+<LINK REL="next" HREF="lw-1081.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1079.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1081.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1079.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-886602"></A><A NAME="65256"></A>process<A NAME="marker-1059695"></A>-kill</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-886604"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-902311"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-902328"></A>Kills the specified Lisp process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886606"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886607"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886608"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-886609"></A>process-kill <EM CLASS="Variable">
+process</EM>
+ =&gt; </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-903490"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-910026"></A><EM CLASS="Variable">
+process</EM>
+</P>
+<P CLASS="RDescription-C">A process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-906730"></A>Values</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-906835"></A>None.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1172255"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1172407"></A>The function <CODE CLASS="Code">
+process-kill</CODE>
+ kills the specified Lisp process.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1806390"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-1806391"></A><CODE CLASS="Code">
+process-kill</CODE>
+ works by interrupting the process. Therefore the kill will happen only when the process is processing interrupts. If <CODE CLASS="Code">
+process-kill</CODE>
+ is called while the process is in a no-interrupt context, the killing will actually happen when the process exits that no-interrupt context.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-1806392"></A>If the killing happens inside the cleanup forms of <CODE CLASS="Code">
+unwind-protect</CODE>
+, it may terminate a cleanup in the middle. It is possible to protect against this by doing all cleanups with interrupts disallowed, but that is not easy. Thus <CODE CLASS="Code">
+process-kill</CODE>
+ may be problematic, and should be avoided when possible. Whenever possible, make your processes check some flag that can be set by other threads and exit when the flag is set to some value.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-886612"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-886614"></A><A HREF="lw-1027.htm#53687" CLASS="XRef">ensure-process-cleanup</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1081.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1079.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

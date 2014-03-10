@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 1.3.7  Invoking a method that returns values by reference
+</TITLE>
+
+<LINK REL="next" HREF="objc-18.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-16.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-10.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-3.htm">1 Introduction to the Objective-C Interface</A> &gt; <A HREF="objc-10.htm">1.3  Invoking Objective-C methods</A><BR><BR>
+</DIV><A HREF="objc-18.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-16.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-894119"></A>1.3.7  Invoking a method that returns values by reference</H3>
+<P CLASS="Body">
+<A NAME="pgfId-894213"></A>Values are returned by reference in Objective-C by passing a pointer to memory where the result should be stored, just like in the C language. The Objective-C interface in Lisp works similarly, using the standard FLI constructs for this.</P>
+<P CLASS="Body">
+<A NAME="pgfId-894217"></A>For example, an Objective-C method declared as</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-894200"></A>- (void)getValueInto:(int *)result;</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-894147"></A>might called from Objective-C like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-894149"></A>int getResult(MyObject *object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894150"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894151"></A>  int result;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894152"></A>  [object getValueInto:&amp;result];</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894153"></A>  return result;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-894154"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-894156"></A>The equivalent call from Lisp can be made like this:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-894158"></A>(defun get-result (object)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894159"></A>  (fli:with-dynamic-foreign-objects ((result-value :int))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-894160"></A>    (objc:invoke object &quot;getValueInto:&quot; result-value)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-894161"></A>    (fli:dereference result-value)))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-894254"></A>The same technique applies to in/out arguments, but adding code to initialize the dynamic foreign object before calling the method.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-18.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-16.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-10.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

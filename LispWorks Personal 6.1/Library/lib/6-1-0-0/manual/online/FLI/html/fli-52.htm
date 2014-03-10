@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.2.7  Foreign string line terminators
+</TITLE>
+
+<LINK REL="next" HREF="fli-53.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-51.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-45.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A> &gt; <A HREF="fli-45.htm">4.2  Modifying, passing and returning strings</A><BR><BR>
+</DIV><A HREF="fli-53.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-51.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888897"></A>4.2.7  Foreign string line terminators</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888901"></A>You can specify the line terminator in foreign string conversions via the <CODE CLASS="Code">
+:eol-style</CODE>
+ parameter in the <EM CLASS="Variable">
+external-format</EM>
+ argument.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888904"></A>By default foreign strings are assumed to have lines terminated according to platform conventions: Linefeed on Unix/Linux/MacOS, and Carriage-Return followed by Linefeed on Windows. That is, <EM CLASS="Variable">
+eol-style</EM>
+ defaults to <CODE CLASS="Code">
+:lf</CODE>
+ and <CODE CLASS="Code">
+:crlf</CODE>
+ respectively. This means that unless you take care to specify the external format <CODE CLASS="Code">
+:eol-style</CODE>
+ parameter, you may get unexpected string length when returning a Lisp string.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888933"></A>Consider the following C code example on Windows:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888971"></A>#include &lt;string.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888972"></A>#include &lt;stdlib.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888973"></A>#include &lt;stdio.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888941"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888942"></A>__declspec(dllexport) int __cdecl crlf_string(int length, char *string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888943"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888944"></A>  int ii;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888945"></A>  int jj;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888946"></A>  for (ii = 0; ii &lt; length ; ii++)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888947"></A>       if (ii % 3 == 1) {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888948"></A>         string[ii] = 10;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888949"></A>         printf(&quot;%d&#92;n&quot;, ii);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888950"></A>        } else</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888951"></A>       if ((ii &gt; 0) &amp;&amp; (ii % 3 == 0)) {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888952"></A>         string[ii] = 13;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888953"></A>         printf(&quot;%d&#92;n&quot;, ii);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888954"></A>        } else</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888955"></A>       if (ii % 3 == 2) {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888956"></A>         string[ii] = 97 + rand() % 26 ;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888957"></A>         printf(&quot;%d&#92;n&quot;, ii);</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888958"></A>        }</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888959"></A>  string[length] = 0;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888960"></A>  return length;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888961"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888964"></A>Call this C function from Lisp:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888984"></A>(fli:define-foreign-function (crlf-string </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888989"></A>                              &quot;crlf_string&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888990"></A>                              :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888991"></A>   ((length :int)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888992"></A>    (return-string (:reference-return </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888993"></A>                    (:ef-mb-string </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888994"></A>                     :limit 256</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888995"></A>                     :external-format :latin-1))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888996"></A> :lambda-list (length &amp;aux return-string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888997"></A> :calling-convention :cdecl</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888998"></A> :result-type :int)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888999"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889000"></A>(multiple-value-bind (length string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889001"></A>                   (crlf-string 99)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889002"></A>                 (format t &quot;&#126;&amp;C length &#126;D, Lisp string length &#126;D&#126;%&quot; length (length string)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889003"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889004"></A>C length 99, Lisp string length 67</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889077"></A>Each two character CR LF sequence in the foreign string has been mapped to a single LF character in the Lisp string. If you want to return a Lisp string and not do line terminator conversion, then you must specify the <EM CLASS="Variable">
+eol-style</EM>
+ as in this example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-889079"></A>(fli:define-foreign-function (crlf-string </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889009"></A>                              &quot;crlf_string&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889010"></A>                              :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889011"></A>   ((length :int)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889012"></A>    (return-string (:reference-return </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889013"></A>                    (:ef-mb-string </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889014"></A>                     :limit 256</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889015"></A>                     :external-format (:latin-1 :eol-style :lf)))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889016"></A> :lambda-list (length &amp;aux return-string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889017"></A> :calling-convention :cdecl</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889018"></A> :result-type :int)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889019"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889020"></A>(multiple-value-bind (length string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889021"></A>                   (crlf-string 99)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889022"></A>                 (format t &quot;&#126;&amp;C length &#126;D, Lisp string length &#126;D&#126;%&quot; length (length string)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889023"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-889024"></A>C length 99, Lisp string length 99</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-53.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-51.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

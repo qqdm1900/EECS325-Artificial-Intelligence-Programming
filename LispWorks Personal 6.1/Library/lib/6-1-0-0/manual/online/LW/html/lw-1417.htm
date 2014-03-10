@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ *print-symbols-using-bars*
+</TITLE>
+
+<LINK REL="next" HREF="lw-1418.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1416.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1330.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1330.htm">40 The SYSTEM Package</A><BR><BR>
+</DIV><A HREF="lw-1418.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1416.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1164933"></A>*print<A NAME="marker-1164932"></A>-symbols-using-bars*</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1164934"></A>Variable</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1164935"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1164936"></A>Controls how escaping is done when symbols are printed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1164937"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1164938"></A>system</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1164939"></A>Initial Value</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1164940"></A><CODE CLASS="Code">
+nil</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1164941"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1164942"></A>The variable <CODE CLASS="Code">
+*print-symbols-using-bars*</CODE>
+ controls how escaping is done when symbols are printed.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1165190"></A>When the value is true, printing symbols that must be escaped (for example, those with names containing the colon character <CODE CLASS="Code">
+:</CODE>
+) is done using the bar character <CODE CLASS="Code">
+|</CODE>
+ instead of the backslash character <CODE CLASS="Code">
+&#92;</CODE>
+ in cases when the readtable case and <CODE CLASS="Code">
+*print-case*</CODE>
+ are both <CODE CLASS="Code">
+:upcase</CODE>
+ or both <CODE CLASS="Code">
+:downcase</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1166670"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1167073"></A>CL-USER 1 &gt; readtable-case *readtable*</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1167074"></A>:UPCASE</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1167115"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1166671"></A>CL-USER 2 &gt; (let ((sys:*print-symbols-using-bars* t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1166672"></A>                    (*print-case* :upcase))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1166673"></A>                (print (intern &quot;FOO:BAR&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1166674"></A>                (values))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1166675"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1166676"></A>|FOO:BAR| </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1166677"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1166678"></A>CL-USER 3 &gt; (let ((sys:*print-symbols-using-bars* t)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1166679"></A>                    (*print-case* :downcase))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1166680"></A>                (print (intern &quot;FOO:BAR&quot;))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1166681"></A>                (values))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1166682"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1166683"></A>foo&#92;:bar </PRE>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1418.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1416.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1330.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 22.2.3  String types
+</TITLE>
+
+<LINK REL="next" HREF="lw-490.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-488.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-486.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-484.htm">22 Internationalization</A> &gt; <A HREF="lw-486.htm">22.2  Character and String types</A><BR><BR>
+</DIV><A HREF="lw-490.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-488.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-486.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888948"></A>22.2.3  String types</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888949"></A><A NAME="marker-890564"></A>String types are supplied which are capable of holding each of the character types mentioned above. The following string types are defined:</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889137"></A><CODE CLASS="Code">
+<A HREF="lw-631.htm#37648" CLASS="XRef">base-string</A></P>
+<P CLASS="Description-C"></CODE>
+<A NAME="marker-891929"></A>holds any <CODE CLASS="Code">
+base-char</CODE>
+</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-889139"></A><CODE CLASS="Code">
+</CODE>
+<A NAME="marker-891934"></A><A HREF="lw-979.htm#82128" CLASS="XRef">text-string</A></P>
+<P CLASS="Description-C">holds any <A HREF="lw-969.htm#63582" CLASS="XRef">simple-char</A></P>
+<P CLASS="Description">
+<A NAME="pgfId-889252"></A><CODE CLASS="Code">
+<A HREF="lw-1337.htm#71194" CLASS="XRef">augmented-string</A></CODE>
+<A NAME="marker-891939"></A></P>
+<P CLASS="Description-C">
+<A NAME="pgfId-889271"></A>holds any <CODE CLASS="Code">
+character</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-889319"></A>In particular, <A HREF="lw-979.htm#82128" CLASS="XRef">text-string</A> is the type that can hold all characters used in texts. The types above include non-simple strings - those which are displaced, adjustable or with a fill-pointer.</P>
+<P CLASS="Body">
+<A NAME="pgfId-896046"></A>The Common Lisp type <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-896039"></A><A HREF="lw-673.htm#85954" CLASS="XRef">string</A> itself is dependent on the value of <CODE CLASS="Code">
+</CODE>
+<A NAME="marker-896043"></A><A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A> according to the rules for string construction described in <A HREF="lw-493.htm#53341" CLASS="XRef">String Construction</A>. For example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-896051"></A>CL-USER 1 &gt; (<A NAME="marker-896056"></A>set-default-character-element-type 'base-char)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896052"></A>BASE-CHAR</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-891858"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896350"></A>CL-USER 2 &gt; (coerce (list #&#92;Ideographic-Space) 'string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896351"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896352"></A>Error: #&#92;Ideographic-Space is not of type BASE-CHAR.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896353"></A>  1 (abort) Return to level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896354"></A>  2 Return to top loop level 0.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896355"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896356"></A>Type :b for backtrace or :c &lt;option number&gt; to proceed.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896357"></A>Type :bug-form &quot;&lt;subject&gt;&quot; for a bug report template or :? for other options.</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896358"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896359"></A>CL-USER 3 : 1 &gt; :a</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896360"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896361"></A>CL-USER 4 &gt; (set-default-character-element-type 'simple-char)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896362"></A>SIMPLE-CHAR</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896363"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-896364"></A>CL-USER 5 &gt; (coerce (list #&#92;Ideographic-Space) 'string)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-896337"></A>&quot; &quot;</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-889322"></A>The following types are subtypes of <CODE CLASS="Code">
+simple-string.</CODE>
+Note that in the names of the string types, 'simple' refers to the string object and does not mean that the string's elements are <CODE CLASS="Code">
+simple-char</CODE>
+s.</P>
+<P CLASS="Description">
+<A NAME="pgfId-889336"></A><CODE CLASS="Code">
+<A HREF="lw-667.htm#10180" CLASS="XRef">simple-base-string</A></CODE>
+<A NAME="marker-893644"></A></P>
+<P CLASS="Description-C">
+<A NAME="pgfId-889342"></A>holds any <CODE CLASS="Code">
+base-char</CODE>
+</P>
+<P CLASS="Description">
+<A NAME="pgfId-889337"></A><CODE CLASS="Code">
+<A HREF="lw-971.htm#58132" CLASS="XRef">simple-text-string</A></CODE>
+<A NAME="marker-894120"></A></P>
+<P CLASS="Description-C">
+<A NAME="pgfId-889346"></A>holds any <CODE CLASS="Code">
+simple-char</CODE>
+</P>
+<P CLASS="Description">
+<A NAME="pgfId-889338"></A><CODE CLASS="Code">
+<A HREF="lw-1437.htm#85884" CLASS="XRef">simple-augmented-string</A></CODE>
+<A NAME="marker-894130"></A></P>
+<P CLASS="Description-C">
+<A NAME="pgfId-889339"></A>holds any character.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891887"></A>The Common Lisp type <CODE CLASS="Code">
+simple-string</CODE>
+<A NAME="marker-891953"></A> itself is dependent on the value of <A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A> according to the rules for string construction described in <A HREF="lw-493.htm#53341" CLASS="XRef">String Construction</A>.</P>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-490.htm#pgfId-893335" CLASS="Hypertext">22.2.3.1  String types at runtime</A></H4>
+<H4 CLASS="FM3HeadingTOC">
+<A HREF="lw-491.htm#pgfId-893425" CLASS="Hypertext">22.2.3.2  String types at compile time</A></H4>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-490.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-488.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-486.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

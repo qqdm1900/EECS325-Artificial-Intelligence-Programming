@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="kwprolog-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ deftactic
+</TITLE>
+
+<LINK REL="next" HREF="kwprolog-m-121.htm" TYPE="text/html">
+<LINK REL="prev" HREF="kwprolog-m-119.htm" TYPE="text/html">
+<LINK REL="up" HREF="kwprolog-m-104.htm" TYPE="text/html">
+<LINK REL="top" HREF="kwprolog-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="kwprolog-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="kwprolog-m-232.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="kwprolog-m.htm">KnowledgeWorks and Prolog User Guide</A> &gt; <A HREF="kwprolog-m-104.htm">7 Reference Guide</A><BR><BR>
+</DIV><A HREF="kwprolog-m-121.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-119.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-891920"></A><A NAME="marker-891919"></A><A NAME="11608"></A>deftactic</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-891922"></A><A NAME="deftactic"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1013718"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1013719"></A>Defines a tactic function for use in context strategies.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891923"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-891924"></A>deftactic <EM CLASS="Variable">
+tactic-name</EM>
+ <EM CLASS="Variable">
+type</EM>
+ <EM CLASS="Variable">
+lambda-list</EM>
+ &amp;body <EM CLASS="Variable">
+body</EM>
+ =&gt; <EM CLASS="Variable">
+tactic-name</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891925"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-891926"></A><EM CLASS="Variable">
+tactic-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-957648"></A><EM CLASS="Variable">
+type</EM>
+</P>
+<P CLASS="RDescription-C">Either <CODE CLASS="Code">
+:static</CODE>
+ or <CODE CLASS="Code">
+:dynamic</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-957702"></A><EM CLASS="Variable">
+lambda-list</EM>
+</P>
+<P CLASS="RDescription-C">A two argument lambda list.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-957743"></A><EM CLASS="Variable">
+body</EM>
+</P>
+<P CLASS="RDescription-C">A function body.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-957616"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-957617"></A><EM CLASS="Variable">
+tactic-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891927"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-891928"></A>Defines a new conflict resolution <A NAME="marker-958407"></A>tactic named <EM CLASS="Variable">
+tactic-name</EM>
+. The <EM CLASS="Variable">
+type</EM>
+ of the tactic may be <CODE CLASS="Code">
+:static</CODE>
+ if the body does not look into the slots of the objects making up the instantiation, otherwise <CODE CLASS="Code">
+:dynamic</CODE>
+. The <EM CLASS="Variable">
+lambda-list</EM>
+ binds to two instantiation objects and the function body <EM CLASS="Variable">
+body</EM>
+ should return non-nil if and only if the first instantiation object is preferred to the second. <CODE CLASS="Code">
+deftactic</CODE>
+ also defines a function of the same and <EM CLASS="Variable">
+body</EM>
+ can be preceded by a <A NAME="marker-958395"></A>documentation string.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-891929"></A>The newly defined tactic may be used as any in-built tactic.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891932"></A>Examples</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-891933"></A>(deftactic prefer-trucks :static (inst1 inst2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891934"></A>  (flet ((truck-p (obj) (typep obj 'truck)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-891935"></A>    (and (some #'truck-p (inst-token inst1))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-891936"></A>      (notany #'truck-p (inst-token inst2)))))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-891937"></A>The new tactic may be used in a <CODE CLASS="Code">
+defcontext</CODE>
+ form:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-891938"></A>(defcontext my-context :strategy (prefer-trucks))</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-891939"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-891941"></A><A HREF="kwprolog-m-132.htm#42212" CLASS="XRef">inst-bindings</A><BR>
+<A HREF="kwprolog-m-134.htm#21449" CLASS="XRef">inst-token</A><BR>
+<A HREF="kwprolog-m-133.htm#33350" CLASS="XRef">inst-rulename</A><BR>
+<A HREF="kwprolog-m-118.htm#22794" CLASS="XRef">defcontext</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">KnowledgeWorks and Prolog User Guide (Macintosh version) - 6 Dec 2011</I></P>
+<P><A HREF="kwprolog-m-121.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="kwprolog-m-119.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="kwprolog-m-104.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="kwprolog-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="kwprolog-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="kwprolog-m-232.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ open
+</TITLE>
+
+<LINK REL="next" HREF="lw-660.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-658.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-628.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-628.htm">27 The COMMON-LISP Package</A><BR><BR>
+</DIV><A HREF="lw-660.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-658.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1039952"></A><A NAME="39723"></A>open<A NAME="marker-1039951"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1039953"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039954"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039955"></A>Creates, opens, and returns a file stream that is connected to a specified file.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039956"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039957"></A>common-lisp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039958"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1039959"></A>open <EM CLASS="Variable">
+filespec</EM>
+ &amp;key <EM CLASS="Variable">
+direction element-type external-format if-exists if-does-not-exist</EM>
+ =&gt; <EM CLASS="Variable">
+stream</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039960"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039961"></A><EM CLASS="Variable">
+filespec</EM>
+</P>
+<P CLASS="RDescription-C">A file designator.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039962"></A><EM CLASS="Variable">
+direction</EM>
+</P>
+<P CLASS="RDescription-C">If <EM CLASS="Variable">
+direction</EM>
+ is <CODE CLASS="Code">
+:probe</CODE>
+, <EM CLASS="Variable">
+external-format</EM>
+ is ignored. The element type and external format of the returned stream are undefined.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039965"></A><EM CLASS="Variable">
+element-type</EM>
+</P>
+<P CLASS="RDescription-C">By default, the value of <A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A> (the ANSI standard default is <CODE CLASS="Code">
+character</CODE>
+). </P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039967"></A><EM CLASS="Variable">
+external-format</EM>
+</P>
+<P CLASS="RDescription-C">An external file format designator. By default, this is <CODE CLASS="Code">
+:default</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039968"></A><EM CLASS="Variable">
+if-exists</EM>
+</P>
+<P CLASS="RDescription-C">What to do if the file stream already exists. The possible values for this are as in the ANSI standard.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039969"></A><EM CLASS="Variable">
+if-does-not-exist</EM>
+</P>
+<P CLASS="RDescription-C">What to do if the file stream does not already exist. The possible values for this are as in the ANSI standard.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039970"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1039971"></A><EM CLASS="Variable">
+stream</EM>
+</P>
+<P CLASS="RDescription-C">A file stream, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039972"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039973"></A>If <EM CLASS="Variable">
+external-format</EM>
+ has a name which is not <CODE CLASS="Code">
+:default</CODE>
+ and the parameters include <CODE CLASS="Code">
+:eol-style</CODE>
+, it is used as is.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039974"></A>Otherwise, the system decides which external format to use via <A HREF="lw-1384.htm#57205" CLASS="XRef">guess-external-format</A>. By default, this finds a match based on the filename; or (if that fails), looks in the EMACS-style (<CODE CLASS="Code">
+-*-</CODE>
+) attribute line for an option called <CODE CLASS="Code">
+encoding</CODE>
+ or <CODE CLASS="Code">
+external-format</CODE>
+; or (if that fails), chooses from among likely encodings by analyzing the bytes near the start of the file. By default, it then also analyses the start of the file for byte patterns indicating the end-of-line style, and uses a default end-of-line style if no such pattern is found. This behavior is configurable.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039978"></A>After the external-format has been determined, it is verified using <A HREF="lw-743.htm#98500" CLASS="XRef">valid-external-format-p</A>; and an error is signalled if this check fails.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039982"></A>If <CODE CLASS="Code">
+open</CODE>
+ gets <CODE CLASS="Code">
+:default</CODE>
+ as its <EM CLASS="Variable">
+element-type</EM>
+ arg, it chooses the type on the basis of the external format. If <CODE CLASS="Code">
+open</CODE>
+ gets an <EM CLASS="Variable">
+element-type</EM>
+ other than <CODE CLASS="Code">
+:default</CODE>
+ and the direction is <CODE CLASS="Code">
+:input</CODE>
+ or <CODE CLASS="Code">
+:io</CODE>
+, the argument must be a supertype of the type of characters produced by the external format; if the direction is <CODE CLASS="Code">
+:output</CODE>
+ or <CODE CLASS="Code">
+:io</CODE>
+, it must be a subtype of the type of characters accepted by the external format; if it does not satisfy these requirements, an error is signalled.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039983"></A>Standard stream input and output functions for character and binary data generally work in the obvious way on a <CODE CLASS="Code">
+file-stream</CODE>
+ with <EM CLASS="Variable">
+element-type</EM>
+ <CODE CLASS="Code">
+base-char</CODE>
+, <CODE CLASS="Code">
+(unsigned-byte 8)</CODE>
+ or <CODE CLASS="Code">
+(signed-byte 8)</CODE>
+. For example, <CODE CLASS="Code">
+read-sequence</CODE>
+ can be called with a string buffer and a binary <CODE CLASS="Code">
+file-stream</CODE>
+: the character data is constructed from the input as if by <CODE CLASS="Code">
+code-char</CODE>
+. Similarly <CODE CLASS="Code">
+write-sequence</CODE>
+ can be called with a string buffer and a binary <CODE CLASS="Code">
+file-stream</CODE>
+: the output is converted from the character data as if by <CODE CLASS="Code">
+char-code</CODE>
+. Also, 8-bit binary data can be read from and written to a <CODE CLASS="Code">
+base-char</CODE>
+ <CODE CLASS="Code">
+file-stream</CODE>
+. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1039984"></A>All standard stream I/O functions except for <CODE CLASS="Code">
+write-byte</CODE>
+ and <CODE CLASS="Code">
+read-byte</CODE>
+ have this flexibility.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1039985"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1039989"></A><A HREF="lw-897.htm#59860" CLASS="XRef">*default-character-element-type*</A><BR>
+<A HREF="lw-1384.htm#57205" CLASS="XRef">guess-external-format</A><BR>
+<A HREF="lw-1426.htm#62186" CLASS="XRef">set-file-dates</A><BR>
+<A HREF="lw-743.htm#98500" CLASS="XRef">valid-external-format-p</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-660.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-658.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-628.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

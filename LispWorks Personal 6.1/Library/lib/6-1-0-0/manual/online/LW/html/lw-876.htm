@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ read-foreign-modules
+</TITLE>
+
+<LINK REL="next" HREF="lw-877.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-875.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-871.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-871.htm">33 The LINK-LOAD Package</A><BR><BR>
+</DIV><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-875.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-871.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-889694"></A><A NAME="marker-889693"></A><A NAME="18212"></A>read-foreign-modules</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-889696"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889698"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889699"></A>link-load</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889700"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-889701"></A>read-foreign-modules &amp;rest <EM CLASS="Variable">
+module-names</EM>
+ =&gt; t</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889702"></A>Arguments </H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-889703"></A><EM CLASS="Variable">
+module-names</EM>
+ </P>
+<P CLASS="RDescription-C">A sequence of strings or pathnames.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889709"></A>Values</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-892352"></A>t</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-892334"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-892336"></A>The <CODE CLASS="Code">
+read-foreign-modules</CODE>
+ function reads object files of various formats into the Lisp image. Unresolved references are resolved wherever possible and the names of the foreign functions are made available to the Lisp for direct calling from the Lisp if desired. With no argument, <CODE CLASS="Code">
+read-foreign-modules</CODE>
+ scans the default libraries looking for definitions of referenced but undefined symbols. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-892391"></A>The <EM CLASS="Variable">
+module-names</EM>
+ argument is a sequence of items representing object files to be loaded. The items may be of type string or pathname, and will be used to look up a corresponding file in the file system. The only exception is if an item is a string beginning ``<CODE CLASS="Code">
+-l</CODE>
+'' in which case the rest of the string is used to look up a library file using format strings<CODE CLASS="Code">
+</CODE>
+<A NAME="marker-899821"></A> constructed from the values of the variable <CODE CLASS="Code">
+*default-library-name-search-paths*</CODE>
+, the environment variable <CODE CLASS="Code">
+LD_LIBRARY_PATH</CODE>
+ and the variable <CODE CLASS="Code">
+*default-library-names*</CODE>
+. Object files of various formats and library files can be handled by <CODE CLASS="Code">
+read-foreign-modules</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889711"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-889712"></A>(read-foreign-modules &quot;/usr/users/clc/projects/head.o&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-889713"></A>                &quot;&#126;clc/projects/libs.a&quot;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-889714"></A>              &quot;-lW&quot;)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889715"></A>Notes </H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889716"></A>The <CODE CLASS="Code">
+read-foreign-modules</CODE>
+ function actually adds the module-names to the list of modules in the variable <A NAME="marker-889717"></A><CODE CLASS="Code">
+*default-libraries* </CODE>
+and then tries to resolve any undefined symbols using this list. The function <A HREF="lw-874.htm#38792" CLASS="XRef">get-foreign-symbol</A> may be called to explicitly force a symbol onto the undefined list or the act of defining a foreign function (<CODE CLASS="Code">
+fli:define-foreign-function</CODE>
+) will do it implicitly. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-889720"></A><CODE CLASS="Code">
+read-foreign-modules</CODE>
+ may be called at any time during the running of a program and a particular object file may be loaded as often as is necessary. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-889721"></A>A warning of any new unresolved references will be printed out after the reading has finished if the flag<A NAME="marker-889722"></A><CODE CLASS="Code">
+ *unresolved-messages*</CODE>
+ is set to <CODE CLASS="Code">
+t</CODE>
+ (the default is nil). By default messages are printed out about which object modules are being loaded. This may be switched off by setting <CODE CLASS="Code">
+*coff-loading-verbose*</CODE>
+<A NAME="marker-889723"></A> to <CODE CLASS="Code">
+nil</CODE>
+. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-889724"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-889728"></A><A HREF="lw-874.htm#38792" CLASS="XRef">get-foreign-symbol</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-877.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-875.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-871.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

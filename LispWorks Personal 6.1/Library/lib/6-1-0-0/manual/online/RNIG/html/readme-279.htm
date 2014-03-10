@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="readme.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 12.8.3.2  Private patches
+</TITLE>
+
+<LINK REL="next" HREF="readme-280.htm" TYPE="text/html">
+<LINK REL="prev" HREF="readme-278.htm" TYPE="text/html">
+<LINK REL="up" HREF="readme-277.htm" TYPE="text/html">
+<LINK REL="top" HREF="readme.htm" TYPE="text/html">
+<LINK REL="contents" HREF="readme-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="readme-485.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="readme.htm">LispWorks Release Notes and Installation Guide</A> &gt; <A HREF="readme-245.htm">12 Troubleshooting, Patches and Reporting Bugs</A> &gt; <A HREF="readme-274.htm">12.8  Updating with patches</A> &gt; <A HREF="readme-277.htm">12.8.3  Different types of patch</A><BR><BR>
+</DIV><A HREF="readme-280.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-278.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-277.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-891913"></A>12.8.3.2  <A NAME="89045"></A>Private patches</H3>
+<P CLASS="Body">
+<A NAME="pgfId-891926"></A>LispWorks patches are generally released in cumulative bundles. Occasionally Lisp Support may send you individual patch binaries named for example <CODE CLASS="Code">
+my-patch</CODE>
+ to address a problem or implement a new feature in advance of bundled ('public') patch releases.  Such patches have real names, rather than numbers, and must be loaded once they have been saved to disk. You will need to ensure that LispWorks will load your private patches on startup, after public patches have been loaded.</P>
+<P CLASS="Body">
+<A NAME="pgfId-916936"></A>Private patch loading is controlled by the file:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-916937"></A>lib/6-1-0-0/<CODE CLASS="Code">
+private-patches/load.lisp</CODE>
+</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-916943"></A><CODE CLASS="Code">
+private-patches/</CODE>
+ is the default location for private patches, and patch loading instructions sent to you will assume this location.  Therefore, on receipt of a private patch <CODE CLASS="Code">
+my-patch.ufasl</CODE>
+, the simplest approach is to place it here. For example, on Mac OS X:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-905647"></A><EM CLASS="Variable">
+&lt;install&gt;</EM>
+/LispWorks 6.1/Library/lib/6-1-0-0/private-patches/my-patch.nfasl</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-905645"></A>On Windows:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891940"></A><EM CLASS="Variable">
+&lt;install&gt;</EM>
+&#92;lib&#92;6-1-0-0&#92;private-patches&#92;my-patch.ofasl</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-905656"></A>On Linux:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-905657"></A><EM CLASS="Variable">
+&lt;install&gt;</EM>
+/lib/6-1-0-0/private-patches/my-patch.ufasl</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-906752"></A>On UNIX:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-906755"></A><EM CLASS="Variable">&lt;install&gt;</EM>
+/lib/6-1-0-0/private-patches/my-patch.pfasl (for HP-PA)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-906794"></A><EM CLASS="Variable">&lt;install&gt;</EM>
+/lib/6-1-0-0/private-patches/my-patch.wfasl (for SPARC)</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-891942"></A><EM CLASS="Variable">
+</EM>
+You will receive a Lisp form needed to load such a patch, such as</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-891944"></A>   <CODE CLASS="Code">
+(LOAD-ONE-PRIVATE-PATCH &quot;my-patch&quot; :SYSTEM)</CODE>
+</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-891946"></A>This form should be added to the <CODE CLASS="Code">
+flet</CODE>
+ form in the file:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-892065"></A><CODE CLASS="Code">
+private-patches/load.lisp</CODE>
+</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-892067"></A>as in the commented example there. <CODE CLASS="Code">
+load-all-patches</CODE>
+ loads this file, and hence all the private patches listed therein.</P>
+<P CLASS="Body">
+<A NAME="pgfId-891951"></A>You may choose to save a reconfigured image with the new patch loaded - for details see the instructions in <A HREF="readme-157.htm#61626" CLASS="XRef">Saving and testing the configured image</A> (Mac OS X), <A HREF="readme-180.htm#61626" CLASS="XRef">Saving and testing the configured image</A> (Windows), <A HREF="readme-198.htm#61626" CLASS="XRef">Saving and testing the configured image</A> (Linux, x86/x64 Solaris or FreeBSD), or <A HREF="readme-240.htm#61626" CLASS="XRef">Saving and testing the configured image</A> (other UNIX). You can alternatively choose to load the patch file on startup. The option you choose will depend on how many people at your site will need access to the new patch, and how many will need access to an image without the patch loaded.</P>
+<P CLASS="Body">
+<A NAME="pgfId-917022"></A><B CLASS="Bold">
+Note:</B>
+ On Windows Vista and Windows 7 you should save private patches and edit <CODE CLASS="Code">
+private-patches/load.lisp</CODE>
+ while logged in as the user who will run LispWorks. If there are multiple LispWorks users, each user should do this.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Release Notes and Installation Guide - 23 Dec 2011</I></P>
+<P><A HREF="readme-280.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="readme-278.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="readme-277.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="readme.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="readme-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="readme-485.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

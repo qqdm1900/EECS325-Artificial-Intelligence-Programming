@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ timer-expired-p
+</TITLE>
+
+<LINK REL="next" HREF="lw-1130.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1128.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1130.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1128.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1174198"></A><A NAME="18761"></A>timer<A NAME="marker-1174197"></A>-expired-p</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-924580"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924581"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-924582"></A>Returns <CODE CLASS="Code">
+t</CODE>
+ if a given timer has expired or is about to expire.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1802051"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1802052"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924583"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-924584"></A>timer-expired-p <EM CLASS="Variable">
+timer</EM>
+ &amp;optional <EM CLASS="Variable">
+delta</EM>
+ =&gt; <EM CLASS="Variable">
+bool</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924587"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-924588"></A><EM CLASS="Variable">
+timer</EM>
+</P>
+<P CLASS="RDescription-C">A timer</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-924589"></A><EM CLASS="Variable">
+delta</EM>
+</P>
+<P CLASS="RDescription-C">A non-negative real</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924590"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-924591"></A><EM CLASS="Variable">
+bool</EM>
+</P>
+<P CLASS="RDescription-C">A boolean</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924592"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-924593"></A>The function <CODE CLASS="Code">
+timer-expired-p</CODE>
+ returns <CODE CLASS="Code">
+t</CODE>
+ if the specified timer is not scheduled to expire or is scheduled to expire within the number of seconds specified by the <EM CLASS="Variable">
+delta</EM>
+ argument after the call to <CODE CLASS="Code">
+timer-expired-p</CODE>
+. Otherwise, the function returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-924597"></A>The <EM CLASS="Variable">
+timer</EM>
+ argument is a timer, returned by <A HREF="lw-1061.htm#14810" CLASS="XRef">make-timer</A> or <A HREF="lw-1059.htm#22839" CLASS="XRef">make-named-timer</A>. The <EM CLASS="Variable">
+delta</EM>
+ argument, if supplied, is a non-negative real number of seconds.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924601"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-924602"></A>(setq timer</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-924603"></A>      (mp:make-timer 'print 10 *standard-output*))</PRE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924604"></A>#&lt;Time Event : PRINT&gt;</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924605"></A>(mp:schedule-timer-relative timer 5)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924606"></A>#&lt;Time Event : PRINT&gt;</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924607"></A>(mp:timer-expired-p timer)</CODE>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-924608"></A>NIL</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-924609"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-924621"></A><A HREF="lw-1059.htm#22839" CLASS="XRef">make-named-timer</A><BR>
+<A HREF="lw-1061.htm#14810" CLASS="XRef">make-timer</A><BR>
+<A HREF="lw-1118.htm#10391" CLASS="XRef">schedule-timer</A><BR>
+<A HREF="lw-1119.htm#11284" CLASS="XRef">schedule-timer-milliseconds</A><BR>
+<A HREF="lw-1120.htm#16690" CLASS="XRef">schedule-timer-relative</A><BR>
+<A HREF="lw-1130.htm#11110" CLASS="XRef">timer-name</A><BR>
+<A HREF="lw-1132.htm#28452" CLASS="XRef">unschedule-timer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1130.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1128.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

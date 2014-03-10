@@ -1,0 +1,241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ invoke-into
+</TITLE>
+
+<LINK REL="next" HREF="objc-50.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-48.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-33.htm">2 Objective-C Reference</A><BR><BR>
+</DIV><A HREF="objc-50.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-48.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1161530"></A><A NAME="40401"></A>invoke-into<A NAME="marker-1161529"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1161531"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1161532"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1161536"></A>Invokes an Objective-C method that returns a specific type or fills a specific object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1161537"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1161538"></A>objc</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1161539"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1161540"></A>invoke-into <EM CLASS="Variable">
+result</EM>
+ <EM CLASS="Variable">
+class-or-object-pointer</EM>
+ <EM CLASS="Variable">
+method</EM>
+ &amp;rest <EM CLASS="Variable">
+args</EM>
+ =&gt; <EM CLASS="Variable">
+value</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1161735"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1161771"></A><EM CLASS="Variable">
+result</P>
+<P CLASS="RDescription-C"></EM>
+A symbol or list naming the return type or an object to contain the returned value.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1161806"></A><EM CLASS="Variable">
+class-or-object-pointer</EM>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1161810"></A>A string naming an Objective-C class or a pointer to an Objective-C foreign object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1161550"></A><EM CLASS="Variable">
+method</EM>
+</P>
+<P CLASS="RDescription-C">A string naming the method to invoke.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1161551"></A><EM CLASS="Variable">
+args</EM>
+</P>
+<P CLASS="RDescription-C">Arguments to the method.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1161552"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1161553"></A><EM CLASS="Variable">
+value</EM>
+</P>
+<P CLASS="RDescription-C">The value returned by the method.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1161554"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1161558"></A>The function <CODE CLASS="Code">
+invoke-into </CODE>
+is used to call Objective-C instance and class methods that return specific types which are not supported directly by <A HREF="objc-47.htm#46194" CLASS="XRef">invoke</A> or for methods that return values of some foreign structure type where an existing object should be filled with the value. The meaning of the <EM CLASS="Variable">
+class-or-object-pointer</EM>
+, <EM CLASS="Variable">
+method</EM>
+ and <EM CLASS="Variable">
+args</EM>
+ is identical to <A HREF="objc-47.htm#46194" CLASS="XRef">invoke</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1162758"></A>The value of <EM CLASS="Variable">
+result</EM>
+ controls how the value of the method is converted and returned as follows:</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1162835"></A>the symbol <CODE CLASS="Code">
+string</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1163194"></A>If the result type of the method is <CODE CLASS="Code">
+id</CODE>
+, then the value is assumed to be an Objective-C object of class <A NAME="marker-1186305"></A><CODE CLASS="Code">
+NSString </CODE>
+and is converted a string and returned. Otherwise no special conversion is performed.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1162881"></A>the symbol <CODE CLASS="Code">
+array</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1163304"></A>If the result type of the method is <CODE CLASS="Code">
+id</CODE>
+, then the value is assumed to be an Objective-C object of class <A NAME="marker-1186348"></A><CODE CLASS="Code">
+NSArray </CODE>
+and is converted a vector and returned. Otherwise no special conversion is performed.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1162902"></A>a list of the form <CODE CLASS="Code">
+(array </CODE>
+<EM CLASS="Variable">
+elt-type</EM>
+<CODE CLASS="Code">
+)</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1176950"></A>If the result type of the method is <CODE CLASS="Code">
+id</CODE>
+, then the value is assumed to be an Objective-C object of class <A NAME="marker-1186355"></A><CODE CLASS="Code">
+NSArray</CODE>
+ and is recursively converted a vector and returned. The component <EM CLASS="Variable">
+elt-type</EM>
+ should be either <CODE CLASS="Code">
+string</CODE>
+, <CODE CLASS="Code">
+array</CODE>
+ or another list of the form <CODE CLASS="Code">
+(array </CODE>
+<EM CLASS="Variable">
+sub-elt-type</EM>
+<CODE CLASS="Code">
+)</CODE>
+ and is used to control the conversion of the elements.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1163910"></A>Otherwise no special conversion is performed.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1199105"></A>the symbol <CODE CLASS="Code">
+:pointer</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1199107"></A>If the result type of the method is <A NAME="marker-1199431"></A><CODE CLASS="Code">
+unsigned char *</CODE>
+, then the value is returned as a pointer of type <A HREF="objc-53.htm#76079" CLASS="XRef">objc-c-string</A>.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1199381"></A>Otherwise no special conversion is performed.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1199106"></A>a list of the form <CODE CLASS="Code">
+(:pointer </CODE>
+<EM CLASS="Variable">
+elt-type</EM>
+<CODE CLASS="Code">
+)</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1199264"></A>If the result type of the method is <CODE CLASS="Code">
+unsigned char *</CODE>
+, then the value is returned as a pointer with element type <EM CLASS="Variable">
+elt-type</EM>
+.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1199380"></A>Otherwise no special conversion is performed.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1178539"></A>a pointer to a foreign structure<A NAME="marker-1195737"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1178729"></A>If the result type of the method is a foreign structure type defined with <A HREF="objc-44.htm#38029" CLASS="XRef">define-objc-struct</A> or a built-in structure type such as <CODE CLASS="Code">
+NSRect</CODE>
+, the value is copied into the structure pointed to by <EM CLASS="Variable">
+result</EM>
+ and the pointer is returned. Otherwise no special conversion is performed.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1162975"></A>an object of type <CODE CLASS="Code">
+vector</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1186373"></A>If the result type of the method is <CODE CLASS="Code">
+id</CODE>
+, then the value is assumed to be an Objective-C object of class <A NAME="marker-1186377"></A><CODE CLASS="Code">
+NSArray</CODE>
+ and is converted to fill the vector, which must be at least as long as the <CODE CLASS="Code">
+NSArray</CODE>
+. The vector is returned.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1186378"></A>If the result type of the method is <CODE CLASS="Code">
+NSRect</CODE>
+, <CODE CLASS="Code">
+NSSize</CODE>
+ or <CODE CLASS="Code">
+NSPoint</CODE>
+ then the first 4, 2 or 2 elements respectively of the vector are set to the corresponding components of the result. The vector is returned.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1164289"></A>Otherwise no special conversion is performed.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1163020"></A>an object of type <CODE CLASS="Code">
+cons</CODE>
+</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1164633"></A>If the result type of the method is <CODE CLASS="Code">
+NSRange</CODE>
+ then the <CODE CLASS="Code">
+car</CODE>
+ of the cons is set to the <EM CLASS="Variable">
+location</EM>
+ of the range and the <CODE CLASS="Code">
+cdr</CODE>
+ of the cons is set to the <EM CLASS="Variable">
+length</EM>
+ of the range. The cons is returned.</P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1164593"></A>Otherwise no special conversion is performed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1162369"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1161562"></A><A HREF="objc-47.htm#46194" CLASS="XRef">invoke</A><BR>
+<A HREF="objc-48.htm#78367" CLASS="XRef">invoke-bool</A><BR>
+<A HREF="objc-44.htm#38029" CLASS="XRef">define-objc-struct</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-50.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-48.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

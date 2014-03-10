@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.2.3  Structures and unions
+</TITLE>
+
+<LINK REL="next" HREF="fli-27.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-25.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-23.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-16.htm">2 FLI Types</A> &gt; <A HREF="fli-23.htm">2.2  Aggregate types</A><BR><BR>
+</DIV><A HREF="fli-27.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-25.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-23.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886763"></A>2.2.3  <A NAME="96265"></A>Structures and unions</H3>
+<P CLASS="Body">
+<A NAME="pgfId-886764"></A>The FLI provides the <CODE CLASS="Code">
+:struct</CODE>
+ and <CODE CLASS="Code">
+:union</CODE>
+ types to interface Lisp objects with the C <CODE CLASS="Code">
+struct</CODE>
+ and <CODE CLASS="Code">
+union</CODE>
+ types.</P>
+<P CLASS="Body">
+<A NAME="pgfId-886811"></A>To define types to interface with C structures, the FLI macro <A HREF="fli-85.htm#26956" CLASS="XRef">define-c-struct</A> is provided. In the next example it is used to define a FLI structure, <CODE CLASS="Code">
+tagpoint</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886814"></A>(fli:define-c-struct tagpoint </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886821"></A>  (x :long) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886822"></A>  (y :long)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886823"></A>  (visible (:boolean :byte))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886824"></A>This structure would interface with the following C structure:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886826"></A>typedef struct tagPOINT {</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886827"></A>    LONG x; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886828"></A>    LONG y; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886830"></A>    BYTE visible;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-886829"></A>} POINT; </PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886812"></A>The various elements of a structure are known as <EM CLASS="Variable">
+slots</EM>
+, and can be accessed using the FLI foreign slot functions,  <A HREF="fli-109.htm#20235" CLASS="XRef">foreign-slot-names</A>, <A HREF="fli-112.htm#33624" CLASS="XRef">foreign-slot-type</A>, and <A HREF="fli-113.htm#41440" CLASS="XRef">foreign-slot-value</A>. For example, the next commands set <CODE CLASS="Code">
+point</CODE>
+ equal to an instance of <CODE CLASS="Code">
+tagPOINT</CODE>
+, and set the Lisp variable <CODE CLASS="Code">
+names</CODE>
+ equal to a list of the names of the slots of <CODE CLASS="Code">
+tagPOINT</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886847"></A>(setq point (fli:allocate-foreign-object :type 'tagpoint))</CODE>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886842"></A>(setq names (fli:foreign-slot-names point))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886848"></A>The next command finds the type of the first element in the List <CODE CLASS="Code">
+names</CODE>
+, and sets the variable <CODE CLASS="Code">
+name-type</CODE>
+ equal to it.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-886855"></A>(setq name-type (fli:foreign-slot-type point (car names)))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-886856"></A>Finally, the following command sets <CODE CLASS="Code">
+point-to</CODE>
+ equal to a pointer to the first element of <CODE CLASS="Code">
+point</CODE>
+, with the correct type.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-886859"></A>(setq point-to (fli:foreign-slot-pointer point (car names) </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-886860"></A>                                        :type name-type))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-886857"></A>The above example demonstrates some of the functions used to manipulate FLI structures. The FLI <A HREF="fli-195.htm#36875" CLASS="XRef">:union</A> type is similar to the <A HREF="fli-192.htm#46166" CLASS="XRef">:struct</A> type, in that the FLI slot functions can be used to access instances of a union. The convenience FLI function <A HREF="fli-87.htm#30845" CLASS="XRef">define-c-union</A> is also provided for the definition of specific union types.<A NAME="marker-886996"></A><A NAME="marker-891194"></A></P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-27.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-25.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-23.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

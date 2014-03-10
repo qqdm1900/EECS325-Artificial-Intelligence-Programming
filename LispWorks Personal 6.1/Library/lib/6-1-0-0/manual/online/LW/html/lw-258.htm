@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 15.2.6.4  Atomic plist update
+</TITLE>
+
+<LINK REL="next" HREF="lw-259.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-257.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-254.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-244.htm">15 Multiprocessing</A> &gt; <A HREF="lw-246.htm">15.2  The process programming interface </A> &gt; <A HREF="lw-254.htm">15.2.6  Old interrupt blocking APIs removed</A><BR><BR>
+</DIV><A HREF="lw-259.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-257.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-254.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-893390"></A>15.2.6.4  Atomic plist update</H3>
+<P CLASS="Body">
+<A NAME="pgfId-893391"></A>Old:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893392"></A>(without-interrupts</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893393"></A> (setf (getf *global-plist* key) value))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893394"></A>     (without-interrupts</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893395"></A>      (getf *global-plist* key))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-893396"></A>New: use a lock, because a plist consists of more than one object so cannot be updated with low level atomic operations.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-893397"></A>(defvar *global-plist-lock* (mp:make-lock :name &quot;Global Plist&quot;))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893708"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893398"></A>(mp:with-lock (*global-plist-lock*)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893399"></A>	      (setf (getf *global-plist* key) value))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893709"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-893400"></A>(mp:with-lock (*global-plist-lock*)</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-893401"></A>	      (getf *global-plist* key))</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-259.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-257.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-254.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

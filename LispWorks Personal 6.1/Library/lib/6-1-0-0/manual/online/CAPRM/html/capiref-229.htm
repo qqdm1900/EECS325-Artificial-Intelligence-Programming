@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ make-foreign-owned-interface
+</TITLE>
+
+<LINK REL="next" HREF="capiref-230.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-228.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-230.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-228.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3325203"></A><A NAME="40848"></A>make<A NAME="marker-4167548"></A>-foreign-owned-interface</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-3325204"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3325205"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3325206"></A>Creates a dummy interface which allows another application's window to be the owner of a CAPI dialog.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4167497"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4167498"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3325208"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3325209"></A>make-foreign-owned-interface &amp;key <EM CLASS="Variable">
+handle</EM>
+ <EM CLASS="Variable">
+name</EM>
+ =&gt; <EM CLASS="Variable">
+interface</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3327177"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3327221"></A><EM CLASS="Variable">
+handle</EM>
+</P>
+<P CLASS="RDescription-C">A Microsoft Windows hwnd.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3327282"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A string naming <EM CLASS="Variable">
+interface</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3327291"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3327336"></A><EM CLASS="Variable">
+interface</EM>
+</P>
+<P CLASS="RDescription-C">An instance of <A HREF="capiref-147.htm#90128" CLASS="XRef">foreign-owned-interface</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3325210"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3331335"></A>The function <CODE CLASS="Code">
+make-foreign-owned-interface</CODE>
+ creates an instance of <A HREF="capiref-147.htm#90128" CLASS="XRef">foreign-owned-interface</A>. <EM CLASS="Variable">
+interface</EM>
+ can be used as the <EM CLASS="Variable">
+owner</EM>
+ argument when displaying a dialog. For information about dialog owners, see the &quot;Prompting for Input&quot; chapter in the <I CLASS="Italic">
+CAPI User Guide</I>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3330708"></A><EM CLASS="Variable">
+handle</EM>
+ must be supplied and is the window handle (Windows hwnd) of a window in some application. For a CAPI window this window handle can be obtained by <A HREF="capiref-409.htm#simple-pane-handle" CLASS="XRef">simple-pane-handle</A>. For non-CAPI applications, the method of finding the window handle will depend on the language and the way windows are represented, so you should consult the appropriate documentation.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3331033"></A><EM CLASS="Variable">
+name</EM>
+ becomes the name of <EM CLASS="Variable">
+interface</EM>
+, and has no other meaning.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3327429"></A><CODE CLASS="Code">
+make-foreign-owned-interface</CODE>
+ is implemented only on Microsoft Windows.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3331471"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3331644"></A>This example shows how a CAPI window can be the owner of a dialog in another LispWorks image.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3331645"></A>Start LispWorks for Windows.</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-3331650"></A>In the Listener, do <B CLASS="Button">
+Tools &gt; Interface &gt; Listen</B>
+. This puts the Listener interface in the value of <CODE CLASS="Code">
+*</CODE>
+.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-3331793"></A>In the Listener enter <CODE CLASS="Code">
+(capi:simple-pane-handle *)</CODE>
+. The returned value is the window handle, it should be an integer. Denote this value by <EM CLASS="Variable">
+hwnd</EM>
+.</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-3331812"></A>Start another LispWorks for Windows image (do not quit the first image). In the Listener of this second LispWorks image:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-3334407"></A>Enter <CODE CLASS="Code">
+(setq foi (capi:make-foreign-owned-interface :handle </CODE>
+<EM CLASS="Variable">
+hwnd</EM>
+<CODE CLASS="Code">
+)).</CODE>
+</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-3334535"></A>Enter <CODE CLASS="Code">
+(capi:prompt-for-color &quot;Color?&quot; :owner foi)</CODE>
+.</LI>
+</OL>
+<P CLASS="RBody">
+<A NAME="pgfId-3333923"></A>Now note that the Color dialog is owned by the Listener of the first LispWorks image.</P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-230.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-228.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

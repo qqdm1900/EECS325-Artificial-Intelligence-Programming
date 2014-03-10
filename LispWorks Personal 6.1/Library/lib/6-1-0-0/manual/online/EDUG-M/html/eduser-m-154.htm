@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.13  In-place completion
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-155.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-153.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-136.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A> &gt <A HREF="eduser-m-136.htm">6.3  Programming the editor</A><BR><BR>
+</DIV><A HREF="eduser-m-155.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-153.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-906117"></A>6.3.13  <A NAME="marker-906116"></A>In-place completion</H3>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-906119"></A>editor:<A NAME="marker-906118"></A>complete-in-place</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-906120"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-899636"></A>editor:complete-in-place <EM CLASS="Variable">
+complete-func</EM>
+ &amp;key <EM CLASS="Variable">
+extract-func</EM>
+ <EM CLASS="Variable">
+skip-func</EM>
+ <EM CLASS="Variable">
+insert-func</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899638"></A>Performs a non-focus completion at the editor current point.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899640"></A><EM CLASS="Variable">
+complete-func</EM>
+ should be a function designator with signature:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-899641"></A>complete-func <EM CLASS="Variable">
+string</EM>
+ &amp;optional <EM CLASS="Variable">
+user-arg</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899642"></A><EM CLASS="Variable">
+string</EM>
+ should be a string to complete. <EM CLASS="Variable">
+user-arg</EM>
+ is the second return value of <EM CLASS="Variable">
+extract-func</EM>
+, if this is not <CODE CLASS="Code">
+nil</CODE>
+. <EM CLASS="Variable">
+result</EM>
+ should be a list of items to be displayed in the list panel of the non-focus window.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899645"></A><EM CLASS="Variable">
+extract-func</EM>
+ must be a function designator with signature</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-899646"></A>extract-func <EM CLASS="Variable">
+point</EM>
+ =&gt; <EM CLASS="Variable">
+string</EM>
+, <EM CLASS="Variable">
+user-arg</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899647"></A><EM CLASS="Variable">
+point</EM>
+ should be a <A HREF="eduser-m-165.htm#15052" CLASS="XRef">Point</A> object</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899648"></A><EM CLASS="Variable">
+extract-func</EM>
+ needs to move <EM CLASS="Variable">
+point</EM>
+ to the beginning of the text that will be replaced if the user confirms. It should return two values: <EM CLASS="Variable">
+string</EM>
+ is the string to complete, and <EM CLASS="Variable">
+user-arg</EM>
+ can be any Lisp object. <EM CLASS="Variable">
+string</EM>
+ is passed to the function <EM CLASS="Variable">
+complete-func</EM>
+, and if <EM CLASS="Variable">
+user-arg</EM>
+ is non-nil it is also passed.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899650"></A>The default value of <EM CLASS="Variable">
+extract-func</EM>
+ is a function which searches backwards until it finds a non-alphanumeric character, or the beginning of the buffer. It then moves its <EM CLASS="Variable">
+point</EM>
+ argument forward to the next character. The function returns its first value <EM CLASS="Variable">
+string </EM>
+the string between this and the original location of the point, and it returns <CODE CLASS="Code">
+nil</CODE>
+ as the second value <EM CLASS="Variable">
+user-arg</EM>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899853"></A><EM CLASS="Variable">
+skip-func</EM>
+, if supplied, must be a function designator with signature</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-899854"></A>skip-func <EM CLASS="Variable">
+point</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899871"></A><EM CLASS="Variable">
+point</EM>
+ should be a <A HREF="eduser-m-165.htm#15052" CLASS="XRef">Point</A> object</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899655"></A><EM CLASS="Variable">
+point</EM>
+ will be used as the end of the region to replace by the completion. At the call to <EM CLASS="Variable">
+skip-func</EM>
+, the point is located at the same place as the point that was passed to <EM CLASS="Variable">
+extract-func</EM>
+ (after it moved). <EM CLASS="Variable">
+skip-func</EM>
+ needs to move <EM CLASS="Variable">
+point</EM>
+ forward to the end of the text that should be replaced when the user wants to do the completion. If <EM CLASS="Variable">
+skip-func</EM>
+ is not supplied, the end point is set to the current point.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899657"></A><EM CLASS="Variable">
+insert-func</EM>
+, if supplied, must be a function designator with signature</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-899658"></A>insert-func <EM CLASS="Variable">
+result</EM>
+ <EM CLASS="Variable">
+string</EM>
+ <EM CLASS="Variable">
+user-arg</EM>
+ =&gt; <EM CLASS="Variable">
+string-to-use</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899659"></A><EM CLASS="Variable">
+result</EM>
+ is the item selected by the user, <EM CLASS="Variable">
+string</EM>
+ is the original string that was returned by <EM CLASS="Variable">
+extract-func</EM>
+, and <EM CLASS="Variable">
+user-arg</EM>
+ is the second value returned by <EM CLASS="Variable">
+extract-func</EM>
+ (regardless of whether this value is <CODE CLASS="Code">
+nil</CODE>
+). It must return a string, <EM CLASS="Variable">
+string-to-use</EM>
+, which is inserted as the the completion.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899660"></A>If <EM CLASS="Variable">
+insert-func</EM>
+ is not supplied, the completion item is inserted. If it is not a string it is first converted by <CODE CLASS="Code">
+prin1-to-string</CODE>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-899959"></A>When <CODE CLASS="Code">
+editor:complete-in-place</CODE>
+ is called, it makes a copy of the current point and passes it to <EM CLASS="Variable">
+extract-func</EM>
+. It then copies this point and positions it either using <EM CLASS="Variable">
+skip-func</EM>
+ or the current point. These two points define the text to be replaced. <CODE CLASS="Code">
+editor:complete-in-place</CODE>
+ then calls <EM CLASS="Variable">
+complete-func</EM>
+, and use the result to raise a non-focus window next to the current point. The interaction of this window is as described in <I CLASS="Italic">
+CAPI User Guide</I>
+.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-906085"></A>Note: <A NAME="marker-906124"></A><CODE CLASS="Code">
+editor:complete-with-non-focus</CODE>
+ is a deprecated synonym for <CODE CLASS="Code">
+editor:complete-in-place</CODE>
+.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-155.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-153.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

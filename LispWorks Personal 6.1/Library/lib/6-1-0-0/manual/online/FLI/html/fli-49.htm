@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.2.4  Returning a string via a buffer
+</TITLE>
+
+<LINK REL="next" HREF="fli-50.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-48.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-45.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A> &gt; <A HREF="fli-45.htm">4.2  Modifying, passing and returning strings</A><BR><BR>
+</DIV><A HREF="fli-50.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-48.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-888197"></A>4.2.4  Returning a string<A NAME="marker-888832"></A> via a buffer</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888203"></A>In this example no Lisp string is needed when calling. The <A HREF="fli-187.htm#25276" CLASS="XRef">:reference-return</A> type converts a foreign string of lowercase ASCII characters to a Lisp string on return. Here is the C code for the example.</P>
+<P CLASS="Body">
+<A NAME="pgfId-888205"></A>Windows version:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888227"></A>#include &lt;string.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888228"></A>#include &lt;stdlib.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888229"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888230"></A>__declspec(dllexport) void __cdecl random_string(int length, char *string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888231"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888232"></A>  int ii;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888233"></A>  for (ii = 0; ii &lt; length ; ii++)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888234"></A>      string[ii] = 97 + rand() % 26;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888259"></A>  string[length] = 0;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888201"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888256"></A>Linux/Unix/Macintosh version:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888281"></A>#include &lt;string.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888282"></A>#include &lt;stdlib.h&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888283"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888284"></A>void random_string(int length, char *string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888285"></A>{</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888286"></A>  int ii;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888287"></A>  for (ii = 0; ii &lt; length ; ii++)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888288"></A>      string[ii] = 97 + rand() % 26;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888289"></A>  string[length] = 0;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888257"></A>}</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888341"></A>In this foreign function definition the <A HREF="fli-187.htm#25276" CLASS="XRef">:reference-return</A> type must specify a size, since memory is allocated for it before calling the C function. Note also the use of  <CODE CLASS="Code">
+:lambda-list</CODE>
+ so that the caller doesn't have to pass a dummy  argument for the return-string, and <CODE CLASS="Code">
+:result-type nil</CODE>
+ correponding to the void declaration of the C function.</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888308"></A>(fli:define-foreign-function (random-string </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888309"></A>                              &quot;random_string&quot; </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888310"></A>                              :source)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888311"></A>   ((length :int)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888312"></A>    (return-string (:reference-return </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888313"></A>                    (:ef-mb-string </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888314"></A>                     :limit 256))))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888315"></A> :result-type nil</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888316"></A> :lambda-list (length &amp;aux return-string)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888317"></A> :calling-convention :cdecl)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888318"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888319"></A>(random-string 3)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888320"></A>=&gt;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888321"></A>&quot;uxw&quot;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888382"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888374"></A>(random-string 6)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888375"></A>=&gt;</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888372"></A>&quot;fnfozv&quot;</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-50.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-48.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-45.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

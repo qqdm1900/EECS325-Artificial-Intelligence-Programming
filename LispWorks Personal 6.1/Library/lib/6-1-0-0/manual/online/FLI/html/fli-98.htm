@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-opaque-pointer
+</TITLE>
+
+<LINK REL="next" HREF="fli-99.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-97.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-99.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-97.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1257826"></A><A NAME="13472"></A>define<A NAME="marker-1273558"></A>-opaque-pointer</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1257827"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1257828"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1257829"></A>Defines an opaque foreign pointer type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1257830"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1257831"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1268437"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1268441"></A>define-opaque-pointer <EM CLASS="Variable">
+pointer-type</EM>
+ <EM CLASS="Variable">
+structure-type</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1268442"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1257838"></A><EM CLASS="Variable">
+pointer-type</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1271449"></A><EM CLASS="Variable">
+structure-type</EM>
+</P>
+<P CLASS="RDescription-C">A symbol.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1257849"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1261365"></A>The macro <CODE CLASS="Code">
+define-opaque-pointer</CODE>
+ defines an opaque foreign pointer type and foreign structure type. An opaque pointer is a pointer to a structure which does not have a structure description. It is the equivalent to the C declaration</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-1261368"></A>typedef struct structure-type *pointer-type;</CODE>
+<P CLASS="RBody">
+<A NAME="pgfId-1261369"></A>An opaque pointer is useful for dealing with pointers that are returned by foreign functions and are then passed to other foreign functions. It checks the type of the foreign pointer, and thus prevents passing pointers of the wrong type.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1257860"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1263830"></A>Using the C standard file* pointer:</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1263832"></A>(fli:define-opaque-pointer file-pointer file)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1263833"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1263834"></A>(fli:define-foreign-function fopen</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1263835"></A>    ((name (:reference-pass :ef-mb-string))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1263836"></A>     (mode (:reference-pass :ef-mb-string)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1263837"></A>  :result-type file-pointer)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1263838"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274959"></A>(fli:define-foreign-function fgetc</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274960"></A>    ((file file-pointer))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274961"></A>  :result-type :int)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274962"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274963"></A>(fli:define-foreign-function fclose</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274964"></A>    ((file file-pointer)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274965"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1277442"></A>(fli:define-foreign-function fgets</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1277443"></A>    ((string</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1277444"></A>      (:reference-return (:ef-mb-string :limit 200)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1277445"></A>     (:constant 200 :int)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1277446"></A>     (file file-pointer))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1277447"></A>  :result-type (:pointer-integer :int)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274971"></A>  :lambda-list (file &amp;aux string))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274972"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274973"></A>(defun print-a-file (name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274974"></A>  (let ((file-pointer (fopen name &quot;r&quot;)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274975"></A>    (if (fli:null-pointer-p file-pointer)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274976"></A>        (error &quot;failed to open &#126;a&quot; name)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274977"></A>      (unwind-protect </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274978"></A>          (loop (multiple-value-bind (res line)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274979"></A>                    (fgets file-pointer)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274980"></A>                  (when (zerop res) (return))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1274981"></A>                  (princ line)))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1274982"></A>        (fclose file-pointer)))))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1257871"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1257875"></A><A HREF="fli-96.htm#39541" CLASS="XRef">define-foreign-type</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-99.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-97.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

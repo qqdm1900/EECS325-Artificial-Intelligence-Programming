@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ invalidate-rectangle
+</TITLE>
+
+<LINK REL="next" HREF="capiref-588.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-586.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-495.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-495.htm">2 GP Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-588.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-586.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-991750"></A><A NAME="marker-992299"></A><A NAME="67372"></A>invalidate-rectangle</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-991751"></A><EM CLASS="Variable">
+Generic Function</EM>
+</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-991752"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-992308"></A>Invalidates the rectangle associated with the object, which causes it to be redisplayed.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1090329"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1090330"></A><CODE CLASS="Code">
+graphics-ports</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-991754"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-991755"></A>invalidate-rectangle <EM CLASS="Variable">
+object</EM>
+ &amp;optional <EM CLASS="Variable">
+x</EM>
+ <EM CLASS="Variable">
+y</EM>
+ <EM CLASS="Variable">
+width</EM>
+ <EM CLASS="Variable">
+height</EM>
+ <EM CLASS="Variable">
+=&gt;</EM>
+ <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-991756"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-992359"></A><EM CLASS="Variable">
+object</EM>
+</P>
+<P CLASS="RDescription-C">An instance of a subclass of <CODE CLASS="Code">
+graphics-ports-mixin</CODE>
+ or a subclass of <A HREF="capiref-294.htm#24563" CLASS="XRef">pinboard-object</A>.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-992474"></A><EM CLASS="Variable">
+x</EM>
+</P>
+<P CLASS="RDescription-C">A real number.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-992475"></A><EM CLASS="Variable">
+y</EM>
+</P>
+<P CLASS="RDescription-C">A real number.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-992476"></A><EM CLASS="Variable">
+width</EM>
+</P>
+<P CLASS="RDescription-C">A real number.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-992477"></A><EM CLASS="Variable">
+height</EM>
+</P>
+<P CLASS="RDescription-C">A real number.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-991759"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-991760"></A><EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-991761"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-995147"></A>By default, the generic function <CODE CLASS="Code">
+invalidate-rectangle</CODE>
+ invalidates the whole rectangle, but this can be limited by passing the optional arguments.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1490141"></A>The effect of invalidating an area is to cause the area to be redrawn. It has no effect on <A HREF="capiref-606.htm#41840" CLASS="XRef">pixmap-port</A>. When the pane has a supplied <EM CLASS="Variable">
+display-callback</EM>
+, this callback is called with an area containing the area specified by the argument to <CODE CLASS="Code">
+invalidate-rectangle</CODE>
+. However, the call to <EM CLASS="Variable">
+display-callback</EM>
+ is asynchronous, and the system coalesces areas from calls to <CODE CLASS="Code">
+invalidate-rectangle</CODE>
+ and actual expose events, so there is not a one-to-one relation between calls to <CODE CLASS="Code">
+invalidate-rectangle</CODE>
+ and invocations of <EM CLASS="Variable">
+display-callback</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1490053"></A>In general, <CODE CLASS="Code">
+invalidate-rectangle</CODE>
+ should not be called inside the <EM CLASS="Variable">
+display-callback</EM>
+. If it is called, it must be conditional, otherwise this will cause repeated redisplay. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1747367"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1748324"></A>With <EM CLASS="Variable">
+drawing-mode</EM>
+ <CODE CLASS="Code">
+:quality</CODE>
+, drawings are done with anti-aliasing, which means that they affect pixels which are not obviously part of the drawing. For example, drawing a rectangle with <EM CLASS="Variable">
+x</EM>
+ = 10 may affect the pixel at <EM CLASS="Variable">
+x</EM>
+ = 9. This needs to be taken into account when computing the arguments to <CODE CLASS="Code">
+invalidate-rectangle</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1748329"></A>For pinboard objects the recommended way of forcing redraw is <A HREF="capiref-348.htm#16140" CLASS="XRef">redraw-pinboard-object</A>, which takes anti-aliasing into account.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1259622"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1259626"></A><A HREF="capiref-650.htm#56761" CLASS="XRef">validate-rectangle</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-588.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-586.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-495.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

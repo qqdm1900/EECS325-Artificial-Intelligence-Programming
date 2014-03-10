@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-printer-options
+</TITLE>
+
+<LINK REL="next" HREF="capiref-400.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-398.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-400.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-398.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1517849"></A><A NAME="set-printer-options"></A>set<A NAME="marker-4230089"></A>-printer-options</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1517850"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1517851"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1517852"></A>Sets various options in the given printer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4230052"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4230053"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1517854"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1517855"></A>set-printer-options <EM CLASS="Variable">
+printer</EM>
+<CODE CLASS="Code">
+ &amp;key </CODE>
+<EM CLASS="Variable">
+output-file</EM>
+ <EM CLASS="Variable">
+first-page</EM>
+ <EM CLASS="Variable">
+last-page</EM>
+ <EM CLASS="Variable">
+orientation</EM>
+ <EM CLASS="Variable">
+copies</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1517856"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1526688"></A>The function <CODE CLASS="Code">
+set-printer-options</CODE>
+ allows some printer options for the current job to be set programmatically. Note that the user can change the various printer options in the dialog displayed by <A HREF="capiref-305.htm#13155" CLASS="XRef">print-dialog</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1520598"></A>The <EM CLASS="Variable">
+printer</EM>
+ argument should be a printer object returned by <A HREF="capiref-65.htm#29614" CLASS="XRef">current-printer</A> or <A HREF="capiref-305.htm#13155" CLASS="XRef">print-dialog</A>.  This <EM CLASS="Variable">
+printer</EM>
+ should then be passed to <CODE CLASS="Code">
+<A HREF="capiref-490.htm#22681" CLASS="XRef">with-print-job</A> </CODE>
+to print using the options specified.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1521216"></A>The keyword arguments control which options are set. If a keyword is not passed then the option remains unchanged. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-1524146"></A>Values of <EM CLASS="Variable">
+output-file</EM>
+ are:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1523995"></A><CODE CLASS="Code">
+nil</P>
+<P CLASS="RDescription-C"></CODE>
+Print directly to the device.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1524274"></A><CODE CLASS="Code">
+t</CODE>
+</P>
+<P CLASS="RDescription-C">Print to a file chosen by the user at printing time.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1524275"></A>A pathname</P>
+<P CLASS="RDescription-C">Print to the file given by pathname.</P>
+<P CLASS="RDescription">
+<A NAME="pgfId-1524210"></A>Values of <EM CLASS="Variable">
+first-page</EM>
+ are:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1524302"></A><CODE CLASS="Code">
+:all</CODE>
+</P>
+<P CLASS="RDescription-C">Print all pages.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1519997"></A>A integer</P>
+<P CLASS="RDescription-C">Print from this page to the page given by <EM CLASS="Variable">
+last-page.</EM>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1524973"></A>Values of <EM CLASS="Variable">
+orientation</EM>
+ are:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1524981"></A><CODE CLASS="Code">
+:landscape</CODE>
+</P>
+<P CLASS="RDescription-C">Print in landscape mode.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1524326"></A><CODE CLASS="Code">
+:portrait</P>
+<P CLASS="RDescription-C"></CODE>
+Print in portrait mode.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1524371"></A>Values of <EM CLASS="Variable">
+copies</EM>
+:</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1525076"></A>A integer</P>
+<P CLASS="RDescription-C">The number of copies to print.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8915236"></A>Notes</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-8915282"></A>Printer objects cannot be reused after changing their options or metrics. Call <A HREF="capiref-65.htm#29614" CLASS="XRef">current-printer</A> after <CODE CLASS="Code">
+set-printer-options</CODE>
+ to get a new printer object containing the latest settings.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1517858"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1525187"></A>;; Print two copies to the current printer.</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1525188"></A>(let ((printer (capi:current-printer)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1525189"></A>  (capi:set-printer-options printer :copies 2)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1525190"></A>  (capi:with-print-job (port :printer printer)</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1525787"></A>     (print-my-document port)))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1517869"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1517873"></A><A HREF="capiref-305.htm#13155" CLASS="XRef">print-dialog</A><BR>
+<A HREF="capiref-65.htm#29614" CLASS="XRef">current-printer</A><BR>
+<A HREF="capiref-490.htm#22681" CLASS="XRef">with-print-job</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-400.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-398.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

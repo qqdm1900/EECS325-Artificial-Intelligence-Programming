@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ interactive-pane
+</TITLE>
+
+<LINK REL="next" HREF="capiref-183.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-181.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-183.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-181.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-896669"></A><A NAME="15385"></A>interactive<A NAME="marker-4140970"></A>-pane</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-897555"></A>Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896670"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896675"></A>An <CODE CLASS="Code">
+interactive-pane</CODE>
+ is an editor with a process reading and processing input, and that collects any output into itself. The class <A HREF="capiref-221.htm#26761" CLASS="XRef">listener-pane</A> is built upon this, and adds functionality for handling Lisp forms. </P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4140822"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4140823"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896679"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-896681"></A><A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896683"></A>Subclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-896685"></A><A HREF="capiref-221.htm#26761" CLASS="XRef">listener-pane</A><BR>
+<A HREF="capiref-403.htm#95502" CLASS="XRef">shell-pane</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896687"></A>Initargs</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-896690"></A><CODE CLASS="Code">
+:top-level-function</CODE>
+<A NAME="marker-952861"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-897435"></A>The input processing function.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896692"></A>Readers</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-896695"></A><A NAME="marker-3773422"></A>interactive-pane-stream<BR>
+<A NAME="marker-3773427"></A>interactive-pane-top-level-function</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896697"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896699"></A>An <CODE CLASS="Code">
+interactive-pane</CODE>
+ contains its own GUI stream. The <EM CLASS="Variable">
+top-level-function</EM>
+ is called once, when the <CODE CLASS="Code">
+</CODE>
+interactive pane is created: it needs to repeatedly take input from the GUI stream and write output to it. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-2128553"></A>The first argument to <EM CLASS="Variable">
+top-level-function</EM>
+ is the interface containing the interactive pane. The second argument is the interactive pane itself. The third argument is the GUI stream. The default for <EM CLASS="Variable">
+top-level-function</EM>
+ is a function which runs a Lisp listener top-loop.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-896704"></A>Compatibility note</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896706"></A>This class was named <CODE CLASS="Code">
+interactive-stream</CODE>
+<A NAME="marker-3773481"></A> in LispWorks 3.2 but has been renamed to avoid confusion (this class is not a stream but a pane that contains a stream). The class <CODE CLASS="Code">
+interactive-stream</CODE>
+ and its accessors <CODE CLASS="Code">
+interactive-stream-top-level-function</CODE>
+<A NAME="marker-3773482"></A> and <CODE CLASS="Code">
+interactive-stream-stream </CODE>
+<A NAME="marker-3773483"></A>have been kept for compatibility but may be dropped in future versions of LispWorks.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2128644"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2144431"></A>This example assumes there is just one line of output from each command sent to the pipe</P>
+<PRE CLASS="RCode-first"><A NAME="pgfId-2144434"></A>(capi:contain</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144435"></A> (make-instance</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144436"></A>  'capi:interactive-pane</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144437"></A>  :top-level-function</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144438"></A>  #'(lambda (interface pane stream)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144439"></A>      (declare (ignore interface pane))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144440"></A>      (with-open-stream (s (sys:open-pipe </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144441"></A>                            '(&quot;/usr/local/bin/bash&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144442"></A>                            :direction :io))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144443"></A>        (loop </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144444"></A>         (progn</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144445"></A>           (format stream &quot;primitive xterm$ &quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144446"></A>           (let ((input (read-line stream nil nil)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144447"></A>             (if input</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144448"></A>                 (progn</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144449"></A>                   (write-line input s)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144450"></A>                   (force-output s))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144451"></A>               (return))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144452"></A>         (let ((output (read-line s nil nil)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144453"></A>           (if output</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144454"></A>               (progn</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144455"></A>                 (write-line output stream)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144456"></A>                 (force-output stream))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144457"></A>             (return)))))))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2144458"></A> :best-height 300</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-2135780"></A> :best-width 300)</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2135805"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-896712"></A><A HREF="capiref-50.htm#28877" CLASS="XRef">collector-pane</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-183.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-181.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

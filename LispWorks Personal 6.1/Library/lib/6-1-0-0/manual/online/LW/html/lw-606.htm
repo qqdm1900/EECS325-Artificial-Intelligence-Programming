@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ set-ssl-ctx-password-callback
+</TITLE>
+
+<LINK REL="next" HREF="lw-607.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-605.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-579.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-579.htm">26 The COMM Package</A><BR><BR>
+</DIV><A HREF="lw-607.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-605.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-928636"></A><A NAME="74382"></A>set<A NAME="marker-928635"></A>-ssl-ctx-password-callback</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-928638"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-927738"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-927739"></A>Sets the password for a <CODE CLASS="Code">
+SSL_CTX</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-927740"></A>Package</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-927741"></A><CODE CLASS="Code">
+comm</CODE>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-927742"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-927743"></A>set-ssl-ctx-password-callback <EM CLASS="Variable">
+ssl-ctx</EM>
+ &amp;key <EM CLASS="Variable">
+callback</EM>
+ <EM CLASS="Variable">
+password</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-927744"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-927745"></A><EM CLASS="Variable">
+ssl-ctx</EM>
+</P>
+<P CLASS="RDescription-C">A foreign pointer.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-927750"></A><EM CLASS="Variable">
+callback</EM>
+</P>
+<P CLASS="RDescription-C">A function designator, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-928874"></A><EM CLASS="Variable">
+password</EM>
+</P>
+<P CLASS="RDescription-C">A string, or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-927753"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-928914"></A>The function <CODE CLASS="Code">
+set-ssl-ctx-password-callback</CODE>
+ sets the password for a <CODE CLASS="Code">
+SSL_CTX</CODE>
+, either to a callback or a password.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-928915"></A><EM CLASS="Variable">
+ssl-ctx</EM>
+ should be a foreign pointer of type <A HREF="lw-618.htm#89480" CLASS="XRef">ssl-ctx-pointer</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-928916"></A>If <EM CLASS="Variable">
+callback</EM>
+ is non-nil, it must be a function with signature:</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-928917"></A>callback <EM CLASS="Variable">
+maximum-length</EM>
+ <EM CLASS="Variable">
+rwflag</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-928918"></A>where <EM CLASS="Variable">
+maximum-length</EM>
+ is an integer, <EM CLASS="Variable">
+rwflag</EM>
+ is a boolean and <EM CLASS="Variable">
+result</EM>
+ is a string. The default value of <EM CLASS="Variable">
+callback</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-928919"></A>If <EM CLASS="Variable">
+password</EM>
+ is non-nil and <EM CLASS="Variable">
+callback</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, a callback is installed that simply returns <EM CLASS="Variable">
+password</EM>
+. The default value of <EM CLASS="Variable">
+password</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-928920"></A>If both <EM CLASS="Variable">
+callback</EM>
+ and <EM CLASS="Variable">
+password</EM>
+ are <CODE CLASS="Code">
+nil</CODE>
+, <CODE CLASS="Code">
+set-ssl-ctx-password-callback</CODE>
+ signals an error.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-927773"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-927732"></A><A HREF="lw-618.htm#89480" CLASS="XRef">ssl-ctx-pointer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-607.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-605.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-579.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

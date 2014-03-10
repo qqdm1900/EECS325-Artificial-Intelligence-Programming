@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 9.7.2.3  INT32 Optimization
+</TITLE>
+
+<LINK REL="next" HREF="lw-120.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-118.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-116.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-105.htm">9 The Compiler</A> &gt; <A HREF="lw-114.htm">9.7  Optimizing your code</A> &gt; <A HREF="lw-116.htm">9.7.2  Fast 32-bit arithmetic</A><BR><BR>
+</DIV><A HREF="lw-120.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-118.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-116.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM3Heading">
+<A NAME="pgfId-887742"></A>9.7.2.3  INT32 Optimization</H3>
+<P CLASS="Body">
+<A NAME="pgfId-887744"></A>The optimization works safely but without boxing when possible.  You need</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-887842"></A>(optimize (float 0))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-887837"></A>to get the optimization.  This <CODE CLASS="Code">
+float</CODE>
+ level affects whether INT32 operations are optimized. This declaration must be placed at the start of a function (not on an inner <CODE CLASS="Code">
+let</CODE>
+ or <CODE CLASS="Code">
+locally</CODE>
+ form).</P>
+<P CLASS="Body">
+<A NAME="pgfId-887750"></A>In this example the <CODE CLASS="Code">
+safety</CODE>
+ level assures a second optimization in <CODE CLASS="Code">
+fli:foreign-typed-aref</CODE>
+:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-887887"></A>(defun incf-signed-byte-32 (ptr index)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887888"></A>  (declare (optimize (safety 0) (float 0))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887889"></A>           (type fixnum index))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887890"></A>  (setf (fli:foreign-typed-aref 'sys:int32 ptr index)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887891"></A>        (sys:int32-1+ (fli:foreign-typed-aref 'sys:int32 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887892"></A>                                              ptr index)))</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887893"></A>  ;; return ptr, since otherwise the int32 would</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-887894"></A>  ;; need to be boxed to return it</PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-887730"></A>  ptr)</PRE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-120.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-118.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-116.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

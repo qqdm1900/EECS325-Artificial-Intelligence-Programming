@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="delivery.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 10.2  Problems with undefined functions or variables
+</TITLE>
+
+<LINK REL="next" HREF="delivery-252.htm" TYPE="text/html">
+<LINK REL="prev" HREF="delivery-250.htm" TYPE="text/html">
+<LINK REL="up" HREF="delivery-249.htm" TYPE="text/html">
+<LINK REL="top" HREF="delivery.htm" TYPE="text/html">
+<LINK REL="contents" HREF="delivery-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="delivery-294.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="delivery.htm">LispWorks Delivery User Guide</A> &gt; <A HREF="delivery-249.htm">10 Troubleshooting</A><BR><BR>
+</DIV><A HREF="delivery-252.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-250.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-249.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-852294"></A>10.2  <A NAME="20598"></A>Problems with undefined functions or variables</H3>
+<P CLASS="Body">
+<A NAME="pgfId-852295"></A>A function or variable can be undefined for any of the following reasons:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-852296"></A>It was never defined.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-852297"></A>Check the image to see if it was defined before calling <CODE CLASS="Code">
+deliver</CODE>
+ again.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-852299"></A><A NAME="22740"></A>It belongs to a package that was smashed.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-852300"></A>Check whether its package is in the list of smashed packages printed by <CODE CLASS="Code">
+deliver</CODE>
+. Use <CODE CLASS="Code">
+symbol-package</CODE>
+ to find out its home package. </P>
+<LI CLASS="Step">
+<A NAME="pgfId-852302"></A><A NAME="42953"></A>It was interned in the wrong package. </LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-852303"></A>This would probably be because its real package was deleted. Check if the symbol that was called is one that was interned after delivering the image -- that is, while the application was running.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-852304"></A>It has been deleted explicitly.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-852305"></A>For example, <CODE CLASS="Code">
+load</CODE>
+, complex number functions, and so on. Check in <A HREF="delivery-55.htm#64250" CLASS="XRef">Keywords to the Delivery Function</A> that there is no <CODE CLASS="Code">
+deliver</CODE>
+ keyword with a default setting that throws it out.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-852307"></A><A NAME="31117"></A>It is an internal symbol and was shaken out.</LI>
+<P CLASS="Step-C">
+<A NAME="pgfId-852308"></A>If a symbol that is printed is uninterned and you cannot work out its home package from its name, try using <CODE CLASS="Code">
+find-all-symbols</CODE>
+ or <CODE CLASS="Code">
+apropos</CODE>
+ in the image after loading the application, but <I CLASS="Italic">
+before</I>
+ the call to <CODE CLASS="Code">
+deliver</CODE>
+, to find the possible symbols.</P>
+<LI CLASS="Step">
+<A NAME="pgfId-855102"></A>It belongs to a load-on-demand module.  See <A HREF="delivery-236.htm#98267" CLASS="XRef">Modules</A>.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-853817"></A>See <A HREF="delivery-237.htm#37111" CLASS="XRef">Symbol and package issues during delivery</A> for the explanation and suggestions in cases <A HREF="delivery-251.htm#22740" CLASS="XRef">It belongs to a package that was smashed.</A>, <A HREF="delivery-251.htm#42953" CLASS="XRef">It was interned in the wrong package.</A> and <A HREF="delivery-251.htm#31117" CLASS="XRef">It is an internal symbol and was shaken out.</A> above.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Delivery User Guide - 13 Dec 2011</I></P>
+<P><A HREF="delivery-252.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="delivery-250.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="delivery-249.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="delivery.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="delivery-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="delivery-294.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

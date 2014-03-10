@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="eduser-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 6.3.12  Prompting the user
+</TITLE>
+
+<LINK REL="next" HREF="eduser-m-154.htm" TYPE="text/html">
+<LINK REL="prev" HREF="eduser-m-152.htm" TYPE="text/html">
+<LINK REL="up" HREF="eduser-m-136.htm" TYPE="text/html">
+<LINK REL="top" HREF="eduser-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="eduser-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="eduser-m-166.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt <A HREF="eduser-m.htm">LispWorks Editor User Guide</A> &gt <A HREF="eduser-m-133.htm">6 Advanced Features</A> &gt <A HREF="eduser-m-136.htm">6.3  Programming the editor</A><BR><BR>
+</DIV><A HREF="eduser-m-154.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-152.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-884113"></A>6.3.12  <A NAME="marker-884112"></A>Prompting the user</H3>
+<P CLASS="Body">
+<A NAME="pgfId-884114"></A>The following functions can be used to prompt for some kind of input, which is generally typed into the Echo Area.</P>
+<P CLASS="Body">
+<A NAME="pgfId-884115"></A>The following keyword arguments are common to a number of prompting functions.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-903096"></A><CODE CLASS="Code">
+:must-exist</CODE>
+</P>
+<P CLASS="Description-C">Specifies whether the value that is input by the user must be an existing value or not. If <CODE CLASS="Code">
+:must-exist</CODE>
+ is non-nil, the user is prompted again if a non-existent value is input.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-903098"></A><CODE CLASS="Code">
+:default</CODE>
+</P>
+<P CLASS="Description-C">Defines the default value that is selected if an empty string is input.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-884120"></A><CODE CLASS="Code">
+:default-string</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-885131"></A>Specifies the string that may be edited by the user (with <A HREF="eduser-m-84.htm#78391" CLASS="XRef">Insert Parse Default</A>).</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-903078"></A><CODE CLASS="Code">
+:prompt</CODE>
+</P>
+<P CLASS="Description-C">Defines the prompt that is written in the Echo Area. Most prompting functions have a default prompt that is used if no value is supplied for <CODE CLASS="Code">
+:prompt</CODE>
+.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-884122"></A><CODE CLASS="Code">
+:help</CODE>
+</P>
+<P CLASS="Description-C">Provides a help message that is printed if the user types &quot;<CODE CLASS="Code">
+?</CODE>
+&quot;.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884124"></A>editor:<A NAME="marker-884123"></A>prompt-for-file</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884125"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884126"></A>editor:prompt-for-file &amp;key <EM CLASS="Variable">
+direction</EM>
+ <EM CLASS="Variable">
+must-exist</EM>
+ <EM CLASS="Variable">
+create-directories</EM>
+ <EM CLASS="Variable">
+default</EM>
+ <EM CLASS="Variable">
+default-string</EM>
+ <EM CLASS="Variable">
+prompt</EM>
+ <EM CLASS="Variable">
+help</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884127"></A>Prompts for a file name, and returns a pathname.</P>
+<P CLASS="Description-Item">
+<A NAME="pgfId-903135"></A><CODE CLASS="Code">
+:direction</CODE>
+</P>
+<P CLASS="Description-C">You can specify direction :input (when expecting to read the file) or direction :output (when expecting to write the file). This controls the default value of must-exist, which is false for direction :output and true otherwise.</P>
+<P CLASS="Description">
+<A NAME="pgfId-903144"></A><CODE CLASS="Code">
+:create-directories</CODE>
+</P>
+<P CLASS="Description-C">
+<A NAME="pgfId-903145"></A>If create-directories is true, then the user is prompted to create any missing directories in the path she enters. The default is false for direction :output and true otherwise.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-903130"></A>See above for an explanation of the other arguments.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884129"></A>editor:<A NAME="marker-884128"></A>prompt-for-buffer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884130"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884131"></A>editor:prompt-for-buffer &amp;key <EM CLASS="Variable">
+prompt</EM>
+ <EM CLASS="Variable">
+must-exist</EM>
+ <EM CLASS="Variable">
+default</EM>
+ <EM CLASS="Variable">
+default-string</EM>
+ <EM CLASS="Variable">
+help</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884132"></A>Prompts for a buffer name, and returns the buffer. See above for an explanation of the keywords.</P>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884133"></A>The default value of<EM CLASS="Variable">
+ must-exist</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+. If <EM CLASS="Variable">
+must-exist</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+ and the buffer does not exist, it is created.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884135"></A>editor:<A NAME="marker-884134"></A>prompt-for-integer</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884136"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884137"></A>editor:prompt-for-integer &amp;key <EM CLASS="Variable">
+prompt</EM>
+ <EM CLASS="Variable">
+must-exist</EM>
+ <EM CLASS="Variable">
+default</EM>
+ <EM CLASS="Variable">
+help</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884138"></A>Prompts for an integer. See above for an explanation of the keywords.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884140"></A>editor:<A NAME="marker-884139"></A>prompt-for-string</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884141"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884142"></A>editor:prompt-for-string &amp;key <EM CLASS="Variable">
+prompt</EM>
+ <EM CLASS="Variable">
+default</EM>
+ <EM CLASS="Variable">
+default-string</EM>
+ <EM CLASS="Variable">
+clear-echo-area</EM>
+ <EM CLASS="Variable">
+help</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884143"></A>Prompts for a string. No checking is done on the input. The keyword <EM CLASS="Variable">
+clear-echo-area</EM>
+ controls whether or not the echo area is cleared (that is, whether the text being replaced is visible or not). The default for this keyword is <CODE CLASS="Code">
+t</CODE>
+. See above for an explanation of the remaining keywords.</P>
+<P CLASS="In-line-interface">
+<A NAME="pgfId-884145"></A>editor:<A NAME="marker-884144"></A>prompt-for-variable</P>
+<P CLASS="In-line-interface-type">
+<A NAME="pgfId-884146"></A>Function</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-884147"></A>editor:prompt-for-variable &amp;key <EM CLASS="Variable">
+must-exist</EM>
+ <EM CLASS="Variable">
+prompt</EM>
+ <EM CLASS="Variable">
+default</EM>
+ <EM CLASS="Variable">
+default-string</EM>
+ <EM CLASS="Variable">
+help</EM>
+</CODE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-884148"></A>Prompts for an editor variable. See above for an explanation of the keywords. The default value of<EM CLASS="Variable">
+ must-exist</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+<HR>
+<ADDRESS>LispWorks Editor User Guide (Macintosh version) - 3 May 2011</ADDRESS>
+<P><A HREF="eduser-m-154.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="eduser-m-152.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="eduser-m-136.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="eduser-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="eduser-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="eduser-m-166.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

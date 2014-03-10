@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ display-popup-menu
+</TITLE>
+
+<LINK REL="next" HREF="capiref-86.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-84.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-86.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-84.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-2103423"></A><A NAME="55484"></A>display<A NAME="marker-4036101"></A>-popup-menu</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-2103500"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2103523"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2103545"></A>Displays a popup menu.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4036082"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4036083"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2104826"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-2104827"></A>display-popup-menu <EM CLASS="Variable">
+menu</EM>
+ &amp;key <EM CLASS="Variable">
+owner</EM>
+ <EM CLASS="Variable">
+x</EM>
+ <EM CLASS="Variable">
+y</EM>
+ <EM CLASS="Variable">
+button</EM>
+ =&gt; <EM CLASS="Variable">
+result</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2104863"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2105183"></A><EM CLASS="Variable">
+menu</EM>
+</P>
+<P CLASS="RDescription-C">A menu.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2106085"></A><EM CLASS="Variable">
+owner</EM>
+</P>
+<P CLASS="RDescription-C">A pane.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2106145"></A><EM CLASS="Variable">
+x</EM>
+</P>
+<P CLASS="RDescription-C">The horizontal coordinate of <EM CLASS="Variable">
+menu</EM>
+'s position relative to <EM CLASS="Variable">
+owner</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2106249"></A><EM CLASS="Variable">
+y</EM>
+</P>
+<P CLASS="RDescription-C">The vertical coordinate of <EM CLASS="Variable">
+menu</EM>
+'s position relative to <EM CLASS="Variable">
+owner</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-2469410"></A><EM CLASS="Variable">
+button</EM>
+</P>
+<P CLASS="RDescription-C">The mouse button that raises the menu.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2106311"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2106599"></A>The function <CODE CLASS="Code">
+display-popup-menu</CODE>
+ displays the <A HREF="capiref-245.htm#19220" CLASS="XRef">menu</A> <EM CLASS="Variable">
+menu</EM>
+ at position <EM CLASS="Variable">
+x</EM>
+,<EM CLASS="Variable">
+y</EM>
+. <CODE CLASS="Code">
+display-popup-menu</CODE>
+ should be used in response to the user clicking a mouse button, and is typically used to implement contextual (&quot;right button&quot;) menus.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2469447"></A>The user may select an item in the menu, in which case the item's <EM CLASS="Variable">
+selection-callback</EM>
+ is invoked, and <CODE CLASS="Code">
+display-popup-menu</CODE>
+ returns <CODE CLASS="Code">
+t</CODE>
+<EM CLASS="Callout">
+.</EM>
+ </P>
+<P CLASS="RBody">
+<A NAME="pgfId-2469476"></A>Alternatively the user may cancel the menu, by clicking elsewhere or pressing the <CODE CLASS="Code">
+Escape</CODE>
+ key. In this case, <CODE CLASS="Code">
+display-popup-menu</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2469592"></A><EM CLASS="Variable">
+owner</EM>
+ specifies the owner of the menu, that is, a pane that the menu is associated with. If <EM CLASS="Variable">
+owner</EM>
+ is not supplied the system trys to find the appropriate owner, which usually suffices.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2469612"></A><EM CLASS="Variable">
+x</EM>
+ and <EM CLASS="Variable">
+y</EM>
+ default to the horizontal and vertical coordinates, relative to <EM CLASS="Variable">
+owner, </EM>
+of the location of the mouse pointer.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-2469420"></A><EM CLASS="Variable">
+button</EM>
+ defaults to <CODE CLASS="Code">
+:button-3</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2108299"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-2114580"></A>(defun popup-test-menu (pinboard x y &amp;optional gspec)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2114581"></A>  (capi:display-popup-menu</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-2114582"></A>   (make-instance 'capi:menu :items '(1 2 3))</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-2114583"></A>   :owner pinboard :x x :y y))</PRE>
+<PRE CLASS="RCode-first"><A NAME="pgfId-3119411"></A>(capi:contain </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3119412"></A> (make-instance 'capi:pinboard-layout</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3119413"></A>                :input-model </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3119414"></A>                '((:post-menu popup-test-menu))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3119415"></A>                :visible-min-width 100</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-2114595"></A>                :visible-min-height 100))</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-2122876"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-2471404"></A><A HREF="capiref-245.htm#19220" CLASS="XRef">menu</A><BR>
+<A HREF="capiref-293.htm#24209" CLASS="XRef">pinboard-layout</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-86.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-84.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

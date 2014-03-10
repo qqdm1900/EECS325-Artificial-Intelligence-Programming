@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 4.8.1  Calling foreign code that receives a block as argument
+</TITLE>
+
+<LINK REL="next" HREF="fli-66.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-64.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-64.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-43.htm">4 Advanced Uses of the FLI</A> &gt; <A HREF="fli-64.htm">4.8  Block objects in C (foreign blocks)</A><BR><BR>
+</DIV><A HREF="fli-66.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-64.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-64.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-899174"></A>4.8.1  <A NAME="marker-900126"></A>Calling<A NAME="marker-900138"></A> foreign code that receives a block as argument</H3>
+<P CLASS="Body">
+<A NAME="pgfId-899176"></A>To call foreign code that needs a block as an argument, the Lisp program needs to create the blocks. You do this in two steps:</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-899177"></A>At load time, define a &quot;type&quot; by using the macro <A HREF="fli-88.htm#46744" CLASS="XRef">define-foreign-block-callable-type</A>. This &quot;type&quot; corresponds to the &quot;signature&quot; in C.</LI>
+<LI CLASS="Step">
+<A NAME="pgfId-899178"></A>At run time, generate the block, for example by calling <A HREF="fli-74.htm#62201" CLASS="XRef">allocate-foreign-block</A> with the &quot;type&quot;. Alernatively use one of the macros <A HREF="fli-151.htm#87714" CLASS="XRef">with-foreign-block</A> and <A HREF="fli-155.htm#87179" CLASS="XRef">with-local-foreign-block</A>. When generating the block, you also pass an arbitrary Lisp function that gets called when the block (or a copy of it) is invoked.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-899179"></A>Foreign blocks created by <A HREF="fli-74.htm#62201" CLASS="XRef">allocate-foreign-block</A> are released when appropriate by <A HREF="fli-118.htm#45957" CLASS="XRef">free-foreign-block</A>.</P>
+<P CLASS="Body">
+<A NAME="pgfId-900083"></A>Foreign block pointers created by <A HREF="fli-74.htm#62201" CLASS="XRef">allocate-foreign-block</A> are of type <A HREF="fli-170.htm#70852" CLASS="XRef">foreign-block-pointer</A> and print with <CODE CLASS="Code">
+&quot;lisp-foreign-block-pointer&quot;</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId-900310"></A>For examples see:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-900311"></A>         examples/misc/foreign-blocks.lisp</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-900327"></A>and</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-900312"></A>         examples/misc/grand-central-dispatch.lisp</CODE>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-66.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-64.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-64.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

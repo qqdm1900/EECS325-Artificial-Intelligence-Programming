@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 3.1.1  Creating pointers
+</TITLE>
+
+<LINK REL="next" HREF="fli-36.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-34.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-34.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-33.htm">3 FLI Pointers</A> &gt; <A HREF="fli-34.htm">3.1  Creating and copying pointers</A><BR><BR>
+</DIV><A HREF="fli-36.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-34.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM2Heading">
+<A NAME="pgfId-886008"></A>3.1.1  <A NAME="27534"></A>Creating pointers</H3>
+<P CLASS="Body">
+<A NAME="pgfId-888037"></A>Many FLI <A NAME="marker-886697"></A>functions when called return a pointer to the object created. For example, a form such as</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885979"></A>(fli:allocate-foreign-object :type :int)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-885980"></A>will return something similar to the following:</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885981"></A>#&lt;Pointer to type :INT = #x007608A0&gt;</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-885982"></A>This is a FLI pointer object, pointing to an object at address <CODE CLASS="Code">
+#x007608A0</CODE>
+ of type <CODE CLASS="Code">
+:int</CODE>
+. Note that the memory address is printed in hexadecimal format, but when you use the FLI pointer functions and macros discussed in this chapter, numeric values are interpreted as base 10 unless you use Lisp reader syntax such as <CODE CLASS="Code">
+#x</CODE>
+. .</P>
+<P CLASS="Body">
+<A NAME="pgfId-886075"></A>To use the pointer in the future it needs to be bound to a Lisp variable. This can be done by using <CODE CLASS="Code">
+setq</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-885990"></A>(setq point1 (fli:allocate-foreign-object :type :int)</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-888109"></A>A pointer can be explicitly created, rather than being returned during the allocation of memory for a FLI object, by using <A HREF="fli-126.htm#29578" CLASS="XRef">make-pointer</A>. In the next example a pointer is made pointing to an <A HREF="fli-172.htm#15595" CLASS="XRef">:int</A> type at the address <CODE CLASS="Code">
+100</CODE>
+, and is bound to the Lisp variable <CODE CLASS="Code">
+point2</CODE>
+.</P>
+<CODE CLASS="Code-line">
+<A NAME="pgfId-888116"></A>(setq point2 (fli:make-pointer :address 100 :type :int))</CODE>
+<P CLASS="Body">
+<A NAME="pgfId-888118"></A><A NAME="marker-888117"></A>For convenience you may wish to define your own pointer types, for example:</P>
+<PRE CLASS="Code-first"><A NAME="pgfId-888119"></A>(fli:define-foreign-pointer my-pointer-type :int)</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888120"></A>&nbsp;</PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888121"></A>(setq point3 </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-888122"></A>      (fli:make-pointer :address 100 </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-888123"></A>                        :pointer-type 'my-pointer-type))</PRE>
+<P CLASS="Body">
+<A NAME="pgfId-888124"></A><CODE CLASS="Code">
+point3</CODE>
+ contains the same type and address information as <CODE CLASS="Code">
+point2</CODE>
+.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-36.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-34.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-34.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ standard-objc-object
+</TITLE>
+
+<LINK REL="next" HREF="objc-70.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-68.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-33.htm">2 Objective-C Reference</A><BR><BR>
+</DIV><A HREF="objc-70.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-68.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1138236"></A><A NAME="32015"></A>standard-objc-object<A NAME="marker-1138986"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1138237"></A>Abstract Class</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1138239"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1138510"></A>The class from which all classes that implement an Objective-C class should inherit.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1138855"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1138856"></A>objc</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1138485"></A>Superclasses</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1138489"></A>standard-object</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1138260"></A>Initargs</H5>
+<P CLASS="RDescription">
+<A NAME="pgfId-1138262"></A><CODE CLASS="Code">
+:init-function</CODE>
+<A NAME="marker-1138261"></A><A NAME="99415"></A></P>
+<P CLASS="RDescription-C">
+<A NAME="pgfId-1138543"></A>An optional function that is called to initialize the Objective-C foreign object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1138264"></A><CODE CLASS="Code">
+:pointer</CODE>
+<A NAME="marker-1138263"></A></P>
+<P CLASS="RDescription-C">An optional Objective-C foreign object pointer for the object.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1138305"></A>Readers</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1138307"></A><A NAME="marker-1138306"></A><A HREF="objc-61.htm#70157" CLASS="XRef">objc-object-pointer</A></P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1138309"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1178353"></A>The abstract class <CODE CLASS="Code">
+standard-objc-object</CODE>
+ provides the framework for subclasses to implement an Objective-C class. Subclasses are typically defined using <A HREF="objc-40.htm#90461" CLASS="XRef">define-objc-class</A>, which allows the Objective-C class name to be specified. Instances of such a subclass have an associated Objective-C foreign object whose pointer can be retrieved using the <A HREF="objc-61.htm#70157" CLASS="XRef">objc-object-pointer</A> accessor. The function <A HREF="objc-59.htm#60078" CLASS="XRef">objc-object-from-pointer</A> can be used to obtain the object again from the Objective-C foreign pointer.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1169636"></A>There are two ways that subclasses of <CODE CLASS="Code">
+standard-objc-object</CODE>
+ can be made:</P>
+<UL>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1138682"></A>Via <CODE CLASS="Code">
+make-instance</CODE>
+. In this case, the Objective-C object is allocated automatically by calling the Objective-C class's <CODE CLASS="Code">
+&quot;alloc&quot;</CODE>
+ method. If the <EM CLASS="Variable">
+init-function</EM>
+ initarg is not specified, the object is initialized by calling its <A NAME="marker-1138796"></A><CODE CLASS="Code">
+&quot;init&quot;</CODE>
+ method. If the <EM CLASS="Variable">
+init-function</EM>
+ initarg is specified, it is called during initialization with the newly allocated object and it should call the appropriate initialization method for that object and return its result. This allows a specific initialization method, such as <CODE CLASS="Code">
+&quot;initWithFrame:&quot;</CODE>
+, to be called if required.</LI>
+<LI CLASS="RBullet">
+<A NAME="pgfId-1138782"></A>Via the Objective-C class's <A NAME="marker-1138789"></A><CODE CLASS="Code">
+&quot;allocWithZone:&quot;</CODE>
+ method (or a method such as <A NAME="marker-1138791"></A><CODE CLASS="Code">
+&quot;alloc&quot;</CODE>
+ that calls <CODE CLASS="Code">
+&quot;allocWithZone:&quot;</CODE>
+). In this case, an instance of the subclass of <CODE CLASS="Code">
+standard-objc-object </CODE>
+is made with the value of the <EM CLASS="Variable">
+pointer</EM>
+ initarg being a pointer to the newly allocated Objective-C foreign object.</LI>
+</UL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1138400"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1138404"></A><A HREF="objc-40.htm#90461" CLASS="XRef">define-objc-class</A><BR>
+<A HREF="objc-58.htm#49922" CLASS="XRef">objc-object-destroyed</A><BR>
+<A HREF="objc-59.htm#60078" CLASS="XRef">objc-object-from-pointer</A><BR>
+<A HREF="objc-61.htm#70157" CLASS="XRef">objc-object-pointer</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-70.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-68.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

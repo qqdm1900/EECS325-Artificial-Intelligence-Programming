@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ read-serial-port-string
+</TITLE>
+
+<LINK REL="next" HREF="lw-1150.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1148.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1143.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1143.htm">37 The SERIAL-PORT Package</A><BR><BR>
+</DIV><A HREF="lw-1150.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1148.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1143.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-955475"></A><A NAME="86474"></A>read<A NAME="marker-959429"></A>-serial-port-string</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-955476"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-955477"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-955478"></A>Reads a string from a serial port.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-955479"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-955480"></A>serial-port</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-955481"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-955482"></A>read-serial-port-string <EM CLASS="Variable">
+string</EM>
+ <EM CLASS="Variable">
+serial-port</EM>
+ &amp;optional <EM CLASS="Variable">
+timeout-error-p</EM>
+ &amp;key <EM CLASS="Variable">
+start</EM>
+ <EM CLASS="Variable">
+end</EM>
+ =&gt; <EM CLASS="Variable">
+nread</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-955594"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955598"></A><EM CLASS="Variable">
+string</P>
+<P CLASS="RDescription-C"></EM>
+A string.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955612"></A><EM CLASS="Variable">
+serial-port</EM>
+</P>
+<P CLASS="RDescription-C">A <A HREF="lw-1147.htm#52843" CLASS="XRef">serial-port</A> object.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955621"></A><EM CLASS="Variable">
+timeout-error-p</EM>
+</P>
+<P CLASS="RDescription-C">A boolean.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955622"></A><EM CLASS="Variable">
+start, end</EM>
+</P>
+<P CLASS="RDescription-C">Bounding index designators for <EM CLASS="Variable">
+string</EM>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-955623"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-955602"></A><EM CLASS="Variable">
+nread</EM>
+</P>
+<P CLASS="RDescription-C">An integer.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-955483"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-955484"></A>The function <CODE CLASS="Code">
+read-serial-port-string</CODE>
+ reads characters from the serial port associated with <EM CLASS="Variable">
+serial-port</EM>
+ and places them in <EM CLASS="Variable">
+string</EM>
+, bounded by <EM CLASS="Variable">
+start</EM>
+ and <EM CLASS="Variable">
+end</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-955715"></A>The default values of <EM CLASS="Variable">
+start</EM>
+ and <EM CLASS="Variable">
+end</EM>
+ are 0 and <CODE CLASS="Code">
+nil</CODE>
+ (interpreted as the length of <EM CLASS="Variable">
+string</EM>
+) respectively. The number of characters requested is the difference between <EM CLASS="Variable">
+end</EM>
+ and <EM CLASS="Variable">
+start</EM>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-955894"></A>If the number of characters actually read, <EM CLASS="Variable">
+nread</EM>
+, is less than the number requested,  then if <EM CLASS="Variable">
+timeout-error-p</EM>
+ is non-nil an error of type <CODE CLASS="Code">
+serial-port-timeout</CODE>
+ is signalled. </P>
+<P CLASS="RBody">
+<A NAME="pgfId-956310"></A>If <EM CLASS="Variable">
+nread</EM>
+ is the number of characters requested, or if <EM CLASS="Variable">
+timeout-error-p</EM>
+ is <CODE CLASS="Code">
+nil</CODE>
+, <EM CLASS="Variable">
+nread</EM>
+ is returned.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-955913"></A>The default value of <EM CLASS="Variable">
+timeout-error-p</EM>
+ is <CODE CLASS="Code">
+t</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-955895"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-955764"></A><A HREF="lw-1148.htm#63361" CLASS="XRef">read-serial-port-char</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1150.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1148.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1143.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

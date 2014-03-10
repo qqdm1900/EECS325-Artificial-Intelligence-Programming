@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="ide-m.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ 2.3  Using the Debugger
+</TITLE>
+
+<LINK REL="next" HREF="ide-m-16.htm" TYPE="text/html">
+<LINK REL="prev" HREF="ide-m-14.htm" TYPE="text/html">
+<LINK REL="up" HREF="ide-m-12.htm" TYPE="text/html">
+<LINK REL="top" HREF="ide-m.htm" TYPE="text/html">
+<LINK REL="contents" HREF="ide-m-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="ide-m-540.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="ide-m.htm">LispWorks IDE User Guide</A> &gt; <A HREF="ide-m-12.htm">2 A Short Tutorial</A><BR><BR>
+</DIV><A HREF="ide-m-16.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-14.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-12.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H3 CLASS="FM1Heading">
+<A NAME="pgfId-852946"></A>2.3  <A NAME="39492"></A>Using the Debugger</H3>
+<P CLASS="Body">
+<A NAME="pgfId-852947"></A>A debugger tool is provided to help track down the cause of problems in your source code. This section introduces you to some of the ways in which it can be used.</P>
+<OL>
+<LI CLASS="Step-1">
+<A NAME="pgfId-852948"></A>Enter the following definition in the Listener:</LI>
+
+<PRE CLASS="Code-first"><A NAME="pgfId-852949"></A>(defun test () </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-852950"></A>  (let ((total 0)) </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854223"></A>    (loop for i below 100 do </PRE>
+<PRE CLASS="Code-body"><A NAME="pgfId-854224"></A>      (incf total i) when (= i 50) do </PRE>
+<PRE CLASS="Code-last"><A NAME="pgfId-854225"></A>      (break &quot;We've reached fifty&quot;))))</PRE>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-852954"></A>This function counts from 0 to 100, accumulating the total as it progresses, and forces entry into the debugger when the count has reached 50.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-852955"></A>Next, call the function by entering <CODE CLASS="Code">
+(test)</CODE>
+ into the Listener.</LI>
+
+<P CLASS="Body-Indent">
+<A NAME="pgfId-862052"></A>Initially, the command line debugger is entered. This is a debugger which can be used from within the Listener itself. More details about what you can do in the command line debugger can be found by typing <CODE CLASS="Code">
+:?</CODE>
+ at the debugger prompt.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-905824"></A>To enter the debugger tool at this point, choose the menu command <B CLASS="Button">
+Debug &gt; Start GUI Debugger</B>
+<A NAME="marker-905822"></A><A NAME="marker-905823"></A><A NAME="marker-905825"></A> or press 
+<IMG SRC="ide-m-12.gif" ALIGN="ABSBOTTOM">
+ in the Listener toolbar.</LI>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-905829"></A>The debugger tool appears, as shown in <A HREF="ide-m-15.htm#10743" CLASS="XRef">Debugger tool</A>.</P>
+<P CLASS="Figure">
+<A NAME="pgfId-935691"></A>Figure 2.3  <A NAME="10743"></A>Debugger tool<DIV>
+<IMG SRC="ide-m-9.gif">
+</DIV>
+</P>
+<DIV>
+<MAP NAME="ide-m-13">
+</MAP>
+<IMG SRC="ide-m-13.gif" USEMAP="#ide-m-13">
+</DIV>
+<P CLASS="Body-Indent">
+<A NAME="pgfId-935703"></A>The debugger tool gives a view of the backtrace (in the <B CLASS="Button">
+Backtrace:</B>
+ pane), showing the functions that are on the stack, and their internal variables (including any arguments) at the point that the error occurred.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-935704"></A>In the <B CLASS="Button">
+Backtrace:</B>
+ pane, notice that there is a right-pointing triangle to the left of the word <CODE CLASS="Code">
+TEST</CODE>
+. This indicates an expandable node. Click on this to open up the tree display, showing the local variables used in function <CODE CLASS="Code">
+test</CODE>
+. Notice that the value for <CODE CLASS="Code">
+i</CODE>
+ is 50, as you would expect.</LI>
+
+<P CLASS="Body-Indent">
+<A NAME="pgfId-862121"></A>There is a row of toolbar buttons at the top of the debugger which let you perform a number of different actions.</P>
+
+<LI CLASS="Step">
+<A NAME="pgfId-862972"></A>Choose <B CLASS="Button">
+Restarts &gt; (continue) Return from break. </B>
+or click on the Continue icon from the toolbar to exit the Debugger and continue execution.</LI>
+</OL>
+<P CLASS="Body">
+<A NAME="pgfId-862123"></A>The debugger disappears from the screen, and the command line debugger in the Listener is exited, leaving you at the Lisp prompt in the Listener.</P>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks IDE User Guide (Macintosh version) - 25 Nov 2011</I></P>
+<P><A HREF="ide-m-16.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="ide-m-14.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="ide-m-12.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="ide-m.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="ide-m-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="ide-m-540.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

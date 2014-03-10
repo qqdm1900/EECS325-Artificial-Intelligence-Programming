@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="lw.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ condition-variable-signal
+</TITLE>
+
+<LINK REL="next" HREF="lw-1018.htm" TYPE="text/html">
+<LINK REL="prev" HREF="lw-1016.htm" TYPE="text/html">
+<LINK REL="up" HREF="lw-1002.htm" TYPE="text/html">
+<LINK REL="top" HREF="lw.htm" TYPE="text/html">
+<LINK REL="contents" HREF="lw-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="lw-1525.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="lw.htm">LispWorks User Guide and Reference Manual</A> &gt; <A HREF="lw-1002.htm">35 The MP Package</A><BR><BR>
+</DIV><A HREF="lw-1018.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1016.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1671231"></A><A NAME="35505"></A>condition<A NAME="marker-1671230"></A>-variable-signal</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1332136"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330642"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1330643"></A>Wakes one thread waiting on a given condition variable.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330644"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1330645"></A>mp</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330646"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1330647"></A>condition-variable-signal <EM CLASS="Variable">
+condvar</EM>
+ =&gt; <EM CLASS="Variable">
+signalledp</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330648"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1330649"></A><EM CLASS="Variable">
+condvar</EM>
+</P>
+<P CLASS="RDescription-C">A condition variable</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330650"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1330651"></A><EM CLASS="Variable">
+signalledp</EM>
+</P>
+<P CLASS="RDescription-C">A generalized boolean</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330652"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1330653"></A>The function <CODE CLASS="Code">
+condition-variable-signal</CODE>
+ wakes exactly one thread waiting on the condition variable <EM CLASS="Variable">
+condvar</EM>
+. In most uses of condition variables, the caller should be holding the lock that the waiter used when calling <A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A> for this condition variable, but this is not required. When using the lock, you may prefer to use <A HREF="lw-1038.htm#96844" CLASS="XRef">lock-and-condition-variable-signal</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1336289"></A>The return value <EM CLASS="Variable">
+signalledp</EM>
+ is non-nil if a process was signalled, or <CODE CLASS="Code">
+nil</CODE>
+ if there were no processes waiting.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1330655"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1669968"></A><A HREF="lw-1018.htm#26705" CLASS="XRef">condition-variable-wait</A><BR>
+<A HREF="lw-1056.htm#99681" CLASS="XRef">make-condition-variable</A><BR>
+<A HREF="lw-1038.htm#96844" CLASS="XRef">lock-and-condition-variable-signal</A><BR>
+<A HREF="lw-1039.htm#85947" CLASS="XRef">lock-and-condition-variable-wait</A><BR>
+<A HREF="lw-1127.htm#49462" CLASS="XRef">simple-lock-and-condition-variable-wait</A><BR>
+<A HREF="lw-1037.htm#54717" CLASS="XRef">lock-and-condition-variable-broadcast</A><BR>
+<A HREF="lw-1016.htm#76901" CLASS="XRef">condition-variable-broadcast</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks User Guide and Reference Manual - 21 Dec 2011</I></P>
+<P><A HREF="lw-1018.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="lw-1016.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="lw-1002.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="lw.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="lw-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="lw-1525.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

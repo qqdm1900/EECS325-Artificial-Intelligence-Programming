@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="objc.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ define-objc-struct
+</TITLE>
+
+<LINK REL="next" HREF="objc-45.htm" TYPE="text/html">
+<LINK REL="prev" HREF="objc-43.htm" TYPE="text/html">
+<LINK REL="up" HREF="objc-33.htm" TYPE="text/html">
+<LINK REL="top" HREF="objc.htm" TYPE="text/html">
+<LINK REL="contents" HREF="objc-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="objc-92.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="objc.htm">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual</A> &gt; <A HREF="objc-33.htm">2 Objective-C Reference</A><BR><BR>
+</DIV><A HREF="objc-45.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-43.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1178790"></A><A NAME="38029"></A>define-objc-struct<A NAME="marker-1178789"></A></H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1178791"></A>Macro</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1178792"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1178796"></A>Defines a foreign structure for use with Objective-C.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1178797"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1178798"></A>objc</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1178799"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1181256"></A>define-objc-struct (<EM CLASS="Variable">
+name</EM>
+ <EM CLASS="Variable">
+option*</EM>
+) <EM CLASS="Variable">
+slot*</EM>
+</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1181274"></A><EM CLASS="Variable">
+option</EM>
+ ::=					(:foreign-name <EM CLASS="Variable">
+foreign-name</EM>
+)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1181258"></A>				<EM CLASS="Variable">
+|</EM>
+	(:typedef-name <EM CLASS="Variable">
+typedef-name</EM>
+)</P>
+<P CLASS="RSignature">
+<A NAME="pgfId-1180616"></A><EM CLASS="Variable">
+slot</EM>
+ ::= (<EM CLASS="Variable">
+slot-name</EM>
+ <EM CLASS="Variable">
+slot-type</EM>
+)</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1178803"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1178804"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the foreign structure type.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1184946"></A><EM CLASS="Variable">
+foreign-name</EM>
+</P>
+<P CLASS="RDescription-C">A string giving the foreign structure name.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1184954"></A><EM CLASS="Variable">
+typedef-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming a foreign structure type alias.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1185101"></A><EM CLASS="Variable">
+slot-name</EM>
+</P>
+<P CLASS="RDescription-C">A symbol naming the foreign slot.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1185109"></A><EM CLASS="Variable">
+slot-type</EM>
+</P>
+<P CLASS="RDescription-C">An FLI type descriptor for the foreign slot.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1178823"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1184925"></A>The macro <CODE CLASS="Code">
+define-objc-struct</CODE>
+ defines a foreign structure type called <CODE CLASS="Code">
+(:struct </CODE>
+<EM CLASS="Variable">
+name</EM>
+<CODE CLASS="Code">
+)</CODE>
+ with the given <EM CLASS="Variable">
+slot</EM>
+s. In addition, the type becomes an Objective-C type that can be used with <A HREF="objc-47.htm#46194" CLASS="XRef">invoke</A>, <A HREF="objc-49.htm#40401" CLASS="XRef">invoke-into</A> and <A HREF="objc-42.htm#19291" CLASS="XRef">define-objc-method</A> or <A HREF="objc-41.htm#10195" CLASS="XRef">define-objc-class-method</A>.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1185378"></A>The <EM CLASS="Variable">
+foreign-name</EM>
+ must be specified to allow the Objective-C runtime system to identify the type.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1185460"></A>If <EM CLASS="Variable">
+typedef-name</EM>
+ is specified,it allows that symbol to be used in place of <CODE CLASS="Code">
+(:struct </CODE>
+<EM CLASS="Variable">
+name</EM>
+<CODE CLASS="Code">
+)</CODE>
+ when using the type in a <A HREF="objc-42.htm#19291" CLASS="XRef">define-objc-method</A> or <A HREF="objc-41.htm#10195" CLASS="XRef">define-objc-class-method</A> form.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1183000"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1184318"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1183723"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1192100"></A><A HREF="objc-49.htm#40401" CLASS="XRef">invoke-into</A><BR>
+<A HREF="objc-42.htm#19291" CLASS="XRef">define-objc-method</A><BR>
+<A HREF="objc-41.htm#10195" CLASS="XRef">define-objc-class-method</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Objective-C and Cocoa Interface User Guide and Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="objc-45.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="objc-43.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="objc-33.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="objc.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="objc-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="objc-92.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

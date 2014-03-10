@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="fli.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ connected-module-pathname
+</TITLE>
+
+<LINK REL="next" HREF="fli-78.htm" TYPE="text/html">
+<LINK REL="prev" HREF="fli-76.htm" TYPE="text/html">
+<LINK REL="up" HREF="fli-70.htm" TYPE="text/html">
+<LINK REL="top" HREF="fli.htm" TYPE="text/html">
+<LINK REL="contents" HREF="fli-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="fli-216.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="fli.htm">LispWorks Foreign Language Interface User Guide and Reference Manual</A> &gt; <A HREF="fli-70.htm">5 Function and Macro Reference</A><BR><BR>
+</DIV><A HREF="fli-78.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-76.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-1090610"></A><A NAME="14516"></A>connected<A NAME="marker-1296379"></A>-module-pathname</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-1090634"></A>Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1091116"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1091118"></A>Returns the real pathname of a connected module.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1091126"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1091127"></A>fli</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1091148"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-1091167"></A>connected-module-pathname <EM CLASS="Variable">
+name</EM>
+ =&gt; <EM CLASS="Variable">
+pathname</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1091764"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1091795"></A><EM CLASS="Variable">
+name</EM>
+</P>
+<P CLASS="RDescription-C">A string or symbol.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1092670"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-1092730"></A><EM CLASS="Variable">
+pathname</EM>
+</P>
+<P CLASS="RDescription-C">A pathname or <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1091194"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1091264"></A>The function <CODE CLASS="Code">
+connected-module-pathname</CODE>
+ returns the real pathname of the connected module registered with name <EM CLASS="Variable">
+name.</EM>
+</P>
+<P CLASS="RBody">
+<A NAME="pgfId-1095526"></A>If no module <EM CLASS="Variable">
+name</EM>
+ is registered, or if the module <EM CLASS="Variable">
+name</EM>
+ is not connected, then <CODE CLASS="Code">
+connected-module-pathname</CODE>
+ returns  <CODE CLASS="Code">
+nil</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1091817"></A>Example</H5>
+<PRE CLASS="RCode-first"><A NAME="pgfId-1092661"></A>(fli:connected-module-pathname &quot;gdi32&quot;)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1092662"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1092528"></A>#P&quot;C:/WINNT/system32/GDI32.dll&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1093352"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095405"></A>(fli:register-module :user-dll</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095406"></A>                     :real-name &quot;user32&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095407"></A>                     :connection-style :immediate)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095408"></A>=&gt; </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095409"></A>:user-dll</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095410"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095411"></A>(fli:connected-module-pathname :user-dll)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095412"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1093353"></A>#P&quot;C:/WINNT/system32/USER32.dll&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095869"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095839"></A>(fli:disconnect-module :user-dll)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095840"></A>=&gt;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095841"></A>t</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095842"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095843"></A>(fli:connected-module-pathname :user-dll)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-1095844"></A>=&gt;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-1095570"></A>nil</PRE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-1095448"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-1095467"></A><A HREF="fli-100.htm#80215" CLASS="XRef">disconnect-module</A><BR>
+<A HREF="fli-140.htm#30636" CLASS="XRef">register-module</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">LispWorks Foreign Language Interface User Guide and Reference Manual - 7 Dec 2011</I></P>
+<P><A HREF="fli-78.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="fli-76.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="fli-70.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="fli.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="fli-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="fli-216.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>

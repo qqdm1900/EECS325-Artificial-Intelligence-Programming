@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 6.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="capiref.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ pane-popup-menu-items
+</TITLE>
+
+<LINK REL="next" HREF="capiref-287.htm" TYPE="text/html">
+<LINK REL="prev" HREF="capiref-285.htm" TYPE="text/html">
+<LINK REL="up" HREF="capiref-4.htm" TYPE="text/html">
+<LINK REL="top" HREF="capiref.htm" TYPE="text/html">
+<LINK REL="contents" HREF="capiref-2.htm" TYPE="text/html">
+<LINK REL="index" HREF="capiref-693.htm" TYPE="text/html">
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV CLASS="HTMLBreadCrumbs"><A HREF="../../intro.htm">All Manuals</A> &gt; <A HREF="capiref.htm">CAPI Reference Manual</A> &gt; <A HREF="capiref-4.htm">1 CAPI Reference Entries</A><BR><BR>
+</DIV><A HREF="capiref-287.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-285.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+<H4 CLASS="REntry">
+<A NAME="pgfId-3703200"></A><A NAME="31165"></A>pane<A NAME="marker-4185893"></A>-popup-menu-items</H4>
+<DIV>
+<H5 CLASS="REntry-type">
+<A NAME="pgfId-3703201"></A>Generic Function</H5>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3703202"></A>Summary</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3703209"></A>Generates the items for the menu associated with a pane.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-4185882"></A>Package</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-4185883"></A>capi</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3703211"></A>Signature</H5>
+<P CLASS="RSignature">
+<A NAME="pgfId-3703212"></A><CODE CLASS="Code">
+pane-popup-menu-items</CODE>
+ <EM CLASS="Variable">
+pane</EM>
+ <EM CLASS="Variable">
+interface</EM>
+ =&gt; <EM CLASS="Variable">
+items</EM>
+</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3703213"></A>Arguments</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3703214"></A><EM CLASS="Variable">
+pane</EM>
+</P>
+<P CLASS="RDescription-C">A pane in interface <EM CLASS="Variable">
+interface</EM>
+.</P>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3703215"></A><EM CLASS="Variable">
+interface</EM>
+</P>
+<P CLASS="RDescription-C">An interface.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3703219"></A>Values</H5>
+<P CLASS="RDescription-Item">
+<A NAME="pgfId-3703226"></A><EM CLASS="Variable">
+items</EM>
+</P>
+<P CLASS="RDescription-C">A list in which each element is a <A HREF="capiref-247.htm#29489" CLASS="XRef">menu-item</A>, <A HREF="capiref-246.htm#24767" CLASS="XRef">menu-component</A> or <A HREF="capiref-245.htm#19220" CLASS="XRef">menu</A>.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3703227"></A>Description</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3703228"></A>The generic function <CODE CLASS="Code">
+pane-popup-menu-items</CODE>
+ generates the items for the menu associated with the pane <EM CLASS="Variable">
+pane</EM>
+. The default method of <A HREF="capiref-234.htm#51961" CLASS="XRef">make-pane-popup-menu</A> calls <CODE CLASS="Code">
+pane-popup-menu-items</CODE>
+ to find the items for the menu. If <CODE CLASS="Code">
+pane-popup-menu-items</CODE>
+ returns <CODE CLASS="Code">
+nil</CODE>
+, then <A HREF="capiref-234.htm#51961" CLASS="XRef">make-pane-popup-menu</A> returns <CODE CLASS="Code">
+nil</CODE>
+.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3705954"></A>To specify items for menus associated with panes in your interfaces, define <CODE CLASS="Code">
+pane-popup-menu-items </CODE>
+methods specialized on your interface class.</P>
+<P CLASS="RBody">
+<A NAME="pgfId-3706060"></A>For most supplied CAPI pane classes, the system method returns <CODE CLASS="Code">
+nil</CODE>
+. The exceptions are <A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A> and <A HREF="capiref-162.htm#26475" CLASS="XRef">graph-pane</A>. To inherit the items from the system method (or other more general method), call <CODE CLASS="Code">
+call-next-method</CODE>
+.</P>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-8920847"></A>Notes</H5>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-3706159"></A><CODE CLASS="Code">
+pane-popup-menu-items</CODE>
+ is not supported for text panes on Cocoa such as <A HREF="capiref-356.htm#74730" CLASS="XRef">rich-text-pane</A>.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-8921167"></A><CODE CLASS="Code">
+pane-popup-menu-items</CODE>
+ is intended to allow multiple calls on the same pane, to generate menus in different places (as in the example in <A HREF="capiref-234.htm#51961" CLASS="XRef">make-pane-popup-menu</A>). Therefore the <A HREF="capiref-248.htm#21554" CLASS="XRef">menu-object</A>s that it returns, and their descendent <A HREF="capiref-248.htm#21554" CLASS="XRef">menu-object</A>s, must be constructed each time that <CODE CLASS="Code">
+pane-popup-menu-items</CODE>
+ is called, so that no two menus share any menu item.</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-3706312"></A>The <EM CLASS="Variable">
+items</EM>
+ returned by <CODE CLASS="Code">
+pane-popup-menu-items</CODE>
+ may specify the arguments for their callbacks, but it is not required. If they do not specify the arguments, then <A HREF="capiref-234.htm#51961" CLASS="XRef">make-pane-popup-menu</A> (by calling <A HREF="capiref-233.htm#65314" CLASS="XRef">make-menu-for-pane</A>) sets up the callbacks such that they are called on the pane <EM CLASS="Variable">
+pane</EM>
+.</LI>
+</OL>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3703241"></A>Example</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3706638"></A>The methods below specialized on interface class <CODE CLASS="Code">
+edgraph</CODE>
+:</P>
+<OL>
+<LI CLASS="RStep-1">
+<A NAME="pgfId-3717387"></A>Append the items that were returned by the system method in the bottom of the menu for the <A HREF="capiref-115.htm#14465" CLASS="XRef">editor-pane</A>, and</LI>
+<LI CLASS="RStep">
+<A NAME="pgfId-3717388"></A>Add them as a sub-menu for the menu of the <A HREF="capiref-162.htm#26475" CLASS="XRef">graph-pane</A>.</LI>
+</OL>
+<PRE CLASS="RCode-first"><A NAME="pgfId-3706640"></A>(capi:define-interface edgraph ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706641"></A>  ()</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706642"></A>  (:panes</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706643"></A>   (e1 capi:editor-pane)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706644"></A>   (g1 capi:graph-pane))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706645"></A>  (:layouts</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706646"></A>   (main-layout capi:column-layout '(e1 g1)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706647"></A>  (:menu-bar  )</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706648"></A>  (:default-initargs</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706649"></A>   :visible-min-width 200</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706650"></A>   :visible-min-height 300))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706651"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706652"></A>(defun my-callback (pane)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3706653"></A>  (capi:display-message &quot;Callback on pane &#126;S.&quot; pane))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3716928"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717201"></A>(defmethod capi:pane-popup-menu-items </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717202"></A>           ((self capi:editor-pane) (interface edgraph))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717203"></A>  (list* </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717204"></A>   (make-instance 'capi:menu-item</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717205"></A>                  :title &quot;Item for My Editor Menu.&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717206"></A>                  :selection-callback 'my-callback)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717207"></A>   (call-next-method)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717208"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717209"></A>(defmethod capi:pane-popup-menu-items</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717210"></A>           ((self capi:graph-pane) (interface edgraph))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717211"></A>  (list </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717212"></A>   (make-instance 'capi:menu-item</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717213"></A>                  :title &quot;Item for My Graph Menu.&quot;</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717214"></A>                  :selection-callback 'my-callback)</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717215"></A>   (capi:make-menu-for-pane self (call-next-method) </PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3716929"></A>                            :title &quot;Default Graph Menu&quot;)))</PRE>
+<PRE CLASS="RCode-body"><A NAME="pgfId-3717308"></A>&nbsp;</PRE>
+<PRE CLASS="RCode-last"><A NAME="pgfId-3716930"></A>(capi:display (make-instance 'edgraph))</PRE>
+<P CLASS="RBody">
+<A NAME="pgfId-10385539"></A>There is a further example in:</P>
+<CODE CLASS="RCode-line">
+<A NAME="pgfId-10385629"></A>examples/capi/elements/pane-popup-menu-items.lisp</CODE>
+</DIV>
+<DIV>
+<H5 CLASS="REntry-head">
+<A NAME="pgfId-3706546"></A>See also</H5>
+<P CLASS="RBody">
+<A NAME="pgfId-3706575"></A><A HREF="capiref-234.htm#51961" CLASS="XRef">make-pane-popup-menu</A></P>
+</DIV>
+<HR>
+<P CLASS="Copyrighttext-small"><I CLASS="Italic">CAPI Reference Manual - 15 Dec 2011</I></P>
+<P><A HREF="capiref-287.htm"><IMG ALIGN=BOTTOM SRC=next.gif ALT=Next BORDER=0></A><A HREF="capiref-285.htm"><IMG ALIGN=BOTTOM SRC=prev.gif ALT=Prev BORDER=0></A><A HREF="capiref-4.htm"><IMG ALIGN=BOTTOM SRC=up.gif ALT=Up BORDER=0></A><A HREF="capiref.htm"><IMG ALIGN=BOTTOM SRC=top.gif ALT=Top BORDER=0></A><A HREF="capiref-2.htm"><IMG ALIGN=BOTTOM SRC=contents.gif ALT=Contents BORDER=0></A><A HREF="capiref-693.htm"><IMG ALIGN=BOTTOM SRC=index.gif ALT=Index BORDER=0></A>
+</BODY>
+</HTML>
